@@ -6,9 +6,12 @@
 
 | **_TEA_** (EN)  | **_TEA_** (PT) | **_Description_** (EN)                                           |                                       
 |:------------------------|:-----------------|:--------------------------------------------|
-| **Clerk** | **Administrativo** | Person responsible for carrying out various business supporting activities on the system. |
-| **CLK** | **ADM** | Acronym for _Clerk_.|
-| **...** | **...** | ...|
+| **GHD** | **DGS** | Acronym for _General Health Directorate_.|
+| **NHS** | **SNS** | Acronym for _National Health Service_.|
+| **RHA** | **ARS** | Acronym for _Regional Health Administration_.|
+| **GRHC** | **AGES** | Acronym for _Groupings of Health Centers_.|
+| **Slot** | **Intervalo** | A time when something can happen or is planned to happen, especially when it is one of several possible times.|
+
 
 
 
