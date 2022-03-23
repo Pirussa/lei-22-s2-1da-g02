@@ -12,11 +12,13 @@ However, be aware, this is a pedagogical simplification. On further projects and
 **For each UC/US, it must be provided evidences of applying main activities of the software development process (requirements, analysis, design, tests and code). Gather those evidences on a separate file for each UC/US and set up a link as suggested below.**
 
 # Use Cases / User Stories
-| UC/US  | Description                                                               |                   
-|:----|:------------------------------------------------------------------------|
-| US 001 | [ShortNameOfUS001](US001.md)   |
-| US 002 | [ShortNameOfUS002](US002.md)  |
-| US 003 | [ShortNameOfUS003](US003.md)|
-| US 004 | [ShortNameOfUS004](US004.md)|
-| ... | ...|
-| US 326 | [ShortNameOfUS326](US326.md)|
+| UC/US  | Description                       |                   
+|:-------|:----------------------------------|
+| US 001 | [Control and managment](US001.md) |
+| US 002 | [Scheduling](US002.md)            |
+| US 003 | [Digital Certificate](US003.md)   |
+| US 004 | [Appointment List](US004.md)      |
+| US 005 | [Present Users](US005.md)         |
+| US 006 | [Vaccine's Information](US006.md) |
+| US 007 | [Entries and Exits](US007.md)     |
+| US 008 | [Registation](US008.md)           |
