@@ -1,7 +1,5 @@
 # Glossary
 
-**Terms, Expressions and Acronyms (TEA) must be organized alphabetically.**
-
 | **_Terms or Expression_** (EN)  | **_Termo ou Expressão_** (PT) | **_Description_** (EN)                                           |                                       
 |:------------------------|:-----------------|:--------------------------------------------|
 | **Administrator** | **Administrador** | A person responsible for carrying out the administration of a business or organization. |
