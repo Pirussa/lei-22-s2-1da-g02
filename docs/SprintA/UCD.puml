@@ -1,0 +1,152 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+skinparam actorStyle awesome
+skinparam titleBorderRoundCorner 15
+skinparam titleBorderThickness 2
+
+left to right direction
+title Usecase Diagram Beginning
+
+'DGS Administrator
+'UC1
+Usecase UC1 as "Register:
+Centers, Centers Coordinates, SNS Users,
+ Receptionists and Nurses"
+
+'Administrator
+'UC2
+Usecase UC2 as "Control and manage the core information
+ (get and set things such as type of vaccines, vaccines, employees etc...) "
+
+'Centre Coordinator
+'UC3
+Usecase UC3 as "See vaccination statistics"
+'UC4
+Usecase UC4 as "See vaccination charts"
+'UC5
+Usecase UC5 as "Generate reports"
+'UC6
+Usecase UC6 as "Analyze data from other centers,
+ including data from law systems"
+'UC7
+Usecase UC7 as "Monitor the entries and exits in slots of 5 minutes"
+
+'Nurse
+'UC8
+Usecase UC8 as "Check the user health conditions in the system"
+'UC9
+Usecase UC9 as "Check scheduled vaccine type"
+'UC10
+Usecase UC10 as "Submit a digital vaccination at any time"
+'UC11
+Usecase UC11 as "Check the list of SNS users that are present in the vaccination center"
+'UC12
+Usecase UC12 as "Check the user info in the system"
+'UC13
+Usecase UC13 as "Check the SNS user vaccination history"
+'UC14
+Usecase UC14 as "Get system instructions regarding the vaccine to be administered"
+'UC15
+Usecase UC15 as "Access full information about a patient"
+'UC16
+Usecase UC16 as "Record the adverse reactions in the system"
+'UC17
+Usecase UC17 as "Issue and deliver on site a vaccination certificate
+ whenever a SNS user asks for it."
+'UC18
+Usecase UC18 as "Register the information about a just given vaccine"
+'UC19
+Usecase UC19 as "Register the lot number used"
+'UC20
+Usecase UC20 as "Registers the vaccine type(e.g.: Covid-19)"
+'UC21
+Usecase UC21 as "Register vaccine name/brand (e.g.: Astra Zeneca, Moderna, Pfizer)"
+
+'Receptionist
+'UC22
+Usecase UC22 as "Check the appointment list"
+'UC23
+Usecase UC23 as "Check the user"
+'UC24
+Usecase UC24 as "Schedule the vaccine appointment"
+'UC25
+Usecase UC25 as "Check the SNS user number"
+'UC26
+Usecase UC26 as "Registers the arrival of the user to take the respective vaccine"
+'UC27
+
+'User
+'UC27
+Usecase UC27 as "Schedule a vaccine (date, time and place) and select the type"
+'UC28
+Usecase UC28 as "Request a digital certificate"
+'UC29
+Usecase UC29 as "Authorize the DGS to send a SMS message
+ with information about the scheduled appointment"
+'UC30
+Usecase UC30 as "Select the date"
+'UC31
+Usecase UC31 as "Introduce his/her SNS user number"
+'UC32
+Usecase UC32 as "Receive a SMS/EMail that recovery period has ended"
+'UC33
+Usecase UC33 as "Select the type of vaccine"
+'UC34
+Usecase UC34 as "Select the time"
+'UC35
+Usecase UC35 as "Schedule his/her vaccination"
+'UC36
+Usecase UC36 as "Select the vaccination center"
+
+'Administrators
+:DGS Administrator:-r-> UC1
+:Administrator: -r-> UC2
+
+
+'Center Coordinator
+:Center Coordinator: as CC
+ CC -> UC3
+ CC --> UC4
+ CC -l-> UC5
+ CC -u-> UC6
+ CC -d-> UC7
+
+ 'Nurse
+ :Nurse: as N
+N -d-> UC8
+N -d-> UC9
+N -d-> UC10
+N -u-> UC11
+N -u-> UC12
+N -u-> UC13
+N -l-> UC14
+N -l-> UC15
+N -d-> UC16
+N -u-> UC17
+N -d-> UC18
+N -r-> UC19
+N -r-> UC20
+N -u-> UC21
+
+'Receptionist
+:Receptionist: as R
+R -u-> UC22
+R -u-> UC23
+R -l-> UC24
+R -r-> UC25
+R -d-> UC26
+
+'User
+:User: as U
+U -d-> UC27
+U -l-> UC28
+U -u-> UC29
+U -r-> UC30
+U -d-> UC31
+U -d-> UC32
+U -u-> UC33
+U -u-> UC34
+U -r-> UC35
+U -l-> UC36
+
+@enduml

@@ -33,9 +33,3 @@
 | **User** | **Utilizador** | A person who uses or operates something. |
 | **Vaccine** | **Vacina** | A vaccine is a biological preparation that provides active acquired immunity to a particular infectious disease. A vaccine typically contains an agent that resembles a disease-causing microorganism and is often made from weakened or killed forms of the microbe, its toxins, or one of its surface proteins.|
 
-
-
-
-
-
-
