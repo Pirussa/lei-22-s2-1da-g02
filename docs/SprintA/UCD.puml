@@ -1,5 +1,8 @@
 @startuml
 'https://plantuml.com/use-case-diagram
+
+!pragma layout smetana
+
 skinparam actorStyle awesome
 skinparam titleBorderRoundCorner 15
 skinparam titleBorderThickness 2
@@ -10,8 +13,8 @@ title Usecase Diagram Beginning
 'DGS Administrator
 'UC1
 Usecase UC1 as "Register:
-Centers, Centers Coordinates, SNS Users,
- Receptionists and Nurses"
+Centers, Centers Coordinaters, SNS Users,
+Receptionists and Nurses"
 
 'Administrator
 'UC2
