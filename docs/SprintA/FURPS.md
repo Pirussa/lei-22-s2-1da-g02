@@ -9,7 +9,21 @@ _Specifies functionalities that:_
 
 
 
-(fill in here)
+
+| Function            | Description                                                                                                                |
+|:--------------------|:---------------------------------------------------------------------------------------------------------------------------|
+| Nationality         | [Allows the user to change the main language in the aplication](Nationality.md)                                            |
+| Q´s & A´s           | [Permits the placement and clarification of the most diverse doubts](Qs&As.md)                                             |
+| Email               | [Adding services related to sending/receiving email](Email.md)                                                             |
+| Printing            | [Graphic presentation coming from the information treatment](Printing.md)                                                  |
+| Layered Data Access | [Hierarchy of permissions to certain functions or data](Layered Data Access.md)                                            |
+| System Management   | [Control systems for process and manufacturing facilities in a complex multidistributed environment](System Management.md) |
+| Phone Number        | [Send a message to confirm the scheduling of a vaccine](Phone Number.md)                                                   |
+| User Counter        | [Add or subtract the number of users present at a given time](User Counter.md)                                             |
+|                     |                                                                                                                            |
+|                     |                                                                                                                            |
+|                     |                                                                                                                            |
+|                     |                                                                                                                            |
 
 
 
@@ -49,10 +63,6 @@ configurability, installability, scalability and more._
 ### Design Constraints
 
 _Specifies or constraints the system design process. Examples may include: programming languages, software process, mandatory standards/patterns, use of development tools, class library, etc._
-  
-
-(fill in here )
-
 
 ### Implementation Constraints
 
@@ -75,4 +85,4 @@ system being developed with other external systems._
 
 _Specifies a limitation or physical requirement regarding the hardware used to house the system, as for example: material, shape, size or weight._
 
-(fill in here )
+(fill in here)
