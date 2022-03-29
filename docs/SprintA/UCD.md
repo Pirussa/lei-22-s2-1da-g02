@@ -12,33 +12,43 @@ However, be aware, this is a pedagogical simplification. On further projects and
 **For each UC/US, it must be provided evidences of applying main activities of the software development process (requirements, analysis, design, tests and code). Gather those evidences on a separate file for each UC/US and set up a link as suggested below.**
 
 # Use Cases / User Stories
-| UC/US  | Description                               |                   
-|:-------|:------------------------------------------|
-| US 001 | [Staff and Resources Managment](US001.md) |
-| US 002 | [Control and Managment](US002.md)         |
-| US 003 | [Statistics and Performance](US003.md)    |
-| US 004 | [Entries and Exits](US004.md)             |
-| US 005 | [Reports](US005.md)                       |
-| US 006 | [Analyze and Comparison](US006.md)        |
-| US 007 | [Patient's Selection](US007.md)           |
-| US 008 | [Patient's Information](US008.md)         |
-| US 009 | [Post-Vaccination Information](US009.md)  |
-| US 010 | [Digital Certificate Delivery](US010.md)  | 
-| US 011 | [First Reactions](US011.md)               | 
-| US 012 | [On-Site Vaccine Scheduling](US012.md)    |
-| US 013 | [Call Patient](US013.md)                  |  
-| US 014 | [Verify SNS number](US014.md)             | 
-| US 015 | [Appointment List](US015.md)              | 
-| US 016 | [Arrival Registration](US016.md)          | 
-| US 017 | [Declare User Presence](US017.md)         | 
-| US 018 | [Self Scheduling](US018.md)               | 
-| US 019 | [Self Request Certificate](US019.md)      | 
-| US 020 | [Log in](US020.md)                        | 
-| US 021 | [Authorize Confirmation SMS](US021.md)    | 
-| US 022 | [Recovery SMS](US021.md)                  | 
-| US 023 | []()                                      | 
-| US 024 | []()                                      | 
-| US 025 | []()                                      | 
-| US 026 | []()                                      | 
-| US 027 | []()                                      | 
+
+## Administrator
+| UC/US  | Description                                |                   
+|:-------|:-------------------------------------------|
+| US 001 | [Staff and Resources Management](US001.md) |
+| US 002 | [Control and Managment](US002.md)          |
+
+## Centre Coordinator
+| UC/US  | Description                            |                   
+|:-------|:---------------------------------------|
+| US 003 | [Statistics and Performance](US003.md) |
+| US 004 | [Entries and Exits](US004.md)          |
+| US 005 | [Reports](US005.md)                    |
+| US 006 | [Analyse and Comparison](US006.md)     |
+
+## Nurse
+
+| UC/US  | Description                                  |                   
+|:-------|:---------------------------------------------|
+| US 007 | [Presence List](US007.md)                    |
+| US 008 | [Patient's List](US008.md)                   |
+| US 009 | [Post-Given Vaccine Information](US009.md)   |
+| US 010 | [Vaccination Certificate Delivery](US010.md) |
+| US 011 | [Adverse Reactions](US011.md)                |
+| US 012 | [Nurse Scheduling](US012.md)                 |
+
+## Receptionist
+| UC/US  | Description                  |                   
+|:-------|:-----------------------------|
+| US 013 | [Appointment List](US013.md) |
+| US 014 | [Arrivals](US014.md)         |
+
+## User
+| UC/US  | Description                            |                   
+|:-------|:---------------------------------------|
+| US 015 | [Vaccine Scheduling](US015.md)         |
+| US 016 | [Authorized SMS message](US016.md)     | 
+| US 017 | [Digital Certificate](US017.md)        | 
+| US 018 | [Recovery SMS message/email](US018.md) |
 
