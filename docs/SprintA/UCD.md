@@ -16,15 +16,20 @@ However, be aware, this is a pedagogical simplification. On further projects and
 ## Administrator
 | UC/US  | Description                                |                   
 |:-------|:-------------------------------------------|
-| US 001 | [Staff and Resources Management](US001.md) |
-| US 002 | [Control and Managment](US002.md)          |
+| US 001 | [Manages Staff and Resources](US001.md) |
+
+
+## DGS Administrator
+| UC/US  | Description                                |    
+|:-------|:-------------------------------------------|
+| US 002 | [Registers _*algo*_ ](US002.md)          |
 
 ## Centre Coordinator
 | UC/US  | Description                            |                   
 |:-------|:---------------------------------------|
-| US 003 | [Statistics and Performance](US003.md) |
-| US 004 | [Entries and Exits](US004.md)          |
-| US 005 | [Reports](US005.md)                    |
+| US 003 | [Visualize Statistics and Performance](US003.md) |
+| US 004 | [Entries and Exits \\\ DUVIDOSO ](US004.md)          |
+| US 005 | [Generate Reports](US005.md)                    |
 | US 006 | [Analyse and Comparison](US006.md)     |
 
 ## Nurse
