@@ -4,7 +4,7 @@
 
 However, be aware, this is a pedagogical simplification. On further projects and curricular units might also exist _1 to N **and/or** N to 1 relationships between US and UC.
 
-**Insert below the Use Case Diagram in a SVG format**
+**Insert below the Use Case Diagram in an SVG format**
 
 ![Use Case Diagram](UCD.svg)
 
@@ -16,44 +16,56 @@ However, be aware, this is a pedagogical simplification. On further projects and
 ## Administrator
 | UC/US  | Description                                |                   
 |:-------|:-------------------------------------------|
-| US 001 | [Manages Staff and Resources](US001.md) |
+| US 001 | Configure and Manage types of Vaccines     |
+| US 002 | Configure and Manage Vaccines              |
+| US 003 | Configure and Manage Vaccination Centres   |
+| US 004 | Configure and Manage Employees             |
 
 
 ## DGS Administrator
-| UC/US  | Description                                |    
-|:-------|:-------------------------------------------|
-| US 002 | [Registers _*algo*_ ](US002.md)          |
+| UC/US  | Description                    |    
+|:-------|:-------------------------------|
+| US 005 | Register Centres               |
+| US 006 | Register Centres Coordinators  |
+| US 007 | Register SNS Users             |
+| US 008 | Register Receptionists         |
+| US 009 | Register Nurses                |
+
 
 ## Centre Coordinator
-| UC/US  | Description                            |                   
-|:-------|:---------------------------------------|
-| US 003 | [Visualize Statistics and Performance](US003.md) |
-| US 004 | [Entries and Exits \\\ DUVIDOSO ](US004.md)          |
-| US 005 | [Generate Reports](US005.md)                    |
-| US 006 | [Analyse and Comparison](US006.md)     |
+| UC/US  | Description                       |                   
+|:-------|:----------------------------------|
+| US 010 | Visualize Vaccination Statistics  |
+| US 011 | Analyse and Comparison            |
 
 ## Nurse
 
-| UC/US  | Description                                  |                   
-|:-------|:---------------------------------------------|
-| US 007 | [Presence List](US007.md)                    |
-| US 008 | [Patient's List](US008.md)                   |
-| US 009 | [Post-Given Vaccine Information](US009.md)   |
-| US 010 | [Vaccination Certificate Delivery](US010.md) |
-| US 011 | [Adverse Reactions](US011.md)                |
-| US 012 | [Nurse Scheduling](US012.md)                 |
+| UC/US  | Description                                   |                   
+|:-------|:----------------------------------------------|
+| US 012 | Check the Presence of the Patient             |
+| US 013 | Check Health Conditions                       |
+| US 014 | Checks Scheduled Vaccine Type                 |
+| US 015 | Checks SNS user Vaccination History           |
+| US 016 | Check User Info                               |
+| US 017 | Register Vaccine Type                         |
+| US 018 | Register Vaccine name/brand                   |
+| US 019 | Register Vaccine lot number                   |
+| US 020 | Issue Vaccination Certificate                 |
+| US 021 | Deliver Vaccination Certificate               |
+| US 022 | Record Adverse Reactions                      |
+| US 023 | Schedule Vaccine                              |
+| US 024 | Get System Instructions Regarding the Vaccine |
 
 ## Receptionist
-| UC/US  | Description                  |                   
-|:-------|:-----------------------------|
-| US 013 | [Appointment List](US013.md) |
-| US 014 | [Arrivals](US014.md)         |
+| UC/US  | Description           |                   
+|:-------|:----------------------|
+| US 025 | Presence Confirmation |
+| US 026 | Arrivals Registration |
 
 ## User
-| UC/US  | Description                            |                   
-|:-------|:---------------------------------------|
-| US 015 | [Vaccine Scheduling](US015.md)         |
-| US 016 | [Authorized SMS message](US016.md)     | 
-| US 017 | [Digital Certificate](US017.md)        | 
-| US 018 | [Recovery SMS message/email](US018.md) |
+| UC/US  | Description                |                   
+|:-------|:---------------------------|
+| US 027 | Vaccine Scheduling         |
+| US 028 | Authorized SMS message     | 
+| US 029 | Obtain Digital Certificate |
 
