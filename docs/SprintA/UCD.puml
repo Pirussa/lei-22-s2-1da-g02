@@ -8,134 +8,92 @@ skinparam actorStyle awesome
 skinparam titleBorderRoundCorner 15
 skinparam titleBorderThickness 2
 
-'Receptionist
-Usecase UC14 as "Registers"
-UC14 -d- (The arrival of a user,\n to take the respective vaccine)
-
-Usecase UC15 as "Confirms"
-UC15 -d- (That the user has the vaccine scheduled for that day and time \n using the SNS user number)
 
 
+'**********Nurse*************
+Usecase UC13 as "Check the list of SNS users in the vaccination"
+Usecase UC14 as "Check User's info"
+Usecase UC15 as "Check User's health condition"
+Usecase UC16 as "Check User's scheduled vaccine type"
+Usecase UC17 as "Check User's vaccination history"
+Usecase UC18 as "Registers vaccination type"
+Usecase UC19 as "Registers vaccine name/brand"
+Usecase UC20 as "Registers vaccine lot number"
+Usecase UC21 as "Issue a vaccination certificate"
+Usecase UC22 as "Record adverse reactions"
+Usecase UC23 as "Schedule vaccine for a User"
+Usecase UC24 as "Get system instructions regarding the vaccine"
 
-'Centre Coordinator
-Usecase UC3 as "Visualizes"
-UC3 -d- (Vaccination statistics)
-UC3 -d- (Vaccination charts)
-
-Usecase UC4 as "Monitors"
-UC4 -d- (Entries and exits in slots of 5 minutes)
-
-Usecase UC5 as "Generate"
-UC5 -d- (Reports)
-
-Usecase UC6 as "Analyze"
-UC6 -d- (Data from other centers,\n including data from law systems)
-
-
-
-'DGS Administrator
-'UC1
-Usecase UC2 as "Registers"
-UC2 -d- (Center)
-UC2 -d- (Centers Coordinators)
-UC2 -d- (SNS Users)
-UC2 -d- (Receptionists)
-UC2 -d- (Nurses)
+:Nurse: as N
+N -d- UC13
+N -d- UC14
+N -d- UC15
+N -d- UC16
+N -d- UC17
+N -d- UC18
+N -d- UC19
+N -d- UC20
+N -d- UC21
+N -d- UC22
+N -d- UC23
+N -d- UC24
 
 
 
-'Administrator
-'UC2
-Usecase UC1 as "Configures and manages"
-UC1 -d- (Type of vaccines)
-UC1 -d- (Vaccines)
-UC1 -d- (Vaccination Centers)
-UC1 -d- (Employees)
+'**********Recepcionist*************
+Usecase UC25 as "Registers the arrival of a user"
+Usecase UC26 as "Confirms that the user has the vaccine scheduled for that day and time \n using the SNS user number "
 
-
-'User
-Usecase UC16 as "Schedule"
-(By Introducing) as B
-(Vaccine Appointment) as V
-UC16 -d- V
-V -r- B
-(By Selecting) as Bs
-V -l- Bs
-Bs -d- (Vaccination Center)
-Bs -d- (Date)
-Bs -d- (Time to be vaccinated)
-Bs -d- (Type of vaccine to be administered)
-B -d- (SNS User Number)
-
-Usecase UC17 as "Obtain"
-UC17 -d- (Vaccination Certificate)
-UC17 -d- (EU COVID Digital Certificate)
-
-Usecase UC18 as "Authorize"
-UC18 -d- (DGS to send an SMS message with \n information about the scheduled appointment)
+:Receptionist: as R
+R -d- UC25
+R -d- UC26
 
 
 
-'Nurse
-Usecase UC7 as "Issue"
-UC7 -d- (Vaccination Certificate)
-Usecase UC8 as "Deliver"
-UC8 -d- (Vaccination Certificate)
-
-Usecase UC9 as "Checks"
-UC9 -d- (List of SNS users that are present in the vaccination center to take the vaccine)
-UC9 -d- (User info in the system)
-UC9 -d- (User health conditions in the system)
-UC9 -d- (Scheduled vaccine type)
-UC9 -d- (SNS user vaccination history)
-
-Usecase UC10 as "Gets"
-UC10 -d- (System instructions regarding the vaccine to be administered \n (e.g.: Vaccine and respective dosage, considering the SNS user age group)
-
-Usecase UC11 as "Registers"
-UC11 -d- (Vaccine type)
-UC11 -d- (Vaccine name/brand)
-UC11 -d- (Vaccine lot number )
-
-Usecase UC12 as "Record"
-UC12 -d- (Adverse reaction in the System)
-
-Usecase UC13 as "Schedule"
-UC13 -d- (Vaccine Appointment)
-
-
-
+'**********Center Coordinator*************
+Usecase UC10 as "Visualizes Vaccination Charts and Statistics"
+Usecase UC11 as "Generate Reports"
+Usecase UC12 as "Analyze data from other centers"
 
 :Center Coordinator: as CC
- CC -d-> UC3
- CC -d-> UC4
- CC -d-> UC5
- CC -d-> UC6
-
-:Administrator: -d-> UC1
-:DGS Administrator: -d-> UC2
+CC -d- UC10
+CC -d- UC11
+CC -d- UC12
 
 
- 'Nurse
- :Nurse: as N
-N -d-> UC7
-N -d-> UC8
-N -d-> UC9
-N -d-> UC10
-N -d-> UC11
-N -d-> UC12
-N -d-> UC13
 
-'Receptionist
-:Receptionist: as R
-R -d-> UC14
-R -d-> UC15
+'**********DGS ADMINISTRATOR************
+Usecase UC5 as "Registers Center"
+Usecase UC6 as "Registers Centers Coordinators"
+Usecase UC7 as "Registers SNS Users"
+Usecase UC8 as "Registers Receptionists"
+Usecase UC9 as "Registers Nurses"
 
-'User
-:User: as U
-U -d-> UC16
-U -d-> UC17
-U -d-> UC18
+:DGS Administrator: as D
+D -d- UC5
+D -d- UC6
+D -d- UC7
+D -d- UC8
+D -d- UC9
+
+
+
+'**********ADMINISTRATOR*************
+Usecase UC1 as "Configures and manages type of vaccines"
+Usecase UC2 as "Configures and manages Vaccines"
+Usecase UC3 as "Configures and manages Vaccination Center"
+Usecase UC4 as "Configures and manages Employees"
+
+:Administrator: as A
+A -d-> UC1
+A -d-> UC2
+A -d-> UC3
+A -d-> UC4
+
+
+
+'**********User*************
+
 
 
 @enduml
