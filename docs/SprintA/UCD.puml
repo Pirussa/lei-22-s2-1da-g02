@@ -7,13 +7,17 @@ title Usecase Diagram
 skinparam titleBorderRoundCorner 20
 skinparam titleBorderThickness 2
 skinparam arrowThickness 3
+
 '**********User*************
-
-
-
-
+Usecase UC27 as "Schedule Vaccine Appointment" #mediumSpringGreen;line:black
+Usecase UC28 as "Obtain Vaccination Certificate" #mediumSpringGreen;line:black
+Usecase UC29 as "Authorize DGS to send a message with\n information about the scheduled appointment" #mediumSpringGreen;line:black
 
 :User: as U #mediumSpringGreen;line:mediumSpringGreen
+
+U -d- UC27 #mediumSpringGreen
+U -d- UC28 #mediumSpringGreen
+U -d- UC29 #mediumSpringGreen
 
 
 
