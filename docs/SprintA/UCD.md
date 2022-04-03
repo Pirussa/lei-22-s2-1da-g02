@@ -20,11 +20,6 @@ However, be aware, this is a pedagogical simplification. On further projects and
 | US 002 | Configure and Manage Vaccines              |
 | US 003 | Configure and Manage Vaccination Centres   |
 | US 004 | Configure and Manage Employees             |
-
-
-## DGS Administrator
-| UC/US  | Description                    |    
-|:-------|:-------------------------------|
 | US 005 | Register Centres               |
 | US 006 | Register Centres Coordinators  |
 | US 007 | Register SNS Users             |
@@ -66,6 +61,6 @@ However, be aware, this is a pedagogical simplification. On further projects and
 | UC/US  | Description                |                   
 |:-------|:---------------------------|
 | US 027 | Vaccine Scheduling         |
-| US 028 | Authorized SMS message     | 
+| US 028 | Authorize SMS message      | 
 | US 029 | Obtain Digital Certificate |
 
