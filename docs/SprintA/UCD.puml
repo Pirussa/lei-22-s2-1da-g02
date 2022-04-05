@@ -9,9 +9,9 @@ skinparam titleBorderThickness 2
 skinparam arrowThickness 3
 
 '**********User*************
-Usecase UC27 as "Schedule Vaccine Appointment" #mediumSpringGreen;line:black
-Usecase UC28 as "Obtain Vaccination Certificate" #mediumSpringGreen;line:black
-Usecase UC29 as "Authorize DGS to send a message with\n information about the scheduled appointment" #mediumSpringGreen;line:black
+Usecase UC27 as "UC27 - Schedule Vaccine Appointment" #mediumSpringGreen;line:black
+Usecase UC28 as "UC28 - Obtain Vaccination Certificate" #mediumSpringGreen;line:black
+Usecase UC29 as "UC29 - Authorize DGS to send a message with\n information about the scheduled appointment" #mediumSpringGreen;line:black
 
 :User: as U #mediumSpringGreen;line:mediumSpringGreen
 
@@ -20,23 +20,34 @@ U -d- UC28 #mediumSpringGreen
 U -d- UC29 #mediumSpringGreen
 
 
+skinparam actorStyle awesome
+
+
+'**********Recepcionist*************
+Usecase UC24 as "UC24 - Schedule vaccine for a User" #orange;line:black
+Usecase UC25 as "UC25 - Registers the arrival of a user" #orange;line:black
+Usecase UC26 as "UC26 - Confirms that the user has the vaccine scheduled for that day and time \n using the SNS user number "  #orange;line:black
+
+:Receptionist: as R #orange;line:orange
+R -d- UC24 #orange;line:orange
+R -d- UC25  #orange;line:orange
+R -d- UC26  #orange;line:orange
 
 
 
 skinparam actorStyle Hollow
 '**********Nurse*************
-Usecase UC13 as "Check the list of SNS users in the vaccination"  #indianRed;line:black
-Usecase UC14 as "Check User's info" #indianRed;line:black
-Usecase UC15 as "Check User's health condition" #indianRed;line:black
-Usecase UC16 as "Check User's scheduled vaccine type" #indianRed;line:black
-Usecase UC17 as "Check User's vaccination history" #indianRed;line:black
-Usecase UC18 as "Registers vaccination type" #indianRed;line:black
-Usecase UC19 as "Registers vaccine name/brand" #indianRed;line:black
-Usecase UC20 as "Registers vaccine lot number" #indianRed;line:black
-Usecase UC21 as "Issue a vaccination certificate" #indianRed;line:black
-Usecase UC22 as "Record adverse reactions" #indianRed;line:black
-Usecase UC23 as "Schedule vaccine for a User" #indianRed;line:black
-Usecase UC24 as "Get system instructions regarding the vaccine" #indianRed;line:black
+Usecase UC13 as "UC13 - Check the list of SNS users in the vaccination"  #indianRed;line:black
+Usecase UC14 as "UC14 - Check User's info" #indianRed;line:black
+Usecase UC15 as "UC15 - Check User's health condition" #indianRed;line:black
+Usecase UC16 as "UC16 - Check User's scheduled vaccine type" #indianRed;line:black
+Usecase UC17 as "UC17 - Check User's vaccination history" #indianRed;line:black
+Usecase UC18 as "UC18 - Registers vaccination type" #indianRed;line:black
+Usecase UC19 as "UC19 - Registers vaccine name/brand" #indianRed;line:black
+Usecase UC20 as "UC20 - Registers vaccine lot number" #indianRed;line:black
+Usecase UC21 as "UC21 - Issue a vaccination certificate" #indianRed;line:black
+Usecase UC22 as "UC22 - Record adverse reactions" #indianRed;line:black
+Usecase UC23 as "UC23 - Get system instructions regarding the vaccine" #indianRed;line:black
 
 :Nurse: as N #white;line:indianRed
 N -d- UC13 #indianRed
@@ -50,24 +61,13 @@ N -d- UC20 #indianRed
 N -d- UC21 #indianRed
 N -d- UC22 #indianRed
 N -d- UC23 #indianRed
-N -d- UC24 #indianRed
 
-skinparam actorStyle awesome
-
-
-'**********Recepcionist*************
-Usecase UC25 as "Registers the arrival of a user" #orange;line:black
-Usecase UC26 as "Confirms that the user has the vaccine scheduled for that day and time \n using the SNS user number "  #orange;line:black
-
-:Receptionist: as R #orange;line:orange
-R -d- UC25  #orange;line:orange
-R -d- UC26  #orange;line:orange
 
 
 '**********Center Coordinator*************
-Usecase UC10 as "Visualizes Vaccination Charts and Statistics" #lightblue;line:black
-Usecase UC11 as "Generate Reports" #lightblue;line:black
-Usecase UC12 as "Analyze data from other centers" #lightblue;line:black
+Usecase UC10 as "UC10 - Visualizes Vaccination Charts and Statistics" #lightblue;line:black
+Usecase UC11 as "UC11 - Generate Reports" #lightblue;line:black
+Usecase UC12 as "UC12 -Analyze data from other centers" #lightblue;line:black
 
 :Center Coordinator: as CC #lightblue;line:lightblue;
 CC -d- UC10 #lightblue;line:lightblue
@@ -76,15 +76,15 @@ CC -d- UC12 #lightblue;line:lightblue
 
 
 '**********ADMINISTRATOR*************
-Usecase UC1 as "Configures and manages type of vaccines"   #lightgrey;line:black
-Usecase UC2 as "Configures and manages Vaccines"  #lightgrey;line:black
-Usecase UC3 as "Configures and manages Vaccination Center"   #lightgrey;line:black
-Usecase UC4 as "Configures and manages Employees"  #lightgrey;line:black
-Usecase UC5 as "Registers Center" #lightgrey;line:black
-Usecase UC6 as "Registers Centers Coordinators" #lightgrey;line:black
-Usecase UC7 as "Registers SNS Users" #lightgrey;line:black
-Usecase UC8 as "Registers Receptionists" #lightgrey;line:black
-Usecase UC9 as "Registers Nurses" #lightgrey;line:black
+Usecase UC1 as "UC1 - Configures and manages type of vaccines"   #lightgrey;line:black
+Usecase UC2 as "UC2 - Configures and manages Vaccines"  #lightgrey;line:black
+Usecase UC3 as "UC3 - Configures and manages Vaccination Center"   #lightgrey;line:black
+Usecase UC4 as "UC4 - Configures and manages Employees"  #lightgrey;line:black
+Usecase UC5 as "UC5 - Registers Center" #lightgrey;line:black
+Usecase UC6 as "UC6 - Registers Centers Coordinators" #lightgrey;line:black
+Usecase UC7 as "UC7 - Registers SNS Users" #lightgrey;line:black
+Usecase UC8 as "UC8 - Registers Receptionists" #lightgrey;line:black
+Usecase UC9 as "UC9 - Registers Nurses" #lightgrey;line:black
 
 
 :Administrator: as A #black;line:black

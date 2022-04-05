@@ -48,12 +48,12 @@ However, be aware, this is a pedagogical simplification. On further projects and
 | US 020 | Issue Vaccination Certificate                 |
 | US 021 | Deliver Vaccination Certificate               |
 | US 022 | Record Adverse Reactions                      |
-| US 023 | Schedule Vaccine                              |
-| US 024 | Get System Instructions Regarding the Vaccine |
+| US 023 | Get System Instructions Regarding the Vaccine |
 
 ## Receptionist
 | UC/US  | Description           |                   
 |:-------|:----------------------|
+| US 024 | Schedule Vaccine For a User                   |
 | US 025 | Presence Confirmation |
 | US 026 | Arrivals Registration |
 
