@@ -7,6 +7,9 @@ _Specifies functionalities that:_
 - _are common across several US/UC;_
 - _are not related to US/UC, namely: Audit, Reporting and Security._
 
+<<<<<<< HEAD
+
+=======
 | Function                             | Description                                                                                                                
 |:-------------------------------------|:---------------------------------------------------------------------------------------------------|
 | Language                             | Allows the user to change the main language in the aplication                                      |
@@ -20,11 +23,10 @@ _Specifies functionalities that:_
 | Digital Vaccination Certificate      | Request the digital vaccination certificate at any given time                                      |
 | Schedule the Vaccine                 | Schedule the vaccine in any available data                                                         |
 | Future Pandemics                     | The application is capable of managing future pandamic events                                      |
-|                     |                                                                                                    |
 |                                      |                                                                                                    |
 |                                      |                                                                                                    |
 |                                      |                                                                                                    |
-
+|                                      |                                                                                                    |
 ## Usability 
 
 _Evaluates the user interface. It has several subcategories,
@@ -50,7 +52,8 @@ _Evaluates the performance requirements of the software, namely: response time, 
 
 ## Supportability
 _The supportability requirements gathers several characteristics, such as:
-testability, adaptability, maintainability, compatibility,
+testability - Every method, beside Input/Putput operations methods,  will have a unit test using JUnit 5;
+adaptability, maintainability, compatibility,
 configurability, installability, scalability and more._
 (fill in here)
 
@@ -63,9 +66,10 @@ _Specifies or constraints the system design process. Examples may include: progr
 ### Implementation Constraints
 
 _Specifies or constraints the code or construction of a system such
-such as: mandatory standards/patterns, implementation languages,
-database integrity, resource limits, operating system._
+such as:
+ 1- implementation languages - The application will support portuguese and english.
 
+mandatory standards/patterns, database integrity, resource limits, operating system._
 
 (fill in here)
 
