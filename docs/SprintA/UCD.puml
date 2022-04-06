@@ -1,6 +1,6 @@
 @startuml
 'https://plantuml.com/use-case-diagram
-'!pragma layout smetana
+!pragma layout smetana
 
 left to right direction
 title Usecase Diagram
@@ -42,7 +42,7 @@ Usecase UC14 as "UC14 - Check User's info" #indianRed;line:black
 Usecase UC15 as "UC15 - Check User's health condition" #indianRed;line:black
 Usecase UC16 as "UC16 - Check User's scheduled vaccine type" #indianRed;line:black
 Usecase UC17 as "UC17 - Check User's vaccination history" #indianRed;line:black
-Usecase UC18 as "UC18 - Registers vaccination type" #indianRed;line:black
+Usecase UC18 as "UC18 - Registers vaccine type" #indianRed;line:black
 Usecase UC19 as "UC19 - Registers vaccine name/brand" #indianRed;line:black
 Usecase UC20 as "UC20 - Registers vaccine lot number" #indianRed;line:black
 Usecase UC21 as "UC21 - Issue a vaccination certificate" #indianRed;line:black
@@ -76,31 +76,30 @@ CC -d- UC12 #lightblue;line:lightblue
 
 
 '**********ADMINISTRATOR*************
-Usecase UC1 as "UC1 - Configures and manages type of vaccines"   #lightgrey;line:black
-Usecase UC2 as "UC2 - Configures and manages Vaccines"  #lightgrey;line:black
-Usecase UC3 as "UC3 - Configures and manages Vaccination Center"   #lightgrey;line:black
-Usecase UC4 as "UC4 - Configures and manages Employees"  #lightgrey;line:black
-Usecase UC5 as "UC5 - Registers Center" #lightgrey;line:black
-Usecase UC6 as "UC6 - Registers Centers Coordinators" #lightgrey;line:black
-Usecase UC7 as "UC7 - Registers SNS Users" #lightgrey;line:black
-Usecase UC8 as "UC8 - Registers Receptionists" #lightgrey;line:black
-Usecase UC9 as "UC9 - Registers Nurses" #lightgrey;line:black
+Usecase UC2 as "UC2 - Configures and manages type of vaccines"   #lightgrey;line:black
+Usecase UC3 as "UC3 - Configures and manages Vaccines"  #lightgrey;line:black
+Usecase UC4 as "UC4 - Configures and manages Vaccination Center"   #lightgrey;line:black
+Usecase UC5 as "UC5 - Configures and manages Employees"  #lightgrey;line:black
 
 
 :Administrator: as A #black;line:black
-A -d- UC1 #black;line:black
+
 A -d- UC2 #black;line:black
 A -d- UC3 #black;line:black
 A -d- UC4 #black;line:black
 A -d- UC5 #black;line:black
-A -d- UC6 #black;line:black
-A -d- UC7 #black;line:black
-A -d- UC8 #black;line:black
-A -d- UC9 #black;line:black
 
+'**********System*************
+Usecase UC1 as "UC1 - Sends a confirmation message after 30 minutes of being in the room"
+Usecase UC2 as "UC2 - Send a message confirming the vaccination is scheduled"
+Usecase UC3 as "UC3 - Checks the center capacity"
+Usecase UC4 as "UC4 - Validates the vaccination date and time"
+Usecase UC5 as "UC5 - Sends a message with info about the vaccination date"
+:<<Automatic>> Timer/Clock: as TC #mediumSpringGreen;line:mediumSpringGreen
+:<<Automatic>> Confirm Schedule: as CS #mediumSpringGreen;line:mediumSpringGreen
+:<<Automatic>> Checks Capacity: as CC #mediumSpringGreen;line:mediumSpringGreen
 
-'**********User*************
-
-
+TC -d- UC1 #mediumSpringGreen
+CS -d- UC2 #mediumSpringGreen
 
 @enduml
