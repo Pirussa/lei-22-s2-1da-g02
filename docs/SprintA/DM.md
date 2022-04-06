@@ -134,7 +134,14 @@ An association is a relationship between instances of objects that indicates a r
 + **_A_** is physically or logically contained in/on **_B_**
 + **_A_** is a description for **_B_**
 + **_A_** known/logged/recorded/reported/captured in **_B_**
-+ **_A_** uses or manages or owns **_B_**
++ **_Administrator_** uses or manages or owns **_Vaccines_**
++ **_Administrator_** uses or manages or owns **_Vaccine Type_**
++ **_Administrator_** uses or manages or owns **_Vaccination Center_**
++ **_Administrator_** uses or manages or owns **_Employees_**
++ **_Administrator_** uses or manages or owns **_Center Coordinators_**
++ **_Administrator_** uses or manages or owns **_SNS Users_**
++ **_Administrator_** uses or manages or owns **_Receptionists_**
++ **_Administrator_** uses or manages or owns **_Nurses_**
 + **_A_** is related with a transaction (item) of **_B_**
 + etc.
 
@@ -143,7 +150,14 @@ An association is a relationship between instances of objects that indicates a r
 | Concept (A) 		|  Association   	|  Concept (B) |
 |----------	   		|:-------------:		|------:       |
 | C1  	| verb1    		 	| C2  |
-| ...  	| ...    		 	| ...  |
+| Administrator  	| manages    		 	| Vaccines  |
+| Administrator  	| manages    		 	| Vaccine Type  |
+| Administrator  	| manages    		 	| Vaccination Center  |
+| Administrator  	| manages    		 	| Employees  |
+| Administrator  	| manages    		 	| Center Coordinators  |
+| Administrator  	| manages    		 	| SNS Users  |
+| Administrator  	| manages    		 	| Receptionists  |
+| Administrator  	| manages    		 	| Nurses  |
 
 
 

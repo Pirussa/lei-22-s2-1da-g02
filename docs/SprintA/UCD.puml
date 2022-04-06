@@ -1,6 +1,6 @@
 @startuml
 'https://plantuml.com/use-case-diagram
-'!pragma layout smetana
+!pragma layout smetana
 
 left to right direction
 title Usecase Diagram
