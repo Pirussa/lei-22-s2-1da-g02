@@ -26,13 +26,14 @@ Iterative Development".
 **Product/Service related to a Transaction or Transaction Line Item**
 
 * Vaccination
+* Vaccination Centre Capacity
 
 ---
 
 
 **Transaction Records**
 
-*
+*Confirm users data.
 
 ---  
 
@@ -46,7 +47,8 @@ Iterative Development".
 
 **Places**
 
-* Vaccination Center
+* Vaccination Centre
+* Healthcare centres.
 
 ---
 
@@ -136,12 +138,8 @@ remembering, or it is derivable from the List of Common Associations:
 + **_A_** known/logged/recorded/reported/captured in **_B_**
 + **_Administrator_** uses or manages or owns **_Vaccines_**
 + **_Administrator_** uses or manages or owns **_Vaccine Type_**
-+ **_Administrator_** uses or manages or owns **_Vaccination Center_**
++ **_Administrator_** uses or manages or owns **_Vaccination Centre_**
 + **_Administrator_** uses or manages or owns **_Employees_**
-+ **_Administrator_** uses or manages or owns **_Center Coordinators_**
-+ **_Administrator_** uses or manages or owns **_SNS Users_**
-+ **_Administrator_** uses or manages or owns **_Receptionists_**
-+ **_Administrator_** uses or manages or owns **_Nurses_**
 + **_Nurse_** checks or registers or records or issues **_List of SNS user´s_**
 + **_Nurse_** checks or registers or records or issues **_User´s info_**
 + **_Nurse_** checks or registers or records or issues **_User´s health condition_**
@@ -162,8 +160,6 @@ remembering, or it is derivable from the List of Common Associations:
 + **_Centre Coordinator_** visualizes or generates or analyzes **_Vaccination charts and statistics_**
 + **_Centre Coordinator_** visualizes or generates or analyzes **_Reports_**
 + **_Centre Coordinator_** visualizes or generates or analyzes **_Data from other centres_**
-+ 
-+ 
 + **_A_** is related with a transaction (item) of **_B_**
 + etc.
 
@@ -172,12 +168,8 @@ remembering, or it is derivable from the List of Common Associations:
 | C1                 |    verb1    | C2                                        |
 | Administrator      |   manages   | Vaccines                                  |
 | Administrator      |   manages   | Vaccine Type                              |
-| Administrator      |   manages   | Vaccination Center                        |
+| Administrator      |   manages   | Vaccination Centre                        |
 | Administrator      |   manages   | Employees                                 |
-| Administrator      |   manages   | Center Coordinators                       |
-| Administrator      |   manages   | SNS Users                                 |
-| Administrator      |   manages   | Receptionists                             |
-| Administrator      |   manages   | Nurses                                    |
 | Nurse              |   checks    | List of SNS user´s                        |
 | Nurse              |   checks    | User´s info                               |
 | Nurse              |   checks    | User´s health condition                   |
@@ -205,3 +197,6 @@ remembering, or it is derivable from the List of Common Associations:
 **Insert below the Domain Model Diagram in a SVG format**
 
 ![DM.svg](DM.svg)
+
+
+
