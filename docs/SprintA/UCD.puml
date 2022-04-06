@@ -20,7 +20,7 @@ U -d- UC28 #mediumSpringGreen
 U -d- UC29 #mediumSpringGreen
 
 
-skinparam actorStyle awesome
+
 
 
 '**********Recepcionist*************
@@ -35,7 +35,7 @@ R -d- UC26  #orange;line:orange
 
 
 
-skinparam actorStyle Hollow
+
 '**********Nurse*************
 Usecase UC13 as "UC13 - Check the list of SNS users in the vaccination"  #indianRed;line:black
 Usecase UC14 as "UC14 - Check User's info" #indianRed;line:black
