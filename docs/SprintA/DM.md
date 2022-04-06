@@ -22,7 +22,7 @@ To identify domain conceptual classes, start by making a list of candidate conce
 
 **Product/Service related to a Transaction or Transaction Line Item**
 
-*  
+*  Vaccination
 
 ---
 
@@ -36,7 +36,7 @@ To identify domain conceptual classes, start by making a list of candidate conce
 
 **Roles of People or Organizations**
 
-* 
+* Administrator, Nurse, Receptionist, User, Center Coordinator
 
 
 ---
@@ -44,11 +44,11 @@ To identify domain conceptual classes, start by making a list of candidate conce
 
 **Places**
 
-*  
+*  Vaccination Center
 
 ---
 
-** Noteworthy Events**
+**Noteworthy Events**
 
 * 
 
@@ -57,7 +57,7 @@ To identify domain conceptual classes, start by making a list of candidate conce
 
 **Physical Objects**
 
-*
+* 
 
 ---
 
@@ -93,7 +93,7 @@ To identify domain conceptual classes, start by making a list of candidate conce
 
 **Organizations**
 
-*  
+* SNS, DGS
 
 ---
 
@@ -121,7 +121,7 @@ To identify domain conceptual classes, start by making a list of candidate conce
 
 **Documents mentioned/used to perform some work/**
 
-* 
+* Reports, Vaccination History, Vaccination Certificate
 ---
 
 
