@@ -3,7 +3,6 @@
 **In the scope of this project, there is a direct relationship of _1 to 1_ between Use Cases (UC) and User Stories (US).**
 
 However, be aware, this is a pedagogical simplification. On further projects and curricular units might also exist _1 to N **and/or** N to 1 relationships between US and UC.
-    
 
 ![Use Case Diagram](UCD.svg)
 
@@ -12,54 +11,62 @@ However, be aware, this is a pedagogical simplification. On further projects and
 
 # Use Cases / User Stories
 
+## System
+| UC/US  | Description                |                   
+|:-------|:---------------------------|
+| US 001 | Sends an SMS Message with Vaccination Date Information|
+
+## Timer
+| UC/US  | Description                |                   
+|:-------|:---------------------------|
+| US 002| Sends an email or SMS Confirming that the Recovery Period has Ended|
+
 ## Administrator
 | UC/US  | Description                                |                   
 |:-------|:-------------------------------------------|
-| US 001 | Configure and Manage types of Vaccines     |
-| US 002 | Configure and Manage Vaccines              |
-| US 003 | Configure and Manage Vaccination Centres   |
-| US 004 | Configure and Manage Employees             |
-| US 005 | Register Centres               |
-| US 006 | Register Centres Coordinators  |
-| US 007 | Register SNS Users             |
-| US 008 | Register Receptionists         |
-| US 009 | Register Nurses                |
+| US 003 | Configure and Manage types of Vaccines     |
+| US 004 | Configure and Manage Vaccines              |
+| US 005 | Configure and Manage Vaccination Centers   |
+| US 006 | Configure and Manage Employees             |
 
 
 ## Centre Coordinator
 | UC/US  | Description                       |                   
 |:-------|:----------------------------------|
-| US 010 | Visualize Vaccination Statistics  |
-| US 011 | Analyse and Comparison            |
+| US 007 | Visualize Vaccination Statistics  |
+| US 008 | Generates Reports                 |
+| US 009 | Analyse and Comparison            |
 
 ## Nurse
 
 | UC/US  | Description                                   |                   
 |:-------|:----------------------------------------------|
-| US 012 | Check the Presence of the Patient             |
-| US 013 | Check Health Conditions                       |
-| US 014 | Checks Scheduled Vaccine Type                 |
-| US 015 | Checks SNS user Vaccination History           |
-| US 016 | Check User Info                               |
-| US 017 | Register Vaccine Type                         |
-| US 018 | Register Vaccine name/brand                   |
-| US 019 | Register Vaccine lot number                   |
+| US 010 | Check the Presence of the Patient             |
+| US 011 | Check User Info                               |
+| US 012 | Check Health Conditions                       |
+| US 013 | Checks Scheduled Vaccine Type                 |
+| US 014 | Checks SNS user Vaccination History           |
+| US 015 | Get System Instructions Regarding the Vaccine |
+| US 016 | Register Vaccine Type                         |
+| US 017 | Register Vaccine name/brand                   |
+| US 018 | Register Vaccine lot number                   |
+| US 019 | Record Adverse Reactions                      |
 | US 020 | Issue Vaccination Certificate                 |
-| US 021 | Deliver Vaccination Certificate               |
-| US 022 | Record Adverse Reactions                      |
-| US 023 | Get System Instructions Regarding the Vaccine |
 
 ## Receptionist
 | UC/US  | Description           |                   
 |:-------|:----------------------|
-| US 024 | Schedule Vaccine For a User                   |
-| US 025 | Presence Confirmation |
-| US 026 | Arrivals Registration |
+| US 021 | Schedule Vaccine For a User|
+| US 022 | Arrivals Registration |
+| US 023 |  Presence Confirmation|
 
 ## User
 | UC/US  | Description                |                   
 |:-------|:---------------------------|
-| US 027 | Vaccine Scheduling         |
-| US 028 | Authorize SMS message      | 
-| US 029 | Obtain Digital Certificate |
+| US 024 | Vaccine Scheduling         |
+| US 025 | Authorize SMS message      | 
+| US 026 | Obtain Digital Certificate |
+
+
+
 

@@ -1,0 +1,73 @@
+@startuml
+'https://plantuml.com/class-diagram
+!pragma layout smetana
+
+class Vaccine {
+-brand : String
+
+}
+
+
+
+class DosageScheme {
+-numberOfDoses : int
+-dosage : int
+-age : int
+-intervalBetweenVaccines : int
+}
+
+Vaccine "1  " -- "1" DosageScheme : has a >
+
+class TypeOfVaccine {
+-virus : String
+}
+
+Vaccine "*" -- "1 " TypeOfVaccine : is of >
+
+
+class VaccinationCenter {
+-name : String
+-address : String
+-phoneNumber : int
+-emailAddress : String
+-faxNumber : int
+-websiteAddress : String
+-openingHour : int
+-closingHour : int
+-slotDuration : int
+-vaccinesPerSlot : int
+-coordinator : Coordinator
+}
+
+Vaccine "*" -- "1" VaccinationCenter : is administred on >
+class HealthcareCenter extends VaccinationCenter {
+-ARS : String
+-AGES : String
+}
+
+class MassVaccinationCenter extends VaccinationCenter {
+
+}
+
+class Nurse extends Person{
+
+}
+
+class Person{
+-name : String
+}
+class Administrator extends Person{
+}
+
+Administrator "1" -- "*" Vaccine : configures and manages
+Nurse "1" -- "*" Vaccine : administers >
+
+
+
+
+
+
+
+
+
+@enduml
