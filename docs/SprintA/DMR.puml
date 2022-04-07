@@ -1,0 +1,98 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class ApplicationUser {
+-password : int
+}
+
+class SnsUser extends ApplicationUser{
+snsUserNumber : int
+}
+
+class Administrator extends ApplicationUser
+
+class Receptionist extends ApplicationUser
+
+class CenterCoordinator extends ApplicationUser
+
+class Application
+
+class Nurse extends ApplicationUser
+
+class UsersWaitingList
+
+class Vaccine {
+brand : String
+}
+class DosageScheme {
+-numberOfDoses : int
+-dosage : int
+-age : int
+-intervalBetweenVaccines : int
+}
+
+class TypeOfVaccine {
+virus : String
+}
+
+class VaccinatonCenter {
+-name : String
+-address : String
+-phoneNumber : int
+-emailAddress : String
+-faxNumber : int
+-websiteAddress : String
+-openingHour : int
+-closingHour : int
+-slotDuration : int
+-vaccinesPerSlot : int
+-coordinator : Coordinator
+}
+
+class MassVaccinationCenter extends VaccinatonCenter {
+
+}
+
+class HealthcareCenter extends VaccinatonCenter {
+ARE : String
+AGES : String
+}
+class VaccineAppointment
+
+class UserInfo
+
+Administrator "*" -l- "*" SnsUser : Configures and manages >
+Administrator "*" -- "*" Receptionist : Configures and manages >
+Administrator "*" -- "*" CenterCoordinator : Configures and manages >
+Administrator "*" -r-- "*" Nurse : Configures and manages >
+Administrator "*" -r-- "*" VaccinatonCenter : Configures and manages >
+
+
+
+
+'PODES RETIRAR ESSE L que faz boa diferença no diagrama e ver como preferes!
+SnsUser "*" -l- "1" Application : Requests authorization to send SMS <
+'__________________
+
+Nurse "*" -- "1" UsersWaitingList : Checks >
+Nurse "1" -r-- "*" Vaccine : Administers >
+Vaccine "1" -- "1" DosageScheme : Has a >
+Vaccine "*" -- "1" TypeOfVaccine :  Is of >
+Vaccine "*" -- "1" VaccinatonCenter : Is administered on >
+Nurse "1" -- "*" UserInfo : Checks >
+
+Receptionist "1" -- "*" VaccineAppointment : Schedules and Confirms >
+SnsUser "1" -- "X" VaccineAppointment : Schedules >
+
+VaccinatonCenter "1" -- "1" CenterCoordinator : Is coordinated by >
+Application "1" -- "*" Nurse  : Gives instructions about a vaccine >
+Application "1" -- "*" SnsUser : Notify >
+
+class VaccineInformation
+class AdverseReactions
+
+VaccineInformation "*" - "*" AdverseReactions
+(VaccineInformation, AdverseReactions) -- Nurse : registers
+
+
+@enduml
