@@ -1,12 +1,10 @@
 @startuml
 'https://plantuml.com/class-diagram
-!pragma layout smetana
 
 class Vaccine {
 -brand : String
 
 }
-
 
 
 class DosageScheme {
@@ -49,24 +47,60 @@ class MassVaccinationCenter extends VaccinationCenter {
 
 }
 
-class Nurse extends Person{
+class Nurse extends ApplicationUser{
 
 }
 
-class Person{
--name : String
-}
-class Administrator extends Person{
+class ApplicationUser{
+-password : String
 }
 
-Administrator "1" -- "*" Vaccine : configures and manages
-Nurse "1" -- "*" Vaccine : administers >
+class Administrator extends ApplicationUser{
 
+}
 
+class Receptionist extends ApplicationUser {
 
+}
 
+class CenterCoordinator extends ApplicationUser {
 
+}
 
+class SnsUser extends ApplicationUser {
+snsUserNumber : int
+}
+
+class Application {
+
+}
+
+' Da para usar u - d -r - l dentro dos traços para design
+
+Application "1" ---- "*" Administrator : is managed by >
+Administrator "" ---- "" CenterCoordinator : configures and manages >
+Administrator "" ---- "" VaccinationCenter : configures and manages >
+Administrator "" ---- "" TypeOfVaccine : configures and manages >
+Administrator "" ---- "" Vaccine : configures and manages >
+Administrator "" ---- "" Nurse : configures and manages >
+Administrator "" ---- "" Receptionist : configures and manages >
+Nurse "1" ---- "*" Vaccine : administers >
+'DUVIDA
+SnsUser "" ---- "" VaccineAppointment : schedules >
+
+SnsUser "*" ---- "1" Application : Requests authorization to send SMS <
+Receptionist "1" -- "*" VaccineAppointment :schedules >
+Receptionist "1" -- "*" VaccineAppointment :confirms >
+
+Nurse "*" --  "1" WaitingList : checks >
+
+class VaccineAppointment {
+
+}
+
+class WaitingList {
+
+}
 
 
 
