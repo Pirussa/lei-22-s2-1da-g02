@@ -19,8 +19,6 @@ class Application
 
 class Nurse extends ApplicationUser
 
-class UsersWaitingList
-
 class Vaccine {
 brand : String
 }
@@ -60,6 +58,10 @@ AGES : String
 class VaccineAppointment
 
 class UserInfo
+class VaccineInformation
+class AdverseReactions
+
+class DigitalCertificate
 
 Administrator "*" -l- "*" SnsUser : Configures and manages >
 Administrator "*" -- "*" Receptionist : Configures and manages >
@@ -70,7 +72,7 @@ Administrator "*" -r-- "*" VaccinatonCenter : Configures and manages >
 
 
 
-'PODES RETIRAR ESSE L que faz boa diferen√ßa no diagrama e ver como preferes!
+'PODES RETIRAR ESSE L que faz boa diferenáa no diagrama e ver como preferes!
 SnsUser "*" -l- "1" Application : Requests authorization to send SMS <
 '__________________
 
@@ -88,11 +90,15 @@ VaccinatonCenter "1" -- "1" CenterCoordinator : Is coordinated by >
 Application "1" -- "*" Nurse  : Gives instructions about a vaccine >
 Application "1" -- "*" SnsUser : Notify >
 
-class VaccineInformation
-class AdverseReactions
 
 VaccineInformation "*" - "*" AdverseReactions
-(VaccineInformation, AdverseReactions) -- Nurse : registers
+(VaccineInformation, AdverseReactions) -- Nurse : Registers
+
+SnsUser "*" -- "1" DigitalCertificate : Requests >
+CenterCoordinator "1" -- "1" VaccinationProcess : Manages >
+Application "1" -l- "*" EntriesAndExitsList : Generates >
+
+
 
 
 @enduml
