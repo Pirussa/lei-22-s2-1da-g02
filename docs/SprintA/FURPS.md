@@ -13,19 +13,10 @@ _Specifies functionalities that:_
 | Function                             | Description                                                                                                                
 |:-------------------------------------|:---------------------------------------------------------------------------------------------------|
 | Language                             | Allows the user to change the main language in the aplication                                      |
-| FAQ                                  | Permits the placement and clarification of the most diverse doubts                                 |
-| Email                                | Adding services related to sending/receiving email                                                 |
-| Printing                             | Graphic presentation coming from the information treatment                                         |
-| Layered Data Access                  | Hierarchy of permissions to certain functions or data                                              |
-| System Management                    | Control systems for process and manufacturing facilities in a complex multidistributed environment |
-| Phone Number                         | Send a message to confirm the scheduling of a vaccine                                              |
-| User Counter                         | Add or subtract the number of users present at a given time                                        |
+| Message Delivering                   | Send a message to confirm the scheduling of a vaccine                                              |
 | Digital Vaccination Certificate      | Request the digital vaccination certificate at any given time                                      |
-| Schedule the Vaccine                 | Schedule the vaccine in any available data                                                         |
-| Future Pandemics                     | The application is capable of managing future pandamic events                                      |
-|                                      |                                                                                                    |
-|                                      |                                                                                                    |
-|                                      |                                                                                                    |
+| Account Creation                     | Allows the user to create an account                                                               |
+| Log-in                               |   The user can log-in to the account previously created                                            |
 |                                      |                                                                                                    |
 ## Usability 
 
@@ -52,10 +43,15 @@ _Evaluates the performance requirements of the software, namely: response time, 
 
 ## Supportability
 _The supportability requirements gathers several characteristics, such as:
-testability - Every method, beside Input/Putput operations methods,  will have a unit test using JUnit 5;
-adaptability, maintainability, compatibility,
-configurability, installability, scalability and more._
-(fill in here)
+
+Testability - Every method, beside Input/Output operations methods,  will have a unit test using JUnit 5;
+Adaptability - The software application should also  e conceived having in mind that it can be further commercialized to other companies and/or organizations and/or healthcare systems besides DGS;
+Maintainability - Due to the testing and the OOP that must be implemented in the application, the maintenance will be easier and much more organized;
+Compatibility -The application should be capable of managing other future pandemic events requiring a massive vaccination of the people;
+Configurability - 
+Installability - 
+Scalability - 
+
 
 ## +
 
@@ -63,15 +59,18 @@ configurability, installability, scalability and more._
 
 _Specifies or constraints the system design process. Examples may include: programming languages, software process, mandatory standards/patterns, use of development tools, class library, etc._
 
+The application is going to be developed in Java using the IDE IntelliJ.
+The application graphical interface is to be developed in JavaFX 11.
+
 ### Implementation Constraints
 
 _Specifies or constraints the code or construction of a system such
 such as:
- 1- implementation languages - The application will support portuguese and english.
+
+Implementation languages - The application will support portuguese and english.
 
 mandatory standards/patterns, database integrity, resource limits, operating system._
 
-(fill in here)
 
 
 ### Interface Constraints
