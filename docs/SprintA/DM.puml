@@ -48,10 +48,17 @@ class MassVaccinationCenter extends VaccinationCenter {
 
 }
 
-class Nurse {
+class Nurse extends Person{
 
 }
 
+class Person{
+-name : String
+}
+class Administrator extends Person{
+}
+
+Administrator "1" -- "*" Vaccine : configures and manages
 Nurse "1" -- "*" Vaccine : administers >
 
 
