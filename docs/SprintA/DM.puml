@@ -1,29 +1,37 @@
 @startuml
 'https://plantuml.com/class-diagram
 
-class Vaccine {
--brand : String
+
+class Admin {
 
 }
 
-
-class DosageScheme {
--numberOfDoses : int
--dosage : int
--age : int
--intervalBetweenVaccines : int
+class User {
+SNSNumber : int
 }
 
-Vaccine "1  " -- "1" DosageScheme : has a >
+class Receptionist {
 
-class TypeOfVaccine {
--virus : String
 }
 
-Vaccine "*" -- "1 " TypeOfVaccine : is of >
+class Nurse {
+
+}
+
+class CenterCoordinator {
+
+}
+
+Admin "1" -- "1" User : configures and manages  >
+Admin "1" - "1" Nurse : configures and manages >
+Admin "1" -l- "1" Receptionist : configures and manages >
+Admin "1" -- "1" VaccinatonCenter : configures and manages >
+Admin "1" -up-- "1" CenterCoordinator : configures and manages >
+Admin "1" -right-- "*" TypeOfVaccine : configures and manages >
+Admin -- Vaccine
 
 
-class VaccinationCenter {
+class VaccinatonCenter {
 -name : String
 -address : String
 -phoneNumber : int
@@ -37,71 +45,68 @@ class VaccinationCenter {
 -coordinator : Coordinator
 }
 
-Vaccine "*" -- "1" VaccinationCenter : is administred on >
-class HealthcareCenter extends VaccinationCenter {
--ARS : String
--AGES : String
-}
-
-class MassVaccinationCenter extends VaccinationCenter {
+class MassVaccinationCenter extends VaccinatonCenter {
 
 }
 
-class Nurse extends ApplicationUser{
-
+class HealthcareCenter extends VaccinatonCenter {
+ARE : String
+AGES : String
 }
 
-class ApplicationUser{
--password : String
+class Vaccine {
+brand : String
 }
 
-class Administrator extends ApplicationUser{
-
+class DosageScheme {
+-numberOfDoses : int
+-dosage : int
+-age : int
+-intervalBetweenVaccines : int
 }
 
-class Receptionist extends ApplicationUser {
-
-}
-
-class CenterCoordinator extends ApplicationUser {
-
-}
-
-class SnsUser extends ApplicationUser {
-snsUserNumber : int
-}
-
-class Application {
-
-}
-
-' Da para usar u - d -r - l dentro dos traços para design
-
-Application "1" ---- "*" Administrator : is managed by >
-Administrator "" ---- "" CenterCoordinator : configures and manages >
-Administrator "" ---- "" VaccinationCenter : configures and manages >
-Administrator "" ---- "" TypeOfVaccine : configures and manages >
-Administrator "" ---- "" Vaccine : configures and manages >
-Administrator "" ---- "" Nurse : configures and manages >
-Administrator "" ---- "" Receptionist : configures and manages >
-Nurse "1" ---- "*" Vaccine : administers >
-'DUVIDA
-SnsUser "" ---- "" VaccineAppointment : schedules >
-
-SnsUser "*" ---- "1" Application : Requests authorization to send SMS <
-Receptionist "1" -- "*" VaccineAppointment :schedules >
-Receptionist "1" -- "*" VaccineAppointment :confirms >
-
-Nurse "*" --  "1" WaitingList : checks >
-
-class VaccineAppointment {
-
-}
-
-class WaitingList {
-
+class TypeOfVaccine {
+virus : String
 }
 
 
+Vaccine "1" -- "*" DosageScheme : has a >
+TypeOfVaccine "1" -- "*" Vaccine :is of >
+Vaccine "1" --- "*" VaccinatonCenter : is administered on >
+
+class DigitalCertificate
+
+Nurse "1" -left "*" DigitalCertificate : Delivers >
+User "1" -- "*" DigitalCertificate : Requests >
+
+class ScheduleVaccine
+
+User "*" -- "*" ScheduleVaccine
+Receptionist "*" - "*" ScheduleVaccine
+
+
+class AppointmentList
+
+Receptionist "1" -l- "*" AppointmentList : checks >
+
+
+class UsersReady
+
+Receptionist -- UsersReady : atualizes >
+Nurse -- UsersReady : checks >
+
+
+class VaccineInformation
+class AdverseReactions
+
+left to right direction
+
+VaccineInformation "*" - "*" AdverseReactions
+(VaccineInformation, AdverseReactions) . Nurse : registers
+
+
+class ManageVaccinationProcess
+
+CenterCoordinator "1" -- "1" ManageVaccinationProcess : has to >
 
 @enduml
