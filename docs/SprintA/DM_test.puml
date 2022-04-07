@@ -1,0 +1,116 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+left to right direction
+
+class ApplicationUser
+
+ApplicationUser <|- User
+ApplicationUser <|- Nurse
+ApplicationUser <|-left- Receptionist
+ApplicationUser <|- Admin
+ApplicationUser <|-- CenterCoordinator
+
+class Admin
+
+class User {
+==-SnsNumber : int
+}
+
+class Receptionist
+
+class Nurse
+
+class CenterCoordinator
+
+Admin "1" -- "1" User : configures and manages  >
+Admin "1" - "1" Nurse : configures and manages >
+Admin "1" -l- "1" Receptionist : configures and manages >
+Admin "1" -- "1" VaccinatonCenter : configures and manages >
+Admin "1" -up-- "1" CenterCoordinator : configures and manages >
+Admin "1" -right-- "*" TypeOfVaccine : configures and manages >
+Admin -- Vaccine
+
+
+class VaccinatonCenter {
+==-name : String
+==-address : String
+==-phoneNumber : int
+==-emailAddress : String
+==-faxNumber : int
+==-websiteAddress : String
+==-openingHour : int
+==-closingHour : int
+==-slotDuration : int
+==-vaccinesPerSlot : int
+==-coordinator : Coordinator
+}
+
+class MassVaccinationCenter extends VaccinatonCenter {
+
+}
+
+class HealthcareCenter extends VaccinatonCenter {
+==-ARE : String
+==-AGES : String
+}
+
+class Vaccine {
+==-brand : String
+}
+
+class DosageScheme {
+==-numberOfDoses
+==-dosage
+== -age
+==-intervalBetweenVaccines
+}
+
+class TypeOfVaccine {
+==-virus : String
+}
+
+
+Vaccine "1" -- "*" DosageScheme : has a >
+TypeOfVaccine "1" -- "*" Vaccine :is of >
+Vaccine "1" --- "*" VaccinatonCenter : is administered on >
+
+class DigitalCertificate
+
+Nurse "1" -left "*" DigitalCertificate : delivers >
+User "1" -- "*" DigitalCertificate : requests >
+
+class ScheduleAppointment
+
+User "*" -- "*" ScheduleAppointment : schedules >
+Receptionist "*" - "*" ScheduleAppointment : schedules and confirms >
+
+
+class UsersReady
+class UserInfo
+
+Receptionist - UsersReady : atualizes >
+Nurse -- UsersReady : checks >
+Nurse - Vaccine : administers >
+Nurse -- UserInfo : checks >
+
+class VaccineInformation
+class AdverseReactions
+
+VaccineInformation "*" - "*" AdverseReactions
+(VaccineInformation, AdverseReactions) - Nurse : registers
+
+
+class ManageVaccinationProcess
+
+CenterCoordinator "1" -- "1" ManageVaccinationProcess : has to >
+CenterCoordinator -- VaccinatonCenter : is coordinator by <
+
+class Application
+class EntriesAndExits
+
+Application -- User : Requests authorization to send SMS >
+Application -- User : Notify >
+Application -up- EntriesAndExits : Generates >
+
+@enduml
