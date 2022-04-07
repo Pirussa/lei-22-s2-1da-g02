@@ -123,7 +123,7 @@ Iterative Development".
 
 **Documents mentioned/used to perform some work/**
 
-* Reports, Vaccination History, Vaccination Certificate
+* Reports, Vaccination History, Vaccination Certificate, Dosage Scheme
 
 ---
 
