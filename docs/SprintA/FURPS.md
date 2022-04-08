@@ -13,17 +13,19 @@ _Specifies functionalities that:_
 | Language    | Allows the user to change the main language in the aplication | 
 | Message Delivering   | Send a message to confirm the scheduling of a vaccine | 
 | Digital Vaccination Certificate     | Request the digital vaccination certificate at any given time | 
-| Account Creation    | Allows the user to create an account  | 
+| Password    | Each user must be authenticated with a password |
 | Log-in     | The user can log-in to the account previously created |
+
+
 
 ## Usability 
 
 _Evaluates the user interface. It has several subcategories,
 among them: error prevention; interface aesthetics and design; help and
-documentation; consistency and standards._
+documentation; consistency and standards._   
 
+* Javadoc should be used to generate useful documentation for Java code;
 
-(fill in here)
 
 ## Reliability
 
@@ -40,15 +42,15 @@ _Evaluates the performance requirements of the software, namely: response time, 
 (fill in here)
 
 ## Supportability
-_The supportability requirements gathers several characteristics, such as:
+_The supportability requirements gathers several characteristics, such as:_
 
-Testability - Every method, beside Input/Output operations methods,  will have a unit test using JUnit 5;
-Adaptability - The software application should also  e conceived having in mind that it can be further commercialized to other companies and/or organizations and/or healthcare systems besides DGS;
-Maintainability - Due to the testing and the OOP that must be implemented in the application, the maintenance will be easier and much more organized;
-Compatibility -The application should be capable of managing other future pandemic events requiring a massive vaccination of the people;
-Configurability - 
-Installability - 
-Scalability - 
+* Testability - Every method, beside Input/Output operations methods,  will have a unit test using JUnit 5;
+* Adaptability - The software application should also  e conceived having in mind that it can be further commercialized to other companies and/or organizations and/or healthcare systems besides DGS;
+* Maintainability - Due to the testing and the OOP that must be implemented in the application, the maintenance will be easier and much more organized;
+* Compatibility -The application should be capable of managing other future pandemic events requiring a massive vaccination of the people;
+* Configurability -
+* Installability - 
+* Scalability - 
 
 
 ## +
@@ -57,17 +59,19 @@ Scalability -
 
 _Specifies or constraints the system design process. Examples may include: programming languages, software process, mandatory standards/patterns, use of development tools, class library, etc._
 
-The application is going to be developed in Java using the IDE IntelliJ.
-The application graphical interface is to be developed in JavaFX 11.
+* The application is going to be developed in Java using the IDE IntelliJ.
+* The application graphical interface is to be developed in JavaFX 11.
 
 ### Implementation Constraints
 
 _Specifies or constraints the code or construction of a system such
 such as:
 
-Implementation languages - The application will support portuguese and english.
-
-mandatory standards/patterns, database integrity, resource limits, operating system._
+* Implementation languages - The application will support portuguese and english;
+* Mandatory standards/patterns -
+* Database integrity -
+* Resource limits -
+* Operating system -
 
 
 
