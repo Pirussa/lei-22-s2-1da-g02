@@ -7,17 +7,15 @@ _Specifies functionalities that:_
 - _are common across several US/UC;_
 - _are not related to US/UC, namely: Audit, Reporting and Security._
 
-<<<<<<< HEAD
 
-=======
-| Function                             | Description                                                                                                                
-|:-------------------------------------|:---------------------------------------------------------------------------------------------------|
-| Language                             | Allows the user to change the main language in the aplication                                      |
-| Message Delivering                   | Send a message to confirm the scheduling of a vaccine                                              |
-| Digital Vaccination Certificate      | Request the digital vaccination certificate at any given time                                      |
-| Account Creation                     | Allows the user to create an account                                                               |
-| Log-in                               |   The user can log-in to the account previously created                                            |
-|                                      |                                                                                                    |
+| Function   | Description   |
+| ---- | ----------- | 
+| Language    | Allows the user to change the main language in the aplication | 
+| Message Delivering   | Send a message to confirm the scheduling of a vaccine | 
+| Digital Vaccination Certificate     | Request the digital vaccination certificate at any given time | 
+| Account Creation    | Allows the user to create an account  | 
+| Log-in     | The user can log-in to the account previously created |
+
 ## Usability 
 
 _Evaluates the user interface. It has several subcategories,
