@@ -1,0 +1,19 @@
+@startuml
+
+autonumber
+actor "Receptionist" as R
+
+activate R
+R -> ":System" : asks to register a User
+activate ":System"
+":System" --> R : requests data (user's name, user's email, user's password,\n role id associated with an SNS user)
+deactivate ":System"
+
+R -> ":System" : types requested data
+activate ":System"
+":System" --> R : informs operation success
+deactivate ":System"
+
+deactivate R
+
+@enduml
