@@ -1,0 +1,127 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+left to right direction
+
+class ApplicationUser {
+==-password
+}
+
+class Administrator
+
+class SnsUser {
+==-SnsUserNumber
+}
+
+ApplicationUser <|--- SnsUser
+ApplicationUser <|-- Nurse
+ApplicationUser <|-left- Receptionist
+ApplicationUser <|- Administrator
+ApplicationUser <|--- CenterCoordinator
+
+
+class Receptionist
+
+class Nurse
+
+class CenterCoordinator
+
+class Employee
+
+class ListOfEmployess
+
+Administrator "*" -- "*" SnsUser : configures and manages  >
+Administrator "*" -- "*" VaccinatonCenter : configures and manages >
+Administrator "*" -up-- "*" CenterCoordinator : configures and manages >
+Administrator "*" -- "*" TypeOfVaccine : configures and manages >
+Administrator "*" -- "*" Vaccine
+Administrator "1" -- "*" Employee : configures and manages >
+Administrator "1" - "1" ListOfEmployess : checks >
+
+Employee <|- Nurse
+Employee <|- Receptionist
+
+Receptionist "1" - "*" SnsUser : creates >
+
+
+class VaccinatonCenter {
+==-name
+==-address
+==-phoneNumber
+==-emailAddress
+==-faxNumber
+==-websiteAddress
+==-openingHour
+==-closingHour
+==-slotDuration
+==-vaccinesPerSlot
+==-coordinator
+ }
+
+class MassVaccinationCenter extends VaccinatonCenter {
+
+}
+
+class HealthcareCenter extends VaccinatonCenter {
+==-ARE
+==-AGES
+}
+
+class Vaccine {
+==-brand
+}
+
+class DosageScheme {
+==-numberOfDoses
+==-dosage
+== -age
+==-intervalBetweenVaccines
+}
+
+class TypeOfVaccine {
+==-virus
+}
+
+
+Vaccine "1" -- "1" DosageScheme : has a >
+TypeOfVaccine "*" -- "1" Vaccine :is of <
+Vaccine "*" --- "1" VaccinatonCenter : is administered on >
+
+class DigitalCertificate
+
+Nurse "1" -left "*" DigitalCertificate : delivers >
+SnsUser "1" -- "1" DigitalCertificate : requests >
+
+class VaccineAppointment
+
+SnsUser "1" -- "*" VaccineAppointment : schedules >
+Receptionist "1" - "*" VaccineAppointment : schedules and confirms >
+
+
+class UsersWaitingList
+class UserInfo
+
+Receptionist "*" - "1" UsersWaitingList : atualizes >
+Nurse "*" -- "1" UsersWaitingList : checks >
+Nurse "1" -- "*" Vaccine : administers >
+Nurse "1" --  "*" UserInfo : checks >
+
+class GivenVaccine
+class AdverseReactions
+
+GivenVaccine "*" - "*" AdverseReactions
+(GivenVaccine, AdverseReactions) - Nurse : registers
+
+
+class ManageVaccinationProcess
+
+CenterCoordinator "1" -- "1" ManageVaccinationProcess : has to >
+CenterCoordinator "1" -- "1" VaccinatonCenter : is coordinated by <
+
+class Application
+class EntriesAndExitsList
+
+Application "1" -- "*" SnsUser : requests authorization to send SMS >
+Application "1" -- "*" SnsUser : notify >
+Application "1" -up- "*" EntriesAndExitsList : generates >
+@enduml
