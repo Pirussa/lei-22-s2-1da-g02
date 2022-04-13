@@ -1,30 +1,28 @@
-# US 003 - Register a SNS user
+# US 003 - Specify a new vaccine and its administration process
 
 ## 1. Requirements Engineering
 
-
-
 ### 1.1. User Story Description
 
-As a **receptionist**, I want to register an **SNS User**.
+As an **administrator**, I want to register a **new vaccine and its administration process**.
 
 ### 1.2. Customer Specifications and Clarifications 
 
 **From the specifications document:**
 
-> No information about a receptionist registering a user was found in the document.
+> [...] it is worth noticing that for each type of vaccine, several vaccines might exist, each one demanding a distinct administration process.
 
-
+> The vaccine administration process comprises (i) one or more age groups (e.g.: 5 to 12 years old, 13 to 18 years old, greater than 18 years old), and (ii) per age group, the doses to be administered (e.g.: 1, 2, 3), the vaccine dosage (e.g.: 30 ml), and the time interval regarding the previously administered dose. Regarding this, it is important to notice that between doses (e.g.: between the 1st and 2nd doses) the dosage to be administered might vary as well as the time interval elapsing between two consecutive doses (e.g.: between the 1st and 2nd doses 21 days might be required, while between the 2nd and the 3rd doses 6 months might be required).
 
 **From the client clarifications:**
 
-> **Question:** What information should the receptionist needs to input to register an SNS user?
+> **Question:**
 >
-> **Answer:** 
+> **Answer:**
 
 ### 1.3. Acceptance Criteria
 
-**AC1:** The SNS user must become a system user. 
+There is no acceptance criteria.
 
 ### 1.4. Found out Dependencies
 
@@ -34,34 +32,31 @@ No dependencies were found.
 
 **Input Data:**
 
-- User's name;
-- User's email;
-- User's password;
-- Role id associated with an SNS user;
+- Name of the new vaccine;
+- Number of age groups;
+- Age limits for each age group;
+- Number of doses, per age group;
+- Vaccine dosage ( e.g.: 30 ml);
+- Time interval between vaccines, considering the dose number given previously;
 
 **Output Data:**
 
 * (In)Success of the operation
 
-
-
 ### 1.6. System Sequence Diagram (SSD)
 
-
-![US003_SSD](US003_SSD.svg)
+![US013_SSD](US013_SSD.svg)
 
 
 ### 1.7 Other Relevant Remarks
 
-This US must use the "Auth" component present in the repository. 
+No other relevant remarks.
 
 ## 2. OO Analysis
 
-### 2.1. Relevant Domain Model Excerpt 
+### 2.1. Relevant Domain Model Excerpt
 
-*In this section, it is suggested to present an excerpt of the domain model that is seen as relevant to fulfill this requirement.* 
-
-![USXXX-MD](USXXX-MD.svg)
+![US013_DM](US013_DM.svg)
 
 ### 2.2. Other Remarks
 
@@ -112,37 +107,4 @@ Other software classes (i.e. Pure Fabrication) identified:
 *In this section, it is suggested to present an UML static view representing the main domain related software classes that are involved in fulfilling the requirement as well as and their relations, attributes and methods.*
 
 ![USXXX-CD](USXXX-CD.svg)
-
-# 4. Tests 
-*In this section, it is suggested to systematize how the tests were designed to allow a correct measurement of requirements fulfilling.* 
-
-**_DO NOT COPY ALL DEVELOPED TESTS HERE_**
-
-**Test 1:** Check that it is not possible to create an instance of the Example class with null values. 
-
-	@Test(expected = IllegalArgumentException.class)
-		public void ensureNullIsNotAllowed() {
-		Exemplo instance = new Exemplo(null, null);
-	}
-
-*It is also recommended to organize this content by subsections.* 
-
-# 5. Construction (Implementation)
-
-*In this section, it is suggested to provide, if necessary, some evidence that the construction/implementation is in accordance with the previously carried out design. Furthermore, it is recommeded to mention/describe the existence of other relevant (e.g. configuration) files and highlight relevant commits.*
-
-*It is also recommended to organize this content by subsections.* 
-
-# 6. Integration and Demo 
-
-*In this section, it is suggested to describe the efforts made to integrate this functionality with the other features of the system.*
-
-
-# 7. Observations
-
-*In this section, it is suggested to present a critical perspective on the developed work, pointing, for example, to other alternatives and or future related work.*
-
-
-
-
 
