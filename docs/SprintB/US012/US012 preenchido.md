@@ -45,30 +45,29 @@ As an administrator, I intend to specify a new vaccine type
 * There is a dependency to "US013 Specify a new vaccine" since every vaccine has a type.
 
 ### 1.5 Input and Output Data
+ 
+**Input**
++ name
 
 
-**Input Data:**
-  
-**No information was given in this field.**
+**Output**
++ (In)success of the operation
+
 
 ### 1.6. System Sequence Diagram (SSD)
 
 ![US12_SSD](US012_SSD.svg)
 
 
-
-**Other alternatives might exist.**
-
 ### 1.7 Other Relevant Remarks
 
-* The created task stays in a "not published" state in order to distinguish from "published" tasks.
-
+**No information was given in this field**
 
 ## 2. OO Analysis
 
 ### 2.1. Relevant Domain Model Excerpt 
 
-![US006_MD](US006_MD.svg)
+![US012_MD](US012_MD.svg)
 
 ### 2.2. Other Remarks
 
@@ -81,24 +80,24 @@ n/a
 
 **SSD - Alternative 1 is adopted.**
 
-| Interaction ID | Question: Which class is responsible for... | Answer  | Justification (with patterns)  |
-|:-------------  |:--------------------- |:------------|:---------------------------- |
-| Step 1  		 |	... interacting with the actor? | CreateTaskUI   |  Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model.           |
-| 			  		 |	... coordinating the US? | CreateTaskController | Controller                             |
-| 			  		 |	... instantiating a new Task? | Organization   | Creator (Rule 1): in the DM Organization has a Task.   |
-| 			  		 | ... knowing the user using the system?  | UserSession  | IE: cf. A&A component documentation.  |
-| 			  		 |	... knowing to which organization the user belongs to? | Platform  | IE: has registed all Organizations |
-| 			  		 |							 | Organization   | IE: knows/has its own Employees|
-| 			  		 |							 | Employee  | IE: knows its own data (e.g. email) |
-| Step 2  		 |							 |             |                              |
-| Step 3  		 |	...saving the inputted data? | Task  | IE: object created in step 1 has its own data.  |
-| Step 4  		 |	...knowing the task categories to show? | Platform  | IE: Task Categories are defined by the Platform. |
-| Step 5  		 |	... saving the selected category? | Task  | IE: object created in step 1 is classified in one Category.  |
-| Step 6  		 |							 |             |                              |              
-| Step 7  		 |	... validating all data (local validation)? | Task | IE: owns its data.| 
-| 			  		 |	... validating all data (global validation)? | Organization | IE: knows all its tasks.| 
-| 			  		 |	... saving the created task? | Organization | IE: owns all its tasks.| 
-| Step 8  		 |	... informing operation success?| CreateTaskUI  | IE: is responsible for user interactions.  | 
+| Interaction ID | Question: Which class is responsible for...             | Answer                | Justification (with patterns)  |
+|:-------------  |:--------------------------------------------------------|:----------------------|:---------------------------- |
+| Step 1  		 |	... interacting with the actor?                        | CreateTaskUI          |  Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model.           |
+| 				 |	... coordinating the US?                               | CreateTaskController  | Controller                             |
+| 				 |	... instantiating a new Task?                          | Organization          | Creator (Rule 1): in the DM Organization has a Task.   |
+| 				 |  ... knowing the user using the system?                 | UserSession           | IE: cf. A&A component documentation.  |
+| 				 |	... knowing to which organization the user belongs to? | Platform              | IE: has registed all Organizations |
+| 				 |							                               | Organization          | IE: knows/has its own Employees|
+| 			  	 |							                               | Employee              | IE: knows its own data (e.g. email) |
+| Step 2  		 |							                               |                       |                              |
+| Step 3  		 |	...saving the inputted data?                           | Task                  | IE: object created in step 1 has its own data.  |
+| Step 4  		 |	...knowing the task categories to show?                | Platform              | IE: Task Categories are defined by the Platform. |
+| Step 5  		 |	... saving the selected category?                      | Task                  | IE: object created in step 1 is classified in one Category.  |
+| Step 6  		 |							                               |                       |                              |              
+| Step 7  		 |	... validating all data (local validation)?            | Task                  | IE: owns its data.| 
+| 			  	 |	... validating all data (global validation)?           | Organization          | IE: knows all its tasks.| 
+| 			  	 |	... saving the created task?                           | Organization          | IE: owns all its tasks.| 
+| Step 8  		 |	... informing operation success?                       | CreateTaskUI          | IE: is responsible for user interactions.  | 
 
 ### Systematization ##
 
