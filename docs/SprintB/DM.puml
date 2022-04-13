@@ -5,6 +5,9 @@ left to right direction
 
 class ApplicationUser {
 ==-password
+==-name
+==-email
+==-role
 }
 
 class Administrator
@@ -41,7 +44,7 @@ Administrator "1" - "1" ListOfEmployess : checks >
 Employee <|- Nurse
 Employee <|- Receptionist
 
-Receptionist "1" - "*" SnsUser : creates >
+'Receptionist "1" - "*" SnsUser : creates >
 
 
 class VaccinatonCenter {
@@ -71,7 +74,7 @@ class Vaccine {
 ==-brand
 }
 
-class DosageScheme {
+class AdministrationProcess {
 ==-numberOfDoses
 ==-dosage
 == -age
@@ -83,7 +86,7 @@ class TypeOfVaccine {
 }
 
 
-Vaccine "1" -- "1" DosageScheme : has a >
+Vaccine "1" -- "1" AdministrationProcess : has a >
 TypeOfVaccine "*" -- "1" Vaccine :is of <
 Vaccine "*" --- "1" VaccinatonCenter : is administered on >
 
