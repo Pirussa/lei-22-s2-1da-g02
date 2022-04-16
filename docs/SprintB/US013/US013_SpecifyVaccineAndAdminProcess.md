@@ -1,4 +1,4 @@
-# US 003 - Specify a new vaccine and its administration process
+# US 013 - Specify a new vaccine and its administration process
 
 ## 1. Requirements Engineering
 
@@ -60,9 +60,7 @@ No other relevant remarks.
 
 ### 2.2. Other Remarks
 
-*Use this section to capture some aditional notes/remarks that must be taken into consideration into the design activity. In some case, it might be usefull to add other analysis artifacts (e.g. activity or state diagrams).* 
-
-
+No other relevant remarks.
 
 ## 3. Design - User Story Realization 
 
@@ -72,29 +70,25 @@ No other relevant remarks.
 
 | Interaction ID | Question: Which class is responsible for... | Answer  | Justification (with patterns)  |
 |:-------------  |:--------------------- |:------------|:---------------------------- |
-| Step 1  		 |							 |             |                              |
-| Step 2  		 |							 |             |                              |
-| Step 3  		 |							 |             |                              |
-| Step 4  		 |							 |             |                              |
-| Step 5  		 |							 |             |                              |
-| Step 6  		 |							 |             |                              |              
-| Step 7  		 |							 |             |                              |
-| Step 8  		 |							 |             |                              |
-| Step 9  		 |							 |             |                              |
-| Step 10  		 |							 |             |                              |  
-
+| Step 1  		 |	... interacting with the actor? | SpecifyVaccineAndAdminProcessUI   |  Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model.   |
+| 			  		 |	... coordinating the US? | SpecifyVaccineAndAdminProcessController | **Controller**  |
+| Step 2	 |	... instantiating a new Vaccine  | Company | **Creator**: R1  |
+| Step 3	 |	... instantiating a new Administration Process | Company/Vaccine |**Creator**: R1  |
+| Step 4  		 |	...saving the inputted data for the Vaccine (name) ? | Vaccine | IE: A Vaccine has its own data |
+| Step 5  		 |	...saving the inputted data for the Administration Process? | AdministrationProcess  | IE: An Administration Process has its own data |
+| Step 6  |	... informing operation success | SpecifyVaccineAndAdminProcessUI  | **IE:** is responsible for user interactions  | 
 
 ### Systematization ##
 
 According to the taken rationale, the conceptual classes promoted to software classes are: 
 
- * Class1
- * Class2
- * Class3
+ * Vaccine
+ * AdministrationProcess
+ * Company (already implemented)
 
 Other software classes (i.e. Pure Fabrication) identified: 
- * xxxxUI  
- * xxxxController
+* SpecifyVaccineAndAdminProcessUI
+* SpecifyVaccineAndAdminProcessController
 
 ## 3.2. Sequence Diagram (SD)
 
