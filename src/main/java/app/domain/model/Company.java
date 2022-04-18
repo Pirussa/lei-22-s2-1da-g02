@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
  *
  * @author Paulo Maio <pam@isep.ipp.pt>
  */
+
 public class Company {
 
     private String designation;
@@ -27,5 +28,9 @@ public class Company {
 
     public AuthFacade getAuthFacade() {
         return authFacade;
+    }
+
+    public void specifyNewVaccine(String name){
+        Vaccine vaccine = new Vaccine(name);
     }
 }
