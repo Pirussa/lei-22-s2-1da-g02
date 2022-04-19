@@ -33,4 +33,6 @@ public class Company {
     public void specifyNewVaccine(String name){
         Vaccine vaccine = new Vaccine(name);
     }
+
+    public void specifyNewVaccineType(String type) { VaccineType vaccineType = new VaccineType(type); }
 }
