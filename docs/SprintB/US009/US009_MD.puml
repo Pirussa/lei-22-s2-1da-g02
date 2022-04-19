@@ -1,9 +1,6 @@
 @startuml
 'https://plantuml.com/class-diagram
-
-class Administrator{
-
-}
+!pragma layout smetana
 
 class VaccinationCenter{
 ==-name
@@ -16,10 +13,9 @@ class VaccinationCenter{
 ==-closingHour
 ==-slotDuration
 ==-vaccinesPerSlot
-==-coordinator
 }
 
-Administrator "*" -- "*" VaccinationCenter : configures and manages >
+class Coordinator
 
 class MassVaccinationCenter extends VaccinationCenter{
 
@@ -29,5 +25,7 @@ class HealthcareCenter extends VaccinationCenter{
 ==-ARE
 ==-AGES
 }
+
+VaccinationCenter "1" --- "1" Coordinator: has
 
 @enduml
