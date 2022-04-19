@@ -6,7 +6,7 @@
 ### 1.1. User Story Description
 
 
-As a receptionist, I want to register a SNS user.
+As a receptionist, I want to register an SNS user.
 
 
 ### 1.2. Customer Specifications and Clarifications 

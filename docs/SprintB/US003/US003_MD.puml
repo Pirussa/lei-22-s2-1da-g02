@@ -1,0 +1,14 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Receptionist
+
+class SnsUser {
+==-name
+==-email
+==-password
+}
+
+Receptionist "1" --- "*" SnsUser: creates
+
+@enduml
