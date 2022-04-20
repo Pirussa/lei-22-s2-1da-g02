@@ -1,4 +1,4 @@
-# US 006 - To register a SNS user
+# US 03 - To register a SNS user
 
 ## 1. Requirements Engineering
 
@@ -11,27 +11,7 @@ As a receptionist, I want to register an SNS user.
 
 ### 1.2. Customer Specifications and Clarifications 
 
-
-**From the specifications document:**
-
->	Each task is characterized by having a unique reference per organization, a designation, an informal and a technical description, an estimated duration and cost as well as the its classifying task category. 
-
-
->	As long as it is not published, access to the task is exclusive to the employees of the respective organization. 
-
-
-
-**From the client clarifications:**
-
-> **Question:** Which is the unit of measurement used to estimate duration?
->  
-> **Answer:** Duration is estimated in days.
-
--
-
-> **Question:** Monetary data is expressed in any particular currency?
->  
-> **Answer:** Monetary data (e.g. estimated cost of a task) is indicated in POTs (virtual currency internal to the platform).
+No specifications nor clarifications were given.
 
 
 ### 1.3. Acceptance Criteria
@@ -90,10 +70,10 @@ No other relevant remarks.
 
 | Interaction ID | Which class responsible for...           | Answer               | Justification                                                                                                 |
 |:---------------|:-----------------------------------------|:---------------------|:--------------------------------------------------------------------------------------------------------------|
-| Step 1         | ...interatctin with the actor?           | CreateUserUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. |
+| Step 1         | ...interacting with the actor?           | CreateUserUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. |
 |                | ...coordinating the US                   | CreateUserController | **Controller**                                                                                                |
 | Step 2         | ...instantiating a new User              | Company              | **Creator**                                                                                                   |
-| Step 3         | ...saving the inputted data for the User | Administrator        | IE: An Administrator configures and manages the data                                                          |
+| Step 3         | ...saving the inputted data for the User | VaccineType          | IE: An Administrator configures and manages the data                                                          |
 | Step 4         | ...informing operation success           | CreateUserUI         | IE: is responsible for user interactions                                                                      |
 
  
@@ -101,26 +81,25 @@ No other relevant remarks.
 
 According to the taken rationale, the conceptual classes promoted to software classes are: 
 
- * Administrator
- * Platform
- * Task
+* Administrator → Company
 
 Other software classes (i.e. Pure Fabrication) identified: 
 
- * CreateTaskUI  
- * CreateTaskController
+ * CreateUserUI  
+ * CreateUserController
+ * VaccineType
+ * CreateUserUI
 
 
 ## 3.2. Sequence Diagram (SD)
 
-![US006_SD](US006_SD.svg)
+![US003_SD](US003_SD.svg)
 
 
 ## 3.3. Class Diagram (CD)
 
-**From alternative 1**
 
-![US006_CD](US006_CD.svg)
+![US006_CD](US003_CD.svg)
 
 
 

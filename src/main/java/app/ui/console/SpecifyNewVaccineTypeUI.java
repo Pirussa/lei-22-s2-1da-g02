@@ -11,7 +11,7 @@ import app.ui.console.utils.Utils;
 
 
 public class SpecifyNewVaccineTypeUI implements Runnable {
-    private SpecifyNewVaccineTypeController ctrl;
+    private SpecifyNewVaccineTypeController ctrl = new SpecifyNewVaccineTypeController();
 
     public SpecifyNewVaccineTypeUI() {}
 
@@ -20,27 +20,37 @@ public class SpecifyNewVaccineTypeUI implements Runnable {
         System.out.println();
         System.out.println("------Specify Vaccine Type------");
         System.out.println();
-        String type = Utils.readLineFromConsole("What's the vaccine type?");
 
-        if (typeName())
-            System.out.println("New Vaccine Type added");
+        String type = createVaccineType();
+        String answer = Utils.readLineFromConsole("The chosen name is valid. Confirm (yes/no)");
+// CORREÇÃO, NÃO É SUPOSTO PASSAR COMO PARAMETRO UMA STRING MAS SIM O OBJETO VACCINETYPE
+        if (answer.equals("yes")) {
+            ctrl.saveVaccineType(type);
+            System.out.println("Vaccine Type added");
+        }
+
+        else
+            System.out.println("");
+
+
     }
 
-    public boolean typeName() {
-        boolean validType = false;
+    public String createVaccineType() {
+        boolean creation;
+        String type;
 
         do {
-            String type = Utils.readLineFromConsole("What's the vaccine type?");
+            type = Utils.readLineFromConsole("What's the vaccine type?");
 
-            validType = ctrl.validateType(type);
+            creation = ctrl.createVaccineType(type);
 
-            if (validType)
+            if (!creation)
                 System.out.println("Invalid Vaccine Type. Introduce it again");
 
-        } while(!validType);
-
-        return validType;
+        } while(!creation);
+        return type;
     }
+
 
 //    System.out.println("\nLogin UI:");
 //

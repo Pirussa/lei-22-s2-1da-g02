@@ -1,104 +1,58 @@
 @startuml
 autonumber
 'hide footbox
-actor "Receptionist" as ADM
+actor "Administrator" as A
 
-participant ":CreateUserUI" as UI
-participant ":CreateUserController" as CTRL
-participant "Company"
-participant "app\n:ApplicationPOT" as APP
-participant "session\n:UserSession" as SESSAO
-participant ":Platform" as PLAT
-participant "org\n:Organization" as ORG
-participant "task\n:Task" as TAREFA
-participant "cat\n:Category" as CAT
-participant "lc\n:List<Category>" as LIST_CAT
+participant ":SpecifyNewVaccineTypeUI" as UI
+participant ":SpecifyNewVaccineTypeController" as CTRL
+participant ":Company" as C
+participant ":VaccineType" as VT
 
-activate ADM
-ADM -> UI : asks to create a new task
+activate A
+A -> UI : asks to create a new vaccine type
 activate UI
-UI --> ADM : requests data (reference, designation,  informal \n description, technical description, duration, cost)
+UI --> A : requests data (type)
 deactivate UI
 
-ADM -> UI : types requested data
+A -> UI : types requested data
 activate UI
 
-UI -> CTRL : lc=getTaskCategories()
+UI -> CTRL : createVaccineType(type)
 activate CTRL
 
-CTRL -> PLAT : lc=getTaskCategories()
-activate PLAT
+CTRL -> C : createVaccineType(type)
+activate C
+C --> VT : createVaccineType(type)
+activate VT
+C -> C :  validate data
 |||
-deactivate PLAT
+CTRL --> UI : result
+
+UI --> A: shows all data and requests confirmation
+
+deactivate VT
+deactivate C
 deactivate CTRL
-
-UI --> ADM : shows task categories list and ask to select one
-deactivate PLAT
 deactivate UI
 
-ADM -> UI : selects a task category
+
+A -> UI : confirms the data
 activate UI
-
-UI -> CTRL : createTask(ref,designation,informalDesc,technicalDesc,duration,cost,categoryId)
+UI -> CTRL : saveVaccineType(type)
 activate CTRL
+CTRL -> VT : saveVaccineType(type)
+activate VT
 
-CTRL -> PLAT : cat=getCategoryById(categoryId)
-activate PLAT
-|||
-deactivate PLAT
 
-CTRL -> _APP: app = getInstance()
-activate _APP
-|||
-deactivate _APP
-
-CTRL -> APP: session = getCurrentSession()
-activate APP
-|||
-deactivate APP
-
-CTRL -> SESSAO: email = getUserEmail()
-activate SESSAO
-|||
-deactivate SESSAO
-
-CTRL -> PLAT: org = getOrganizationByUserEmail(email)
-activate PLAT
-|||
-deactivate PLAT
-
-CTRL -> ORG: task=createTask(ref,designation,informalDesc,technicalDesc,duration,cost,cat)
-activate ORG
-
-ORG --> TAREFA**: create(ref,designation,informalDesc,technicalDesc,duration,cost,cat)
-ORG -> ORG: validateTask(task)
+VT -> VT: validateVaccineType(type)
+VT -> VT: saveVaccineType(type)
 
 CTRL --> UI: result
 
-UI --> ADM: shows all data and requests confirmation
-deactivate ORG
-deactivate PLAT
+UI --> A : informs operation success
+
 deactivate CTRL
 deactivate UI
-
-ADM -> UI : confirms the data
-activate UI
-UI -> CTRL : saveTask()
-activate CTRL
-
-CTRL -> ORG : saveTask(task)
-activate ORG
-
-ORG -> ORG: validateTask(task)
-ORG -> ORG: addTask(task)
-
-CTRL --> UI: result
-
-UI --> ADM : informs operation success
-deactivate ORG
-deactivate CTRL
-deactivate UI
-
-deactivate ADM
+deactivate A
 
 @enduml

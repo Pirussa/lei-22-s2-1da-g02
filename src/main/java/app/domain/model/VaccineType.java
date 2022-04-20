@@ -11,29 +11,15 @@ public class VaccineType {
      */
 
     private String type;
-    private List<String> types = new ArrayList<>();
+    private static List<VaccineType> types = new ArrayList<>();
 
     public VaccineType(String type) {
         this.type = type;
     }
 
-    public boolean addVaccineType(String type) {
-        /*
-        • Verificar se é um nome válido, meaning se é null ou blanket
-        • Verificar se já existe
-        • Adicionar
-         */
-
-        if (type == null || type.isBlank()) {
-            return false;
-        }
-
-        for (String s : types)
-            if (type.equals(s))
-                return false;
-
-        types.add(type);
-        return true;
+    public static void saveVaccineType(String type) {
+        VaccineType vaccineType = new VaccineType(type);
+        types.add(vaccineType);
     }
 
 

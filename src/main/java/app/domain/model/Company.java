@@ -34,5 +34,11 @@ public class Company {
         Vaccine vaccine = new Vaccine(name);
     }
 
-    public void specifyNewVaccineType(String type) { VaccineType vaccineType = new VaccineType(type); }
+    public boolean specifyNewVaccineType(String type) {
+        if (type != null && !type.isEmpty())
+            return false;
+
+        VaccineType vaccineType = new VaccineType(type);
+        return true;
+    }
 }
