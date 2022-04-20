@@ -1,0 +1,30 @@
+@startuml
+
+class Administrator
+
+class Employee
+
+class Nurse
+
+class CenterCoordinator
+
+class ApplicationUser {
+==-password
+==-name
+==-email
+==-role
+}
+
+Administrator "1" -d- "*" Employee : configures and manages >
+
+ApplicationUser <|-u- Nurse
+ApplicationUser <|-u- Receptionist
+ApplicationUser <|-u- CenterCoordinator
+
+Employee <|-d- Nurse
+Employee <|-d- Receptionist
+Employee <|-d- CenterCoordinator
+
+
+
+@enduml
