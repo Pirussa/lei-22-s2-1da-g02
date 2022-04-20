@@ -2,6 +2,8 @@
 'https://plantuml.com/class-diagram
 !pragma layout smetana
 
+class Administrator
+
 class VaccinationCenter{
 ==-name
 ==-address
@@ -27,5 +29,6 @@ class HealthcareCenter extends VaccinationCenter{
 }
 
 VaccinationCenter "1" --- "1" Coordinator: has
+Administrator "1" --- "*" VaccinationCenter: creates
 
 @enduml

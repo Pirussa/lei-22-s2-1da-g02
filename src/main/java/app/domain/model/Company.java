@@ -34,6 +34,7 @@ public class Company {
         Vaccine vaccine = new Vaccine(name);
     }
 
+<<<<<<< HEAD
     public boolean specifyNewVaccineType(String type) {
         if (type != null && !type.isEmpty())
             return false;
@@ -41,4 +42,7 @@ public class Company {
         VaccineType vaccineType = new VaccineType(type);
         return true;
     }
+=======
+    public void specifyNewVaccineType(String type) { VaccineType vaccineType = new VaccineType(type); }
+>>>>>>> 6c82577a240c2e95d8569e935a8c6ff64d349c98
 }

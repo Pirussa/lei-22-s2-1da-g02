@@ -1,6 +1,9 @@
 package app.controller;
 
+<<<<<<< HEAD
 import app.domain.model.Company;
+=======
+>>>>>>> 6c82577a240c2e95d8569e935a8c6ff64d349c98
 import app.domain.model.VaccineType;
 
 /**
@@ -10,6 +13,7 @@ import app.domain.model.VaccineType;
 
 public class SpecifyNewVaccineTypeController {
 
+<<<<<<< HEAD
     private Company company;
 
     public boolean createVaccineType(String type) {
@@ -20,4 +24,11 @@ public class SpecifyNewVaccineTypeController {
         VaccineType.saveVaccineType(type);
     }
 
+=======
+    private VaccineType vaccineType;
+
+    public boolean validateType(String type) {
+        return vaccineType.addVaccineType(type);
+    }
+>>>>>>> 6c82577a240c2e95d8569e935a8c6ff64d349c98
 }
