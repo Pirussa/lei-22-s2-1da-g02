@@ -4,9 +4,9 @@ import app.domain.model.AdministrationProcess;
 
 import java.util.ArrayList;
 
-public class AdministrationProcessDto {
+public class VaccineAndAdminProcessDto {
 
-    public AdministrationProcessDto() {
+    public VaccineAndAdminProcessDto() {
     }
 
     public ArrayList<Integer> ageGroups;

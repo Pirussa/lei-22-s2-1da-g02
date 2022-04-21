@@ -1,5 +1,7 @@
 package app.domain.model;
 
+import app.ui.console.VaccineAndAdminProcessDto;
+
 public class Vaccine {
 
 
@@ -12,9 +14,9 @@ public class Vaccine {
 
     private AdministrationProcess adminProcess;
 
-    public Vaccine(String name) {
+    public Vaccine(VaccineAndAdminProcessDto dto) {
         this.name = name;
-
+        this.adminProcess = adminProcess;
     }
 
 

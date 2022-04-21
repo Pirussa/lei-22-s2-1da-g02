@@ -1,5 +1,6 @@
 package app.domain.model;
 
+import app.ui.console.VaccineAndAdminProcessDto;
 import pt.isep.lei.esoft.auth.AuthFacade;
 import org.apache.commons.lang3.StringUtils;
 
@@ -28,10 +29,6 @@ public class Company {
 
     public AuthFacade getAuthFacade() {
         return authFacade;
-    }
-
-    public void specifyNewVaccine(String name){
-        Vaccine vaccine = new Vaccine(name);
     }
 
 
