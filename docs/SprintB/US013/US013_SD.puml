@@ -1,0 +1,86 @@
+@startuml
+
+autonumber
+
+actor Administrator as A
+
+participant ":SpecifyVaccineAndAdminProcessUI" as UI
+participant ":SpecifyVaccineAndAdminProcessController" as CTRL
+participant "administrationProcess\n:AdministrationProcess" as AP
+
+participant "vaccine\n:Vaccine" as V
+participant "vaccineAndAdminProcessDto\n:VaccineAndAdminProcessDto" as DTO
+
+activate A
+A -> UI :asks to specify a new vaccine and its administration process
+activate UI
+UI --> A : requests data (id, name, brand, vaccineType)
+deactivate UI
+
+A -> UI : inputs requested data
+
+activate UI
+
+loop while adding age groups
+ UI --> A : requests data (age limits, number of doses,\n vaccine dosage, time interval between vaccines )
+
+note right
+data for the Administration Process
+end note
+end
+
+deactivate UI
+
+A -> UI : types requested data
+
+activate UI
+UI -> CTRL : specifyNewVaccineAndAdminProcess(vaccineAndAdministrationProcessDto)
+
+activate CTRL
+CTRL -> AP : adminProcess = create(vaccineAndAdministrationProcessDto)
+note over AP, DTO : Several interactions to extract data from DTO.
+
+
+activate AP
+deactivate AP
+
+CTRL -> AP : validateAdministrationProcess(adminProcess)
+activate AP
+deactivate AP
+
+CTRL -> V : vaccine = create(vaccineAndAdministrationProcessDto)
+note over V, DTO : Several interactions to extract data from DTO.
+
+activate V
+deactivate V
+
+CTRL -> V : validateVaccine(vaccine)
+activate V
+deactivate V
+deactivate CTRL
+UI -> A : shows the data and requests confirmation
+deactivate UI
+A -> UI : confirms the data
+activate UI
+UI -> CTRL : saveVaccineAndAdminProcess()
+
+activate CTRL
+CTRL -> AP : saveAdminProcess(adminProcess)
+activate AP
+AP -> AP : addAdminProcess(adminProcess)
+activate AP
+
+deactivate AP
+deactivate AP
+
+CTRL -> V : saveVaccine(vaccine)
+activate V
+V -> V : addVaccine(vaccine)
+activate V
+deactivate V
+deactivate V
+
+UI -> A : informs operation success
+deactivate UI
+deactivate A
+@enduml

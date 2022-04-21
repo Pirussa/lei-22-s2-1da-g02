@@ -7,7 +7,7 @@ activate A
 A -> ":System" : asks to specify a new vaccine
 
 activate ":System"
-":System" --> A : requests data (name of the vaccine)
+":System" --> A : requests data (vaccine type, id, name, brand)
 deactivate ":System"
 
 A -> ":System" : inputs requested data
@@ -17,10 +17,19 @@ activate ":System"
 loop while adding age groups
  ":System" --> A : requests data (age limits, number of doses,\n vaccine dosage, time interval between vaccines )
 end
-
+note right
+information for the Administration Process
+end note
 deactivate ":System"
 
 A -> ":System" : types requested data
+
+activate ":System"
+":System" --> A : shows all data and requests confirmation
+deactivate ":System"
+
+A -> ":System" : confirms the data
+
 activate ":System"
 ":System" --> A : informs operation success
 deactivate ":System"

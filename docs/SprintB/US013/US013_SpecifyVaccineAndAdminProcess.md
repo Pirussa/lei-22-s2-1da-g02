@@ -16,24 +16,29 @@ As an **administrator**, I want to register a **new vaccine and its administrati
 
 **From the client clarifications:**
 
-> **Question:**
+> **Question:** Which attributes does the Vaccine have (besides the ones refering to the Vaccine Type)?
 >
-> **Answer:**
+> **Answer:** Each vaccine has the following attributes: Id, Name, Brand, Vaccine Type, Age Group, Dose Number, Vaccine Dosage and Time Since Last Dose.
 
 ### 1.3. Acceptance Criteria
 
-There is no acceptance criteria.
+* **AC1:** The new vaccine can't have the same Id as a previously created vaccine.
+* **AC2:** All required data must be filled.
+* **AC3:** The age limits for the age groups should be coherent.
 
 ### 1.4. Found out Dependencies
 
-No dependencies were found.
+There is a dependency related to the US012, since a Vaccine has as one of its attributes the Vaccine Type. In order to
+specify a new vaccine, it's required that the new vaccine has a Vaccine Type.
 
 ### 1.5 Input and Output Data
 
 **Input Data:**
 
-- Name of the new vaccine;
-- Number of age groups;
+- Id;
+- Brand;
+- Vaccine Name;
+- Vaccine Type;
 - Age limits for each age group;
 - Number of doses, per age group;
 - Vaccine dosage ( e.g.: 30 ml);
@@ -47,10 +52,21 @@ No dependencies were found.
 
 ![US013_SSD](US013_SSD.svg)
 
-
 ### 1.7 Other Relevant Remarks
 
-No other relevant remarks.
+To clarify this client response: "A vaccine has the following attributes: ID, Name, Brand, Vaccine Type, Age Group, Dose
+Number, Vaccine Dosage and Time Since Last Dose". Each vaccine has those attributes, but when specifying a new vaccine (
+which is different from the Nurse related US of registering a vaccine), there should also be another attribute, the
+Administration Process.  
+There's also the possibility that there will be a "GivenVaccine" class that would have those attributes, since those are
+related to a vaccine that was given and not to an actual Vaccine like the project description describes:
+"For instance, for the Covid-19 type, there is (i) the Pfizer vaccine, (ii) the Moderna vaccine, (iii) the AstraZeneca
+vaccine, and so on"
+
+Summarizing, there should be Vaccine Types (Covid-19, Flu, etc...), to those types there should be different Vaccines (
+Pfizer, Moderna, etc...), and then there should be a Given Vaccine class, where there is all the information about a
+vaccine that was given:
+ID, Name, Brand, Vaccine Type, Age Group, Dose Number, Vaccine Dosage and Time Since Last Dose.
 
 ## 2. OO Analysis
 
@@ -70,21 +86,25 @@ No other relevant remarks.
 
 | Interaction ID | Question: Which class is responsible for... | Answer  | Justification (with patterns)  |
 |:-------------  |:--------------------- |:------------|:---------------------------- |
-| Step 1  		 |	... interacting with the actor? | SpecifyVaccineAndAdminProcessUI   |  Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model.   |
-| 			  		 |	... coordinating the US? | SpecifyVaccineAndAdminProcessController | **Controller**  |
-| Step 2	 |	... instantiating a new Vaccine  | Company | **Creator**: R1  |
-| Step 3	 |	... instantiating a new Administration Process | Company/Vaccine |**Creator**: R1  |
-| Step 4  		 |	...saving the inputted data for the Vaccine (name) ? | Vaccine | IE: A Vaccine has its own data |
-| Step 5  		 |	...saving the inputted data for the Administration Process? | AdministrationProcess  | IE: An Administration Process has its own data |
-| Step 6  |	... informing operation success | SpecifyVaccineAndAdminProcessUI  | **IE:** is responsible for user interactions  | 
+| Step 1         |    ... interacting with the actor? | SpecifyVaccineAndAdminProcessUI   |  Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model.   |
+| 			  		 |    ... coordinating the US? | SpecifyVaccineAndAdminProcessController | **Controller**  |
+| Step 2  |    ...transfer the data typed in the UI to the domain? | VaccineAndAdminProcessDto | **DTO:** When there is so much data to transfer, it is better to opt by using a DTO in order to reduce coupling between UI and domain |
+| Step 3     |    ... instantiating a new Vaccine  | Company | **Creator**  |
+| 	 |    ... instantiating a new Administration Process | Vaccine |**Creator**|
+| Step 4         |    ...validating the inputted data for the Vaccine | Vaccine |  |
+| 		 |    ...validating the inputted data for the Administration Process | Administration Process |  |
+| Step 5         |    ...saving the inputted data for the Vaccine ? | Vaccine | **IE:** A Vaccine has its own data |
+|   		 |    ...saving the inputted data for the Administration Process? | AdministrationProcess  | **IE:** An Administration Process has its own data |
+| Step 7  |    ... informing operation success | SpecifyVaccineAndAdminProcessUI  | **IE:** is responsible for user interactions  | 
 
 ### Systematization ##
 
 According to the taken rationale, the conceptual classes promoted to software classes are: 
 
- * Vaccine
- * AdministrationProcess
- * Company (already implemented)
+* VaccineAndAdminProcessDto
+* Vaccine
+* AdministrationProcess
+* Company (already implemented)
 
 Other software classes (i.e. Pure Fabrication) identified: 
 * SpecifyVaccineAndAdminProcessUI
@@ -92,9 +112,10 @@ Other software classes (i.e. Pure Fabrication) identified:
 
 ## 3.2. Sequence Diagram (SD)
 
-*In this section, it is suggested to present an UML dynamic view stating the sequence of domain related software objects' interactions that allows to fulfill the requirement.* 
+*In this section, it is suggested to present an UML dynamic view stating the sequence of domain related software
+objects' interactions that allows to fulfill the requirement.*
 
-![USXXX-SD](USXXX-SD.svg)
+![US013-SD](US013_SD.svg)
 
 ## 3.3. Class Diagram (CD)
 
