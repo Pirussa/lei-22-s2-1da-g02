@@ -7,17 +7,12 @@ actor "Administrator" as A
 activate A
 A -> ":System" : asks for a list of employees
 activate ":System"
-":System" --> A : requests data (role/function)
+":System" --> A : shows list of roles and asks to select one
 deactivate ":System"
 
-A -> ":System" : types requested data
+A -> ":System" : selects one role
 activate ":System"
-":System" --> A : returns the list and asks for confirmation
-deactivate ":System"
-
-A -> ":System" : confirms the results
-activate ":System"
-":System" --> A : informs operation success
+":System" --> A : returns the list of employees
 deactivate ":System"
 
 deactivate A
