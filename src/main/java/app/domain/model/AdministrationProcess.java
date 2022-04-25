@@ -51,7 +51,7 @@ public class AdministrationProcess {
      * @return true if the age groups are validated.
      */
     private boolean validateAgeGroups() {
-        if (ageGroups.get(0).get(0) <= 0) return false;
+        if (ageGroups.get(0).get(0) < 0) return false;
 
         for (int j = 0; j < ageGroups.get(0).size(); j++) {
             if (ageGroups.get(0).get(j) >= ageGroups.get(1).get(j)) return false;

@@ -1,5 +1,6 @@
 package app.domain.model;
 
+import app.controller.App;
 import app.ui.console.VaccineAndAdminProcessDto;
 
 public class Vaccine {
@@ -45,7 +46,18 @@ public class Vaccine {
      * @return true if the Vaccine is validated
      */
     public boolean validateVaccine() {
-        if (name.isEmpty() || brand.isEmpty() || id == 0) return true;
+        return !name.isEmpty() && !brand.isEmpty() && validateId();
+    }
+
+    private boolean validateId() {
+        if (id > 1) {
+            Company c = App.getInstance().getCompany();
+            for (Vaccine vac : c.getVaccines()) {
+                if (id == vac.id) return false;
+            }
+        } else {
+            return false;
+        }
         return true;
     }
 
