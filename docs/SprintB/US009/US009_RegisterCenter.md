@@ -16,7 +16,7 @@ As an administrator, I want to register a vaccination center to respond to a cer
 
 > Different from the health care centers, which provide a wide range of healthcare services to citizens in  a certain area, the mass vaccination centers are facilities specifically created to aminister vaccines  of a single type as response to an ongoing disease outbreak (e.g.: Covid-19).
 
-> The vaccination process flow and employees enrolled in the vaccination process are almost the same in each kind of vaccination center. The main difference between the two kinds of centers is that a healthcare center is associated with a given ars ( adminis tracao regional de saude ) and ages ( agrupamentos de centros de saude ), and it can administer any type of vacci nes (e. G. : covid - 19, dengue, tetanus , smallpox ) . Moreover, nurses working in the healthcare centers can issue and deliver on site a vaccination certificate whenever a sns user asks for it . Both kinds of vaccination centers are char acterized by a name, an address, a phone number, an e - mail address, a fax number, a website address, opening and closing hours, slot duration ( e. G. : 5 minutes) and the maximum number of vaccines that can be given per slot (e. G. : 10 vaccines per slot) . In addition, each vaccination center has one coordinator . Furthermore, receptionist s and nurses registered in the application will work in the vaccination process. As the allocation of receptionists and nurses to vaccination centers might be complex, by now, the system might assume that receptionists and nurses can work on any vaccination center.
+> The vaccination process flow and employees enrolled in the vaccination process are almost the same in each kind of vaccination center. The main difference between the two kinds of centers is that a healthcare center is associated with a given ars ( adminis tracao regional de saude ) and ages ( agrupamentos de centros de saude ), and it can administer any type of vaccines (e. G. : covid - 19, dengue, tetanus , smallpox ) . Moreover, nurses working in the healthcare centers can issue and deliver on site a vaccination certificate whenever a sns user asks for it . Both kinds of vaccination centers are characterized by a name, an address, a phone number, an e-mail address, a fax number, a website address, opening and closing hours, slot duration ( e. G. : 5 minutes) and the maximum number of vaccines that can be given per slot (e. G. : 10 vaccines per slot) . In addition, each vaccination center has one coordinator. Furthermore, receptionists and nurses registered in the application will work in the vaccination process. As the allocation of receptionists and nurses to vaccination centers might be complex, by now, the system might assume that receptionists and nurses can work on any vaccination center.
 
 
 **From the client clarifications:**
@@ -57,7 +57,7 @@ As an administrator, I want to register a vaccination center to respond to a cer
 
 ### 1.6. System Sequence Diagram (SSD)
 
-![US009_SSD](US009_SSD.svg)
+![US009_SSD](C:\Users\Castro\Desktop\CODE\lei-22-s2-1da-g02\docs\SprintB\US009\US009_SSD.svg)
 
 ### 1.7 Other Relevant Remarks
 
@@ -68,7 +68,7 @@ As an administrator, I want to register a vaccination center to respond to a cer
 
 ### 2.1. Relevant Domain Model Excerpt
 
-![US009_MD](US009_MD.svg)
+![US009_MD](C:\Users\Castro\Desktop\CODE\lei-22-s2-1da-g02\docs\SprintB\US009\US009_MD.svg)
 
 ### 2.2. Other Remarks
 
@@ -83,8 +83,8 @@ n/a
 
 | Interaction ID | Question: Which class is responsible for... | Answer  | Justification (with patterns)  |
 |:-------------  |:--------------------- |:------------|:---------------------------- |
-| Step 1  		 |	... interacting with the actor? | CreateTaskUI   |  Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model.           |
-| 			  		 |	... coordinating the US? | CreateTaskController | Controller                             |
+| Step 1  		 |	... interacting with the actor? | CreateVaccinationCenterUI   |  Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model.           |
+| 			  		 |	... coordinating the US? | CreateVaccinationCenterController | Controller                             |
 | 			  		 |	... instantiating a new Task? | Organization   | Creator (Rule 1): in the DM Organization has a Task.   |
 | 			  		 | ... knowing the user using the system?  | UserSession  | IE: cf. A&A component documentation.  |
 | 			  		 |	... knowing to which organization the user belongs to? | Platform  | IE: has registed all Organizations |
