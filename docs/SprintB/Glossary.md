@@ -21,7 +21,7 @@
 | **NHS** | **SNS** | Acronym for _National Health Service_.|
 | **Nurse** | **Enfermeira** | A person skilled or trained in caring for sick or injured people. |
 | **Outbreak** | **Surto** | A sudden rise in the incidence of a disease. |
-| **Perfomance** | **Desempenho** | The execution of an action. |
+| **Performance** | **Desempenho** | The execution of an action. |
 | **RHA** | **ARS** | Acronym for _Regional Health Administration_.|
 | **Receptionist** | **Rececionista** | A receptionist is an employee taking an office or administrative support position.|
 | **SMS** | **SMS** | Acronym for _Short Message Service_. |

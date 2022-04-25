@@ -23,7 +23,7 @@ public class SpecifyVaccineAndAdminProcessController {
      * <p>
      * <p>
      * The method should create an Administration Process that should be validated, if so,
-     * it creates a Vaccine, if the Vaccine is also validated successfully it is added to the Company storage.
+     * it creates a Vaccine that should be validated.
      *
      * @param dto A data transfer object with all the necessary information in order to specify both the Administration Process and the Vaccine.
      * @return true if the Vaccine is created and validated with success.

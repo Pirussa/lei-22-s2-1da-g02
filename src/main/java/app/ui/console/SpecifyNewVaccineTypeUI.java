@@ -1,12 +1,15 @@
 package app.ui.console;
 
 import app.controller.SpecifyNewVaccineTypeController;
+import app.domain.model.VaccineType;
 import app.ui.console.utils.Utils;
 
 import java.util.Scanner;
 
 
-/** US012 - Specify Vaccine Type
+/**
+ * US012 - Specify Vaccine Type
+ *
  * @author Pedro Monteiro <1211076@isep.ipp.pt>
  */
 
@@ -24,31 +27,61 @@ public class SpecifyNewVaccineTypeUI implements Runnable {
         System.out.println();
         System.out.println("------Specify Vaccine Type------");
         System.out.println();
-        String description;
-        boolean check;
-        do {
-            System.out.println("--Insert the new Vaccine Type:");
-            description = sc.next();
-            sc.nextLine();
-            System.out.println();
 
-            check = ctrl.specifyNewVaccineType(description);
+        boolean check = false;
 
-            if (!check)
-                System.out.println("Invalid Vaccine Type");
+        System.out.println("--Insert the new Vaccine Type Code:");
+        String code = sc.next();
+        sc.nextLine();
 
-        } while (!check);
 
-        System.out.println("Inforamtion about the new Vaccine Type");
-        System.out.println("Description - " + description);
+        System.out.println("--Insert a short description for the new Vaccine Type:");
+        String description = sc.nextLine();
         System.out.println();
-        if (Utils.confirmCreation()) {
-            ctrl.saveVaccineType(description);
-            System.out.println("New Vaccine Type added");
-        }
 
+
+        System.out.println("--Select a technology:");
+        String technology = null;
+        int options = 1;
+        for (String a : VaccineType.vaccineTechnologies) {
+            System.out.printf("%d- %s %n", options, a);
+            options++;
+        }
+        System.out.println();
+        System.out.println("Type your option:");
+        int option = sc.nextInt();
+        sc.nextLine();
+        if (option >= 1 && option <= options) {
+            technology = VaccineType.vaccineTechnologies[option - 1];
+        } else {
+            System.out.println("Insert a valid option");
+        }
+        System.out.println();
+
+        if (ctrl.specifyNewVaccineType(code, description, technology)) {
+            showVaccineTypeData(code, description, technology);
+            if (Utils.confirmCreation()) {
+                ctrl.saveVaccineType(code, description, technology);
+                System.out.println();
+                System.out.println("New Vaccine Type added");
+            } else {
+                System.out.println("No Vaccine Type was added.");
+            }
+        }else {
+            System.out.println("Invalid data.");
+            System.out.println("Check what's wrong: ");
+            showVaccineTypeData(code,description,technology);
+        }
     }
 
+    private void showVaccineTypeData(String code, String description, String technology) {
+        System.out.println();
+        System.out.println("---- Vaccine Type: ----");
+        System.out.println("Code: " + code);
+        System.out.println("Technology: " + technology);
+        System.out.println("Description: " + description);
+        System.out.println();
+    }
 
 }
 

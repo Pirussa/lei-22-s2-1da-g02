@@ -90,11 +90,11 @@ public class Company {
      * <p>
      * The method should create a vaccine type that should be validated, if so, it returns true
      *
-     * @param type a String to validate
+     * @param code a String to validate
      * @return true if the type is valid
      */
-    public boolean specifyNewVaccineType(String type) {
-        VaccineType vt = new VaccineType(type);
+    public boolean specifyNewVaccineType(String code, String description, String technology) {
+        VaccineType vt = new VaccineType(code, description, technology);
         return vt.validateVaccineType();
 
     }
@@ -103,8 +103,8 @@ public class Company {
      * Saves a Vaccine Type into the Company storage.
      * Company Vaccines Storage: {@link #vaccineTypes}
      */
-    public void saveVaccineType(String type) {
-        VaccineType vt = new VaccineType(type);
+    public void saveVaccineType(String code, String description, String technology) {
+        VaccineType vt = new VaccineType(code, description, technology);
         vaccineTypes.add(vt);
     }
 }

@@ -1,5 +1,7 @@
 package app.domain.model;
 
+import app.controller.App;
+
 import java.util.Random;
 
 public class VaccineType {
@@ -14,21 +16,32 @@ public class VaccineType {
     private String code;
     private String vaccineTechnology;
 
+    public static String[] vaccineTechnologies = {"Live-attenuated vaccine", "Inactivated vaccine", "Subunit vaccine", "Toxoid vaccine", "Viral vector vaccine", "Messenger RNA (mRNA) vaccine"};
+
 
     /**
      * Creates a vaccine type with the following attributes:
      *
-     * @param description         The vaccine's type.
+     * @param description       A short description of the Vaccine Type.
+     * @param code              A code with five alphanumeric characters, corresponding to the Vaccine Type
+     * @param vaccineTechnology The corresponding vaccine technology
+     * @see <a href="https://www.pfizer.com/news/articles/understanding_six_types_of_vaccine_technologies">Understanding Six Types of Vaccine Technologies</a>
      */
-    public VaccineType(String description) {
+    public VaccineType(String code, String description, String vaccineTechnology) {
         this.description = description;
-        code = generateCode();
+        this.code = code;
+        this.vaccineTechnology = vaccineTechnology;
     }
 
+    /**
+     * Gets the code of a VaccineType, in order to be printed
+     *
+     * @return code
+     */
 
     @Override
     public String toString() {
-        return description;
+        return code;
     }
 
     /**
@@ -37,22 +50,23 @@ public class VaccineType {
      * @return true if the type is valid
      */
     public boolean validateVaccineType() {
-        return description != null && !description.isEmpty();
+        if (code.isEmpty() || description.isEmpty() || vaccineTechnology.isEmpty()) return false;
+        return validateCode();
     }
 
-    // code is composed by 3 letters and 2 numbers
-    public String generateCode() {
-        Random generate = new Random();
-        String[] letters = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "Y", "X", "W", "Z"};
-        String code =  "";
-
-        for (int i = 0; i < 3; i++)
-            code += (letters[generate.nextInt(26)]);
-
-        for (int i = 0; i < 2; i++)
-            code += String.valueOf(generate.nextInt(9));
-
-
-        return code;
+    public boolean validateCode() {
+        if (code.length() == 5) {
+            Company c = App.getInstance().getCompany();
+            for (VaccineType vt : c.getVaccineTypes()) {
+                if (code.equals(vt.code)) return false;
+            }
+        }else{
+            return false;
+        }
+        return true;
     }
+
 }
+
+
+
