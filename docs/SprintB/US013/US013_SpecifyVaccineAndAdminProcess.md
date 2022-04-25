@@ -29,23 +29,29 @@ As an **administrator**, I want to register a **new vaccine and its administrati
 ### 1.4. Found out Dependencies
 
 There is a dependency related to the US012, since a Vaccine has as one of its attributes the Vaccine Type. In order to
-specify a new vaccine, it's required that the new vaccine has a Vaccine Type.
+specify a new vaccine, it's required that there is at least one Vaccine Type already. 
+
 
 ### 1.5 Input and Output Data
 
 **Input Data:**
+* Typed data:
+  - Id;
+  - Brand;
+  - Vaccine Name;
+  - Age limits for each age group;
+  - Number of doses, per age group;
+  - Vaccine dosage ( e.g.: 30 ml);
+  - Time interval between vaccines, considering the dose number given previously;
 
-- Id;
-- Brand;
-- Vaccine Name;
-- Vaccine Type;
-- Age limits for each age group;
-- Number of doses, per age group;
-- Vaccine dosage ( e.g.: 30 ml);
-- Time interval between vaccines, considering the dose number given previously;
+
+* Selected data:
+    - Vaccine Type;
+
 
 **Output Data:**
 
+* A list with all the Vaccine Types available
 * (In)Success of the operation
 
 ### 1.6. System Sequence Diagram (SSD)
@@ -111,9 +117,6 @@ Other software classes (i.e. Pure Fabrication) identified:
 * SpecifyVaccineAndAdminProcessController
 
 ## 3.2. Sequence Diagram (SD)
-
-*In this section, it is suggested to present an UML dynamic view stating the sequence of domain related software
-objects' interactions that allows to fulfill the requirement.*
 
 ![US013-SD](US013_SD.svg)
 

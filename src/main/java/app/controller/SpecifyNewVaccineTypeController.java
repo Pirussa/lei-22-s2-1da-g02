@@ -12,8 +12,7 @@ import app.domain.model.VaccineType;
 
 public class SpecifyNewVaccineTypeController {
 
-    // DESIGNIÇÃO - É PRECISO DISCUTIR COMO É QUE ISTO VAI FUNCIONAR
-    private Company company = new Company("Covideiros");
+    private Company company = App.getInstance().getCompany();
 
     public boolean createVaccineType(String type) {
         return company.specifyNewVaccineType(type);
