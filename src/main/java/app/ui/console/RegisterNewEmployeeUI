@@ -1,0 +1,43 @@
+package app.ui.console;
+
+import app.controller.RegisterNewEmployeeController;
+import app.controller.App;
+import app.domain.model.Company;
+import app.domain.model.Employee;
+
+import javax.management.relation.RoleList;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+/**
+ * US010 - Register New Employee UI
+ *
+ * @author Guilherme Sousa <1211073@isep.ipp.pt>
+ */
+
+public class RegisterNewEmployeeUI implements Runnable {
+
+    public RegisterNewEmployeeUI() {
+    }
+
+    private RegisterNewEmployeeController ctrl = new RegisterNewEmployeeController();
+
+
+    public void run() {
+
+        Scanner read = new Scanner(System.in);
+
+        RegisterNewEmployeeDto dto = new RegisterNewEmployeeDto();
+        System.out.printf("**You are now registering a new employee**%n");
+
+        System.out.printf("**Please select one of the following roles**%n");
+        /*ArrayList<Employee> emp =
+        int options = 1;
+        for (VaccineType vt : vTs) {
+            System.out.printf("%d- %s %n", options, vt);
+            options++;
+        }
+    }
+*/
+    }
+}
