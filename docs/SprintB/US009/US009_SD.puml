@@ -3,9 +3,24 @@
 
 autonumber
 
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
+activate Administrator
 
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: another authentication Response
+Administrator -> System: Asks to create a Vaccination Center
+activate System
+Administrator <-- System: Requests data
+deactivate System
+
+Administrator -> System: Types requested data
+activate System
+Administrator <-- System: Shows data and requests confirmation
+deactivate System
+
+Administrator -> System: Confirms data
+activate System
+Administrator <-- System: Informs if the operation was successful
+deactivate System
+
+deactivate Administrator
+
+
 @enduml

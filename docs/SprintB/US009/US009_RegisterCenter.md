@@ -21,10 +21,15 @@ As an administrator, I want to register a vaccination center to respond to a cer
 
 **From the client clarifications:**
 
+> **Question:** How will be a center registered in the system (what data must be asked)?
+>
+> **Answer:** This information is available in the project description. When asking a question the student should show to be aware of all the information that the client has provided.
+
+> **Answer:** Community mass vaccination centers are facilities created specifically to administer a single type of vaccine as a response to an ongoing disease outbreak. These centers are closed when there is no outbreak.
 
 ### 1.3. Acceptance Criteria
 
-**No information in this field.**
+* **AC1:** All required fields must be filled in.
 
 ### 1.4. Found out Dependencies
 
