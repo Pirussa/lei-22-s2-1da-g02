@@ -1,0 +1,18 @@
+@startuml
+
+autonumber
+
+actor Administrator as Admin
+
+participant ":RegisterNewEmployeeUI" as UI
+participant ":RegisterNewEmployeeController" as CTRL
+
+participant ":Employee" as E
+participant ":NewEmployeeDto" as DTO
+
+activate Admin
+Admin -> UI :starts registering a new employee
+activate UI
+UI -->
+
+@enduml
