@@ -2,6 +2,7 @@ package app.ui.console;
 
 import app.controller.SpecifyVaccineAndAdminProcessController;
 import app.domain.model.VaccineType;
+import app.ui.console.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -31,14 +32,14 @@ public class SpecifyVaccineAndAdminProcessUI implements Runnable {
             System.out.println();
 
 
-            System.out.println("--What's the vaccine type?");
+            System.out.println("--What's the Vaccine Type?");
             ArrayList<VaccineType> vTs = ctrl.getVaccineTypesList();
             int options = 1;
             for (VaccineType vt : vTs) {
-                System.out.printf("%d- %s ", options, vt);
+                System.out.printf("%d- %s %n", options, vt);
                 options++;
             }
-
+            System.out.println("Type your option:");
             int option = sc.nextInt();
             sc.nextLine();
             if (option >= 1 && option <= options) {
@@ -217,16 +218,26 @@ public class SpecifyVaccineAndAdminProcessUI implements Runnable {
             dto.timeIntervalBetweenVaccines.add(intervalFirstDose);
             dto.timeIntervalBetweenVaccines.add(intervalSecondDose);
 
+
             if (ctrl.specifyNewVaccineAndAdminProcess(dto)) {
-                if (confirmCreation(dto)){
-                    ctrl.saveVaccine();
+                showVaccineAndAdminProcessData(dto);
+                if (Utils.confirmCreation()){
+                    ctrl.saveVaccine(dto);
+                    System.out.println("The new vaccine with its administration was added to the Company Vaccines with success.");
+                }else{
+                    System.out.println("No Vaccine was added.");
 
                 }
+            }else{
+                System.out.println("Invalid data");
             }
 
 
         } else {
-            System.out.println("There are no Vaccine Types yet. Please add at least one Vaccine Type first.");
+            System.out.println();
+            System.out.println("|-----------------------------------------------------------------------------|");
+            System.out.println("| There are no Vaccine Types yet. Please add at least one Vaccine Type first. |");
+            System.out.println("|-----------------------------------------------------------------------------|");
         }
 
 
@@ -234,11 +245,11 @@ public class SpecifyVaccineAndAdminProcessUI implements Runnable {
 
 
     /**
-     * Shows the User all the data and asks for its confirmation.
+     * Shows the User all the data referent to a Vaccine and to its Administration Process.
      *
-     * @return true if the User confirms the creation of the Vaccine.
+     * @param dto A data transfer object with all the necessary information in order to specify both the Administration Process and the Vaccine.
      */
-    public boolean confirmCreation(VaccineAndAdminProcessDto dto) {
+    public void showVaccineAndAdminProcessData(VaccineAndAdminProcessDto dto) {
         System.out.println();
         System.out.println();
         System.out.println("---- The new vaccine: ----");
@@ -261,24 +272,7 @@ public class SpecifyVaccineAndAdminProcessUI implements Runnable {
             }
 
         }
-        System.out.println("Do you confirm this data?");
-        System.out.println("1 - Yes");
-        System.out.println("0 - No");
-        Scanner sc = new Scanner(System.in);
 
-        int check = 0;
-        int option = 0;
-        do {
-            try {
-                option = sc.nextInt();
-                sc.nextLine();
-                check = 1;
-            } catch (InputMismatchException e) {
-                System.out.println("Insert a valid option.");
-                sc.nextLine();
-            }
-        } while (check == 0);
-
-        return sc.nextInt() == 1;
     }
+
 }

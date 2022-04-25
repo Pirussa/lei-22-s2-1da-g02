@@ -59,10 +59,10 @@ public class Company {
      * <p>
      * <p>
      * The method should create an Administration Process that should be validated, if so,
-     * it creates a Vaccine, if the Vaccine is also validated successfully it is added to the Company storage.
+     * it creates a Vaccine that should be validated.
      *
      * @param dto A data transfer object with all the necessary information in order to specify both the Administration Process and the Vaccine.
-     * @return true if the Vaccine is created with success .
+     * @return true if the Vaccine is created and validated with success .
      */
     public boolean specifyNewVaccineAndAdminProcess(VaccineAndAdminProcessDto dto) {
         AdministrationProcess adminProcess = new AdministrationProcess(dto.ageGroups, dto.numberOfDoses, dto.dosage, dto.timeIntervalBetweenVaccines);
@@ -73,20 +73,25 @@ public class Company {
         return false;
     }
 
-    public void saveVaccine() {
 
-        //vaccines.add()
+    /**
+     * Saves a Vaccine into the Company storage.
+     * Company Vaccines Storage: {@link #vaccines}
+     */
+    public void saveVaccine(VaccineAndAdminProcessDto dto) {
+        AdministrationProcess adminProcess = new AdministrationProcess(dto.ageGroups, dto.numberOfDoses, dto.dosage, dto.timeIntervalBetweenVaccines);
+        Vaccine vac = new Vaccine(dto.name, dto.id, dto.brand, adminProcess, dto.vt);
+        vaccines.add(vac);
     }
 
 
     public boolean specifyNewVaccineType(String type) {
-        if (type != null && !type.isEmpty())
-            return false;
+        VaccineType vt = new VaccineType(type);
+        return vt.validateVaccineType();
 
-        VaccineType vaccineType = new VaccineType(type);
-        vaccineTypes.add(vaccineType);
-        return true;
     }
 
 
+    public void saveVaccineType(String type) {
+    }
 }

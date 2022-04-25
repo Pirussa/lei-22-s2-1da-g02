@@ -3,9 +3,10 @@ package app.ui.console;
 import app.controller.SpecifyNewVaccineTypeController;
 import app.ui.console.utils.Utils;
 
+import java.util.Scanner;
+
 
 /**
- *
  * @author Pedro Monteiro <1211076@isep.ipp.pt>
  */
 
@@ -14,44 +15,44 @@ public class SpecifyNewVaccineTypeUI implements Runnable {
 
     private SpecifyNewVaccineTypeController ctrl = new SpecifyNewVaccineTypeController();
 
-    public SpecifyNewVaccineTypeUI() {}
+    public SpecifyNewVaccineTypeUI() {
+    }
 
 
     public void run() {
+        Scanner sc = new Scanner(System.in);
         System.out.println();
         System.out.println("------Specify Vaccine Type------");
         System.out.println();
-
-
-        String type = createVaccineType();
-        String answer = Utils.readLineFromConsole("The chosen name is valid. Confirm (yes/no)");
-// CORREÇÃO, NÃO É SUPOSTO PASSAR COMO PARAMETRO UMA STRING MAS SIM O OBJETO VACCINETYPE
-        if (answer.equals("yes")) {
-            ctrl.saveVaccineType(type);
-            System.out.println("Vaccine Type added");
-        }
-
-        else
-            System.out.println("");
-
-
-    }
-
-    public String createVaccineType() {
-        boolean creation;
         String type;
-
+        boolean check;
         do {
-            type = Utils.readLineFromConsole("What's the vaccine type?");
+            System.out.println("--Insert the new Vaccine Type:");
+            type = sc.next();
+            sc.nextLine();
 
-            creation = ctrl.createVaccineType(type);
+            check = ctrl.specifyNewVaccineType(type);
 
-            if (!creation)
-                System.out.println("Invalid Vaccine Type. Introduce it again");
+            if (!check)
+                System.out.println("Invalid Vaccine Type");
 
-        } while(!creation);
-        return type;
+        } while (!check);
+
+        /*
+        • Perguntar
+        • Validar
+            • null
+            • empty
+        • Confirmar
+            • mostrar input
+            • perguntar se é aquilo
+        • Salvar
+         */
+
+
     }
-
-
 }
+
+
+
+

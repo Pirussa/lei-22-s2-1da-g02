@@ -14,13 +14,15 @@ public class SpecifyNewVaccineTypeController {
 
     private Company company = App.getInstance().getCompany();
 
-    public boolean createVaccineType(String type) {
+//    public boolean createVaccineType(String type) {
+//        return company.specifyNewVaccineType(type);
+//    }
+
+    public boolean specifyNewVaccineType(String type){
         return company.specifyNewVaccineType(type);
+
     }
 
-    public void saveVaccineType(String type) {
-        VaccineType.saveVaccineType(type);
-    }
 
 
 

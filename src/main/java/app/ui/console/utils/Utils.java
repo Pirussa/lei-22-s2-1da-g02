@@ -5,7 +5,9 @@ import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.InputMismatchException;
 import java.util.List;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -152,5 +154,31 @@ public class Utils {
         } while (value < 0 || value > list.size());
 
         return value - 1;
+    }
+
+    /**
+     * Asks the User for its confirmation.
+     *
+     * @return true if the User confirms the creation of the Vaccine.
+     */
+    public static boolean confirmCreation() {
+        System.out.println("Do you confirm this data?");
+        System.out.println("1 - Yes");
+        System.out.println("0 - No");
+        Scanner sc = new Scanner(System.in);
+        int check = 0;
+        int option = 0;
+        do {
+            try {
+                option = sc.nextInt();
+                sc.nextLine();
+                check = 1;
+            } catch (InputMismatchException e) {
+                System.out.println("Insert a valid option.");
+                sc.nextLine();
+            }
+        } while (check == 0);
+
+        return option == 1;
     }
 }

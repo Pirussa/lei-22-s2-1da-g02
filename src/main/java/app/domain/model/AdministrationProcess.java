@@ -2,7 +2,9 @@ package app.domain.model;
 
 import java.util.ArrayList;
 
-/** Represents the Administration Process of a certain Vaccine.
+/**
+ * Represents the Administration Process of a certain Vaccine.
+ *
  * @author Gustavo Jorge <1211061@isep.ipp.pt>
  */
 
@@ -17,12 +19,13 @@ public class AdministrationProcess {
     private ArrayList<ArrayList<Integer>> timeIntervalBetweenVaccines;
 
 
-    /** Creates a vaccine with the following attributes:
-     * @param ageGroups The age groups that are considered in the Administration Process.
-     * @param numberOfDoses The number of doses a person should take, corresponding to each age group.
-     * @param dosage The dosage, in ml, that should be in the vaccine in one take.
-     * @param timeIntervalBetweenVaccines The interval, in days, between doses.
+    /**
+     * Creates a vaccine with the following attributes:
      *
+     * @param ageGroups                   The age groups that are considered in the Administration Process.
+     * @param numberOfDoses               The number of doses a person should take, corresponding to each age group.
+     * @param dosage                      The dosage, in ml, that should be in the vaccine in one take.
+     * @param timeIntervalBetweenVaccines The interval, in days, between doses.
      */
     public AdministrationProcess(ArrayList<ArrayList<Integer>> ageGroups, ArrayList<Integer> numberOfDoses, ArrayList<Integer> dosage, ArrayList<ArrayList<Integer>> timeIntervalBetweenVaccines) {
         this.ageGroups = ageGroups;
@@ -31,15 +34,20 @@ public class AdministrationProcess {
         this.timeIntervalBetweenVaccines = timeIntervalBetweenVaccines;
     }
 
-    /** Validates an AdministrationProcess.
+    /**
+     * Validates an AdministrationProcess.
+     *
      * @return true if the Administration Process is validated.
      */
     public boolean validateAdministrationProcess() {
-        return validateAgeGroups();
+        if (checksIfInfoNotNull()) return validateAgeGroups();
 
+        return false;
     }
 
-    /** Validates the age groups inserted by the user.
+    /**
+     * Validates the age groups inserted by the user.
+     *
      * @return true if the age groups are validated.
      */
     private boolean validateAgeGroups() {
@@ -53,7 +61,20 @@ public class AdministrationProcess {
             }
         }
 
+
         return true;
     }
 
+    /**
+     * Checks if all the info is filled.
+     *
+     * @return true if none of the attributes are empty.
+     */
+    private boolean checksIfInfoNotNull() {
+
+        if (ageGroups.isEmpty() || numberOfDoses.isEmpty() || dosage.isEmpty() || timeIntervalBetweenVaccines.isEmpty())
+            return false;
+
+        return true;
+    }
 }

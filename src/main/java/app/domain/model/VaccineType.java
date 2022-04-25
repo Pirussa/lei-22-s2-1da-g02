@@ -12,16 +12,19 @@ public class VaccineType {
 
     private String type;
 
-    private static List<VaccineType> types = new ArrayList<>();
-
     public VaccineType(String type) {
         this.type = type;
     }
 
 
-    public static void saveVaccineType(String type) {
-        VaccineType vaccineType = new VaccineType(type);
-        types.add(vaccineType);
+    @Override
+    public String toString() {
+        return type;
+    }
 
+
+    public boolean validateVaccineType() {
+
+        return type != null && type.isEmpty();
     }
 }
