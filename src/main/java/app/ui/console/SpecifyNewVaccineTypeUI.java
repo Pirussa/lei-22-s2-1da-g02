@@ -24,15 +24,15 @@ public class SpecifyNewVaccineTypeUI implements Runnable {
         System.out.println();
         System.out.println("------Specify Vaccine Type------");
         System.out.println();
-        String type;
+        String description;
         boolean check;
         do {
             System.out.println("--Insert the new Vaccine Type:");
-            type = sc.next();
+            description = sc.next();
             sc.nextLine();
             System.out.println();
 
-            check = ctrl.specifyNewVaccineType(type);
+            check = ctrl.specifyNewVaccineType(description);
 
             if (!check)
                 System.out.println("Invalid Vaccine Type");
@@ -40,10 +40,10 @@ public class SpecifyNewVaccineTypeUI implements Runnable {
         } while (!check);
 
         System.out.println("Inforamtion about the new Vaccine Type");
-        System.out.println("Type - " + type);
+        System.out.println("Description - " + description);
         System.out.println();
         if (Utils.confirmCreation()) {
-            ctrl.saveVaccineType(type);
+            ctrl.saveVaccineType(description);
             System.out.println("New Vaccine Type added");
         }
 

@@ -2,29 +2,33 @@
 'https://plantuml.com/class-diagram
 
 class Company {
-+createVaccineType(type)
-+validateVaccineType(type)?
++createSnsUser(name, address, sex, phoneNumber, email. birthDate, citizenCardNumber)
++validateSnsUser(name, address, sex, phoneNumber, email. birthDate, citizenCardNumber)
 }
 
-class SpecifyNewVaccineTypeUI
-
-class SpecifyNewVaccineTypeController{
-+createVaccineType(type)
-+saveVaccineType(type)
-}
-
-class VaccineType {
+class User {
 String name
-+VaccineType(type)
-+validateVaccineType(type)
-+saveVaccineType(type)
+String address
+String sex
+int phoneNumber
+String email
+Date birthDate
+int SNS_number
+int citizenCardNumber
 }
+
+class CreateNewSnsUserUI
+
+class CreateNewSnsUserController{
++createVaccineType(name, address, sex, phoneNumber, email. birthDate, citizenCardNumber)
++saveVaccineType(name, address, sex, phoneNumber, email. birthDate, citizenCardNumber)
+}
+
 
 left to right direction
 
-SpecifyNewVaccineTypeUI - SpecifyNewVaccineTypeController
-SpecifyNewVaccineTypeController --> Company
-Company .> VaccineType
-SpecifyNewVaccineTypeController -> VaccineType
+CreateNewSnsUserUI - CreateNewSnsUserController
+CreateNewSnsUserController -> Company
+Company .> User
 
 @enduml

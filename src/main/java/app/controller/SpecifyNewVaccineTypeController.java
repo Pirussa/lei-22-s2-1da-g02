@@ -19,19 +19,19 @@ public class SpecifyNewVaccineTypeController {
      * <p>
      * The method should create a vaccine type that should be validated, if so, it returns true
      *
-     * @param type a String to validate
+     * @param description a String to validate
      * @return true if the type is valid
      */
-    public boolean specifyNewVaccineType(String type){
-        return company.specifyNewVaccineType(type);
+    public boolean specifyNewVaccineType(String description){
+        return company.specifyNewVaccineType(description);
     }
 
     /**
      * Saves a Vaccine Type into the Company storage.
      * Company Vaccines Storage: vaccineTypes
      */
-    public void saveVaccineType(String type) {
-        company.saveVaccineType(type);
+    public void saveVaccineType(String description) {
+        company.saveVaccineType(description);
     }
 
 
