@@ -85,33 +85,22 @@ n/a
 |:-------------  |:--------------------- |:------------|:---------------------------- |
 | Step 1  		 |	... interacting with the actor? | CreateVaccinationCenterUI   |  Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model.           |
 | 			  		 |	... coordinating the US? | CreateVaccinationCenterController | Controller                             |
-| 			  		 |	... instantiating a new Task? | Organization   | Creator (Rule 1): in the DM Organization has a Task.   |
-| 			  		 | ... knowing the user using the system?  | UserSession  | IE: cf. A&A component documentation.  |
-| 			  		 |	... knowing to which organization the user belongs to? | Platform  | IE: has registed all Organizations |
-| 			  		 |							 | Organization   | IE: knows/has its own Employees|
-| 			  		 |							 | Employee  | IE: knows its own data (e.g. email) |
-| Step 2  		 |							 |             |                              |
-| Step 3  		 |	...saving the inputted data? | Task  | IE: object created in step 1 has its own data.  |
-| Step 4  		 |	...knowing the task categories to show? | Platform  | IE: Task Categories are defined by the Platform. |
-| Step 5  		 |	... saving the selected category? | Task  | IE: object created in step 1 is classified in one Category.  |
-| Step 6  		 |							 |             |                              |              
-| Step 7  		 |	... validating all data (local validation)? | Task | IE: owns its data.| 
-| 			  		 |	... validating all data (global validation)? | Organization | IE: knows all its tasks.| 
-| 			  		 |	... saving the created task? | Organization | IE: owns all its tasks.| 
-| Step 8  		 |	... informing operation success?| CreateTaskUI  | IE: is responsible for user interactions.  | 
+| Step 2  		 |	...instantiating a new Vaccination Center						 | Company            |                              |
+| Step 3  		 |	...saving the inputted data? | VaccinationCenter  | IE: object created in step 1 has its own data.  | 
+| Step 4  		 |	... validating all data (local validation)? | VaccinationCenter | IE: owns its data.|
+| Step 5  		 |	... informing operation success?| CreateVaccinationCenterUI  | IE: is responsible for user interactions.  | 
 
 ### Systematization ##
 
 According to the taken rationale, the conceptual classes promoted to software classes are:
 
-* Organization
-* Platform
-* Task
+* Administrator --> Company
 
 Other software classes (i.e. Pure Fabrication) identified:
 
-* CreateTaskUI
-* CreateTaskController
+* CreateVaccinationCenterUI
+* CreateVaccinationCenterController
+* VaccinationCenter
 
 
 ## 3.2. Sequence Diagram (SD)

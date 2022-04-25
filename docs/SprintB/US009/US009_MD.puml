@@ -28,7 +28,7 @@ class HealthcareCenter extends VaccinationCenter{
 ==-AGES
 }
 
-VaccinationCenter "1" --- "1" Coordinator: has
-Administrator "1" --- "*" VaccinationCenter: creates
+VaccinationCenter "1" --- "1" Coordinator: has >
+Administrator "1" --- "*" VaccinationCenter: creates >
 
 @enduml
