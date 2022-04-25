@@ -8,9 +8,6 @@ public class HealthcareCenter extends VaccinationCenter{
         super(name, address, phoneNumber, emailAddress, faxNumber, websiteAddress, openingHour, closingHour, slotDuration, vaccinesPerSlot, coordinator);
     }
 
-    public HealthcareCenter() {
-        super();
-    }
 }
 
 

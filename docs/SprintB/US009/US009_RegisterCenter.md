@@ -105,19 +105,12 @@ Other software classes (i.e. Pure Fabrication) identified:
 
 ## 3.2. Sequence Diagram (SD)
 
-**Alternative 1**
-
-![US006_SD](US006_SD.svg)
-
-**Alternative 2**
-
-![US006_SD](US006_SD_v2.svg)
+![US009_SD](C:\Users\Castro\Desktop\CODE\lei-22-s2-1da-g02\docs\SprintB\US009\US009_SD.svg)
 
 ## 3.3. Class Diagram (CD)
 
-**From alternative 1**
 
-![US006_CD](US006_CD.svg)
+![US009_CD](C:\Users\Castro\Desktop\CODE\lei-22-s2-1da-g02\docs\SprintB\US009\US009_CD.svg)
 
 # 4. Tests
 

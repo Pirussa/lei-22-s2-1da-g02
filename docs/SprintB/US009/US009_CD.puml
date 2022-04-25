@@ -2,27 +2,34 @@
 'https://plantuml.com/class-diagram
 !pragma layout smetana
 
-abstract class AbstractList
-abstract AbstractCollection
-interface List
-interface Collection
-
-List <|-- AbstractList
-Collection <|-- AbstractCollection
-
-Collection <|- List
-AbstractCollection <|- AbstractList
-AbstractList <|-- ArrayList
-
-class ArrayList {
-Object[] elementData
-size()
+class Company {
++createVaccinationCenter(name, address, phone number, email address, fax number, website address, opening hour, closing hour, slot duration, vaccines per slot)
++validateVaccinationCenter(name, address, phone number, email address, fax number, website address, opening hour, closing hour, slot duration, vaccines per slot)
 }
 
-enum TimeUnit {
-DAYS
-HOURS
-MINUTES
+class VaccinationCenter {
+String name
+String address
+double phoneNumber
+String emailAddress
+double faxNumber
+String websiteAddress
+int openingHour
+int closingHour
+int slotDuration
+int vaccinesPerSlot
 }
+
+class CreateNewVaccinationCenterUI
+
+class CreateNewVaccinationCenterController{
++createVaccinationCenter(name, address, phone number, email address, fax number, website address, opening hour, closing hour, slot duration, vaccines per slot)
++validateVaccinationCenter(name, address, phone number, email address, fax number, website address, opening hour, closing hour, slot duration, vaccines per slot)
+}
+left to right direction
+
+CreateNewVaccinationCenterUI - CreateNewVaccinationCenterController
+CreateNewVaccinationCenterController -> Company
+Company .> VaccinationCenter
 
 @enduml
