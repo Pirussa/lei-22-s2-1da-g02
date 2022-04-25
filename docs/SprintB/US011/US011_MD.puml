@@ -2,10 +2,11 @@
 
 hide methods
 left to right direction
+skinparam classAttributeIconSize 0
 
 class Administrator
 class ListOfEmployees {
-String role
+-arrGetListOfEmployees: ArrayList
 }
 
 Administrator "1" ---- "1" ListOfEmployees : gets >
