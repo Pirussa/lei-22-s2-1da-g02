@@ -33,6 +33,14 @@ public class Employee {
         this.citizenCardNumber = citizenCardNumber;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     public boolean validateEmployeeData() {
         if (phoneNumber != 0) {
             int aux = phoneNumber;
