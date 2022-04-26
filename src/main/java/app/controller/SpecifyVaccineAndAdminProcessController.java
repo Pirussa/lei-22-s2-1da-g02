@@ -7,7 +7,9 @@ import app.ui.console.VaccineAndAdminProcessDto;
 
 import java.util.ArrayList;
 
-/** US013 - Specify Vaccine and its Administration Process Controller
+/**
+ * US013 - Specify Vaccine and its Administration Process Controller
+ *
  * @author Gustavo Jorge <1211061@isep.ipp.pt>
  */
 
@@ -37,7 +39,8 @@ public class SpecifyVaccineAndAdminProcessController {
     }
 
 
-    /** Gets the list with all the Vaccine Types available
+    /**
+     * Gets the list with all the Vaccine Types available
      *
      * @return an ArrayList with all the Vaccine Types that are available to choose.
      */
@@ -45,7 +48,9 @@ public class SpecifyVaccineAndAdminProcessController {
         return company.getVaccineTypes();
     }
 
-
+    /**
+     * Saves a Vaccine Type into the Company storage.
+     */
     public void saveVaccine(VaccineAndAdminProcessDto dto) {
         company.saveVaccine(dto);
     }

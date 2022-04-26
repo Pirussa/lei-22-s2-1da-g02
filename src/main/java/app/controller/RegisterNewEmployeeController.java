@@ -1,10 +1,9 @@
 package app.controller;
 
-import app.controller.App;
+
 import app.domain.model.Company;
 import app.ui.console.RegisterNewEmployeeDto;
 
-import java.util.ArrayList;
 
 /**
  * US010 - Register New Employee Controller
@@ -29,5 +28,6 @@ public class RegisterNewEmployeeController {
     public void saveCreatedEmployee(RegisterNewEmployeeDto dto) {
         company.saveCreatedEmployee(dto);
     }
+
 
 }

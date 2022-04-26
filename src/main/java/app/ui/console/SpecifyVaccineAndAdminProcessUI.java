@@ -273,6 +273,10 @@ public class SpecifyVaccineAndAdminProcessUI implements Runnable {
 
     }
 
+    /** Asks the user how many doses should be considered for an age group.
+     *
+     * @return number of doses for a given age group
+     */
     private int chooseNumberOfDoses() {
         Scanner sc = new Scanner(System.in);
         int numberOfDoses = 0;

@@ -1,5 +1,6 @@
 package app.domain.model;
 
+import app.ui.console.RegisterNewEmployeeDto;
 import app.ui.console.VaccineAndAdminProcessDto;
 import pt.isep.lei.esoft.auth.AuthFacade;
 import org.apache.commons.lang3.StringUtils;
@@ -19,6 +20,8 @@ public class Company {
     private ArrayList<VaccineType> vaccineTypes = new ArrayList<>();
 
     private ArrayList<Vaccine> vaccines = new ArrayList<>();
+
+    private ArrayList<Employee> employees = new ArrayList<>();
 
     public Company(String designation) {
         if (StringUtils.isBlank(designation))
@@ -106,5 +109,17 @@ public class Company {
     public void saveVaccineType(String code, String description, String technology) {
         VaccineType vt = new VaccineType(code, description, technology);
         vaccineTypes.add(vt);
+    }
+    public void addNewRole() {
+
+    }
+    public boolean registerNewEmployee(RegisterNewEmployeeDto dto) {
+        Employee emp = new Employee(dto.role, dto.id, dto.name, dto.address, dto.phoneNumber, dto.email, dto.citizenCardNumber);
+        return true;
+    }
+
+    public void saveCreatedEmployee(RegisterNewEmployeeDto dto) {
+        Employee emp = new Employee(dto.role, dto.id, dto.name, dto.address, dto.phoneNumber, dto.email, dto.citizenCardNumber);
+        employees.add(emp);
     }
 }
