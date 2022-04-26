@@ -43,108 +43,6 @@ public class VaccinationCenter {
         this.coordinator = coordinator;
     }
 
-    public VaccinationCenter(){
-        name=NAMEBYOMISSION;
-        address=ADDRESSBYOMISSION;
-        phoneNumber=PHONENUMBERBYOMISSION;
-        emailAddress=EMAILADDRESSBYOMISSION;
-        faxNumber=FAXNUMBERBYOMISSION;
-        websiteAddress=WEBSITEADDRESSBYOMISSION;
-        openingHour=OPENINGHOURBYOMISSION;
-        closingHour=CLOSINGHOURBYOMISSION;
-        slotDuration=SLOTDURATIONBYOMISSION;
-        vaccinesPerSlot=VACCINESPERSLOTBYOMISSION;
-        coordinator=COORDINATORBYOMISSION;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public double getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(double phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getEmailAddress() {
-        return emailAddress;
-    }
-
-    public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
-    }
-
-    public double getFaxNumber() {
-        return faxNumber;
-    }
-
-    public void setFaxNumber(double faxNumber) {
-        this.faxNumber = faxNumber;
-    }
-
-    public String getWebsiteAddress() {
-        return websiteAddress;
-    }
-
-    public void setWebsiteAddress(String websiteAddress) {
-        this.websiteAddress = websiteAddress;
-    }
-
-    public int getOpeningHour() {
-        return openingHour;
-    }
-
-    public void setOpeningHour(int openingHour) {
-        this.openingHour = openingHour;
-    }
-
-    public int getClosingHour() {
-        return closingHour;
-    }
-
-    public void setClosingHour(int closingHour) {
-        this.closingHour = closingHour;
-    }
-
-    public int getSlotDuration() {
-        return slotDuration;
-    }
-
-    public void setSlotDuration(int slotDuration) {
-        this.slotDuration = slotDuration;
-    }
-
-    public int getVaccinesPerSlot() {
-        return vaccinesPerSlot;
-    }
-
-    public void setVaccinesPerSlot(int vaccinesPerSlot) {
-        this.vaccinesPerSlot = vaccinesPerSlot;
-    }
-
-    public String getCoordinator() {
-        return coordinator;
-    }
-
-    public void setCoordinator(String coordinator) {
-        this.coordinator = coordinator;
-    }
-
     @Override
     public String toString() {
         return "VaccinationCenter{" +
@@ -160,5 +58,12 @@ public class VaccinationCenter {
                 ", vaccinesPerSlot=" + vaccinesPerSlot +
                 ", coordinator='" + coordinator + '\'' +
                 '}';
+    }
+
+    public boolean validateVaccinationCenter(){
+        if (name.isEmpty()||address.isEmpty()||emailAddress.isEmpty()||websiteAddress.isEmpty()||coordinator.isEmpty()){
+            return  false;
+        }
+        return true;
     }
 }

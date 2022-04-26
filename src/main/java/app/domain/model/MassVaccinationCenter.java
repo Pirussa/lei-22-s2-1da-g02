@@ -8,7 +8,5 @@ public class MassVaccinationCenter extends  VaccinationCenter{
         super(name, address, phoneNumber, emailAddress, faxNumber, websiteAddress, openingHour, closingHour, slotDuration, vaccinesPerSlot, coordinator);
     }
 
-    public MassVaccinationCenter() {
-        super();
-    }
+
 }
