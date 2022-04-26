@@ -56,6 +56,14 @@ public class Company {
     }
 
     /**
+     * Gets the Employees registered in the Company.
+     *
+     * @return An ArrayList of Employees.
+     */
+
+    public ArrayList<Employee> getListOfEmployees(){return employees;}
+
+    /**
      * Gets the Vaccines that are stored in the Company.
      *
      * @return An ArrayList of Vaccines.
