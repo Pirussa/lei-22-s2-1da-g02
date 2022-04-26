@@ -24,11 +24,12 @@ class MassVaccinationCenter extends VaccinationCenter{
 }
 
 class HealthcareCenter extends VaccinationCenter{
-==-ARE
+==-ARS
 ==-AGES
 }
 
-VaccinationCenter "1" --- "1" Coordinator: has >
+MassVaccinationCenter "1" -d- "1" Coordinator: has >
+HealthcareCenter "1" -d- "1" Coordinator: has >
 Administrator "1" --- "*" VaccinationCenter: creates >
 
 @enduml

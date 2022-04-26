@@ -11,20 +11,25 @@ participant ":VaccinationCenter" as V
 activate A
 A -> UI : asks to create a new vaccination center
 activate UI
-UI --> A : requests data (name, address, phone number, email address, fax number, website address, email address, opening hour, closing hour, slot duration, vaccines per slot)
+UI --> A : shows menu option (mass vacination center, healthcare center)
+deactivate UI
+
+A -> UI : selects an option
+activate UI
+UI --> A : requests data (coordinator, name, address, phone number, email address, fax number, website address, email address, opening hour, closing hour, slot duration, vaccines per slot, ARS, AGES)
 deactivate UI
 
 A -> UI : types requested data
 activate UI
 
-UI -> CTRL : createVaccinationCenter(name, address, phone number, email address, fax number, website address, email address, opening hour, closing hour, slot duration, vaccines per slot)
+UI -> CTRL : createVaccinationCenter(coordinator, name, address, phone number, email address, fax number, website address, email address, opening hour, closing hour, slot duration, vaccines per slot, ARS, AGES)
 activate CTRL
 
-CTRL -> C : createVaccinationCenter(name, address, phone number, email address, fax number, website address, email address, opening hour, closing hour, slot duration, vaccines per slot)
+CTRL -> C : createVaccinationCenter(coordinator, name, address, phone number, email address, fax number, website address, email address, opening hour, closing hour, slot duration, vaccines per slot, ARS, AGES)
 activate C
-C --> V : createVaccinationCenter(name, address, phone number, email address, fax number, website address, email address, opening hour, closing hour, slot duration, vaccines per slot)
+C --> V : createVaccinationCenter(coordinator, name, address, phone number, email address, fax number, website address, email address, opening hour, closing hour, slot duration, vaccines per slot, ARS, AGES)
 activate V
-C -> C :  validate data
+V -> V :  validate data
 
 CTRL --> UI : result
 
@@ -38,9 +43,9 @@ deactivate UI
 
 A -> UI : confirms the data
 activate UI
-UI -> CTRL : saveVaccinationCenter(name, address, phone number, email address, fax number, website address, email address, opening hour, closing hour, slot duration, vaccines per slot)
+UI -> CTRL : saveVaccinationCenter(coordinator, name, address, phone number, email address, fax number, website address, email address, opening hour, closing hour, slot duration, vaccines per slot, ARS, AGES)
 activate CTRL
-CTRL -> C : saveVaccinationCenter(name, address, phone number, email address, fax number, website address, email address, opening hour, closing hour, slot duration, vaccines per slot)
+CTRL -> C : saveVaccinationCenter(coordinator, name, address, phone number, email address, fax number, website address, email address, opening hour, closing hour, slot duration, vaccines per slot, ARS, AGES)
 activate C
 
 
