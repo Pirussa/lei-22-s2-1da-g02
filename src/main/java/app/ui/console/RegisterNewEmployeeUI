@@ -40,7 +40,6 @@ public class RegisterNewEmployeeUI implements Runnable {
             options++;
         }
     }
-
     public void addNewRole(ArrayList<String> roles) {
         Scanner read = new Scanner(System.in);
 
@@ -48,6 +47,15 @@ public class RegisterNewEmployeeUI implements Runnable {
         roles.add(Constants.ROLE_RECEPTIONIST);
         roles.add(Constants.ROLE_CENTRE_COORDINATOR);
 
+        System.out.printf("1 - Select Roles%n2 - Add Role%nPress 1 or 2.");
+        int options = read.nextInt();
 
+        if (options == 1) {
+            for (int position = 0; position < roles.size(); position++) {
+                System.out.println(roles.get(position));
+            }
+        } else if (options == 2) {
+            int position = roles.size() - 1;
+        }
     }
 }
