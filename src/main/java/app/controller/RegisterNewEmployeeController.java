@@ -2,7 +2,11 @@ package app.controller;
 
 
 import app.domain.model.Company;
+import app.domain.model.Employee;
+import app.domain.shared.Constants;
 import app.ui.console.RegisterNewEmployeeDto;
+
+import java.util.ArrayList;
 
 
 /**
@@ -18,6 +22,9 @@ public class RegisterNewEmployeeController {
     public RegisterNewEmployeeController() {
     }
 
+    public ArrayList<String> getRolesList() {
+        return company.getRolesList();
+    }
     public boolean registerNewEmployee(RegisterNewEmployeeDto dto) {
         if (company.registerNewEmployee(dto)) {
             return true;
@@ -28,6 +35,4 @@ public class RegisterNewEmployeeController {
     public void saveCreatedEmployee(RegisterNewEmployeeDto dto) {
         company.saveCreatedEmployee(dto);
     }
-
-
 }
