@@ -19,3 +19,4 @@ public class RegisterNewEmployeeDto {
 
     public int citizenCardNumber;
 }
+

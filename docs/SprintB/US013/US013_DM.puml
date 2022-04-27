@@ -1,5 +1,4 @@
 @startuml
-!pragma layout smetana
 
 hide methods
 left to right direction
@@ -12,6 +11,8 @@ class Administrator {
 
 class Vaccine{
     -name
+    -id
+    -brand
 }
 
 class AdministrationProcess {
@@ -20,6 +21,12 @@ class AdministrationProcess {
     -vaccineDosage
     -timeIntervalBetweenVaccines
 
+}
+
+class VaccineType{
+-description
+-code
+-vaccineTechnology
 }
 
 class ApplicationUser {
@@ -31,7 +38,10 @@ class ApplicationUser {
 
 Administrator "1" -- "*" Vaccine: specifies new >
 Administrator "1" -- "*" AdministrationProcess: specifies  >
+Administrator "1" -- "*" VaccineType: specifies  >
+
 Vaccine "1" -- "1" AdministrationProcess: has an >
+Vaccine "1" -- "1" VaccineType: has an >
 ApplicationUser  <|-- Administrator
 
 

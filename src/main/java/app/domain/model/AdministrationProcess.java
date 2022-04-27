@@ -14,20 +14,20 @@ public class AdministrationProcess {
 
     private ArrayList<Integer> numberOfDoses;
 
-    private ArrayList<Integer> dosage;
+    private ArrayList<Float> dosage;
 
     private ArrayList<ArrayList<Integer>> timeIntervalBetweenVaccines;
 
 
     /**
-     * Creates a vaccine with the following attributes:
+     * Creates an Administration Process with the following attributes:
      *
      * @param ageGroups                   The age groups that are considered in the Administration Process.
      * @param numberOfDoses               The number of doses a person should take, corresponding to each age group.
      * @param dosage                      The dosage, in ml, that should be in the vaccine in one take.
      * @param timeIntervalBetweenVaccines The interval, in days, between doses.
      */
-    public AdministrationProcess(ArrayList<ArrayList<Integer>> ageGroups, ArrayList<Integer> numberOfDoses, ArrayList<Integer> dosage, ArrayList<ArrayList<Integer>> timeIntervalBetweenVaccines) {
+    public AdministrationProcess(ArrayList<ArrayList<Integer>> ageGroups, ArrayList<Integer> numberOfDoses, ArrayList<Float> dosage, ArrayList<ArrayList<Integer>> timeIntervalBetweenVaccines) {
         this.ageGroups = ageGroups;
         this.numberOfDoses = numberOfDoses;
         this.dosage = dosage;

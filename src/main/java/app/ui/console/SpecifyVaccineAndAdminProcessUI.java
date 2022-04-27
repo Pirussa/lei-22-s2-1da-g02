@@ -124,7 +124,7 @@ public class SpecifyVaccineAndAdminProcessUI implements Runnable {
                 check = 0;
                 do {
                     try {
-                        dto.dosage.add(sc.nextInt());
+                        dto.dosage.add(sc.nextFloat());
                         sc.nextLine();
                         check = 1;
                     } catch (InputMismatchException e) {
@@ -256,7 +256,7 @@ public class SpecifyVaccineAndAdminProcessUI implements Runnable {
         System.out.println();
         System.out.println("---- Its Administration Process: ----");
         for (int i = 0; i < dto.ageGroups.get(0).size(); i++) {
-            System.out.printf("From ages %d to %d :%n", dto.ageGroups.get(0).get(i), dto.ageGroups.get(1).get(i));
+            System.out.printf("From ages %d to %d:%n", dto.ageGroups.get(0).get(i), dto.ageGroups.get(1).get(i));
             System.out.println("Number of doses: " + dto.numberOfDoses.get(i));
             System.out.println("Dosage: " + dto.dosage.get(i) + "ml");
             if (dto.numberOfDoses.get(i) == 2) {

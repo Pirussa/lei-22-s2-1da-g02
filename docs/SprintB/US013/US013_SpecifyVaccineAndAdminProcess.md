@@ -20,6 +20,16 @@ As an **administrator**, I want to register a **new vaccine and its administrati
 >
 > **Answer:** Each vaccine has the following attributes: Id, Name, Brand, Vaccine Type, Age Group, Dose Number, Vaccine Dosage and Time Since Last Dose.
 
+> **Question:** We would like to know if when specifying a new Vaccine and its Administration Process, should a list of the existing types of vaccines be displayed in order for him to choose one, or should he just input it?
+>
+> **Answer:** If the information is available in the system, it is a good practice to present the information to the user and ask the user to select.
+
+> **Question:** As to the interval between doses, what time format are we to use? (e.g. days, weeks, months)
+>
+> **Answer:** Number of days.
+
+
+
 ### 1.3. Acceptance Criteria
 
 * **AC1:** The new vaccine can't have the same Id as a previously created vaccine.
@@ -69,7 +79,7 @@ related to a vaccine that was given and not to an actual Vaccine like the projec
 "For instance, for the Covid-19 type, there is (i) the Pfizer vaccine, (ii) the Moderna vaccine, (iii) the AstraZeneca
 vaccine, and so on"
 
-Summarizing, there should be Vaccine Types (Covid-19, Flu, etc...), to those types there should be different Vaccines (
+Summarizing, there should be Vaccine Types (Covid-19, Flu, etc...)/(Even to the same disease but using different technologies), to those types there should be different Vaccines (
 Pfizer, Moderna, etc...), and then there should be a Given Vaccine class, where there is all the information about a
 vaccine that was given:
 ID, Name, Brand, Vaccine Type, Age Group, Dose Number, Vaccine Dosage and Time Since Last Dose.
@@ -95,10 +105,10 @@ No other relevant remarks.
 | Step 1         |    ... interacting with the actor? | SpecifyVaccineAndAdminProcessUI   |  Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model.   |
 | 			  		 |    ... coordinating the US? | SpecifyVaccineAndAdminProcessController | **Controller**  |
 | Step 2  |    ...transfer the data typed in the UI to the domain? | VaccineAndAdminProcessDto | **DTO:** When there is so much data to transfer, it is better to opt by using a DTO in order to reduce coupling between UI and domain |
-| Step 3     |    ... instantiating a new Vaccine  | Company | **Creator**  |
-| 	 |    ... instantiating a new Administration Process | Vaccine |**Creator**|
-| Step 4         |    ...validating the inputted data for the Vaccine | Vaccine |  |
-| 		 |    ...validating the inputted data for the Administration Process | Administration Process |  |
+| Step 3     |    ... instantiating a new Vaccine  | Company | By applying the **Creator** pattern, the "Company" is responsible for instantiating a new "Vaccine", since it is the one who storages the Vaccines.   |
+| 	 |    ... instantiating a new Administration Process | Vaccine |By applying the **Creator** pattern, the "Vaccine" is responsible for instantiating the "Administration Process", since a "Vaccine" has/contains an Administration Process|
+| Step 4         |    ...validating the inputted data for the Vaccine | Vaccine | The Vaccine class should know what needs to be validated in order to actually create a "Vaccine"|
+| 		 |    ...validating the inputted data for the Administration Process | Administration Process |The Administration Process class should know what needs to be validated in order to actually create an "Administration Process"  |
 | Step 5         |    ...saving the inputted data for the Vaccine ? | Vaccine | **IE:** A Vaccine has its own data |
 |   		 |    ...saving the inputted data for the Administration Process? | AdministrationProcess  | **IE:** An Administration Process has its own data |
 | Step 7  |    ... informing operation success | SpecifyVaccineAndAdminProcessUI  | **IE:** is responsible for user interactions  | 

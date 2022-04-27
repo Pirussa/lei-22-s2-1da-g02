@@ -66,6 +66,7 @@ public class VaccineType {
         return true;
     }
 
+
 }
 
 

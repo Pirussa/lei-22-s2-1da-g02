@@ -36,10 +36,10 @@ public class Employee {
     public boolean validateEmployeeData() {
         if (phoneNumber != 0) {
             int aux = phoneNumber;
-        for (int count = 0; aux != 0; aux/= 10, count++) {
-            if (count < NUMBER_OF_PHONE_NUMBER_DIGITS)
-                return false;
-        }
+            for (int count = 0; aux != 0; aux/= 10, count++) {
+                if (count < NUMBER_OF_PHONE_NUMBER_DIGITS)
+                    return false;
+            }
         }
         return true;
     }
