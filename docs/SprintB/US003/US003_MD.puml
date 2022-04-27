@@ -5,8 +5,13 @@ class Receptionist
 
 class SnsUser {
 ==-name
+==-address
+==-sex
+==-phoneNumber
 ==-email
-==-password
+==-birthDate
+==-SNS_number
+==-citizenCardNumber
 }
 
 Receptionist "1" --- "*" SnsUser: creates

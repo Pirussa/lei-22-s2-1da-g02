@@ -1,15 +1,15 @@
 @startuml
 'https://plantuml.com/class-diagram
-!pragma layout smetana
 
 left to right direction
 
 class ApplicationUser {
-==-password
 ==-name
-==-email
+==-emailAddress
 ==-role
+==-password
 }
+
 
 class Administrator
 
@@ -18,10 +18,12 @@ class SnsUser {
 }
 
 ApplicationUser <|--- SnsUser
-ApplicationUser <|-- Nurse
+ApplicationUser <|---- Nurse
 ApplicationUser <|-left- Receptionist
 ApplicationUser <|- Administrator
 ApplicationUser <|--- CenterCoordinator
+
+'Receptionist "1" - "*" SnsUser : creates new >
 
 
 class Receptionist
@@ -30,23 +32,18 @@ class Nurse
 
 class CenterCoordinator
 
-class Employee
+'Administrator "*" -- "*" SnsUser : configures and manages  >
+'Administrator "*" - "*" Nurse : configures and manages >
+'Administrator "*" -l- "*" Receptionist : configures and manages >
+'Administrator "*" -- "*" VaccinatonCenter : configures and manages >
+'Administrator "*" -up-- "*" CenterCoordinator : configures and manages >
+'Administrator "*" -up- "*" TypeOfVaccine : configures and manages >
+'Administrator "*" -- "*" Vaccine : specifies new >
+'Administrator "1" - "*" DosageScheme : specifies  >
+'Administrator "*" -left "*" Employee : configures and manages >
 
-class ListOfEmployess
-
-Administrator "*" -- "*" SnsUser : configures and manages  >
-Administrator "*" -- "*" VaccinatonCenter : configures and manages >
-Administrator "*" -up-- "*" CenterCoordinator : configures and manages >
-Administrator "*" -- "*" TypeOfVaccine : configures and manages >
-Administrator "*" -- "*" Vaccine
-Administrator "1" -- "*" Employee : configures and manages >
-Administrator "1" - "1" ListOfEmployess : checks >
-
-Employee <|- Nurse
-Employee <|- Receptionist
-
-'Receptionist "1" - "*" SnsUser : creates >
-
+'Employee <-left Receptionist
+'Employee <- Nurse
 
 class VaccinatonCenter {
 ==-name
@@ -75,7 +72,7 @@ class Vaccine {
 ==-brand
 }
 
-class AdministrationProcess {
+class DosageScheme {
 ==-numberOfDoses
 ==-dosage
 == -age
@@ -87,19 +84,19 @@ class TypeOfVaccine {
 }
 
 
-Vaccine "1" -- "1" AdministrationProcess : has a >
+Vaccine "1" -- "1" DosageScheme : has a >
 TypeOfVaccine "*" -- "1" Vaccine :is of <
 Vaccine "*" --- "1" VaccinatonCenter : is administered on >
 
 class DigitalCertificate
 
-Nurse "1" -left "*" DigitalCertificate : delivers >
-SnsUser "1" -- "1" DigitalCertificate : requests >
+'Nurse "1" -left "*" DigitalCertificate : delivers >
+SnsUser "1" --- "1" DigitalCertificate : requests >
 
 class VaccineAppointment
 
 SnsUser "1" -- "*" VaccineAppointment : schedules >
-Receptionist "1" - "*" VaccineAppointment : schedules and confirms >
+'Receptionist "1" - "*" VaccineAppointment : schedules and confirms >
 
 
 class UsersWaitingList
@@ -107,8 +104,8 @@ class UserInfo
 
 Receptionist "*" - "1" UsersWaitingList : atualizes >
 Nurse "*" -- "1" UsersWaitingList : checks >
-Nurse "1" -- "*" Vaccine : administers >
-Nurse "1" --  "*" UserInfo : checks >
+Nurse "1" - "*" Vaccine : administers >
+SnsUser "1" --  "*" UserInfo : has >
 
 class GivenVaccine
 class AdverseReactions

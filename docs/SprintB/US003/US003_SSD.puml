@@ -5,7 +5,7 @@ actor "Receptionist" as RE
 activate RE
 RE -> ":System" : asks to create a new system user
 activate ":System"
-":System" --> RE : requests data (name, email, password, role id)
+":System" --> RE : requests data (name, address, sex, phoneNumber, emailAddress, birthDate, SNSNumber, citizenCardNumber)
 deactivate ":System"
 
 RE -> ":System" : types requested data
