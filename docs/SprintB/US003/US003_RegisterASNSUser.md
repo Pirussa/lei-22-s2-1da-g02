@@ -16,7 +16,7 @@ No specifications nor clarifications were given.
 
 ### 1.3. Acceptance Criteria
 
-The SNS user must become a system user.
+*AC1:* The SNS user must become a system user.
 
 
 ### 1.4. Found out Dependencies
@@ -30,9 +30,13 @@ No dependencies were found.
 **Input Data:**
 
 * Typed data:
-	* a name, 
-	* a email, 
-	* a password
+    * a name, 
+    * a address, 
+    * sex,
+    * a phone number
+    * an email address
+    * a birthdate
+    * a citizen card number
 	
 
 

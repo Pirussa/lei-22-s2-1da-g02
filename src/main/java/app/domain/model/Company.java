@@ -1,5 +1,6 @@
 package app.domain.model;
 
+import app.domain.shared.Constants;
 import app.ui.console.RegisterNewEmployeeDto;
 import app.ui.console.VaccineAndAdminProcessDto;
 import pt.isep.lei.esoft.auth.AuthFacade;
@@ -22,6 +23,12 @@ public class Company {
     private ArrayList<Vaccine> vaccines = new ArrayList<>();
 
     private ArrayList<Employee> employees = new ArrayList<>();
+
+    private ArrayList<String> roles = new ArrayList<>();
+
+    public ArrayList<String> getRolesList() {
+        return roles;
+    }
 
     public Company(String designation) {
         if (StringUtils.isBlank(designation))
@@ -47,6 +54,14 @@ public class Company {
     public ArrayList<VaccineType> getVaccineTypes() {
         return vaccineTypes;
     }
+
+    /**
+     * Gets the Employees registered in the Company.
+     *
+     * @return An ArrayList of Employees.
+     */
+
+    public ArrayList<Employee> getListOfEmployees(){return employees;}
 
     /**
      * Gets the Vaccines that are stored in the Company.

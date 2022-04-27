@@ -4,6 +4,14 @@
 
 class Administrator
 
+class TypeOfVaccine{
+==-virus
+}
+
+class Vaccine{
+==-brand
+}
+
 class VaccinationCenter{
 ==-name
 ==-address
@@ -24,11 +32,15 @@ class MassVaccinationCenter extends VaccinationCenter{
 }
 
 class HealthcareCenter extends VaccinationCenter{
-==-ARE
+==-ARS
 ==-AGES
 }
 
-VaccinationCenter "1" --- "1" Coordinator: has >
 Administrator "1" --- "*" VaccinationCenter: creates >
+MassVaccinationCenter "1" --- "1" Coordinator: has >
+HealthcareCenter "1" -l- "1" Coordinator: has >
+MassVaccinationCenter "1" --- "1" TypeOfVaccine: administers >
+HealthcareCenter "1" --- "*" TypeOfVaccine: administers >
+Vaccine "1" --- "*" TypeOfVaccine: is of >
 
 @enduml

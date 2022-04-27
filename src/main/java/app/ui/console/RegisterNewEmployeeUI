@@ -4,10 +4,12 @@ import app.controller.RegisterNewEmployeeController;
 import app.controller.App;
 import app.domain.model.Company;
 import app.domain.model.Employee;
+import app.domain.shared.Constants;
+import jdk.swing.interop.SwingInterOpUtils;
 
-import javax.management.relation.RoleList;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 
 /**
  * US010 - Register New Employee UI
@@ -31,13 +33,29 @@ public class RegisterNewEmployeeUI implements Runnable {
         System.out.printf("**You are now registering a new employee**%n");
 
         System.out.printf("**Please select one of the following roles**%n");
-        /*ArrayList<Employee> emp =
+        ArrayList<String> roles = ctrl.getRolesList();
         int options = 1;
-        for (VaccineType vt : vTs) {
+        for (emp vt : vTs) {
             System.out.printf("%d- %s %n", options, vt);
             options++;
         }
     }
-*/
+    public void addNewRole(ArrayList<String> roles) {
+        Scanner read = new Scanner(System.in);
+
+        roles.add(Constants.ROLE_NURSE);
+        roles.add(Constants.ROLE_RECEPTIONIST);
+        roles.add(Constants.ROLE_CENTRE_COORDINATOR);
+
+        System.out.printf("1 - Select Roles%n2 - Add Role%nPress 1 or 2.");
+        int options = read.nextInt();
+
+        if (options == 1) {
+            for (int position = 0; position < roles.size(); position++) {
+                System.out.println(roles.get(position));
+            }
+        } else if (options == 2) {
+            int position = roles.size() - 1;
+        }
     }
 }
