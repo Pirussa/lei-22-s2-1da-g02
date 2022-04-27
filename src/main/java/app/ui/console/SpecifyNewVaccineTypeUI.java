@@ -28,8 +28,6 @@ public class SpecifyNewVaccineTypeUI implements Runnable {
         System.out.println("------Specify Vaccine Type------");
         System.out.println();
 
-        boolean check = false;
-
         System.out.println("--Insert the new Vaccine Type Code:");
         String code = sc.next();
         sc.nextLine();
@@ -51,12 +49,27 @@ public class SpecifyNewVaccineTypeUI implements Runnable {
         System.out.println("Type your option:");
         int option = sc.nextInt();
         sc.nextLine();
-        if (option >= 1 && option <= options) {
-            technology = VaccineType.vaccineTechnologies[option - 1];
-        } else {
-            System.out.println("Insert a valid option");
+
+        boolean check = false;
+
+        while (!check) {
+            try {
+                technology = VaccineType.vaccineTechnologies[option - 1];
+                check = true;
+            }
+            catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Inser a valid option");
+                option = sc.nextInt();
+                sc.nextLine();
+            }
         }
-        System.out.println();
+
+//        if (option >= 1 && option <= options) {
+//
+//        } else {
+//            System.out.println("Insert a valid option");
+//        }
+//        System.out.println();
 
         if (ctrl.specifyNewVaccineType(code, description, technology)) {
             showVaccineTypeData(code, description, technology);
