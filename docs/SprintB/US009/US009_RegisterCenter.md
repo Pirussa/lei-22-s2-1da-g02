@@ -33,6 +33,7 @@ As an administrator, I want to register a vaccination center to respond to a cer
 
 ### 1.4. Found out Dependencies
 
+* There is a dependency to "US010 As an administrator, I want to register a new employee" since at least a task category must exist to classify the task being created.
 
 ### 1.5 Input and Output Data
 
