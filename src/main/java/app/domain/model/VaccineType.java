@@ -55,14 +55,14 @@ public class VaccineType {
     }
 
     public boolean validateCode() {
-        if (code.length() == 5) {
-            Company c = App.getInstance().getCompany();
-            for (VaccineType vt : c.getVaccineTypes()) {
-                if (code.equals(vt.code)) return false;
-            }
-        }else{
+        if (code.length() != 5)
             return false;
+
+        Company c = App.getInstance().getCompany();
+        for (VaccineType vt : c.getVaccineTypes()) {
+            if (code.equals(vt.code)) return false;
         }
+
         return true;
     }
 
