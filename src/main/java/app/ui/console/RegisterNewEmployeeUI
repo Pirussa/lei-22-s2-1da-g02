@@ -33,11 +33,11 @@ public class RegisterNewEmployeeUI implements Runnable {
         RegisterNewEmployeeDto dto = new RegisterNewEmployeeDto();
         System.out.printf("**You are now registering a new employee**%n");
 
-        System.out.printf("**Please select one of the following roles**%n");
         ArrayList<String> roles = ctrl.getRolesList();
         int index = Utils.showAndSelectIndex(roles, "**Select one of the options**");
         String selectedRole = roles.get(index);
-        
+
+        String givenName = Utils.readLineFromConsole("Insert Name: ");
         
     }
 }
