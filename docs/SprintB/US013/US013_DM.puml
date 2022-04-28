@@ -9,6 +9,8 @@ class Administrator {
 
 }
 
+class Company{}
+
 class Vaccine{
     -name
     -id
@@ -44,6 +46,6 @@ Vaccine "1" -- "1" AdministrationProcess: has an >
 Vaccine "1" -- "1" VaccineType: has an >
 ApplicationUser  <|-- Administrator
 
-
+Company "1" --- "*" Vaccine : storages >
 
 @enduml
