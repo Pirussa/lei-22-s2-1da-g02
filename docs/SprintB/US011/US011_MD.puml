@@ -6,7 +6,9 @@ skinparam classAttributeIconSize 0
 
 class Administrator
 class ListOfEmployees {
--arrGetListOfEmployees: ArrayList
+-nurseList: ArrayList
+-receptionistList: ArrayList
+-centreCoordinatorList: ArrayList
 }
 
 Administrator "1" ---- "1" ListOfEmployees : gets >
