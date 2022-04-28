@@ -30,7 +30,7 @@ public class GetListOfEmployeesUI implements Runnable {
         System.out.println("3- List of Centre Coordinators");
         op = read.nextInt();
 
-       /* if(!ctrl.getEmployees().isEmpty())
+        /*if(!ctrl.getEmployees().isEmpty())
         switch (op) {
             case 1:
                 if (!ctrl.getNurseList().isEmpty()) {

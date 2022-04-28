@@ -9,6 +9,7 @@ import app.ui.console.utils.Utils;
 
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Scanner;
 
 
@@ -34,10 +35,15 @@ public class RegisterNewEmployeeUI implements Runnable {
         System.out.printf("**You are now registering a new employee**%n");
 
         ArrayList<String> roles = ctrl.getRolesList();
+        //roles().add(Constants.ROLE_NURSE); roles().add(Constants.ROLE_RECEPTIONIST); roles().add(Constants.ROLE_CENTRE_COORDINATOR);
+
         int index = Utils.showAndSelectIndex(roles, "**Select one of the options**");
         String selectedRole = roles.get(index);
 
         String givenName = Utils.readLineFromConsole("Insert Name: ");
-        
+        String givenAddress = Utils.readLineFromConsole("Insert Address: ");
+        String givenPhoneNumber = Utils.readLineFromConsole("Insert Phone Number: ");
+        String givenEmail = Utils.readLineFromConsole("Insert Email: ");
+        String givenCitizenCardNumber = Utils.readLineFromConsole("Insert Citizen Card Number: ");
     }
 }
