@@ -40,7 +40,7 @@ public class RegisterNewEmployeeController {
     }
 
     public String passwordGenerator() {
-        final String alphabetLetters = "abcdefghijklmnopqrstuvwABCDEFGHIJKLMNOP0123456789";
+        final String alphabetLetters = "abcdefghijklmnopqrstuvwyxzABCDEFGHIJKLMNOPQRSTUVWYXZ0123456789";
         StringBuilder password = new StringBuilder();
         Random generate = new Random();
         ArrayList<String> randomAlphanumerics = new ArrayList<>();
