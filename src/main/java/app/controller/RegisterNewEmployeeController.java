@@ -2,8 +2,6 @@ package app.controller;
 
 
 import app.domain.model.Company;
-import app.domain.model.Employee;
-import app.domain.shared.Constants;
 import app.ui.console.RegisterNewEmployeeDto;
 
 import java.util.ArrayList;

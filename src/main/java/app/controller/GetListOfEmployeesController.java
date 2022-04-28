@@ -20,27 +20,64 @@ public class GetListOfEmployeesController {
     }
 
 
-    ArrayList<Employee> nurseList = new ArrayList<>();
-    ArrayList<Employee> receptionistList = new ArrayList<>();
-    ArrayList<Employee> centreCoordinatorList = new ArrayList<>();
+    public ArrayList<Employee> getEmployees(){
+        return company.getEmployees();
+    }
 
-    public void GetListOfEmployeesWithAGivenRole(ArrayList<Employee> employees, ArrayList<Employee> nurseList, ArrayList<Employee> receptionistList, ArrayList<Employee> centreCoordinatorList) {
-        for (int positionArrayListEmployees = 0; positionArrayListEmployees < employees.size(); positionArrayListEmployees++) {
-            if (employees.get(positionArrayListEmployees).getRole().equals(Constants.ROLE_NURSE)) {
+
+    private ArrayList<Employee> nurseList = new ArrayList<>();
+    private ArrayList<Employee> receptionistList =new ArrayList<>();
+    private ArrayList<Employee> centreCoordinatorList = new ArrayList<>();
+
+    public void getListOfEmployeesWithAGivenRole() {
+        ArrayList<Employee> emp = company.getEmployees();
+        for (int positionArrayListEmployees = 0; positionArrayListEmployees < emp.size(); positionArrayListEmployees++) {
+            if (emp.get(positionArrayListEmployees).getRole().equals(Constants.ROLE_NURSE)) {
                 for (int positionArrayListNurses = 0; positionArrayListNurses < nurseList.size(); positionArrayListNurses++) {
-                    nurseList.add(employees.get(positionArrayListNurses));
+                    nurseList.add(emp.get(positionArrayListNurses));
                 }
-            } else if (employees.get(positionArrayListEmployees).getRole().equals(Constants.ROLE_RECEPTIONIST)) {
+            } else if (emp.get(positionArrayListEmployees).getRole().equals(Constants.ROLE_RECEPTIONIST)) {
                 for (int positionArrayListReceptionist = 0; positionArrayListReceptionist < receptionistList.size(); positionArrayListReceptionist++) {
-                    receptionistList.add(employees.get(positionArrayListReceptionist));
+                    receptionistList.add(emp.get(positionArrayListReceptionist));
                 }
-            } else if (employees.get(positionArrayListEmployees).getRole().equals(Constants.ROLE_CENTRE_COORDINATOR)) {
+            } else if (emp.get(positionArrayListEmployees).getRole().equals(Constants.ROLE_CENTRE_COORDINATOR)) {
                 for (int positionArrayListCentreCoordinator = 0; positionArrayListCentreCoordinator < centreCoordinatorList.size(); positionArrayListCentreCoordinator++) {
-                    centreCoordinatorList.add(employees.get(positionArrayListCentreCoordinator));
+                    centreCoordinatorList.add(emp.get(positionArrayListCentreCoordinator));
                 }
             }
         }
     }
+
+    public ArrayList<Employee> getNurseList(){
+        return nurseList;
+    }
+
+    public ArrayList<Employee> getReceptionistList() {
+        return receptionistList;
+    }
+
+    public ArrayList<Employee> getCentreCoordinatorList() {
+        return centreCoordinatorList;
+    }
+
+    public void printNurseList(){
+        for (int listPosition = 0; listPosition < nurseList.size() ; listPosition++) {
+            System.out.println(nurseList.get(listPosition));
+        }
+    }
+
+    public void printReceptionistList(){
+        for (int listPosition = 0; listPosition < receptionistList.size(); listPosition++) {
+            System.out.println(receptionistList.get(listPosition));
+        }
+    }
+
+    public void printCentreCoordinator(){
+        for (int listPosition = 0; listPosition < centreCoordinatorList.size(); listPosition++) {
+            System.out.println(centreCoordinatorList.get(listPosition));
+        }
+    }
+
 }
 
 
