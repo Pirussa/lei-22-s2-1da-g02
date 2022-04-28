@@ -11,15 +11,15 @@ activate Administrator
 
 Administrator -> ":System": asks to create a new employee
 activate ":System"
-Administrator <-- ":System": request data (name, job title, email, password)
-deactivate ":System"
-
-Administrator -> ":System": types requested data
-activate ":System"
 Administrator <-- ":System": shows job role categories list and ask to select one
 deactivate ":System"
 
 Administrator -> ":System": selects a job role category
+activate ":System"
+Administrator <-- ":System": request data (name, phone number, email, address, citizen card id)
+deactivate ":System"
+
+Administrator -> ":System":  types requested data
 activate ":System"
 Administrator <-- ":System": presents all data and requests confirmation
 deactivate ":System"
