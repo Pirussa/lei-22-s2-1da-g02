@@ -23,6 +23,9 @@ public class RegisterNewEmployeeController {
     }
 
     public ArrayList<String> getRolesList() {
+        getRolesList().add(Constants.ROLE_NURSE);
+        getRolesList().add(Constants.ROLE_RECEPTIONIST);
+        getRolesList().add(Constants.ROLE_CENTRE_COORDINATOR);
         return company.getRolesList();
     }
     public boolean registerNewEmployee(RegisterNewEmployeeDto dto) {
