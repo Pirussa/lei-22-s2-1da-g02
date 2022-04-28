@@ -16,13 +16,15 @@ No specifications nor clarifications were given.
 
 ### 1.3. Acceptance Criteria
 
-*AC1:* The SNS user must become a system user.
+* **AC1:** The SNS user must become a system user.
+* **AC1:** All required fields must be filled in.
+* **AC3:** When creating a user with an already existing reference, the system must reject such operation and the user must have the change to modify the typed reference.
 
 
 ### 1.4. Found out Dependencies
 
+* There is a dependency to "US010 Register a new Employee" since at least one receptinist must exist to register a new user.
 
-No dependencies were found.
 
 ### 1.5 Input and Output Data
 
@@ -36,10 +38,9 @@ No dependencies were found.
     * a phone number,
     * an email address,
     * a birthdate,
-    * a SNS number,
+    * an SNS number,
     * a citizen card number
-	
-
+    
 
 **Output Data:**
 
@@ -65,7 +66,7 @@ No other relevant remarks.
 
 ### 2.2. Other Remarks
 
-No other relevant remarks.
+Company also storages all the receptionists, but it is not relevent to be on this US domain model excerpt.
 
 
 ## 3. Design - User Story Realization 
