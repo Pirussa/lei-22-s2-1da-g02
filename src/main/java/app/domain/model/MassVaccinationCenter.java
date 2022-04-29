@@ -7,8 +7,6 @@ package app.domain.model;
 
 public class MassVaccinationCenter extends  VaccinationCenter{
 
-    private int vaccineCode;
-
     public MassVaccinationCenter(int coordinatorID, String name, String address, double phoneNumber, String emailAddress, double faxNumber, String websiteAddress, int openingHour, int closingHour, int slotDuration, int vaccinesPerSlot, int vaccineCode) {
         super(coordinatorID, name, address, phoneNumber, emailAddress, faxNumber, websiteAddress, openingHour, closingHour, slotDuration, vaccinesPerSlot);
     }

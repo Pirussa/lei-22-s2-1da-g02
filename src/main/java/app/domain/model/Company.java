@@ -7,6 +7,7 @@ import pt.isep.lei.esoft.auth.AuthFacade;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Paulo Maio <pam@isep.ipp.pt>
@@ -23,6 +24,10 @@ public class Company {
     private ArrayList<Vaccine> vaccines = new ArrayList<>();
 
     private ArrayList<Employee> employees = new ArrayList<>();
+
+    private List<HealthcareCenter> healthcareCenter = new ArrayList<>();
+
+    private List<MassVaccinationCenter> massVaccinationCenter = new ArrayList<>();
 
     private ArrayList<String> roles = new ArrayList<>();
 
@@ -72,6 +77,14 @@ public class Company {
         return vaccines;
     }
 
+    public List<HealthcareCenter> getHealthcareCenter(){
+        return healthcareCenter;
+    }
+
+    public List<MassVaccinationCenter> getMassVaccinationCenter(){
+        return massVaccinationCenter;
+    }
+
     /**
      * Specifies a new Vaccine and its Administration Process:
      * <p>
@@ -114,13 +127,12 @@ public class Company {
     public boolean specifyNewVaccineType(String code, String description, String technology) {
         VaccineType vt = new VaccineType(code, description, technology);
         return vt.validateVaccineType();
-
     }
 
     /**
      * Saves a Vaccine Type into the Company storage.
      * Company Vaccines Storage: {@link #vaccineTypes}
-     */
+     **/
     public void saveVaccineType(String code, String description, String technology) {
         VaccineType vt = new VaccineType(code, description, technology);
         vaccineTypes.add(vt);

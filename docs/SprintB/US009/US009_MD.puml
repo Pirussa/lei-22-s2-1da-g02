@@ -41,6 +41,6 @@ MassVaccinationCenter "1" --- "1" Coordinator: has >
 HealthcareCenter "1" -l- "1" Coordinator: has >
 MassVaccinationCenter "1" --- "1" TypeOfVaccine: administers >
 HealthcareCenter "1" --- "*" TypeOfVaccine: administers >
-Vaccine "1" --- "*" TypeOfVaccine: is of >
+Vaccine "*" --- "1" TypeOfVaccine: is of >
 
 @enduml

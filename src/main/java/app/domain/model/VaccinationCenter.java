@@ -17,34 +17,20 @@ public class VaccinationCenter{
     private int vaccinesPerSlot;
     private int coordinatorID;
 
-   //private final String NAMEBYOMISSION = "N/A";
-   //private final String ADDRESSBYOMISSION = "N/A";
-   //private final double PHONENUMBERBYOMISSION = 0;
-   //private final String EMAILADDRESSBYOMISSION = "N/A";
-   //private final double FAXNUMBERBYOMISSION = 0;
-   //private final String WEBSITEADDRESSBYOMISSION = "N/A";
-   //private final int OPENINGHOURBYOMISSION = 0;
-   //private final int CLOSINGHOURBYOMISSION = 0;
-   //private final int SLOTDURATIONBYOMISSION = 0;
-   //private final int VACCINESPERSLOTBYOMISSION = 0;
-   //private final String COORDINATORBYOMISSION = "N/A";
-
-    Company x;
-
-    public VaccinationCenter(int coordinatorID, String name, String address, double phoneNumber, String emailAddress, double faxNumber, String websiteAddress, int openingHour, int closingHour, int slotDuration, int vaccinesPerSlot) {
-        this.coordinatorID = coordinatorID;
-        this.name = name;
-        this.address = address;
-        this.phoneNumber = phoneNumber;
-        this.emailAddress = emailAddress;
-        this.faxNumber = faxNumber;
-        this.websiteAddress = websiteAddress;
-        this.openingHour = openingHour;
-        this.closingHour = closingHour;
-        this.slotDuration = slotDuration;
-        this.vaccinesPerSlot = vaccinesPerSlot;
-
-    }
+    public VaccinationCenter(int coordinatorID, String name, String address, double phoneNumber, String emailAddress, double faxNumber, String websiteAddress, int openingHour, int closingHour, int slotDuration, int vaccinesPerSlot)
+        {
+            this.coordinatorID = coordinatorID;
+            this.name = name;
+            this.address = address;
+            this.phoneNumber = phoneNumber;
+            this.emailAddress = emailAddress;
+            this.faxNumber = faxNumber;
+            this.websiteAddress = websiteAddress;
+            this.openingHour = openingHour;
+            this.closingHour = closingHour;
+            this.slotDuration = slotDuration;
+            this.vaccinesPerSlot = vaccinesPerSlot;
+        }
 
     @Override
     public String toString() {
@@ -63,7 +49,24 @@ public class VaccinationCenter{
                 '}';
     }
 
-    public boolean validateVaccinationCenter(){
-       return false;
+    public boolean validateStrings(){
+        ;
+        return !name.isEmpty() && !address.isEmpty() && !emailAddress.isEmpty() && !websiteAddress.isEmpty();
     }
+
+    public boolean validateIntegersAndDoubles(){
+        ;
+        return !(coordinatorID==0) && !(phoneNumber==0) && !(faxNumber==0) && !(openingHour==0) && !(closingHour==0) && !(slotDuration==0) && !(vaccinesPerSlot==0);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getAddress(){return address;}
+
+    public String getEmailAddress(){return emailAddress;}
+
+    public String getWebsiteAddress(){return websiteAddress;}
+
 }
