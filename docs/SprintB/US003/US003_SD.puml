@@ -1,34 +1,34 @@
 @startuml
 autonumber
 
-actor "Administrator" as A
+actor "Receptionist" as R
 
 participant ":CreateAnUserUI" as UI
 participant ":CreateAnUserController" as CTRL
 participant ":Company" as C
 participant ":User" as U
 
-activate A
-A -> UI : asks to create a new system user
+activate R
+R -> UI : asks to create a new system user
 activate UI
-UI --> A : requests data (name, address, sex, phone number, email address, birth date, Citizen Card Number)
+UI --> R : requests data (name, address, sex, phone number, email address, birthdate, Citizen Card Number)
 deactivate UI
 
-A -> UI : types requested data
+R -> UI : types requested data
 activate UI
 
-UI -> CTRL : createSnsUser(name, address, sex, phone number, email address, birth date, Citizen Card Number)
+UI -> CTRL : createSnsUser(name, address, sex, phone number, email address, birthdate, Citizen Card Number)
 activate CTRL
 
-CTRL -> C : createSnsUser(name, address, sex, phone number, email address, birth date, Citizen Card Number)
+CTRL -> C : createSnsUser(name, address, sex, phone number, email address, birthdate, Citizen Card Number)
 activate C
-C --> U : createSnsUser(name, address, sex, phone number, email address, birth date, Citizen Card Number)
+C --> U : createSnsUser(name, address, sex, phone number, email address, birthdate, Citizen Card Number)
 activate U
-C -> C :  validate data
+U -> U :  validate data
 
 CTRL --> UI : result
 
-UI --> A: shows all data and requests confirmation
+UI --> R: shows all data and requests confirmation
 
 deactivate U
 deactivate C
@@ -36,11 +36,11 @@ deactivate CTRL
 deactivate UI
 
 
-A -> UI : confirms the data
+R -> UI : confirms the data
 activate UI
-UI -> CTRL : saveUser(name, address, sex, phone number, email address, birth date, Citizen Card Number)
+UI -> CTRL : saveUser(name, address, sex, phone number, email address, birthdate, Citizen Card Number)
 activate CTRL
-CTRL -> C : saveUser(name, address, sex, phone number, email address, birth date, Citizen Card Number)
+CTRL -> C : saveUser(name, address, sex, phone number, email address, birthdate, Citizen Card Number)
 activate C
 
 
@@ -48,12 +48,12 @@ activate C
 
 CTRL --> UI: result
 
-UI --> A : informs operation success
+UI --> R : informs operation success
 
 deactivate C
 deactivate CTRL
 deactivate UI
-deactivate A
+deactivate R
 
 
 @enduml
