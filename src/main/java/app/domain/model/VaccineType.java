@@ -2,8 +2,6 @@ package app.domain.model;
 
 import app.controller.App;
 
-import java.util.Random;
-
 public class VaccineType {
 
     /**
@@ -64,6 +62,10 @@ public class VaccineType {
         }
 
         return true;
+    }
+
+    public String getCode(){
+        return code;
     }
 
 

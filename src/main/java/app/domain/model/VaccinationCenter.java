@@ -5,6 +5,7 @@ package app.domain.model;
  */
 public class VaccinationCenter{
 
+    private int coordinatorID;
     private String name;
     private String address;
     private double phoneNumber;
@@ -15,22 +16,25 @@ public class VaccinationCenter{
     private int closingHour;
     private int slotDuration;
     private int vaccinesPerSlot;
-    private int coordinatorID;
 
     public VaccinationCenter(int coordinatorID, String name, String address, double phoneNumber, String emailAddress, double faxNumber, String websiteAddress, int openingHour, int closingHour, int slotDuration, int vaccinesPerSlot)
         {
-            this.coordinatorID = coordinatorID;
-            this.name = name;
-            this.address = address;
-            this.phoneNumber = phoneNumber;
-            this.emailAddress = emailAddress;
-            this.faxNumber = faxNumber;
-            this.websiteAddress = websiteAddress;
-            this.openingHour = openingHour;
-            this.closingHour = closingHour;
-            this.slotDuration = slotDuration;
-            this.vaccinesPerSlot = vaccinesPerSlot;
+            do {
+                this.coordinatorID = coordinatorID;
+                this.name = name;
+                this.address = address;
+                this.phoneNumber = phoneNumber;
+                this.emailAddress = emailAddress;
+                this.faxNumber = faxNumber;
+                this.websiteAddress = websiteAddress;
+                this.openingHour = openingHour;
+                this.closingHour = closingHour;
+                this.slotDuration = slotDuration;
+                this.vaccinesPerSlot = vaccinesPerSlot;
+            }
+            while(validateVaccinationCenter()==true);
         }
+
 
     @Override
     public String toString() {
@@ -49,19 +53,13 @@ public class VaccinationCenter{
                 '}';
     }
 
-    public boolean validateStrings(){
+    public boolean validateVaccinationCenter(){
         ;
-        return !name.isEmpty() && !address.isEmpty() && !emailAddress.isEmpty() && !websiteAddress.isEmpty();
+        return !name.isEmpty() && !address.isEmpty() && !emailAddress.isEmpty() && !websiteAddress.isEmpty() && !(coordinatorID==0) && !(phoneNumber==0) && !(faxNumber==0) && !(openingHour==0) && !(closingHour==0) && !(slotDuration==0) && !(vaccinesPerSlot==0);
     }
 
-    public boolean validateIntegersAndDoubles(){
-        ;
-        return !(coordinatorID==0) && !(phoneNumber==0) && !(faxNumber==0) && !(openingHour==0) && !(closingHour==0) && !(slotDuration==0) && !(vaccinesPerSlot==0);
-    }
 
-    public String getName() {
-        return name;
-    }
+    public String getName() {return name;}
 
     public String getAddress(){return address;}
 
