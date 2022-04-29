@@ -28,9 +28,7 @@ public class VaccineAndAdminProcessDto {
 
     public ArrayList<Integer> numberOfDoses = new ArrayList<>();
 
-    public ArrayList<Integer> dosage= new ArrayList<>();
+    public ArrayList<Float> dosage= new ArrayList<>();
 
     public ArrayList <ArrayList<Integer>> timeIntervalBetweenVaccines= new ArrayList<>();
-
-
 }

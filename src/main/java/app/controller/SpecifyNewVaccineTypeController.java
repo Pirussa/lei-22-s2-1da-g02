@@ -12,7 +12,7 @@ import app.domain.model.Company;
 
 public class SpecifyNewVaccineTypeController {
 
-    private Company company = App.getInstance().getCompany();
+    private  Company company = App.getInstance().getCompany();
 
 
     /**

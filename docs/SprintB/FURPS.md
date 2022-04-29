@@ -10,12 +10,8 @@ _Specifies functionalities that:_
 
 | Function   | Description   |
 | ---- | ----------- | 
-| Language    | Allows the user to change the main language in the aplication | 
-| Message Delivering   | Send a message to confirm the scheduling of a vaccine | 
-| Digital Vaccination Certificate     | Request the digital vaccination certificate at any given time | 
-| Password    | Each user must be authenticated with a password |
-| Log-in     | The user can log-in to the account previously created |
-
+| **Authentication**    | **Every user must be authenticated with an email and a password** | 
+| **Data's Security**   | **Only Nurses should be able to access user's health data** | 
 
 
 ## Usability 
@@ -38,12 +34,6 @@ _Refers to the integrity, compliance and interoperability of the software. The r
 
 _Evaluates the performance requirements of the software, namely: response time, start-up time, recovery time, memory consumption, CPU usage, load capacity and application availability._
 
-
-* The application will implement a bruteforce algorithm in order to determine the contiguous subsequence with maximum sum.
-It is required for the implemented algorithm to be analyzed in terms of its worst-case time complexity. It will also be compared to 
-a benchmark algorithm.
-* In order to see asymptotic behavior, the computational complexity study must be complemented with the observation of the execution 
-time of the algorithms for inputs of varied size.
 
 ## Supportability
 _The supportability requirements gathers several characteristics, such as:_

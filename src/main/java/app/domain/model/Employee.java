@@ -24,8 +24,9 @@ public class Employee {
 
     private int citizenCardNumber;
 
+    private String password;
 
-    public Employee(String role, int id, String name, String address, int phoneNumber, String email, int citizenCardNumber) {
+    public Employee(String role, int id, String name, String address, int phoneNumber, String email, int citizenCardNumber,String password) {
         this.role = role;
         this.id = id;
         this.name = name;
@@ -33,6 +34,7 @@ public class Employee {
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.citizenCardNumber = citizenCardNumber;
+        this.password = password;
     }
 
     public String getRole() {
@@ -46,10 +48,10 @@ public class Employee {
     public boolean validateEmployeeData() {
         if (phoneNumber != 0) {
             int aux = phoneNumber;
-        for (int count = 0; aux != 0; aux/= 10, count++) {
-            if (count < NUMBER_OF_PHONE_NUMBER_DIGITS)
-                return false;
-        }
+            for (int count = 0; aux != 0; aux/= 10, count++) {
+                if (count < NUMBER_OF_PHONE_NUMBER_DIGITS)
+                    return false;
+            }
         }
         return true;
     }

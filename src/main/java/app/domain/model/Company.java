@@ -1,6 +1,5 @@
 package app.domain.model;
 
-import app.domain.shared.Constants;
 import app.ui.console.RegisterNewEmployeeDto;
 import app.ui.console.VaccineAndAdminProcessDto;
 import pt.isep.lei.esoft.auth.AuthFacade;
@@ -141,12 +140,16 @@ public class Company {
 
     }
     public boolean registerNewEmployee(RegisterNewEmployeeDto dto) {
-        Employee emp = new Employee(dto.role, dto.id, dto.name, dto.address, dto.phoneNumber, dto.email, dto.citizenCardNumber);
+        Employee emp = new Employee(dto.role, dto.id, dto.name, dto.address, dto.phoneNumber, dto.email, dto.citizenCardNumber, dto.password);
         return true;
     }
 
     public void saveCreatedEmployee(RegisterNewEmployeeDto dto) {
-        Employee emp = new Employee(dto.role, dto.id, dto.name, dto.address, dto.phoneNumber, dto.email, dto.citizenCardNumber);
+        Employee emp = new Employee(dto.role, dto.id, dto.name, dto.address, dto.phoneNumber, dto.email, dto.citizenCardNumber, dto.password);
         employees.add(emp);
+    }
+
+    public ArrayList<Employee> getEmployees() {
+        return employees;
     }
 }

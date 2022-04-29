@@ -23,7 +23,7 @@ activate CTRL
 
 CTRL -> C : getListOfEmployeesWithAGivenRole()
 activate C
-C --> E : getListOfEmployees()
+C --> E : getEmployees()
 activate E
 
 UI --> A: shows list of Employees with the selected role

@@ -18,4 +18,7 @@ public class RegisterNewEmployeeDto {
     public String email;
 
     public int citizenCardNumber;
+
+    public String password;
 }
+

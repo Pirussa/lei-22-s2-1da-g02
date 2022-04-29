@@ -16,13 +16,15 @@ No specifications nor clarifications were given.
 
 ### 1.3. Acceptance Criteria
 
-*AC1:* The SNS user must become a system user.
+* **AC1:** The SNS user must become a system user.
+* **AC1:** All required fields must be filled in.
+* **AC3:** When creating a user with an already existing reference, the system must reject such operation and the user must have the change to modify the typed reference.
 
 
 ### 1.4. Found out Dependencies
 
+* There is a dependency to "US010 Register a new Employee" since at least one receptinist must exist to register a new user.
 
-No dependencies were found.
 
 ### 1.5 Input and Output Data
 
@@ -33,12 +35,12 @@ No dependencies were found.
     * a name, 
     * a address, 
     * sex,
-    * a phone number
-    * an email address
-    * a birthdate
+    * a phone number,
+    * an email address,
+    * a birthdate,
+    * an SNS number,
     * a citizen card number
-	
-
+    
 
 **Output Data:**
 
@@ -60,11 +62,11 @@ No other relevant remarks.
 
 ### 2.1. Relevant Domain Model Excerpt 
 
-![US006_MD](US003_MD.svg)
+![US003_MD](US003_MD.svg)
 
 ### 2.2. Other Remarks
 
-No other relevant remarks.
+Company also storages all the receptionists, but it is not relevent to be on this US domain model excerpt.
 
 
 ## 3. Design - User Story Realization 
@@ -77,7 +79,7 @@ No other relevant remarks.
 | Step 1         | ...interacting with the actor?           | CreateUserUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. |
 |                | ...coordinating the US                   | CreateUserController | **Controller**                                                                                                |
 | Step 2         | ...instantiating a new User              | Company              | **Creator**                                                                                                   |
-| Step 3         | ...saving the inputted data for the User | VaccineType          | IE: An Administrator configures and manages the data                                                          |
+| Step 3         | ...saving the inputted data for the User | Company              | IE: An Administrator configures and manages the data                                                          |
 | Step 4         | ...informing operation success           | CreateUserUI         | IE: is responsible for user interactions                                                                      |
 
  
@@ -91,7 +93,6 @@ Other software classes (i.e. Pure Fabrication) identified:
 
  * CreateUserUI  
  * CreateUserController
- * VaccineType
  * CreateUserUI
 
 
