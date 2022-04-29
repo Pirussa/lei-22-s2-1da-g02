@@ -64,13 +64,6 @@ public class SpecifyNewVaccineTypeUI implements Runnable {
             }
         }
 
-//        if (option >= 1 && option <= options) {
-//
-//        } else {
-//            System.out.println("Insert a valid option");
-//        }
-//        System.out.println();
-
         if (ctrl.specifyNewVaccineType(code, description, technology)) {
             showVaccineTypeData(code, description, technology);
             if (Utils.confirmCreation()) {
@@ -87,6 +80,10 @@ public class SpecifyNewVaccineTypeUI implements Runnable {
         }
     }
 
+
+    /**
+     * Shows the User all the data referent to a Vaccine Type.
+     */
     private void showVaccineTypeData(String code, String description, String technology) {
         System.out.println();
         System.out.println("---- Vaccine Type: ----");
