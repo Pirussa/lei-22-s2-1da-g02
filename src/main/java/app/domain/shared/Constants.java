@@ -27,5 +27,4 @@ public class Constants {
         company.getRolesList().add(Constants.ROLE_CENTRE_COORDINATOR);
         return company.getRolesList();
     }
-
 }

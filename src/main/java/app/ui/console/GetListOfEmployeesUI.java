@@ -4,7 +4,6 @@ import app.controller.GetListOfEmployeesController;
 
 import java.util.Scanner;
 
-
 /**
  * US011 - Get a list of Employees with a given role.
  *
@@ -30,7 +29,7 @@ public class GetListOfEmployeesUI implements Runnable {
         System.out.println("3- List of Centre Coordinators");
         op = read.nextInt();
 
-        if (!ctrl.getEmployees().isEmpty())
+        if (!ctrl.getEmployees().isEmpty()) {
             switch (op) {
                 case 1:
                     if (!ctrl.getNurseList().isEmpty()) {
@@ -47,6 +46,7 @@ public class GetListOfEmployeesUI implements Runnable {
                             ;
                             break;
                         }
+                        }
                         case 3:
                             if (!ctrl.getCentreCoordinatorList().isEmpty()) {
                                 for (int listPosition = 0; listPosition < ctrl.getCentreCoordinatorList().size(); listPosition++) {
@@ -54,10 +54,10 @@ public class GetListOfEmployeesUI implements Runnable {
                                     ;
                                     break;
                                 }
+                            }
                                 default:
                                     System.out.println("Invalid option, please select one that's valid.");
                             }
                     }
             }
-    }
-}
+        }
