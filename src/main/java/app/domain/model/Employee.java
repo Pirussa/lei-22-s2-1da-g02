@@ -1,5 +1,6 @@
 package app.domain.model;
 
+import app.controller.RegisterNewEmployeeController;
 import app.domain.shared.Constants;
 import app.ui.console.RegisterNewEmployeeDto;
 import app.ui.console.utils.Utils;
@@ -28,7 +29,7 @@ public class Employee {
 
     private String password;
 
-    public Employee(String role, int id, String name, String address, int phoneNumber, String email, int citizenCardNumber,String password) {
+    public Employee(String role, int id, String name, String address, int phoneNumber, String email, int citizenCardNumber, String password) {
         this.role = role;
         this.id = id;
         this.name = name;
@@ -46,6 +47,16 @@ public class Employee {
     public void setRole(String role) {
         this.role = role;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    RegisterNewEmployeeController ctrl = new RegisterNewEmployeeController();
 
     public static String passwordGenerator() {
         final String alphabetLetters = "abcdefghijklmnopqrstuvwyxzABCDEFGHIJKLMNOPQRSTUVWYXZ0123456789";
@@ -72,20 +83,10 @@ public class Employee {
         return String.valueOf(employeePassword);
     }
 
-    /*public static StringBuilder idGenerator(String role) {
-        int auxNurse = 0;
-        String orderedId = "";
-
-        switch (role) {
-            case Constants.ROLE_CENTRE_COORDINATOR:
-                orderedId = "CC-" + String.valueOf(aux);
-                aux++;
-        }
-    } */
     public boolean validateEmployeeData() {
         if (phoneNumber != 0) {
             int aux = phoneNumber;
-            for (int count = 0; aux != 0; aux/= 10, count++) {
+            for (int count = 0; aux != 0; aux /= 10, count++) {
                 if (count < NUMBER_OF_PHONE_NUMBER_DIGITS)
                     return false;
             }

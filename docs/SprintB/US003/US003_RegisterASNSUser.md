@@ -11,7 +11,19 @@ As a receptionist, I want to register an SNS user.
 
 ### 1.2. Customer Specifications and Clarifications 
 
-No specifications nor clarifications were given.
+> **Question:** What are the specifications for the atributes?
+>
+> **Answer:** During Sprint B I will not introduce attribute rules/formats other than the ones that I already introduced (in this forum or in the project description).
+
+> **Question:** Is the password supposed to be given or randomly generated?
+>
+> **Answer:** The password should be generated.
+
+> **Question:** What are the atributes of a user?
+>
+> **Answer:** The attributes that should be used to describe a SNS user are: Name, Address, Sex, Phone Number, E-mail, Birth Date, SNS User Number and Citizen Card Number.
+The Sex attribute is optional. All other fields are required.
+The E-mail, Phone Number, Citizen Card Number and SNS User Number should be unique for each SNS user.
 
 
 ### 1.3. Acceptance Criteria
@@ -87,7 +99,7 @@ Company also storages all the receptionists, but it is not relevent to be on thi
 
 According to the taken rationale, the conceptual classes promoted to software classes are: 
 
-* Administrator → Company
+* None
 
 Other software classes (i.e. Pure Fabrication) identified: 
 

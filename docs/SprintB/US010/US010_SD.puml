@@ -31,7 +31,7 @@ C --> E : registerNewEmployee(id, name, address, phone number, email, password, 
 activate E
 E -> E :  validate data
 
-CTRL -> CTRL : generate an id and a password
+E -> E : generate an id and a password
 
 CTRL --> UI : result
 

@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * @author Paulo Maio <pam@isep.ipp.pt>
@@ -16,6 +17,7 @@ import java.util.List;
 
 public class Company {
 
+    private static final int ID_LENGTH = 5;
     private String designation;
     private AuthFacade authFacade;
 
@@ -23,7 +25,7 @@ public class Company {
 
     private ArrayList<Vaccine> vaccines = new ArrayList<>();
 
-    private ArrayList<Employee> employees = new ArrayList<>();
+    private static ArrayList<Employee> employees = new ArrayList<>();
 
     private List<HealthcareCenter> healthcareCenter = new ArrayList<>();
 
@@ -158,7 +160,33 @@ public class Company {
         employees.add(emp);
     }
 
-    public ArrayList<Employee> getEmployees() {
+    /*public static StringBuilder idGenerator(String role) {
+        StringBuilder orderedId = new StringBuilder();
+        Random generate = new Random();
+
+        do {
+            for (int position = 0; position < ID_LENGTH; position++) {
+                orderedId.append(String.valueOf(generate.nextInt(9)));
+            }
+
+
+        } while ();
+
+        switch (role) {
+            case Constants.ROLE_CENTRE_COORDINATOR:
+                orderedId = new StringBuilder("CC-" + orderedId);
+                break;
+            case Constants.ROLE_RECEPTIONIST:
+                orderedId = new StringBuilder("RC-" + orderedId);
+                break;
+            case Constants.ROLE_NURSE:
+                orderedId = new StringBuilder("NR-" + orderedId);
+                break;
+        }
+        return orderedId;
+    }
+    */
+    public static ArrayList<Employee> getEmployees() {
         return employees;
     }
 

@@ -2,8 +2,8 @@
 'https://plantuml.com/class-diagram
 
 class Company {
-+createSnsUser(name, address, sex, phoneNumber, emailAddress birthDate, SNS_number, citizenCardNumber)
-+validateSnsUser(name, address, sex, phoneNumber, emailAddress birthDate, SNS_number, citizenCardNumber)
++createSnsUser(name, address, sex, phoneNumber, emailAddress birthDate, SNSNumber, citizenCardNumber)
++validateSnsUser(name, address, sex, phoneNumber, emailAddress birthDate, SNSNumber, citizenCardNumber)
 }
 
 class User {
@@ -13,15 +13,15 @@ String sex
 int phoneNumber
 String email
 Date birthDate
-int SNS_number
+int SNSNumber
 int citizenCardNumber
 }
 
 class CreateNewSnsUserUI
 
 class CreateNewSnsUserController{
-+createVaccineType(name, address, sex, phoneNumber, emailAddress birthDate, SNS_number, citizenCardNumber)
-+saveVaccineType(name, address, sex, phoneNumber, emailAddress birthDate, SNS_number, citizenCardNumber)
++createVaccineType(name, address, sex, phoneNumber, emailAddress birthDate, SNSNumber, citizenCardNumber)
++saveVaccineType(name, address, sex, phoneNumber, emailAddress birthDate, SNSNumber, citizenCardNumber)
 }
 
 
