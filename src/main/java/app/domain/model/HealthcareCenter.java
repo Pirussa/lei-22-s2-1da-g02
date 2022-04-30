@@ -1,7 +1,6 @@
 package app.domain.model;
 
 import app.controller.App;
-import jdk.internal.icu.impl.NormalizerImpl;
 
 /**
  *
