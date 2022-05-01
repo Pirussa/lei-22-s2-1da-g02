@@ -1,11 +1,13 @@
 @startuml
 'https://plantuml.com/class-diagram
-!pragma layout smetana
+'!pragma layout smetana
 
-class Administrator
+class Company
 
-class TypeOfVaccine{
-==-virus
+class VaccineType{
+==-description
+==-code
+==-vaccineTechnology
 }
 
 class Vaccine{
@@ -36,11 +38,11 @@ class HealthcareCenter extends VaccinationCenter{
 ==-AGES
 }
 
-Administrator "1" --- "*" VaccinationCenter: creates >
-MassVaccinationCenter "1" --- "1" Coordinator: has >
-HealthcareCenter "1" -l- "1" Coordinator: has >
-MassVaccinationCenter "1" --- "1" TypeOfVaccine: administers >
-HealthcareCenter "1" --- "*" TypeOfVaccine: administers >
-Vaccine "*" --- "1" TypeOfVaccine: is of >
+Company "1" -down- "*" VaccinationCenter: owns >
+MassVaccinationCenter "1" -down- "1" Coordinator: has >
+HealthcareCenter "1" -down- "1" Coordinator: has >
+MassVaccinationCenter "1" --down-- "1" VaccineType: administers >
+HealthcareCenter "1" -down- "*" VaccineType: administers >
+Vaccine "*" --left-- "1" VaccineType: is of >
 
 @enduml

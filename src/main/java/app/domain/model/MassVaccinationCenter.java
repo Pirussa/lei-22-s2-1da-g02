@@ -6,24 +6,12 @@ package app.domain.model;
 
 public class MassVaccinationCenter extends  VaccinationCenter{
 
-    private int numberOfTypesOfVaccine;
-
-    public MassVaccinationCenter(int coordinatorID, String name, String address, double phoneNumber, String emailAddress, double faxNumber, String websiteAddress, int openingHour, int closingHour, int slotDuration, int vaccinesPerSlot, int vaccineCode, int numberOfTypesOfVaccine) {
-        super(coordinatorID, name, address, phoneNumber, emailAddress, faxNumber, websiteAddress, openingHour, closingHour, slotDuration, vaccinesPerSlot);
-        do
-        {
-        this.numberOfTypesOfVaccine=numberOfTypesOfVaccine;
-        } while(validateNumberOfTypesOfVaccine()==true);
+    public MassVaccinationCenter(int intID, String strName, String strPhoneNumber, String strEmail, String strFax, String strWebsite, String strOpeningHour, String strClosingHour, String strSlotDuration, String strVaccinesPerSlot, Address addAddress, Employee empCoordinator) {
+        super(intID, strName, strPhoneNumber, strEmail, strFax, strWebsite, strOpeningHour, strClosingHour, strSlotDuration, strVaccinesPerSlot, addAddress, empCoordinator);
     }
 
-    public boolean validateNumberOfTypesOfVaccine()
-    {
-        if (numberOfTypesOfVaccine<=0||numberOfTypesOfVaccine>1){
-            return false;
-        } else{
-            return true;
-        }
+    @Override
+    public String toString() {
+        return super.toString();
     }
-
-
 }

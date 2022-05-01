@@ -27,9 +27,9 @@ public class Company {
 
     private static ArrayList<Employee> employees = new ArrayList<>();
 
-    private List<HealthcareCenter> healthcareCenter = new ArrayList<>();
+    private List<HealthcareCenter> healthcareCenters = new ArrayList<>();
 
-    private List<MassVaccinationCenter> massVaccinationCenter = new ArrayList<>();
+    private List<MassVaccinationCenter> massVaccinationCenters = new ArrayList<>();
 
     private ArrayList<String> roles = new ArrayList<>();
 
@@ -80,11 +80,11 @@ public class Company {
     }
 
     public List<HealthcareCenter> getHealthcareCenter(){
-        return healthcareCenter;
+        return healthcareCenters;
     }
 
     public List<MassVaccinationCenter> getMassVaccinationCenter(){
-        return massVaccinationCenter;
+        return massVaccinationCenters;
     }
 
     /**
