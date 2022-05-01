@@ -40,7 +40,14 @@ public class SpecifyVaccineAndAdminProcessUI implements Runnable {
                 options++;
             }
             System.out.println("Type your option:");
-            int option = sc.nextInt();
+            int option =0;
+            try{
+              option  = sc.nextInt();
+            }catch(InputMismatchException e){
+                System.out.println("Invalid option");
+
+            }
+
             sc.nextLine();
             if (option >= 1 && option <= options) {
                 dto.vt = vTs.get(option - 1);

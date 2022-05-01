@@ -3,8 +3,6 @@ package app.ui.console.utils;
 import app.controller.App;
 import app.domain.model.AdministrationProcess;
 import app.domain.model.Company;
-import app.domain.model.Vaccine;
-import app.domain.model.VaccineType;
 import app.ui.console.VaccineAndAdminProcessDto;
 
 import java.io.BufferedReader;
@@ -126,11 +124,15 @@ public class Utils {
     }
 
     static public int selectsIndex(List list) {
-        String input;
-        Integer value;
+        String input= "";
+        Integer value = -1;
         do {
-            input = Utils.readLineFromConsole("Type your option: ");
-            value = Integer.valueOf(input);
+            try{
+                input = Utils.readLineFromConsole("Type your option: ");
+                value = Integer.valueOf(input);
+            }catch (NumberFormatException e){
+                System.out.println("Invalid option");
+            }
         } while (value < 0 || value > list.size());
 
         return value - 1;

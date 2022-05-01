@@ -13,6 +13,16 @@ participant "vaccineAndAdminProcessDto\n:VaccineAndAdminProcessDto" as DTO
 
 activate A
 A -> UI :asks to specify a new vac and its administration process
+
+activate UI
+UI-> A : shows a list with all the Vaccine Types available
+deactivate UI
+
+
+A-> UI : selects one Vaccine Type
+
+
+
 activate UI
 UI --> A : requests data (id, name, brand, vaccineType)
 deactivate UI
