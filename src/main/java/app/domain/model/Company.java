@@ -70,13 +70,6 @@ public class Company {
         return vaccineTypes;
     }
 
-    /**
-     * Gets the Employees registered in the Company.
-     *
-     * @return An ArrayList of Employees.
-     */
-
-    public ArrayList<Employee> getListOfEmployees(){return employees;}
 
     /**
      * Gets the Vaccines that are stored in the Company.
@@ -186,11 +179,21 @@ public class Company {
         return orderedId;
     }
     */
+
+    /**
+     * Gets the Employees registered in the Company.
+     *
+     * @return An ArrayList of Employees.
+     */
     public static ArrayList<Employee> getEmployees() {
         return employees;
     }
 
-    public void getListOfEmployeesWithAGivenRole() {
+    /**
+     * Fills the arrays of the types of employees through the list that contains all employees.
+     */
+
+    public void fillListOfEmployeesWithAGivenRole() {
         ArrayList<Employee> emp = getEmployees();
         for (int positionArrayListEmployees = 0; positionArrayListEmployees < emp.size(); positionArrayListEmployees++) {
             if (emp.get(positionArrayListEmployees).getRole().equals(Constants.ROLE_NURSE)) {
