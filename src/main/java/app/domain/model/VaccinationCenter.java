@@ -1,13 +1,15 @@
 package app.domain.model;
-/**
- *
- * @author João Castro <1210816@isep.ipp.pt>
- */
+
+import app.controller.CreateVaccinationCenterController;
+
+
 public class VaccinationCenter{
 
     Employee thisCoordinator;
     Address thisAddress;
     Company thisCompany;
+
+    CreateVaccinationCenterController controller = new CreateVaccinationCenterController();
 
     private final int MAXCHAROFPHONENUMBER = 9;
 
@@ -23,8 +25,6 @@ public class VaccinationCenter{
     private String strVaccinesPerSlot;
     private Address addAddress;
     private Employee empCoordinator;
-
-
 
     public VaccinationCenter(int intID, String strName, String strPhoneNumber, String strEmail, String strFax, String strWebsite,
                              String strOpeningHour, String strClosingHour, String strSlotDuration, String strVaccinesPerSlot,

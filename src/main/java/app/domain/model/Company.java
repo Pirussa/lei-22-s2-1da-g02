@@ -2,13 +2,13 @@ package app.domain.model;
 
 import app.domain.shared.Constants;
 import app.ui.console.RegisterNewEmployeeDto;
+import app.ui.console.VaccinationCenterDto;
 import app.ui.console.VaccineAndAdminProcessDto;
 import pt.isep.lei.esoft.auth.AuthFacade;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * @author Paulo Maio <pam@isep.ipp.pt>
@@ -27,9 +27,12 @@ public class Company {
 
     private static ArrayList<Employee> employees = new ArrayList<>();
 
-    private List<HealthcareCenter> healthcareCenters = new ArrayList<>();
+    private List<VaccinationCenter> vaccinationCenters = new ArrayList<>();
 
-    private List<MassVaccinationCenter> massVaccinationCenters = new ArrayList<>();
+
+    //private List<HealthcareCenter> healthcareCenters = new ArrayList<>();
+
+    //private List<MassVaccinationCenter> massVaccinationCenters = new ArrayList<>();
 
     private ArrayList<String> roles = new ArrayList<>();
 
@@ -80,12 +83,18 @@ public class Company {
         return vaccines;
     }
 
-    public List<HealthcareCenter> getHealthcareCenter(){
+
+    /*public List<HealthcareCenter> getHealthcareCenter(){
+
         return healthcareCenters;
     }
 
     public List<MassVaccinationCenter> getMassVaccinationCenter(){
         return massVaccinationCenters;
+    }*/
+
+    public List<VaccinationCenter> getVaccinationCenters(VaccinationCenter o){
+        return vaccinationCenters;
     }
 
     /**
@@ -143,6 +152,25 @@ public class Company {
     public void addNewRole() {
 
     }
+
+    /**
+     * Creates a Vaccination Center
+     */
+    public boolean createVaccinationCenter(VaccinationCenterDto dto){
+        VaccinationCenter vc = new VaccinationCenter(dto.intID,dto.strName, dto.strPhoneNumber, dto.strEmail,dto.strFax,dto.strWebsite,dto.strOpeningHour,
+                dto.strClosingHour,dto.strSlotDuration,dto.strVaccinesPerSlot,dto.addAddress,dto.empCoordinator);
+        return true;
+    }
+
+    /**
+     * Saves a VaccinationCenter
+     */
+    public void saveVaccinationCenter(VaccinationCenterDto dto){
+        VaccinationCenter vc = new VaccinationCenter(dto.intID,dto.strName, dto.strPhoneNumber, dto.strEmail,dto.strFax,dto.strWebsite,dto.strOpeningHour,
+                dto.strClosingHour,dto.strSlotDuration,dto.strVaccinesPerSlot,dto.addAddress,dto.empCoordinator);
+        vaccinationCenters.add(vc);
+    }
+
     public boolean registerNewEmployee(RegisterNewEmployeeDto dto) {
         Employee emp = new Employee(dto.role, dto.id, dto.name, dto.address, dto.phoneNumber, dto.email, dto.citizenCardNumber, dto.password);
         return true;
@@ -224,5 +252,7 @@ public class Company {
         return centreCoordinatorList;
     }
 
-
+    public List<VaccinationCenter> getVaccinationCenters() {
+        return vaccinationCenters;
+    }
 }

@@ -11,23 +11,19 @@ participant ":VaccinationCenter" as V
 activate A
 A -> UI : asks to create a new vaccination center
 activate UI
-UI --> A : shows menu option (mass vaccination center, healthcare center)
-deactivate UI
 
-A -> UI : selects an option
-activate UI
 UI --> A : requests data (center id, name, phone number, email, fax,\n website, opening hour, closing hour, slot duration, vaccines per slot, address, coordinator)
 deactivate UI
 
 A -> UI : types requested data
 activate UI
 
-UI -> CTRL : createVaccinationCenter(center id, name, phone number, email, fax,\n website, opening hour, closing hour, slot duration, vaccines per slot, address, coordinator)
+UI -> CTRL : createVaccinationCenter(VaccinationCenterDto)
 activate CTRL
 
-CTRL -> C : createVaccinationCenter(center id, name, phone number, email, fax,\n website, opening hour, closing hour, slot duration, vaccines per slot, address, coordinator)
+CTRL -> C : createVaccinationCenter(VaccinationCenterDto)
 activate C
-C --> V : createVaccinationCenter(center id, name, phone number, email, fax,\n website, opening hour, closing hour, slot duration, vaccines per slot, address, coordinator)
+C --> V : createVaccinationCenter(VaccinationCenterDto)
 activate V
 V -> V :  validate data
 
@@ -42,9 +38,9 @@ deactivate UI
 
 A -> UI : confirms the data
 activate UI
-UI -> CTRL : saveVaccinationCenter(center id, name, phone number, email, fax,\n website, opening hour, closing hour, slot duration, vaccines per slot, address, coordinator)
+UI -> CTRL : saveVaccinationCenter(VaccinationCenterDto)
 activate CTRL
-CTRL -> C : saveVaccinationCenter(center id, name, phone number, email, fax,\n website, opening hour, closing hour, slot duration, vaccines per slot, address, coordinator)
+CTRL -> C : saveVaccinationCenter(VaccinationCenterDto)
 activate C
 
 CTRL --> UI: result

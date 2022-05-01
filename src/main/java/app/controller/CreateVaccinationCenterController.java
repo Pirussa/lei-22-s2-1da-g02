@@ -1,19 +1,29 @@
 package app.controller;
 
 import app.domain.model.*;
+import app.ui.console.CreateVaccinationCenterUI;
+import app.ui.console.VaccinationCenterDto;
+
+import java.util.List;
 
 public class CreateVaccinationCenterController {
 
     private Company company = App.getInstance().getCompany();
+    private CreateVaccinationCenterUI ui = new CreateVaccinationCenterUI();
 
-    private VaccinationCenter vcVaccinationCenter;
-    private HealthcareCenter hcHealthcareCenter;
-    private MassVaccinationCenter mvcMassVaccinationCenter;
+    public CreateVaccinationCenterController(){}
 
-    public boolean newHealthcareCenter(int intID, String strName, String strPhoneNumber, String strEmail, String strFax, String strWebsite, String strOpeningHour,
-                                       String strClosingHour, String strSlotDuration, String strVaccinesPerSlot, String strARS, String strAGES, String strRoad,
-                                       String strZipCode, String strLocal, String strRole, int intCoordinatorID, String strCoordinatorName, String strCoordinatorAddress,
-                                       int intCoordinatorPhoneNUmber, String strCoordinatorEmail, int intCoordinatorCitizenCardNumber, String strCoordinatorPassword)
+    public boolean createVaccinationCenter(VaccinationCenterDto dto){
+        return company.createVaccinationCenter(dto);
+    }
+
+    public void saveVaccinationCenter(VaccinationCenterDto dto){
+        company.saveVaccinationCenter(dto);
+    }
+
+    public List<VaccinationCenter> getVaccinationCenters() {
+        return company.getVaccinationCenters();
+    }
 
 }
 
