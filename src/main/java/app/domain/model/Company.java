@@ -153,33 +153,6 @@ public class Company {
         employees.add(emp);
     }
 
-    /*public static StringBuilder idGenerator(String role) {
-        StringBuilder orderedId = new StringBuilder();
-        Random generate = new Random();
-
-        do {
-            for (int position = 0; position < ID_LENGTH; position++) {
-                orderedId.append(String.valueOf(generate.nextInt(9)));
-            }
-
-
-        } while ();
-
-        switch (role) {
-            case Constants.ROLE_CENTRE_COORDINATOR:
-                orderedId = new StringBuilder("CC-" + orderedId);
-                break;
-            case Constants.ROLE_RECEPTIONIST:
-                orderedId = new StringBuilder("RC-" + orderedId);
-                break;
-            case Constants.ROLE_NURSE:
-                orderedId = new StringBuilder("NR-" + orderedId);
-                break;
-        }
-        return orderedId;
-    }
-    */
-
     /**
      * Gets the Employees registered in the Company.
      *

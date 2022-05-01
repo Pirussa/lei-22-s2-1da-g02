@@ -31,23 +31,24 @@ public class RegisterNewEmployeeUI implements Runnable {
     public void run() {
 
         Scanner read = new Scanner(System.in);
+        RegisterNewEmployeeDto dto = new RegisterNewEmployeeDto();
+        ArrayList<String> roles = ctrl.getRolesList();
 
         System.out.printf("**You are now registering a new employee**%n");
 
-        ArrayList<String> roles = ctrl.getRolesList();
-
         int index = Utils.showAndSelectIndex(roles, "**Select one of the options**");
-        String selectedRole = roles.get(index);
+        dto.role = roles.get(index);
 
-        String givenName = Utils.readLineFromConsole("Insert Name: ");
-        String givenAddress = Utils.readLineFromConsole("Insert Address: ");
-        String givenPhoneNumber = Utils.readLineFromConsole("Insert Phone Number: ");
-        String givenEmail = Utils.readLineFromConsole("Insert Email: ");
-        String givenCitizenCardNumber = Utils.readLineFromConsole("Insert Citizen Card Number: ");
+        dto.name = Utils.readLineFromConsole("Insert Name: ");
+        dto.address = Utils.readLineFromConsole("Insert Address: ");
+        dto.phoneNumber = Integer.parseInt(Utils.readLineFromConsole("Insert Phone Number: "));
+        dto.email = Utils.readLineFromConsole("Insert Email: ");
+        dto.citizenCardNumber = Integer.parseInt(Utils.readLineFromConsole("Insert Citizen Card Number: "));
 
-        String generatedPassword = Employee.passwordGenerator();
+        dto.id = String.valueOf(Employee.idGenerator(dto.role));
+        dto.password = Employee.passwordGenerator();
 
-
+        ctrl.registerNewEmployee(dto);
         //RegisterNewEmployeeDto dto = new RegisterNewEmployeeDto(selectedRole);
     }
 }

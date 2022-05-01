@@ -12,6 +12,8 @@ public class Employee {
 
     private static final int PASSWORD_LENGTH = 7;
 
+    private static final int ID_LENGTH = 5;
+
     private static final int NUMBER_OF_PHONE_NUMBER_DIGITS = 9;
 
     private String role;
@@ -30,6 +32,10 @@ public class Employee {
     private String password;
 
     public Employee(String role, String id, String name, String address, int phoneNumber, String email, int citizenCardNumber, String password) {
+
+        if (role.isEmpty() || id.isEmpty() || name.isEmpty() || address.isEmpty() || email.isEmpty() || password.isEmpty())
+            throw new IllegalArgumentException("Arguments can´t be null or empty");
+
         this.role = role;
         this.id = id;
         this.name = name;
@@ -83,8 +89,40 @@ public class Employee {
         return String.valueOf(employeePassword);
     }
 
-    public boolean validateEmployeeData() {
-        if (phoneNumber != 0) {
+    public static StringBuilder idGenerator(String role) {
+        StringBuilder orderedID = new StringBuilder();
+        Random generate = new Random();
+
+        for (int position = 0; position < ID_LENGTH; position++) {
+            orderedID.append(String.valueOf(generate.nextInt(9)));
+        }
+
+        switch (role) {
+            case Constants.ROLE_CENTRE_COORDINATOR:
+                orderedID = new StringBuilder("CC-" + orderedID);
+                break;
+            case Constants.ROLE_RECEPTIONIST:
+                orderedID = new StringBuilder("RC-" + orderedID);
+                break;
+            case Constants.ROLE_NURSE:
+                orderedID = new StringBuilder("NR-" + orderedID);
+                break;
+        }
+
+        String auxID = String.valueOf(orderedID);
+        String[] splitID = auxID.split("-");
+
+        if (!orderedID.isEmpty() && orderedID.length() == 8 && splitID[1].length() == 5) {
+            return orderedID;
+        } else {
+            orderedID = new StringBuilder("");
+            return orderedID;
+        }
+    }
+}
+
+    /*public boolean validateEmployeeData() {
+        if (phoneNumber) {
             int aux = phoneNumber;
             for (int count = 0; aux != 0; aux /= 10, count++) {
                 if (count < NUMBER_OF_PHONE_NUMBER_DIGITS)
@@ -93,4 +131,4 @@ public class Employee {
         }
         return true;
     }
-}
+}*/
