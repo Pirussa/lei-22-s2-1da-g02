@@ -21,12 +21,15 @@ public class VaccinationCenterDto {
     public String strClosingHour;
     public String strSlotDuration;
     public String strVaccinesPerSlot;
-    public Address addAddress;
-    public Employee empCoordinator;
+    public String strRoad;
+    public String strZipCode;
+    public String strLocal;
+    public String id;
+
 
     public VaccinationCenterDto(int intID, String strName, String strPhoneNumber, String strEmail, String strFax, String strWebsite,
                                 String strOpeningHour, String strClosingHour, String strSlotDuration, String strVaccinesPerSlot,
-                                Address addAddress, Employee empCoordinator) {
+                                String strRoad, String strZipCode, String strLocal, String id) {
         this.intID = intID;
         this.strName = strName;
         this.strPhoneNumber = strPhoneNumber;
@@ -37,9 +40,10 @@ public class VaccinationCenterDto {
         this.strClosingHour = strClosingHour;
         this.strSlotDuration = strSlotDuration;
         this.strVaccinesPerSlot = strVaccinesPerSlot;
-        this.addAddress = addAddress;
-        this.empCoordinator = empCoordinator;
-
+        this.strRoad=strRoad;
+        this.strZipCode=strZipCode;
+        this.strLocal=strLocal;
+        this.id=id;
     }
 
     @Override
@@ -55,8 +59,10 @@ public class VaccinationCenterDto {
                 ", strClosingHour='" + strClosingHour + '\'' +
                 ", strSlotDuration='" + strSlotDuration + '\'' +
                 ", strVaccinesPerSlot='" + strVaccinesPerSlot + '\'' +
-                ", addAddress=" + addAddress +
-                ", empCoordinator=" + empCoordinator +
+                ", strRoad='" + strRoad + '\'' +
+                ", strZipCode='" + strZipCode + '\'' +
+                ", strLocal='" + strLocal + '\'' +
+                ", id='" + id + '\'' +
                 '}';
     }
 }
