@@ -76,6 +76,6 @@ Employee <|-- CenterCoordinator
 VaccinationCenter "1" -> "1" Address : localized in
 MassVaccinationCenter "1" --> "1" VaccineType: administers
 HealthcareCenter "1" -down-> "*" VaccineType: administers
-VaccineType "1" <-down- "*" Vaccine: is of
+VaccineType "1" <-down- "*" Vaccine: is of <
 
 @enduml
