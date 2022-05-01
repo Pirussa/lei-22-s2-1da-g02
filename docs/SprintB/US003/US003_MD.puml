@@ -14,6 +14,9 @@ class SnsUser {
 ==-citizenCardNumber
 }
 
-Receptionist "1" --- "*" SnsUser: creates
+class Company
+
+Company "1" -up- "*" SnsUser: stores >
+Receptionist "1" --- "*" SnsUser: creates >
 
 @enduml

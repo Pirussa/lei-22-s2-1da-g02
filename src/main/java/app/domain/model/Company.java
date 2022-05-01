@@ -2,11 +2,13 @@ package app.domain.model;
 
 import app.domain.shared.Constants;
 import app.ui.console.RegisterNewEmployeeDto;
+import app.ui.console.VaccinationCenterDto;
 import app.ui.console.VaccineAndAdminProcessDto;
 import pt.isep.lei.esoft.auth.AuthFacade;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Paulo Maio <pam@isep.ipp.pt>
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 
 public class Company {
 
+    private static final int ID_LENGTH = 5;
     private String designation;
     private AuthFacade authFacade;
 
@@ -22,13 +25,28 @@ public class Company {
 
     private ArrayList<Vaccine> vaccines = new ArrayList<>();
 
-    private ArrayList<Employee> employees = new ArrayList<>();
+    private static ArrayList<Employee> employees = new ArrayList<>();
+
+    private List<VaccinationCenter> vaccinationCenters = new ArrayList<>();
+
+
+    //private List<HealthcareCenter> healthcareCenters = new ArrayList<>();
+
+    //private List<MassVaccinationCenter> massVaccinationCenters = new ArrayList<>();
 
     private ArrayList<String> roles = new ArrayList<>();
+
+    private ArrayList<Employee> nurseList = new ArrayList<>();
+
+    private ArrayList<Employee> receptionistList =new ArrayList<>();
+
+    private ArrayList<Employee> centreCoordinatorList = new ArrayList<>();
 
     public ArrayList<String> getRolesList() {
         return roles;
     }
+
+
 
     public Company(String designation) {
         if (StringUtils.isBlank(designation))
@@ -55,13 +73,6 @@ public class Company {
         return vaccineTypes;
     }
 
-    /**
-     * Gets the Employees registered in the Company.
-     *
-     * @return An ArrayList of Employees.
-     */
-
-    public ArrayList<Employee> getListOfEmployees(){return employees;}
 
     /**
      * Gets the Vaccines that are stored in the Company.
@@ -70,6 +81,20 @@ public class Company {
      */
     public ArrayList<Vaccine> getVaccines() {
         return vaccines;
+    }
+
+
+    /*public List<HealthcareCenter> getHealthcareCenter(){
+
+        return healthcareCenters;
+    }
+
+    public List<MassVaccinationCenter> getMassVaccinationCenter(){
+        return massVaccinationCenters;
+    }*/
+
+    public List<VaccinationCenter> getVaccinationCenters(VaccinationCenter o){
+        return vaccinationCenters;
     }
 
     /**
@@ -114,13 +139,12 @@ public class Company {
     public boolean specifyNewVaccineType(String code, String description, String technology) {
         VaccineType vt = new VaccineType(code, description, technology);
         return vt.validateVaccineType();
-
     }
 
     /**
      * Saves a Vaccine Type into the Company storage.
      * Company Vaccines Storage: {@link #vaccineTypes}
-     */
+     **/
     public void saveVaccineType(String code, String description, String technology) {
         VaccineType vt = new VaccineType(code, description, technology);
         vaccineTypes.add(vt);
@@ -128,13 +152,80 @@ public class Company {
     public void addNewRole() {
 
     }
+
+    /**
+     * Creates a Vaccination Center
+     */
+    public boolean createVaccinationCenter(VaccinationCenterDto dto){
+        VaccinationCenter vc = new VaccinationCenter(dto.intID,dto.strName, dto.strPhoneNumber, dto.strEmail,dto.strFax,dto.strWebsite,dto.strOpeningHour,
+                dto.strClosingHour,dto.strSlotDuration,dto.strVaccinesPerSlot,dto.addAddress,dto.empCoordinator);
+        return true;
+    }
+
+    /**
+     * Saves a VaccinationCenter
+     */
+    public void saveVaccinationCenter(VaccinationCenterDto dto){
+        VaccinationCenter vc = new VaccinationCenter(dto.intID,dto.strName, dto.strPhoneNumber, dto.strEmail,dto.strFax,dto.strWebsite,dto.strOpeningHour,
+                dto.strClosingHour,dto.strSlotDuration,dto.strVaccinesPerSlot,dto.addAddress,dto.empCoordinator);
+        vaccinationCenters.add(vc);
+    }
+
     public boolean registerNewEmployee(RegisterNewEmployeeDto dto) {
-        Employee emp = new Employee(dto.role, dto.id, dto.name, dto.address, dto.phoneNumber, dto.email, dto.citizenCardNumber);
+        Employee emp = new Employee(dto.role, dto.id, dto.name, dto.address, dto.phoneNumber, dto.email, dto.citizenCardNumber, dto.password);
         return true;
     }
 
     public void saveCreatedEmployee(RegisterNewEmployeeDto dto) {
-        Employee emp = new Employee(dto.role, dto.id, dto.name, dto.address, dto.phoneNumber, dto.email, dto.citizenCardNumber);
+        Employee emp = new Employee(dto.role, dto.id, dto.name, dto.address, dto.phoneNumber, dto.email, dto.citizenCardNumber, dto.password);
         employees.add(emp);
+    }
+
+    /**
+     * Gets the Employees registered in the Company.
+     *
+     * @return An ArrayList of Employees.
+     */
+    public static ArrayList<Employee> getEmployees() {
+        return employees;
+    }
+
+    /**
+     * Fills the arrays of the types of employees through the list that contains all employees.
+     */
+
+    public void fillListOfEmployeesWithAGivenRole() {
+        ArrayList<Employee> emp = getEmployees();
+        for (int positionArrayListEmployees = 0; positionArrayListEmployees < emp.size(); positionArrayListEmployees++) {
+            if (emp.get(positionArrayListEmployees).getRole().equals(Constants.ROLE_NURSE)) {
+                for (int positionArrayListNurses = 0; positionArrayListNurses < nurseList.size(); positionArrayListNurses++) {
+                    nurseList.add(emp.get(positionArrayListNurses));
+                }
+            } else if (emp.get(positionArrayListEmployees).getRole().equals(Constants.ROLE_RECEPTIONIST)) {
+                for (int positionArrayListReceptionist = 0; positionArrayListReceptionist < receptionistList.size(); positionArrayListReceptionist++) {
+                    receptionistList.add(emp.get(positionArrayListReceptionist));
+                }
+            } else if (emp.get(positionArrayListEmployees).getRole().equals(Constants.ROLE_CENTRE_COORDINATOR)) {
+                for (int positionArrayListCentreCoordinator = 0; positionArrayListCentreCoordinator < centreCoordinatorList.size(); positionArrayListCentreCoordinator++) {
+                    centreCoordinatorList.add(emp.get(positionArrayListCentreCoordinator));
+                }
+            }
+        }
+    }
+
+    public ArrayList<Employee> getNurseList(){
+        return nurseList;
+    }
+
+    public ArrayList<Employee> getReceptionistList() {
+        return receptionistList;
+    }
+
+    public ArrayList<Employee> getCentreCoordinatorList() {
+        return centreCoordinatorList;
+    }
+
+    public List<VaccinationCenter> getVaccinationCenters() {
+        return vaccinationCenters;
     }
 }

@@ -2,11 +2,12 @@ package app.controller;
 
 
 import app.domain.model.Company;
-import app.domain.model.Employee;
 import app.domain.shared.Constants;
 import app.ui.console.RegisterNewEmployeeDto;
+import org.w3c.dom.CharacterData;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 
 /**
@@ -17,6 +18,8 @@ import java.util.ArrayList;
 
 public class RegisterNewEmployeeController {
 
+    private final int PASSWORD_LENGTH = 7;
+
     private Company company = App.getInstance().getCompany();
 
     public RegisterNewEmployeeController() {
@@ -25,11 +28,9 @@ public class RegisterNewEmployeeController {
     public ArrayList<String> getRolesList() {
         return company.getRolesList();
     }
+
     public boolean registerNewEmployee(RegisterNewEmployeeDto dto) {
-        if (company.registerNewEmployee(dto)) {
-            return true;
-        }
-        return false;
+        return company.registerNewEmployee(dto);
     }
 
     public void saveCreatedEmployee(RegisterNewEmployeeDto dto) {

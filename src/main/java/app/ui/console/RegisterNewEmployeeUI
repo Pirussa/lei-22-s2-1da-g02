@@ -5,9 +5,12 @@ import app.controller.App;
 import app.domain.model.Company;
 import app.domain.model.Employee;
 import app.domain.shared.Constants;
-import jdk.swing.interop.SwingInterOpUtils;
+import app.ui.console.utils.Utils;
+import app.domain.model.Employee;
+
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Scanner;
 
 
@@ -28,34 +31,24 @@ public class RegisterNewEmployeeUI implements Runnable {
     public void run() {
 
         Scanner read = new Scanner(System.in);
-
         RegisterNewEmployeeDto dto = new RegisterNewEmployeeDto();
+        ArrayList<String> roles = ctrl.getRolesList();
+
         System.out.printf("**You are now registering a new employee**%n");
 
-        System.out.printf("**Please select one of the following roles**%n");
-        ArrayList<String> roles = ctrl.getRolesList();
-        int options = 1;
-        for (emp vt : vTs) {
-            System.out.printf("%d- %s %n", options, vt);
-            options++;
-        }
-    }
-    public void addNewRole(ArrayList<String> roles) {
-        Scanner read = new Scanner(System.in);
+        int index = Utils.showAndSelectIndex(roles, "**Select one of the options**");
+        dto.role = roles.get(index);
 
-        roles.add(Constants.ROLE_NURSE);
-        roles.add(Constants.ROLE_RECEPTIONIST);
-        roles.add(Constants.ROLE_CENTRE_COORDINATOR);
+        dto.name = Utils.readLineFromConsole("Insert Name: ");
+        dto.address = Utils.readLineFromConsole("Insert Address: ");
+        dto.phoneNumber = Integer.parseInt(Utils.readLineFromConsole("Insert Phone Number: "));
+        dto.email = Utils.readLineFromConsole("Insert Email: ");
+        dto.citizenCardNumber = Integer.parseInt(Utils.readLineFromConsole("Insert Citizen Card Number: "));
 
-        System.out.printf("1 - Select Roles%n2 - Add Role%nPress 1 or 2.");
-        int options = read.nextInt();
+        dto.id = String.valueOf(Employee.idGenerator(dto.role));
+        dto.password = Employee.passwordGenerator();
 
-        if (options == 1) {
-            for (int position = 0; position < roles.size(); position++) {
-                System.out.println(roles.get(position));
-            }
-        } else if (options == 2) {
-            int position = roles.size() - 1;
-        }
+        ctrl.registerNewEmployee(dto);
+        //RegisterNewEmployeeDto dto = new RegisterNewEmployeeDto(selectedRole);
     }
 }

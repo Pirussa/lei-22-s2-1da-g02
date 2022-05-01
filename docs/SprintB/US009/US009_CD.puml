@@ -1,35 +1,81 @@
 @startuml
 'https://plantuml.com/class-diagram
-!pragma layout smetana
+'!pragma layout smetana
 
 class Company {
-+createVaccinationCenter(name, address, phone number, email address, fax number, website address, opening hour, closing hour, slot duration, vaccines per slot)
-+validateVaccinationCenter(name, address, phone number, email address, fax number, website address, opening hour, closing hour, slot duration, vaccines per slot)
++createVaccinationCenter(VaccinationCenterDto dto)
++saveVaccinationCenter(VaccinationCenterDto dto)
 }
 
 class VaccinationCenter {
-String name
-String address
-double phoneNumber
-String emailAddress
-double faxNumber
-String websiteAddress
-int openingHour
-int closingHour
-int slotDuration
-int vaccinesPerSlot
+-intID;
+-strName;
+-strPhoneNumber;
+-strEmail;
+-strFax;
+-strWebsite;
+-strOpeningHour;
+-strClosingHour;
+-strSlotDuration;
+-strVaccinesPerSlot;
+}
+
+class CenterCoordinator{
+
+}
+
+class VaccineType{
+-description
+-code
+-vaccineTechnology
+}
+
+class Vaccine{
+-brand
+}
+
+class Employee{
+-id
+-name
+-address
+-phoneNumber
+-email
+-citizenCardNumber
+-password
+}
+
+class Address{
+-strRoad
+-strZipCode
+-strLocal
+}
+
+class MassVaccinationCenter{
+}
+
+class HealthcareCenter{
+-strARS;
+-strAGES;
 }
 
 class CreateNewVaccinationCenterUI
 
 class CreateNewVaccinationCenterController{
-+createVaccinationCenter(name, address, phone number, email address, fax number, website address, opening hour, closing hour, slot duration, vaccines per slot)
-+validateVaccinationCenter(name, address, phone number, email address, fax number, website address, opening hour, closing hour, slot duration, vaccines per slot)
++createVaccinationCenter(VaccinationCenterDto dto)
++saveVaccinationCenter(VaccinationCenterDto dto)
 }
-left to right direction
 
-CreateNewVaccinationCenterUI - CreateNewVaccinationCenterController
-CreateNewVaccinationCenterController -> Company
-Company .> VaccinationCenter
+CreateNewVaccinationCenterUI ..> CreateNewVaccinationCenterController
+CreateNewVaccinationCenterController ..> Company
+Company "1" -> "*" VaccinationCenter : storages
+CreateNewVaccinationCenterController ..> VaccinationCenter
+VaccinationCenter "1" --> "1" CenterCoordinator : has >
+VaccinationCenter <|-- MassVaccinationCenter
+VaccinationCenter <|-- HealthcareCenter
+Employee <|-- CenterCoordinator
+VaccinationCenter "1" -> "1" Address : localized in
+MassVaccinationCenter "1" --> "1" VaccineType: administers
+HealthcareCenter "1" -down-> "*" VaccineType: administers
+VaccineType "1" <-down- "*" Vaccine: is of <
 
 @enduml

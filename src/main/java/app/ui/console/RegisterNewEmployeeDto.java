@@ -2,12 +2,9 @@ package app.ui.console;
 
 public class RegisterNewEmployeeDto {
 
-    public RegisterNewEmployeeDto() {
-    }
-
     public String role;
 
-    public int id;
+    public String id;
 
     public String name;
 
@@ -18,5 +15,11 @@ public class RegisterNewEmployeeDto {
     public String email;
 
     public int citizenCardNumber;
+
+    public String password;
+
+    public RegisterNewEmployeeDto() {
+
+    }
 }
 

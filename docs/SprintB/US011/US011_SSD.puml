@@ -12,7 +12,7 @@ deactivate ":System"
 
 A -> ":System" : selects one role
 activate ":System"
-":System" --> A : returns the list of employees
+":System" --> A : returns the list of employees for that role
 deactivate ":System"
 
 deactivate A

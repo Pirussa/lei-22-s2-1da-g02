@@ -21,9 +21,9 @@ activate UI
 UI -> CTRL : GetListOfEmployeesUI()
 activate CTRL
 
-CTRL -> C : getListOfEmployeesWithAGivenRole()
+CTRL -> C : fillListOfEmployeesWithAGivenRole()
 activate C
-C --> E : getListOfEmployees()
+C --> E : saveCreatedEmployee()
 activate E
 
 UI --> A: shows list of Employees with the selected role

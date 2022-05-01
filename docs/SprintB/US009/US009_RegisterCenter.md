@@ -33,7 +33,7 @@ As an administrator, I want to register a vaccination center to respond to a cer
 
 ### 1.4. Found out Dependencies
 
-* There is a dependency to "US010 As an administrator, I want to register a new employee" since at least a task category must exist to classify the task being created.
+* There is a dependency to "US010 As an administrator, I want to register a new employee" since every vaccination center has a Center Coordinator.
 
 ### 1.5 Input and Output Data
 
@@ -41,12 +41,18 @@ As an administrator, I want to register a vaccination center to respond to a cer
 **Input Data:**
 
 * Typed data:
+    * id
     * name
-    * address
     * phoneNumber
-    * emailAddress
-    * faxNumber
-    * websiteAddress
+    * email
+    * fax
+    * website
+    * opening hour
+    * closing hour
+    * slot duration
+    * vaccines per slot
+    * address
+    * coordinator
 
 * Selected data:
     * N/A
@@ -58,7 +64,7 @@ As an administrator, I want to register a vaccination center to respond to a cer
 
 ### 1.6. System Sequence Diagram (SSD)
 
-![US009_SSD](C:\Users\Castro\Desktop\CODE\lei-22-s2-1da-g02\docs\SprintB\US009\US009_SSD.svg)
+![US009_SSD](US009_SSD.svg)
 
 ### 1.7 Other Relevant Remarks
 
@@ -69,7 +75,7 @@ As an administrator, I want to register a vaccination center to respond to a cer
 
 ### 2.1. Relevant Domain Model Excerpt
 
-![US009_MD](C:\Users\Castro\Desktop\CODE\lei-22-s2-1da-g02\docs\SprintB\US009\US009_MD.svg)
+![US009_MD](US009_MD.svg)
 
 ### 2.2. Other Remarks
 
@@ -95,92 +101,22 @@ n/a
 
 According to the taken rationale, the conceptual classes promoted to software classes are:
 
-* Administrator --> Company
+* Vaccination Center
+* Company
 
 Other software classes (i.e. Pure Fabrication) identified:
 
 * CreateVaccinationCenterUI
 * CreateVaccinationCenterController
-* VaccinationCenter
 
 
 ## 3.2. Sequence Diagram (SD)
 
-![US009_SD](C:\Users\Castro\Desktop\CODE\lei-22-s2-1da-g02\docs\SprintB\US009\US009_SD.svg)
+![US009_SD](US009_SD.svg)
 
 ## 3.3. Class Diagram (CD)
 
-
-![US009_CD](C:\Users\Castro\Desktop\CODE\lei-22-s2-1da-g02\docs\SprintB\US009\US009_CD.svg)
-
-# 4. Tests
-
-**Test 1:** Check that it is not possible to create an instance of the Task class with null values.
-
-	@Test(expected = IllegalArgumentException.class)
-		public void ensureNullIsNotAllowed() {
-		Task instance = new Task(null, null, null, null, null, null, null);
-	}
-
-
-**Test 2:** Check that it is not possible to create an instance of the Task class with a reference containing less than five chars - AC2.
-
-	@Test(expected = IllegalArgumentException.class)
-		public void ensureReferenceMeetsAC2() {
-		Category cat = new Category(10, "Category 10");
-		
-		Task instance = new Task("Ab1", "Task Description", "Informal Data", "Technical Data", 3, 3780, cat);
-	}
-
-
-*It is also recommended to organize this content by subsections.*
-
-# 5. Construction (Implementation)
-
-
-## Class CreateTaskController
-
-		public boolean createTask(String ref, String designation, String informalDesc, 
-			String technicalDesc, Integer duration, Double cost, Integer catId)() {
-		
-			Category cat = this.platform.getCategoryById(catId);
-			
-			Organization org;
-			// ... (omitted)
-			
-			this.task = org.createTask(ref, designation, informalDesc, technicalDesc, duration, cost, cat);
-			
-			return (this.task != null);
-		}
-
-
-## Class Organization
-
-
-		public Task createTask(String ref, String designation, String informalDesc, 
-			String technicalDesc, Integer duration, Double cost, Category cat)() {
-		
-	
-			Task task = new Task(ref, designation, informalDesc, technicalDesc, duration, cost, cat);
-			if (this.validateTask(task))
-				return task;
-			return null;
-		}
-
-
-
-# 6. Integration and Demo
-
-* A new option on the Employee menu options was added.
-
-* Some demo purposes some tasks are bootstrapped while system starts.
-
-
-# 7. Observations
-
-Platform and Organization classes are getting too many responsibilities due to IE pattern and, therefore, they are becoming huge and harder to maintain.
-
-Is there any way to avoid this to happen?
+![US009_CD](US009_CD.svg)
 
 
 

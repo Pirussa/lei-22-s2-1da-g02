@@ -19,28 +19,23 @@ public class GetListOfEmployeesController {
     public GetListOfEmployeesController() {
     }
 
-
-    ArrayList<Employee> nurseList = new ArrayList<>();
-    ArrayList<Employee> receptionistList = new ArrayList<>();
-    ArrayList<Employee> centreCoordinatorList = new ArrayList<>();
-
-    public void GetListOfEmployeesWithAGivenRole(ArrayList<Employee> employees, ArrayList<Employee> nurseList, ArrayList<Employee> receptionistList, ArrayList<Employee> centreCoordinatorList) {
-        for (int positionArrayListEmployees = 0; positionArrayListEmployees < employees.size(); positionArrayListEmployees++) {
-            if (employees.get(positionArrayListEmployees).getRole().equals(Constants.ROLE_NURSE)) {
-                for (int positionArrayListNurses = 0; positionArrayListNurses < nurseList.size(); positionArrayListNurses++) {
-                    nurseList.add(employees.get(positionArrayListNurses));
-                }
-            } else if (employees.get(positionArrayListEmployees).getRole().equals(Constants.ROLE_RECEPTIONIST)) {
-                for (int positionArrayListReceptionist = 0; positionArrayListReceptionist < receptionistList.size(); positionArrayListReceptionist++) {
-                    receptionistList.add(employees.get(positionArrayListReceptionist));
-                }
-            } else if (employees.get(positionArrayListEmployees).getRole().equals(Constants.ROLE_CENTRE_COORDINATOR)) {
-                for (int positionArrayListCentreCoordinator = 0; positionArrayListCentreCoordinator < centreCoordinatorList.size(); positionArrayListCentreCoordinator++) {
-                    centreCoordinatorList.add(employees.get(positionArrayListCentreCoordinator));
-                }
-            }
-        }
+    public ArrayList<Employee> getEmployees(){
+        return company.getEmployees();
     }
+
+    public ArrayList<Employee> getNurseList(){
+        return company.getNurseList();
+    }
+
+    public ArrayList<Employee> getReceptionistList() {
+        return company.getReceptionistList();
+    }
+
+    public ArrayList<Employee> getCentreCoordinatorList() {
+        return company.getCentreCoordinatorList();
+    }
+
+
 }
 
 

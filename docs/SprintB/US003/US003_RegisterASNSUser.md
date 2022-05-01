@@ -11,18 +11,32 @@ As a receptionist, I want to register an SNS user.
 
 ### 1.2. Customer Specifications and Clarifications 
 
-No specifications nor clarifications were given.
+> **Question:** What are the specifications for the atributes?
+>
+> **Answer:** During Sprint B I will not introduce attribute rules/formats other than the ones that I already introduced (in this forum or in the project description).
+
+> **Question:** Is the password supposed to be given or randomly generated?
+>
+> **Answer:** The password should be generated.
+
+> **Question:** What are the atributes of a user?
+>
+> **Answer:** The attributes that should be used to describe a SNS user are: Name, Address, Sex, Phone Number, E-mail, Birth Date, SNS User Number and Citizen Card Number.
+The Sex attribute is optional. All other fields are required.
+The E-mail, Phone Number, Citizen Card Number and SNS User Number should be unique for each SNS user.
 
 
 ### 1.3. Acceptance Criteria
 
-*AC1:* The SNS user must become a system user.
+* **AC1:** The SNS user must become a system user.
+* **AC1:** All required fields must be filled in.
+* **AC3:** When creating a user with an already existing reference, the system must reject such operation and the user must have the change to modify the typed reference.
 
 
 ### 1.4. Found out Dependencies
 
+* There is a dependency to "US010 Register a new Employee" since at least one receptinist must exist to register a new user.
 
-No dependencies were found.
 
 ### 1.5 Input and Output Data
 
@@ -36,10 +50,9 @@ No dependencies were found.
     * a phone number,
     * an email address,
     * a birthdate,
-    * a SNS number,
+    * an SNS number,
     * a citizen card number
-	
-
+    
 
 **Output Data:**
 
@@ -65,7 +78,7 @@ No other relevant remarks.
 
 ### 2.2. Other Remarks
 
-No other relevant remarks.
+Company also storages all the receptionists, but it is not relevent to be on this US domain model excerpt.
 
 
 ## 3. Design - User Story Realization 
@@ -86,7 +99,7 @@ No other relevant remarks.
 
 According to the taken rationale, the conceptual classes promoted to software classes are: 
 
-* Administrator → Company
+* None
 
 Other software classes (i.e. Pure Fabrication) identified: 
 

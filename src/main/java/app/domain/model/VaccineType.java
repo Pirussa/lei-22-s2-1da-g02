@@ -2,8 +2,6 @@ package app.domain.model;
 
 import app.controller.App;
 
-import java.util.Random;
-
 public class VaccineType {
 
     /**
@@ -47,13 +45,18 @@ public class VaccineType {
     /**
      * Validates a Vaccine Type.
      *
-     * @return true if the type is valid
+     * @return true if the type is validated.
      */
     public boolean validateVaccineType() {
         if (code.isEmpty() || description.isEmpty() || vaccineTechnology.isEmpty()) return false;
         return validateCode();
     }
 
+    /**
+     * Validates a Vaccine Type Code.
+     *
+     * @return true if the  Vaccine Type Code is validated.
+     */
     public boolean validateCode() {
         if (code.length() != 5)
             return false;
@@ -64,6 +67,10 @@ public class VaccineType {
         }
 
         return true;
+    }
+
+    public String getCode(){
+        return code;
     }
 
 

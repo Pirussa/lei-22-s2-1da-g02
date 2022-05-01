@@ -9,7 +9,7 @@ activate Administrator
 
 Administrator -> System: Asks to create a Vaccination Center
 activate System
-Administrator <-- System: Requests data (i.e. name, address, phone number, e-mail, fax number, website address, opening and closing hours, slot duration and vaccines per slot)
+Administrator <-- System: Requests data (center id, name, phone number, email, fax,\n website, opening hour, closing hour, slot duration, vaccines per slot, address, coordinator)
 deactivate System
 
 Administrator -> System: Types requested data

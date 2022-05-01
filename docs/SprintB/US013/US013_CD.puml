@@ -53,4 +53,5 @@ SpecifyNewVaccineAndAdminProcessController ..> Vaccine
 Vaccine "*" *-- "1" VaccineType
 Vaccine "1" *-- "1  " AdministrationProcess
 
+
 @enduml
