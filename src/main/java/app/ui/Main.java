@@ -14,7 +14,7 @@ public class Main {
 
     public static void main(String[] args) {
         try {
-            bootstrapMitra();
+            bootstrapOptional();
 
             MainMenuUI menu = new MainMenuUI();
 
@@ -24,14 +24,12 @@ public class Main {
         }
     }
 
-    private static void bootstrapMitra() {
+    private static void bootstrapOptional() {
         SpecifyNewVaccineTypeController ctrl = new SpecifyNewVaccineTypeController();
 
         ctrl.saveVaccineType("AAAAA", "Vaccine Type 1", VaccineType.vaccineTechnologies[0]);
         ctrl.saveVaccineType("BBBBB", "Vaccine Type 2", VaccineType.vaccineTechnologies[1]);
         ctrl.saveVaccineType("CCCCC", "Vaccine Type 3", VaccineType.vaccineTechnologies[2]);
 
-        Utils.addVaccine("Vaccine 1");
-        Utils.addVaccine("Vaccine 2");
     }
 }
