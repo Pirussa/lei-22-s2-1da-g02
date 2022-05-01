@@ -46,17 +46,20 @@ class CenterCoordinator
 'Employee <- Nurse
 
 class VaccinatonCenter {
-==-name
-==-address
-==-phoneNumber
-==-emailAddress
-==-faxNumber
-==-websiteAddress
-==-openingHour
-==-closingHour
-==-slotDuration
-==-vaccinesPerSlot
-==-coordinator
+==-intID
+==-strName
+==-strPhoneNumber
+==-strEmail
+==-strFax
+==-strWebsite
+==-strOpeningHour
+==-strClosingHour
+==-strSlotDuration
+==-strVaccinesPerSlot
+==-strRoad
+==-strZipCode
+==-strLocal
+==-strCenterCoordinatorID
  }
 
 class MassVaccinationCenter extends VaccinatonCenter {
@@ -106,6 +109,10 @@ Receptionist "*" - "1" UsersWaitingList : atualizes >
 Nurse "*" -- "1" UsersWaitingList : checks >
 Nurse "1" - "*" Vaccine : administers >
 SnsUser "1" --  "*" UserInfo : has >
+VaccineAppointment "1" -- "1" Vaccine : is associated to a >
+
+
+
 
 class GivenVaccine
 class AdverseReactions
@@ -124,5 +131,6 @@ class EntriesAndExitsList
 
 Application "1" -- "*" SnsUser : requests authorization to send SMS >
 Application "1" -- "*" SnsUser : notify >
-Application "1" -up- "*" EntriesAndExitsList : generates >
+VaccinatonCenter "1" -up- "*" EntriesAndExitsList : has >
+
 @enduml
