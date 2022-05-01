@@ -56,20 +56,20 @@ class HealthcareCenter{
 -strAGES;
 }
 
-class CreateNewVaccinationCenterUI{
+class CreateVaccinationCenterUI{
 +createVaccinationCenter(VaccinationCenterDto dto)
 +saveVaccinationCenter(VaccinationCenterDto dto)
 }
 
-class CreateNewVaccinationCenterController{
+class CreateVaccinationCenterController{
 +createVaccinationCenter(VaccinationCenterDto dto)
 +saveVaccinationCenter(VaccinationCenterDto dto)
 }
 
-CreateNewVaccinationCenterUI ..> CreateNewVaccinationCenterController
-CreateNewVaccinationCenterController ..> Company
+CreateVaccinationCenterUI ..> CreateVaccinationCenterController
+CreateVaccinationCenterController ..> Company
 Company "1" -> "*" VaccinationCenter : storages
-CreateNewVaccinationCenterController ..> VaccinationCenter
+CreateVaccinationCenterController ..> VaccinationCenter
 VaccinationCenter "1" --> "1" CenterCoordinator : has >
 VaccinationCenter <|-- MassVaccinationCenter
 VaccinationCenter <|-- HealthcareCenter
