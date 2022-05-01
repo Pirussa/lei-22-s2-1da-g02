@@ -27,7 +27,7 @@
 | GHD | DGS | Acronym for _General Health Directorate_.|
 | GRHC | AGES | Acronym for _Groupings of Health Centers_.|
 | **Given Vaccine** | **Vácina administrada** | The vaccine that was administered to the patient. |
-| **Healthcare Center** | **Centro de cuidados de saúde* | A healthcare center is one of a network of clinics staffed by a group of general practitioners and nurses providing healthcare services to people in a certain area. |
+| **Healthcare Center** | **Centro de cuidados de saúde** | A healthcare center is one of a network of clinics staffed by a group of general practitioners and nurses providing healthcare services to people in a certain area. |
 | **JUnit5** | **JUnit5** | JUnit 5 is the updated version of the highly popular testing library for Java applications, JUnit. |
 | **JaCoCo**| **JaCoCo** | JaCoCo runs as a Java agent. It's responsible for instrumenting the byte code while running the tests. JaCoCo drills into each instruction, and shows which lines are exercised during each test |
 | **JavaFX 11** | **JavaFX 11** | JavaFX is a modern, efficient, and fully featured toolkit for developing rich client applications. |
