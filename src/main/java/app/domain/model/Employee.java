@@ -15,7 +15,7 @@ public class Employee {
     private static final int NUMBER_OF_PHONE_NUMBER_DIGITS = 9;
 
     private String role;
-    private int id;
+    private String id;
 
     private String name;
 
@@ -29,7 +29,7 @@ public class Employee {
 
     private String password;
 
-    public Employee(String role, int id, String name, String address, int phoneNumber, String email, int citizenCardNumber, String password) {
+    public Employee(String role, String id, String name, String address, int phoneNumber, String email, int citizenCardNumber, String password) {
         this.role = role;
         this.id = id;
         this.name = name;
@@ -48,11 +48,11 @@ public class Employee {
         this.role = role;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

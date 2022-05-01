@@ -7,7 +7,7 @@ public class RegisterNewEmployeeDto {
 
     public String role;
 
-    public int id;
+    public String id;
 
     public String name;
 
@@ -21,7 +21,7 @@ public class RegisterNewEmployeeDto {
 
     public String password;
 
-    public RegisterNewEmployeeDto(String role, int id, String name, String address, int phoneNumber, String email, int citizenCardNumber, String password) {
+    public RegisterNewEmployeeDto(String role, String id, String name, String address, int phoneNumber, String email, int citizenCardNumber, String password) {
         this.role = role;
         this.id = id;
         this.name = name;
