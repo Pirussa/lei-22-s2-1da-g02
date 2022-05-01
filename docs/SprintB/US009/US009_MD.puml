@@ -14,33 +14,50 @@ class Vaccine{
 ==-brand
 }
 
+class Address{
+==-strRoad
+==-strZipCode
+==-strLocal
+}
+
 class VaccinationCenter{
+==-intID
+==-strName
+==-strPhoneNumber
+==-strEmail
+==-strFax
+==-strWebsite
+==-strOpeningHour
+==-strClosingHour
+==-strSlotDuration
+==-strVaccinesPerSlot
+}
+
+class CenterCoordinator extends Employee{
+}
+
+class Employee{
+==-id
 ==-name
 ==-address
 ==-phoneNumber
-==-emailAddress
-==-faxNumber
-==-websiteAddress
-==-openingHour
-==-closingHour
-==-slotDuration
-==-vaccinesPerSlot
+==-email
+==-citizenCardNumber
+==-password
 }
-
-class Coordinator
 
 class MassVaccinationCenter extends VaccinationCenter{
 
 }
 
 class HealthcareCenter extends VaccinationCenter{
-==-ARS
-==-AGES
+==-strARS
+==-strAGES
 }
 
 Company "1" -down- "*" VaccinationCenter: owns >
-MassVaccinationCenter "1" -down- "1" Coordinator: has >
-HealthcareCenter "1" -down- "1" Coordinator: has >
+VaccinationCenter "1" -left- "1" CenterCoordinator: has >
+VaccinationCenter "1" -right- "1" Address: localized in >
 MassVaccinationCenter "1" --down-- "1" VaccineType: administers >
 HealthcareCenter "1" -down- "*" VaccineType: administers >
 Vaccine "*" --left-- "1" VaccineType: is of >

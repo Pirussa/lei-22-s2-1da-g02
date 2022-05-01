@@ -1,10 +1,7 @@
 package app.domain.model;
 
-<<<<<<< HEAD
-=======
 import app.controller.App;
 
->>>>>>> c4f9a0f612f524e337486c26c2bf1b46a2ef2fb0
 /**
  *
  * @author João Castro <1210816@isep.ipp.pt>
