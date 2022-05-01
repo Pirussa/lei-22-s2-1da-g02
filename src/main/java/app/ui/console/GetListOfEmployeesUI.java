@@ -4,7 +4,6 @@ import app.controller.GetListOfEmployeesController;
 
 import java.util.Scanner;
 
-
 /**
  * US011 - Get a list of Employees with a given role.
  *
@@ -22,7 +21,7 @@ public class GetListOfEmployeesUI implements Runnable {
         int op;
         Scanner read = new Scanner(System.in);
         System.out.println("");
-        System.out.println("-----|You have chosen to get a list of Employees.|-----");
+        System.out.println("-----|You have chosen to get a list of Employees|-----");
         System.out.println("");
         System.out.println("Select the option you pretend to get a list of:");
         System.out.println("1- List of Nurses");
@@ -30,27 +29,35 @@ public class GetListOfEmployeesUI implements Runnable {
         System.out.println("3- List of Centre Coordinators");
         op = read.nextInt();
 
-        /*if(!ctrl.getEmployees().isEmpty())
-        switch (op) {
-            case 1:
-                if (!ctrl.getNurseList().isEmpty()) {
-                    ctrl.printNurseList();
-                    break;
-                }
-            case 2:
-                if(!ctrl.getReceptionistList().isEmpty()) {
-                    ctrl.printReceptionistList();
-                    break;
-                }
-            case 3:
-                if(!ctrl.getCentreCoordinatorList().isEmpty()) {
-                    ctrl.printCentreCoordinator();
-                    break;
-                }
-            default:
-                System.out.println("Invalid option, please select one that's valid.");
-        } */
-
-
-    }
-}
+        if (!ctrl.getEmployees().isEmpty()) {
+            switch (op) {
+                case 1:
+                    if (!ctrl.getNurseList().isEmpty()) {
+                        for (int listPosition = 0; listPosition < ctrl.getNurseList().size(); listPosition++) {
+                            System.out.println(ctrl.getNurseList().get(listPosition));
+                        }
+                        ;
+                        break;
+                    }
+                case 2:
+                    if (!ctrl.getReceptionistList().isEmpty()) {
+                        for (int listPosition = 0; listPosition < ctrl.getReceptionistList().size(); listPosition++) {
+                            System.out.println(ctrl.getReceptionistList().get(listPosition));
+                            ;
+                            break;
+                        }
+                        }
+                        case 3:
+                            if (!ctrl.getCentreCoordinatorList().isEmpty()) {
+                                for (int listPosition = 0; listPosition < ctrl.getCentreCoordinatorList().size(); listPosition++) {
+                                    System.out.println(ctrl.getCentreCoordinatorList().get(listPosition));
+                                    ;
+                                    break;
+                                }
+                            }
+                                default:
+                                    System.out.println("Invalid option, please select one that's valid.");
+                            }
+                    }
+            }
+        }

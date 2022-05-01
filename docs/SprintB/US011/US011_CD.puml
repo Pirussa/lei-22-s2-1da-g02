@@ -3,13 +3,17 @@
 
 class Company {
 +getEmployees()
++fillListOfEmployeesWithAGivenRole()
++getNurseList()
++getReceptionistList()
++getCentreCoordinatorList()
 }
 
 class Employee {
 String name
 String address
 String role
-int id
+String id
 int phoneNumber
 String email
 int citizenCardNumber
@@ -18,7 +22,7 @@ int citizenCardNumber
 class GetListOfEmployeesUI
 
 class GetListOfEmployeesController{
-+getListOfEmployeesWithAGivenRole()
++getEmployees()
 +getNurseList()
 +getReceptionistList()
 +getCentreCoordinatorList()
@@ -27,8 +31,8 @@ class GetListOfEmployeesController{
 
 left to right direction
 
-GetListOfEmployeesUI - GetListOfEmployeesController
-GetListOfEmployeesController -> Company
-Company -> Employee
+GetListOfEmployeesUI .> GetListOfEmployeesController
+GetListOfEmployeesController .> Company
+Company .> Employee: gets
 
 @enduml

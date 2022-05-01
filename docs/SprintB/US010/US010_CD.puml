@@ -29,7 +29,7 @@ class Employee{
 }
 
 RegisterNewEmployeeUI ..> RegisterNewEmployeeController
-RegisterNewEmployeeController ..> Company
+RegisterNewEmployeeController -- Company
 Company "1" - "*" Employee : storages >
 RegisterNewEmployeeController ..> Employee
 
