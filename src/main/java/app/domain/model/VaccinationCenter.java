@@ -2,11 +2,13 @@ package app.domain.model;
 
 import app.controller.CreateVaccinationCenterController;
 
-
+/**
+ *
+ * @author João Castro <1210816@isep.ipp.pt>
+ */
 public class VaccinationCenter{
 
     Employee thisCoordinator;
-    Address thisAddress;
     Company thisCompany;
 
     CreateVaccinationCenterController controller = new CreateVaccinationCenterController();
@@ -23,18 +25,20 @@ public class VaccinationCenter{
     private String strClosingHour;
     private String strSlotDuration;
     private String strVaccinesPerSlot;
-    private Address addAddress;
-    private Employee empCoordinator;
+    private String strRoad;
+    private String strZipCode;
+    private String strLocal;
+    private String strCenterCoordinatorID;
 
     public VaccinationCenter(int intID, String strName, String strPhoneNumber, String strEmail, String strFax, String strWebsite,
                              String strOpeningHour, String strClosingHour, String strSlotDuration, String strVaccinesPerSlot,
-                             Address addAddress, Employee empCoordinator) {
+                             String strRoad, String strZipCode, String strLocal, String strCenterCoordinatorID) {
 
         if (((strName==null) || (strPhoneNumber==null) || (strEmail==null) || (strFax==null) || (strWebsite==null) || (strOpeningHour==null) ||
-                (strClosingHour==null) || (strSlotDuration==null)  || (strVaccinesPerSlot==null) || (addAddress==null) || (empCoordinator==null) ||
-                 (strName.isEmpty()) || (strPhoneNumber.isEmpty() || (strEmail.isEmpty()) ||
+                (strClosingHour==null) || (strSlotDuration==null)  || (strVaccinesPerSlot==null) || (strRoad==null) || (strZipCode==null) ||
+                (strLocal==null) || (strCenterCoordinatorID==null) || (strName.isEmpty()) || (strPhoneNumber.isEmpty() || (strEmail.isEmpty()) ||
                 (strFax.isEmpty()) || (strWebsite.isEmpty()) || (strOpeningHour.isEmpty()) || (strClosingHour.isEmpty()) || (strSlotDuration.isEmpty()) ||
-                (strVaccinesPerSlot.isEmpty()))))
+                (strVaccinesPerSlot.isEmpty()) ||(strRoad.isEmpty()||(strZipCode.isEmpty()||(strLocal.isEmpty()||(strCenterCoordinatorID.isEmpty())))))))
         throw new IllegalArgumentException("Arguments can't be null or empty");
 
         if (intID <= 0) throw new IllegalArgumentException("ID needs to be !=0 and a positive number");
@@ -51,14 +55,16 @@ public class VaccinationCenter{
         this.strClosingHour = strClosingHour;
         this.strSlotDuration = strSlotDuration;
         this.strVaccinesPerSlot = strVaccinesPerSlot;
-        this.addAddress = addAddress;
-        this.empCoordinator = empCoordinator;
-
+        this.strRoad=strRoad;
+        this.strZipCode=strZipCode;
+        this.strLocal=strLocal;
+        this.strCenterCoordinatorID=strCenterCoordinatorID;
     }
 
     @Override
     public String toString() {
         return "VaccinationCenter{" +
+                ", intID=" + intID +
                 ", strName='" + strName + '\'' +
                 ", strPhoneNumber='" + strPhoneNumber + '\'' +
                 ", strEmail='" + strEmail + '\'' +
@@ -68,8 +74,10 @@ public class VaccinationCenter{
                 ", strClosingHour='" + strClosingHour + '\'' +
                 ", strSlotDuration='" + strSlotDuration + '\'' +
                 ", strVaccinesPerSlot='" + strVaccinesPerSlot + '\'' +
-                ", addAddress=" + addAddress +
-                ", empCoordinator=" + empCoordinator +
+                ", strRoad='" + strRoad + '\'' +
+                ", strZipCode='" + strZipCode + '\'' +
+                ", strLocal='" + strLocal + '\'' +
+                ", strCenterCoordinatorID='" + strCenterCoordinatorID + '\'' +
                 '}';
     }
 }

@@ -1,7 +1,8 @@
 package app.ui.console;
 
-import app.domain.model.Address;
 import app.domain.model.Employee;
+import app.domain.model.CenterCoordinator;
+
 /**
  *
  * @author João Castro <1210816@isep.ipp.pt>
@@ -10,7 +11,6 @@ public class VaccinationCenterDto {
 
     public VaccinationCenterDto() {
     }
-
     public int intID;
     public String strName;
     public String strPhoneNumber;
@@ -24,12 +24,11 @@ public class VaccinationCenterDto {
     public String strRoad;
     public String strZipCode;
     public String strLocal;
-    public String id;
-
+    public String strCenterCoordinatorID;
 
     public VaccinationCenterDto(int intID, String strName, String strPhoneNumber, String strEmail, String strFax, String strWebsite,
                                 String strOpeningHour, String strClosingHour, String strSlotDuration, String strVaccinesPerSlot,
-                                String strRoad, String strZipCode, String strLocal, String id) {
+                                String strRoad, String strZipCode, String strLocal, String strCenterCoordinatorID) {
         this.intID = intID;
         this.strName = strName;
         this.strPhoneNumber = strPhoneNumber;
@@ -43,7 +42,7 @@ public class VaccinationCenterDto {
         this.strRoad=strRoad;
         this.strZipCode=strZipCode;
         this.strLocal=strLocal;
-        this.id=id;
+        this.strCenterCoordinatorID=strCenterCoordinatorID;
     }
 
     @Override
@@ -62,7 +61,7 @@ public class VaccinationCenterDto {
                 ", strRoad='" + strRoad + '\'' +
                 ", strZipCode='" + strZipCode + '\'' +
                 ", strLocal='" + strLocal + '\'' +
-                ", id='" + id + '\'' +
+                ", id='" + strCenterCoordinatorID + '\'' +
                 '}';
     }
 }

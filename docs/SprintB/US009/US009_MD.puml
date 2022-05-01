@@ -14,12 +14,6 @@ class Vaccine{
 ==-brand
 }
 
-class Address{
-==-strRoad
-==-strZipCode
-==-strLocal
-}
-
 class VaccinationCenter{
 ==-intID
 ==-strName
@@ -31,6 +25,10 @@ class VaccinationCenter{
 ==-strClosingHour
 ==-strSlotDuration
 ==-strVaccinesPerSlot
+==-strRoad
+==-strZipCode
+==-strLocal
+==-strCenterCoordinatorID
 }
 
 class CenterCoordinator extends Employee{
@@ -57,7 +55,6 @@ class HealthcareCenter extends VaccinationCenter{
 
 Company "1" -down- "*" VaccinationCenter: owns >
 VaccinationCenter "1" -left- "1" CenterCoordinator: has >
-VaccinationCenter "1" -right- "1" Address: localized in >
 MassVaccinationCenter "1" --down-- "1" VaccineType: administers >
 HealthcareCenter "1" -down- "*" VaccineType: administers >
 Vaccine "*" --left-- "1" VaccineType: is of >

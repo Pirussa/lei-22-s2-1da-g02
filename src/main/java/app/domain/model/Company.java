@@ -13,6 +13,7 @@ import java.util.List;
 /**
  * @author Paulo Maio <pam@isep.ipp.pt>
  * @author Gustavo Jorge <1211061@isep.ipp.pt>
+ * @author João Castro <1210816@isep.ipp.pt>
  */
 
 public class Company {
@@ -158,7 +159,7 @@ public class Company {
      */
     public boolean createVaccinationCenter(VaccinationCenterDto dto){
         VaccinationCenter vc = new VaccinationCenter(dto.intID,dto.strName, dto.strPhoneNumber, dto.strEmail,dto.strFax,dto.strWebsite,dto.strOpeningHour,
-                dto.strClosingHour,dto.strSlotDuration,dto.strVaccinesPerSlot,dto.addAddress,dto.empCoordinator);
+                dto.strClosingHour,dto.strSlotDuration,dto.strVaccinesPerSlot,dto.strRoad, dto.strZipCode,dto.strLocal,dto.strCenterCoordinatorID);
         return true;
     }
 
@@ -167,7 +168,7 @@ public class Company {
      */
     public void saveVaccinationCenter(VaccinationCenterDto dto){
         VaccinationCenter vc = new VaccinationCenter(dto.intID,dto.strName, dto.strPhoneNumber, dto.strEmail,dto.strFax,dto.strWebsite,dto.strOpeningHour,
-                dto.strClosingHour,dto.strSlotDuration,dto.strVaccinesPerSlot,dto.addAddress,dto.empCoordinator);
+                dto.strClosingHour,dto.strSlotDuration,dto.strVaccinesPerSlot,dto.strRoad, dto.strZipCode,dto.strLocal,dto.strCenterCoordinatorID);
         vaccinationCenters.add(vc);
     }
 

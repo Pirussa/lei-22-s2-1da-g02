@@ -43,7 +43,7 @@ As an administrator, I want to register a vaccination center to respond to a cer
 * Typed data:
     * id
     * name
-    * phoneNumber
+    * phone number
     * email
     * fax
     * website
@@ -51,8 +51,10 @@ As an administrator, I want to register a vaccination center to respond to a cer
     * closing hour
     * slot duration
     * vaccines per slot
-    * address
-    * coordinator
+    * road
+    * zip code
+    * local
+    * center coordinator id
 
 * Selected data:
     * N/A

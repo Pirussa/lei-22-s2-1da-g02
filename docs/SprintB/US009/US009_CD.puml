@@ -18,6 +18,10 @@ class VaccinationCenter {
 -strClosingHour;
 -strSlotDuration;
 -strVaccinesPerSlot;
+-strRoad
+-strZipCode
+-strLocal
+-strCenterCoordinatorID
 }
 
 class CenterCoordinator{
@@ -44,12 +48,6 @@ class Employee{
 -password
 }
 
-class Address{
--strRoad
--strZipCode
--strLocal
-}
-
 class MassVaccinationCenter{
 }
 
@@ -58,7 +56,10 @@ class HealthcareCenter{
 -strAGES;
 }
 
-class CreateNewVaccinationCenterUI
+class CreateNewVaccinationCenterUI{
++createVaccinationCenter(VaccinationCenterDto dto)
++saveVaccinationCenter(VaccinationCenterDto dto)
+}
 
 class CreateNewVaccinationCenterController{
 +createVaccinationCenter(VaccinationCenterDto dto)
@@ -73,7 +74,6 @@ VaccinationCenter "1" --> "1" CenterCoordinator : has >
 VaccinationCenter <|-- MassVaccinationCenter
 VaccinationCenter <|-- HealthcareCenter
 Employee <|-- CenterCoordinator
-VaccinationCenter "1" -> "1" Address : localized in
 MassVaccinationCenter "1" --> "1" VaccineType: administers
 HealthcareCenter "1" -down-> "*" VaccineType: administers
 VaccineType "1" <-down- "*" Vaccine: is of <

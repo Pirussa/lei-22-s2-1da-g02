@@ -8,7 +8,10 @@ import org.apache.commons.lang3.text.StrLookup;
 
 import java.util.List;
 import java.util.Scanner;
-
+/**
+ *
+ * @author João Castro <1210816@isep.ipp.pt>
+ */
 public class CreateVaccinationCenterUI{
 
     private final int HEALTHCARECENTEROPTION = 1;
@@ -37,7 +40,7 @@ public class CreateVaccinationCenterUI{
         dto.strZipCode= Utils.readLineFromConsole("Zip Code of the Healthcare Center");
         dto.strLocal= Utils.readLineFromConsole("Local of the Healthcare Center");
         System.out.println("Information about the Coordinator");
-        dto.id= Utils.readLineFromConsole("ID of the Coordinator: ");
+        dto.strCenterCoordinatorID= Utils.readLineFromConsole("ID of the Coordinator: ");
         controller.createVaccinationCenter(dto);
         System.out.println("--------------------");
         controller.getVaccinationCenters();
