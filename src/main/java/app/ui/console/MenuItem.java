@@ -1,5 +1,6 @@
 package app.ui.console;
 
+import app.domain.model.VaccinationCenter;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Objects;
@@ -26,6 +27,7 @@ public class MenuItem {
 
     public void run()
     {
+        CreateVaccinationCenterUI.run();
         this.ui.run();
     }
 

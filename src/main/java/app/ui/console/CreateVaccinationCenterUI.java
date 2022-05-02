@@ -14,17 +14,21 @@ import java.util.Scanner;
  */
 public class CreateVaccinationCenterUI{
 
+
+    
+    
+    
     private final int HEALTHCARECENTEROPTION = 1;
     private final int MASSVACCINATIONCENTEROPTION = 2;
 
     private int intOption;
-    VaccinationCenterDto dto = new VaccinationCenterDto();
     public CreateVaccinationCenterUI(){
     }
 
-    private CreateVaccinationCenterController controller = new CreateVaccinationCenterController();
-    Scanner sc = new Scanner(System.in);
-    public void run(){
+    public static void run(){
+        Scanner sc = new Scanner(System.in);
+        VaccinationCenterDto dto = new VaccinationCenterDto();
+        CreateVaccinationCenterController controller = new CreateVaccinationCenterController();
         dto.intID= Utils.readIntegerFromConsole("ID of the Healthcare Center: ");
         dto.strName= Utils.readLineFromConsole("Name of the Healthcare Center: ");
         dto.strPhoneNumber= Utils.readLineFromConsole("Phone Number of the Healthcare Center: ");
@@ -50,8 +54,10 @@ public class CreateVaccinationCenterUI{
         String confirmation = sc.nextLine();
         if (confirmation.contentEquals("Yes")||confirmation.contentEquals("yes")||confirmation.contentEquals("y")){
             controller.saveVaccinationCenter(dto);
+            System.out.println(dto);
+            System.out.println("Successful operation");
         }
-        System.out.println("Successful operation");
+
 
 
 
