@@ -16,6 +16,9 @@ public class Employee {
 
     private static final int NUMBER_OF_PHONE_NUMBER_DIGITS = 9;
 
+    private static final int STARTING_NUMBER_PORTUGUESE_PHONE = 9;
+
+    private static final int NUMBER_OF_CITIZEN_CARD_DIGITS = 8;
     private String role;
     private String id;
 
@@ -23,17 +26,17 @@ public class Employee {
 
     private String address;
 
-    private int phoneNumber;
+    private String phoneNumber;
 
     private String email;
 
-    private int citizenCardNumber;
+    private String citizenCardNumber;
 
     private String password;
 
-    public Employee(String role, String id, String name, String address, int phoneNumber, String email, int citizenCardNumber, String password) {
+    public Employee(String role, String id, String name, String address, String phoneNumber, String email, String citizenCardNumber, String password) {
 
-        if (role.isEmpty() || id.isEmpty() || name.isEmpty() || address.isEmpty() || email.isEmpty() || password.isEmpty())
+        if (role.isEmpty() || id.isEmpty() || name.isEmpty() || address.isEmpty() || email.isEmpty() || password.isEmpty() || role == null || id == null || name == null || address == null || email == null || password == null)
             throw new IllegalArgumentException("Arguments can´t be null or empty");
 
         this.role = role;
@@ -119,16 +122,81 @@ public class Employee {
             return orderedID;
         }
     }
-}
 
-    /*public boolean validateEmployeeData() {
-        if (phoneNumber) {
-            int aux = phoneNumber;
-            for (int count = 0; aux != 0; aux /= 10, count++) {
-                if (count < NUMBER_OF_PHONE_NUMBER_DIGITS)
-                    return false;
+   /* public boolean validateEmployeeData() {
+        final String portugueseSecondDigit = "1236";
+        if (phoneNumber.length() == NUMBER_OF_PHONE_NUMBER_DIGITS && citizenCardNumber.length() == NUMBER_OF_CITIZEN_CARD_DIGITS) {
+            char ch = phoneNumber.charAt(0);
+            if (ch == STARTING_NUMBER_PORTUGUESE_PHONE) {
+                ch = phoneNumber.charAt(1);
+                if (ch == portugueseSecondDigit.charAt(0) || ch == portugueseSecondDigit.charAt(1) || ch == portugueseSecondDigit.charAt(2) || ch == portugueseSecondDigit.charAt(3)) {
+                }
             }
+            return true;
         }
-        return true;
+    }*/
+
+    public boolean ValidateCitizenCardNumber(String citizenCardNumber)
+    {
+        int sum = 0;
+        boolean secondDigit = false;
+        if(citizenCardNumber.length() != 12)
+            throw new IllegalArgumentException("Tamanho inválido para número de documento.");
+        for (int position = citizenCardNumber.length() -1; position >= 0; --position)
+        {
+            int number = Integer.parseInt(String.valueOf(citizenCardNumber.charAt(position)));
+
+            if (secondDigit) {
+                number *= 2;
+                if (number > 9)
+                    number -= 9;
+            }
+            sum += number;
+            secondDigit = !secondDigit;
+        }
+        return (sum % 10) == 0;
     }
-}*/
+    public int GetNumberFromChar(char letter)
+    {
+        switch(letter)
+        {
+            case '0' : return 0;
+            case '1' : return 1;
+            case '2' : return 2;
+            case '3' : return 3;
+            case '4' : return 4;
+            case '5' : return 5;
+            case '6' : return 6;
+            case '7' : return 7;
+            case '8' : return 8;
+            case '9' : return 9;
+            case 'A' : return 10;
+            case 'B' : return 11;
+            case 'C' : return 12;
+            case 'D' : return 13;
+            case 'E' : return 14;
+            case 'F' : return 15;
+            case 'G' : return 16;
+            case 'H' : return 17;
+            case 'I' : return 18;
+            case 'J' : return 19;
+            case 'K' : return 20;
+            case 'L' : return 21;
+            case 'M' : return 22;
+            case 'N' : return 23;
+            case 'O' : return 24;
+            case 'P' : return 25;
+            case 'Q' : return 26;
+            case 'R' : return 27;
+            case 'S' : return 28;
+            case 'T' : return 29;
+            case 'U' : return 30;
+            case 'V' : return 31;
+            case 'W' : return 32;
+            case 'X' : return 33;
+            case 'Y' : return 34;
+            case 'Z' : return 35;
+        }
+        throw new IllegalArgumentException("Valor inválido no número de documento.");
+    }
+}

@@ -10,11 +10,11 @@ public class RegisterNewEmployeeDto {
 
     public String address;
 
-    public int phoneNumber;
+    public String phoneNumber;
 
     public String email;
 
-    public int citizenCardNumber;
+    public String citizenCardNumber;
 
     public String password;
 
