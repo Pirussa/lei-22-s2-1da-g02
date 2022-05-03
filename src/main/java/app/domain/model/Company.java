@@ -43,12 +43,6 @@ public class Company {
 
     private ArrayList<Employee> centreCoordinatorList = new ArrayList<>();
 
-    public ArrayList<String> getRolesList() {
-        return roles;
-    }
-
-
-
     public Company(String designation) {
         if (StringUtils.isBlank(designation))
             throw new IllegalArgumentException("Designation cannot be blank.");
@@ -172,12 +166,12 @@ public class Company {
     }
 
     public boolean registerNewEmployee(RegisterNewEmployeeDto dto) {
-        Employee emp = new Employee(dto.role, dto.id, dto.name, dto.address, dto.phoneNumber, dto.email, dto.citizenCardNumber, dto.password);
+        Employee emp = new Employee(dto.id, dto.name, dto.address, dto.phoneNumber, dto.email, dto.citizenCardNumber, dto.password);
         return true;
     }
 
     public void saveCreatedEmployee(RegisterNewEmployeeDto dto) {
-        Employee emp = new Employee(dto.role, dto.id, dto.name, dto.address, dto.phoneNumber, dto.email, dto.citizenCardNumber, dto.password);
+        Employee emp = new Employee(dto.id, dto.name, dto.address, dto.phoneNumber, dto.email, dto.citizenCardNumber, dto.password);
         employees.add(emp);
     }
 
@@ -197,15 +191,15 @@ public class Company {
     public void fillListOfEmployeesWithAGivenRole() {
         ArrayList<Employee> emp = getEmployees();
         for (int positionArrayListEmployees = 0; positionArrayListEmployees < emp.size(); positionArrayListEmployees++) {
-            if (emp.get(positionArrayListEmployees).getRole().equals(Constants.ROLE_NURSE)) {
+            if (emp.get(positionArrayListEmployees) instanceof Nurse) {
                 for (int positionArrayListNurses = 0; positionArrayListNurses < nurseList.size(); positionArrayListNurses++) {
                     nurseList.add(emp.get(positionArrayListNurses));
                 }
-            } else if (emp.get(positionArrayListEmployees).getRole().equals(Constants.ROLE_RECEPTIONIST)) {
+            } else if (emp.get(positionArrayListEmployees) instanceof Receptionist) {
                 for (int positionArrayListReceptionist = 0; positionArrayListReceptionist < receptionistList.size(); positionArrayListReceptionist++) {
                     receptionistList.add(emp.get(positionArrayListReceptionist));
                 }
-            } else if (emp.get(positionArrayListEmployees).getRole().equals(Constants.ROLE_CENTRE_COORDINATOR)) {
+            } else if (emp.get(positionArrayListEmployees) instanceof CenterCoordinator) {
                 for (int positionArrayListCentreCoordinator = 0; positionArrayListCentreCoordinator < centreCoordinatorList.size(); positionArrayListCentreCoordinator++) {
                     centreCoordinatorList.add(emp.get(positionArrayListCentreCoordinator));
                 }

@@ -43,7 +43,7 @@ public class VaccinationCenter{
 
         if (intID <= 0) throw new IllegalArgumentException("ID needs to be !=0 and a positive number");
 
-        if (strPhoneNumber.length()>=MAXCHAROFPHONENUMBER) throw new IllegalArgumentException("Phone Number can't have more than 9 characters");
+        if (strPhoneNumber.length() != MAXCHAROFPHONENUMBER) throw new IllegalArgumentException("Phone Number can't have more than 9 characters");
 
         this.intID = intID;
         this.strName = strName;

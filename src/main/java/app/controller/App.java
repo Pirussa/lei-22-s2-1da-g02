@@ -71,6 +71,7 @@ public class App {
         this.authFacade.addUserRole(Constants.ROLE_ADMIN, Constants.ROLE_ADMIN);
 
         this.authFacade.addUserWithRole("Main Administrator", "admin@lei.sem2.pt", "123456", Constants.ROLE_ADMIN);
+        this.authFacade.addUserWithRole("Main Administrator", "1@gmail.com", "1", Constants.ROLE_ADMIN);
 
     }
 

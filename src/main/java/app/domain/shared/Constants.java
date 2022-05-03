@@ -21,10 +21,4 @@ public class Constants {
     public static final String PARAMS_FILENAME = "config.properties";
     public static final String PARAMS_COMPANY_DESIGNATION = "Company.Designation";
 
-    public ArrayList<String> getRolesList() {
-        company.getRolesList().add(Constants.ROLE_RECEPTIONIST);
-        company.getRolesList().add(Constants.ROLE_NURSE);
-        company.getRolesList().add(Constants.ROLE_CENTRE_COORDINATOR);
-        return company.getRolesList();
     }
-}

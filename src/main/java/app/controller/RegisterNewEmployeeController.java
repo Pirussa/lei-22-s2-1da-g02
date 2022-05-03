@@ -25,10 +25,6 @@ public class RegisterNewEmployeeController {
     public RegisterNewEmployeeController() {
     }
 
-    public ArrayList<String> getRolesList() {
-        return company.getRolesList();
-    }
-
     public boolean registerNewEmployee(RegisterNewEmployeeDto dto) {
         return company.registerNewEmployee(dto);
     }

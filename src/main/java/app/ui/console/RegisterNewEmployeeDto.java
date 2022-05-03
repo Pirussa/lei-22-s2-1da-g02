@@ -2,7 +2,6 @@ package app.ui.console;
 
 public class RegisterNewEmployeeDto {
 
-    public String role;
 
     public String id;
 

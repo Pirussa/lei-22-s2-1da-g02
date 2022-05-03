@@ -3,6 +3,7 @@ package app.domain.model;
 import app.controller.RegisterNewEmployeeController;
 import app.domain.shared.Constants;
 import app.ui.console.RegisterNewEmployeeDto;
+import app.ui.console.VaccineAndAdminProcessDto;
 import app.ui.console.utils.Utils;
 
 import java.util.ArrayList;
@@ -11,50 +12,48 @@ import java.util.Random;
 public class Employee {
 
     private static final int PASSWORD_LENGTH = 7;
-
     private static final int ID_LENGTH = 5;
 
     private static final int NUMBER_OF_PHONE_NUMBER_DIGITS = 9;
 
     private static final int STARTING_NUMBER_PORTUGUESE_PHONE = 9;
 
-    private static final int NUMBER_OF_CITIZEN_CARD_DIGITS = 8;
+    private static final int NUMBER_OF_CITIZEN_CARD_DIGITS = 12;
+
+    private static final int FIRST_SECOND_DIGIT_CC = 10;
+
+    private static final int SECOND_SECOND_DIGIT_CC = 8;
+
+    private static final int THIRD_SECOND_DIGIT_CC = 6;
+
+    private static final int FOURTH_SECOND_DIGIT_CC = 4;
+
+    private static final int FIFTH_SECOND_DIGIT_CC = 2;
+
+    private static final int LAST_SECOND_DIGIT_CC = 0;
     private String role;
     private String id;
-
     private String name;
-
     private String address;
-
     private String phoneNumber;
-
     private String email;
-
     private String citizenCardNumber;
-
     private String password;
 
-    public Employee(String role, String id, String name, String address, String phoneNumber, String email, String citizenCardNumber, String password) {
+    public Employee(String id, String name, String address, String phoneNumber, String email, String citizenCardNumber, String password) {
 
-        if (role.isEmpty() || id.isEmpty() || name.isEmpty() || address.isEmpty() || email.isEmpty() || password.isEmpty() || role == null || id == null || name == null || address == null || email == null || password == null)
+        if (name.isEmpty() || address.isEmpty() || email.isEmpty() || phoneNumber.isEmpty() || name == null || address == null || email == null || phoneNumber == null)
             throw new IllegalArgumentException("Arguments can´t be null or empty");
 
-        this.role = role;
-        this.id = id;
-        this.name = name;
-        this.address = address;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
-        this.citizenCardNumber = citizenCardNumber;
-        this.password = password;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
+        if (validateCitizenCardNumber(citizenCardNumber) && validatePhoneNumber()) {
+            this.id = id;
+            this.name = name;
+            this.address = address;
+            this.phoneNumber = phoneNumber;
+            this.email = email;
+            this.citizenCardNumber = citizenCardNumber;
+            this.password = password;
+        }
     }
 
     public String getId() {
@@ -123,80 +122,117 @@ public class Employee {
         }
     }
 
-   /* public boolean validateEmployeeData() {
+    public boolean validatePhoneNumber() {
         final String portugueseSecondDigit = "1236";
-        if (phoneNumber.length() == NUMBER_OF_PHONE_NUMBER_DIGITS && citizenCardNumber.length() == NUMBER_OF_CITIZEN_CARD_DIGITS) {
-            char ch = phoneNumber.charAt(0);
-            if (ch == STARTING_NUMBER_PORTUGUESE_PHONE) {
-                ch = phoneNumber.charAt(1);
-                if (ch == portugueseSecondDigit.charAt(0) || ch == portugueseSecondDigit.charAt(1) || ch == portugueseSecondDigit.charAt(2) || ch == portugueseSecondDigit.charAt(3)) {
-                }
-            }
-            return true;
+        int ch = Integer.parseInt(String.valueOf(phoneNumber.charAt(0)));
+        if (phoneNumber.length() != NUMBER_OF_PHONE_NUMBER_DIGITS || ch == STARTING_NUMBER_PORTUGUESE_PHONE) {
+            throw new IllegalArgumentException("Invalid Phone Number, verify the number of digits or the starting digit");
         }
-    }*/
+                ch = phoneNumber.charAt(1);
+                if (!(ch == portugueseSecondDigit.charAt(0) || ch == portugueseSecondDigit.charAt(1) || ch == portugueseSecondDigit.charAt(2) || ch == portugueseSecondDigit.charAt(3))) {
+                    throw new IllegalArgumentException("Invalid Phone Number, verify the second digit");
+                }
+                return true;
+            }
 
-    public boolean ValidateCitizenCardNumber(String citizenCardNumber)
-    {
+    public boolean validateCitizenCardNumber(String citizenCardNumber) {
         int sum = 0;
-        boolean secondDigit = false;
-        if(citizenCardNumber.length() != 12)
-            throw new IllegalArgumentException("Tamanho inválido para número de documento.");
-        for (int position = citizenCardNumber.length() -1; position >= 0; --position)
-        {
-            int number = Integer.parseInt(String.valueOf(citizenCardNumber.charAt(position)));
+        if (citizenCardNumber.length() != NUMBER_OF_CITIZEN_CARD_DIGITS)
+            throw new IllegalArgumentException("Invalid length for Citizen Card Number.");
+
+        boolean secondDigit = true;
+
+        for (int digit = 0; digit < citizenCardNumber.length(); digit++) {
+            String toUpperCase = String.valueOf(citizenCardNumber.charAt(digit)).toUpperCase();
+            int value = getValueFromCitizenCardNumberDigit(toUpperCase);
 
             if (secondDigit) {
-                number *= 2;
-                if (number > 9)
-                    number -= 9;
+                value *= 2;
+
+                if (value >= 10)
+                    value -= 9;
             }
-            sum += number;
+            sum += value;
             secondDigit = !secondDigit;
         }
-        return (sum % 10) == 0;
+        return (sum % FIRST_SECOND_DIGIT_CC) == 0;
     }
-    public int GetNumberFromChar(char letter)
-    {
-        switch(letter)
-        {
-            case '0' : return 0;
-            case '1' : return 1;
-            case '2' : return 2;
-            case '3' : return 3;
-            case '4' : return 4;
-            case '5' : return 5;
-            case '6' : return 6;
-            case '7' : return 7;
-            case '8' : return 8;
-            case '9' : return 9;
-            case 'A' : return 10;
-            case 'B' : return 11;
-            case 'C' : return 12;
-            case 'D' : return 13;
-            case 'E' : return 14;
-            case 'F' : return 15;
-            case 'G' : return 16;
-            case 'H' : return 17;
-            case 'I' : return 18;
-            case 'J' : return 19;
-            case 'K' : return 20;
-            case 'L' : return 21;
-            case 'M' : return 22;
-            case 'N' : return 23;
-            case 'O' : return 24;
-            case 'P' : return 25;
-            case 'Q' : return 26;
-            case 'R' : return 27;
-            case 'S' : return 28;
-            case 'T' : return 29;
-            case 'U' : return 30;
-            case 'V' : return 31;
-            case 'W' : return 32;
-            case 'X' : return 33;
-            case 'Y' : return 34;
-            case 'Z' : return 35;
+
+    public int getValueFromCitizenCardNumberDigit(String letter) {
+        switch (letter) {
+            case "0":
+                return 0;
+            case "1":
+                return 1;
+            case "2":
+                return 2;
+            case "3":
+                return 3;
+            case "4":
+                return 4;
+            case "5":
+                return 5;
+            case "6":
+                return 6;
+            case "7":
+                return 7;
+            case "8":
+                return 8;
+            case "9":
+                return 9;
+            case "A":
+                return 10;
+            case "B":
+                return 11;
+            case "C":
+                return 12;
+            case "D":
+                return 13;
+            case "E":
+                return 14;
+            case "F":
+                return 15;
+            case "G":
+                return 16;
+            case "H":
+                return 17;
+            case "I":
+                return 18;
+            case "J":
+                return 19;
+            case "K":
+                return 20;
+            case "L":
+                return 21;
+            case "M":
+                return 22;
+            case "N":
+                return 23;
+            case "O":
+                return 24;
+            case "P":
+                return 25;
+            case "Q":
+                return 26;
+            case "R":
+                return 27;
+            case "S":
+                return 28;
+            case "T":
+                return 29;
+            case "U":
+                return 30;
+            case "V":
+                return 31;
+            case "W":
+                return 32;
+            case "X":
+                return 33;
+            case "Y":
+                return 34;
+            case "Z":
+                return 35;
         }
-        throw new IllegalArgumentException("Valor inválido no número de documento.");
+        throw new IllegalArgumentException("Invalid Value in the Document.");
     }
 }

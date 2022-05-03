@@ -27,8 +27,8 @@ public class MenuItem {
 
     public void run()
     {
-        CreateVaccinationCenterUI.run();
         this.ui.run();
+        //CreateVaccinationCenterUI.run();
     }
 
     public boolean hasDescription(String description)

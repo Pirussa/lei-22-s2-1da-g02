@@ -12,7 +12,7 @@ import java.util.Scanner;
  *
  * @author João Castro <1210816@isep.ipp.pt>
  */
-public class CreateVaccinationCenterUI{
+public class CreateVaccinationCenterUI implements Runnable{
 
 
     
@@ -25,7 +25,7 @@ public class CreateVaccinationCenterUI{
     public CreateVaccinationCenterUI(){
     }
 
-    public static void run(){
+    public void run(){
         Scanner sc = new Scanner(System.in);
         VaccinationCenterDto dto = new VaccinationCenterDto();
         CreateVaccinationCenterController controller = new CreateVaccinationCenterController();

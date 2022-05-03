@@ -1,8 +1,8 @@
 package app.domain.model;
 
 public class CenterCoordinator extends Employee {
-    public CenterCoordinator(String role, String id, String name, String address, String phoneNumber, String email, String citizenCardNumber, String password) {
-        super(role, id, name, address, phoneNumber, email, citizenCardNumber, password);
+    public CenterCoordinator(String id, String name, String address, String phoneNumber, String email, String citizenCardNumber, String password) {
+        super(id, name, address, phoneNumber, email, citizenCardNumber, password);
     }
 
     /*
