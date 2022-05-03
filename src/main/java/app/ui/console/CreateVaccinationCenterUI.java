@@ -52,10 +52,11 @@ public class CreateVaccinationCenterUI{
         System.out.println();
         System.out.println("Yes/No");
         String confirmation = sc.nextLine();
-        if (confirmation.contentEquals("Yes")||confirmation.contentEquals("yes")||confirmation.contentEquals("y")){
+        if (confirmation.matches("Yes")){
             controller.saveVaccinationCenter(dto);
             System.out.println(dto);
             System.out.println("Successful operation");
+            controller.getVaccinationCenters();
         }
 
 

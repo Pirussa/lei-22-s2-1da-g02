@@ -157,10 +157,9 @@ public class Company {
     /**
      * Creates a Vaccination Center
      */
-    public boolean createVaccinationCenter(VaccinationCenterDto dto){
+    public void createVaccinationCenter(VaccinationCenterDto dto){
         VaccinationCenter vc = new VaccinationCenter(dto.intID,dto.strName, dto.strPhoneNumber, dto.strEmail,dto.strFax,dto.strWebsite,dto.strOpeningHour,
                 dto.strClosingHour,dto.strSlotDuration,dto.strVaccinesPerSlot,dto.strRoad, dto.strZipCode,dto.strLocal,dto.strCenterCoordinatorID);
-        return true;
     }
 
     /**

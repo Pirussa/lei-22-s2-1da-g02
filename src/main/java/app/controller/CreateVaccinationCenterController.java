@@ -16,8 +16,8 @@ public class CreateVaccinationCenterController {
 
     public CreateVaccinationCenterController(){}
 
-    public boolean createVaccinationCenter(VaccinationCenterDto dto){
-        return company.createVaccinationCenter(dto);
+    public void createVaccinationCenter(VaccinationCenterDto dto){
+        company.createVaccinationCenter(dto);
     }
 
     public void saveVaccinationCenter(VaccinationCenterDto dto){
