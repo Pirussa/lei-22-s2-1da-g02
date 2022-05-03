@@ -17,15 +17,15 @@ public class CreateVaccinationCenterController {
     public CreateVaccinationCenterController(){}
 
     public void createVaccinationCenter(VaccinationCenterDto dto){
-        company.createVaccinationCenter(dto);
+       company.createVaccinationCenter(dto);
     }
 
     public void saveVaccinationCenter(VaccinationCenterDto dto){
         company.saveVaccinationCenter(dto);
     }
 
-    public List<VaccinationCenter> getVaccinationCenters() {
-        return company.getVaccinationCenters();
+    public void getVaccinationCenters() {
+        company.getVaccinationCenters();
     }
 
 }

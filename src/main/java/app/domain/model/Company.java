@@ -28,7 +28,7 @@ public class Company {
 
     private static ArrayList<Employee> employees = new ArrayList<>();
 
-    private List<VaccinationCenter> vaccinationCenters = new ArrayList<>();
+
 
 
     //private List<HealthcareCenter> healthcareCenters = new ArrayList<>();
@@ -147,7 +147,7 @@ public class Company {
     public void addNewRole() {
 
     }
-
+    private List<VaccinationCenter> vaccinationCenters = new ArrayList<>();
     /**
      * Creates a Vaccination Center
      */
@@ -165,10 +165,16 @@ public class Company {
         vaccinationCenters.add(vc);
     }
 
+    public void getVaccinationCenters() {
+        System.out.println(vaccinationCenters);
+    }
+
     public boolean registerNewEmployee(RegisterNewEmployeeDto dto) {
         Employee emp = new Employee(dto.id, dto.name, dto.address, dto.phoneNumber, dto.email, dto.citizenCardNumber, dto.password);
         return true;
     }
+
+
 
     public void saveCreatedEmployee(RegisterNewEmployeeDto dto) {
         Employee emp = new Employee(dto.id, dto.name, dto.address, dto.phoneNumber, dto.email, dto.citizenCardNumber, dto.password);
@@ -219,7 +225,5 @@ public class Company {
         return centreCoordinatorList;
     }
 
-    public List<VaccinationCenter> getVaccinationCenters() {
-        return vaccinationCenters;
-    }
+
 }

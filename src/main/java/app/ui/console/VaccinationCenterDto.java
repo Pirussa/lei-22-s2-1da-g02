@@ -61,7 +61,7 @@ public class VaccinationCenterDto {
                 ", strRoad='" + strRoad + '\'' +
                 ", strZipCode='" + strZipCode + '\'' +
                 ", strLocal='" + strLocal + '\'' +
-                ", id='" + strCenterCoordinatorID + '\'' +
+                ", strCenterCoordinatorID='" + strCenterCoordinatorID + '\'' +
                 '}';
     }
 }
