@@ -23,6 +23,10 @@ public class GetListOfEmployeesController {
         return company.getEmployees();
     }
 
+    public void fillListOfEmployeesWithAGivenRole(){
+        company.fillListOfEmployeesWithAGivenRole();
+    }
+
     public ArrayList<Employee> getNurseList(){
         return company.getNurseList();
     }
