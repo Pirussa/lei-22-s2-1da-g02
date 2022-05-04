@@ -29,12 +29,12 @@ public class CreateVaccinationCenterUI implements Runnable{
         Scanner sc = new Scanner(System.in);
         VaccinationCenterDto dto = new VaccinationCenterDto();
         CreateVaccinationCenterController controller = new CreateVaccinationCenterController();
-        dto.intID= Utils.readIntegerFromConsole("ID of the Healthcare Center: ");
-        dto.strName= Utils.readLineFromConsole("Name of the Healthcare Center: ");
-        dto.strPhoneNumber= Utils.readLineFromConsole("Phone Number of the Healthcare Center: ");
-        dto.strEmail= Utils.readLineFromConsole("Email of the Healthcare Center: ");
-        dto.strFax= Utils.readLineFromConsole("Fax Number of the Healthcare Center: ");
-        dto.strWebsite= Utils.readLineFromConsole("Website address of the Healthcare Center: ");
+        dto.intID= Utils.readIntegerFromConsole("ID of the Healthcare Center (Only Integers): ");
+        dto.strName= Utils.readLineFromConsole("Name of the Healthcare Center (No Validation): ");
+        dto.strPhoneNumber= Utils.readLineFromConsole("Phone Number of the Healthcare Center (9 Chars, only numbers): ");
+        dto.strEmail= Utils.readLineFromConsole("Email of the Healthcare Center (Needs to have @ and .): ");
+        dto.strFax= Utils.readLineFromConsole("Fax Number of the Healthcare Center(No Validation): ");
+        dto.strWebsite= Utils.readLineFromConsole("Website address of the Healthcare Center(Needs to have www. and one of the domain inside the vector): ");
         dto.strOpeningHour= Utils.readLineFromConsole("Opening hour of the Healthcare Center: ");
         dto.strClosingHour= Utils.readLineFromConsole("Closing hour of the Healthcare Center: ");
         dto.strSlotDuration= Utils.readLineFromConsole("Slot duration: ");
@@ -47,17 +47,15 @@ public class CreateVaccinationCenterUI implements Runnable{
         dto.strCenterCoordinatorID= Utils.readLineFromConsole("ID of the Coordinator: ");
         controller.createVaccinationCenter(dto);
         System.out.println("--------------------");
-        controller.getVaccinationCenters();
         System.out.println("Confirm Data");
         System.out.println();
-        System.out.println("Yes/No");
-        String confirmation = sc.nextLine();
-        if (confirmation.matches("Yes")){
-            controller.saveVaccinationCenter(dto);
-            System.out.println(dto);
-            System.out.println("Successful operation");
-            controller.getVaccinationCenters();
-        }
+        //System.out.println("Yes/No");
+        //String confirmation = sc.nextLine();
+        controller.saveVaccinationCenter(dto);
+        System.out.println(dto);
+        System.out.println("Successful operation");
+        controller.getVaccinationCenters();
+
 
 
 
