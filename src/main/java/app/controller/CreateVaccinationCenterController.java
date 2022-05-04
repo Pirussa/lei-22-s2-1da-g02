@@ -5,7 +5,7 @@ import app.ui.console.CreateVaccinationCenterUI;
 import app.ui.console.VaccinationCenterDto;
 
 import java.util.ArrayList;
-import java.util.List;
+
 /**
  *
  * @author João Castro <1210816@isep.ipp.pt>
@@ -13,7 +13,6 @@ import java.util.List;
 public class CreateVaccinationCenterController {
 
     private Company company = App.getInstance().getCompany();
-    private CreateVaccinationCenterUI ui = new CreateVaccinationCenterUI();
 
     public CreateVaccinationCenterController(){}
 
@@ -25,12 +24,16 @@ public class CreateVaccinationCenterController {
         company.saveVaccinationCenter(dto);
     }
 
-    public void getVaccinationCenters() {
-        company.getVaccinationCenters();
+    public ArrayList<VaccinationCenter> getVaccinationCenters() {
+         return company.getVaccinationCenters();
     }
 
-    public ArrayList<String> getCCid(){
-        return company.getCCid();
+    public void centerCoordinatorIDList(){
+        company.centerCoordinatorIDList();
+    }
+
+    public ArrayList<String> getCenterCoordinatorIDs(){
+        return company.getCenterCoordinatorIDs();
     }
 
 }

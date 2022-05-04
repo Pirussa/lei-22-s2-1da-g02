@@ -1,6 +1,5 @@
 package app.domain.model;
 
-import app.domain.shared.Constants;
 import app.ui.console.RegisterNewEmployeeDto;
 import app.ui.console.VaccinationCenterDto;
 import app.ui.console.VaccineAndAdminProcessDto;
@@ -149,28 +148,36 @@ public class Company {
 
     }
 
-    private List<VaccinationCenter> vaccinationCenters = new ArrayList<>();
+    //START
+    private ArrayList<VaccinationCenter> vaccinationCenters = new ArrayList<>();
+    private ArrayList<String> centerCoordinatorIDs = new ArrayList<>();
 
-    /**
-     * Creates a Vaccination Center
-     */
     public void createVaccinationCenter(VaccinationCenterDto dto) {
         VaccinationCenter vc = new VaccinationCenter(dto.intID, dto.strName, dto.strPhoneNumber, dto.strEmail, dto.strFax, dto.strWebsite, dto.strOpeningHour,
                 dto.strClosingHour, dto.strSlotDuration, dto.strVaccinesPerSlot, dto.strRoad, dto.strZipCode, dto.strLocal, dto.strCenterCoordinatorID);
     }
 
-    /**
-     * Saves a VaccinationCenter
-     */
     public void saveVaccinationCenter(VaccinationCenterDto dto) {
         VaccinationCenter vc = new VaccinationCenter(dto.intID, dto.strName, dto.strPhoneNumber, dto.strEmail, dto.strFax, dto.strWebsite, dto.strOpeningHour,
                 dto.strClosingHour, dto.strSlotDuration, dto.strVaccinesPerSlot, dto.strRoad, dto.strZipCode, dto.strLocal, dto.strCenterCoordinatorID);
         vaccinationCenters.add(vc);
     }
 
-    public void getVaccinationCenters() {
-        System.out.println(vaccinationCenters);
+    public void centerCoordinatorIDList(){
+        ArrayList<Employee> centerCoordinators = getCentreCoordinatorList();
+        for (int i = 0; i < centerCoordinators.size() ; i++) {
+            centerCoordinatorIDs.add(centerCoordinators.get(i).getId());
+        }
     }
+
+    public ArrayList<VaccinationCenter> getVaccinationCenters() {
+        return vaccinationCenters;
+    }
+
+    public ArrayList<String> getCenterCoordinatorIDs() {
+        return centerCoordinatorIDs;
+    }
+    //END
 
     public boolean registerNewEmployee(RegisterNewEmployeeDto dto) {
         Employee emp = new Employee(dto.id, dto.name, dto.address, dto.phoneNumber, dto.email, dto.citizenCardNumber, dto.password);
@@ -228,16 +235,5 @@ public class Company {
         return centreCoordinatorList;
     }
 
-    private ArrayList<String> CCid = new ArrayList<>();
 
-    public void centerCoordinatiorIDList(){
-        ArrayList<Employee> id = getCentreCoordinatorList();
-        for (int i = 0; i < centreCoordinatorList.size() ; i++) {
-            CCid.add(id.get(i).getId());
-        }
-    }
-
-    public ArrayList<String> getCCid() {
-        return CCid;
-    }
 }

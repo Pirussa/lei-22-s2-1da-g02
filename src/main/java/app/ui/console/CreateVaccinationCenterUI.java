@@ -6,22 +6,18 @@ import app.ui.console.utils.Utils;
 import jdk.jshell.execution.Util;
 import org.apache.commons.lang3.text.StrLookup;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+
 /**
  *
  * @author João Castro <1210816@isep.ipp.pt>
  */
 public class CreateVaccinationCenterUI implements Runnable{
 
-
-    
-    
-    
-    private final int HEALTHCARECENTEROPTION = 1;
-    private final int MASSVACCINATIONCENTEROPTION = 2;
-
-    private int intOption;
     public CreateVaccinationCenterUI(){
     }
 
@@ -29,6 +25,7 @@ public class CreateVaccinationCenterUI implements Runnable{
         Scanner sc = new Scanner(System.in);
         VaccinationCenterDto dto = new VaccinationCenterDto();
         CreateVaccinationCenterController controller = new CreateVaccinationCenterController();
+        controller.centerCoordinatorIDList();
         dto.intID= Utils.readIntegerFromConsole("ID of the Healthcare Center (Only Integers): ");
         dto.strName= Utils.readLineFromConsole("Name of the Healthcare Center (No Validation): ");
         dto.strPhoneNumber= Utils.readLineFromConsole("Phone Number of the Healthcare Center (9 Chars, only numbers): ");
@@ -40,106 +37,34 @@ public class CreateVaccinationCenterUI implements Runnable{
         dto.strSlotDuration= Utils.readLineFromConsole("Slot duration: ");
         dto.strVaccinesPerSlot= Utils.readLineFromConsole("Vaccines per slot: ");
         System.out.println("Information about the Healthcare Center Address: ");
-        dto.strRoad= Utils.readLineFromConsole("Road of the Healthcare Center");
-        dto.strZipCode= Utils.readLineFromConsole("Zip Code of the Healthcare Center");
-        dto.strLocal= Utils.readLineFromConsole("Local of the Healthcare Center");
+        dto.strRoad= Utils.readLineFromConsole("Road of the Healthcare Center: ");
+        dto.strZipCode= Utils.readLineFromConsole("Zip Code of the Healthcare Center: ");
+        dto.strLocal= Utils.readLineFromConsole("Local of the Healthcare Center: ");
         System.out.println("Information about the Coordinator");
-        controller.getCCid();
-        dto.strCenterCoordinatorID=controller.getCCid().;
-        controller.createVaccinationCenter(dto);
-        System.out.println("--------------------");
-        System.out.println("Confirm Data");
-        System.out.println();
-        //System.out.println("Yes/No");
-        //String confirmation = sc.nextLine();
-        controller.saveVaccinationCenter(dto);
-        System.out.println(dto);
-        System.out.println("Successful operation");
-        controller.getVaccinationCenters();
+        System.out.println("Choose one Coordinator from the list, type the position you want.");
 
-
-
-
-
-    /*public void run()
-    {
-        while(true){
-            Scanner sc = new Scanner(System.in);
-            System.out.println("Choose the Following:");
-            System.out.println("---------------------");
-            System.out.println("1 - Create Healthcare Center");
-            System.out.println("2 - Create Mass Vaccination Center");
-            intOption = sc.nextInt();
-            if ((intOption!= HEALTHCARECENTEROPTION) || (intOption!= MASSVACCINATIONCENTEROPTION)){
-                System.out.println("Wrong argument, choose 1 or 2 only.");
+        if (!controller.getCenterCoordinatorIDs().isEmpty()){
+            for (int i = 0; i < controller.getCenterCoordinatorIDs().size(); i++) {
+                System.out.println("Position" +i+": "+controller.getCenterCoordinatorIDs().get(i));
+            } int option = sc.nextInt();
+            dto.strCenterCoordinatorID=controller.getCenterCoordinatorIDs().get(option);
+            controller.createVaccinationCenter(dto);
+            System.out.println("-----------------------------------------------------------------------------");
+            System.out.println("----------------------PLEASE VERIFY THE DATA-------------------------------------------");
+            System.out.println(dto);
+            System.out.println("----------------------CONFIRM DATA? (Y/N)-------------------------------------------");
+            String strOption = sc.nextLine();
+            if (strOption=="yes" || strOption=="y" ||strOption=="YES" || strOption=="Y"|| strOption=="Yes"){
+                controller.saveVaccinationCenter(dto);
+                for (int i = 0; i < controller.getVaccinationCenters().size(); i++) {
+                    System.out.println("\nPosition" +i+": "+controller.getVaccinationCenters().get(i));
+                }
+                System.out.println("The Vaccination Center was saved into the list as you can see.");
+            } else {
+                run();
             }
-            else if (intOption==1){
-                typeHealthcareCenterData();
-            }
-            else if (intOption==2){
-                typeMassVaccinationCenterData();
-            }
+        } else {
+            System.out.println("Can't create a Vaccination Center without a registered Center Coordinator.");
         }
-    }
-
-    private boolean typeHealthcareCenterData(){
-        int intID= Utils.readIntegerFromConsole("ID of the Healthcare Center: ");
-        String strName= Utils.readLineFromConsole("Name of the Healthcare Center: ");
-        String strPhoneNumber= Utils.readLineFromConsole("Phone Number of the Healthcare Center: ");
-        String strEmail= Utils.readLineFromConsole("Email of the Healthcare Center: ");
-        String strFax= Utils.readLineFromConsole("Fax Number of the Healthcare Center: ");
-        String strWebsite= Utils.readLineFromConsole("Website address of the Healthcare Center: ");
-        String strOpeningHour= Utils.readLineFromConsole("Opening hour of the Healthcare Center: ");
-        String strClosingHour= Utils.readLineFromConsole("Closing hour of the Healthcare Center: ");
-        String strSlotDuration= Utils.readLineFromConsole("Slot duration: ");
-        String strVaccinesPerSlot= Utils.readLineFromConsole("Vaccines per slot: ");
-        String strARS= Utils.readLineFromConsole("Regional Health Administration: ");
-        String strAGES= Utils.readLineFromConsole("Health Center Grouping: ");
-        System.out.println("Information about the Healthcare Center Address: ");
-        String strRoad= Utils.readLineFromConsole("Road of the Healthcare Center");
-        String strZipCode= Utils.readLineFromConsole("Zip Code of the Healthcare Center");
-        String strLocal= Utils.readLineFromConsole("Local of the Healthcare Center");
-        System.out.println("Information about the Coordinator");
-        String strRole= Utils.readLineFromConsole("Role of the Coordinator: ");
-        int intCoordinatorID= Utils.readIntegerFromConsole("ID of the Coordinator: ");
-        String strCoordinatorName= Utils.readLineFromConsole("Name of the Coordinator:");
-        String strCoordinatorAddress= Utils.readLineFromConsole("Address of the Coordinator");
-        int intCoordinatorPhoneNUmber= Utils.readIntegerFromConsole("Phone Number of the Coordinator");
-        String strCoordinatorEmail= Utils.readLineFromConsole("Email of the Coordinator");
-        int intCoordinatorCitizenCardNumber= Utils.readIntegerFromConsole("Citizen Card Number of the Coordinator");
-        String strCoordinatorPassword= Utils.readLineFromConsole("Password of the Coordinator");
-
-        return true;
-    }
-
-    private boolean typeMassVaccinationCenterData(){
-        int intID= Utils.readIntegerFromConsole("ID of the Healthcare Center: ");
-        String strName= Utils.readLineFromConsole("Name of the Healthcare Center: ");
-        String strPhoneNumber= Utils.readLineFromConsole("Phone Number of the Healthcare Center: ");
-        String strEmail= Utils.readLineFromConsole("Email of the Healthcare Center: ");
-        String strFax= Utils.readLineFromConsole("Fax Number of the Healthcare Center: ");
-        String strWebsite= Utils.readLineFromConsole("Website address of the Healthcare Center: ");
-        String strOpeningHour= Utils.readLineFromConsole("Opening hour of the Healthcare Center: ");
-        String strClosingHour= Utils.readLineFromConsole("Closing hour of the Healthcare Center: ");
-        String strSlotDuration= Utils.readLineFromConsole("Slot duration: ");
-        String strVaccinesPerSlot= Utils.readLineFromConsole("Vaccines per slot: ");
-        System.out.println("Information about the Healthcare Center Address: ");
-        String strRoad= Utils.readLineFromConsole("Road of the Healthcare Center");
-        String strZipCode= Utils.readLineFromConsole("Zip Code of the Healthcare Center");
-        String strLocal= Utils.readLineFromConsole("Local of the Healthcare Center");
-        System.out.println("Information about the Coordinator");
-        String strRole= Utils.readLineFromConsole("Role of the Coordinator: ");
-        int intCoordinatorID= Utils.readIntegerFromConsole("ID of the Coordinator: ");
-        String strCoordinatorName= Utils.readLineFromConsole("Name of the Coordinator:");
-        String strCoordinatorAddress= Utils.readLineFromConsole("Address of the Coordinator");
-        int intCoordinatorPhoneNUmber= Utils.readIntegerFromConsole("Phone Number of the Coordinator");
-        String strCoordinatorEmail= Utils.readLineFromConsole("Email of the Coordinator");
-        int intCoordinatorCitizenCardNumber= Utils.readIntegerFromConsole("Citizen Card Number of the Coordinator");
-        String strCoordinatorPassword= Utils.readLineFromConsole("Password of the Coordinator");
-
-        return true;
-    }
-
-     */
 }
 }
