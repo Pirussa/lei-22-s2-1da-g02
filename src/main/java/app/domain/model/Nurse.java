@@ -11,4 +11,14 @@ public class Nurse extends Employee {
         super(role, id, name, address, phoneNumber, email, citizenCardNumber, password);
     }*/
 
+
+    @Override
+    public String toString() {
+        return "Employee: " + super.getName() + '\'' +
+                ", id= " + super.getId() + '\'' +
+                ", address= " + super.getAddress() + '\'' +
+                ", phoneNumber= " + super.getPhoneNumber() + '\'' +
+                ", email= " + super.getEmail() + '\'' +
+                ", citizenCardNumber= " + super.getCitizenCardNumber() + '\'';
+    }
 }

@@ -43,23 +43,16 @@ public class Employee {
 
     public Employee(String id, String name, String address, String phoneNumber, String email, String citizenCardNumber, String password) {
 
-        if (name.isEmpty() || address.isEmpty() || email.isEmpty() || phoneNumber.isEmpty() || name == null || address == null || email == null || phoneNumber == null)
-            throw new IllegalArgumentException("Arguments can´t be null or empty");
+        this.id = id;
+        this.name = name;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.citizenCardNumber = citizenCardNumber;
+        this.password = password;
 
-        if (validateCitizenCardNumber(citizenCardNumber) && validatePhoneNumber(phoneNumber) && validateEmail(email)) {
-            this.id = id;
-            this.name = name;
-            this.address = address;
-            this.phoneNumber = phoneNumber;
-            this.email = email;
-            this.citizenCardNumber = citizenCardNumber;
-            this.password = password;
-        }
     }
 
-    public String getId() {
-        return id;
-    }
 
     public void setId(String id) {
         this.id = id;
@@ -251,4 +244,34 @@ public class Employee {
         }
         return false;
     }
+
+
+    public String getName() {
+        return name;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getCitizenCardNumber() {
+        return citizenCardNumber;
+    }
+
 }

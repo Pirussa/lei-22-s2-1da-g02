@@ -15,6 +15,7 @@ import java.util.Objects;
  * @author Paulo Maio <pam@isep.ipp.pt>
  * @author Gustavo Jorge <1211061@isep.ipp.pt>
  * @author João Castro <1210816@isep.ipp.pt>
+ * @author João Leitão <1211063@isep.ipp.pt>
  */
 
 public class Company {
@@ -30,8 +31,6 @@ public class Company {
     private static ArrayList<Employee> employees = new ArrayList<>();
 
 
-
-
     //private List<HealthcareCenter> healthcareCenters = new ArrayList<>();
 
     //private List<MassVaccinationCenter> massVaccinationCenters = new ArrayList<>();
@@ -40,7 +39,7 @@ public class Company {
 
     private ArrayList<Employee> nurseList = new ArrayList<>();
 
-    private ArrayList<Employee> receptionistList =new ArrayList<>();
+    private ArrayList<Employee> receptionistList = new ArrayList<>();
 
     private ArrayList<Employee> centreCoordinatorList = new ArrayList<>();
 
@@ -89,7 +88,7 @@ public class Company {
         return massVaccinationCenters;
     }*/
 
-    public List<VaccinationCenter> getVaccinationCenters(VaccinationCenter o){
+    public List<VaccinationCenter> getVaccinationCenters(VaccinationCenter o) {
         return vaccinationCenters;
     }
 
@@ -145,24 +144,27 @@ public class Company {
         VaccineType vt = new VaccineType(code, description, technology);
         vaccineTypes.add(vt);
     }
+
     public void addNewRole() {
 
     }
+
     private List<VaccinationCenter> vaccinationCenters = new ArrayList<>();
+
     /**
      * Creates a Vaccination Center
      */
-    public void createVaccinationCenter(VaccinationCenterDto dto){
-        VaccinationCenter vc = new VaccinationCenter(dto.intID,dto.strName, dto.strPhoneNumber, dto.strEmail,dto.strFax,dto.strWebsite,dto.strOpeningHour,
-                dto.strClosingHour,dto.strSlotDuration,dto.strVaccinesPerSlot,dto.strRoad, dto.strZipCode,dto.strLocal,dto.strCenterCoordinatorID);
+    public void createVaccinationCenter(VaccinationCenterDto dto) {
+        VaccinationCenter vc = new VaccinationCenter(dto.intID, dto.strName, dto.strPhoneNumber, dto.strEmail, dto.strFax, dto.strWebsite, dto.strOpeningHour,
+                dto.strClosingHour, dto.strSlotDuration, dto.strVaccinesPerSlot, dto.strRoad, dto.strZipCode, dto.strLocal, dto.strCenterCoordinatorID);
     }
 
     /**
      * Saves a VaccinationCenter
      */
-    public void saveVaccinationCenter(VaccinationCenterDto dto){
-        VaccinationCenter vc = new VaccinationCenter(dto.intID,dto.strName, dto.strPhoneNumber, dto.strEmail,dto.strFax,dto.strWebsite,dto.strOpeningHour,
-                dto.strClosingHour,dto.strSlotDuration,dto.strVaccinesPerSlot,dto.strRoad, dto.strZipCode,dto.strLocal,dto.strCenterCoordinatorID);
+    public void saveVaccinationCenter(VaccinationCenterDto dto) {
+        VaccinationCenter vc = new VaccinationCenter(dto.intID, dto.strName, dto.strPhoneNumber, dto.strEmail, dto.strFax, dto.strWebsite, dto.strOpeningHour,
+                dto.strClosingHour, dto.strSlotDuration, dto.strVaccinesPerSlot, dto.strRoad, dto.strZipCode, dto.strLocal, dto.strCenterCoordinatorID);
         vaccinationCenters.add(vc);
     }
 
@@ -187,6 +189,7 @@ public class Company {
             employees.add(emp);
         }
     }
+
     /**
      * Gets the Employees registered in the Company.
      *
@@ -204,22 +207,16 @@ public class Company {
         ArrayList<Employee> emp = getEmployees();
         for (int positionArrayListEmployees = 0; positionArrayListEmployees < emp.size(); positionArrayListEmployees++) {
             if (emp.get(positionArrayListEmployees) instanceof Nurse) {
-                for (int positionArrayListNurses = 0; positionArrayListNurses < nurseList.size(); positionArrayListNurses++) {
-                    nurseList.add(emp.get(positionArrayListNurses));
-                }
+                nurseList.add(emp.get(positionArrayListEmployees));
             } else if (emp.get(positionArrayListEmployees) instanceof Receptionist) {
-                for (int positionArrayListReceptionist = 0; positionArrayListReceptionist < receptionistList.size(); positionArrayListReceptionist++) {
-                    receptionistList.add(emp.get(positionArrayListReceptionist));
-                }
+                receptionistList.add(emp.get(positionArrayListEmployees));
             } else if (emp.get(positionArrayListEmployees) instanceof CenterCoordinator) {
-                for (int positionArrayListCentreCoordinator = 0; positionArrayListCentreCoordinator < centreCoordinatorList.size(); positionArrayListCentreCoordinator++) {
-                    centreCoordinatorList.add(emp.get(positionArrayListCentreCoordinator));
-                }
+                centreCoordinatorList.add(emp.get(positionArrayListEmployees));
             }
         }
     }
 
-    public ArrayList<Employee> getNurseList(){
+    public ArrayList<Employee> getNurseList() {
         return nurseList;
     }
 
