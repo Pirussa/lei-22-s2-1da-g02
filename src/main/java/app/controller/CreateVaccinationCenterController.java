@@ -4,6 +4,7 @@ import app.domain.model.*;
 import app.ui.console.CreateVaccinationCenterUI;
 import app.ui.console.VaccinationCenterDto;
 
+import java.util.ArrayList;
 import java.util.List;
 /**
  *
@@ -26,6 +27,10 @@ public class CreateVaccinationCenterController {
 
     public void getVaccinationCenters() {
         company.getVaccinationCenters();
+    }
+
+    public ArrayList<String> getCCid(){
+        return company.getCCid();
     }
 
 }

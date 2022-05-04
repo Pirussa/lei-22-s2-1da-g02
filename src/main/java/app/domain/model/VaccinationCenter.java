@@ -2,8 +2,6 @@ package app.domain.model;
 
 import app.controller.CreateVaccinationCenterController;
 
-import java.util.Arrays;
-
 /**
  *
  * @author João Castro <1210816@isep.ipp.pt>
@@ -32,7 +30,9 @@ public class VaccinationCenter{
     private String strLocal;
     private String strCenterCoordinatorID;
 
-    private String[] strDomain= {"com","pt","co.uk"};
+    private String[] strTopLevelDomain = {".com",".pt",".co.uk"};
+    private String[] strEmailDomain= {"gmail","outlook","isep.ipp","protonmail","live"};
+    private String strWorldWideWeb= "www";
 
     public VaccinationCenter(int intID, String strName, String strPhoneNumber, String strEmail, String strFax, String strWebsite,
                              String strOpeningHour, String strClosingHour, String strSlotDuration, String strVaccinesPerSlot,
@@ -52,14 +52,17 @@ public class VaccinationCenter{
         if(!onlyDigits(strPhoneNumber)){
             throw new IllegalArgumentException("Phone Numbers only support integers from 0 to 9.");
         }
-
-        if (!verifyEmail(strEmail)){
-            throw new IllegalArgumentException("Email needs to have at least one @ and one .");
+        /*
+        if (!verifyEmail(strEmail,strEmailDomain, strTopLevelDomain)){
+            throw new IllegalArgumentException("Email needs to have @, one of the available email domains and one of the top level domains saved.");
         }
 
-        if (!verifyWebsite(strWebsite,strDomain))
+        if (!verifyWebsite(strWebsite, strTopLevelDomain,strWorldWideWeb))
             throw new IllegalArgumentException("Website needs to star with www. and have one of the valid domains inside the domain vector.");
 
+        if (!verifyVaccinationCenterHours(strOpeningHour,strClosingHour))
+            throw new IllegalArgumentException("Hours need to be between 0 and 24, and opening hour cant be higher than closing hour.");
+        */
         this.intID = intID;
         this.strName = strName;
         this.strPhoneNumber = strPhoneNumber;
@@ -96,24 +99,32 @@ public class VaccinationCenter{
                 '}';
     }
 
+    public static boolean verifyVaccinationCenterHours(String strOpeningHour, String strClosingHour) {
+        if (Integer.valueOf(strOpeningHour) > 0 || Integer.valueOf(strOpeningHour) < 24 || Integer.valueOf(strClosingHour) > 0 || Integer.valueOf(strClosingHour) < 24)
+        {
+            if (Integer.valueOf(strOpeningHour) < Integer.valueOf(strClosingHour))
+            {
+                return true;
+            } else return false;
+        } else return false;
+    }
 
-    public static boolean verifyWebsite(String strWebsite, String[] strDomain){
+
+    public static boolean verifyWebsite(String strWebsite, String[] strDomain, String strWorldWideWeb){
         for (int i = 0; i <= strWebsite.length() ; i++) {
-            if (strWebsite.contains("www.") && strWebsite.contains("."+ Arrays.stream(strDomain).findAny())){
+            if (strWebsite.startsWith(strWorldWideWeb) && strWebsite.endsWith(String.valueOf(strDomain))){
             return true;
             } else return false;
         } return false;
     }
 
-    public static boolean verifyEmail(String strEmail){
+    public static boolean verifyEmail(String strEmail, String[] strEmailDomain, String[] strDomain){
         for (int i = 0; i <= strEmail.length(); i++) {
-            if (strEmail.contains("@") && strEmail.contains(".")){
+            if (strEmail.contains("@"+strEmailDomain+strDomain)){
                 return true;
             } else return false;
         } return false;
     }
-
-
 
     public static boolean onlyDigits(String strPhoneNumber)
     {

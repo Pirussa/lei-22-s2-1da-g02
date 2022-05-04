@@ -44,7 +44,8 @@ public class CreateVaccinationCenterUI implements Runnable{
         dto.strZipCode= Utils.readLineFromConsole("Zip Code of the Healthcare Center");
         dto.strLocal= Utils.readLineFromConsole("Local of the Healthcare Center");
         System.out.println("Information about the Coordinator");
-        dto.strCenterCoordinatorID= Utils.readLineFromConsole("ID of the Coordinator: ");
+        controller.getCCid();
+        dto.strCenterCoordinatorID=controller.getCCid().;
         controller.createVaccinationCenter(dto);
         System.out.println("--------------------");
         System.out.println("Confirm Data");

@@ -228,5 +228,16 @@ public class Company {
         return centreCoordinatorList;
     }
 
+    private ArrayList<String> CCid = new ArrayList<>();
 
+    public void centerCoordinatiorIDList(){
+        ArrayList<Employee> id = getCentreCoordinatorList();
+        for (int i = 0; i < centreCoordinatorList.size() ; i++) {
+            CCid.add(id.get(i).getId());
+        }
+    }
+
+    public ArrayList<String> getCCid() {
+        return CCid;
+    }
 }
