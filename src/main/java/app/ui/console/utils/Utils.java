@@ -20,7 +20,7 @@ public class Utils {
 
     static public String readLineFromConsole(String prompt) {
         try {
-            System.out.println("\n" + prompt);
+            System.out.print("\n" + prompt);
 
             InputStreamReader converter = new InputStreamReader(System.in);
             BufferedReader in = new BufferedReader(converter);

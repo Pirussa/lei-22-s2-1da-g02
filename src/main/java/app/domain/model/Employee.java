@@ -7,6 +7,7 @@ import app.ui.console.VaccineAndAdminProcessDto;
 import app.ui.console.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 
 public class Employee {
@@ -45,7 +46,7 @@ public class Employee {
         if (name.isEmpty() || address.isEmpty() || email.isEmpty() || phoneNumber.isEmpty() || name == null || address == null || email == null || phoneNumber == null)
             throw new IllegalArgumentException("Arguments can´t be null or empty");
 
-        if (validateCitizenCardNumber(citizenCardNumber) && validatePhoneNumber()) {
+        if (validateCitizenCardNumber(citizenCardNumber) && validatePhoneNumber(phoneNumber) && validateEmail(email)) {
             this.id = id;
             this.name = name;
             this.address = address;
@@ -100,13 +101,13 @@ public class Employee {
         }
 
         switch (role) {
-            case Constants.ROLE_CENTRE_COORDINATOR:
+            case "Center Coordinator":
                 orderedID = new StringBuilder("CC-" + orderedID);
                 break;
-            case Constants.ROLE_RECEPTIONIST:
+            case "Receptionist":
                 orderedID = new StringBuilder("RC-" + orderedID);
                 break;
-            case Constants.ROLE_NURSE:
+            case "Nurse":
                 orderedID = new StringBuilder("NR-" + orderedID);
                 break;
         }
@@ -122,18 +123,19 @@ public class Employee {
         }
     }
 
-    public boolean validatePhoneNumber() {
+    public boolean validatePhoneNumber(String phoneNumber) {
         final String portugueseSecondDigit = "1236";
-        int ch = Integer.parseInt(String.valueOf(phoneNumber.charAt(0)));
-        if (phoneNumber.length() != NUMBER_OF_PHONE_NUMBER_DIGITS || ch == STARTING_NUMBER_PORTUGUESE_PHONE) {
+
+        if (phoneNumber.length() != NUMBER_OF_PHONE_NUMBER_DIGITS) {
             throw new IllegalArgumentException("Invalid Phone Number, verify the number of digits or the starting digit");
         }
-                ch = phoneNumber.charAt(1);
-                if (!(ch == portugueseSecondDigit.charAt(0) || ch == portugueseSecondDigit.charAt(1) || ch == portugueseSecondDigit.charAt(2) || ch == portugueseSecondDigit.charAt(3))) {
-                    throw new IllegalArgumentException("Invalid Phone Number, verify the second digit");
-                }
-                return true;
-            }
+        char ch1 = (phoneNumber.charAt(0));
+        char ch2 = phoneNumber.charAt(1);
+        if (!(ch1 == STARTING_NUMBER_PORTUGUESE_PHONE || ch2 == portugueseSecondDigit.charAt(0) || ch2 == portugueseSecondDigit.charAt(1) || ch2 == portugueseSecondDigit.charAt(2) || ch2 == portugueseSecondDigit.charAt(3))) {
+            throw new IllegalArgumentException("Invalid Phone Number, verify the second digit");
+        }
+        return true;
+    }
 
     public boolean validateCitizenCardNumber(String citizenCardNumber) {
         int sum = 0;
@@ -234,5 +236,19 @@ public class Employee {
                 return 35;
         }
         throw new IllegalArgumentException("Invalid Value in the Document.");
+    }
+
+    public boolean validateEmail(String email) {
+        if (!email.contains("@"))
+            throw new IllegalArgumentException("Email must contain - @");
+
+        String[] emailSplitter = email.split("@");
+        String[] validEmailDomain = {"gmail.com", "hotmail.com", "isep.ipp.pt", "sapo.pt"};
+
+        for (int position = 0; position < validEmailDomain.length; position++) {
+            if (Objects.equals(emailSplitter[1], validEmailDomain[position]))
+                return true;
+        }
+        return false;
     }
 }

@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Paulo Maio <pam@isep.ipp.pt>
@@ -174,13 +175,18 @@ public class Company {
         return true;
     }
 
-
-
-    public void saveCreatedEmployee(RegisterNewEmployeeDto dto) {
-        Employee emp = new Employee(dto.id, dto.name, dto.address, dto.phoneNumber, dto.email, dto.citizenCardNumber, dto.password);
-        employees.add(emp);
+    public void saveCreatedEmployee(RegisterNewEmployeeDto dto, String selectedRole) {
+        if (Objects.equals(selectedRole, "Nurse")) {
+            Employee emp = new Nurse(dto.id, dto.name, dto.address, dto.phoneNumber, dto.email, dto.citizenCardNumber, dto.password);
+            employees.add(emp);
+        } else if (Objects.equals(selectedRole, "Receptionist")) {
+            Employee emp = new Receptionist(dto.id, dto.name, dto.address, dto.phoneNumber, dto.email, dto.citizenCardNumber, dto.password);
+            employees.add(emp);
+        } else if (Objects.equals(selectedRole, "Center Coordinator")) {
+            Employee emp = new CenterCoordinator(dto.id, dto.name, dto.address, dto.phoneNumber, dto.email, dto.citizenCardNumber, dto.password);
+            employees.add(emp);
+        }
     }
-
     /**
      * Gets the Employees registered in the Company.
      *

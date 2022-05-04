@@ -29,7 +29,7 @@ public class RegisterNewEmployeeController {
         return company.registerNewEmployee(dto);
     }
 
-    public void saveCreatedEmployee(RegisterNewEmployeeDto dto) {
-        company.saveCreatedEmployee(dto);
+    public void saveCreatedEmployee(RegisterNewEmployeeDto dto, String selectedRole) {
+        company.saveCreatedEmployee(dto, selectedRole);
     }
 }

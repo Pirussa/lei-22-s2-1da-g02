@@ -29,7 +29,7 @@ public class RegisterNewEmployeeUI implements Runnable {
         RegisterNewEmployeeController ctrl = new RegisterNewEmployeeController();
 
         RegisterNewEmployeeDto dto = new RegisterNewEmployeeDto();
-        System.out.printf("**You are now registering a new employee**%n");
+        System.out.printf("%n--------------------------------------%nYou are now registering a new employee%n%n");
 
         ArrayList<String> roles = new ArrayList<>();
         roles.add("Nurse");
@@ -51,7 +51,7 @@ public class RegisterNewEmployeeUI implements Runnable {
         if (ctrl.registerNewEmployee(dto)) {
             showNewEmployeeData(dto, selectedRole);
             if (Utils.confirmCreation()) {
-                ctrl.saveCreatedEmployee(dto);
+                ctrl.saveCreatedEmployee(dto, selectedRole);
                 System.out.printf("%n%n**The Employee was registered.**");
             } else
                 System.out.println("**The Employee was not registered.**");
@@ -62,6 +62,6 @@ public class RegisterNewEmployeeUI implements Runnable {
     }
 
     public void showNewEmployeeData(RegisterNewEmployeeDto dto, String selectedRole) {
-        System.out.printf("**New Employee Data**%n%nSelected Role: %s%n%nGiven Name: %s%n%nGiven Address: %s%n%nGiven Phone Number: %s%n%nGiven Email: %s%n%nGiven Citizen Card Number: %s%n%n", selectedRole, dto.name, dto.address, dto.phoneNumber, dto.email, dto.citizenCardNumber);
+        System.out.printf("**New Employee Data**%n%nSelected Role: %s%n%nGiven Name: %s%n%nGiven Address: %s%n%nGiven Phone Number: %s%n%nGiven Email: %s%n%nGiven Citizen Card Number: %s%n%nGenerated ID: %s%n%nGenerated Password: %s%n%n", selectedRole, dto.name, dto.address, dto.phoneNumber, dto.email, dto.citizenCardNumber, dto.id, dto.password);
     }
 }
