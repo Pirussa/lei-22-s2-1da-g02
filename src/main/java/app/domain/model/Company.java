@@ -210,7 +210,7 @@ public class Company {
 
     public boolean registerNewEmployee(RegisterNewEmployeeDto dto) {
         Employee emp = new Employee(dto.id, dto.name, dto.address, dto.phoneNumber, dto.email, dto.citizenCardNumber, dto.password);
-        return true;
+        return emp.validateEmployee();
     }
 
     public void saveCreatedEmployee(RegisterNewEmployeeDto dto, String selectedRole) {
