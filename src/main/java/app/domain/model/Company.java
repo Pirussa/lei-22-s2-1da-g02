@@ -223,14 +223,29 @@ public class Company {
         }
     }
 
+    /**
+     * Gets the Nurses registered in the Company.
+     *
+     * @return An ArrayList of Nurses.
+     */
     public ArrayList<Employee> getNurseList() {
         return nurseList;
     }
 
+    /**
+     * Gets the Receptionists registered in the Company.
+     *
+     * @return An ArrayList of Receptionists.
+     */
     public ArrayList<Employee> getReceptionistList() {
         return receptionistList;
     }
 
+    /**
+     * Gets the Centre Coordinators registered in the Company.
+     *
+     * @return An ArrayList of Centre Coordinator.
+     */
     public ArrayList<Employee> getCentreCoordinatorList() {
         return centreCoordinatorList;
     }
