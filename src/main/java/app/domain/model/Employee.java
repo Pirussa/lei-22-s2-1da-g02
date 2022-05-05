@@ -9,18 +9,15 @@ import app.ui.console.utils.Utils;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Employee {
-
     private static final int PASSWORD_LENGTH = 7;
     private static final int ID_LENGTH = 5;
-
     private static final int NUMBER_OF_PHONE_NUMBER_DIGITS = 9;
-
     private static final int STARTING_NUMBER_PORTUGUESE_PHONE = 9;
-
     private static final int NUMBER_OF_CITIZEN_CARD_DIGITS = 12;
-
     private static final int FIRST_SECOND_DIGIT_CC = 10;
 
     private static final int SECOND_SECOND_DIGIT_CC = 8;
@@ -53,6 +50,33 @@ public class Employee {
 
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getCitizenCardNumber() {
+        return citizenCardNumber;
+    }
 
     public void setId(String id) {
         this.id = id;
@@ -116,18 +140,26 @@ public class Employee {
         }
     }
 
-    public boolean validatePhoneNumber(String phoneNumber) {
+    public boolean validateEmployee() {
+        return !name.isEmpty() && !address.isEmpty() && !email.isEmpty() && !phoneNumber.isEmpty() && !citizenCardNumber.isEmpty() && validateEmail(email) && validateCitizenCardNumber(citizenCardNumber) && validatePhoneNumber(phoneNumber) && validateAddress(address);
+    }
+
+    public boolean validatePhoneNumber(String phoneNumber) throws IllegalArgumentException {
+        if (phoneNumber.length() != NUMBER_OF_PHONE_NUMBER_DIGITS)
+            throw new IllegalArgumentException("Invalid Phone Number, verify the number of digits");
+
         final String portugueseSecondDigit = "1236";
 
-        if (phoneNumber.length() != NUMBER_OF_PHONE_NUMBER_DIGITS) {
-            throw new IllegalArgumentException("Invalid Phone Number, verify the number of digits or the starting digit");
-        }
-        char ch1 = (phoneNumber.charAt(0));
-        char ch2 = phoneNumber.charAt(1);
-        if (!(ch1 == STARTING_NUMBER_PORTUGUESE_PHONE || ch2 == portugueseSecondDigit.charAt(0) || ch2 == portugueseSecondDigit.charAt(1) || ch2 == portugueseSecondDigit.charAt(2) || ch2 == portugueseSecondDigit.charAt(3))) {
+    char ch1 = phoneNumber.charAt(0);
+        if (!(ch1 == STARTING_NUMBER_PORTUGUESE_PHONE))
+            throw new IllegalArgumentException("Invalid Phone Number, verify the first digit");
+
+    char ch2 = phoneNumber.charAt(1);
+        if (!(ch2 == portugueseSecondDigit.charAt(0) || ch2 == portugueseSecondDigit.charAt(1) || ch2 == portugueseSecondDigit.charAt(2) || ch2 == portugueseSecondDigit.charAt(3)))
             throw new IllegalArgumentException("Invalid Phone Number, verify the second digit");
-        }
+
         return true;
+
     }
 
     public boolean validateCitizenCardNumber(String citizenCardNumber) {
@@ -232,11 +264,11 @@ public class Employee {
     }
 
     public boolean validateEmail(String email) {
-        if (!email.contains("@"))
-            throw new IllegalArgumentException("Email must contain - @");
+        if (!email.contains("@") && !email.contains("."))
+            throw new IllegalArgumentException("Email must contain - @ and .");
 
         String[] emailSplitter = email.split("@");
-        String[] validEmailDomain = {"gmail.com", "hotmail.com", "isep.ipp.pt", "sapo.pt"};
+        String[] validEmailDomain = {"gmail.com", "hotmail.com", "isep.ipp.pt", "sapo.pt", "outlook.com"};
 
         for (int position = 0; position < validEmailDomain.length; position++) {
             if (Objects.equals(emailSplitter[1], validEmailDomain[position]))
@@ -245,33 +277,14 @@ public class Employee {
         return false;
     }
 
+    public boolean validateAddress(String address) {
+        String[] splitAddress = address.split(",");
+        if (splitAddress.length != 3)
+            throw new IllegalArgumentException("Invalid address, it must contain Street, Zip code and location");
 
-    public String getName() {
-        return name;
+        String zipCode = splitAddress[1].trim();
+        if (zipCode.length() != 8)
+            throw new IllegalArgumentException("Invalid Zip Code");
+        return true;
     }
-
-    public String getRole() {
-        return role;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getCitizenCardNumber() {
-        return citizenCardNumber;
-    }
-
 }
