@@ -2,6 +2,8 @@ package app.controller;
 
 import app.domain.model.*;
 import app.ui.console.CreateVaccinationCenterUI;
+import app.ui.console.HealthcareCenterDto;
+import app.ui.console.MassVaccinationCenterDto;
 import app.ui.console.VaccinationCenterDto;
 
 import java.util.ArrayList;
@@ -24,8 +26,17 @@ public class CreateVaccinationCenterController {
         company.saveVaccinationCenter(dto);
     }
 
+    /*
     public ArrayList<VaccinationCenter> getVaccinationCenters() {
          return company.getVaccinationCenters();
+    }*/
+
+    public ArrayList<MassVaccinationCenter> getMassVaccinationCenters() {
+        return company.getMassVaccinationCenters();
+    }
+
+    public ArrayList<HealthcareCenter> getHealthcareCenters() {
+        return company.getHealthcareCenters();
     }
 
     public void centerCoordinatorIDList(){
@@ -34,6 +45,10 @@ public class CreateVaccinationCenterController {
 
     public ArrayList<String> getCenterCoordinatorIDs(){
         return company.getCenterCoordinatorIDs();
+    }
+
+    public void fillListOfEmployeesWithAGivenRole(){
+        company.fillListOfEmployeesWithAGivenRole();
     }
 
 }

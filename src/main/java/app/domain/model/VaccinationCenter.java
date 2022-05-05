@@ -45,13 +45,14 @@ public class VaccinationCenter{
                 (strVaccinesPerSlot.isEmpty()) ||(strRoad.isEmpty()||(strZipCode.isEmpty()||(strLocal.isEmpty()||(strCenterCoordinatorID.isEmpty())))))))
         throw new IllegalArgumentException("Arguments can't be null or empty");
 
+        /*
         if (intID <= 0) throw new IllegalArgumentException("ID needs to be !=0 and a positive number");
 
         if (strPhoneNumber.strip().length() != MAXCHAROFPHONENUMBER) throw new IllegalArgumentException("Phone Number need to have exactly 9 characters.");
 
         if(!onlyDigits(strPhoneNumber)){
             throw new IllegalArgumentException("Phone Numbers only support integers from 0 to 9.");
-        }
+        }*/
         /*
         if (!verifyEmail(strEmail,strEmailDomain, strTopLevelDomain)){
             throw new IllegalArgumentException("Email needs to have @, one of the available email domains and one of the top level domains saved.");
