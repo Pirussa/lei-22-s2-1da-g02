@@ -23,6 +23,11 @@ public class VaccinationCenter{
     private String strWebsite;
     private String strOpeningHour;
     private String strClosingHour;
+
+    public String getStrID() {
+        return strID;
+    }
+
     private String strSlotDuration;
     private String strVaccinesPerSlot;
     private String strRoad;
