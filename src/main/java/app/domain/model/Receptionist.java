@@ -12,12 +12,12 @@ public class Receptionist extends Employee {
 
     @Override
     public String toString() {
-        return "Employee: " + super.getName() + '\'' +
-                ", id= " + super.getId() + '\'' +
-                ", address= " + super.getAddress() + '\'' +
-                ", phoneNumber= " + super.getPhoneNumber() + '\'' +
-                ", email= " + super.getEmail() + '\'' +
-                ", citizenCardNumber= " + super.getCitizenCardNumber() + '\'';
+        return "Name: " + super.getName() +
+                " | ID: " + super.getId() +
+                " | Address: " + super.getAddress() +
+                " | Phone Number: " + super.getPhoneNumber() +
+                " | Email: " + super.getEmail() +
+                " | Citizen Card Number: " + super.getCitizenCardNumber();
     }
 
 
