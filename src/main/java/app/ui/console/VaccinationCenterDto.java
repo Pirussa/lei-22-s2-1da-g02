@@ -1,8 +1,5 @@
 package app.ui.console;
 
-import app.domain.model.Employee;
-import app.domain.model.CenterCoordinator;
-
 /**
  *
  * @author João Castro <1210816@isep.ipp.pt>
@@ -11,7 +8,7 @@ public class VaccinationCenterDto {
 
     public VaccinationCenterDto() {
     }
-    public int intID;
+    public String strID;
     public String strName;
     public String strPhoneNumber;
     public String strEmail;
@@ -26,10 +23,10 @@ public class VaccinationCenterDto {
     public String strLocal;
     public String strCenterCoordinatorID;
 
-    public VaccinationCenterDto(int intID, String strName, String strPhoneNumber, String strEmail, String strFax, String strWebsite,
+    public VaccinationCenterDto(String strID, String strName, String strPhoneNumber, String strEmail, String strFax, String strWebsite,
                                 String strOpeningHour, String strClosingHour, String strSlotDuration, String strVaccinesPerSlot,
                                 String strRoad, String strZipCode, String strLocal, String strCenterCoordinatorID) {
-        this.intID = intID;
+        this.strID=strID;
         this.strName = strName;
         this.strPhoneNumber = strPhoneNumber;
         this.strEmail = strEmail;
@@ -48,7 +45,7 @@ public class VaccinationCenterDto {
     @Override
     public String toString() {
         return "VaccinationCenterDto{" +
-                "intID=" + intID +
+                "strID=" + strID +
                 ", strName='" + strName + '\'' +
                 ", strPhoneNumber='" + strPhoneNumber + '\'' +
                 ", strEmail='" + strEmail + '\'' +

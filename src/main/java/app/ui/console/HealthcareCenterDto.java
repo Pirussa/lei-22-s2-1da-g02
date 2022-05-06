@@ -3,7 +3,7 @@ package app.ui.console;
 public class HealthcareCenterDto {
     public HealthcareCenterDto() {
     }
-    public int intID;
+    public String strID;
     public String strName;
     public String strPhoneNumber;
     public String strEmail;
@@ -20,10 +20,10 @@ public class HealthcareCenterDto {
     public String strARS;
     public String strAGES;
 
-    public HealthcareCenterDto(int intID, String strName, String strPhoneNumber, String strEmail, String strFax, String strWebsite,
+    public HealthcareCenterDto(String strID, String strName, String strPhoneNumber, String strEmail, String strFax, String strWebsite,
                                 String strOpeningHour, String strClosingHour, String strSlotDuration, String strVaccinesPerSlot,
                                 String strRoad, String strZipCode, String strLocal, String strCenterCoordinatorID, String strARS, String strAGES) {
-        this.intID = intID;
+        this.strID=strID;
         this.strName = strName;
         this.strPhoneNumber = strPhoneNumber;
         this.strEmail = strEmail;
@@ -44,7 +44,7 @@ public class HealthcareCenterDto {
     @Override
     public String toString() {
         return "HealthcareCenterDto{" +
-                "intID=" + intID +
+                "strID=" + strID +
                 ", strName='" + strName + '\'' +
                 ", strPhoneNumber='" + strPhoneNumber + '\'' +
                 ", strEmail='" + strEmail + '\'' +

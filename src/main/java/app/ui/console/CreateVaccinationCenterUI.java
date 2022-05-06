@@ -1,16 +1,10 @@
 package app.ui.console;
 
 import app.controller.CreateVaccinationCenterController;
-import app.domain.model.VaccinationCenter;
 import app.ui.console.utils.Utils;
-import jdk.jshell.execution.Util;
-import org.apache.commons.lang3.text.StrLookup;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
-
 
 /**
  *
@@ -28,15 +22,15 @@ public class CreateVaccinationCenterUI implements Runnable {
         System.out.println("1 - Healthcare Center");
         int typeOfCenter=choice.nextInt();
         if (typeOfCenter==0){
-            massVaccinationCenterUI();
+            massVaccinationCenterUI(typeOfCenter);
         } else if (typeOfCenter==1){
-            healthcareCenterUI();
+            healthcareCenterUI(typeOfCenter);
         } else {
             System.out.println("Option is Invalid.");
         }
     }
 
-    public void massVaccinationCenterUI(){
+    public void massVaccinationCenterUI(int typeOfCenter){
         CreateVaccinationCenterController controller = new CreateVaccinationCenterController();
         controller.fillListOfEmployeesWithAGivenRole();
         controller.centerCoordinatorIDList();
@@ -44,8 +38,8 @@ public class CreateVaccinationCenterUI implements Runnable {
 
             Scanner sc = new Scanner(System.in);
             Scanner sc1 = new Scanner(System.in);
-            VaccinationCenterDto dto = new VaccinationCenterDto();
-            dto.intID = Utils.readIntegerFromConsole("ID of the Healthcare Center (Only Integers): ");
+            MassVaccinationCenterDto dto = new MassVaccinationCenterDto();
+            dto.strID = String.valueOf(idGeneratorMass(typeOfCenter));
             dto.strName = Utils.readLineFromConsole("Name of the Healthcare Center (No Validation): ");
             dto.strPhoneNumber = Utils.readLineFromConsole("Phone Number of the Healthcare Center (9 Chars, only numbers): ");
             dto.strEmail = Utils.readLineFromConsole("Email of the Healthcare Center (Needs to have @ and .): ");
@@ -68,17 +62,17 @@ public class CreateVaccinationCenterUI implements Runnable {
             }
             int option = sc.nextInt();
             dto.strCenterCoordinatorID = controller.getCenterCoordinatorIDs().get(option);
-            controller.createVaccinationCenter(dto);
+            controller.createMassVaccinationCenter(dto);
             System.out.println("------------------------------------------------------------------------------------");
             System.out.println("----------------------PLEASE VERIFY THE DATA----------------------------------------");
             System.out.println(dto);
             System.out.println("----------------------CONFIRM DATA? (Y/N)-------------------------------------------");
             String strOption = sc1.nextLine();
-            if (strOption == "yes" || strOption == "y" || strOption == "YES" || strOption == "Y" || strOption == "Yes") {
-                controller.saveVaccinationCenter(dto);
-                for (int i = 0; i < controller.getVaccinationCenters().size(); i++) {
+            if (strOption.equals("Yes") || strOption.equals("y") || strOption.equals("YES")  || strOption.equals("Y")  || strOption.equals("yes")) {
+                controller.saveMassVaccinationCenter(dto);
+                for (int i = 0; i < controller.getMassVaccinationCenters().size(); i++) {
                     System.out.println();
-                    System.out.println("\nPosition" + i + ": " + controller.getVaccinationCenters().get(i));
+                    System.out.println("\nPosition" + i + ": " + controller.getMassVaccinationCenters().get(i));
                 }
                 System.out.println("---------------------------------------------------------------------------------");
                 System.out.println("The Vaccination Center was saved into the list as you can see.");
@@ -91,16 +85,17 @@ public class CreateVaccinationCenterUI implements Runnable {
 
 }
 
-    public void healthcareCenterUI(){
+    public void healthcareCenterUI(int typeOfCenter){
         CreateVaccinationCenterController controller = new CreateVaccinationCenterController();
+
         controller.fillListOfEmployeesWithAGivenRole();
         controller.centerCoordinatorIDList();
         if (!controller.getCenterCoordinatorIDs().isEmpty()) {
 
             Scanner sc = new Scanner(System.in);
             Scanner sc1 = new Scanner(System.in);
-            VaccinationCenterDto dto = new VaccinationCenterDto();
-            dto.intID = Utils.readIntegerFromConsole("ID of the Healthcare Center (Only Integers): ");
+            HealthcareCenterDto dto = new HealthcareCenterDto();
+            dto.strID = String.valueOf(idGeneratorMass(typeOfCenter));
             dto.strName = Utils.readLineFromConsole("Name of the Healthcare Center (No Validation): ");
             dto.strPhoneNumber = Utils.readLineFromConsole("Phone Number of the Healthcare Center (9 Chars, only numbers): ");
             dto.strEmail = Utils.readLineFromConsole("Email of the Healthcare Center (Needs to have @ and .): ");
@@ -123,17 +118,17 @@ public class CreateVaccinationCenterUI implements Runnable {
             }
             int option = sc.nextInt();
             dto.strCenterCoordinatorID = controller.getCenterCoordinatorIDs().get(option);
-            controller.createVaccinationCenter(dto);
+            controller.createHealthcareCenter(dto);
             System.out.println("------------------------------------------------------------------------------------");
             System.out.println("----------------------PLEASE VERIFY THE DATA----------------------------------------");
             System.out.println(dto);
             System.out.println("----------------------CONFIRM DATA? (Y/N)-------------------------------------------");
             String strOption = sc1.nextLine();
-            if (strOption == "yes" || strOption == "y" || strOption == "YES" || strOption == "Y" || strOption == "Yes") {
-                controller.saveVaccinationCenter(dto);
-                for (int i = 0; i < controller.getVaccinationCenters().size(); i++) {
+            if (strOption.equals("Yes") || strOption.equals("y") || strOption.equals("YES")  || strOption.equals("Y")  || strOption.equals("yes")) {
+                controller.createHealthcareCenter(dto);
+                for (int i = 0; i < controller.getHealthcareCenters().size(); i++) {
                     System.out.println();
-                    System.out.println("\nPosition" + i + ": " + controller.getVaccinationCenters().get(i));
+                    System.out.println("\nPosition" + i + ": " + controller.getHealthcareCenters().get(i));
                 }
                 System.out.println("---------------------------------------------------------------------------------");
                 System.out.println("The Vaccination Center was saved into the list as you can see.");
@@ -145,6 +140,26 @@ public class CreateVaccinationCenterUI implements Runnable {
         }
     }
 
+    public static StringBuilder idGeneratorMass(int vaccinationCenterOption) {
+        int ID_LENGTH=3;
+        StringBuilder orderedID = new StringBuilder();
+        Random generate = new Random();
+
+        for (int position = 0; position < ID_LENGTH; position++) {
+            orderedID.append(String.valueOf(generate.nextInt(9)));
+        }
+
+        switch (vaccinationCenterOption) {
+            case 0:
+                orderedID = new StringBuilder("MVC-" + orderedID);
+                break;
+            case 1:
+                orderedID = new StringBuilder("HC-" + orderedID);
+                break;
+        }
+        return orderedID;
+    }
+    /*
     public void vaccinationCenterUI(){
         CreateVaccinationCenterController controller = new CreateVaccinationCenterController();
         controller.fillListOfEmployeesWithAGivenRole();
@@ -154,7 +169,7 @@ public class CreateVaccinationCenterUI implements Runnable {
             Scanner sc = new Scanner(System.in);
             Scanner sc1 = new Scanner(System.in);
             VaccinationCenterDto dto = new VaccinationCenterDto();
-            dto.intID = Utils.readIntegerFromConsole("ID of the Healthcare Center (Only Integers): ");
+            dto.strID = Utils.readIntegerFromConsole("ID of the Healthcare Center (Only Integers): ");
             dto.strName = Utils.readLineFromConsole("Name of the Healthcare Center (No Validation): ");
             dto.strPhoneNumber = Utils.readLineFromConsole("Phone Number of the Healthcare Center (9 Chars, only numbers): ");
             dto.strEmail = Utils.readLineFromConsole("Email of the Healthcare Center (Needs to have @ and .): ");
@@ -197,6 +212,9 @@ public class CreateVaccinationCenterUI implements Runnable {
         } else {
             System.out.println("Can't create a Vaccination Center without a registered Center Coordinator.");
         }
-    }
+    }*/
+
+
+
 }
 

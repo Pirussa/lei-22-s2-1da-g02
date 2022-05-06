@@ -15,7 +15,7 @@ public class VaccinationCenter{
 
     private final int MAXCHAROFPHONENUMBER = 9;
 
-    private int intID;
+    private String strID;
     private String strName;
     private String strPhoneNumber;
     private String strEmail;
@@ -34,13 +34,13 @@ public class VaccinationCenter{
     private String[] strEmailDomain= {"gmail","outlook","isep.ipp","protonmail","live"};
     private String strWorldWideWeb= "www";
 
-    public VaccinationCenter(int intID, String strName, String strPhoneNumber, String strEmail, String strFax, String strWebsite,
+    public VaccinationCenter(String strID, String strName, String strPhoneNumber, String strEmail, String strFax, String strWebsite,
                              String strOpeningHour, String strClosingHour, String strSlotDuration, String strVaccinesPerSlot,
                              String strRoad, String strZipCode, String strLocal, String strCenterCoordinatorID) {
 
-        if (((strName==null) || (strPhoneNumber==null) || (strEmail==null) || (strFax==null) || (strWebsite==null) || (strOpeningHour==null) ||
+        if (((strID==null) ||(strName==null) || (strPhoneNumber==null) || (strEmail==null) || (strFax==null) || (strWebsite==null) || (strOpeningHour==null) ||
                 (strClosingHour==null) || (strSlotDuration==null)  || (strVaccinesPerSlot==null) || (strRoad==null) || (strZipCode==null) ||
-                (strLocal==null) || (strCenterCoordinatorID==null) || (strName.isEmpty()) || (strPhoneNumber.isEmpty() || (strEmail.isEmpty()) ||
+                (strLocal==null) || (strCenterCoordinatorID==null) || (strID.isEmpty()) ||(strName.isEmpty()) || (strPhoneNumber.isEmpty() || (strEmail.isEmpty()) ||
                 (strFax.isEmpty()) || (strWebsite.isEmpty()) || (strOpeningHour.isEmpty()) || (strClosingHour.isEmpty()) || (strSlotDuration.isEmpty()) ||
                 (strVaccinesPerSlot.isEmpty()) ||(strRoad.isEmpty()||(strZipCode.isEmpty()||(strLocal.isEmpty()||(strCenterCoordinatorID.isEmpty())))))))
         throw new IllegalArgumentException("Arguments can't be null or empty");
@@ -64,7 +64,7 @@ public class VaccinationCenter{
         if (!verifyVaccinationCenterHours(strOpeningHour,strClosingHour))
             throw new IllegalArgumentException("Hours need to be between 0 and 24, and opening hour cant be higher than closing hour.");
         */
-        this.intID = intID;
+        this.strID = strID;
         this.strName = strName;
         this.strPhoneNumber = strPhoneNumber;
         this.strEmail = strEmail;
@@ -83,7 +83,7 @@ public class VaccinationCenter{
     @Override
     public String toString() {
         return "VaccinationCenter{" +
-                ", intID=" + intID +
+                ", strID=" + strID +
                 ", strName='" + strName + '\'' +
                 ", strPhoneNumber='" + strPhoneNumber + '\'' +
                 ", strEmail='" + strEmail + '\'' +

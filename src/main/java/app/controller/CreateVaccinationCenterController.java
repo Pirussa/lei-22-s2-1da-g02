@@ -17,7 +17,7 @@ public class CreateVaccinationCenterController {
     private Company company = App.getInstance().getCompany();
 
     public CreateVaccinationCenterController(){}
-
+    /*
     public void createVaccinationCenter(VaccinationCenterDto dto){
        company.createVaccinationCenter(dto);
     }
@@ -25,11 +25,29 @@ public class CreateVaccinationCenterController {
     public void saveVaccinationCenter(VaccinationCenterDto dto){
         company.saveVaccinationCenter(dto);
     }
+   */
+    public void createMassVaccinationCenter(MassVaccinationCenterDto dto){
+        company.createMassVaccinationCenter(dto);
+    }
+
+    public void saveMassVaccinationCenter(MassVaccinationCenterDto dto){
+        company.saveMassVaccinationCenter(dto);
+    }
+
+    public void createHealthcareCenter(HealthcareCenterDto dto){
+        company.createHealthcareCenter(dto);
+    }
+
+    public void saveHealthcareCenter(HealthcareCenterDto dto){
+        company.saveHealthcareCenter(dto);
+    }
 
     /*
     public ArrayList<VaccinationCenter> getVaccinationCenters() {
          return company.getVaccinationCenters();
     }*/
+
+
 
     public ArrayList<MassVaccinationCenter> getMassVaccinationCenters() {
         return company.getMassVaccinationCenters();

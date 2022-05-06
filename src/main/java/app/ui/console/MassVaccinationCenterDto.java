@@ -3,7 +3,7 @@ package app.ui.console;
 public class MassVaccinationCenterDto {
     public MassVaccinationCenterDto() {
     }
-    public int intID;
+    public String strID;
     public String strName;
     public String strPhoneNumber;
     public String strEmail;
@@ -18,10 +18,10 @@ public class MassVaccinationCenterDto {
     public String strLocal;
     public String strCenterCoordinatorID;
 
-    public MassVaccinationCenterDto(int intID, String strName, String strPhoneNumber, String strEmail, String strFax, String strWebsite,
+    public MassVaccinationCenterDto(String strID, String strName, String strPhoneNumber, String strEmail, String strFax, String strWebsite,
                                 String strOpeningHour, String strClosingHour, String strSlotDuration, String strVaccinesPerSlot,
                                 String strRoad, String strZipCode, String strLocal, String strCenterCoordinatorID) {
-        this.intID = intID;
+        this.strID = strID;
         this.strName = strName;
         this.strPhoneNumber = strPhoneNumber;
         this.strEmail = strEmail;
@@ -40,7 +40,7 @@ public class MassVaccinationCenterDto {
     @Override
     public String toString() {
         return "VaccinationCenterDto{" +
-                "intID=" + intID +
+                "strID=" + strID +
                 ", strName='" + strName + '\'' +
                 ", strPhoneNumber='" + strPhoneNumber + '\'' +
                 ", strEmail='" + strEmail + '\'' +

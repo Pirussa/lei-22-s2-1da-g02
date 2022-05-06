@@ -27,11 +27,6 @@ public class Company {
 
     private static ArrayList<Employee> employees = new ArrayList<>();
 
-
-    //private List<HealthcareCenter> healthcareCenters = new ArrayList<>();
-
-    //private List<MassVaccinationCenter> massVaccinationCenters = new ArrayList<>();
-
     private ArrayList<String> roles = new ArrayList<>();
 
     private ArrayList<Employee> nurseList = new ArrayList<>();
@@ -152,35 +147,37 @@ public class Company {
     private ArrayList<HealthcareCenter> healthcareCenters = new ArrayList<>();
     private ArrayList<String> centerCoordinatorIDs = new ArrayList<>();
 
+    /*
     public void createVaccinationCenter(VaccinationCenterDto dto) {
-        VaccinationCenter vc = new VaccinationCenter(dto.intID, dto.strName, dto.strPhoneNumber, dto.strEmail, dto.strFax, dto.strWebsite, dto.strOpeningHour,
+        VaccinationCenter vc = new VaccinationCenter(dto.strID, dto.strName, dto.strPhoneNumber, dto.strEmail, dto.strFax, dto.strWebsite, dto.strOpeningHour,
                 dto.strClosingHour, dto.strSlotDuration, dto.strVaccinesPerSlot, dto.strRoad, dto.strZipCode, dto.strLocal, dto.strCenterCoordinatorID);
-    }
+    }*/
 
     public void createMassVaccinationCenter(MassVaccinationCenterDto dto) {
-        MassVaccinationCenter vc = new MassVaccinationCenter(dto.intID, dto.strName, dto.strPhoneNumber, dto.strEmail, dto.strFax, dto.strWebsite, dto.strOpeningHour,
+        MassVaccinationCenter vc = new MassVaccinationCenter(dto.strID, dto.strName, dto.strPhoneNumber, dto.strEmail, dto.strFax, dto.strWebsite, dto.strOpeningHour,
                 dto.strClosingHour, dto.strSlotDuration, dto.strVaccinesPerSlot, dto.strRoad, dto.strZipCode, dto.strLocal, dto.strCenterCoordinatorID);
     }
 
     public void createHealthcareCenter(HealthcareCenterDto dto) {
-        HealthcareCenter vc = new HealthcareCenter(dto.intID, dto.strName, dto.strPhoneNumber, dto.strEmail, dto.strFax, dto.strWebsite, dto.strOpeningHour,
+        HealthcareCenter vc = new HealthcareCenter(dto.strID, dto.strName, dto.strPhoneNumber, dto.strEmail, dto.strFax, dto.strWebsite, dto.strOpeningHour,
                 dto.strClosingHour, dto.strSlotDuration, dto.strVaccinesPerSlot, dto.strRoad, dto.strZipCode, dto.strLocal, dto.strCenterCoordinatorID, dto.strARS, dto.strAGES);
     }
 
+    /*
     public void saveVaccinationCenter(VaccinationCenterDto dto) {
-        VaccinationCenter vc = new VaccinationCenter(dto.intID, dto.strName, dto.strPhoneNumber, dto.strEmail, dto.strFax, dto.strWebsite, dto.strOpeningHour,
+        VaccinationCenter vc = new VaccinationCenter(dto.strID, dto.strName, dto.strPhoneNumber, dto.strEmail, dto.strFax, dto.strWebsite, dto.strOpeningHour,
                 dto.strClosingHour, dto.strSlotDuration, dto.strVaccinesPerSlot, dto.strRoad, dto.strZipCode, dto.strLocal, dto.strCenterCoordinatorID);
         vaccinationCenters.add(vc);
-    }
+    }*/
 
     public void saveMassVaccinationCenter(MassVaccinationCenterDto dto) {
-        MassVaccinationCenter vc = new MassVaccinationCenter(dto.intID, dto.strName, dto.strPhoneNumber, dto.strEmail, dto.strFax, dto.strWebsite, dto.strOpeningHour,
+        MassVaccinationCenter vc = new MassVaccinationCenter(dto.strID, dto.strName, dto.strPhoneNumber, dto.strEmail, dto.strFax, dto.strWebsite, dto.strOpeningHour,
                 dto.strClosingHour, dto.strSlotDuration, dto.strVaccinesPerSlot, dto.strRoad, dto.strZipCode, dto.strLocal, dto.strCenterCoordinatorID);
         massVaccinationCenters.add(vc);
     }
 
     public void saveHealthcareCenter(HealthcareCenterDto dto) {
-        HealthcareCenter vc = new HealthcareCenter(dto.intID, dto.strName, dto.strPhoneNumber, dto.strEmail, dto.strFax, dto.strWebsite, dto.strOpeningHour,
+        HealthcareCenter vc = new HealthcareCenter(dto.strID, dto.strName, dto.strPhoneNumber, dto.strEmail, dto.strFax, dto.strWebsite, dto.strOpeningHour,
                 dto.strClosingHour, dto.strSlotDuration, dto.strVaccinesPerSlot, dto.strRoad, dto.strZipCode, dto.strLocal, dto.strCenterCoordinatorID, dto.strARS, dto.strAGES);
         healthcareCenters.add(vc);
     }
