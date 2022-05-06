@@ -1,9 +1,11 @@
 package app.ui.console.utils;
 
 import app.controller.App;
+import app.controller.SpecifyNewVaccineTypeController;
 import app.domain.model.AdministrationProcess;
 import app.domain.model.Company;
-import app.ui.console.VaccineAndAdminProcessDto;
+import app.domain.model.Vaccine;
+import app.domain.model.VaccineType;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -148,7 +150,7 @@ public class Utils {
         System.out.println("1 - Yes");
         System.out.println("0 - No");
         Scanner sc = new Scanner(System.in);
-        System.out.println("Type your option:");
+        System.out.printf("%nType your option:");
         int check = 0;
         int option = 0;
         do {
@@ -172,7 +174,7 @@ public class Utils {
         ArrayList<ArrayList<Integer>> ageGroup = new ArrayList<>(Arrays.asList(minAge, maxAge));
 
         ArrayList<Integer> numberOfDoses = new ArrayList<>(List.of(2));
-        ArrayList<Float> dosage = new ArrayList<>(List.of(Float.parseFloat("20.0")));
+        ArrayList<Double> dosage = new ArrayList<>(List.of(Double.parseDouble("20.0")));
         ArrayList<Integer> intervalBetweenVac1st2nd = new ArrayList<>(List.of(15));
         ArrayList<ArrayList<Integer>> intervalBetweenVaccines = new ArrayList<>(Arrays.asList(intervalBetweenVac1st2nd));
         AdministrationProcess adminProcess = new AdministrationProcess(ageGroup, numberOfDoses, dosage, intervalBetweenVaccines);
@@ -180,21 +182,22 @@ public class Utils {
         return adminProcess;
     }
 
-    public static void addVaccine(String name) {
-        VaccineAndAdminProcessDto dto = new VaccineAndAdminProcessDto();
-
+    public static Vaccine createVaccine(String name, int id, String brand, double dosage, int minAge, int maxAge, int timeBetweenDoses) {
         Company c = App.getInstance().getCompany();
+        bootstrapOptional();
+        AdministrationProcess aP = new AdministrationProcess(new ArrayList<>(Arrays.asList(new ArrayList<>(List.of(minAge)), new ArrayList<>(List.of(maxAge)))),new ArrayList<>(List.of(2)),new ArrayList<>(List.of(dosage)),new ArrayList<>(Arrays.asList(new ArrayList<>(List.of(timeBetweenDoses)))));
 
-        dto.id = 123;
-        dto.name = name;
-        dto.brand = "Brand1";
-        dto.vt = c.getVaccineTypes().get(0);
-        dto.dosage = new ArrayList<>(List.of(Float.parseFloat("20.0")));
-        dto.ageGroups = new ArrayList<>(Arrays.asList(new ArrayList<>(List.of(1)), new ArrayList<>(List.of(9))));
-        dto.timeIntervalBetweenVaccines = new ArrayList<>(Arrays.asList(new ArrayList<>(List.of(15))));
-        dto.numberOfDoses = new ArrayList<>(List.of(2));
+        Vaccine v = new Vaccine(name,id,brand,aP,c.getVaccineTypes().get(0));
 
-        c.saveVaccine(dto);
+
+        return v;
+    }
+    public static void bootstrapOptional() {
+        SpecifyNewVaccineTypeController ctrl = new SpecifyNewVaccineTypeController();
+
+        ctrl.saveVaccineType("AAAAA", "Vaccine Type 1", VaccineType.vaccineTechnologies[0]);
+        ctrl.saveVaccineType("BBBBB", "Vaccine Type 2", VaccineType.vaccineTechnologies[1]);
+        ctrl.saveVaccineType("CCCCC", "Vaccine Type 3", VaccineType.vaccineTechnologies[2]);
 
     }
 }

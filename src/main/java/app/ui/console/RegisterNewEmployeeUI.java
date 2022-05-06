@@ -28,42 +28,41 @@ public class RegisterNewEmployeeUI implements Runnable {
 
         Scanner read = new Scanner(System.in);
         RegisterNewEmployeeController ctrl = new RegisterNewEmployeeController();
-        int option;
+        int option = 2;
         RegisterNewEmployeeDto dto = new RegisterNewEmployeeDto();
-        System.out.printf("%n--Employee Registration--%n%n");
+        System.out.printf("%n-----------------------%n|Employee Registration|%n-----------------------%n%n");
 
         ArrayList<String> roles = new ArrayList<>();
         roles.add("Nurse");
         roles.add("Receptionist");
         roles.add("Center Coordinator");
 
-        //do {
-            int index = Utils.showAndSelectIndex(roles, "Select a Role: ");
-            String selectedRole = roles.get(index);
+        int index = Utils.showAndSelectIndex(roles, "Select a Role: ");
+        String selectedRole = roles.get(index);
 
-            dto.id = String.valueOf(Employee.idGenerator(selectedRole));
-            dto.password = Employee.passwordGenerator();
+        dto.id = String.valueOf(Employee.idGenerator(selectedRole));
+        dto.password = Employee.passwordGenerator();
+        dto.name = Utils.readLineFromConsole("- Insert Name: ");
+        dto.address = Utils.readLineFromConsole("- Insert Address (Street, Zip Code, Location): ");
+        dto.phoneNumber = Utils.readLineFromConsole("- Insert Phone Number (9 chars, only numbers): ");
+        dto.email = Utils.readLineFromConsole("- Insert Email (@ and . are required): ");
+        dto.citizenCardNumber = Utils.readLineFromConsole("- Insert Citizen Card Number (Valid Format - XXXXXXXX X LLX): ");
 
-            dto.name = Utils.readLineFromConsole("Insert Name: ");
-            dto.address = Utils.readLineFromConsole("Insert Address (Street, Zip Code, location): ");
-            dto.phoneNumber = Utils.readLineFromConsole("Insert Phone Number (9 chars, only numbers): ");
-            dto.email = Utils.readLineFromConsole("Insert Email (@ and . are required): ");
-            dto.citizenCardNumber = Utils.readLineFromConsole("Insert Citizen Card Number (12 chars, 10 numbers and 2 letters): ");
-
-            if (ctrl.registerNewEmployee(dto)) {
-                showNewEmployeeData(dto, selectedRole);
-                if (Utils.confirmCreation()) {
-                    ctrl.saveCreatedEmployee(dto, selectedRole);
-                    System.out.printf("%n%nThe Employee was registered.");
-                } else
-                    System.out.println("The Employee was not registered.");
-            } else {
-                System.out.println("Invalid Data for the Employee, please fix the issue if you want to register an Employee.");
-                showNewEmployeeData(dto, selectedRole);
-            }
-       // } while (!ctrl.registerNewEmployee(dto));
+        if (ctrl.registerNewEmployee(dto)) {
+            showNewEmployeeData(dto, selectedRole);
+            if (Utils.confirmCreation()) {
+                ctrl.saveCreatedEmployee(dto, selectedRole);
+                System.out.printf("%n-----------------------------%n|The Employee was registered|%n-----------------------------%n");
+            } else
+                System.out.printf("%n---------------------------------%n|The Employee was not registered|%n---------------------------------%n");
+        } else {
+            System.out.printf("%n-------------------------------%n|Invalid Data for the Employee|%n-------------------------------%n");
+            showNewEmployeeData(dto, selectedRole);
+        }
     }
+
     public void showNewEmployeeData(RegisterNewEmployeeDto dto, String selectedRole) {
-        System.out.printf("**New Employee Data**%n%nSelected Role: %s%n%nGiven Name: %s%n%nGiven Address: %s%n%nGiven Phone Number: %s%n%nGiven Email: %s%n%nGiven Citizen Card Number: %s%n%nGenerated ID: %s%n%nGenerated Password: %s%n%n", selectedRole, dto.name, dto.address, dto.phoneNumber, dto.email, dto.citizenCardNumber, dto.id, dto.password);
+        System.out.printf("%n----------------------------------------------------------------------------%n");
+        System.out.printf("%n---------------------%n|Employee Given Data|%n---------------------%n%n- Selected Role: |%s|%n%n- Given Name: |%s|%n%n- Given Address: |%s|%n%n- Given Phone Number: |%s|%n%n- Given Email: |%s|%n%n- Given Citizen Card Number: |%s|%n%n- Generated ID: |%s|%n%n- Generated Password: |%s|%n%n", selectedRole, dto.name, dto.address, dto.phoneNumber, dto.email, dto.citizenCardNumber, dto.id, dto.password);
     }
 }

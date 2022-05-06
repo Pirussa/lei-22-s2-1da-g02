@@ -71,14 +71,14 @@ public class Company {
     }
 
 
-    /*public List<HealthcareCenter> getHealthcareCenter(){
+    public List<HealthcareCenter> getHealthcareCenter() {
 
         return healthcareCenters;
     }
 
-    public List<MassVaccinationCenter> getMassVaccinationCenter(){
+    public List<MassVaccinationCenter> getMassVaccinationCenter() {
         return massVaccinationCenters;
-    }*/
+    }
 
     public List<VaccinationCenter> getVaccinationCenters(VaccinationCenter o) {
         return vaccinationCenters;
@@ -182,9 +182,9 @@ public class Company {
         healthcareCenters.add(vc);
     }
 
-    public void centerCoordinatorIDList(){
+    public void centerCoordinatorIDList() {
         ArrayList<Employee> centerCoordinators = getCentreCoordinatorList();
-        for (int i = 0; i < centerCoordinators.size() ; i++) {
+        for (int i = 0; i < centerCoordinators.size(); i++) {
             centerCoordinatorIDs.add(centerCoordinators.get(i).getId());
         }
     }
@@ -196,6 +196,7 @@ public class Company {
     public ArrayList<MassVaccinationCenter> getMassVaccinationCenters() {
         return massVaccinationCenters;
     }
+
     public ArrayList<HealthcareCenter> getHealthcareCenters() {
         return healthcareCenters;
     }
@@ -238,25 +239,62 @@ public class Company {
 
     public void fillListOfEmployeesWithAGivenRole() {
         ArrayList<Employee> emp = getEmployees();
+        boolean check = false;
         for (int positionArrayListEmployees = 0; positionArrayListEmployees < emp.size(); positionArrayListEmployees++) {
             if (emp.get(positionArrayListEmployees) instanceof Nurse) {
-                nurseList.add(emp.get(positionArrayListEmployees));
+                for (int nurseListPosition = 0; nurseListPosition < nurseList.size(); nurseListPosition++) {
+                    if (emp.get(positionArrayListEmployees).getEmail() == nurseList.get(nurseListPosition).getEmail()) {
+                        check = true;
+                    }
+                }
+                if (check != true) {
+                    nurseList.add(emp.get(positionArrayListEmployees));
+                }
             } else if (emp.get(positionArrayListEmployees) instanceof Receptionist) {
-                receptionistList.add(emp.get(positionArrayListEmployees));
+                for (int receptionistListPosition = 0; receptionistListPosition < receptionistList.size(); receptionistListPosition++) {
+                    if (emp.get(positionArrayListEmployees).getEmail() == receptionistList.get(receptionistListPosition).getEmail()) {
+                        check = true;
+                    }
+                }
+                if (check != true) {
+                    receptionistList.add(emp.get(positionArrayListEmployees));
+                }
             } else if (emp.get(positionArrayListEmployees) instanceof CenterCoordinator) {
-                centreCoordinatorList.add(emp.get(positionArrayListEmployees));
+                for (int centreCoordinatorListPosition = 0; centreCoordinatorListPosition < centreCoordinatorList.size(); centreCoordinatorListPosition++) {
+                    if (emp.get(positionArrayListEmployees).getEmail() == centreCoordinatorList.get(centreCoordinatorListPosition).getEmail()) {
+                        check = true;
+                    }
+                }
+                if (check != true) {
+                    centreCoordinatorList.add(emp.get(positionArrayListEmployees));
+                }
             }
         }
     }
 
+    /**
+     * Gets the Nurses registered in the Company.
+     *
+     * @return An ArrayList of Nurses.
+     */
     public ArrayList<Employee> getNurseList() {
         return nurseList;
     }
 
+    /**
+     * Gets the Receptionists registered in the Company.
+     *
+     * @return An ArrayList of Receptionists.
+     */
     public ArrayList<Employee> getReceptionistList() {
         return receptionistList;
     }
 
+    /**
+     * Gets the Centre Coordinators registered in the Company.
+     *
+     * @return An ArrayList of Centre Coordinator.
+     */
     public ArrayList<Employee> getCentreCoordinatorList() {
         return centreCoordinatorList;
     }

@@ -14,7 +14,7 @@ public class AdministrationProcess {
 
     private ArrayList<Integer> numberOfDoses;
 
-    private ArrayList<Float> dosage;
+    private ArrayList<Double> dosage;
 
     private ArrayList<ArrayList<Integer>> timeIntervalBetweenVaccines;
 
@@ -27,7 +27,7 @@ public class AdministrationProcess {
      * @param dosage                      The dosage, in ml, that should be in the vaccine in one take.
      * @param timeIntervalBetweenVaccines The interval, in days, between doses.
      */
-    public AdministrationProcess(ArrayList<ArrayList<Integer>> ageGroups, ArrayList<Integer> numberOfDoses, ArrayList<Float> dosage, ArrayList<ArrayList<Integer>> timeIntervalBetweenVaccines) {
+    public AdministrationProcess(ArrayList<ArrayList<Integer>> ageGroups, ArrayList<Integer> numberOfDoses, ArrayList<Double> dosage, ArrayList<ArrayList<Integer>> timeIntervalBetweenVaccines) {
         this.ageGroups = ageGroups;
         this.numberOfDoses = numberOfDoses;
         this.dosage = dosage;

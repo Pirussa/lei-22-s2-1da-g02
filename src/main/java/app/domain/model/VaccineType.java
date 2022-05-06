@@ -69,7 +69,7 @@ public class VaccineType {
         return true;
     }
 
-    public String getCode(){
+    public String getCode() {
         return code;
     }
 
