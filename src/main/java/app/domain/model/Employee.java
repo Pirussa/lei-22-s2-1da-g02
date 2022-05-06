@@ -17,19 +17,16 @@ public class Employee {
     private static final int ID_LENGTH = 5;
     private static final int NUMBER_OF_PHONE_NUMBER_DIGITS = 9;
     private static final int STARTING_NUMBER_PORTUGUESE_PHONE = 9;
+
+    private static final int FIRST_SECOND_NUMBER_PORTUGUESE_PHONE = 1;
+
+    private static final int SECOND_SECOND_NUMBER_PORTUGUESE_PHONE = 2;
+
+    private static final int THIRD_SECOND_NUMBER_PORTUGUESE_PHONE = 3;
+
+    private static final int FOURTH_SECOND_NUMBER_PORTUGUESE_PHONE = 6;
     private static final int NUMBER_OF_CITIZEN_CARD_DIGITS = 12;
     private static final int FIRST_SECOND_DIGIT_CC = 10;
-
-    private static final int SECOND_SECOND_DIGIT_CC = 8;
-
-    private static final int THIRD_SECOND_DIGIT_CC = 6;
-
-    private static final int FOURTH_SECOND_DIGIT_CC = 4;
-
-    private static final int FIFTH_SECOND_DIGIT_CC = 2;
-
-    private static final int LAST_SECOND_DIGIT_CC = 0;
-    private String role;
     private String id;
     private String name;
     private String address;
@@ -52,10 +49,6 @@ public class Employee {
 
     public String getName() {
         return name;
-    }
-
-    public String getRole() {
-        return role;
     }
 
     public String getId() {
@@ -128,49 +121,39 @@ public class Employee {
                 orderedID = new StringBuilder("NR-" + orderedID);
                 break;
         }
-
-        String auxID = String.valueOf(orderedID);
-        String[] splitID = auxID.split("-");
-
-        if (!orderedID.isEmpty() && orderedID.length() == 8 && splitID[1].length() == 5) {
-            return orderedID;
-        } else {
-            orderedID = new StringBuilder("");
-            return orderedID;
-        }
+        return orderedID;
     }
 
     public boolean validateEmployee() {
-        return !name.isEmpty() && !address.isEmpty() && !email.isEmpty() && !phoneNumber.isEmpty() && !citizenCardNumber.isEmpty() && validateEmail(email) && validateCitizenCardNumber(citizenCardNumber) && validatePhoneNumber(phoneNumber) && validateAddress(address);
+        return !name.isEmpty() && !address.isEmpty() && !email.isEmpty() && !phoneNumber.isEmpty() && !citizenCardNumber.isEmpty() && validateEmail(email) && validateCitizenCardNumber(citizenCardNumber) && validateAddress(address) && validatePhoneNumber(phoneNumber);
     }
 
-    public boolean validatePhoneNumber(String phoneNumber) throws IllegalArgumentException {
-        if (phoneNumber.length() != NUMBER_OF_PHONE_NUMBER_DIGITS)
-            throw new IllegalArgumentException("Invalid Phone Number, verify the number of digits");
+    public boolean validatePhoneNumber(String phoneNumber) {
 
-        final String portugueseSecondDigit = "1236";
+        if (phoneNumber.length() == NUMBER_OF_PHONE_NUMBER_DIGITS && Integer.parseInt(phoneNumber) % 1 == 0) {
+            int ch1 = Integer.parseInt(String.valueOf(phoneNumber.charAt(0)));
+            if (ch1 != STARTING_NUMBER_PORTUGUESE_PHONE)
+                return false;
 
-    char ch1 = phoneNumber.charAt(0);
-        if (!(ch1 == STARTING_NUMBER_PORTUGUESE_PHONE))
-            throw new IllegalArgumentException("Invalid Phone Number, verify the first digit");
-
-    char ch2 = phoneNumber.charAt(1);
-        if (!(ch2 == portugueseSecondDigit.charAt(0) || ch2 == portugueseSecondDigit.charAt(1) || ch2 == portugueseSecondDigit.charAt(2) || ch2 == portugueseSecondDigit.charAt(3)))
-            throw new IllegalArgumentException("Invalid Phone Number, verify the second digit");
-
-        return true;
-
+            int ch2 = Integer.parseInt(String.valueOf(phoneNumber.charAt(1)));
+            if (ch2 != FIRST_SECOND_NUMBER_PORTUGUESE_PHONE && ch2 != SECOND_SECOND_NUMBER_PORTUGUESE_PHONE && ch2 != THIRD_SECOND_NUMBER_PORTUGUESE_PHONE && ch2 != FOURTH_SECOND_NUMBER_PORTUGUESE_PHONE) {
+                return false;
+            }
+            return true;
+        }
+        return false;
     }
 
     public boolean validateCitizenCardNumber(String citizenCardNumber) {
+        String noBlankSpotsCitizenCardNumber = citizenCardNumber.replaceAll("\\s", "");
         int sum = 0;
-        if (citizenCardNumber.length() != NUMBER_OF_CITIZEN_CARD_DIGITS)
-            throw new IllegalArgumentException("Invalid length for Citizen Card Number.");
+        if (noBlankSpotsCitizenCardNumber.length() != NUMBER_OF_CITIZEN_CARD_DIGITS)
+            return false;
 
         boolean secondDigit = true;
 
-        for (int digit = 0; digit < citizenCardNumber.length(); digit++) {
-            String toUpperCase = String.valueOf(citizenCardNumber.charAt(digit)).toUpperCase();
+        for (int digit = 0; digit < noBlankSpotsCitizenCardNumber.length(); digit++) {
+            String toUpperCase = String.valueOf(noBlankSpotsCitizenCardNumber.charAt(digit)).toUpperCase();
             int value = getValueFromCitizenCardNumberDigit(toUpperCase);
 
             if (secondDigit) {
@@ -265,7 +248,7 @@ public class Employee {
 
     public boolean validateEmail(String email) {
         if (!email.contains("@") && !email.contains("."))
-            throw new IllegalArgumentException("Email must contain - @ and .");
+            return false;
 
         String[] emailSplitter = email.split("@");
         String[] validEmailDomain = {"gmail.com", "hotmail.com", "isep.ipp.pt", "sapo.pt", "outlook.com"};
@@ -280,11 +263,11 @@ public class Employee {
     public boolean validateAddress(String address) {
         String[] splitAddress = address.split(",");
         if (splitAddress.length != 3)
-            throw new IllegalArgumentException("Invalid address, it must contain Street, Zip code and location");
+            return false;
 
         String zipCode = splitAddress[1].trim();
         if (zipCode.length() != 8)
-            throw new IllegalArgumentException("Invalid Zip Code");
+            return false;
         return true;
     }
 }

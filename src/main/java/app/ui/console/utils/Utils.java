@@ -150,7 +150,7 @@ public class Utils {
         System.out.println("1 - Yes");
         System.out.println("0 - No");
         Scanner sc = new Scanner(System.in);
-        System.out.println("Type your option:");
+        System.out.printf("%nType your option:");
         int check = 0;
         int option = 0;
         do {

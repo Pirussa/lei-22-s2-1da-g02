@@ -76,14 +76,14 @@ public class Company {
     }
 
 
-    /*public List<HealthcareCenter> getHealthcareCenter(){
+    public List<HealthcareCenter> getHealthcareCenter() {
 
         return healthcareCenters;
     }
 
-    public List<MassVaccinationCenter> getMassVaccinationCenter(){
+    public List<MassVaccinationCenter> getMassVaccinationCenter() {
         return massVaccinationCenters;
-    }*/
+    }
 
     public List<VaccinationCenter> getVaccinationCenters(VaccinationCenter o) {
         return vaccinationCenters;

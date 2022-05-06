@@ -76,13 +76,13 @@ public class CreateVaccinationCenterUI implements Runnable {
             String strOption = sc1.nextLine();
             if (strOption == "yes" || strOption == "y" || strOption == "YES" || strOption == "Y" || strOption == "Yes") {
                 controller.saveVaccinationCenter(dto);
-                for (int i = 0; i < controller.getVaccinationCenters().size(); i++) {
+                /*for (int i = 0; i < controller.getVaccinationCenters().size(); i++) {
                     System.out.println();
                     System.out.println("\nPosition" + i + ": " + controller.getVaccinationCenters().get(i));
                 }
                 System.out.println("---------------------------------------------------------------------------------");
                 System.out.println("The Vaccination Center was saved into the list as you can see.");
-            } else {
+            */} else {
                 run();
             }
         } else {
@@ -131,13 +131,13 @@ public class CreateVaccinationCenterUI implements Runnable {
             String strOption = sc1.nextLine();
             if (strOption == "yes" || strOption == "y" || strOption == "YES" || strOption == "Y" || strOption == "Yes") {
                 controller.saveVaccinationCenter(dto);
-                for (int i = 0; i < controller.getVaccinationCenters().size(); i++) {
+              /* for (int i = 0; i < controller.getVaccinationCenters().size(); i++) {
                     System.out.println();
                     System.out.println("\nPosition" + i + ": " + controller.getVaccinationCenters().get(i));
                 }
                 System.out.println("---------------------------------------------------------------------------------");
                 System.out.println("The Vaccination Center was saved into the list as you can see.");
-            } else {
+            */} else {
                 run();
             }
         } else {
@@ -185,13 +185,13 @@ public class CreateVaccinationCenterUI implements Runnable {
             String strOption = sc1.nextLine();
             if (strOption == "yes" || strOption == "y" || strOption == "YES" || strOption == "Y" || strOption == "Yes") {
                 controller.saveVaccinationCenter(dto);
-                for (int i = 0; i < controller.getVaccinationCenters().size(); i++) {
+               /* for (int i = 0; i < controller.getVaccinationCenters().size(); i++) {
                     System.out.println();
                     System.out.println("\nPosition" + i + ": " + controller.getVaccinationCenters().get(i));
                 }
                 System.out.println("---------------------------------------------------------------------------------");
                 System.out.println("The Vaccination Center was saved into the list as you can see.");
-            } else {
+            */} else {
                 run();
             }
         } else {
