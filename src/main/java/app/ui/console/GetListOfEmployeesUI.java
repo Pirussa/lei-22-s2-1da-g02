@@ -1,7 +1,9 @@
 package app.ui.console;
 
 import app.controller.GetListOfEmployeesController;
+import app.domain.model.Employee;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -31,53 +33,51 @@ public class GetListOfEmployeesUI implements Runnable {
         System.out.println("");
 
 
+
         do {
+
             System.out.print("Type your option: ");
             option = read.nextInt();
-            if (!ctrl.getEmployees().isEmpty()) {
-                switch (option) {
-                    case 1:
-                        if (!ctrl.getNurseList().isEmpty()) {
-                            System.out.println("**These are the Nurses registered in the system:**");
-                            for (int listPosition = 0; listPosition < ctrl.getNurseList().size(); listPosition++) {
-                                System.out.println(ctrl.getNurseList().get(listPosition));
-                            }
-                        } else {
-                            System.out.println("There aren't any Nurses registered in the system.");
-                            System.out.println("");
-                        }
-                        break;
-                    case 2:
-                        if (!ctrl.getReceptionistList().isEmpty()) {
-                            System.out.println("**These are the Receptionists registered in the system:**");
-                            for (int listPosition = 0; listPosition < ctrl.getReceptionistList().size(); listPosition++) {
-                                System.out.println(ctrl.getReceptionistList().get(listPosition));
-                            }
-                        } else {
-                            System.out.println("There aren't any Receptionists registered in the system.");
-                            System.out.println("");
-                        }
-                        break;
-                    case 3:
-                        if (!ctrl.getCentreCoordinatorList().isEmpty()) {
-                            System.out.println("**These are the Centre Coordinators registered in the system:**");
-                            for (int listPosition = 0; listPosition < ctrl.getCentreCoordinatorList().size(); listPosition++) {
-                                System.out.println(ctrl.getCentreCoordinatorList().get(listPosition));
-                            }
-                        } else {
-                            System.out.println("There aren't any Centre Coordinators registered in the system.");
-                            System.out.println("");
-                        }
-                        break;
 
-                    case 0:
+            switch (option) {
+                case 1:
+                    if (!ctrl.getNurseList().isEmpty()) {
+                        System.out.println("**These are the Nurses registered in the system:**");
+                        for (int listPosition = 0; listPosition < ctrl.getNurseList().size(); listPosition++) {
+                            System.out.println(ctrl.getNurseList().get(listPosition));
+                        }
+                    } else {
+                        System.out.println("There aren't any Nurses registered in the system.");
+                        System.out.println("");
+                    }
+                    break;
+                case 2:
+                    if (!ctrl.getReceptionistList().isEmpty()) {
+                        System.out.println("**These are the Receptionists registered in the system:**");
+                        for (int listPosition = 0; listPosition < ctrl.getReceptionistList().size(); listPosition++) {
+                            System.out.println(ctrl.getReceptionistList().get(listPosition));
+                        }
+                    } else {
+                        System.out.println("There aren't any Receptionists registered in the system.");
+                        System.out.println("");
+                    }
+                    break;
+                case 3:
+                    if (!ctrl.getCentreCoordinatorList().isEmpty()) {
+                        System.out.println("**These are the Centre Coordinators registered in the system:**");
+                        for (int listPosition = 0; listPosition < ctrl.getCentreCoordinatorList().size(); listPosition++) {
+                            System.out.println(ctrl.getCentreCoordinatorList().get(listPosition));
+                        }
+                    } else {
+                        System.out.println("There aren't any Centre Coordinators registered in the system.");
+                        System.out.println("");
+                    }
+                    break;
 
 
-                    default:
-                        System.out.println("Invalid option, please select one that's valid.");
-                }
+                default:
+                    System.out.println("Invalid option, please select one that's valid.");
             }
-
             if (option == 1) {
                 System.out.println("");
                 System.out.println("**Other options:**");
@@ -106,6 +106,7 @@ public class GetListOfEmployeesUI implements Runnable {
             }
 
         } while (option == 1 || option == 2 || option == 3);
+
     }
 
 }
