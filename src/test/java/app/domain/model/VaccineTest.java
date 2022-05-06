@@ -19,29 +19,50 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class VaccineTest {
-    private static List<VaccineAndAdminProcessDto> dtos;
-    private Vaccine object;
+    private static List<Vaccine> vaccines;
+
     private Company c = App.getInstance().getCompany();
 
+    @Test
+    /**
+     * Verifies if a Vaccine with all the right attributes is created
+     */
+    public void createVaccine() {
+        Vaccine v = Utils.createVaccine("Test", 12, "Brand1", 20.0, 12, 15, 16);
+        assertTrue(v.validateVaccine());
 
-   // @BeforeAll
-  //  public static void setup() {
-  //      dtos = new LinkedList<>();
-  //      VaccineAndAdminProcessDto dto1 = new VaccineAndAdminProcessDto();
-  //      dto1.id = 1;
-  //      dto1.name = "Teste";
-  //      dto1.brand = "JUNIT";
-  //      dto1.vt = new VaccineType("0", "sss", "l");
-  //      //   dto1.
-  //      //  dtos.add(dto1);
-  //  }
-//
-//
-  //  @Test
-  //  public void validateVacine() {
-  //      Vaccine v = new Vaccine("V", 1, "l", new AdministrationProcess());
-//
-  //      assertTrue(v.validateVaccine());
-//
-  //  }
+    }
+
+    @Test
+    /**
+     * Verifies if a Vaccine with all the attributes null is created
+     */
+    public void createNullVaccine() {
+        assertFalse(Utils.createVaccine("", 0, "", 20.0, 12, 15, 12).validateVaccine());
+    }
+
+    @Test
+    /**
+     * Verifies if a Vaccine with empty name is created
+     */
+    public void createVaccineWithNullName() {
+        assertFalse(Utils.createVaccine("", 1234, "Brand", 20.0, 12, 15, 12).validateVaccine());
+    }
+
+    @Test
+    /**
+     * Verifies if a Vaccine with invalid id is created
+     */
+    public void createVaccineWithNullId() {
+        assertFalse(Utils.createVaccine("Test", 0, "Brand", 20.0, 12, 15, 12).validateVaccine());
+    }
+
+    @Test
+    /**
+     * Verifies if a Vaccine with empty brand is created
+     */
+    public void createVaccineWithNullBrand() {
+        assertFalse(Utils.createVaccine("Test", 123, "", 20.0, 12, 15, 12).validateVaccine());
+    }
+
 }

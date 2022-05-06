@@ -40,24 +40,29 @@ public class SpecifyVaccineAndAdminProcessUI implements Runnable {
                 options++;
             }
             System.out.println("Type your option:");
-            int option =0;
-            try{
-              option  = sc.nextInt();
-            }catch(InputMismatchException e){
-                System.out.println("Invalid option");
+            int option = 0;
+            int check = 0;
 
-            }
+            do {
+                try {
+                    option = sc.nextInt();
+                    sc.nextLine();
+                    if (option >= 1 && option <= options-1) {
+                        dto.vt = vTs.get(option - 1);
+                        check = 1;
+                    } else {
+                        System.out.println("Insert a valid option: ");
+                    }
 
-            sc.nextLine();
-            if (option >= 1 && option <= options) {
-                dto.vt = vTs.get(option - 1);
-            } else {
-                System.out.println("Insert a valid option");
-            }
+                } catch (InputMismatchException e) {
+                    sc.nextLine();
+                    System.out.println("Insert a valid option: ");
+                }
+            } while (check == 0);
 
 
             System.out.println("--What's the vaccine id?");
-            int check = 0;
+            check = 0;
 
             do {
                 try {
@@ -66,6 +71,7 @@ public class SpecifyVaccineAndAdminProcessUI implements Runnable {
                     check = 1;
                 } catch (InputMismatchException e) {
                     System.out.println("Insert a valid Vaccine ID:");
+                    sc.nextLine();
                 }
             } while (check == 0);
 
@@ -121,7 +127,7 @@ public class SpecifyVaccineAndAdminProcessUI implements Runnable {
 
 
                 System.out.println();
-                int numberOfDoses =chooseNumberOfDoses() ;
+                int numberOfDoses = chooseNumberOfDoses();
                 dto.numberOfDoses.add(numberOfDoses);
 
                 check = 0;
@@ -131,7 +137,7 @@ public class SpecifyVaccineAndAdminProcessUI implements Runnable {
                 check = 0;
                 do {
                     try {
-                        dto.dosage.add(sc.nextFloat());
+                        dto.dosage.add(sc.nextDouble());
                         sc.nextLine();
                         check = 1;
                     } catch (InputMismatchException e) {
@@ -157,7 +163,7 @@ public class SpecifyVaccineAndAdminProcessUI implements Runnable {
                     } while (check == 0);
 
 
-                } else if(numberOfDoses ==3) {
+                } else if (numberOfDoses == 3) {
                     do {
                         try {
                             intervalFirstDose.add(sc.nextInt());
@@ -280,7 +286,8 @@ public class SpecifyVaccineAndAdminProcessUI implements Runnable {
 
     }
 
-    /** Asks the user how many doses should be considered for an age group.
+    /**
+     * Asks the user how many doses should be considered for an age group.
      *
      * @return number of doses for a given age group
      */
@@ -298,7 +305,6 @@ public class SpecifyVaccineAndAdminProcessUI implements Runnable {
             System.out.println();
             System.out.println("Type your option: ");
             int option = sc.nextInt();
-
 
 
             switch (option) {
