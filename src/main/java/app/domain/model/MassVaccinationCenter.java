@@ -20,11 +20,9 @@ public class MassVaccinationCenter extends  VaccinationCenter{
         this.strVaccineType=strVaccineType;
     }
 
-
-
     @Override
     public String toString() {
         return super.toString() +
-                "strVaccineType= " + strVaccineType;
+                "Vaccine Types administered in the Vaccination Center: " + strVaccineType;
     }
 }

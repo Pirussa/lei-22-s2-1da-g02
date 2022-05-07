@@ -28,11 +28,10 @@ public class HealthcareCenter extends VaccinationCenter{
 
     @Override
     public String toString() {
-        return "HealthcareCenter{" +
-                "strARS='" + strARS + '\'' +
-                ", strAGES='" + strAGES + '\'' +
-                ", strVaccineType=" + strVaccineType +
-                '}';
+        return super.toString() +
+                "Regional Health Administration of the Vaccination Center: " + strARS + '\n' +
+                "Grouping of the Vaccination Center: " + strAGES + '\n' +
+                "Vaccine Types administered in the Vaccination Center: " + strVaccineType;
     }
 }
 
