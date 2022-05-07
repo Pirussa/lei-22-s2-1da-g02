@@ -22,20 +22,20 @@ public class GetListOfEmployeesUI implements Runnable {
     public void run() {
         int option;
         Scanner read = new Scanner(System.in);
-        ctrl.fillListOfEmployeesWithAGivenRole();
         System.out.println("");
         System.out.println("**You have chosen to get a list of Employees**");
         System.out.println("");
         System.out.println("Select the option you pretend to get a list of:");
-        System.out.println("1- List of Nurses");
-        System.out.println("2- List of Receptionists");
-        System.out.println("3- List of Centre Coordinators");
+        System.out.println("1- List of Nurses.");
+        System.out.println("2- List of Receptionists.");
+        System.out.println("3- List of Centre Coordinators.");
+        System.out.println("");
+        System.out.println("0- Return.");
         System.out.println("");
 
 
-
         do {
-
+            ctrl.fillListOfEmployeesWithAGivenRole();
             System.out.print("Type your option: ");
             option = read.nextInt();
 
@@ -74,6 +74,8 @@ public class GetListOfEmployeesUI implements Runnable {
                     }
                     break;
 
+                case 0:
+                    break;
 
                 default:
                     System.out.println("Invalid option, please select one that's valid.");

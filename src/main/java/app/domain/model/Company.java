@@ -232,30 +232,33 @@ public class Company {
         for (int positionArrayListEmployees = 0; positionArrayListEmployees < emp.size(); positionArrayListEmployees++) {
             if (emp.get(positionArrayListEmployees) instanceof Nurse) {
                 for (int nurseListPosition = 0; nurseListPosition < nurseList.size(); nurseListPosition++) {
-                    if (emp.get(positionArrayListEmployees).getEmail() == nurseList.get(nurseListPosition).getEmail()) {
+                    if (emp.get(positionArrayListEmployees).getEmail().equals(nurseList.get(nurseListPosition).getEmail()) && emp.get(positionArrayListEmployees).getCitizenCardNumber().equals(nurseList.get(nurseListPosition).getCitizenCardNumber())) {
                         check = true;
                     }
                 }
-                if (check != true) {
+                if (!check) {
                     nurseList.add(emp.get(positionArrayListEmployees));
+                    check = true;
                 }
             } else if (emp.get(positionArrayListEmployees) instanceof Receptionist) {
                 for (int receptionistListPosition = 0; receptionistListPosition < receptionistList.size(); receptionistListPosition++) {
-                    if (emp.get(positionArrayListEmployees).getEmail() == receptionistList.get(receptionistListPosition).getEmail()) {
+                    if (emp.get(positionArrayListEmployees).getEmail().equals(receptionistList.get(receptionistListPosition).getEmail()) && emp.get(positionArrayListEmployees).getCitizenCardNumber().equals(receptionistList.get(receptionistListPosition).getCitizenCardNumber())) {
                         check = true;
                     }
                 }
-                if (check != true) {
+                if (!check) {
                     receptionistList.add(emp.get(positionArrayListEmployees));
+                    check = true;
                 }
             } else if (emp.get(positionArrayListEmployees) instanceof CenterCoordinator) {
                 for (int centreCoordinatorListPosition = 0; centreCoordinatorListPosition < centreCoordinatorList.size(); centreCoordinatorListPosition++) {
-                    if (emp.get(positionArrayListEmployees).getEmail() == centreCoordinatorList.get(centreCoordinatorListPosition).getEmail()) {
+                    if (emp.get(positionArrayListEmployees).getEmail().equals(centreCoordinatorList.get(centreCoordinatorListPosition).getEmail()) && emp.get(positionArrayListEmployees).getCitizenCardNumber().equals(centreCoordinatorList.get(centreCoordinatorListPosition).getCitizenCardNumber())) {
                         check = true;
                     }
                 }
-                if (check != true) {
+                if (!check) {
                     centreCoordinatorList.add(emp.get(positionArrayListEmployees));
+                    check = true;
                 }
             }
         }
