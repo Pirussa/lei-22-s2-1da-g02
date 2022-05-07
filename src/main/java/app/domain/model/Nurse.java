@@ -5,13 +5,6 @@ public class Nurse extends Employee {
         super(id, name, address, phoneNumber, email, citizenCardNumber, password);
     }
 
-
-    /*
-    public Nurse(String role, int id, String name, String address, int phoneNumber, String email, int citizenCardNumber, String password) {
-        super(role, id, name, address, phoneNumber, email, citizenCardNumber, password);
-    }*/
-
-
     @Override
     public String toString() {
         return "Name: " + super.getName() +

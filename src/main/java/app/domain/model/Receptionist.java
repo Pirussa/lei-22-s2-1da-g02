@@ -5,11 +5,6 @@ public class Receptionist extends Employee {
         super(id, name, address, phoneNumber, email, citizenCardNumber, password);
     }
 
-    /*
-    public Receptionist(String role, int id, String name, String address, int phoneNumber, String email, int citizenCardNumber, String password) {
-        super(role, id, name, address, phoneNumber, email, citizenCardNumber, password);
-    }*/
-
     @Override
     public String toString() {
         return "Name: " + super.getName() +
@@ -19,6 +14,4 @@ public class Receptionist extends Employee {
                 " | Email: " + super.getEmail() +
                 " | Citizen Card Number: " + super.getCitizenCardNumber();
     }
-
-
 }

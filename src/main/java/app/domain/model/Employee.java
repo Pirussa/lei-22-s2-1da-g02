@@ -268,6 +268,7 @@ public class Employee {
         String zipCode = splitAddress[1].trim();
         if (zipCode.length() != 8)
             return false;
+        
         return true;
     }
 }

@@ -6,6 +6,8 @@ import app.domain.model.Employee;
 import app.domain.shared.Constants;
 import app.ui.console.utils.Utils;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -52,6 +54,13 @@ public class RegisterNewEmployeeUI implements Runnable {
             showNewEmployeeData(dto, selectedRole);
             if (Utils.confirmCreation()) {
                 ctrl.saveCreatedEmployee(dto, selectedRole);
+                System.out.printf("%nPath of the file to keep both id and password: ");
+                String file = read.nextLine();
+              /*  try {
+                    printIDAndPasswordToFile(dto.password, dto.id, file);
+                } catch (FileNotFoundException e) {
+                    throw new Exception(e);
+                }*/
                 System.out.printf("%n-----------------------------%n|The Employee was registered|%n-----------------------------%n");
             } else
                 System.out.printf("%n---------------------------------%n|The Employee was not registered|%n---------------------------------%n");
@@ -63,6 +72,13 @@ public class RegisterNewEmployeeUI implements Runnable {
 
     public void showNewEmployeeData(RegisterNewEmployeeDto dto, String selectedRole) {
         System.out.printf("%n----------------------------------------------------------------------------%n");
-        System.out.printf("%n---------------------%n|Employee Given Data|%n---------------------%n%n- Selected Role: |%s|%n%n- Given Name: |%s|%n%n- Given Address: |%s|%n%n- Given Phone Number: |%s|%n%n- Given Email: |%s|%n%n- Given Citizen Card Number: |%s|%n%n- Generated ID: |%s|%n%n- Generated Password: |%s|%n%n", selectedRole, dto.name, dto.address, dto.phoneNumber, dto.email, dto.citizenCardNumber, dto.id, dto.password);
+        System.out.printf("%n-------------------%n|New Employee Data|%n-------------------%n%n- Role: |%s|%n%n- Name: |%s|%n%n- Address: |%s|%n%n- Phone Number: |%s|%n%n- Email: |%s|%n%n- Citizen Card Number: |%s|%n%n- ID: |%s|%n%n- Password: |%s|%n%n", selectedRole, dto.name, dto.address, dto.phoneNumber, dto.email, dto.citizenCardNumber, dto.id, dto.password);
+    }
+
+    public static void printIDAndPasswordToFile(String password, String id, String file) throws FileNotFoundException {
+        PrintWriter out = new PrintWriter(file);
+        out.printf("--------------%n|ID: %s|%n--------------%n%n", id);
+        out.printf("-------------------%n|Password: %s|%n-------------------", password);
+        out.close();
     }
 }

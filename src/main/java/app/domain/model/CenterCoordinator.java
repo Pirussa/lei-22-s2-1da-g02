@@ -5,12 +5,6 @@ public class CenterCoordinator extends Employee {
         super(id, name, address, phoneNumber, email, citizenCardNumber, password);
     }
 
-    /*
-    public CenterCoordinator(String role, int id, String name, String address, int phoneNumber, String email, int citizenCardNumber, String password) {
-        super(role, id, name, address, phoneNumber, email, citizenCardNumber, password);
-    }*/
-
-
     @Override
     public String toString() {
         return "Name: " + super.getName() +
@@ -20,5 +14,4 @@ public class CenterCoordinator extends Employee {
                 " | Email: " + super.getEmail() +
                 " | Citizen Card Number: " + super.getCitizenCardNumber();
     }
-
 }

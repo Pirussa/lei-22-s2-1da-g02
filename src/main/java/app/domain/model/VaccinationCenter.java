@@ -6,7 +6,7 @@ import app.controller.CreateVaccinationCenterController;
  *
  * @author João Castro <1210816@isep.ipp.pt>
  */
-public class VaccinationCenter{
+public class  VaccinationCenter{
 
     Employee thisCoordinator;
     Company thisCompany;
