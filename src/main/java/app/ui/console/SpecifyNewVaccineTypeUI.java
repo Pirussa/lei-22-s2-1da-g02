@@ -88,8 +88,8 @@ public class SpecifyNewVaccineTypeUI implements Runnable {
         System.out.println();
         System.out.println("---- Vaccine Type: ----");
         System.out.println("Code: " + code);
-        System.out.println("Technology: " + technology);
         System.out.println("Description: " + description);
+        System.out.println("Technology: " + technology);
         System.out.println();
     }
 

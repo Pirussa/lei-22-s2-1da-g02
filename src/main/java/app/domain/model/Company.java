@@ -13,6 +13,8 @@ import java.util.Objects;
  * @author Gustavo Jorge <1211061@isep.ipp.pt>
  * @author João Castro <1210816@isep.ipp.pt>
  * @author João Leitão <1211063@isep.ipp.pt>
+ * @author Guilherme Sousa <1211073@isep.ipp.pt>
+ * @author Pedro Monteiro <1211076@isep.ipp.pt>
  */
 
 public class Company {
@@ -207,10 +209,24 @@ public class Company {
     }
     //END
 
+    /**
+     * Register an Employee in the company storage
+     *
+     * @param dto A data transfer object with all the necessary information about the new Employee
+     * @return true if the new Employee data is valid
+     */
     public boolean registerNewEmployee(RegisterNewEmployeeDto dto) {
         Employee emp = new Employee(dto.id, dto.name, dto.address, dto.phoneNumber, dto.email, dto.citizenCardNumber, dto.password);
         return emp.validateEmployee();
     }
+
+    /**
+     * Saves an Employee into the Company storage.
+     *
+     * @param dto A data transfer object with all the necessary information about the new Employee
+     * @param selectedRole Selected role for the new Employee by the user
+     * Company Vaccines Storage: {@link #employees}
+     */
 
     public void saveCreatedEmployee(RegisterNewEmployeeDto dto, String selectedRole) {
         if (Objects.equals(selectedRole, "Nurse")) {
