@@ -163,7 +163,7 @@ public class Employee {
      */
 
     public boolean validateEmployee() {
-        return !name.isEmpty() && !address.isEmpty() && !email.isEmpty() && !phoneNumber.isEmpty() && !citizenCardNumber.isEmpty() && validateEmail(email) && validateCitizenCardNumber(citizenCardNumber) && validateAddress(address) && validatePhoneNumber(phoneNumber);
+        return name != null && address != null && email != null && phoneNumber != null && citizenCardNumber != null && !name.isEmpty() && !address.isEmpty() && !email.isEmpty() && !phoneNumber.isEmpty() && !citizenCardNumber.isEmpty() && validateEmail(email) && validateCitizenCardNumber(citizenCardNumber) && validateAddress(address) && validatePhoneNumber(phoneNumber);
     }
 
     /**
