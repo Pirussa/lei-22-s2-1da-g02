@@ -13,6 +13,8 @@ import java.util.Objects;
  * @author Gustavo Jorge <1211061@isep.ipp.pt>
  * @author João Castro <1210816@isep.ipp.pt>
  * @author João Leitão <1211063@isep.ipp.pt>
+ * @author Guilherme Sousa <1211073@isep.ipp.pt>
+ * @author Pedro Monteiro <1211076@isep.ipp.pt>
  */
 
 public class Company {
@@ -149,24 +151,26 @@ public class Company {
 
     public void createMassVaccinationCenter(MassVaccinationCenterDto dto) {
         MassVaccinationCenter vc = new MassVaccinationCenter(dto.strID, dto.strName, dto.strPhoneNumber, dto.strEmail, dto.strFax, dto.strWebsite, dto.strOpeningHour,
-                dto.strClosingHour, dto.strSlotDuration, dto.strVaccinesPerSlot, dto.strRoad, dto.strZipCode, dto.strLocal, dto.strCenterCoordinatorID);
+                dto.strClosingHour, dto.strSlotDuration, dto.strVaccinesPerSlot, dto.strRoad, dto.strZipCode, dto.strLocal, dto.strCenterCoordinatorID, dto.strVaccineType);
     }
 
     public void createHealthcareCenter(HealthcareCenterDto dto) {
         HealthcareCenter vc = new HealthcareCenter(dto.strID, dto.strName, dto.strPhoneNumber, dto.strEmail, dto.strFax, dto.strWebsite, dto.strOpeningHour,
-                dto.strClosingHour, dto.strSlotDuration, dto.strVaccinesPerSlot, dto.strRoad, dto.strZipCode, dto.strLocal, dto.strCenterCoordinatorID, dto.strARS, dto.strAGES);
+                dto.strClosingHour, dto.strSlotDuration, dto.strVaccinesPerSlot, dto.strRoad, dto.strZipCode, dto.strLocal, dto.strCenterCoordinatorID, dto.strARS, dto.strAGES,
+                dto.strVaccineType);
     }
 
     public void saveMassVaccinationCenter(MassVaccinationCenterDto dto) {
         MassVaccinationCenter vc = new MassVaccinationCenter(dto.strID, dto.strName, dto.strPhoneNumber, dto.strEmail, dto.strFax, dto.strWebsite, dto.strOpeningHour,
-                dto.strClosingHour, dto.strSlotDuration, dto.strVaccinesPerSlot, dto.strRoad, dto.strZipCode, dto.strLocal, dto.strCenterCoordinatorID);
+                dto.strClosingHour, dto.strSlotDuration, dto.strVaccinesPerSlot, dto.strRoad, dto.strZipCode, dto.strLocal, dto.strCenterCoordinatorID,dto.strVaccineType);
         massVaccinationCenters.add(vc);
         vaccinationCenters.add(vc);
     }
 
     public void saveHealthcareCenter(HealthcareCenterDto dto) {
         HealthcareCenter vc = new HealthcareCenter(dto.strID, dto.strName, dto.strPhoneNumber, dto.strEmail, dto.strFax, dto.strWebsite, dto.strOpeningHour,
-                dto.strClosingHour, dto.strSlotDuration, dto.strVaccinesPerSlot, dto.strRoad, dto.strZipCode, dto.strLocal, dto.strCenterCoordinatorID, dto.strARS, dto.strAGES);
+                dto.strClosingHour, dto.strSlotDuration, dto.strVaccinesPerSlot, dto.strRoad, dto.strZipCode, dto.strLocal, dto.strCenterCoordinatorID, dto.strARS, dto.strAGES,
+                dto.strVaccineType);
         healthcareCenters.add(vc);
         vaccinationCenters.add(vc);
     }
@@ -174,9 +178,19 @@ public class Company {
     public void centerCoordinatorIDList() {
         ArrayList<Employee> centerCoordinators = getCentreCoordinatorList();
         for (int i = 0; i < centerCoordinators.size(); i++) {
-            centerCoordinatorIDs.add(centerCoordinators.get(i).getId());
+            if (centerCoordinatorIDs.isEmpty()){
+                centerCoordinatorIDs.add(centerCoordinators.get(i).getId());
+            } else{
+                for (int j = 0; j < centerCoordinatorIDs.size() ; j++) {
+                    if (!(centerCoordinators.get(i).getId().equals(centerCoordinatorIDs.get(j)))){
+                        centerCoordinatorIDs.add(centerCoordinators.get(i).getId());
+                    }
+                }
+            }
         }
     }
+
+    //if (!(centerCoordinatorIDs.get(i)==(centerCoordinators.get(i).getId()))){
 
     public ArrayList<VaccinationCenter> getVaccinationCenters() {
         return vaccinationCenters;
@@ -195,10 +209,24 @@ public class Company {
     }
     //END
 
+    /**
+     * Register an Employee in the company storage
+     *
+     * @param dto A data transfer object with all the necessary information about the new Employee
+     * @return true if the new Employee data is valid
+     */
     public boolean registerNewEmployee(RegisterNewEmployeeDto dto) {
         Employee emp = new Employee(dto.id, dto.name, dto.address, dto.phoneNumber, dto.email, dto.citizenCardNumber, dto.password);
         return emp.validateEmployee();
     }
+
+    /**
+     * Saves an Employee into the Company storage.
+     *
+     * @param dto A data transfer object with all the necessary information about the new Employee
+     * @param selectedRole Selected role for the new Employee by the user
+     * Company Vaccines Storage: {@link #employees}
+     */
 
     public void saveCreatedEmployee(RegisterNewEmployeeDto dto, String selectedRole) {
         if (Objects.equals(selectedRole, "Nurse")) {

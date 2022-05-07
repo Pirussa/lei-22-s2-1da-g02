@@ -53,13 +53,13 @@ public class CreateVaccinationCenterUI implements Runnable {
         CreateVaccinationCenterController controller = new CreateVaccinationCenterController();
         controller.fillListOfEmployeesWithAGivenRole();
         controller.centerCoordinatorIDList();
-        if (!controller.getCenterCoordinatorIDs().isEmpty()) {
+        if (!controller.getCenterCoordinatorIDs().isEmpty() && !controller.getVaccineTypeList().isEmpty()) {
 
             Scanner sc = new Scanner(System.in);
             Scanner sc1 = new Scanner(System.in);
             MassVaccinationCenterDto dto = new MassVaccinationCenterDto();
             dto.strID = String.valueOf(idGeneratorMass(typeOfCenter));
-            dto.strName = Utils.readLineFromConsole("Name of the Healthcare Center (No Validation): ");
+            dto.strName = Utils.readLineFromConsole("Name of the Mass Vaccination Center (No Validation): ");
             dto.strPhoneNumber = Utils.readLineFromConsole("Phone Number of the Healthcare Center (9 Chars, only numbers): ");
             dto.strEmail = Utils.readLineFromConsole("Email of the Healthcare Center (Needs to have @ and .): ");
             dto.strFax = Utils.readLineFromConsole("Fax Number of the Healthcare Center(No Validation): ");
@@ -82,11 +82,25 @@ public class CreateVaccinationCenterUI implements Runnable {
             int option = sc.nextInt();
 
             for (int i = 0; i < controller.getVaccinationCenters().size(); i++) {
-                if (controller.getCenterCoordinatorIDs().get(option).equals(controller.getVaccinationCenters().get(i).getStrID())) {
-                    return;
-                }
+                    if (controller.getCenterCoordinatorIDs().get(option).equals(controller.getVaccinationCenters().get(i).getStrCenterCoordinatorID())) {
+                        System.out.println();
+                        System.out.println("The chosen coordinator is already assigned to another center.");
+                    }
             }
             dto.strCenterCoordinatorID = controller.getCenterCoordinatorIDs().get(option);
+
+
+
+            System.out.println("Information about the Vaccine Type");
+            System.out.println("Choose one vaccine type from the list, type the position you want.");
+            for (int i = 0; i < controller.getVaccineTypeList().size(); i++) {
+                System.out.println();
+                System.out.println("\nPosition " + i + ": " + controller.getVaccineTypeList().get(i));
+            }
+            int vaccineTypeOption = sc.nextInt();
+            dto.strVaccineType = controller.getVaccineTypeList().get(vaccineTypeOption).toString();
+
+
             controller.createMassVaccinationCenter(dto);
             System.out.println("------------------------------------------------------------------------------------");
             System.out.println("----------------------PLEASE VERIFY THE DATA----------------------------------------");
@@ -95,17 +109,18 @@ public class CreateVaccinationCenterUI implements Runnable {
             String strOption = sc1.nextLine();
             if (strOption.equals("Yes") || strOption.equals("y") || strOption.equals("YES")  || strOption.equals("Y")  || strOption.equals("yes")) {
                 controller.saveMassVaccinationCenter(dto);
-                for (int i = 0; i < controller.getMassVaccinationCenters().size(); i++) {
+                for (int x = 0; x < controller.getMassVaccinationCenters().size(); x++) {
                     System.out.println();
-                    System.out.println("\nPosition" + i + ": " + controller.getMassVaccinationCenters().get(i));
+                    System.out.println("\nPosition" + x + ": " + controller.getMassVaccinationCenters().get(x));
                 }
                 System.out.println("---------------------------------------------------------------------------------");
                 System.out.println("The Vaccination Center was saved into the list as you can see.");
             } else {
-                run();
+                System.out.println();
+                System.out.println("You chose no");
             }
         } else {
-            System.out.println("Can't create a Vaccination Center without a registered Center Coordinator.");
+            System.out.println("Can't create a Vaccination Center without a registered Center Coordinator or Vaccine Type.");
         }
 
     }
@@ -115,7 +130,7 @@ public class CreateVaccinationCenterUI implements Runnable {
 
         controller.fillListOfEmployeesWithAGivenRole();
         controller.centerCoordinatorIDList();
-        if (!controller.getCenterCoordinatorIDs().isEmpty()) {
+        if (!controller.getCenterCoordinatorIDs().isEmpty() && !controller.getVaccineTypeList().isEmpty()) {
 
             Scanner sc = new Scanner(System.in);
             Scanner sc1 = new Scanner(System.in);
@@ -146,11 +161,28 @@ public class CreateVaccinationCenterUI implements Runnable {
             int option = sc.nextInt();
 
             for (int i = 0; i < controller.getVaccinationCenters().size(); i++) {
-                if (controller.getCenterCoordinatorIDs().get(option).equals(controller.getVaccinationCenters().get(i).getStrID())) {
-                    return;
+                if (controller.getCenterCoordinatorIDs().get(option).equals(controller.getVaccinationCenters().get(i).getStrCenterCoordinatorID())) {
+                    System.out.println();
+                    System.out.println("The chosen coordinator is already assigned to another center.");
                 }
             }
             dto.strCenterCoordinatorID = controller.getCenterCoordinatorIDs().get(option);
+
+            System.out.println("Information about the Vaccine Type");
+            System.out.println("Choose one or more vaccine types from the list, type the position you want.");
+            for (int i = 0; i < controller.getVaccineTypeList().size(); i++) {
+                System.out.println();
+                System.out.println("\nPosition " + i + ": " + controller.getVaccineTypeList().get(i));
+            }
+            System.out.println();
+            System.out.println("Type -1 to stop.");
+
+            int vaccineTypeOption = 0;
+            while(vaccineTypeOption!=-1){
+                vaccineTypeOption = sc.nextInt();
+                dto.strVaccineType[controller.getVaccineTypeList().size()] = controller.getVaccineTypeList().get(vaccineTypeOption).toString();
+            }
+
             controller.createHealthcareCenter(dto);
             System.out.println("------------------------------------------------------------------------------------");
             System.out.println("----------------------PLEASE VERIFY THE DATA----------------------------------------");
@@ -161,17 +193,18 @@ public class CreateVaccinationCenterUI implements Runnable {
             String strOption = sc1.nextLine();
             if (strOption.equals("Yes") || strOption.equals("y") || strOption.equals("YES")  || strOption.equals("Y")  || strOption.equals("yes")) {
                 controller.saveHealthcareCenter(dto);
-                for (int i = 0; i < controller.getHealthcareCenters().size(); i++) {
+                for (int x = 0; x < controller.getHealthcareCenters().size(); x++) {
                     System.out.println();
-                    System.out.println("\nPosition" + i + ": " + controller.getHealthcareCenters().get(i));
+                    System.out.println("\nPosition" + x + ": " + controller.getHealthcareCenters().get(x));
                 }
                 System.out.println("---------------------------------------------------------------------------------");
                 System.out.println("The Healthcare Center was saved into the list as you can see.");
             } else {
-                run();
+                System.out.println();
+                System.out.println("You chose no");
             }
         } else {
-            System.out.println("Can't create a Vaccination Center without a registered Center Coordinator.");
+            System.out.println("Can't create a Vaccination Center without a registered Center Coordinator or Vaccine Type.");
         }
     }
 

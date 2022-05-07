@@ -50,6 +50,10 @@ public class CreateVaccinationCenterController {
         company.centerCoordinatorIDList();
     }
 
+    public ArrayList<VaccineType> getVaccineTypeList(){
+        return company.getVaccineTypes();
+    }
+
     public ArrayList<String> getCenterCoordinatorIDs(){
         return company.getCenterCoordinatorIDs();
     }

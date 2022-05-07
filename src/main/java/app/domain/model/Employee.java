@@ -13,6 +13,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Employee {
+
+    /**
+     * Represents a new Employee of the vaccination process.
+     *
+     * @author Guilherme Sousa <1211073@isep.ipp.pt>
+     */
+
     private static final int PASSWORD_LENGTH = 7;
     private static final int ID_LENGTH = 5;
     private static final int NUMBER_OF_PHONE_NUMBER_DIGITS = 9;
@@ -34,6 +41,18 @@ public class Employee {
     private String email;
     private String citizenCardNumber;
     private String password;
+
+    /**
+     * Creates an Employee with the following attributes:
+     *
+     * @param id                The Employee´s id.
+     * @param name              The Employee´s name.
+     * @param address           The Employee´s address.
+     * @param phoneNumber       The Employee´s phone number.
+     * @param email             The Employee´s email.
+     * @param citizenCardNumber The Employee´s citizen card number.
+     * @param password          The Employee´s password.
+     */
 
     public Employee(String id, String name, String address, String phoneNumber, String email, String citizenCardNumber, String password) {
 
@@ -77,6 +96,12 @@ public class Employee {
 
     RegisterNewEmployeeController ctrl = new RegisterNewEmployeeController();
 
+    /**
+     * Generates a new password for each created Employee.
+     *
+     * @return new Employee generated password
+     */
+
     public static String passwordGenerator() {
         final String alphabetLetters = "abcdefghijklmnopqrstuvwyxzABCDEFGHIJKLMNOPQRSTUVWYXZ0123456789";
         StringBuilder password = new StringBuilder();
@@ -102,6 +127,13 @@ public class Employee {
         return String.valueOf(employeePassword);
     }
 
+    /**
+     * Generates a new id for each created Employee.
+     *
+     * @param role Selected by the user in the UI
+     * @return new Employee generated id
+     */
+
     public static StringBuilder idGenerator(String role) {
         StringBuilder orderedID = new StringBuilder();
         Random generate = new Random();
@@ -124,9 +156,22 @@ public class Employee {
         return orderedID;
     }
 
+    /**
+     * Validate new Employee data
+     *
+     * @return true if all the validations are also true
+     */
+
     public boolean validateEmployee() {
         return !name.isEmpty() && !address.isEmpty() && !email.isEmpty() && !phoneNumber.isEmpty() && !citizenCardNumber.isEmpty() && validateEmail(email) && validateCitizenCardNumber(citizenCardNumber) && validateAddress(address) && validatePhoneNumber(phoneNumber);
     }
+
+    /**
+     * Validates Employee phone number.
+     *
+     * @param phoneNumber The Employee´s phone number.
+     * @return true if Employee phone number is validated
+     */
 
     public boolean validatePhoneNumber(String phoneNumber) {
 
@@ -143,6 +188,13 @@ public class Employee {
         }
         return false;
     }
+
+    /**
+     * Validates Employee citizen card number.
+     *
+     * @param citizenCardNumber The Employee´s citizen card number.
+     * @return true if Employee citizen card number is validated
+     */
 
     public boolean validateCitizenCardNumber(String citizenCardNumber) {
         String noBlankSpotsCitizenCardNumber = citizenCardNumber.replaceAll("\\s", "");
@@ -168,6 +220,12 @@ public class Employee {
         return (sum % FIRST_SECOND_DIGIT_CC) == 0;
     }
 
+    /**
+     * Gets the value of each char in citizen card number.
+     *
+     * @param letter char from the citizen card number.
+     * @return integer with the correspondent value of a char
+     */
     public int getValueFromCitizenCardNumberDigit(String letter) {
         switch (letter) {
             case "0":
@@ -246,6 +304,13 @@ public class Employee {
         throw new IllegalArgumentException("Invalid Value in the Document.");
     }
 
+    /**
+     * Validates Employee email.
+     *
+     * @param email The Employee´s email.
+     * @return true if Employee email is validated
+     */
+
     public boolean validateEmail(String email) {
         if (!email.contains("@") && !email.contains("."))
             return false;
@@ -260,15 +325,22 @@ public class Employee {
         return false;
     }
 
+    /**
+     * Validates Employee address.
+     *
+     * @param address The Employee´s address.
+     * @return true if Employee address is validated
+     */
+
     public boolean validateAddress(String address) {
-        String[] splitAddress = address.split(",");
+        String[] splitAddress = address.split("/");
         if (splitAddress.length != 3)
             return false;
 
         String zipCode = splitAddress[1].trim();
         if (zipCode.length() != 8)
             return false;
-        
+
         return true;
     }
 }
