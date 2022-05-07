@@ -40,7 +40,7 @@ public class SpecifyVaccineAndAdminProcessUI implements Runnable {
                 options++;
             }
             System.out.println("Type your option:");
-            int option = 0;
+            int option;
             int check = 0;
 
             do {

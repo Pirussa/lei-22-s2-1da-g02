@@ -1,5 +1,7 @@
 package app.ui.console;
 
+import java.util.ArrayList;
+
 public class HealthcareCenterDto {
     public HealthcareCenterDto() {
     }
@@ -19,12 +21,12 @@ public class HealthcareCenterDto {
     public String strCenterCoordinatorID;
     public String strARS;
     public String strAGES;
-    public String[] strVaccineType;
+    public ArrayList <String> strVaccineType = new ArrayList <>();
 
     public HealthcareCenterDto(String strID, String strName, String strPhoneNumber, String strEmail, String strFax, String strWebsite,
                                 String strOpeningHour, String strClosingHour, String strSlotDuration, String strVaccinesPerSlot,
                                 String strRoad, String strZipCode, String strLocal, String strCenterCoordinatorID, String strARS, String strAGES,
-                               String[] strVaccineType) {
+                               ArrayList <String> strVaccineType) {
         this.strID=strID;
         this.strName = strName;
         this.strPhoneNumber = strPhoneNumber;

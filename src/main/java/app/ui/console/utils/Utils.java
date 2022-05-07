@@ -1,11 +1,10 @@
 package app.ui.console.utils;
 
 import app.controller.App;
+import app.controller.RegisterNewEmployeeController;
 import app.controller.SpecifyNewVaccineTypeController;
-import app.domain.model.AdministrationProcess;
-import app.domain.model.Company;
-import app.domain.model.Vaccine;
-import app.domain.model.VaccineType;
+import app.domain.model.*;
+import app.ui.console.RegisterNewEmployeeDto;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -126,13 +125,13 @@ public class Utils {
     }
 
     static public int selectsIndex(List list) {
-        String input= "";
+        String input = "";
         Integer value = -1;
         do {
-            try{
+            try {
                 input = Utils.readLineFromConsole("Type your option: ");
                 value = Integer.valueOf(input);
-            }catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 System.out.println("Invalid option");
             }
         } while (value < 0 || value > list.size());
@@ -185,19 +184,31 @@ public class Utils {
     public static Vaccine createVaccine(String name, int id, String brand, double dosage, int minAge, int maxAge, int timeBetweenDoses) {
         Company c = App.getInstance().getCompany();
         bootstrapOptional();
-        AdministrationProcess aP = new AdministrationProcess(new ArrayList<>(Arrays.asList(new ArrayList<>(List.of(minAge)), new ArrayList<>(List.of(maxAge)))),new ArrayList<>(List.of(2)),new ArrayList<>(List.of(dosage)),new ArrayList<>(Arrays.asList(new ArrayList<>(List.of(timeBetweenDoses)))));
+        AdministrationProcess aP = new AdministrationProcess(new ArrayList<>(Arrays.asList(new ArrayList<>(List.of(minAge)), new ArrayList<>(List.of(maxAge)))), new ArrayList<>(List.of(2)), new ArrayList<>(List.of(dosage)), new ArrayList<>(Arrays.asList(new ArrayList<>(List.of(timeBetweenDoses)))));
 
-        Vaccine v = new Vaccine(name,id,brand,aP,c.getVaccineTypes().get(0));
+        Vaccine v = new Vaccine(name, id, brand, aP, c.getVaccineTypes().get(0));
 
 
         return v;
     }
+
     public static void bootstrapOptional() {
-        SpecifyNewVaccineTypeController ctrl = new SpecifyNewVaccineTypeController();
+        SpecifyNewVaccineTypeController ctrlVt = new SpecifyNewVaccineTypeController();
 
-        ctrl.saveVaccineType("AAAAA", "Vaccine Type 1", VaccineType.vaccineTechnologies[0]);
-        ctrl.saveVaccineType("BBBBB", "Vaccine Type 2", VaccineType.vaccineTechnologies[1]);
-        ctrl.saveVaccineType("CCCCC", "Vaccine Type 3", VaccineType.vaccineTechnologies[2]);
+        ctrlVt.saveVaccineType("AAAAA", "Vaccine Type 1", VaccineType.vaccineTechnologies[0]);
+        ctrlVt.saveVaccineType("BBBBB", "Vaccine Type 2", VaccineType.vaccineTechnologies[1]);
+        ctrlVt.saveVaccineType("CCCCC", "Vaccine Type 3", VaccineType.vaccineTechnologies[2]);
 
+        RegisterNewEmployeeController ctrlEmp = new RegisterNewEmployeeController();
+
+        RegisterNewEmployeeDto dtoEmp = new RegisterNewEmployeeDto();
+        dtoEmp.id = "CC-95634";
+        dtoEmp.name = "João";
+        dtoEmp.password = "AAA22vx";
+        dtoEmp.phoneNumber = "915604427";
+        dtoEmp.citizenCardNumber = "11960343 8 ZW1";
+        dtoEmp.email = "joao@gmail.com";
+        dtoEmp.address = "Via Diagonal, 4475-079, Porto";
+        ctrlEmp.saveCreatedEmployee(dtoEmp, "Center Coordinator");
     }
 }

@@ -45,7 +45,7 @@ public class RegisterNewEmployeeUI implements Runnable {
         dto.password = Employee.passwordGenerator();
         dto.name = Utils.readLineFromConsole("- Insert Name: ");
         dto.address = Utils.readLineFromConsole("- Insert Address (Street / Zip Code / Location): ");
-        dto.phoneNumber = Utils.readLineFromConsole("- Insert Phone Number (9 chars, only numbers): (+351)");
+        dto.phoneNumber = Utils.readLineFromConsole("- Insert Phone Number (9 chars, only numbers): (+351) ");
         dto.email = Utils.readLineFromConsole("- Insert Email (@ and . are required): ");
         dto.citizenCardNumber = Utils.readLineFromConsole("- Insert Citizen Card Number (Valid Format - XXXXXXXX X LLX): ");
 

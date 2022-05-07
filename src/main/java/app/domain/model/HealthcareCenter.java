@@ -2,6 +2,7 @@ package app.domain.model;
 
 import app.controller.App;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -12,10 +13,10 @@ public class HealthcareCenter extends VaccinationCenter{
 
     private String strARS;
     private String strAGES;
-    private String[] strVaccineType;
+    private ArrayList <String> strVaccineType;
 
     public HealthcareCenter(String strID, String strName, String strPhoneNumber, String strEmail, String strFax, String strWebsite, String strOpeningHour, String strClosingHour, String strSlotDuration,
-                            String strVaccinesPerSlot, String strRoad, String strZipCode, String strLocal, String strCenterCoordinatorID, String strARS, String strAGES, String[] strVaccineType) {
+                            String strVaccinesPerSlot, String strRoad, String strZipCode, String strLocal, String strCenterCoordinatorID, String strARS, String strAGES, ArrayList<String> strVaccineType) {
         super(strID, strName, strPhoneNumber, strEmail, strFax, strWebsite, strOpeningHour, strClosingHour, strSlotDuration, strVaccinesPerSlot, strRoad, strZipCode, strLocal, strCenterCoordinatorID);
 
         if ((strARS==null) || (strAGES==null) || (strVaccineType==null) || (strARS.isEmpty()) || (strAGES.isEmpty()))
@@ -27,10 +28,10 @@ public class HealthcareCenter extends VaccinationCenter{
 
     @Override
     public String toString() {
-        return  super.toString() +
+        return "HealthcareCenter{" +
                 "strARS='" + strARS + '\'' +
                 ", strAGES='" + strAGES + '\'' +
-                ", strVaccineType=" + Arrays.toString(strVaccineType) +
+                ", strVaccineType=" + strVaccineType +
                 '}';
     }
 }
