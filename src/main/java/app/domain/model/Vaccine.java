@@ -64,6 +64,4 @@ public class Vaccine {
         }
         return true;
     }
-
-
 }
