@@ -1,5 +1,7 @@
 package app.ui.console;
 
+import app.domain.model.VaccineType;
+
 public class MassVaccinationCenterDto {
     public MassVaccinationCenterDto() {
     }
@@ -17,10 +19,11 @@ public class MassVaccinationCenterDto {
     public String strZipCode;
     public String strLocal;
     public String strCenterCoordinatorID;
+    public String strVaccineType;
 
     public MassVaccinationCenterDto(String strID, String strName, String strPhoneNumber, String strEmail, String strFax, String strWebsite,
                                 String strOpeningHour, String strClosingHour, String strSlotDuration, String strVaccinesPerSlot,
-                                String strRoad, String strZipCode, String strLocal, String strCenterCoordinatorID) {
+                                String strRoad, String strZipCode, String strLocal, String strCenterCoordinatorID, String strVaccineType) {
         this.strID = strID;
         this.strName = strName;
         this.strPhoneNumber = strPhoneNumber;
@@ -35,6 +38,7 @@ public class MassVaccinationCenterDto {
         this.strZipCode=strZipCode;
         this.strLocal=strLocal;
         this.strCenterCoordinatorID=strCenterCoordinatorID;
+        this.strVaccineType = strVaccineType;
     }
 
     @Override
@@ -54,6 +58,7 @@ public class MassVaccinationCenterDto {
                 ", strZipCode='" + strZipCode + '\'' +
                 ", strLocal='" + strLocal + '\'' +
                 ", strCenterCoordinatorID='" + strCenterCoordinatorID + '\'' +
+                ", strVaccineType='" + strVaccineType + '\'' +
                 '}';
     }
 }

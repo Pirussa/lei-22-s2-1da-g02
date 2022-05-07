@@ -149,24 +149,26 @@ public class Company {
 
     public void createMassVaccinationCenter(MassVaccinationCenterDto dto) {
         MassVaccinationCenter vc = new MassVaccinationCenter(dto.strID, dto.strName, dto.strPhoneNumber, dto.strEmail, dto.strFax, dto.strWebsite, dto.strOpeningHour,
-                dto.strClosingHour, dto.strSlotDuration, dto.strVaccinesPerSlot, dto.strRoad, dto.strZipCode, dto.strLocal, dto.strCenterCoordinatorID);
+                dto.strClosingHour, dto.strSlotDuration, dto.strVaccinesPerSlot, dto.strRoad, dto.strZipCode, dto.strLocal, dto.strCenterCoordinatorID, dto.strVaccineType);
     }
 
     public void createHealthcareCenter(HealthcareCenterDto dto) {
         HealthcareCenter vc = new HealthcareCenter(dto.strID, dto.strName, dto.strPhoneNumber, dto.strEmail, dto.strFax, dto.strWebsite, dto.strOpeningHour,
-                dto.strClosingHour, dto.strSlotDuration, dto.strVaccinesPerSlot, dto.strRoad, dto.strZipCode, dto.strLocal, dto.strCenterCoordinatorID, dto.strARS, dto.strAGES);
+                dto.strClosingHour, dto.strSlotDuration, dto.strVaccinesPerSlot, dto.strRoad, dto.strZipCode, dto.strLocal, dto.strCenterCoordinatorID, dto.strARS, dto.strAGES,
+                dto.strVaccineType);
     }
 
     public void saveMassVaccinationCenter(MassVaccinationCenterDto dto) {
         MassVaccinationCenter vc = new MassVaccinationCenter(dto.strID, dto.strName, dto.strPhoneNumber, dto.strEmail, dto.strFax, dto.strWebsite, dto.strOpeningHour,
-                dto.strClosingHour, dto.strSlotDuration, dto.strVaccinesPerSlot, dto.strRoad, dto.strZipCode, dto.strLocal, dto.strCenterCoordinatorID);
+                dto.strClosingHour, dto.strSlotDuration, dto.strVaccinesPerSlot, dto.strRoad, dto.strZipCode, dto.strLocal, dto.strCenterCoordinatorID,dto.strVaccineType);
         massVaccinationCenters.add(vc);
         vaccinationCenters.add(vc);
     }
 
     public void saveHealthcareCenter(HealthcareCenterDto dto) {
         HealthcareCenter vc = new HealthcareCenter(dto.strID, dto.strName, dto.strPhoneNumber, dto.strEmail, dto.strFax, dto.strWebsite, dto.strOpeningHour,
-                dto.strClosingHour, dto.strSlotDuration, dto.strVaccinesPerSlot, dto.strRoad, dto.strZipCode, dto.strLocal, dto.strCenterCoordinatorID, dto.strARS, dto.strAGES);
+                dto.strClosingHour, dto.strSlotDuration, dto.strVaccinesPerSlot, dto.strRoad, dto.strZipCode, dto.strLocal, dto.strCenterCoordinatorID, dto.strARS, dto.strAGES,
+                dto.strVaccineType);
         healthcareCenters.add(vc);
         vaccinationCenters.add(vc);
     }
@@ -174,9 +176,19 @@ public class Company {
     public void centerCoordinatorIDList() {
         ArrayList<Employee> centerCoordinators = getCentreCoordinatorList();
         for (int i = 0; i < centerCoordinators.size(); i++) {
-            centerCoordinatorIDs.add(centerCoordinators.get(i).getId());
+            if (centerCoordinatorIDs.isEmpty()){
+                centerCoordinatorIDs.add(centerCoordinators.get(i).getId());
+            } else{
+                for (int j = 0; j < centerCoordinatorIDs.size() ; j++) {
+                    if (!(centerCoordinators.get(i).getId().equals(centerCoordinatorIDs.get(j)))){
+                        centerCoordinatorIDs.add(centerCoordinators.get(i).getId());
+                    }
+                }
+            }
         }
     }
+
+    //if (!(centerCoordinatorIDs.get(i)==(centerCoordinators.get(i).getId()))){
 
     public ArrayList<VaccinationCenter> getVaccinationCenters() {
         return vaccinationCenters;
