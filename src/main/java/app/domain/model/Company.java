@@ -175,22 +175,14 @@ public class Company {
         vaccinationCenters.add(vc);
     }
 
-    public void centerCoordinatorIDList() {
+    public void centerCoordinatorIDList(){
         ArrayList<Employee> centerCoordinators = getCentreCoordinatorList();
         for (int i = 0; i < centerCoordinators.size(); i++) {
-            if (centerCoordinatorIDs.isEmpty()) {
+            if (!(centerCoordinatorIDs.contains(centerCoordinators.get(i).getId()))){
                 centerCoordinatorIDs.add(centerCoordinators.get(i).getId());
-            } else {
-                for (int j = 0; j < centerCoordinatorIDs.size(); j++) {
-                    if (!(centerCoordinators.get(i).getId().equals(centerCoordinatorIDs.get(j)))) {
-                        centerCoordinatorIDs.add(centerCoordinators.get(i).getId());
-                    }
-                }
             }
         }
     }
-
-    //if (!(centerCoordinatorIDs.get(i)==(centerCoordinators.get(i).getId()))){
 
     public ArrayList<VaccinationCenter> getVaccinationCenters() {
         return vaccinationCenters;

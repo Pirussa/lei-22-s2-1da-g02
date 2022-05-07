@@ -64,24 +64,24 @@ public class CreateVaccinationCenterUI implements Runnable {
             Scanner sc1 = new Scanner(System.in);
             MassVaccinationCenterDto dto = new MassVaccinationCenterDto();
             dto.strID = String.valueOf(idGeneratorMass(typeOfCenter));
-            dto.strName = Utils.readLineFromConsole("Name of the Mass Vaccination Center (No Validation): ");
-            dto.strPhoneNumber = Utils.readLineFromConsole("Phone Number of the Healthcare Center (9 Chars, only numbers): ");
-            dto.strEmail = Utils.readLineFromConsole("Email of the Mass Vaccination Center (Needs to have @ and .): ");
-            dto.strFax = Utils.readLineFromConsole("Fax Number of the Mass Vaccination Center(No Validation): ");
-            dto.strWebsite = Utils.readLineFromConsole("Website address of the Mass Vaccination Center(Needs to have www. and one of the domain inside the vector): ");
-            dto.strOpeningHour = Utils.readLineFromConsole("Opening hour of the Mass Vaccination Center: ");
-            dto.strClosingHour = Utils.readLineFromConsole("Closing hour of the Mass Vaccination Center: ");
-            dto.strSlotDuration = Utils.readLineFromConsole("Slot duration: ");
-            dto.strVaccinesPerSlot = Utils.readLineFromConsole("Vaccines per slot: ");
+            dto.strName = Utils.readLineFromConsole("Name of the Mass Vaccination Center: ");
+            dto.strPhoneNumber = Utils.readLineFromConsole("Phone Number of the Mass Vaccination Center (Portuguese rules apply): ");
+            dto.strEmail = Utils.readLineFromConsole("Email of the Mass Vaccination Center (Needs an @, a . and a valid domain): ");
+            dto.strFax = Utils.readLineFromConsole("Fax Number of the Mass Vaccination Center (Same rules as Phone Numbers): ");
+            dto.strWebsite = Utils.readLineFromConsole("Website address of the Mass Vaccination Center (Needs a valid prefix and domain): ");
+            dto.strOpeningHour = Utils.readLineFromConsole("Opening hour of the Mass Vaccination Center (Between 0 and 24, < Closing Hour): ");
+            dto.strClosingHour = Utils.readLineFromConsole("Closing hour of the Mass Vaccination Center (Between 0 and 24, > Opening Hour): ");
+            dto.strSlotDuration = Utils.readLineFromConsole("Slot duration (In minutes, no more than three numerical chars): ");
+            dto.strVaccinesPerSlot = Utils.readLineFromConsole("Maximum number of vaccines per slot (No more than three numerical chars): ");
             System.out.println();
             System.out.println("Information about the Mass Vaccination Center Address: ");
             dto.strRoad = Utils.readLineFromConsole("Road of the Mass Vaccination Center: ");
-            dto.strZipCode = Utils.readLineFromConsole("Zip Code of the Mass Vaccination Center: ");
+            dto.strZipCode = Utils.readLineFromConsole("Zip Code of the Mass Vaccination Center (1234-123 format): ");
             dto.strLocal = Utils.readLineFromConsole("Local of the Mass Vaccination Center: ");
             System.out.println();
             System.out.println("Information about the Coordinator: ");
             System.out.println();
-            System.out.println("Choose one Coordinator from the list, type the position you want.");
+            System.out.println("Choose one Coordinator from the list that hasn't been chosen, type it's position.");
             System.out.println();
 
             for (int i = 0; i < controller.getCenterCoordinatorIDs().size(); i++) {
@@ -99,7 +99,7 @@ public class CreateVaccinationCenterUI implements Runnable {
 
             System.out.println();
             System.out.println("Information about the Vaccine Type: ");
-            System.out.println("Choose one vaccine type from the list, type the position you want. ");
+            System.out.println("Choose one vaccine type from the list, type it's position.");
             System.out.println();
             for (int i = 0; i < controller.getVaccineTypeList().size(); i++) {
                 System.out.println("Position " + i + ": " + controller.getVaccineTypeList().get(i));
@@ -118,21 +118,15 @@ public class CreateVaccinationCenterUI implements Runnable {
             String strOption = sc1.nextLine();
             if (strOption.equals("Yes") || strOption.equals("y") || strOption.equals("YES") || strOption.equals("Y") || strOption.equals("yes")) {
                 controller.saveMassVaccinationCenter(dto);
-                for (int x = 0; x < controller.getMassVaccinationCenters().size(); x++) {
-                    System.out.println("\nPosition " + x + ": " + "\n" + controller.getMassVaccinationCenters().get(x));
-                    System.out.println();
-                }
-                System.out.println("---------------------------------------------------------------------------------");
                 System.out.println();
-                System.out.println("The Vaccination Center was saved into the list as you can see.");
+                System.out.println("The Mass Vaccination Center was saved into the list as you can see.");
             } else {
                 System.out.println();
                 System.out.println("You chose not to save the Mass Vaccination Center.");
             }
         } else {
-            System.out.println("Can't create a Mass Vaccination Center without a registered Center Coordinator and a Vaccine Type.");
+            System.out.println("Can't create a Mass Vaccination Center without a registered Center Coordinator and a Vaccine Type added onto the system.");
         }
-
     }
 
     public void healthcareCenterUI(int typeOfCenter) {
@@ -147,25 +141,25 @@ public class CreateVaccinationCenterUI implements Runnable {
             HealthcareCenterDto dto = new HealthcareCenterDto();
             dto.strID = String.valueOf(idGeneratorMass(typeOfCenter));
             dto.strName = Utils.readLineFromConsole("Name of the Healthcare Center (No Validation): ");
-            dto.strPhoneNumber = Utils.readLineFromConsole("Phone Number of the Healthcare Center (9 Chars, only numbers): ");
-            dto.strEmail = Utils.readLineFromConsole("Email of the Healthcare Center (Needs to have @ and .): ");
-            dto.strFax = Utils.readLineFromConsole("Fax Number of the Healthcare Center(No Validation): ");
-            dto.strWebsite = Utils.readLineFromConsole("Website address of the Healthcare Center(Needs to have www. and one of the domain inside the vector): ");
-            dto.strOpeningHour = Utils.readLineFromConsole("Opening hour of the Healthcare Center: ");
-            dto.strClosingHour = Utils.readLineFromConsole("Closing hour of the Healthcare Center: ");
-            dto.strSlotDuration = Utils.readLineFromConsole("Slot duration: ");
-            dto.strVaccinesPerSlot = Utils.readLineFromConsole("Vaccines per slot: ");
+            dto.strPhoneNumber = Utils.readLineFromConsole("Phone Number of the Healthcare Center (Portuguese rules apply): ");
+            dto.strEmail = Utils.readLineFromConsole("Email of the Healthcare Center (Needs an @, a . and a valid domain): ");
+            dto.strFax = Utils.readLineFromConsole("Fax Number of the Healthcare Center (Same rules as Phone Numbers): ");
+            dto.strWebsite = Utils.readLineFromConsole("Website address of the Healthcare Center (Needs a valid prefix and domain): ");
+            dto.strOpeningHour = Utils.readLineFromConsole("Opening hour of the Healthcare Center (Between 0 and 24, < Closing Hour): ");
+            dto.strClosingHour = Utils.readLineFromConsole("Closing hour of the Healthcare Center (Between 0 and 24, > Opening Hour): ");
+            dto.strSlotDuration = Utils.readLineFromConsole("Slot duration (In minutes, no more than three numerical chars): ");
+            dto.strVaccinesPerSlot = Utils.readLineFromConsole("Maximum number of vaccines per slot (No more than three numerical chars): ");
             System.out.println();
             System.out.println("Information about the Healthcare Center Address: ");
             dto.strRoad = Utils.readLineFromConsole("Road of the Healthcare Center: ");
-            dto.strZipCode = Utils.readLineFromConsole("Zip Code of the Healthcare Center: ");
+            dto.strZipCode = Utils.readLineFromConsole("Zip Code of the Healthcare Center (1234-123 format): ");
             dto.strLocal = Utils.readLineFromConsole("Local of the Healthcare Center: ");
-            dto.strARS = Utils.readLineFromConsole("ARS of the Healthcare Center: ");
-            dto.strAGES = Utils.readLineFromConsole("AGES of the Healthcare Center: ");
+            dto.strARS = Utils.readLineFromConsole("Regional Health Administration of the Healthcare Center: ");
+            dto.strAGES = Utils.readLineFromConsole("Grouping of the Healthcare Center: ");
             System.out.println();
             System.out.println("Information about the Coordinator");
             System.out.println();
-            System.out.println("Choose one Coordinator ID from the list, type the position you want.");
+            System.out.println("Choose one Coordinator from the list that hasn't been chosen, type it's position.");
             System.out.println();
 
             for (int i = 0; i < controller.getCenterCoordinatorIDs().size(); i++) {
@@ -183,7 +177,7 @@ public class CreateVaccinationCenterUI implements Runnable {
 
             System.out.println();
             System.out.println("Information about the Vaccine Type");
-            System.out.println("Choose one or more vaccine types from the list, type the position you want.");
+            System.out.println("Choose one vaccine type from the list, type it's position.");
             ArrayList<VaccineType> vts = controller.getVaccineTypeList();
             int optiontest = 0;
 
@@ -217,19 +211,13 @@ public class CreateVaccinationCenterUI implements Runnable {
             if (strOption.equals("Yes") || strOption.equals("y") || strOption.equals("YES") || strOption.equals("Y") || strOption.equals("yes")) {
                 controller.saveHealthcareCenter(dto);
                 System.out.println();
-                for (int x = 0; x < controller.getHealthcareCenters().size(); x++) {
-                    System.out.println("Position " + x + ": " + "\n" + controller.getHealthcareCenters().get(x));
-                    System.out.println();
-                }
-                System.out.println("---------------------------------------------------------------------------------");
-                System.out.println();
-                System.out.println("The Healthcare Center was saved into the list as you can see.");
+                System.out.println("The Healthcare Center was saved.");
             } else {
                 System.out.println();
                 System.out.println("You chose not to save the Healthcare Center.");
             }
         } else {
-            System.out.println("Can't create a Vaccination Center without a registered Center Coordinator and a Vaccine Type.");
+            System.out.println("Can't create a Healthcare Center without a registered Center Coordinator and a Vaccine Type added onto the system.");
         }
     }
 

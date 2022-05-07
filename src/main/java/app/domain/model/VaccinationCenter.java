@@ -114,7 +114,7 @@ public class  VaccinationCenter{
     }
 
     public static boolean validateVaccinationCenterHours(String strOpeningHour, String strClosingHour) {
-        if (Integer.parseInt(strOpeningHour) > 0 || Integer.parseInt(strOpeningHour) < 24 || Integer.parseInt(strClosingHour) > 0 || Integer.parseInt(strClosingHour) < 24)
+        if (Integer.parseInt(strOpeningHour) >= 0 && Integer.parseInt(strOpeningHour) < 24 && Integer.parseInt(strClosingHour) > 0 && Integer.parseInt(strClosingHour) <= 24)
         {
             if (Integer.parseInt(strOpeningHour) < Integer.parseInt(strClosingHour))
             {
