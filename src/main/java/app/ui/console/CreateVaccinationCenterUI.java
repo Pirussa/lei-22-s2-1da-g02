@@ -58,7 +58,7 @@ public class CreateVaccinationCenterUI implements Runnable {
         CreateVaccinationCenterController controller = new CreateVaccinationCenterController();
         controller.fillListOfEmployeesWithAGivenRole();
         controller.centerCoordinatorIDList();
-        if (!controller.getCenterCoordinatorIDs().isEmpty() && !controller.getVaccineTypeList().isEmpty()) {
+        if (!(controller.getCenterCoordinatorIDs().isEmpty()) && !(controller.getVaccineTypeList().isEmpty())) {
 
             Scanner sc = new Scanner(System.in);
             Scanner sc1 = new Scanner(System.in);
@@ -134,7 +134,7 @@ public class CreateVaccinationCenterUI implements Runnable {
 
         controller.fillListOfEmployeesWithAGivenRole();
         controller.centerCoordinatorIDList();
-        if (!controller.getCenterCoordinatorIDs().isEmpty() && !controller.getVaccineTypeList().isEmpty()) {
+        if (!(controller.getCenterCoordinatorIDs().isEmpty()) && !(controller.getVaccineTypeList().isEmpty())) {
 
             Scanner sc = new Scanner(System.in);
             Scanner sc1 = new Scanner(System.in);
