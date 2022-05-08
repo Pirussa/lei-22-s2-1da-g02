@@ -39,6 +39,10 @@ public class Vaccine {
         this.vt = vt;
     }
 
+    public int getId() {
+        return id;
+    }
+
     /**
      * Validates a Vaccine.
      *
@@ -54,14 +58,6 @@ public class Vaccine {
      * @return true if the Vaccine ID is validated
      */
     private boolean validateId() {
-        if (id > 1) {
-            Company c = App.getInstance().getCompany();
-            for (Vaccine vac : c.getVaccines()) {
-                if (id == vac.id) return false;
-            }
-        } else {
-            return false;
-        }
-        return true;
+        return (id > 1);
     }
 }
