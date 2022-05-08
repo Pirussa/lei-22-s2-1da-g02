@@ -100,7 +100,13 @@ public class Company {
         AdministrationProcess adminProcess = new AdministrationProcess(dto.ageGroups, dto.numberOfDoses, dto.dosage, dto.timeIntervalBetweenVaccines);
         if (adminProcess.validateAdministrationProcess()) {
             Vaccine vac = new Vaccine(dto.name, dto.id, dto.brand, adminProcess, dto.vt);
-            return vac.validateVaccine();
+            if (vac.validateVaccine()){
+                for (Vaccine vaccine : vaccines) {
+                    return dto.id != vaccine.getId();
+                }
+
+
+            };
         }
         return false;
     }
@@ -114,6 +120,10 @@ public class Company {
         AdministrationProcess adminProcess = new AdministrationProcess(dto.ageGroups, dto.numberOfDoses, dto.dosage, dto.timeIntervalBetweenVaccines);
         Vaccine vac = new Vaccine(dto.name, dto.id, dto.brand, adminProcess, dto.vt);
         vaccines.add(vac);
+    }
+
+    public void saveVaccineTest(Vaccine v){
+        vaccines.add(v);
     }
 
     /**

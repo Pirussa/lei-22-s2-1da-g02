@@ -88,16 +88,4 @@ class AdministrationProcessTest {
         assertFalse(aP.validateAdministrationProcess());
     }
 
-    @Test
-    void validateAdministrationProcessWithIncoherentValues() {
-        ArrayList <Integer> minAge = new ArrayList<>(List.of(1,19));
-        ArrayList <Integer> maxAge = new ArrayList<>(List.of(18,26));
-
-        ArrayList <Integer> timeBetween1stAnd2ndDose = new ArrayList<>(List.of(15));
-        ArrayList <Integer> timeBetween2ndAnd3rdDose = new ArrayList<>(List.of(0));
-
-        AdministrationProcess aP = new AdministrationProcess(new ArrayList<>(Arrays.asList(minAge, maxAge)),new ArrayList<>(List.of(2)),new ArrayList<>(List.of(20.0)),new ArrayList<>(Arrays.asList(timeBetween1stAnd2ndDose, timeBetween2ndAnd3rdDose)));
-
-        assertFalse(aP.validateAdministrationProcess());
-    }
 }
