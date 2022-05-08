@@ -69,32 +69,32 @@ public class  VaccinationCenter{
         throw new IllegalArgumentException("Arguments can't be null or empty.");
 
         if(!validatePhoneNumberAndFax(strPhoneNumber)){
-            throw new InputMismatchException("Only supports the Portuguese format, .e.i, 933398881.");
+            throw new IllegalArgumentException("Only supports the Portuguese format, .e.i, 933398881.");
         }
 
         if(!validatePhoneNumberAndFax(strFax)){
-            throw new InputMismatchException("Only supports the Portuguese format, .e.i, 933398881.");
+            throw new IllegalArgumentException("Only supports the Portuguese format, .e.i, 933398881.");
         }
 
         if (!validateEmail(strEmail)){
-            throw new InputMismatchException("Needs an @, a . and a valid domain,");
+            throw new IllegalArgumentException("Needs an @, a . and a valid domain,");
         }
 
         if (!validateWebsite(strWebsite, strTopLevelDomain,strWorldWideWeb))
-            throw new InputMismatchException("Needs a valid prefix and domain.");
+            throw new IllegalArgumentException("Needs a valid prefix and domain.");
 
         if (!validateVaccinationCenterHours(strOpeningHour,strClosingHour))
-            throw new InputMismatchException("Between 0 and 24, Opening Hour < Closing Hour.");
+            throw new IllegalArgumentException("Between 0 and 24, Opening Hour < Closing Hour.");
 
         if (!validateZipCode(strZipCode))
-            throw new InputMismatchException("Zip Code format is invalid.");
+            throw new IllegalArgumentException("Zip Code format is invalid.");
 
         if (!validateSlotDuration(strSlotDuration)){
-            throw new InputMismatchException("No more than three numerical chars.");
+            throw new IllegalArgumentException("No more than three numerical chars.");
         }
 
         if (!validateVaccinesPerSlot(strVaccinesPerSlot)){
-            throw new InputMismatchException("No more than three numerical chars.");
+            throw new IllegalArgumentException("No more than three numerical chars.");
         }
 
         this.strID = strID;
