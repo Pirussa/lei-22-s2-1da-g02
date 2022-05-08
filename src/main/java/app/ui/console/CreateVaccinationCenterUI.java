@@ -5,6 +5,7 @@ import app.domain.model.VaccineType;
 import app.ui.console.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -86,6 +87,8 @@ public class CreateVaccinationCenterUI implements Runnable {
             for (int i = 0; i < controller.getCenterCoordinatorIDs().size(); i++) {
                 System.out.println("Position " + i + ": " + controller.getCenterCoordinatorIDs().get(i));
             }
+            System.out.println();
+            System.out.print("Choose your option: ");
             int option = sc.nextInt();
 
             for (int i = 0; i < controller.getVaccinationCenters().size(); i++) {
@@ -103,7 +106,10 @@ public class CreateVaccinationCenterUI implements Runnable {
             for (int i = 0; i < controller.getVaccineTypeList().size(); i++) {
                 System.out.println("Position " + i + ": " + controller.getVaccineTypeList().get(i));
             }
+            System.out.println();
+            System.out.print("Choose your option: ");
             int vaccineTypeOption = sc.nextInt();
+            System.out.println();
             dto.strVaccineType = controller.getVaccineTypeList().get(vaccineTypeOption).toString();
 
             controller.createMassVaccinationCenter(dto);
@@ -113,9 +119,8 @@ public class CreateVaccinationCenterUI implements Runnable {
             System.out.println();
             System.out.println(dto);
             System.out.println();
-            System.out.println("----------------------CONFIRM DATA? (Y/N)-------------------------------------------");
-            String strOption = sc1.nextLine();
-            if (strOption.equals("Yes") || strOption.equals("y") || strOption.equals("YES") || strOption.equals("Y") || strOption.equals("yes")) {
+
+            if (Utils.confirmCreation()) {
                 controller.saveMassVaccinationCenter(dto);
                 System.out.println();
                 System.out.println("The Mass Vaccination Center was saved.");
@@ -166,8 +171,8 @@ public class CreateVaccinationCenterUI implements Runnable {
             }
             System.out.println();
             System.out.print("Type your option: ");
-
             int option = sc.nextInt();
+            System.out.println();
 
             for (int i = 0; i < controller.getVaccinationCenters().size(); i++) {
                 if (controller.getCenterCoordinatorIDs().get(option).equals(controller.getVaccinationCenters().get(i).getStrCenterCoordinatorID())) {
@@ -180,7 +185,7 @@ public class CreateVaccinationCenterUI implements Runnable {
             System.out.println();
             System.out.println("Information about the Vaccine Type");
             System.out.println("Choose one vaccine type from the list, type it's position.");
-            ArrayList<VaccineType> vts = controller.getVaccineTypeList();
+            ArrayList<VaccineType> vts = new ArrayList<>(controller.getVaccineTypeList());
             int optiontest = 0;
 
             do {
@@ -195,10 +200,10 @@ public class CreateVaccinationCenterUI implements Runnable {
                 System.out.println();
                 System.out.println(0 + "- Stop");
                 System.out.println();
-                System.out.print("Type your option:");
+                System.out.print("Type your option: ");
                 optiontest = sc.nextInt();
                 if (optiontest != 0) {
-                    dto.strVaccineType.add(controller.getVaccineTypeList().get(optiontest - 1).toString());
+                    dto.strVaccineType.add(vts.get(optiontest - 1).toString());
                     vts.remove(optiontest - 1);
                 }
 
@@ -246,18 +251,5 @@ public class CreateVaccinationCenterUI implements Runnable {
 
 }
 
-//
-//            for (int i = 0; i < controller.getVaccineTypeList().size(); i++) {
-//                System.out.println();
-//                System.out.println("\nPosition " + i + ": " + controller.getVaccineTypeList().get(i));
-//            }
-//            System.out.println();
-//            System.out.println("Type -1 to stop.");
-//
-//            int vaccineTypeOption = 0;
-//            while (vaccineTypeOption != -1) {
-//                vaccineTypeOption = sc.nextInt();
-//                dto.strVaccineType.add(controller.getVaccineTypeList().get(vaccineTypeOption).toString());
-//
-//            }
+
 

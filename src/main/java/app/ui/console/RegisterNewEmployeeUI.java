@@ -37,10 +37,10 @@ public class RegisterNewEmployeeUI implements Runnable {
             String selectedRole = roles.get(index);
             dto.id = String.valueOf(Employee.idGenerator(selectedRole));
             dto.password = Employee.passwordGenerator();
-            dto.name = Utils.readLineFromConsole("- Insert Name: ");
+            dto.name =  Utils.readLineFromConsole("- Insert Name: ").trim();
             dto.address = Utils.readLineFromConsole("- Insert Address (Street / Zip Code / Location): ");
-            dto.phoneNumber = Utils.readLineFromConsole("- Insert Phone Number (9 chars, only numbers): (+351) ");
-            dto.email = Utils.readLineFromConsole("- Insert Email (@ and . are required): ");
+            dto.phoneNumber = Utils.readLineFromConsole("- Insert Phone Number (9 chars, only numbers): (+351) ").trim();
+            dto.email = Utils.readLineFromConsole("- Insert Email (@ and . are required): ").trim();
             dto.citizenCardNumber = Utils.readLineFromConsole("- Insert Citizen Card Number (Format - XXXXXXXX X LLX): ");
 
             if (ctrl.registerNewEmployee(dto)) {
