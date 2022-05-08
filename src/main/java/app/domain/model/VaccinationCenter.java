@@ -1,6 +1,7 @@
 package app.domain.model;
 
 import app.controller.CreateVaccinationCenterController;
+import java.util.Objects;
 
 /**
  *
@@ -8,12 +9,7 @@ import app.controller.CreateVaccinationCenterController;
  */
 public class  VaccinationCenter{
 
-    Employee thisCoordinator;
-    Company thisCompany;
-
     CreateVaccinationCenterController controller = new CreateVaccinationCenterController();
-
-    private final int MAXCHAROFPHONENUMBER = 9;
 
     private String strID;
     private String strName;
@@ -30,9 +26,14 @@ public class  VaccinationCenter{
     private String strLocal;
     private String strCenterCoordinatorID;
 
-    private String[] strTopLevelDomain = {".com",".pt",".co.uk"};
-    private String[] strEmailDomain= {"gmail","outlook","isep.ipp","protonmail","live"};
-    private String strWorldWideWeb= "www";
+    private static final int NUMBER_OF_PHONE_NUMBER_DIGITS = 9;
+    private static final int STARTING_NUMBER_PORTUGUESE_PHONE = 9;
+    private static final int FIRST_SECOND_NUMBER_PORTUGUESE_PHONE = 1;
+    private static final int SECOND_SECOND_NUMBER_PORTUGUESE_PHONE = 2;
+    private static final int THIRD_SECOND_NUMBER_PORTUGUESE_PHONE = 3;
+    private static final int FOURTH_SECOND_NUMBER_PORTUGUESE_PHONE = 6;
+    private static String[] strTopLevelDomain = {".com",".pt",".co.uk"};
+    private static String strWorldWideWeb= "www.";
 
     public VaccinationCenter(String strID, String strName, String strPhoneNumber, String strEmail, String strFax, String strWebsite,
                              String strOpeningHour, String strClosingHour, String strSlotDuration, String strVaccinesPerSlot,
@@ -45,25 +46,35 @@ public class  VaccinationCenter{
                 (strVaccinesPerSlot.isEmpty()) ||(strRoad.isEmpty()||(strZipCode.isEmpty()||(strLocal.isEmpty()||(strCenterCoordinatorID.isEmpty())))))))
         throw new IllegalArgumentException("Arguments can't be null or empty");
 
-        /*
-        if (intID <= 0) throw new IllegalArgumentException("ID needs to be !=0 and a positive number");
-
-        if (strPhoneNumber.strip().length() != MAXCHAROFPHONENUMBER) throw new IllegalArgumentException("Phone Number need to have exactly 9 characters.");
-
-        if(!onlyDigits(strPhoneNumber)){
+        if(!validatePhoneNumberAndFax(strPhoneNumber)){
             throw new IllegalArgumentException("Phone Numbers only support integers from 0 to 9.");
-        }*/
-        /*
-        if (!verifyEmail(strEmail,strEmailDomain, strTopLevelDomain)){
+        }
+
+        if(!validatePhoneNumberAndFax(strFax)){
+            throw new IllegalArgumentException("Fax only support integers from 0 to 9.");
+        }
+
+        if (!validateEmail(strEmail)){
             throw new IllegalArgumentException("Email needs to have @, one of the available email domains and one of the top level domains saved.");
         }
 
-        if (!verifyWebsite(strWebsite, strTopLevelDomain,strWorldWideWeb))
+        if (!validateWebsite(strWebsite, strTopLevelDomain,strWorldWideWeb))
             throw new IllegalArgumentException("Website needs to star with www. and have one of the valid domains inside the domain vector.");
 
-        if (!verifyVaccinationCenterHours(strOpeningHour,strClosingHour))
+        if (!validateVaccinationCenterHours(strOpeningHour,strClosingHour))
             throw new IllegalArgumentException("Hours need to be between 0 and 24, and opening hour cant be higher than closing hour.");
-        */
+
+        if (!validateZipCode(strZipCode))
+            throw new IllegalArgumentException("Zip Code format is invalid");
+
+        if (!validateSlotDuration(strSlotDuration)){
+            throw new IllegalArgumentException("Slot duration can only be numbers, no more than 3 chars");
+        }
+
+        if (!validateVaccinesPerSlot(strVaccinesPerSlot)){
+            throw new IllegalArgumentException("Number of vaccines per slot can only be numbers, no more than 3 chars");
+        }
+
         this.strID = strID;
         this.strName = strName;
         this.strPhoneNumber = strPhoneNumber;
@@ -86,28 +97,26 @@ public class  VaccinationCenter{
 
     @Override
     public String toString() {
-        return "VaccinationCenter{" +
-                ", strID=" + strID +
-                ", strName='" + strName + '\'' +
-                ", strPhoneNumber='" + strPhoneNumber + '\'' +
-                ", strEmail='" + strEmail + '\'' +
-                ", strFax='" + strFax + '\'' +
-                ", strWebsite='" + strWebsite + '\'' +
-                ", strOpeningHour='" + strOpeningHour + '\'' +
-                ", strClosingHour='" + strClosingHour + '\'' +
-                ", strSlotDuration='" + strSlotDuration + '\'' +
-                ", strVaccinesPerSlot='" + strVaccinesPerSlot + '\'' +
-                ", strRoad='" + strRoad + '\'' +
-                ", strZipCode='" + strZipCode + '\'' +
-                ", strLocal='" + strLocal + '\'' +
-                ", strCenterCoordinatorID='" + strCenterCoordinatorID + '\'' +
-                '}';
+        return "ID of the Vaccination Center: " + strID + '\n' +
+                "Name of the Vaccination Center: " + strName + '\n' +
+                "Phone Number of the Vaccination Center: " + strPhoneNumber+ '\n' +
+                "Email of the Vaccination Center: " + strEmail + '\n' +
+                "Fax of the Vaccination Center: " + strFax + '\n' +
+                "Website of the Vaccination Center: " + strWebsite + '\n' +
+                "Opening Hour of the Vaccination Center: " + strOpeningHour + '\n' +
+                "Closing Hour of the Vaccination Center: " + strClosingHour + '\n' +
+                "Slot Duration of the Vaccination Center: " + strSlotDuration + '\n' +
+                "Maximum number of Vaccines per slot of the Vaccination Center: " + strVaccinesPerSlot + '\n' +
+                "Road of the Vaccination Center: " + strRoad + '\n' +
+                "Zip Code of the Vaccination Center: " + strZipCode + '\n' +
+                "Local of the Vaccination Center: " + strLocal + '\n' +
+                "Center Coordinator of the Vaccination Center: " + strCenterCoordinatorID + '\n';
     }
 
-    public static boolean verifyVaccinationCenterHours(String strOpeningHour, String strClosingHour) {
-        if (Integer.valueOf(strOpeningHour) > 0 || Integer.valueOf(strOpeningHour) < 24 || Integer.valueOf(strClosingHour) > 0 || Integer.valueOf(strClosingHour) < 24)
+    public static boolean validateVaccinationCenterHours(String strOpeningHour, String strClosingHour) {
+        if (Integer.parseInt(strOpeningHour) >= 0 && Integer.parseInt(strOpeningHour) < 24 && Integer.parseInt(strClosingHour) > 0 && Integer.parseInt(strClosingHour) <= 24)
         {
-            if (Integer.valueOf(strOpeningHour) < Integer.valueOf(strClosingHour))
+            if (Integer.parseInt(strOpeningHour) < Integer.parseInt(strClosingHour))
             {
                 return true;
             } else return false;
@@ -115,40 +124,64 @@ public class  VaccinationCenter{
     }
 
 
-    public static boolean verifyWebsite(String strWebsite, String[] strDomain, String strWorldWideWeb){
-        for (int i = 0; i <= strWebsite.length() ; i++) {
-            if (strWebsite.startsWith(strWorldWideWeb) && strWebsite.endsWith(String.valueOf(strDomain))){
-            return true;
-            } else return false;
-        } return false;
-    }
+    public static boolean validateWebsite(String strWebsite, String[] strTopLevelDomain, String strWorldWideWeb){
 
-    public static boolean verifyEmail(String strEmail, String[] strEmailDomain, String[] strDomain){
-        for (int i = 0; i <= strEmail.length(); i++) {
-            if (strEmail.contains("@"+strEmailDomain+strDomain)){
+        for (int position = 0; position < strTopLevelDomain.length; position++) {
+            if (strWebsite.startsWith(strWorldWideWeb) && strWebsite.endsWith(strTopLevelDomain[position]))
                 return true;
-            } else return false;
-        } return false;
-    }
-
-    public static boolean onlyDigits(String strPhoneNumber)
-    {
-        // Traverse the string from
-        // start to end
-        for (int i = 0; i < strPhoneNumber.length(); i++) {
-
-            // Check if character is
-            // digit from 0-9
-            // then return true
-            // else false
-            if (strPhoneNumber.charAt(i) >= '0'
-                    && strPhoneNumber.charAt(i) <= '9') {
-                return true;
-            }
-            else {
-                return false;
-            }
         }
         return false;
     }
+
+    public boolean validateEmail(String email) {
+        if (!email.contains("@") && !email.contains("."))
+            return false;
+
+        String[] emailSplitter = email.split("@");
+        String[] validEmailDomain = {"gmail.com", "hotmail.com", "isep.ipp.pt", "sapo.pt", "outlook.com"};
+
+        for (int position = 0; position < validEmailDomain.length; position++) {
+            if (Objects.equals(emailSplitter[1], validEmailDomain[position]))
+                return true;
+        }
+        return false;
+    }
+
+    public boolean validatePhoneNumberAndFax(String strPhoneNumberOrFaxNumber) {
+
+        if (strPhoneNumberOrFaxNumber.length() == NUMBER_OF_PHONE_NUMBER_DIGITS && Integer.parseInt(strPhoneNumberOrFaxNumber) % 1 == 0) {
+            int ch1 = Integer.parseInt(String.valueOf(strPhoneNumberOrFaxNumber.charAt(0)));
+            if (ch1 != STARTING_NUMBER_PORTUGUESE_PHONE)
+                return false;
+
+            int ch2 = Integer.parseInt(String.valueOf(strPhoneNumberOrFaxNumber.charAt(1)));
+            if (ch2 != FIRST_SECOND_NUMBER_PORTUGUESE_PHONE && ch2 != SECOND_SECOND_NUMBER_PORTUGUESE_PHONE &&
+                    ch2 != THIRD_SECOND_NUMBER_PORTUGUESE_PHONE && ch2 != FOURTH_SECOND_NUMBER_PORTUGUESE_PHONE) {
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public boolean validateZipCode(String strZipCode){
+        if (strZipCode.matches("^[0-9]{4}(?:-[0-9]{3})?$")){
+            return true;
+        } else{
+            return false;
+        }
+    }
+
+    public boolean validateSlotDuration(String strSlotDuration){
+        if (strSlotDuration.matches("[0-9]{1,3}")){
+            return true;
+        } else return false;
+    }
+
+    public boolean validateVaccinesPerSlot(String strVaccinesPerSlot){
+        if (strVaccinesPerSlot.matches("[0-9]{1,3}")){
+            return true;
+        } else return false;
+    }
+
 }

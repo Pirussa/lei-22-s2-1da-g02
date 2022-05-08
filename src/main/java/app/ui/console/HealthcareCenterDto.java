@@ -48,24 +48,22 @@ public class HealthcareCenterDto {
 
     @Override
     public String toString() {
-        return "HealthcareCenterDto{" +
-                "strID=" + strID +
-                ", strName='" + strName + '\'' +
-                ", strPhoneNumber='" + strPhoneNumber + '\'' +
-                ", strEmail='" + strEmail + '\'' +
-                ", strFax='" + strFax + '\'' +
-                ", strWebsite='" + strWebsite + '\'' +
-                ", strOpeningHour='" + strOpeningHour + '\'' +
-                ", strClosingHour='" + strClosingHour + '\'' +
-                ", strSlotDuration='" + strSlotDuration + '\'' +
-                ", strVaccinesPerSlot='" + strVaccinesPerSlot + '\'' +
-                ", strRoad='" + strRoad + '\'' +
-                ", strZipCode='" + strZipCode + '\'' +
-                ", strLocal='" + strLocal + '\'' +
-                ", strCenterCoordinatorID='" + strCenterCoordinatorID + '\'' +
-                ", strARS='" + strARS + '\'' +
-                ", strAGES='" + strAGES + '\'' +
-                ", strVaccineType='" + strVaccineType + '\'' +
-                '}';
+        return  "ID of the Healthcare Center: " + strID + '\n' +
+                "Name of the Healthcare Center: " + strName + '\n' +
+                "Phone Number of the Healthcare Center: " + strPhoneNumber + '\n' +
+                "Email of the Healthcare Center: " + strEmail + '\n' +
+                "Fax of the Healthcare Center: " + strFax + '\n' +
+                "Website of the Healthcare Center: " + strWebsite + '\n' +
+                "Opening Hour of the Healthcare Center: " + strOpeningHour + '\n' +
+                "Closing Hour of the Healthcare Center: " + strClosingHour + '\n' +
+                "Slot Duration of the Healthcare Center: " + strSlotDuration + '\n' +
+                "Maximum number of Vaccines per slot of the Healthcare Center: " + strVaccinesPerSlot + '\n' +
+                "Road of the Healthcare Center: " + strRoad + '\n' +
+                "Zip Code of the Healthcare Center: " + strZipCode + '\n' +
+                "Local of the Healthcare Center: " + strLocal + '\n' +
+                "Center Coordinator of the Healthcare Center: " + strCenterCoordinatorID + '\n' +
+                "Regional Health Administration of the Healthcare Center: " + strARS + '\n' +
+                "Grouping of the Healthcare Center: " + strAGES + '\n' +
+                "Vaccine Types administered in the Healthcare Center: " + strVaccineType;
     }
 }

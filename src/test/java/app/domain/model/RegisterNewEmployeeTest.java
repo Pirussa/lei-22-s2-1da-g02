@@ -37,22 +37,37 @@ class RegisterNewEmployeeTest {
     }
 
     @Test
-    void validatePhoneNumber() {
+    void registerNullPhoneNumberNewEmployee() {
+        assertFalse(new Employee("NR-12345", "Employee", "Rua / 1111-111 / Portugal", "", "employee@isep.ipp.pt", "35619927 4 ZX6", "BBB33bb").validateEmployee());
     }
 
     @Test
-    void validateCitizenCardNumber() {
+    void registerNullEmailNewEmployee() {
+        assertFalse(new Employee("NR-12345", "Employee", "Rua / 1111-111 / Portugal", "912345678", "", "35619927 4 ZX6", "BBB33bb").validateEmployee());
     }
 
     @Test
-    void getValueFromCitizenCardNumberDigit() {
+    void registerNullCitizenCardNumberNewEmployee() {
+        assertFalse(new Employee("NR-12345", "Employee", "Rua / 1111-111 / Portugal", "912345678", "employee@isep.ipp.pt", "", "BBB33bb").validateEmployee());
     }
 
     @Test
-    void validateEmail() {
+    void registerInvalidAddressNewEmployee() {
+        assertFalse(new Employee("NR-12345", "Employee", "Rua / 11111111 / Portugal", "912345678", "employee@isep.ipp.pt", "35619927 4 ZX6", "BBB33bb").validateEmployee());
     }
 
     @Test
-    void validateAddress() {
+    void registerInvalidPhoneNumberNewEmployee() {
+        assertFalse(new Employee("NR-12345", "Employee", "Rua / 1111-111 / Portugal", "812345678", "employee@isep.ipp.pt", "35619927 4 ZX6", "BBB33bb").validateEmployee());
+    }
+
+    @Test
+    void registerInvalidEmailNewEmployee() {
+        assertFalse(new Employee("NR-12345", "Employee", "Rua / 1111-111 / Portugal", "912345678", "employee@unknown", "35619927 4 ZX6", "BBB33bb").validateEmployee());
+    }
+
+    @Test
+    void registerInvalidCitizenCardNumberNewEmployee() {
+        assertFalse(new Employee("NR-12345", "Employee", "Rua / 1111-111 / Portugal", "912345678", "employee@isep.ipp.pt", "80526907 4 ZZ2", "BBB33bb").validateEmployee());
     }
 }

@@ -43,22 +43,20 @@ public class MassVaccinationCenterDto {
 
     @Override
     public String toString() {
-        return "VaccinationCenterDto{" +
-                "strID=" + strID +
-                ", strName='" + strName + '\'' +
-                ", strPhoneNumber='" + strPhoneNumber + '\'' +
-                ", strEmail='" + strEmail + '\'' +
-                ", strFax='" + strFax + '\'' +
-                ", strWebsite='" + strWebsite + '\'' +
-                ", strOpeningHour='" + strOpeningHour + '\'' +
-                ", strClosingHour='" + strClosingHour + '\'' +
-                ", strSlotDuration='" + strSlotDuration + '\'' +
-                ", strVaccinesPerSlot='" + strVaccinesPerSlot + '\'' +
-                ", strRoad='" + strRoad + '\'' +
-                ", strZipCode='" + strZipCode + '\'' +
-                ", strLocal='" + strLocal + '\'' +
-                ", strCenterCoordinatorID='" + strCenterCoordinatorID + '\'' +
-                ", strVaccineType='" + strVaccineType + '\'' +
-                '}';
+        return  "ID of the  Mass Vaccination Center: " + strID + '\n' +
+                "Name of the  Mass Vaccination Center: " + strName + '\n' +
+                "Phone Number of the  Mass Vaccination Center: " + strPhoneNumber+ '\n' +
+                "Email of the  Mass Vaccination Center: " + strEmail + '\n' +
+                "Fax of the  Mass Vaccination Center: " + strFax + '\n' +
+                "Website of the  Mass Vaccination Center: " + strWebsite + '\n' +
+                "Opening Hour of the  Mass Vaccination Centerr: " + strOpeningHour + '\n' +
+                "Closing Hour of the  Mass Vaccination Center: " + strClosingHour + '\n' +
+                "Slot Duration of the  Mass Vaccination Center: " + strSlotDuration + '\n' +
+                "Maximum number of Vaccines per slot of the  Mass Vaccination Center: " + strVaccinesPerSlot + '\n' +
+                "Road of the  Mass Vaccination Center: " + strRoad + '\n' +
+                "Zip Code of the  Mass Vaccination Center: " + strZipCode + '\n' +
+                "Local of the  Mass Vaccination Center: " + strLocal + '\n' +
+                "Center Coordinator of the  Mass Vaccination Center: " + strCenterCoordinatorID + '\n' +
+                "Vaccine Types administered in the Mass Vaccination Center: " + strVaccineType;
     }
 }

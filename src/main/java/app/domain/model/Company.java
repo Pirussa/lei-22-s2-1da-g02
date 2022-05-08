@@ -162,7 +162,7 @@ public class Company {
 
     public void saveMassVaccinationCenter(MassVaccinationCenterDto dto) {
         MassVaccinationCenter vc = new MassVaccinationCenter(dto.strID, dto.strName, dto.strPhoneNumber, dto.strEmail, dto.strFax, dto.strWebsite, dto.strOpeningHour,
-                dto.strClosingHour, dto.strSlotDuration, dto.strVaccinesPerSlot, dto.strRoad, dto.strZipCode, dto.strLocal, dto.strCenterCoordinatorID,dto.strVaccineType);
+                dto.strClosingHour, dto.strSlotDuration, dto.strVaccinesPerSlot, dto.strRoad, dto.strZipCode, dto.strLocal, dto.strCenterCoordinatorID, dto.strVaccineType);
         massVaccinationCenters.add(vc);
         vaccinationCenters.add(vc);
     }
@@ -175,22 +175,14 @@ public class Company {
         vaccinationCenters.add(vc);
     }
 
-    public void centerCoordinatorIDList() {
+    public void centerCoordinatorIDList(){
         ArrayList<Employee> centerCoordinators = getCentreCoordinatorList();
         for (int i = 0; i < centerCoordinators.size(); i++) {
-            if (centerCoordinatorIDs.isEmpty()){
+            if (!(centerCoordinatorIDs.contains(centerCoordinators.get(i).getId()))){
                 centerCoordinatorIDs.add(centerCoordinators.get(i).getId());
-            } else{
-                for (int j = 0; j < centerCoordinatorIDs.size() ; j++) {
-                    if (!(centerCoordinators.get(i).getId().equals(centerCoordinatorIDs.get(j)))){
-                        centerCoordinatorIDs.add(centerCoordinators.get(i).getId());
-                    }
-                }
             }
         }
     }
-
-    //if (!(centerCoordinatorIDs.get(i)==(centerCoordinators.get(i).getId()))){
 
     public ArrayList<VaccinationCenter> getVaccinationCenters() {
         return vaccinationCenters;
@@ -223,9 +215,9 @@ public class Company {
     /**
      * Saves an Employee into the Company storage.
      *
-     * @param dto A data transfer object with all the necessary information about the new Employee
+     * @param dto          A data transfer object with all the necessary information about the new Employee
      * @param selectedRole Selected role for the new Employee by the user
-     * Company Vaccines Storage: {@link #employees}
+     *                     Company Vaccines Storage: {@link #employees}
      */
 
     public void saveCreatedEmployee(RegisterNewEmployeeDto dto, String selectedRole) {
@@ -256,8 +248,8 @@ public class Company {
 
     public void fillListOfEmployeesWithAGivenRole() {
         ArrayList<Employee> emp = getEmployees();
-        boolean check = false;
         for (int positionArrayListEmployees = 0; positionArrayListEmployees < emp.size(); positionArrayListEmployees++) {
+           boolean check = false;
             if (emp.get(positionArrayListEmployees) instanceof Nurse) {
                 for (int nurseListPosition = 0; nurseListPosition < nurseList.size(); nurseListPosition++) {
                     if (emp.get(positionArrayListEmployees).getEmail().equals(nurseList.get(nurseListPosition).getEmail()) && emp.get(positionArrayListEmployees).getCitizenCardNumber().equals(nurseList.get(nurseListPosition).getCitizenCardNumber())) {
@@ -266,8 +258,8 @@ public class Company {
                 }
                 if (!check) {
                     nurseList.add(emp.get(positionArrayListEmployees));
-                    check = true;
                 }
+
             } else if (emp.get(positionArrayListEmployees) instanceof Receptionist) {
                 for (int receptionistListPosition = 0; receptionistListPosition < receptionistList.size(); receptionistListPosition++) {
                     if (emp.get(positionArrayListEmployees).getEmail().equals(receptionistList.get(receptionistListPosition).getEmail()) && emp.get(positionArrayListEmployees).getCitizenCardNumber().equals(receptionistList.get(receptionistListPosition).getCitizenCardNumber())) {
@@ -276,7 +268,6 @@ public class Company {
                 }
                 if (!check) {
                     receptionistList.add(emp.get(positionArrayListEmployees));
-                    check = true;
                 }
             } else if (emp.get(positionArrayListEmployees) instanceof CenterCoordinator) {
                 for (int centreCoordinatorListPosition = 0; centreCoordinatorListPosition < centreCoordinatorList.size(); centreCoordinatorListPosition++) {
@@ -286,7 +277,6 @@ public class Company {
                 }
                 if (!check) {
                     centreCoordinatorList.add(emp.get(positionArrayListEmployees));
-                    check = true;
                 }
             }
         }
