@@ -1,9 +1,7 @@
 package app.ui.console;
 
 import app.controller.GetListOfEmployeesController;
-import app.domain.model.Employee;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
