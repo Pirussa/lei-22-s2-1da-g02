@@ -2,7 +2,15 @@ package app.ui.console;
 
 import java.util.ArrayList;
 
+/**
+ * This class is just a DTO (Data Transfer Object), responsible for helping to transfer data from the UI to the Domain.
+ * DTO related to the US009 - As an administrator I want to register a Vaccination Center
+ * @author João Castro <1210816@isep.ipp.pt>
+ */
+
+
 public class HealthcareCenterDto {
+
     public HealthcareCenterDto() {
     }
     public String strID;
