@@ -149,32 +149,53 @@ public class Company {
     private ArrayList<HealthcareCenter> healthcareCenters = new ArrayList<>();
     private ArrayList<String> centerCoordinatorIDs = new ArrayList<>();
 
+    /**
+     * Instantiates a mass vaccination center with information of the DTO to verify if the data is valid.
+     *
+     * @param dto copies the information from the DTO that has the data needed to instantiate the center.
+     */
     public void createMassVaccinationCenter(MassVaccinationCenterDto dto) {
-        MassVaccinationCenter vc = new MassVaccinationCenter(dto.strID, dto.strName, dto.strPhoneNumber, dto.strEmail, dto.strFax, dto.strWebsite, dto.strOpeningHour,
+        MassVaccinationCenter mvc = new MassVaccinationCenter(dto.strID, dto.strName, dto.strPhoneNumber, dto.strEmail, dto.strFax, dto.strWebsite, dto.strOpeningHour,
                 dto.strClosingHour, dto.strSlotDuration, dto.strVaccinesPerSlot, dto.strRoad, dto.strZipCode, dto.strLocal, dto.strCenterCoordinatorID, dto.strVaccineType);
     }
 
+    /**
+     * Instantiates a healthcare center with information of the DTO to verify if the data is valid.
+     *
+     * @param dto copies the information from the DTO that has the data needed to instantiate the center.
+     */
     public void createHealthcareCenter(HealthcareCenterDto dto) {
-        HealthcareCenter vc = new HealthcareCenter(dto.strID, dto.strName, dto.strPhoneNumber, dto.strEmail, dto.strFax, dto.strWebsite, dto.strOpeningHour,
+        HealthcareCenter hc = new HealthcareCenter(dto.strID, dto.strName, dto.strPhoneNumber, dto.strEmail, dto.strFax, dto.strWebsite, dto.strOpeningHour,
                 dto.strClosingHour, dto.strSlotDuration, dto.strVaccinesPerSlot, dto.strRoad, dto.strZipCode, dto.strLocal, dto.strCenterCoordinatorID, dto.strARS, dto.strAGES,
                 dto.strVaccineType);
     }
-
+    /**
+     * Saves a Mass Vaccination Center into two lists, one comprised of only Mass Vaccination Centers and another that has both kinds.
+     *
+     * @param dto copies the information from the DTO that has the data needed to instantiate the center.
+     **/
     public void saveMassVaccinationCenter(MassVaccinationCenterDto dto) {
-        MassVaccinationCenter vc = new MassVaccinationCenter(dto.strID, dto.strName, dto.strPhoneNumber, dto.strEmail, dto.strFax, dto.strWebsite, dto.strOpeningHour,
+        MassVaccinationCenter mvc = new MassVaccinationCenter(dto.strID, dto.strName, dto.strPhoneNumber, dto.strEmail, dto.strFax, dto.strWebsite, dto.strOpeningHour,
                 dto.strClosingHour, dto.strSlotDuration, dto.strVaccinesPerSlot, dto.strRoad, dto.strZipCode, dto.strLocal, dto.strCenterCoordinatorID, dto.strVaccineType);
-        massVaccinationCenters.add(vc);
-        vaccinationCenters.add(vc);
+        massVaccinationCenters.add(mvc);
+        vaccinationCenters.add(mvc);
     }
-
+    /**
+     * Saves a Healthcare Center into two lists, one comprised of only Healthcare Centers and another that has both kinds.
+     *
+     * @param dto copies the information from the DTO that has the data needed to instantiate the center.
+     **/
     public void saveHealthcareCenter(HealthcareCenterDto dto) {
-        HealthcareCenter vc = new HealthcareCenter(dto.strID, dto.strName, dto.strPhoneNumber, dto.strEmail, dto.strFax, dto.strWebsite, dto.strOpeningHour,
+        HealthcareCenter hc = new HealthcareCenter(dto.strID, dto.strName, dto.strPhoneNumber, dto.strEmail, dto.strFax, dto.strWebsite, dto.strOpeningHour,
                 dto.strClosingHour, dto.strSlotDuration, dto.strVaccinesPerSlot, dto.strRoad, dto.strZipCode, dto.strLocal, dto.strCenterCoordinatorID, dto.strARS, dto.strAGES,
                 dto.strVaccineType);
-        healthcareCenters.add(vc);
-        vaccinationCenters.add(vc);
+        healthcareCenters.add(hc);
+        vaccinationCenters.add(hc);
     }
 
+    /**
+     * Gets the list of all Center Coordinators, copies it and fills it with only the IDs, only adds IDs if those aren't already inside the list.
+     */
     public void centerCoordinatorIDList(){
         ArrayList<Employee> centerCoordinators = getCentreCoordinatorList();
         for (int i = 0; i < centerCoordinators.size(); i++) {
@@ -184,18 +205,35 @@ public class Company {
         }
     }
 
+    /**
+     * Gets a list of Vaccination Centers
+     *
+     * @return a list of Vaccination Centers
+     */
     public ArrayList<VaccinationCenter> getVaccinationCenters() {
         return vaccinationCenters;
     }
-
+    /**
+     * Gets a list of Mass Vaccination Centers
+     *
+     * @return a list of Mass Vaccination Centers
+     */
     public ArrayList<MassVaccinationCenter> getMassVaccinationCenters() {
         return massVaccinationCenters;
     }
-
+    /**
+     * Gets a list of Healthcare Centers
+     *
+     * @return a list of Healthcare Centers
+     */
     public ArrayList<HealthcareCenter> getHealthcareCenters() {
         return healthcareCenters;
     }
-
+    /**
+     * Gets a list of Center Coordinators IDs
+     *
+     * @return a list of Center Coordinators IDs
+     */
     public ArrayList<String> getCenterCoordinatorIDs() {
         return centerCoordinatorIDs;
     }

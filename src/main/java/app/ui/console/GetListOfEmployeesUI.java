@@ -17,6 +17,7 @@ public class GetListOfEmployeesUI implements Runnable {
     private GetListOfEmployeesController ctrl = new GetListOfEmployeesController();
 
     public void run() {
+
         int option;
         Scanner read = new Scanner(System.in);
         System.out.println("");
