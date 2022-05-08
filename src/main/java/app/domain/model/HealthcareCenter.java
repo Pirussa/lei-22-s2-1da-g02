@@ -20,7 +20,7 @@ public class HealthcareCenter extends VaccinationCenter{
         super(strID, strName, strPhoneNumber, strEmail, strFax, strWebsite, strOpeningHour, strClosingHour, strSlotDuration, strVaccinesPerSlot, strRoad, strZipCode, strLocal, strCenterCoordinatorID);
 
         if ((strARS==null) || (strAGES==null) || (strVaccineType==null) || (strARS.isEmpty()) || (strAGES.isEmpty()))
-            throw new IllegalArgumentException("Arguments can't be null or empty");
+            throw new IllegalArgumentException("Arguments can't be null or empty.");
         this.strARS = strARS;
         this.strAGES = strAGES;
         this.strVaccineType=strVaccineType;
@@ -32,6 +32,10 @@ public class HealthcareCenter extends VaccinationCenter{
                 "Regional Health Administration of the Vaccination Center: " + strARS + '\n' +
                 "Grouping of the Vaccination Center: " + strAGES + '\n' +
                 "Vaccine Types administered in the Vaccination Center: " + strVaccineType;
+    }
+
+    public boolean validateHealthcareCenters() {
+        return super.validateVaccinationCenters() && strARS != null && strAGES != null && strVaccineType != null && !strARS.isEmpty() && !strAGES.isEmpty() && !strVaccineType.isEmpty();
     }
 }
 
