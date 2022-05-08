@@ -1,10 +1,8 @@
 package app.controller;
 
 import app.domain.model.*;
-import app.ui.console.CreateVaccinationCenterUI;
 import app.ui.console.HealthcareCenterDto;
 import app.ui.console.MassVaccinationCenterDto;
-import app.ui.console.VaccinationCenterDto;
 
 import java.util.ArrayList;
 

@@ -2,12 +2,8 @@ package app.controller;
 
 
 import app.domain.model.Company;
-import app.domain.shared.Constants;
 import app.ui.console.RegisterNewEmployeeDto;
-import org.w3c.dom.CharacterData;
 
-import java.util.ArrayList;
-import java.util.Random;
 
 
 /**

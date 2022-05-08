@@ -1,17 +1,9 @@
 package app.ui.console;
 
 import app.controller.RegisterNewEmployeeController;
-import app.controller.App;
 import app.domain.model.Employee;
-import app.domain.shared.Constants;
 import app.ui.console.utils.Utils;
-
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 

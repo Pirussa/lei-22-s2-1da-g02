@@ -26,7 +26,6 @@ public class CreateVaccinationCenterUI implements Runnable {
         System.out.println("3 - Go Back");
         System.out.println();
         System.out.println("Choose the option:");
-        System.out.println();
         int typeOfCenter = choice.nextInt();
         if (typeOfCenter == 0) {
             massVaccinationCenterUI(typeOfCenter);
@@ -140,7 +139,7 @@ public class CreateVaccinationCenterUI implements Runnable {
             Scanner sc1 = new Scanner(System.in);
             HealthcareCenterDto dto = new HealthcareCenterDto();
             dto.strID = String.valueOf(idGeneratorMass(typeOfCenter));
-            dto.strName = Utils.readLineFromConsole("Name of the Healthcare Center (No Validation): ");
+            dto.strName = Utils.readLineFromConsole("Name of the Healthcare Center: ");
             dto.strPhoneNumber = Utils.readLineFromConsole("Phone Number of the Healthcare Center (Portuguese rules apply): ");
             dto.strEmail = Utils.readLineFromConsole("Email of the Healthcare Center (Needs an @, a . and a valid domain): ");
             dto.strFax = Utils.readLineFromConsole("Fax Number of the Healthcare Center (Same rules as Phone Numbers): ");
@@ -165,6 +164,9 @@ public class CreateVaccinationCenterUI implements Runnable {
             for (int i = 0; i < controller.getCenterCoordinatorIDs().size(); i++) {
                 System.out.println("Position " + i + ": " + controller.getCenterCoordinatorIDs().get(i));
             }
+            System.out.println();
+            System.out.print("Type your option: ");
+
             int option = sc.nextInt();
 
             for (int i = 0; i < controller.getVaccinationCenters().size(); i++) {
@@ -184,13 +186,16 @@ public class CreateVaccinationCenterUI implements Runnable {
             do {
                 System.out.println();
                 System.out.println("Choose one:");
+                System.out.println();
 
                 for (int i = 1; i <= vts.size(); i++) {
-                    System.out.println(i + " " + vts.get(i - 1));
+                    System.out.println(i + " - " + vts.get(i - 1));
 
                 }
                 System.out.println();
                 System.out.println(0 + "- Stop");
+                System.out.println();
+                System.out.print("Type your option:");
                 optiontest = sc.nextInt();
                 if (optiontest != 0) {
                     dto.strVaccineType.add(controller.getVaccineTypeList().get(optiontest - 1).toString());
@@ -206,9 +211,7 @@ public class CreateVaccinationCenterUI implements Runnable {
             System.out.println();
             System.out.println(dto);
             System.out.println();
-            System.out.println("----------------------CONFIRM DATA? (Y/N)-------------------------------------------");
-            String strOption = sc1.nextLine();
-            if (strOption.equals("Yes") || strOption.equals("y") || strOption.equals("YES") || strOption.equals("Y") || strOption.equals("yes")) {
+            if (Utils.confirmCreation()) {
                 controller.saveHealthcareCenter(dto);
                 System.out.println();
                 System.out.println("The Healthcare Center was saved.");

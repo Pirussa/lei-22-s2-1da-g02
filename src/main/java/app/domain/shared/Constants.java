@@ -1,6 +1,5 @@
 package app.domain.shared;
 
-import java.util.ArrayList;
 
 import app.domain.model.Company;
 

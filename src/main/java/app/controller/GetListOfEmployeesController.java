@@ -2,7 +2,6 @@ package app.controller;
 
 import app.domain.model.Company;
 import app.domain.model.Employee;
-import app.domain.shared.Constants;
 
 import java.util.ArrayList;
 

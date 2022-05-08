@@ -1,6 +1,5 @@
 package app.ui.console;
 
-import app.domain.model.VaccineType;
 
 public class MassVaccinationCenterDto {
     public MassVaccinationCenterDto() {

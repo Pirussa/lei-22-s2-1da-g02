@@ -1,6 +1,5 @@
 package app.ui.console;
 
-import app.domain.model.VaccinationCenter;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Objects;

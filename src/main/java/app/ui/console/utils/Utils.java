@@ -179,7 +179,7 @@ public class Utils {
     }
 
     public static void bootstrapOptional() {
-        /*
+
         SpecifyNewVaccineTypeController ctrlVt = new SpecifyNewVaccineTypeController();
 
         ctrlVt.saveVaccineType("AAAAA", "Vaccine Type 1", VaccineType.vaccineTechnologies[0]);
@@ -198,6 +198,6 @@ public class Utils {
         dtoEmp.address = "Via Diagonal, 4475-079, Porto";
         ctrlEmp.saveCreatedEmployee(dtoEmp, "Center Coordinator");
 
-         */
+
     }
 }
