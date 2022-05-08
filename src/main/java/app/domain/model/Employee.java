@@ -338,7 +338,7 @@ public class Employee {
             return false;
 
         String zipCode = splitAddress[1].trim();
-        if (zipCode.length() != 8)
+        if (zipCode.length() != 8 || zipCode.charAt(4) != '-')
             return false;
 
         return true;
