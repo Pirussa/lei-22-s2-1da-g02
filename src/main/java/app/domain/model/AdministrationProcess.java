@@ -40,7 +40,7 @@ public class AdministrationProcess {
      * @return true if the Administration Process is validated.
      */
     public boolean validateAdministrationProcess() {
-        if (checksIfInfoNotNull()) return validateAgeGroups();
+        if (checksIfInfoNotEmpty()) return validateAgeGroups();
 
         return false;
     }
@@ -70,7 +70,7 @@ public class AdministrationProcess {
      *
      * @return true if none of the attributes are empty.
      */
-    private boolean checksIfInfoNotNull() {
+    private boolean checksIfInfoNotEmpty() {
 
         if (ageGroups.isEmpty() || numberOfDoses.isEmpty() || dosage.isEmpty() || timeIntervalBetweenVaccines.isEmpty())
             return false;
