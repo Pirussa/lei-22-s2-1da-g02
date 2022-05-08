@@ -166,20 +166,6 @@ public class Utils {
         return option == 1;
     }
 
-    public static AdministrationProcess createAdminProcess() {
-
-        ArrayList<Integer> minAge = new ArrayList<>(List.of(1));
-        ArrayList<Integer> maxAge = new ArrayList<>(List.of(9));
-        ArrayList<ArrayList<Integer>> ageGroup = new ArrayList<>(Arrays.asList(minAge, maxAge));
-
-        ArrayList<Integer> numberOfDoses = new ArrayList<>(List.of(2));
-        ArrayList<Double> dosage = new ArrayList<>(List.of(Double.parseDouble("20.0")));
-        ArrayList<Integer> intervalBetweenVac1st2nd = new ArrayList<>(List.of(15));
-        ArrayList<ArrayList<Integer>> intervalBetweenVaccines = new ArrayList<>(Arrays.asList(intervalBetweenVac1st2nd));
-        AdministrationProcess adminProcess = new AdministrationProcess(ageGroup, numberOfDoses, dosage, intervalBetweenVaccines);
-
-        return adminProcess;
-    }
 
     public static Vaccine createVaccine(String name, int id, String brand, double dosage, int minAge, int maxAge, int timeBetweenDoses) {
         Company c = App.getInstance().getCompany();
