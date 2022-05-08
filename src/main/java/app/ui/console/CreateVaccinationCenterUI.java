@@ -118,7 +118,7 @@ public class CreateVaccinationCenterUI implements Runnable {
             if (strOption.equals("Yes") || strOption.equals("y") || strOption.equals("YES") || strOption.equals("Y") || strOption.equals("yes")) {
                 controller.saveMassVaccinationCenter(dto);
                 System.out.println();
-                System.out.println("The Mass Vaccination Center was saved into the list as you can see.");
+                System.out.println("The Mass Vaccination Center was saved.");
             } else {
                 System.out.println();
                 System.out.println("You chose not to save the Mass Vaccination Center.");

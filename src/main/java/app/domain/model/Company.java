@@ -243,7 +243,7 @@ public class Company {
     }
 
     /**
-     * Fills the arrays of the types of employees through the list that contains all employees.
+     * Fills the array lists with the types of employees through the list that contains all employees.
      */
 
     public void fillListOfEmployeesWithAGivenRole() {

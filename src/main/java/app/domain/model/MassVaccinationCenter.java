@@ -16,7 +16,7 @@ public class MassVaccinationCenter extends  VaccinationCenter{
                 strRoad, strZipCode, strLocal, strCenterCoordinatorID);
 
         if ((strVaccineType==null)||(strVaccineType.isEmpty()))
-            throw new IllegalArgumentException("Arguments can't be null or empty");
+            throw new IllegalArgumentException("Arguments can't be null or empty.");
         this.strVaccineType=strVaccineType;
     }
 
@@ -24,5 +24,9 @@ public class MassVaccinationCenter extends  VaccinationCenter{
     public String toString() {
         return super.toString() +
                 "Vaccine Types administered in the Vaccination Center: " + strVaccineType;
+    }
+
+    public boolean validateMassVaccinationCenters() {
+        return super.validateVaccinationCenters() && strVaccineType != null  && !strVaccineType.isEmpty();
     }
 }

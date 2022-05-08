@@ -44,35 +44,35 @@ public class  VaccinationCenter{
                 (strLocal==null) || (strCenterCoordinatorID==null) || (strID.isEmpty()) ||(strName.isEmpty()) || (strPhoneNumber.isEmpty() || (strEmail.isEmpty()) ||
                 (strFax.isEmpty()) || (strWebsite.isEmpty()) || (strOpeningHour.isEmpty()) || (strClosingHour.isEmpty()) || (strSlotDuration.isEmpty()) ||
                 (strVaccinesPerSlot.isEmpty()) ||(strRoad.isEmpty()||(strZipCode.isEmpty()||(strLocal.isEmpty()||(strCenterCoordinatorID.isEmpty())))))))
-        throw new IllegalArgumentException("Arguments can't be null or empty");
+        throw new IllegalArgumentException("Arguments can't be null or empty.");
 
         if(!validatePhoneNumberAndFax(strPhoneNumber)){
-            throw new IllegalArgumentException("Phone Numbers only support integers from 0 to 9.");
+            throw new IllegalArgumentException("Only supports the Portuguese format, .e.i, 933398881.");
         }
 
         if(!validatePhoneNumberAndFax(strFax)){
-            throw new IllegalArgumentException("Fax only support integers from 0 to 9.");
+            throw new IllegalArgumentException("Only supports the Portuguese format, .e.i, 933398881.");
         }
 
         if (!validateEmail(strEmail)){
-            throw new IllegalArgumentException("Email needs to have @, one of the available email domains and one of the top level domains saved.");
+            throw new IllegalArgumentException("Needs an @, a . and a valid domain,");
         }
 
         if (!validateWebsite(strWebsite, strTopLevelDomain,strWorldWideWeb))
-            throw new IllegalArgumentException("Website needs to star with www. and have one of the valid domains inside the domain vector.");
+            throw new IllegalArgumentException("Needs a valid prefix and domain.");
 
         if (!validateVaccinationCenterHours(strOpeningHour,strClosingHour))
-            throw new IllegalArgumentException("Hours need to be between 0 and 24, and opening hour cant be higher than closing hour.");
+            throw new IllegalArgumentException("Between 0 and 24, Opening Hour < Closing Hour.");
 
         if (!validateZipCode(strZipCode))
-            throw new IllegalArgumentException("Zip Code format is invalid");
+            throw new IllegalArgumentException("Zip Code format is invalid.");
 
         if (!validateSlotDuration(strSlotDuration)){
-            throw new IllegalArgumentException("Slot duration can only be numbers, no more than 3 chars");
+            throw new IllegalArgumentException("No more than three numerical chars.");
         }
 
         if (!validateVaccinesPerSlot(strVaccinesPerSlot)){
-            throw new IllegalArgumentException("Number of vaccines per slot can only be numbers, no more than 3 chars");
+            throw new IllegalArgumentException("No more than three numerical chars.");
         }
 
         this.strID = strID;
@@ -113,7 +113,7 @@ public class  VaccinationCenter{
                 "Center Coordinator of the Vaccination Center: " + strCenterCoordinatorID + '\n';
     }
 
-    public static boolean validateVaccinationCenterHours(String strOpeningHour, String strClosingHour) {
+    public boolean validateVaccinationCenterHours(String strOpeningHour, String strClosingHour) {
         if (Integer.parseInt(strOpeningHour) >= 0 && Integer.parseInt(strOpeningHour) < 24 && Integer.parseInt(strClosingHour) > 0 && Integer.parseInt(strClosingHour) <= 24)
         {
             if (Integer.parseInt(strOpeningHour) < Integer.parseInt(strClosingHour))
@@ -124,7 +124,7 @@ public class  VaccinationCenter{
     }
 
 
-    public static boolean validateWebsite(String strWebsite, String[] strTopLevelDomain, String strWorldWideWeb){
+    public boolean validateWebsite(String strWebsite, String[] strTopLevelDomain, String strWorldWideWeb){
 
         for (int position = 0; position < strTopLevelDomain.length; position++) {
             if (strWebsite.startsWith(strWorldWideWeb) && strWebsite.endsWith(strTopLevelDomain[position]))
@@ -184,4 +184,15 @@ public class  VaccinationCenter{
         } else return false;
     }
 
+    public boolean validateVaccinationCenters() {
+        return  strName != null && strID != null && strPhoneNumber != null && strEmail != null && strFax != null &&
+                strWebsite != null && strOpeningHour != null && strClosingHour != null && strSlotDuration != null && strVaccinesPerSlot != null &&
+                strRoad != null && strZipCode != null && strLocal != null && strCenterCoordinatorID != null &&
+                !strName.isEmpty() && !strID.isEmpty() && !strPhoneNumber.isEmpty() && !strEmail.isEmpty() && !strFax.isEmpty() &&
+                !strWebsite.isEmpty() && !strOpeningHour.isEmpty() && !strClosingHour.isEmpty() && !strSlotDuration.isEmpty() && !strVaccinesPerSlot.isEmpty() &&
+                !strRoad.isEmpty() && !strZipCode.isEmpty() && !strLocal.isEmpty() && !strCenterCoordinatorID.isEmpty()  && validatePhoneNumberAndFax(strPhoneNumber)
+                && validatePhoneNumberAndFax(strFax) && validateEmail(strEmail) && validateWebsite(strWebsite, strTopLevelDomain,strWorldWideWeb) &&
+                validateVaccinationCenterHours(strOpeningHour,strClosingHour) && validateZipCode(strZipCode) && validateSlotDuration(strSlotDuration) &&
+                validateVaccinesPerSlot(strVaccinesPerSlot);
+    }
 }
