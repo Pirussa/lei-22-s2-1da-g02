@@ -23,7 +23,11 @@ public class AdminUI implements Runnable{
         options.add(new MenuItem("Get a list of Employees", new GetListOfEmployeesUI()));
         options.add(new MenuItem("Specify a new vaccine type", new SpecifyNewVaccineTypeUI()));
         options.add(new MenuItem("Specify a new vaccine and its administration process.", new SpecifyVaccineAndAdminProcessUI()));
+
         options.add(new MenuItem("Logout.",new MainMenuUI() ));
+
+        options.add(new MenuItem("Load a CSV file.", new LoadCSVUI()));
+
         
 
 
