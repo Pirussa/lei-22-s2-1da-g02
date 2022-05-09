@@ -1,5 +1,6 @@
 package app.domain.model;
 
+import app.domain.shared.Constants;
 import app.ui.console.*;
 import pt.isep.lei.esoft.auth.AuthFacade;
 import org.apache.commons.lang3.StringUtils;
@@ -272,12 +273,15 @@ public class Company {
         if (Objects.equals(selectedRole, "Nurse")) {
             Employee emp = new Nurse(dto.id, dto.name, dto.address, dto.phoneNumber, dto.email, dto.citizenCardNumber, dto.password);
             employees.add(emp);
+            this.authFacade.addUserWithRole(dto.name,dto.email, dto.password, Constants.ROLE_NURSE);
         } else if (Objects.equals(selectedRole, "Receptionist")) {
             Employee emp = new Receptionist(dto.id, dto.name, dto.address, dto.phoneNumber, dto.email, dto.citizenCardNumber, dto.password);
             employees.add(emp);
+            this.authFacade.addUserWithRole(dto.name,dto.email, dto.password, Constants.ROLE_RECEPTIONIST);
         } else if (Objects.equals(selectedRole, "Center Coordinator")) {
             Employee emp = new CenterCoordinator(dto.id, dto.name, dto.address, dto.phoneNumber, dto.email, dto.citizenCardNumber, dto.password);
             employees.add(emp);
+            this.authFacade.addUserWithRole(dto.name,dto.email, dto.password, Constants.ROLE_CENTRE_COORDINATOR);
         }
     }
 
