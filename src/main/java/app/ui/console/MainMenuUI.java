@@ -11,12 +11,13 @@ import java.util.List;
 /**
  * @author Paulo Maio <pam@isep.ipp.pt>
  */
-public class MainMenuUI {
+public class MainMenuUI implements Runnable {
 
     public MainMenuUI() {
     }
 
-    public static void run() throws IOException {
+    @Override
+    public void run() {
 
         List<MenuItem> options = new ArrayList<MenuItem>();
         options.add(new MenuItem("Do Login", new AuthUI()));
@@ -30,6 +31,7 @@ public class MainMenuUI {
             }
         }
         while (option != -1);
+        
     }
 
 

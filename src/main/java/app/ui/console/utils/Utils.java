@@ -1,9 +1,11 @@
 package app.ui.console.utils;
 
 import app.controller.App;
+import app.controller.CreateVaccinationCenterController;
 import app.controller.RegisterNewEmployeeController;
 import app.controller.SpecifyNewVaccineTypeController;
 import app.domain.model.*;
+import app.ui.console.MassVaccinationCenterDto;
 import app.ui.console.RegisterNewEmployeeDto;
 
 import java.io.BufferedReader;
@@ -182,8 +184,8 @@ public class Utils {
 
         SpecifyNewVaccineTypeController ctrlVt = new SpecifyNewVaccineTypeController();
 
-        ctrlVt.saveVaccineType("AAAAA", "Vaccine Type 1", VaccineType.vaccineTechnologies[0]);
-        ctrlVt.saveVaccineType("BBBBB", "Vaccine Type 2", VaccineType.vaccineTechnologies[1]);
+        ctrlVt.saveVaccineType("COVID", "A vaccine to prevent serious infections of the Covid-19 Virus", VaccineType.vaccineTechnologies[5]);
+        ctrlVt.saveVaccineType("FLU22", "A vaccine to prevent serious infections of the Flu virus related to 2022 variant", VaccineType.vaccineTechnologies[1]);
         ctrlVt.saveVaccineType("CCCCC", "Vaccine Type 3", VaccineType.vaccineTechnologies[2]);
 
         RegisterNewEmployeeController ctrlEmp = new RegisterNewEmployeeController();
@@ -195,9 +197,46 @@ public class Utils {
         dtoEmp.phoneNumber = "915604427";
         dtoEmp.citizenCardNumber = "11960343 8 ZW1";
         dtoEmp.email = "joao@gmail.com";
-        dtoEmp.address = "Via Diagonal, 4475-079, Porto";
+        dtoEmp.address = "Via Diagonal / 4475-079 / Porto";
         ctrlEmp.saveCreatedEmployee(dtoEmp, "Center Coordinator");
+        RegisterNewEmployeeDto dtoEmp1 = new RegisterNewEmployeeDto();
+        dtoEmp1.id = "CC-92634";
+        dtoEmp1.name = "Francisca";
+        dtoEmp1.password = "ah56BCC";
+        dtoEmp1.phoneNumber = "919700873";
+        dtoEmp1.citizenCardNumber = "14268862 2 ZX8";
+        dtoEmp1.email = "francisca@gmail.com";
+        dtoEmp1.address = "Rua de São Tomé / 4200-489 / Porto";
+        ctrlEmp.saveCreatedEmployee(dtoEmp1, "Center Coordinator");
+        RegisterNewEmployeeDto dtoEmp2 = new RegisterNewEmployeeDto();
+        dtoEmp2.id = "NR-91272";
+        dtoEmp2.name = "Joana";
+        dtoEmp2.password = "fv93ACK";
+        dtoEmp2.phoneNumber = "919880654";
+        dtoEmp2.citizenCardNumber = "38002291 5 ZY5";
+        dtoEmp2.email = "joana@gmail.com";
+        dtoEmp2.address = "Rua De Azevedo De Albuquerque / 4050-076 / Porto";
+        ctrlEmp.saveCreatedEmployee(dtoEmp2, "Nurse");
 
+        CreateVaccinationCenterController ctrlVc= new CreateVaccinationCenterController();
+        MassVaccinationCenterDto mvcDto= new MassVaccinationCenterDto();
+        mvcDto.strID= "1234";
+        mvcDto.strName="CVC Matosinhos";
+        mvcDto.strPhoneNumber ="915607321";
+        mvcDto.strEmail= "cvcmatosinhos@gmail.com";
+        mvcDto.strClosingHour= "8";
+        mvcDto.strOpeningHour= "24";
+        mvcDto.strVaccinesPerSlot= "5";
+        mvcDto.strSlotDuration ="20";
+        mvcDto.strWebsite=  "www.cvcmatosinhos.com";
+        mvcDto.strRoad =  "Rua do Amial";
+        mvcDto.strZipCode= "4460-098";
+        mvcDto.strLocal =  "Matosinhos";
+        mvcDto.strCenterCoordinatorID ="CC-95634";
+        mvcDto.strVaccineType = "COVID";
+
+
+        //HealthcareCenter hCc = new HealthcareCenter("1236", "Centro de Saude da Maia", "945372312", "csmaia@gmail.com", "945372312", "www.csmaia.com", "9", "17", "15", "3", "Rua da Escola", "4470-073", "Maia", "CC-92634", "Norte","SNS",new ArrayList<>(List.of("COVID","FLU22")));
 
     }
 }

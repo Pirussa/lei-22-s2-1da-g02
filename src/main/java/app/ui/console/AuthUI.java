@@ -1,6 +1,8 @@
 package app.ui.console;
 
 import app.controller.AuthController;
+import app.domain.model.CenterCoordinator;
+import app.domain.model.Receptionist;
 import app.domain.shared.Constants;
 import app.ui.console.utils.Utils;
 import pt.isep.lei.esoft.auth.mappers.dto.UserRoleDTO;
@@ -55,9 +57,10 @@ public class AuthUI implements Runnable{
     {
         List<MenuItem> rolesUI = new ArrayList<>();
         rolesUI.add(new MenuItem(Constants.ROLE_ADMIN, new AdminUI()));
-        // To complete with other user roles and related RoleUI
-
-        //
+        rolesUI.add(new MenuItem(Constants.ROLE_RECEPTIONIST, new ReceptionistUI()));
+        rolesUI.add(new MenuItem(Constants.ROLE_NURSE, new NurseUI()));
+        rolesUI.add(new MenuItem(Constants.ROLE_CENTRE_COORDINATOR, new CenterCoordinatorUI()));
+        rolesUI.add(new MenuItem(Constants.ROLE_SNS_USER, new SnsUserUI()));
         return rolesUI;
     }
 

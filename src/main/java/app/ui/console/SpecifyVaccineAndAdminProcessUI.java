@@ -14,10 +14,12 @@ import java.util.Scanner;
  *
  * @author Gustavo Jorge <1211061@isep.ipp.pt>
  */
-
 public class SpecifyVaccineAndAdminProcessUI implements Runnable {
 
 
+    /**
+     * Instantiates a new Specify vaccine and admin process ui.
+     */
     public SpecifyVaccineAndAdminProcessUI() {
     }
 
