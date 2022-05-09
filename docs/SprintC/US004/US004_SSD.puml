@@ -1,0 +1,24 @@
+@startuml
+autonumber
+actor "Receptinist" as R
+
+activate R
+
+R -> ":System" : asks to register the arrival of an SNS user
+activate ":System"
+":System" --> R : requests data (SNS number)
+deactivate ":System"
+
+R -> ":System" : types requested data
+activate ":System"
+":System" --> R : shows the data
+deactivate ":System"
+
+R -> ":System" : register the arrival
+activate ":System"
+":System" --> R : informs operation success
+deactivate ":System"
+
+deactivate R
+
+@enduml

@@ -1,6 +1,6 @@
 package app.domain.model;
 
-import app.controller.App;
+
 
 public class Vaccine {
 
