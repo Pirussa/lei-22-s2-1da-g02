@@ -1,0 +1,30 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Company {
+}
+
+class User {
+String name
+String address
+String sex
+int phoneNumber
+String email
+Date birthDate
+int SNSNumber
+int citizenCardNumber
+}
+
+class RegisterArrivalOfSNSUserUI
+
+class RegisterArrivalOfSNSUserController{
+}
+
+
+left to right direction
+
+RegisterArrivalOfSNSUserUI - RegisterArrivalOfSNSUserController
+RegisterArrivalOfSNSUserController -> Company
+Company .> User
+
+@enduml
