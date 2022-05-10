@@ -211,6 +211,7 @@ public class Utils {
         dtoEmp1.email = "francisca@gmail.com";
         dtoEmp1.address = "Rua de São Tomé / 4200-489 / Porto";
         ctrlEmp.saveCreatedEmployee(dtoEmp1, "Center Coordinator");
+
         RegisterNewEmployeeDto dtoEmp2 = new RegisterNewEmployeeDto();
         dtoEmp2.id = "NR-91272";
         dtoEmp2.name = "Joana";
@@ -220,6 +221,16 @@ public class Utils {
         dtoEmp2.email = "joana@gmail.com";
         dtoEmp2.address = "Rua De Azevedo De Albuquerque / 4050-076 / Porto";
         ctrlEmp.saveCreatedEmployee(dtoEmp2, "Nurse");
+
+        RegisterNewEmployeeDto dtoEmp3 = new RegisterNewEmployeeDto();
+        dtoEmp3.id = "RC-12345";
+        dtoEmp3.name = "Carla";
+        dtoEmp3.password = "AAA12aa";
+        dtoEmp3.phoneNumber = "912345678";
+        dtoEmp3.citizenCardNumber = "15925823 5 ZX3";
+        dtoEmp3.email = "carla@gmail.com";
+        dtoEmp3.address = "Rua Carlos Kimbo Slice / 4440-123 / Porto";
+        ctrlEmp.saveCreatedEmployee(dtoEmp3, "Receptionist");
 
         CreateVaccinationCenterController ctrlVc= new CreateVaccinationCenterController();
         MassVaccinationCenterDto mvcDto= new MassVaccinationCenterDto();

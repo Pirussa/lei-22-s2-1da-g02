@@ -4,8 +4,6 @@ import app.controller.RegisterNewEmployeeController;
 import app.domain.model.Employee;
 import app.ui.console.utils.Utils;
 import java.util.ArrayList;
-import java.util.Scanner;
-
 
 /**
  * US010 - Register New Employee UI
@@ -20,8 +18,6 @@ public class RegisterNewEmployeeUI implements Runnable {
     }
 
     public void run() {
-
-        Scanner read = new Scanner(System.in);
         RegisterNewEmployeeController ctrl = new RegisterNewEmployeeController();
         RegisterNewEmployeeDto dto = new RegisterNewEmployeeDto();
         System.out.printf("%n-----------------------%n|Employee Registration|%n-----------------------%n%n");
