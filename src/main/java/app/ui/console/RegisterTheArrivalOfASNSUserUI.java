@@ -2,9 +2,29 @@ package app.ui.console;
 
 import app.controller.RegisterTheArrivalOfASNSUserController;
 
-public class RegisterTheArrivalOfASNSUserUI {
+import java.util.Scanner;
+
+public class RegisterTheArrivalOfASNSUserUI implements Runnable {
 
     private RegisterTheArrivalOfASNSUserController ctlr = new RegisterTheArrivalOfASNSUserController();
+
+    @Override
+    public void run() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println();
+        System.out.println("------Register the Arrival of an SNS user------");
+        System.out.println();
+
+        System.out.print("Introduze the SNS number: ");
+        int SNSNumber = sc.nextInt();
+
+        // VALIDAR SNS NUMBER
+
+        if (ctlr.checkAppointment(SNSNumber) != null) {
+            //verificar se posso ser registado, saber o que considerar
+            //Depois da verifacação user o crlr.registerArrival
+        }
+    }
 
     /*
     Things to consider
