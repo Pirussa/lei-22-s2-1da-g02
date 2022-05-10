@@ -35,6 +35,20 @@ public class Utils {
         }
     }
 
+    static public boolean validateEmail(String strEmail) {
+        if (!strEmail.contains("@") && !strEmail.contains("."))
+            return false;
+
+        String[] emailSplitter = strEmail.split("@");
+        String[] validEmailDomain = {"gmail.com", "hotmail.com", "isep.ipp.pt", "sapo.pt", "outlook.com"};
+
+        for (int position = 0; position < validEmailDomain.length; position++) {
+            if (Objects.equals(emailSplitter[1], validEmailDomain[position]))
+                return true;
+        }
+        return false;
+    }
+
     static public int readIntegerFromConsole(String prompt) {
         do {
             try {
@@ -77,6 +91,32 @@ public class Utils {
                 Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
             }
         } while (true);
+    }
+
+    static public String passwordGenerator() {
+        final int PASSWORD_LENGTH = 7;
+        final String alphabetLetters = "abcdefghijklmnopqrstuvwyxzABCDEFGHIJKLMNOPQRSTUVWYXZ0123456789";
+        StringBuilder password = new StringBuilder();
+        Random generate = new Random();
+        ArrayList<String> randomAlphanumerics = new ArrayList<>();
+        StringBuilder employeePassword = new StringBuilder();
+
+        for (int position = 0; position < PASSWORD_LENGTH; position++) {
+            if (position <= 2)
+                password.append(Character.toUpperCase(alphabetLetters.charAt(generate.nextInt(25))));
+            else if (position <= 4)
+                password.append(String.valueOf(generate.nextInt(9)));
+            else
+                password.append(alphabetLetters.charAt(generate.nextInt(alphabetLetters.length())));
+        }
+
+        for (int position = 0; position < PASSWORD_LENGTH; position++) {
+            int index = (generate.nextInt(password.length()));
+            char passwordAux = password.charAt(index);
+            employeePassword.append(passwordAux);
+            password.deleteCharAt(index);
+        }
+        return String.valueOf(employeePassword);
     }
 
     static public boolean confirm(String message) {

@@ -11,9 +11,12 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class LoadCSVUI implements Runnable {
+
+    private final int MAXNUMBEROFCHARSSNSUSERNUMBER = 9;
 
     public void run() {
 
@@ -28,11 +31,18 @@ public class LoadCSVUI implements Runnable {
                 if (validateFileFormat(path)){
                     String line ="";
                     BufferedReader br = new BufferedReader(new FileReader(path));
-                    br.readLine();
+                    String delimiter=null;
+                    if (br.readLine().contains(";")){
+                        delimiter=";";
+                    } else if (br.readLine().contains(",")){
+                        delimiter=",";
+                    }
+
                     while((line = br.readLine()) != null){
-                        String[] values = line.split(",");
-                        if (validateCSVData(line, values)){
-                            csvData.add("\nName: "+values[0] + " SNS User Number: " + values[1]);
+                        String password = Utils.passwordGenerator();
+                        String[] values = line.split(delimiter);
+                        if (validateCSVData(values)){
+                            csvData.add(values[0]+" "+values[1]+" "+values[2]+" "+ password);
                         }else{
                             throw new IllegalArgumentException("The CSV data is invalid, .i.e, the Name of the User has non-word character.");
                         }
@@ -51,10 +61,13 @@ public class LoadCSVUI implements Runnable {
         return path.endsWith(".csv");
     }
 
-    public boolean validateCSVData(String line, String[] values) throws IOException {
-            values = line.split(",");
-        return !values[0].isEmpty() && !values[1].isEmpty() && values[1].trim().matches("^[0-9]*$");
+    public boolean validateCSVData(String[] values) throws IOException {
+
+        return !values[0].isEmpty() && !values[1].isEmpty() && values[1].trim().matches("^[0-9]*$") && values[1].length()==MAXNUMBEROFCHARSSNSUSERNUMBER
+                && !values[2].isEmpty() && Utils.validateEmail(values[2]);
         }
+
+
     }
 
 
