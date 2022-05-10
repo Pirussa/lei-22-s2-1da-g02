@@ -461,5 +461,12 @@ public class Company {
     }
     //END
 
+    public String checkAppointment(int SNSNumber) {
+        return "DEVE DAR RETURN AO APPOINTMENT SE ESTE EXISTIR";
+    }
 
+
+    public void registerArrival(int SNSNumber) {
+        arrivals.add(SNSNumber);
+    }
 }
