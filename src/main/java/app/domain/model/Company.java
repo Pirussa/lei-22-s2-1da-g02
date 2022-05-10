@@ -363,6 +363,7 @@ public class Company {
         return centreCoordinatorList;
     }
 
+    //START
     ArrayList<SNSUser> snsUsers = new ArrayList<>();
 
     public ArrayList<SNSUser> getSNSUserList(){
@@ -397,8 +398,8 @@ public class Company {
             }
 
         }
-
     }
+    //END
 
 
 }

@@ -16,7 +16,6 @@ public class LoadCSVUI implements Runnable {
     public void run() {
 
         System.out.println("");
-        if (Utils.confirmCreation()) {
             try{
                 Scanner readPath = new Scanner(System.in);
                 System.out.println("File Location: ");
@@ -24,17 +23,20 @@ public class LoadCSVUI implements Runnable {
                 String path = readPath.nextLine();
                 ArrayList<String> csvData = new ArrayList<>();
                 if (validateFileFormat(path)){
-                    String line ="";
+                    String line =null;
                     BufferedReader br = new BufferedReader(new FileReader(path));
                     String delimiter=null;
+                    br.mark(100);
                     if (br.readLine().contains(";")){
                         delimiter=";";
-                    } else if (br.readLine().contains(",")){
+                    } else {
                         delimiter=",";
+                        br.reset();
                     }
 
                     while((line = br.readLine()) != null){
                         String password = Utils.passwordGenerator();
+                        line=line.replaceAll("\"","");
                         String[] values = line.split(delimiter);
                         if (validateCSVData(values)){
                             csvData.add(values[0]+"/"+values[1]+"/"+values[2]+"/"+ password);
@@ -48,10 +50,7 @@ public class LoadCSVUI implements Runnable {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        } else {
-            return;
         }
-    }
 
     public boolean validateFileFormat(String path) {
         return path.endsWith(".csv");

@@ -20,6 +20,4 @@ public class LoadCSVController {
     public ArrayList<SNSUser> getSNSUserList(){
         return company.getSNSUserList();
     }
-
-
 }
