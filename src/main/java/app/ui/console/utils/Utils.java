@@ -5,6 +5,8 @@ import app.controller.CreateVaccinationCenterController;
 import app.controller.RegisterNewEmployeeController;
 import app.controller.SpecifyNewVaccineTypeController;
 import app.domain.model.*;
+import app.domain.shared.Constants;
+import app.ui.console.HealthcareCenterDto;
 import app.ui.console.MassVaccinationCenterDto;
 import app.ui.console.RegisterNewEmployeeDto;
 
@@ -199,6 +201,7 @@ public class Utils {
         dtoEmp.email = "joao@gmail.com";
         dtoEmp.address = "Via Diagonal / 4475-079 / Porto";
         ctrlEmp.saveCreatedEmployee(dtoEmp, "Center Coordinator");
+
         RegisterNewEmployeeDto dtoEmp1 = new RegisterNewEmployeeDto();
         dtoEmp1.id = "CC-92634";
         dtoEmp1.name = "Francisca";
@@ -223,9 +226,10 @@ public class Utils {
         mvcDto.strID= "1234";
         mvcDto.strName="CVC Matosinhos";
         mvcDto.strPhoneNumber ="915607321";
+        mvcDto.strFax ="915607321";
         mvcDto.strEmail= "cvcmatosinhos@gmail.com";
-        mvcDto.strClosingHour= "8";
-        mvcDto.strOpeningHour= "24";
+        mvcDto.strClosingHour= "20";
+        mvcDto.strOpeningHour= "8";
         mvcDto.strVaccinesPerSlot= "5";
         mvcDto.strSlotDuration ="20";
         mvcDto.strWebsite=  "www.cvcmatosinhos.com";
@@ -235,8 +239,13 @@ public class Utils {
         mvcDto.strCenterCoordinatorID ="CC-95634";
         mvcDto.strVaccineType = "COVID";
 
+        ctrlVc.saveMassVaccinationCenter(mvcDto);
 
-        //HealthcareCenter hCc = new HealthcareCenter("1236", "Centro de Saude da Maia", "945372312", "csmaia@gmail.com", "945372312", "www.csmaia.com", "9", "17", "15", "3", "Rua da Escola", "4470-073", "Maia", "CC-92634", "Norte","SNS",new ArrayList<>(List.of("COVID","FLU22")));
+        Company c = App.getInstance().getCompany();
+        c.getAuthFacade().addUserWithRole("UserDefault","user@gmail.com","123", Constants.ROLE_SNS_USER);
+
+
+        HealthcareCenterDto hCc = new HealthcareCenterDto("1236", "Centro de Saude da Maia", "945372312", "csmaia@gmail.com", "945372312", "www.csmaia.com", "9", "17", "15", "3", "Rua da Escola", "4470-073", "Maia", "CC-92634", "Norte","SNS",new ArrayList<>(List.of("COVID","FLU22")));
 
     }
 }
