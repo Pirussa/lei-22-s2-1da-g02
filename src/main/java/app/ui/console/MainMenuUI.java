@@ -1,7 +1,9 @@
 package app.ui.console;
 
 
+import app.controller.App;
 import app.ui.console.utils.Utils;
+import pt.isep.lei.esoft.auth.AuthFacade;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,8 +18,15 @@ public class MainMenuUI implements Runnable {
     public MainMenuUI() {
     }
 
+    AuthFacade aF = App.getInstance().getCompany().getAuthFacade();
+
     @Override
     public void run() {
+
+       if(aF.getCurrentUserSession()!=null){
+           aF.getCurrentUserSession().doLogout();
+           System.out.printf("%nLogout was successfully completed!%n");
+       }
 
         List<MenuItem> options = new ArrayList<MenuItem>();
         options.add(new MenuItem("Do Login", new AuthUI()));
