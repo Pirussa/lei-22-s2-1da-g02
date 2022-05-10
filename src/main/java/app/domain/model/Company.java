@@ -38,6 +38,8 @@ public class Company {
 
     private ArrayList<Employee> centreCoordinatorList = new ArrayList<>();
 
+    private List<Integer> arrivals = new ArrayList<>();
+
     public Company(String designation) {
         if (StringUtils.isBlank(designation))
             throw new IllegalArgumentException("Designation cannot be blank.");

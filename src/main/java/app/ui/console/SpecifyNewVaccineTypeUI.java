@@ -58,7 +58,7 @@ public class SpecifyNewVaccineTypeUI implements Runnable {
                 check = true;
             }
             catch (ArrayIndexOutOfBoundsException e) {
-                System.out.println("Inser a valid option");
+                System.out.println("Insert a valid option");
                 option = sc.nextInt();
                 sc.nextLine();
             }
