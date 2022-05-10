@@ -423,6 +423,7 @@ public class Company {
         return centreCoordinatorList;
     }
 
+    //START
     ArrayList<SNSUser> snsUsers = new ArrayList<>();
 
     public ArrayList<SNSUser> getSNSUserList(){
@@ -457,8 +458,8 @@ public class Company {
             }
 
         }
-
     }
+    //END
 
     public String checkAppointment(int SNSNumber) {
         return "DEVE DAR RETURN AO APPOINTMENT SE ESTE EXISTIR";
