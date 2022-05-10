@@ -3,44 +3,43 @@ autonumber
 
 actor "Receptionist" as R
 
-participant ":RegisterArrivalOfSNSUserUI" as UIsour
-participant ":RegisterArrivalOfSNSUserController" as CTRL
+participant ":RegisterArrivalOfASNSUserUI" as UI
+participant ":RegisterArrivalOfASNSUserController" as CTRL
 participant ":Company" as C
-participant ":User" as U
 
 activate R
-R -> UI : asks to create a new system user
+
+R -> UI : asks to check if an SNS user has an appointment
 activate UI
-UI --> R : requests data (name, address, sex, phone number, email address, birthdate, Citizen Card Number)
+
+UI --> R : requests data (SNS number)
 deactivate UI
 
 R -> UI : types requested data
 activate UI
 
-UI -> CTRL : createSnsUser(name, address, sex, phone number, email address, birthdate, Citizen Card Number)
+UI -> CTRL : checkUserAppointment(SNS number)
 activate CTRL
 
-CTRL -> C : createSnsUser(name, address, sex, phone number, email address, birthdate, Citizen Card Number)
+CTRL -> C : checkUserAppointment(SNS number)
 activate C
-C --> U : createSnsUser(name, address, sex, phone number, email address, birthdate, Citizen Card Number)
-activate U
-U -> U :  validate data
 
 CTRL --> UI : result
 
-UI --> R: shows all data and requests confirmation
+UI --> R: shows the result
 
-deactivate U
 deactivate C
 deactivate CTRL
 deactivate UI
 
 
-R -> UI : confirms the data
+R -> UI : registers the arrival if there is an appointment
 activate UI
-UI -> CTRL : saveUser(name, address, sex, phone number, email address, birthdate, Citizen Card Number)
+
+UI -> CTRL : registerArrival(SNS number)
 activate CTRL
-CTRL -> C : saveUser(name, address, sex, phone number, email address, birthdate, Citizen Card Number)
+
+CTRL -> C : registerArrival(SNS number)
 activate C
 
 

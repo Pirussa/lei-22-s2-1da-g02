@@ -93,13 +93,13 @@ n/a
 
 **SSD - Alternative 1 is adopted.**
 
-| Interaction ID | Which class responsible for...             | Answer                             | Justification                                                                                                 |
-|:---------------|:-------------------------------------------|:-----------------------------------|:--------------------------------------------------------------------------------------------------------------|
-| Step 1         | ...interacting with the actor?             | RegisterArrivalOfSNSUserUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. |
-|                | ...coordinating the US                     | RegisterArrivalOfSNSUserController | **Controller**                                                                                                |
-| Step 2         | ...register the arrival of an SNS user     | Company                            | **Creator**                                                                                                   |
-| Step 3         | ...saving the inputted data of the arrival | Company                            | IE: An Administrator configures and manages the data                                                          |
-| Step 4         | ...informing operation success             | RegisterArrivalOfSNSUserUI         | IE: is responsible for user interactions                                                                      |
+| Interaction ID | Which class responsible for...             | Answer                              | Justification                                                                                                 |
+|:---------------|:-------------------------------------------|:------------------------------------|:--------------------------------------------------------------------------------------------------------------|
+| Step 1         | ...interacting with the actor?             | RegisterArrivalOfSNSUserUI          | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. |
+|                | ...coordinating the US                     | RegisterArrivalOfSNSUserController  | **Controller**                                                                                                |
+| Step 2         | ...register the arrival of an SNS user     | RegisterArrivalOfSNSUserController  | **Creator**                                                                                                   |
+| Step 3         | ...saving the inputted data of the arrival | Company                             | IE: An Administrator configures and manages the data                                                          |
+| Step 4         | ...informing operation success             | RegisterArrivalOfSNSUserUI          | IE: is responsible for user interactions                                                                      |
 
 
 ### Systematization ##

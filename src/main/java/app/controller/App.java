@@ -72,6 +72,7 @@ public class App {
         this.authFacade.addUserRole(Constants.ROLE_CENTRE_COORDINATOR,Constants.ROLE_CENTRE_COORDINATOR);
         this.authFacade.addUserRole(Constants.ROLE_NURSE,Constants.ROLE_NURSE);
         this.authFacade.addUserRole(Constants.ROLE_RECEPTIONIST,Constants.ROLE_RECEPTIONIST);
+        this.authFacade.addUserRole(Constants.ROLE_SNS_USER, Constants.ROLE_SNS_USER);
 
         this.authFacade.addUserWithRole("Main Administrator", "admin@lei.sem2.pt", "123456", Constants.ROLE_ADMIN);
         this.authFacade.addUserWithRole("Main Administrator", "1@gmail.com", "1", Constants.ROLE_ADMIN);

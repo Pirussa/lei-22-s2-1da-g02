@@ -4,7 +4,7 @@ actor "Receptinist" as R
 
 activate R
 
-R -> ":System" : asks to register the arrival of an SNS user
+R -> ":System" : asks to check if an SNS user has an appointment
 activate ":System"
 ":System" --> R : requests data (SNS number)
 deactivate ":System"
