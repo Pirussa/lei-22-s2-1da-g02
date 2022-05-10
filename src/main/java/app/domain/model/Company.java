@@ -24,20 +24,44 @@ public class Company {
     private String designation;
     private AuthFacade authFacade;
 
+    /**
+     * List that stores the Vaccine Types
+     */
     private ArrayList<VaccineType> vaccineTypes = new ArrayList<>();
 
+    /**
+     * List that stores the Vaccines
+     */
     private ArrayList<Vaccine> vaccines = new ArrayList<>();
 
+    /**
+     * List that stores the Employees
+     */
     private static ArrayList<Employee> employees = new ArrayList<>();
 
+    /**
+     * List that stores the roles
+     */
     private ArrayList<String> roles = new ArrayList<>();
 
+    /**
+     * List that stores the Nurses
+     */
     private ArrayList<Employee> nurseList = new ArrayList<>();
 
+    /**
+     * List that stores the Receptinonists
+     */
     private ArrayList<Employee> receptionistList = new ArrayList<>();
 
+    /**
+     * List that stores the Center Coordinators
+     */
     private ArrayList<Employee> centreCoordinatorList = new ArrayList<>();
 
+    /**
+     * List that stores the Arrivals of the SNS users
+     */
     private List<Integer> arrivals = new ArrayList<>();
 
     public Company(String designation) {
@@ -48,10 +72,21 @@ public class Company {
         this.authFacade = new AuthFacade();
     }
 
+
+    /**
+     * Gets the designation
+     *
+     * @return designation
+     */
     public String getDesignation() {
         return designation;
     }
 
+    /**
+     * Gets the Auth Facade
+     *
+     * @return Auth Facade
+     */
     public AuthFacade getAuthFacade() {
         return authFacade;
     }
@@ -76,15 +111,29 @@ public class Company {
     }
 
 
+    /**
+     * Gets the Healthcare Centers that are stored in the Company.
+     *
+     * @return A List of Healthcare Centers.
+     */
     public List<HealthcareCenter> getHealthcareCenter() {
-
         return healthcareCenters;
     }
 
+    /**
+     * Gets the Mass Vaccination Centers that are stored in the Company.
+     *
+     * @return A List of Mass Vaccination Centers.
+     */
     public List<MassVaccinationCenter> getMassVaccinationCenter() {
         return massVaccinationCenters;
     }
 
+    /**
+     * Gets the Vaccination Centers that are stored in the Company.
+     *
+     * @return A List of Vaccination Centers.
+     */
     public List<VaccinationCenter> getVaccinationCenters(VaccinationCenter o) {
         return vaccinationCenters;
     }
@@ -335,6 +384,17 @@ public class Company {
             }
         }
     }
+
+    /**
+     * Método para subistuir redundância do método de cima
+     * Alterar JavaDoc
+     */
+//    public static void teste(List<Employee> lista, List<Employee> mainLista, int position) {
+//        for (int listPosition = 0; listPosition < lista.size(); listPosition++)
+//            if (!mainLista.get(position).getEmail().equals(lista.get(listPosition).getEmail()) || !mainLista.get(position).getCitizenCardNumber().equals(lista.get(listPosition).getCitizenCardNumber()))
+//                lista.add(mainLista.get(position));
+//
+//    }
 
     /**
      * Gets the Nurses registered in the Company.
