@@ -12,10 +12,19 @@ public class SNSUser {
     private final int MAXNUMBEROFCHARSSNSUSERNUMBER = 9;
 
     public SNSUser(String strName, String strSNSUserNumber ,String strEmail,String strPassword) {
+
         this.strName = strName;
         this.strSNSUserNumber = strSNSUserNumber;
         this.strEmail=strEmail;
         this.strPassword=strPassword;
+
+        try {
+            if (!validateSNSUser()){
+                throw new IllegalArgumentException("SNS User Info is Invalid");
+            }
+        }catch (IllegalArgumentException e){
+            e.printStackTrace();
+        }
     }
 
     public String getStrSNSUserNumber() {
@@ -37,20 +46,21 @@ public class SNSUser {
     }
 
     public boolean validatePassword(String strPassword){
-        if (strPassword.length()>=8){
+        final int PASSWORDLENGHT = 7;
+        if (strPassword.length()==PASSWORDLENGHT){
             return true;
         } else return false;
     }
 
     public boolean validateSNSUserNumber(String strSNSUserNumber){
-        if (strSNSUserNumber.matches("^[0-9]*$") && strSNSUserNumber.length()==MAXNUMBEROFCHARSSNSUSERNUMBER){
+        if (strSNSUserNumber.trim().matches("^[0-9]*$") && strSNSUserNumber.length()==MAXNUMBEROFCHARSSNSUSERNUMBER){
             return true;
         } else return false;
     }
 
     public boolean validateSNSUser(){
         return strName!=null && strEmail!=null && strPassword!=null && strSNSUserNumber!=null &&
-                !strPassword.isEmpty() && !strEmail.isEmpty() && !strPassword.isEmpty() && !strSNSUserNumber.isEmpty() &&
+                !strName.isEmpty() && !strEmail.isEmpty() && !strPassword.isEmpty() && !strSNSUserNumber.isEmpty() &&
                 validateEmail(strEmail) && validatePassword(strPassword) && validateSNSUserNumber(strSNSUserNumber);
     }
 

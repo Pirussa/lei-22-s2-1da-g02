@@ -46,6 +46,9 @@ public class LoadCSVUI implements Runnable {
                     }
                     fillSNSUserDto(csvData);
                     getListOfSNSUsers();
+                } else{
+                    System.out.println();
+                    System.out.println("Only files ending in .csv are allowed.");
                 }
             } catch (IOException e) {
                 e.printStackTrace();
