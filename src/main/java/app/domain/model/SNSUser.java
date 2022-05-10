@@ -18,6 +18,10 @@ public class SNSUser {
         this.strPassword=strPassword;
     }
 
+    public String getStrSNSUserNumber() {
+        return strSNSUserNumber;
+    }
+
     public boolean validateEmail(String strEmail) {
         if (!strEmail.contains("@") && !strEmail.contains("."))
             return false;
@@ -50,5 +54,11 @@ public class SNSUser {
                 validateEmail(strEmail) && validatePassword(strPassword) && validateSNSUserNumber(strSNSUserNumber);
     }
 
-
+    @Override
+    public String toString() {
+        return "Name of the SNS User: " + strName + '\n' +
+                "SNS User Number of the SNS User: " + strSNSUserNumber + '\n' +
+                "Email of the SNS User: " + strEmail+ '\n' +
+                "Password of the SNS User: " + strPassword;
+    }
 }

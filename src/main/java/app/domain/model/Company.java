@@ -363,5 +363,42 @@ public class Company {
         return centreCoordinatorList;
     }
 
+    ArrayList<SNSUser> snsUsers = new ArrayList<>();
+
+    public ArrayList<SNSUser> getSNSUserList(){
+        return snsUsers;
+   }
+
+    public SNSUser createSNSUser(SNSUserDto dto) {
+        return new SNSUser(dto.strName, dto.strSNSUserNumber,dto.strEmail, dto.strPassword);
+    }
+
+    public void saveSNSUser(SNSUserDto dto){
+        boolean flag=false;
+        if (snsUsers.isEmpty()){
+            snsUsers.add(createSNSUser(dto));
+            System.out.println("Saved");
+        } else {
+            for (int i = 0; i < snsUsers.size(); i++) {
+               if (!(Objects.equals(snsUsers.get(i).getStrSNSUserNumber(), createSNSUser(dto).getStrSNSUserNumber()))){
+                   flag = true;
+               } else{
+                   flag = false;
+                   break;
+               }
+            }
+            if (flag){
+                snsUsers.add(createSNSUser(dto));
+                System.out.println();
+                System.out.println("Saved");
+            } else {
+                System.out.println();
+                System.out.println("Not Saved because that SNS Number already exists.");
+            }
+
+        }
+
+    }
+
 
 }
