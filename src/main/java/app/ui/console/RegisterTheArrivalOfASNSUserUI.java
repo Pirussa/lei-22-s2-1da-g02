@@ -38,6 +38,12 @@ public class RegisterTheArrivalOfASNSUserUI implements Runnable {
 
         int vaccinationCenterSNSUser = getOption();
 
+        /*
+        PRÓXIMOS PASSOS
+        • Receber a data e time
+        • Validar tudo com o if comentado em baixo, ele dará feedback
+        • Depois de validado, register o arrival
+         */
 
 
 //        if (ctlr.checkRequirementsForRegistration(SNSNumber, vaccinationCenterReceptionist, vaccinationCenterSNSUser)) {
