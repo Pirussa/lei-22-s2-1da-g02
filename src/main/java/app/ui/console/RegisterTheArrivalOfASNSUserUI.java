@@ -1,7 +1,10 @@
 package app.ui.console;
 
 import app.controller.RegisterTheArrivalOfASNSUserController;
+import app.domain.model.VaccinationCenter;
+import app.ui.console.utils.Utils;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class RegisterTheArrivalOfASNSUserUI implements Runnable {
@@ -15,15 +18,36 @@ public class RegisterTheArrivalOfASNSUserUI implements Runnable {
         System.out.println("------Register the Arrival of an SNS user------");
         System.out.println();
 
-        System.out.print("Introduze the SNS number: ");
-        int SNSNumber = sc.nextInt();
+        int vaccinationCenterReceptionist = getOption();
+        boolean check = false;
+        int SNSNumber = 0;
 
-        // VALIDAR SNS NUMBER
+        do {
+            try {
+                System.out.print("Introduze the SNS number: ");
+                SNSNumber = sc.nextInt();
+                check = true;
 
-        if (ctlr.checkAppointment(SNSNumber) != null) {
-            //verificar se posso ser registado, saber o que considerar
-            //Depois da verifacação user o crlr.registerArrival
-        }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid Option");
+                System.out.println();
+            }
+
+        } while (!check);
+        // VERIFICAR SE O SNS NUMBER É VÁLIDO
+
+        int vaccinationCenterSNSUser = getOption();
+
+
+
+//        if (ctlr.checkRequirementsForRegistration(SNSNumber, vaccinationCenterReceptionist, vaccinationCenterSNSUser)) {
+//            //verificar se posso ser registado, saber o que considerar
+//            //Depois da verifacação user o crlr.registerArrival
+//        }
+    }
+
+    public int getOption() {
+        return Utils.showAndSelectIndex(ctlr.getVaccinationCenterList(), "Vaccination Centers");
     }
 
     /*
