@@ -431,17 +431,21 @@ public class Company {
    }
 
     public SNSUser createSNSUser(SNSUserDto dto) {
-        return new SNSUser(dto.strName, dto.strSNSUserNumber,dto.strEmail, dto.strPassword);
+        return new SNSUser(dto.strName, dto.strSNSUserNumber,dto.strEmail,dto.strBirthDate,dto.strPhoneNumber,
+                dto.strSex,dto.strAddress,dto.strCitizenCardNumber,dto.strPassword);
     }
 
-    public void saveSNSUser(SNSUserDto dto){
+    public String saveSNSUser(SNSUserDto dto){
         boolean flag=false;
         if (snsUsers.isEmpty()){
             snsUsers.add(createSNSUser(dto));
-            System.out.println("Saved");
+            return "Saved";
         } else {
             for (int i = 0; i < snsUsers.size(); i++) {
-               if (!(Objects.equals(snsUsers.get(i).getStrSNSUserNumber(), createSNSUser(dto).getStrSNSUserNumber()))){
+               if (!(Objects.equals(snsUsers.get(i).getStrSNSUserNumber(), createSNSUser(dto).getStrSNSUserNumber())) &&
+                       !(Objects.equals(snsUsers.get(i).getStrEmail(), createSNSUser(dto).getStrEmail())) &&
+                       !(Objects.equals(snsUsers.get(i).getStrPhoneNumber(), createSNSUser(dto).getStrPhoneNumber())) &&
+                       !(Objects.equals(snsUsers.get(i).getStrCitizenCardNumber(), createSNSUser(dto).getStrCitizenCardNumber()))){
                    flag = true;
                } else{
                    flag = false;
@@ -451,10 +455,10 @@ public class Company {
             if (flag){
                 snsUsers.add(createSNSUser(dto));
                 System.out.println();
-                System.out.println("Saved");
+                return "Saved";
             } else {
                 System.out.println();
-                System.out.println("Not Saved because that SNS Number already exists.");
+                return "Not Saved because the data is duplicated";
             }
 
         }

@@ -13,8 +13,8 @@ public class LoadCSVController {
         return company.createSNSUser(dto);
     }
 
-    public void saveSNSUser(SNSUserDto dto){
-        company.saveSNSUser(dto);
+    public String saveSNSUser(SNSUserDto dto){
+        return company.saveSNSUser(dto);
     }
 
     public ArrayList<SNSUser> getSNSUserList(){
