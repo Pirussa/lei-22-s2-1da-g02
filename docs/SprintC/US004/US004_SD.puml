@@ -33,7 +33,7 @@ deactivate CTRL
 deactivate UI
 
 
-R -> UI : registers the arrival if there is an appointment
+R -> UI : registers the arrival depending on the result
 activate UI
 
 UI -> CTRL : registerArrival(SNS number)

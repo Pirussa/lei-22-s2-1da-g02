@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="290px" preserveAspectRatio="none" style="width:251px;height:290px;background:#FFFFFF;" version="1.1" viewBox="0 0 251 290" width="251px" zoomAndPan="magnify"><defs><filter height="300%" id="f4qlj105y8au5" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--MD5=[02e4b9b7573f1156f41e60aa5b4e25a4]
+class Company--><rect codeLine="3" fill="#FEFECE" filter="url(#f4qlj105y8au5)" height="75.6719" id="Company" style="stroke:#A80036;stroke-width:1.5;" width="195" x="24.5" y="201"/><ellipse cx="91.25" cy="217" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M93.25,213.5 Q93.4531,213 93.6875,212.75 Q93.9219,212.5 94.1875,212.5 Q94.6563,212.5 94.9531,212.7813 Q95.25,213.0625 95.25,213.7188 L95.25,215.2813 Q95.25,215.9375 94.9688,216.2188 Q94.6875,216.5 94.25,216.5 Q93.8594,216.5 93.6094,216.3281 Q93.3594,216.1563 93.25,215.7031 Q93.2031,215.3906 93.0313,215.2188 Q92.7188,214.8906 92.1563,214.7031 Q91.5938,214.5 91.0313,214.5 Q90.3281,214.5 89.7344,214.7813 Q89.1563,215.0625 88.7031,215.6875 Q88.25,216.3125 88.25,217.1719 L88.25,218.0938 Q88.25,219.125 89.0938,219.8125 Q89.9375,220.5 91.4375,220.5 Q92.3281,220.5 92.9531,220.2969 Q93.3125,220.1875 93.7188,219.8281 Q93.9844,219.625 94.125,219.5625 Q94.2656,219.5 94.4375,219.5 Q94.7656,219.5 95,219.7656 Q95.25,220.0156 95.25,220.375 Q95.25,220.7188 94.9063,221.125 Q94.4063,221.7188 93.6094,222.0469 Q92.5625,222.5 91.2813,222.5 Q89.7813,222.5 88.5781,221.9063 Q87.6094,221.4375 86.9219,220.4219 Q86.25,219.4063 86.25,218.2031 L86.25,217.1094 Q86.25,215.8594 86.8438,214.7656 Q87.4531,213.6719 88.5,213.0938 Q89.5625,212.5 90.75,212.5 Q91.4688,212.5 92.0938,212.75 Q92.7188,213 93.25,213.5 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="53" x="111.75" y="221.9102">Company</text><line style="stroke:#A80036;stroke-width:1.5;" x1="25.5" x2="218.5" y1="233" y2="233"/><line style="stroke:#A80036;stroke-width:1.5;" x1="25.5" x2="218.5" y1="241" y2="241"/><ellipse cx="35.5" cy="252" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="169" x="44.5" y="256.4189">checkAppointment(int SNSNumber)</text><ellipse cx="35.5" cy="265.8359" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="149" x="44.5" y="270.2549">registerArrival(int SNSNumber)</text><!--MD5=[b854a15348c14bf8d2de44e62ca1ae6c]
+class RegisterArrivalOfSNSUserUI--><rect codeLine="9" fill="#FEFECE" filter="url(#f4qlj105y8au5)" height="48" id="RegisterArrivalOfSNSUserUI" style="stroke:#A80036;stroke-width:1.5;" width="188" x="28" y="7"/><ellipse cx="43" cy="23" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M45,19.5 Q45.2031,19 45.4375,18.75 Q45.6719,18.5 45.9375,18.5 Q46.4063,18.5 46.7031,18.7813 Q47,19.0625 47,19.7188 L47,21.2813 Q47,21.9375 46.7188,22.2188 Q46.4375,22.5 46,22.5 Q45.6094,22.5 45.3594,22.3281 Q45.1094,22.1563 45,21.7031 Q44.9531,21.3906 44.7813,21.2188 Q44.4688,20.8906 43.9063,20.7031 Q43.3438,20.5 42.7813,20.5 Q42.0781,20.5 41.4844,20.7813 Q40.9063,21.0625 40.4531,21.6875 Q40,22.3125 40,23.1719 L40,24.0938 Q40,25.125 40.8438,25.8125 Q41.6875,26.5 43.1875,26.5 Q44.0781,26.5 44.7031,26.2969 Q45.0625,26.1875 45.4688,25.8281 Q45.7344,25.625 45.875,25.5625 Q46.0156,25.5 46.1875,25.5 Q46.5156,25.5 46.75,25.7656 Q47,26.0156 47,26.375 Q47,26.7188 46.6563,27.125 Q46.1563,27.7188 45.3594,28.0469 Q44.3125,28.5 43.0313,28.5 Q41.5313,28.5 40.3281,27.9063 Q39.3594,27.4375 38.6719,26.4219 Q38,25.4063 38,24.2031 L38,23.1094 Q38,21.8594 38.5938,20.7656 Q39.2031,19.6719 40.25,19.0938 Q41.3125,18.5 42.5,18.5 Q43.2188,18.5 43.8438,18.75 Q44.4688,19 45,19.5 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="156" x="57" y="27.9102">RegisterArrivalOfSNSUserUI</text><line style="stroke:#A80036;stroke-width:1.5;" x1="29" x2="215" y1="39" y2="39"/><line style="stroke:#A80036;stroke-width:1.5;" x1="29" x2="215" y1="47" y2="47"/><!--MD5=[7596083637d10a9733a3a3b1fb1a72db]
+class RegisterArrivalOfSNSUserController--><rect codeLine="11" fill="#FEFECE" filter="url(#f4qlj105y8au5)" height="75.6719" id="RegisterArrivalOfSNSUserController" style="stroke:#A80036;stroke-width:1.5;" width="230" x="7" y="90"/><ellipse cx="22" cy="106" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M24,102.5 Q24.2031,102 24.4375,101.75 Q24.6719,101.5 24.9375,101.5 Q25.4063,101.5 25.7031,101.7813 Q26,102.0625 26,102.7188 L26,104.2813 Q26,104.9375 25.7188,105.2188 Q25.4375,105.5 25,105.5 Q24.6094,105.5 24.3594,105.3281 Q24.1094,105.1563 24,104.7031 Q23.9531,104.3906 23.7813,104.2188 Q23.4688,103.8906 22.9063,103.7031 Q22.3438,103.5 21.7813,103.5 Q21.0781,103.5 20.4844,103.7813 Q19.9063,104.0625 19.4531,104.6875 Q19,105.3125 19,106.1719 L19,107.0938 Q19,108.125 19.8438,108.8125 Q20.6875,109.5 22.1875,109.5 Q23.0781,109.5 23.7031,109.2969 Q24.0625,109.1875 24.4688,108.8281 Q24.7344,108.625 24.875,108.5625 Q25.0156,108.5 25.1875,108.5 Q25.5156,108.5 25.75,108.7656 Q26,109.0156 26,109.375 Q26,109.7188 25.6563,110.125 Q25.1563,110.7188 24.3594,111.0469 Q23.3125,111.5 22.0313,111.5 Q20.5313,111.5 19.3281,110.9063 Q18.3594,110.4375 17.6719,109.4219 Q17,108.4063 17,107.2031 L17,106.1094 Q17,104.8594 17.5938,103.7656 Q18.2031,102.6719 19.25,102.0938 Q20.3125,101.5 21.5,101.5 Q22.2188,101.5 22.8438,101.75 Q23.4688,102 24,102.5 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="198" x="36" y="110.9102">RegisterArrivalOfSNSUserController</text><line style="stroke:#A80036;stroke-width:1.5;" x1="8" x2="236" y1="122" y2="122"/><line style="stroke:#A80036;stroke-width:1.5;" x1="8" x2="236" y1="130" y2="130"/><ellipse cx="18" cy="141" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="169" x="27" y="145.4189">checkAppointment(int SNSNumber)</text><ellipse cx="18" cy="154.8359" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="149" x="27" y="159.2549">registerArrival(int SNSNumber)</text><!--MD5=[9c2b63b5005cac7dc9d607513420f25d]
+link RegisterArrivalOfSNSUserController to Company--><path codeLine="19" d="M122,166.13 C122,175.98 122,185.84 122,195.69 " fill="none" id="RegisterArrivalOfSNSUserController-to-Company" style="stroke:#A80036;stroke-width:1.0;"/><polygon fill="#A80036" points="122,200.84,126,191.84,122,195.84,118,191.84,122,200.84" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[c02671460e69f12b5222eca068106625]
+link RegisterArrivalOfSNSUserUI to RegisterArrivalOfSNSUserController--><path codeLine="20" d="M122,55.32 C122,66.79 122,78.26 122,89.73 " fill="none" id="RegisterArrivalOfSNSUserUI-RegisterArrivalOfSNSUserController" style="stroke:#A80036;stroke-width:1.0;"/><!--MD5=[3ce8c7a7e45e435295e8debfd537e5fd]
+@startuml
+'https://plantuml.com/class-diagram
+
+class Company {
++checkAppointment(int SNSNumber)
++registerArrival(int SNSNumber)
+}
+
+
+class RegisterArrivalOfSNSUserUI
+
+class RegisterArrivalOfSNSUserController{
++checkAppointment(int SNSNumber)
++registerArrival(int SNSNumber)
+}
+
+
+left to right direction
+
+RegisterArrivalOfSNSUserController -> Company
+RegisterArrivalOfSNSUserUI - RegisterArrivalOfSNSUserController
+
+@enduml
+
+@startuml
+
+class Company {
++checkAppointment(int SNSNumber)
++registerArrival(int SNSNumber)
+}
+
+
+class RegisterArrivalOfSNSUserUI
+
+class RegisterArrivalOfSNSUserController{
++checkAppointment(int SNSNumber)
++registerArrival(int SNSNumber)
+}
+
+
+left to right direction
+
+RegisterArrivalOfSNSUserController -> Company
+RegisterArrivalOfSNSUserUI - RegisterArrivalOfSNSUserController
+
+@enduml
+
+PlantUML version 1.2022.1(Tue Feb 01 18:19:58 GMT 2022)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: Cp1252
+Language: pt
+Country: PT
+--></g></svg>

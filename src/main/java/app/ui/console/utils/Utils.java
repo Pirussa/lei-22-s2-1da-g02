@@ -12,6 +12,7 @@ import app.ui.console.RegisterNewEmployeeDto;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -79,6 +80,163 @@ public class Utils {
         } while (true);
     }
 
+    public static boolean validatePhoneNumber(String strPhoneNumber) {
+        final int NUMBER_OF_PHONE_NUMBER_DIGITS = 9;
+        final int STARTING_NUMBER_PORTUGUESE_PHONE = 9;
+        final int FIRST_SECOND_NUMBER_PORTUGUESE_PHONE = 1;
+        final int SECOND_SECOND_NUMBER_PORTUGUESE_PHONE = 2;
+        final int THIRD_SECOND_NUMBER_PORTUGUESE_PHONE = 3;
+        final int FOURTH_SECOND_NUMBER_PORTUGUESE_PHONE = 6;
+
+        if (strPhoneNumber.length() == NUMBER_OF_PHONE_NUMBER_DIGITS && Integer.parseInt(strPhoneNumber) % 1 == 0) {
+            int ch1 = Integer.parseInt(String.valueOf(strPhoneNumber.charAt(0)));
+            if (ch1 != STARTING_NUMBER_PORTUGUESE_PHONE)
+                return false;
+
+            int ch2 = Integer.parseInt(String.valueOf(strPhoneNumber.charAt(1)));
+            if (ch2 != FIRST_SECOND_NUMBER_PORTUGUESE_PHONE && ch2 != SECOND_SECOND_NUMBER_PORTUGUESE_PHONE && ch2 != THIRD_SECOND_NUMBER_PORTUGUESE_PHONE && ch2 != FOURTH_SECOND_NUMBER_PORTUGUESE_PHONE) {
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean validateCitizenCardNumber(String strCitizenCardNumber) {
+        final int NUMBER_OF_CITIZEN_CARD_DIGITS = 12;
+        final int FIRST_SECOND_DIGIT_CC = 10;
+        String noBlankSpotsCitizenCardNumber = strCitizenCardNumber.replaceAll("\\s", "");
+        int sum = 0;
+        if (noBlankSpotsCitizenCardNumber.length() != NUMBER_OF_CITIZEN_CARD_DIGITS)
+            return false;
+
+        boolean secondDigit = true;
+
+        for (int digit = 0; digit < noBlankSpotsCitizenCardNumber.length(); digit++) {
+            String toUpperCase = String.valueOf(noBlankSpotsCitizenCardNumber.charAt(digit)).toUpperCase();
+            int value = getValueFromCitizenCardNumberDigit(toUpperCase);
+
+            if (secondDigit) {
+                value *= 2;
+
+                if (value >= 10)
+                    value -= 9;
+            }
+            sum += value;
+            secondDigit = !secondDigit;
+        }
+        return (sum % FIRST_SECOND_DIGIT_CC) == 0;
+    }
+
+    static public boolean validateAddress(String strAddress) {
+        String[] splitAddress = strAddress.split("#");
+        if (splitAddress.length != 3)
+            return false;
+
+        String zipCode = splitAddress[1].trim();
+        if (zipCode.length() != 8 || zipCode.charAt(4) != '-')
+            return false;
+
+        return true;
+    }
+
+    static public boolean validateSex(String strSex){
+        if (strSex.equals("Male")||strSex.equals("Female")||strSex.isEmpty()){
+            return true;
+        } else return false;
+    }
+
+    static public boolean validateBirthDate(String strBirthDate) {
+        String dateFormat= "dd/MM/yyyy";
+        DateFormat sdf = new SimpleDateFormat(dateFormat);
+        sdf.setLenient(false);
+        try {
+            sdf.parse(strBirthDate);
+        } catch (ParseException e) {
+            return false;
+        }
+        return true;
+    }
+
+    static public int getValueFromCitizenCardNumberDigit(String letter) {
+        switch (letter) {
+            case "0":
+                return 0;
+            case "1":
+                return 1;
+            case "2":
+                return 2;
+            case "3":
+                return 3;
+            case "4":
+                return 4;
+            case "5":
+                return 5;
+            case "6":
+                return 6;
+            case "7":
+                return 7;
+            case "8":
+                return 8;
+            case "9":
+                return 9;
+            case "A":
+                return 10;
+            case "B":
+                return 11;
+            case "C":
+                return 12;
+            case "D":
+                return 13;
+            case "E":
+                return 14;
+            case "F":
+                return 15;
+            case "G":
+                return 16;
+            case "H":
+                return 17;
+            case "I":
+                return 18;
+            case "J":
+                return 19;
+            case "K":
+                return 20;
+            case "L":
+                return 21;
+            case "M":
+                return 22;
+            case "N":
+                return 23;
+            case "O":
+                return 24;
+            case "P":
+                return 25;
+            case "Q":
+                return 26;
+            case "R":
+                return 27;
+            case "S":
+                return 28;
+            case "T":
+                return 29;
+            case "U":
+                return 30;
+            case "V":
+                return 31;
+            case "W":
+                return 32;
+            case "X":
+                return 33;
+            case "Y":
+                return 34;
+            case "Z":
+                return 35;
+        }
+        throw new IllegalArgumentException("Invalid Value in the Document.");
+    }
+
+
     static public Date readDateFromConsole(String prompt) {
         do {
             try {
@@ -94,6 +252,7 @@ public class Utils {
             }
         } while (true);
     }
+
 
     static public String passwordGenerator() {
         final int PASSWORD_LENGTH = 7;

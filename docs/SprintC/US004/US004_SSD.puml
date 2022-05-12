@@ -1,6 +1,6 @@
 @startuml
 autonumber
-actor "Receptinist" as R
+actor "Receptionist" as R
 
 activate R
 
@@ -14,7 +14,12 @@ activate ":System"
 ":System" --> R : shows the data
 deactivate ":System"
 
-R -> ":System" : register the arrival
+R -> ":System" : search for appointment through the SNS number
+activate ":System"
+":System" --> R : result
+deactivate ":System"
+
+R -> ":System" : Registers arrival depending on the result
 activate ":System"
 ":System" --> R : informs operation success
 deactivate ":System"

@@ -2,29 +2,22 @@
 'https://plantuml.com/class-diagram
 
 class Company {
++checkAppointment(int SNSNumber)
++registerArrival(int SNSNumber)
 }
 
-class User {
-String name
-String address
-String sex
-int phoneNumber
-String email
-Date birthDate
-int SNSNumber
-int citizenCardNumber
-}
 
 class RegisterArrivalOfSNSUserUI
 
 class RegisterArrivalOfSNSUserController{
++checkAppointment(int SNSNumber)
++registerArrival(int SNSNumber)
 }
 
 
 left to right direction
 
-RegisterArrivalOfSNSUserUI - RegisterArrivalOfSNSUserController
 RegisterArrivalOfSNSUserController -> Company
-Company .> User
+RegisterArrivalOfSNSUserUI - RegisterArrivalOfSNSUserController
 
 @enduml

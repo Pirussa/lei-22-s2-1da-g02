@@ -1,6 +1,5 @@
 package app.ui.console;
 
-
 import app.controller.ScheduleVaccinationController;
 
 /**
@@ -9,7 +8,7 @@ import app.controller.ScheduleVaccinationController;
  * @author Guilherme Sousa <1211073@isep.ipp.pt>
  */
 
-public class ScheduleVaccinationUI implements Runnable{
+public class ScheduleVaccinationUI implements Runnable {
 
     public ScheduleVaccinationUI() {}
 
@@ -17,4 +16,9 @@ public class ScheduleVaccinationUI implements Runnable{
         ScheduleVaccinationController ctrl = new ScheduleVaccinationController();
 
     }
+
+    /*
+     Como iria funcionar? - O User dirige-se à rececionista e procede ao agendamento da vacina, a rececionista deve ter em conta,
+      a data de nascimento e o tempo desde a última vacina que o user tomou.
+    */
 }

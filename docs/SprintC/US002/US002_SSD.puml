@@ -1,0 +1,28 @@
+@startuml
+
+title US002 System Sequence Diagram
+
+autonumber "<b>[00]"
+
+actor Receptionist
+
+activate Receptionist
+
+Receptionist -> ":System": asks to schedule a vaccination
+activate ":System"
+Receptionist <-- ":System": request data(SNS number)
+deactivate ":System"
+
+Receptionist-> ":System": types requested data
+activate ":System"
+Receptionist <-- ":System": show time and date together with the available vaccine types
+deactivate ":System"
+
+Receptionist -> ":System":  selects date and time and also the vaccine type
+activate ":System"
+Receptionist <-- ":System": informs operation (In)success and inform the that the user should be at the vaccination center ate the scheduled date and time
+deactivate ":System"
+
+deactivate Receptionist
+
+@enduml
