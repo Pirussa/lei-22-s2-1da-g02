@@ -466,7 +466,7 @@ public class Company {
     //END
 
     public String checkAppointment(int SNSNumber) {
-        return "DEVE DAR RETURN AO APPOINTMENT SE ESTE EXISTIR";
+        return "DEVE DAR RETURN AO APPOINTMENT, DATE E TIME, SE ESTE EXISTIR";
     }
 
 

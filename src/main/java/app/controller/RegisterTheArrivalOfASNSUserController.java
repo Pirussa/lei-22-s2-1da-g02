@@ -49,7 +49,6 @@ public class RegisterTheArrivalOfASNSUserController {
     }
 
     public boolean checkVaccinationCenters(int vaccinationCenterReceptionist, int vaccinationCenterSNSUser) {
-        System.out.println("Wrong Vaccination Center");
         return vaccinationCenterReceptionist == vaccinationCenterSNSUser;
     }
 

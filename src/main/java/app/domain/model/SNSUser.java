@@ -18,7 +18,7 @@ public class SNSUser {
     private String strPassword;
 
 
-    private final int MAXNUMBEROFCHARSSNSUSERNUMBER = 9;
+    private static final int MAX_NUMBER_OF_CHARS_SNS_USER_NUMBER = 9;
 
     public SNSUser(String strName, String strSNSUserNumber , String strEmail, String strBirthDate,String strPhoneNumber,
                    String strSex, String strAddress, String strCitizenCardNumber, String strPassword){
@@ -63,8 +63,8 @@ public class SNSUser {
         String[] emailSplitter = strEmail.split("@");
         String[] validEmailDomain = {"gmail.com", "hotmail.com", "isep.ipp.pt", "sapo.pt", "outlook.com"};
 
-        for (int position = 0; position < validEmailDomain.length; position++) {
-            if (Objects.equals(emailSplitter[1], validEmailDomain[position]))
+        for (String s : validEmailDomain) {
+            if (Objects.equals(emailSplitter[1], s))
                 return true;
         }
         return false;
@@ -72,15 +72,11 @@ public class SNSUser {
 
     public boolean validatePassword(String strPassword){
         final int PASSWORDLENGHT = 7;
-        if (strPassword.length()==PASSWORDLENGHT){
-            return true;
-        } else return false;
+        return strPassword.length() == PASSWORDLENGHT;
     }
 
-    public boolean validateSNSUserNumber(String strSNSUserNumber){
-        if (strSNSUserNumber.trim().matches("^[0-9]*$") && strSNSUserNumber.length()==MAXNUMBEROFCHARSSNSUSERNUMBER){
-            return true;
-        } else return false;
+    public static boolean validateSNSUserNumber(String strSNSUserNumber){
+        return strSNSUserNumber.trim().matches("^[0-9]*$") && strSNSUserNumber.length() == MAX_NUMBER_OF_CHARS_SNS_USER_NUMBER;
     }
 
     public boolean validatePhoneNumber(String phoneNumber) {
@@ -222,9 +218,7 @@ public class SNSUser {
     }
 
     public boolean validateSex(String strSex){
-        if (strSex.equals("Male")||strSex.equals("Female")||strSex.isEmpty()){
-            return true;
-        } else return false;
+        return strSex.equals("Male") || strSex.equals("Female") || strSex.isEmpty();
     }
 
     public boolean validateBirthDate(String strBirthDate) {

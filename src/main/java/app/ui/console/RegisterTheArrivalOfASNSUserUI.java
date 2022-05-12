@@ -1,10 +1,13 @@
 package app.ui.console;
 
 import app.controller.RegisterTheArrivalOfASNSUserController;
+import app.domain.model.SNSUser;
 import app.domain.model.VaccinationCenter;
 import app.ui.console.utils.Utils;
 
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 public class RegisterTheArrivalOfASNSUserUI implements Runnable {
@@ -18,25 +21,36 @@ public class RegisterTheArrivalOfASNSUserUI implements Runnable {
         System.out.println("------Register the Arrival of an SNS user------");
         System.out.println();
 
-        int vaccinationCenterReceptionist = getOption();
-        boolean check = false;
+        int vaccinationCenterReceptionist = Utils.showAndSelectIndex(ctlr.getVaccinationCenterList(), "Vaccination Centers");;
+        boolean checkInt = false;
+        boolean checkValid = false;
         int SNSNumber = 0;
 
         do {
-            try {
-                System.out.print("Introduze the SNS number: ");
-                SNSNumber = sc.nextInt();
-                check = true;
+            do {
+                try {
+                    System.out.print("Introduze the SNS number: ");
+                    SNSNumber = sc.nextInt();
+                    checkInt = true;
 
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid Option");
-                System.out.println();
-            }
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid SNS User");
+                    System.out.println();
+                }
 
-        } while (!check);
-        // VERIFICAR SE O SNS NUMBER É VÁLIDO
+            } while (!checkInt);
 
-        int vaccinationCenterSNSUser = getOption();
+            if (SNSUser.validateSNSUserNumber(String.valueOf(SNSNumber)))
+                checkValid = true;
+            else
+                System.out.println(SNSNumber + " does not exist!");
+
+        } while (!checkValid);
+
+
+
+
+        int vaccinationCenterSNSUser = Utils.showAndSelectIndex(ctlr.getVaccinationCenterList(), "Vaccination Centers");
 
         /*
         PRÓXIMOS PASSOS
@@ -52,8 +66,27 @@ public class RegisterTheArrivalOfASNSUserUI implements Runnable {
 //        }
     }
 
-    public int getOption() {
-        return Utils.showAndSelectIndex(ctlr.getVaccinationCenterList(), "Vaccination Centers");
+    public boolean checkRequirementsForRegistration(int SNSNumber, int vaccinationCenterReceptionist, int vaccinationCenterSNSUser, Date date, Time time) {
+        if (ctlr.checkAppointment(SNSNumber) == null) {
+            System.out.println("The user does not have any appointment for today");
+            return false;
+        }
+
+
+        if (!ctlr.checkVaccinationCenters(vaccinationCenterReceptionist, vaccinationCenterSNSUser)) {
+            System.out.println("Wrong Vaccination Center");
+            return false;
+        }
+
+
+
+        if (!ctlr.checkTimeAndDate(date, time)) {
+            System.out.println("Wrong Day/Hour");
+            return false;
+        }
+
+
+        return true;
     }
 
     /*
