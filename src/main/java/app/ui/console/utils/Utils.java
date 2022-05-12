@@ -38,19 +38,7 @@ public class Utils {
         }
     }
 
-    static public boolean validateEmail(String strEmail) {
-        if (!strEmail.contains("@") && !strEmail.contains("."))
-            return false;
 
-        String[] emailSplitter = strEmail.split("@");
-        String[] validEmailDomain = {"gmail.com", "hotmail.com", "isep.ipp.pt", "sapo.pt", "outlook.com"};
-
-        for (int position = 0; position < validEmailDomain.length; position++) {
-            if (Objects.equals(emailSplitter[1], validEmailDomain[position]))
-                return true;
-        }
-        return false;
-    }
 
     static public int readIntegerFromConsole(String prompt) {
         do {
@@ -80,21 +68,22 @@ public class Utils {
         } while (true);
     }
 
-    public static boolean validatePhoneNumber(String strPhoneNumber) {
-        final int NUMBER_OF_PHONE_NUMBER_DIGITS = 9;
-        final int STARTING_NUMBER_PORTUGUESE_PHONE = 9;
-        final int FIRST_SECOND_NUMBER_PORTUGUESE_PHONE = 1;
-        final int SECOND_SECOND_NUMBER_PORTUGUESE_PHONE = 2;
-        final int THIRD_SECOND_NUMBER_PORTUGUESE_PHONE = 3;
-        final int FOURTH_SECOND_NUMBER_PORTUGUESE_PHONE = 6;
+    /**
+     * Validates Employee phone number.
+     *
+     * @param phoneNumber The Employee´s phone number.
+     * @return true if Employee phone number is validated
+     */
 
-        if (strPhoneNumber.length() == NUMBER_OF_PHONE_NUMBER_DIGITS && Integer.parseInt(strPhoneNumber) % 1 == 0) {
-            int ch1 = Integer.parseInt(String.valueOf(strPhoneNumber.charAt(0)));
-            if (ch1 != STARTING_NUMBER_PORTUGUESE_PHONE)
+    static public boolean validatePhoneNumber(String phoneNumber) {
+
+        if (phoneNumber.length() == Constants.NUMBER_OF_PHONE_NUMBER_DIGITS && Integer.parseInt(phoneNumber) % 1 == 0) {
+            int ch1 = Integer.parseInt(String.valueOf(phoneNumber.charAt(0)));
+            if (ch1 != Constants.STARTING_NUMBER_PORTUGUESE_PHONE)
                 return false;
 
-            int ch2 = Integer.parseInt(String.valueOf(strPhoneNumber.charAt(1)));
-            if (ch2 != FIRST_SECOND_NUMBER_PORTUGUESE_PHONE && ch2 != SECOND_SECOND_NUMBER_PORTUGUESE_PHONE && ch2 != THIRD_SECOND_NUMBER_PORTUGUESE_PHONE && ch2 != FOURTH_SECOND_NUMBER_PORTUGUESE_PHONE) {
+            int ch2 = Integer.parseInt(String.valueOf(phoneNumber.charAt(1)));
+            if (ch2 != Constants.FIRST_SECOND_NUMBER_PORTUGUESE_PHONE && ch2 != Constants.SECOND_SECOND_NUMBER_PORTUGUESE_PHONE && ch2 != Constants.THIRD_SECOND_NUMBER_PORTUGUESE_PHONE && ch2 != Constants.FOURTH_SECOND_NUMBER_PORTUGUESE_PHONE) {
                 return false;
             }
             return true;
@@ -102,12 +91,17 @@ public class Utils {
         return false;
     }
 
-    public static boolean validateCitizenCardNumber(String strCitizenCardNumber) {
-        final int NUMBER_OF_CITIZEN_CARD_DIGITS = 12;
-        final int FIRST_SECOND_DIGIT_CC = 10;
-        String noBlankSpotsCitizenCardNumber = strCitizenCardNumber.replaceAll("\\s", "");
+    /**
+     * Validates Employee citizen card number.
+     *
+     * @param citizenCardNumber The Employee´s citizen card number.
+     * @return true if Employee citizen card number is validated
+     */
+
+    static public boolean validateCitizenCardNumber(String citizenCardNumber) {
+        String noBlankSpotsCitizenCardNumber = citizenCardNumber.replaceAll("\\s", "");
         int sum = 0;
-        if (noBlankSpotsCitizenCardNumber.length() != NUMBER_OF_CITIZEN_CARD_DIGITS)
+        if (noBlankSpotsCitizenCardNumber.length() != Constants.NUMBER_OF_CITIZEN_CARD_DIGITS)
             return false;
 
         boolean secondDigit = true;
@@ -125,39 +119,15 @@ public class Utils {
             sum += value;
             secondDigit = !secondDigit;
         }
-        return (sum % FIRST_SECOND_DIGIT_CC) == 0;
+        return (sum % Constants.FIRST_SECOND_DIGIT_CC) == 0;
     }
 
-    static public boolean validateAddress(String strAddress) {
-        String[] splitAddress = strAddress.split("#");
-        if (splitAddress.length != 3)
-            return false;
-
-        String zipCode = splitAddress[1].trim();
-        if (zipCode.length() != 8 || zipCode.charAt(4) != '-')
-            return false;
-
-        return true;
-    }
-
-    static public boolean validateSex(String strSex){
-        if (strSex.equals("Male")||strSex.equals("Female")||strSex.isEmpty()){
-            return true;
-        } else return false;
-    }
-
-    static public boolean validateBirthDate(String strBirthDate) {
-        String dateFormat= "dd/MM/yyyy";
-        DateFormat sdf = new SimpleDateFormat(dateFormat);
-        sdf.setLenient(false);
-        try {
-            sdf.parse(strBirthDate);
-        } catch (ParseException e) {
-            return false;
-        }
-        return true;
-    }
-
+    /**
+     * Gets the value of each char in citizen card number.
+     *
+     * @param letter char from the citizen card number.
+     * @return integer with the correspondent value of a char
+     */
     static public int getValueFromCitizenCardNumberDigit(String letter) {
         switch (letter) {
             case "0":
@@ -235,6 +205,65 @@ public class Utils {
         }
         throw new IllegalArgumentException("Invalid Value in the Document.");
     }
+
+    /**
+     * Validates Employee email.
+     *
+     * @param email The Employee´s email.
+     * @return true if Employee email is validated
+     */
+
+    static public boolean validateEmail(String email) {
+        if (!email.contains("@") && !email.contains("."))
+            return false;
+
+        String[] emailSplitter = email.split("@");
+        String[] validEmailDomain = {"gmail.com", "hotmail.com", "isep.ipp.pt", "sapo.pt", "outlook.com"};
+
+        for (int position = 0; position < validEmailDomain.length; position++) {
+            if (Objects.equals(emailSplitter[1], validEmailDomain[position]))
+                return true;
+        }
+        return false;
+    }
+
+    /**
+     * Validates Employee address.
+     *
+     * @param address The Employee´s address.
+     * @return true if Employee address is validated
+     */
+
+    static public boolean validateAddress(String address) {
+        String[] splitAddress = address.split("/");
+        if (splitAddress.length != 3)
+            return false;
+
+        String zipCode = splitAddress[1].trim();
+        if (zipCode.length() != 8 || zipCode.charAt(4) != '-')
+            return false;
+
+        return true;
+    }
+    static public boolean validateSex(String strSex){
+        if (strSex.equals("Male")||strSex.equals("Female")||strSex.isEmpty()){
+            return true;
+        } else return false;
+    }
+
+    static public boolean validateBirthDate(String strBirthDate) {
+        String dateFormat= "dd/MM/yyyy";
+        DateFormat sdf = new SimpleDateFormat(dateFormat);
+        sdf.setLenient(false);
+        try {
+            sdf.parse(strBirthDate);
+        } catch (ParseException e) {
+            return false;
+        }
+        return true;
+    }
+
+
 
 
     static public Date readDateFromConsole(String prompt) {
