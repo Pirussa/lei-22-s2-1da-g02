@@ -13,25 +13,22 @@ public class RegisterTheArrivalOfASNSUserController {
 
     public RegisterTheArrivalOfASNSUserController() {}
 
+    /**
+     * Gets a list of Vaccination Centers
+     *
+     * @return Arraylist - an array list of the previous created vaccination centers
+     */
     public ArrayList<VaccinationCenter> getVaccinationCenterList() {
         return company.getVaccinationCenters();
     }
 
-    public boolean checkRequirementsForRegistration(int SNSNumber, int vaccinationCenterReceptionist, int vaccinationCenterSNSUser, Date date, Time time) {
-        if (checkAppointment(SNSNumber) == null)
-            return false;
-
-
-        if (!checkVaccinationCenters(vaccinationCenterReceptionist, vaccinationCenterSNSUser))
-            return false;
-
-
-        if (!checkTimeAndDate(date, time))
-            return false;
-
-        return true;
-    }
-
+    /**
+     * Checks if the user is at the right time to be registered
+     *
+     * @param date the Date of the vaccine appointment
+     * @param time the Time of the vaccine appointment
+     * @return boolean - checks if the user is at the right time to be registered
+     */
     public boolean checkTimeAndDate(Date date, Time time) {
         Date currentDate = new Date();
         Time currentTime = new Time(currentDate.getTime());

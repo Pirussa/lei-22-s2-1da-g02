@@ -2,11 +2,9 @@ package app.ui.console;
 
 import app.controller.RegisterTheArrivalOfASNSUserController;
 import app.domain.model.SNSUser;
-import app.domain.model.VaccinationCenter;
 import app.ui.console.utils.Utils;
 
 import java.sql.Time;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -21,7 +19,7 @@ public class RegisterTheArrivalOfASNSUserUI implements Runnable {
         System.out.println("------Register the Arrival of an SNS user------");
         System.out.println();
 
-        int vaccinationCenterReceptionist = Utils.showAndSelectIndex(ctlr.getVaccinationCenterList(), "Vaccination Centers");;
+        int vaccinationCenterReceptionist = Utils.showAndSelectIndex(ctlr.getVaccinationCenterList(), "Vaccination Centers");
         boolean checkInt = false;
         boolean checkValid = false;
         int SNSNumber = 0;
@@ -42,8 +40,10 @@ public class RegisterTheArrivalOfASNSUserUI implements Runnable {
 
             if (SNSUser.validateSNSUserNumber(String.valueOf(SNSNumber)))
                 checkValid = true;
+//            else if (check se o sns number dele coincide com algum já existente
+//                System.out.println(SNSNumber + " does not exist!");
             else
-                System.out.println(SNSNumber + " does not exist!");
+                System.out.println("Invalid SNS User");
 
         } while (!checkValid);
 
