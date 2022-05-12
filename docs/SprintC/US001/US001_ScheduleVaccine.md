@@ -1,94 +1,101 @@
-# US 001 - Schedule Vaccine
+# US 001 - Schedule a Vaccine
 
 ## 1. Requirements Engineering
 
 ### 1.1. User Story Description
 
-As an **administrator**, I want to register a **new vaccine and its administration process**.
+As an **SNS User**, I intend to use the application to **schedule a vaccine**.
 
 ### 1.2. Customer Specifications and Clarifications 
 
 **From the specifications document:**
 
-> [...] it is worth noticing that for each type of vaccine, several vaccines might exist, each one demanding a distinct administration process.
+> To take a vaccine, the SNS user should use the application to schedule his/her vaccination.
+> 
+>The user
+should introduce his/her SNS user number, select the vaccination center, the date, and the time (s)he
+wants to be vaccinated as well as the type of vaccine to be administered (by default, the system
+suggests the one related to the ongoing outbreak). 
+>
+> Then, the application should check the
+vaccination center capacity for that day/time and, if possible, confirm that the vaccination is
+scheduled and inform the user that (s)he should be at the selected vaccination center at the
+scheduled day and time.
+>
+> The SNS user may also authorize the DGS to send an SMS message with
+information about the scheduled appointment. If the user authorizes the sending of the SMS, the
+application should send an SMS message when the vaccination event is scheduled and registered in
+the system.
 
-> The vaccine administration process comprises (i) one or more age groups (e.g.: 5 to 12 years old, 13 to 18 years old, greater than 18 years old), and (ii) per age group, the doses to be administered (e.g.: 1, 2, 3), the vaccine dosage (e.g.: 30 ml), and the time interval regarding the previously administered dose. Regarding this, it is important to notice that between doses (e.g.: between the 1st and 2nd doses) the dosage to be administered might vary as well as the time interval elapsing between two consecutive doses (e.g.: between the 1st and 2nd doses 21 days might be required, while between the 2nd and the 3rd doses 6 months might be required).
+
 
 **From the client clarifications:**
 
-> **Question:** Which attributes does the Vaccine have (besides the ones refering to the Vaccine Type)?
+> **Question:** "What kind of information should be included in an SMS Message to warn of a scheduling? (for example, the SNS number, center, day, time and vaccine type)?"
 >
-> **Answer:** Each vaccine has the following attributes: Id, Name, Brand, Vaccine Type, Age Group, Dose Number, Vaccine Dosage and Time Since Last Dose.
+> **Answer:** Date, Time and vaccination center.
 
-> **Question:** We would like to know if when specifying a new Vaccine and its Administration Process, should a list of the existing types of vaccines be displayed in order for him to choose one, or should he just input it?
+> **Question:** "...The SNS user may also authorize the DGS to send an SMS message with information about the scheduled appointment..."
 >
-> **Answer:** If the information is available in the system, it is a good practice to present the information to the user and ask the user to select.
+>Which interpretation is correct?: The user should and will authorize or the user can do so if he wants. Because if he doesn't authorize how will he receive the information?
+>
+> 
+>
+> **Answer:** The SNS user should give authorization to DGS so that DGS can send him a SMS.
+>
+>When scheduling a vaccination event, the SNS user should always see all the information about the scheduled appointment.
 
-> **Question:** As to the interval between doses, what time format are we to use? (e.g. days, weeks, months)
->
-> **Answer:** Number of days.
+
 
 
 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** The new vaccine can't have the same Id as a previously created vaccine.
+* **AC1:** A SNS user cannot schedule the same vaccine more than
+  once.
 * **AC2:** All required data must be filled.
-* **AC3:** The age limits for the age groups should be coherent.
+* **AC3:** The vaccination center has to have availability.
 
 ### 1.4. Found out Dependencies
 
-There is a dependency related to the US012, since a Vaccine has as one of its attributes the Vaccine Type. In order to
-specify a new vaccine, it's required that there is at least one Vaccine Type already. 
+There is a dependency related to the US003 and US014, since for an SNS User to schedule a vaccine there's the need of having him registered in the System.
+There is a dependency to the US009 and US013, since in order to schedule a vaccine it is required that the System has Vaccination Centers and Vaccines, respectively.
 
 
 ### 1.5 Input and Output Data
 
 **Input Data:**
 * Typed data:
-  - Id;
-  - Brand;
-  - Vaccine Name;
-  - Age limits for each age group;
-  - Number of doses, per age group;
-  - Vaccine dosage ( e.g.: 30 ml);
-  - Time interval between vaccines, considering the dose number given previously;
-
+  - SNS Number
 
 * Selected data:
+    - Vaccination Center;
     - Vaccine Type;
-
+    - Date;
+    - Time;
+    
 
 **Output Data:**
 
+* A list with all the Vaccination Centers available
 * A list with all the Vaccine Types available
+* A list with dates
+* A list with times
 * (In)Success of the operation
 
 ### 1.6. System Sequence Diagram (SSD)
 
-![US013_SSD](US013_SSD.svg)
+![US001_SSD](US001_SSD.svg)
 
 ### 1.7 Other Relevant Remarks
 
-To clarify this client response: "A vaccine has the following attributes: ID, Name, Brand, Vaccine Type, Age Group, Dose
-Number, Vaccine Dosage and Time Since Last Dose". Each vaccine has those attributes, but when specifying a new vaccine (
-which is different from the Nurse related US of registering a vaccine), there should also be another attribute, the
-Administration Process.  
-There's also the possibility that there will be a "GivenVaccine" class that would have those attributes, since those are
-related to a vaccine that was given and not to an actual Vaccine like the project description describes:
-"For instance, for the Covid-19 type, there is (i) the Pfizer vaccine, (ii) the Moderna vaccine, (iii) the AstraZeneca
-vaccine, and so on"
-
-Summarizing, there should be Vaccine Types (Covid-19, Flu, etc...)/(Even to the same disease but using different technologies), to those types there should be different Vaccines (
-Pfizer, Moderna, etc...), and then there should be a Given Vaccine class, where there is all the information about a
-vaccine that was given:
-ID, Name, Brand, Vaccine Type, Age Group, Dose Number, Vaccine Dosage and Time Since Last Dose.
+No other relevant remarks.
 
 ## 2. OO Analysis
 
 ### 2.1. Relevant Domain Model Excerpt
 
-![US013_DM](US013_DM.svg)
+![US001_DM](US001_DM.svg)
 
 ### 2.2. Other Remarks
 
@@ -102,9 +109,9 @@ No other relevant remarks.
 
 | Interaction ID | Question: Which class is responsible for... | Answer  | Justification (with patterns)  |
 |:-------------  |:--------------------- |:------------|:---------------------------- |
-| Step 1         |    ... interacting with the actor? | SpecifyVaccineAndAdminProcessUI   |  Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model.   |
-| 			  		 |    ... coordinating the US? | SpecifyVaccineAndAdminProcessController | **Controller**  |
-| Step 2  |    ...transfer the data typed in the UI to the domain? | VaccineAndAdminProcessDto | **DTO:** When there is so much data to transfer, it is better to opt by using a DTO in order to reduce coupling between UI and domain |
+| Step 1         |    ... interacting with the actor? | ScheduleVaccineUI   |  Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model.   |
+| 			  		 |    ... coordinating the US? | ScheduleVaccineController | **Controller**  |
+| Step 2  |    ...transfer the data typed in the UI to the domain? | ScheduleVaccineDTO | **DTO:** When there is so much data to transfer, it is better to opt by using a DTO in order to reduce coupling between UI and domain |
 | Step 3     |    ... instantiating a new Vaccine  | Company | By applying the **Creator** pattern, the "Company" is responsible for instantiating a new "Vaccine", since it is the one who storages the Vaccines.   |
 | 	 |    ... instantiating a new Administration Process | Vaccine |By applying the **Creator** pattern, the "Vaccine" is responsible for instantiating the "Administration Process", since a "Vaccine" has/contains an Administration Process|
 | Step 4         |    ...validating the inputted data for the Vaccine | Vaccine | The Vaccine class should know what needs to be validated in order to actually create a "Vaccine"|
