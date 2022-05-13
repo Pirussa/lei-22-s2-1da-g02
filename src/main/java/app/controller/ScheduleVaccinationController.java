@@ -1,6 +1,7 @@
 package app.controller;
 
 import app.domain.model.Company;
+import app.domain.model.SNSUser;
 import app.domain.model.VaccinationCenter;
 import app.ui.console.utils.Utils;
 import pt.isep.lei.esoft.auth.AuthFacade;
@@ -27,5 +28,9 @@ public class ScheduleVaccinationController {
         }
 
         return getVaccinationCenterNameList;
+    }
+
+    public ArrayList<SNSUser> getSNSUsersList() {
+        return company.getSNSUserList();
     }
 }

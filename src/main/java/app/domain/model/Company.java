@@ -421,7 +421,6 @@ public class Company {
         boolean flag = false;
         if (snsUsers.isEmpty()) {
             snsUsers.add(createSNSUser(dto));
-
             return "Saved";
         } else {
             for (int i = 0; i < snsUsers.size(); i++) {

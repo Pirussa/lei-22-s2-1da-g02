@@ -5,6 +5,8 @@ import app.domain.model.SNSUser;
 import app.ui.console.utils.Utils;
 import pt.isep.lei.esoft.auth.AuthFacade;
 
+import java.util.Objects;
+
 /**
  * US010 - Register New Employee UI
  *
@@ -28,10 +30,8 @@ public class ScheduleVaccinationUI implements Runnable {
 
             snsNumber = Utils.readLineFromConsole("Introduce SNS Number: ");
 
-        } while (!SNSUser.validateSNSUserNumber(snsNumber));
-
-        Utils.showList(auth.getUsers(), "Users List");
-
+        } while (!SNSUser.validateSNSUserNumber(Objects.requireNonNull(snsNumber)) || SNSUser.userExists(snsNumber) < 0);
+        
         }
     }
 
