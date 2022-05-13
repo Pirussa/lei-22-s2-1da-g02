@@ -3,6 +3,8 @@ package app.ui.console;
 import app.controller.CreateVaccinationCenterController;
 import app.domain.model.VaccineType;
 import app.ui.console.utils.Utils;
+import dto.HealthcareCenterDto;
+import dto.MassVaccinationCenterDto;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -21,7 +23,7 @@ public class CreateVaccinationCenterUI implements Runnable {
     }
 
     /**
-     *  Runs the main menu that allows the user to choose what option he wants to follow
+     * Runs the main menu that allows the user to choose what option he wants to follow
      */
     public void run() {
         Scanner choice = new Scanner(System.in);
@@ -47,7 +49,7 @@ public class CreateVaccinationCenterUI implements Runnable {
             } else {
                 System.out.println("Option is Invalid.");
             }
-        }catch (InputMismatchException e){
+        } catch (InputMismatchException e) {
             System.out.println("Only Numbers.");
         }
     }
@@ -59,7 +61,7 @@ public class CreateVaccinationCenterUI implements Runnable {
         CreateVaccinationCenterController controller = new CreateVaccinationCenterController();
         if (!controller.getVaccinationCenters().isEmpty()) {
             for (int i = 0; i < controller.getVaccinationCenters().size(); i++) {
-                System.out.println("\nPosition " + i + ": " + "\n" + controller.getVaccinationCenters().get(i));
+                System.out.println("\nPosition " + i + ": " + "\n" + controller.getVaccinationCenters().get(i).fullInfo());
                 System.out.println();
             }
         } else {
@@ -100,24 +102,28 @@ public class CreateVaccinationCenterUI implements Runnable {
             System.out.println();
             System.out.println("Information about the Coordinator: ");
             System.out.println();
-            System.out.println("Choose one Coordinator from the list that hasn't been chosen, type it's position.");
+            System.out.println("Choose one Coordinator from the list, type it's position.");
             System.out.println();
 
             do {
                 try {
                     for (int i = 0; i < controller.getCenterCoordinatorIDs().size(); i++) {
-                        System.out.println("Position " + i + ": " + controller.getCenterCoordinatorIDs().get(i));
+                        boolean check = true;
+                        for (int j = 0; j < controller.getVaccinationCenters().size(); j++) {
+                            if (controller.getCenterCoordinatorIDs().get(i).equals(controller.getVaccinationCenters().get(j).getStrCenterCoordinatorID()))
+                                check = false;
+
+                        }
+                        if (check)
+                            System.out.println("Position " + i + ": " + controller.getCenterCoordinatorIDs().get(i));
+
+
                     }
                     System.out.println();
                     System.out.print("Choose your option: ");
                     int option = sc.nextInt();
                     System.out.println();
-                    for (int i = 0; i < controller.getVaccinationCenters().size(); i++) {
-                        if (controller.getCenterCoordinatorIDs().get(option).equals(controller.getVaccinationCenters().get(i).getStrCenterCoordinatorID())) {
-                            System.out.println();
-                            throw new IllegalArgumentException("The chosen coordinator is already assigned to another center.");
-                        }
-                    }
+
                     dto.strCenterCoordinatorID = controller.getCenterCoordinatorIDs().get(option);
                     break;
                 } catch (IndexOutOfBoundsException | InputMismatchException a) {
@@ -134,17 +140,17 @@ public class CreateVaccinationCenterUI implements Runnable {
             System.out.println();
 
             do {
-                try{
-                for (int i = 0; i < controller.getVaccineTypeList().size(); i++) {
-                    System.out.println("Position " + i + ": " + controller.getVaccineTypeList().get(i));
-                }
-                System.out.println();
-                System.out.print("Choose your option: ");
-                int vaccineTypeOption = sc.nextInt();
-                System.out.println();
-                dto.strVaccineType = controller.getVaccineTypeList().get(vaccineTypeOption).toString();
-                controller.createMassVaccinationCenter(dto);
-                break;
+                try {
+                    for (int i = 0; i < controller.getVaccineTypeList().size(); i++) {
+                        System.out.println("Position " + i + ": " + controller.getVaccineTypeList().get(i));
+                    }
+                    System.out.println();
+                    System.out.print("Choose your option: ");
+                    int vaccineTypeOption = sc.nextInt();
+                    System.out.println();
+                    dto.strVaccineType = controller.getVaccineTypeList().get(vaccineTypeOption).toString();
+                    controller.createMassVaccinationCenter(dto);
+                    break;
                 } catch (IndexOutOfBoundsException | InputMismatchException b) {
                     System.out.println("Position Invalid");
                     sc.nextLine();
@@ -173,7 +179,7 @@ public class CreateVaccinationCenterUI implements Runnable {
     }
 
     /**
-     *Asks the user for information about the center and fills the DTO, after that asks the user for confirmation.
+     * Asks the user for information about the center and fills the DTO, after that asks the user for confirmation.
      *
      * @param typeOfCenter is the option that the user previously chose on the main menu, it's going to be used in order to generate an ID for the center.
      */
@@ -207,24 +213,24 @@ public class CreateVaccinationCenterUI implements Runnable {
             System.out.println();
             System.out.println("Information about the Coordinator");
             System.out.println();
-            System.out.println("Choose one Coordinator from the list that hasn't been chosen, type it's position.");
+            System.out.println("Choose one Coordinator from the list, type it's position.");
             System.out.println();
 
             do {
                 try {
                     for (int i = 0; i < controller.getCenterCoordinatorIDs().size(); i++) {
-                    System.out.println("Position " + i + ": " + controller.getCenterCoordinatorIDs().get(i));
+                        boolean check = true;
+                        for (int j = 0; j < controller.getVaccinationCenters().size(); j++) {
+                            if (controller.getCenterCoordinatorIDs().get(i).equals(controller.getVaccinationCenters().get(j).getStrCenterCoordinatorID()))
+                                check = false;
+                        }
+                        if (check)
+                            System.out.println("Position " + i + ": " + controller.getCenterCoordinatorIDs().get(i));
                     }
                     System.out.println();
                     System.out.print("Choose your option: ");
                     int option = sc.nextInt();
                     System.out.println();
-                    for (int i = 0; i < controller.getVaccinationCenters().size(); i++) {
-                        if (controller.getCenterCoordinatorIDs().get(option).equals(controller.getVaccinationCenters().get(i).getStrCenterCoordinatorID())) {
-                            System.out.println();
-                            throw new IllegalArgumentException("The chosen coordinator is already assigned to another center.");
-                        }
-                    }
                     dto.strCenterCoordinatorID = controller.getCenterCoordinatorIDs().get(option);
                     break;
                 } catch (IndexOutOfBoundsException | InputMismatchException r) {
@@ -245,7 +251,7 @@ public class CreateVaccinationCenterUI implements Runnable {
             int optiontest = 0;
 
             do {
-                try{
+                try {
                     System.out.println();
                     System.out.println("Choose one:");
 
@@ -261,7 +267,7 @@ public class CreateVaccinationCenterUI implements Runnable {
                         dto.strVaccineType.add(vts.get(optiontest - 1).toString());
                         vts.remove(optiontest - 1);
                     }
-                } catch (IndexOutOfBoundsException | InputMismatchException x){
+                } catch (IndexOutOfBoundsException | InputMismatchException x) {
                     sc.nextLine();
                     System.out.println("Position Invalid");
                     System.out.println();
@@ -290,7 +296,6 @@ public class CreateVaccinationCenterUI implements Runnable {
     }
 
     /**
-     *
      * @param vaccinationCenterOption is the option that the user previously chose on the main menu, it's going to represent the type of center,
      *                                it will be used to generate different prefix for the IDs.
      * @return a randomized ID.

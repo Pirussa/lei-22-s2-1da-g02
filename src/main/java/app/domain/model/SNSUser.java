@@ -1,5 +1,7 @@
 package app.domain.model;
 
+import app.ui.console.utils.Utils;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,7 +20,7 @@ public class SNSUser {
     private String strPassword;
 
 
-    private final int MAXNUMBEROFCHARSSNSUSERNUMBER = 9;
+
 
     public SNSUser(String strName, String strSNSUserNumber , String strEmail, String strBirthDate,String strPhoneNumber,
                    String strSex, String strAddress, String strCitizenCardNumber, String strPassword){
@@ -77,11 +79,7 @@ public class SNSUser {
         } else return false;
     }
 
-    public boolean validateSNSUserNumber(String strSNSUserNumber){
-        if (strSNSUserNumber.trim().matches("^[0-9]*$") && strSNSUserNumber.length()==MAXNUMBEROFCHARSSNSUSERNUMBER){
-            return true;
-        } else return false;
-    }
+
 
     public boolean validatePhoneNumber(String phoneNumber) {
         final int NUMBER_OF_PHONE_NUMBER_DIGITS = 9;
@@ -210,7 +208,7 @@ public class SNSUser {
     }
 
     public boolean validateAddress(String strAddress) {
-        String[] splitAddress = strAddress.split("#");
+        String[] splitAddress = strAddress.split("/");
         if (splitAddress.length != 3)
             return false;
 
@@ -244,7 +242,7 @@ public class SNSUser {
                 strPhoneNumber!= null && strAddress!=null && strCitizenCardNumber!=null && !strName.isEmpty() && !strEmail.isEmpty() &&
                 !strPassword.isEmpty() && !strSNSUserNumber.isEmpty() && !strBirthDate.isEmpty() && !strPhoneNumber.isEmpty() &&
                 !strAddress.isEmpty() && !strCitizenCardNumber.isEmpty() && validateEmail(strEmail) && validatePassword(strPassword) &&
-                validateSNSUserNumber(strSNSUserNumber) && validateSex(strSex) && validateAddress(strAddress) &&
+                Utils.validateSNSUserNumber(strSNSUserNumber) && validateSex(strSex) && validateAddress(strAddress) &&
                 validateCitizenCardNumber(strCitizenCardNumber) && validatePhoneNumber(strPhoneNumber) && validateBirthDate(strBirthDate);
     }
 

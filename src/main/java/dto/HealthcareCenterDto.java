@@ -1,4 +1,4 @@
-package app.ui.console;
+package dto;
 
 import java.util.ArrayList;
 

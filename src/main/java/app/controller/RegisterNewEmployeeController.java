@@ -2,7 +2,7 @@ package app.controller;
 
 
 import app.domain.model.Company;
-import app.ui.console.RegisterNewEmployeeDto;
+import dto.RegisterNewEmployeeDto;
 
 
 

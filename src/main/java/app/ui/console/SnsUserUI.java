@@ -12,13 +12,12 @@ public class SnsUserUI implements Runnable {
         List<MenuItem> options = new ArrayList<>();
         options.add(new MenuItem("Schedule a vaccine.", new ScheduleVaccineUI()));
 
-        options.add(new MenuItem("Logout.",new MainMenuUI() ));
 
 
         int option = 0;
         do
         {
-            option = Utils.showAndSelectIndex(options, "\n\nAdmin Menu:");
+            option = Utils.showAndSelectIndex(options, "\n\nSNS User Menu:");
 
             if ( (option >= 0) && (option < options.size()))
             {

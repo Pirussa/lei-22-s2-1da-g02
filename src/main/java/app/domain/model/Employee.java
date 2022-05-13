@@ -1,16 +1,10 @@
 package app.domain.model;
 
 import app.controller.RegisterNewEmployeeController;
-import app.domain.shared.Constants;
-import app.ui.console.RegisterNewEmployeeDto;
-import app.ui.console.VaccineAndAdminProcessDto;
-import app.ui.console.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Employee {
 

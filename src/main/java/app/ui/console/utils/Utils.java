@@ -6,10 +6,12 @@ import app.controller.RegisterNewEmployeeController;
 import app.controller.SpecifyNewVaccineTypeController;
 import app.domain.model.*;
 import app.domain.shared.Constants;
-import app.ui.console.HealthcareCenterDto;
-import app.ui.console.MassVaccinationCenterDto;
-import app.ui.console.RegisterNewEmployeeDto;
+import dto.HealthcareCenterDto;
+import dto.MassVaccinationCenterDto;
+import dto.RegisterNewEmployeeDto;
+import dto.SNSUserDto;
 
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.text.DateFormat;
@@ -140,14 +142,14 @@ public class Utils {
         return true;
     }
 
-    static public boolean validateSex(String strSex){
-        if (strSex.equals("Male")||strSex.equals("Female")||strSex.isEmpty()){
+    static public boolean validateSex(String strSex) {
+        if (strSex.equals("Male") || strSex.equals("Female") || strSex.isEmpty()) {
             return true;
         } else return false;
     }
 
     static public boolean validateBirthDate(String strBirthDate) {
-        String dateFormat= "dd/MM/yyyy";
+        String dateFormat = "dd/MM/yyyy";
         DateFormat sdf = new SimpleDateFormat(dateFormat);
         sdf.setLenient(false);
         try {
@@ -259,14 +261,14 @@ public class Utils {
         final String alphabetLetters = "abcdefghijklmnopqrstuvwyxzABCDEFGHIJKLMNOPQRSTUVWYXZ0123456789";
         StringBuilder password = new StringBuilder();
         Random generate = new Random();
-        ArrayList<String> randomAlphanumerics = new ArrayList<>();
+
         StringBuilder employeePassword = new StringBuilder();
 
         for (int position = 0; position < PASSWORD_LENGTH; position++) {
             if (position <= 2)
                 password.append(Character.toUpperCase(alphabetLetters.charAt(generate.nextInt(25))));
             else if (position <= 4)
-                password.append(String.valueOf(generate.nextInt(9)));
+                password.append((generate.nextInt(9)));
             else
                 password.append(alphabetLetters.charAt(generate.nextInt(alphabetLetters.length())));
         }
@@ -301,7 +303,7 @@ public class Utils {
 
     static public void showList(List list, String header) {
         System.out.println(header);
-
+        System.out.println();
         int index = 0;
         for (Object o : list) {
             index++;
@@ -422,40 +424,65 @@ public class Utils {
         ctrlEmp.saveCreatedEmployee(dtoEmp2, "Nurse");
 
         RegisterNewEmployeeDto dtoEmp3 = new RegisterNewEmployeeDto();
-        dtoEmp3.id = "RC-12345";
+        dtoEmp3.id = "CC-12345";
         dtoEmp3.name = "Carla";
         dtoEmp3.password = "AAA12aa";
         dtoEmp3.phoneNumber = "912345678";
         dtoEmp3.citizenCardNumber = "15925823 5 ZX3";
         dtoEmp3.email = "carla@gmail.com";
         dtoEmp3.address = "Rua Carlos Kimbo Slice / 4440-123 / Porto";
-        ctrlEmp.saveCreatedEmployee(dtoEmp3, "Receptionist");
+        ctrlEmp.saveCreatedEmployee(dtoEmp3, "Center Coordinator");
 
-        CreateVaccinationCenterController ctrlVc= new CreateVaccinationCenterController();
-        MassVaccinationCenterDto mvcDto= new MassVaccinationCenterDto();
-        mvcDto.strID= "1234";
-        mvcDto.strName="CVC Matosinhos";
-        mvcDto.strPhoneNumber ="915607321";
-        mvcDto.strFax ="915607321";
-        mvcDto.strEmail= "cvcmatosinhos@gmail.com";
-        mvcDto.strClosingHour= "20";
-        mvcDto.strOpeningHour= "8";
-        mvcDto.strVaccinesPerSlot= "5";
-        mvcDto.strSlotDuration ="20";
-        mvcDto.strWebsite=  "www.cvcmatosinhos.com";
-        mvcDto.strRoad =  "Rua do Amial";
-        mvcDto.strZipCode= "4460-098";
-        mvcDto.strLocal =  "Matosinhos";
-        mvcDto.strCenterCoordinatorID ="CC-95634";
+        CreateVaccinationCenterController ctrlVc = new CreateVaccinationCenterController();
+        MassVaccinationCenterDto mvcDto = new MassVaccinationCenterDto();
+        mvcDto.strID = "1234";
+        mvcDto.strName = "CVC Matosinhos";
+        mvcDto.strPhoneNumber = "915607321";
+        mvcDto.strFax = "915607321";
+        mvcDto.strEmail = "cvcmatosinhos@gmail.com";
+        mvcDto.strClosingHour = "20";
+        mvcDto.strOpeningHour = "8";
+        mvcDto.strVaccinesPerSlot = "5";
+        mvcDto.strSlotDuration = "20";
+        mvcDto.strWebsite = "www.cvcmatosinhos.com";
+        mvcDto.strRoad = "Rua do Amial";
+        mvcDto.strZipCode = "4460-098";
+        mvcDto.strLocal = "Matosinhos";
+        mvcDto.strCenterCoordinatorID = "CC-95634";
         mvcDto.strVaccineType = "COVID";
 
         ctrlVc.saveMassVaccinationCenter(mvcDto);
 
         Company c = App.getInstance().getCompany();
-        c.getAuthFacade().addUserWithRole("UserDefault","user@gmail.com","123", Constants.ROLE_SNS_USER);
+        c.getAuthFacade().addUserWithRole("UserDefault", "user@gmail.com", "123", Constants.ROLE_SNS_USER);
 
+        SNSUserDto snsUserDto = new SNSUserDto("User Default", "243989890", "user@gmail.com", "16/03/2003", "915604428", "Male", "Rua da Telheira / 4560-098 / Porto", "14497557 2 ZX3", "AAA22aa");
+        c.saveSNSUser(snsUserDto);
 
-        HealthcareCenterDto hCc = new HealthcareCenterDto("1236", "Centro de Saude da Maia", "945372312", "csmaia@gmail.com", "945372312", "www.csmaia.com", "9", "17", "15", "3", "Rua da Escola", "4470-073", "Maia", "CC-92634", "Norte","SNS",new ArrayList<>(List.of("COVID","FLU22")));
+        HealthcareCenterDto hCc = new HealthcareCenterDto("1236", "Centro de Saude da Maia", "945372312", "csmaia@gmail.com", "945372312", "www.csmaia.com", "9", "17", "15", "3", "Rua da Escola", "4470-073", "Maia", "CC-92634", "Norte", "SNS", new ArrayList<>(List.of("COVID", "FLU22")));
 
+    }
+
+    public static int insertInt(String message) {
+        int check = 0;
+        Scanner sc = new Scanner(System.in);
+        int input = -1;
+        do {
+            try {
+                sc.nextInt();
+                sc.nextLine();
+                check = 1;
+            } catch (InputMismatchException e) {
+                System.out.println(message);
+                sc.nextLine();
+            }
+        } while (check == 0);
+        return input;
+    }
+
+    private static final int MAXNUMBEROFCHARSSNSUSERNUMBER = 9;
+
+    public static boolean validateSNSUserNumber(String strSNSUserNumber) {
+        return strSNSUserNumber.trim().matches("^[0-9]*$") && strSNSUserNumber.length() == MAXNUMBEROFCHARSSNSUSERNUMBER;
     }
 }

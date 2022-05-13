@@ -3,6 +3,7 @@ package app.ui.console;
 import app.controller.SpecifyVaccineAndAdminProcessController;
 import app.domain.model.VaccineType;
 import app.ui.console.utils.Utils;
+import dto.VaccineAndAdminProcessDto;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;

@@ -1,19 +1,12 @@
 package app.domain.model;
 
 import app.controller.App;
-import app.controller.SpecifyVaccineAndAdminProcessController;
-import app.ui.console.SpecifyVaccineAndAdminProcessUI;
-import app.ui.console.VaccineAndAdminProcessDto;
+import dto.VaccineAndAdminProcessDto;
 import app.ui.console.utils.Utils;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;

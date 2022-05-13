@@ -1,13 +1,12 @@
 package app.ui.console;
 
-import app.controller.CreateVaccinationCenterController;
 import app.controller.LoadCSVController;
 import app.ui.console.utils.Utils;
+import dto.SNSUserDto;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Scanner;
 

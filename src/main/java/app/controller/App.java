@@ -1,18 +1,13 @@
 package app.controller;
 
 import app.domain.model.Company;
-import app.domain.model.VaccineType;
 import app.domain.shared.Constants;
-import app.ui.console.VaccineAndAdminProcessDto;
-import app.ui.console.utils.Utils;
 import pt.isep.lei.esoft.auth.AuthFacade;
 import pt.isep.lei.esoft.auth.UserSession;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
 /**

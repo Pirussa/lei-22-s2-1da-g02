@@ -119,20 +119,7 @@ public class  VaccinationCenter{
 
     @Override
     public String toString() {
-        return "ID of the Vaccination Center: " + strID + '\n' +
-                "Name of the Vaccination Center: " + strName + '\n' +
-                "Phone Number of the Vaccination Center: " + strPhoneNumber+ '\n' +
-                "Email of the Vaccination Center: " + strEmail + '\n' +
-                "Fax of the Vaccination Center: " + strFax + '\n' +
-                "Website of the Vaccination Center: " + strWebsite + '\n' +
-                "Opening Hour of the Vaccination Center: " + strOpeningHour + '\n' +
-                "Closing Hour of the Vaccination Center: " + strClosingHour + '\n' +
-                "Slot Duration of the Vaccination Center: " + strSlotDuration + '\n' +
-                "Maximum number of Vaccines per slot of the Vaccination Center: " + strVaccinesPerSlot + '\n' +
-                "Road of the Vaccination Center: " + strRoad + '\n' +
-                "Zip Code of the Vaccination Center: " + strZipCode + '\n' +
-                "Local of the Vaccination Center: " + strLocal + '\n' +
-                "Center Coordinator of the Vaccination Center: " + strCenterCoordinatorID + '\n';
+        return strName;
     }
 
     /**
@@ -271,5 +258,22 @@ public class  VaccinationCenter{
                 && validatePhoneNumberAndFax(strFax) && validateEmail(strEmail) && validateWebsite(strWebsite, strTopLevelDomain,strWorldWideWeb) &&
                 validateVaccinationCenterHours(strOpeningHour,strClosingHour) && validateZipCode(strZipCode) && validateSlotDuration(strSlotDuration) &&
                 validateVaccinesPerSlot(strVaccinesPerSlot);
+    }
+
+    public String fullInfo() {
+        return "ID of the Vaccination Center: " + strID + '\n' +
+                "Name of the Vaccination Center: " + strName + '\n' +
+                "Phone Number of the Vaccination Center: " + strPhoneNumber+ '\n' +
+                "Email of the Vaccination Center: " + strEmail + '\n' +
+                "Fax of the Vaccination Center: " + strFax + '\n' +
+                "Website of the Vaccination Center: " + strWebsite + '\n' +
+                "Opening Hour of the Vaccination Center: " + strOpeningHour + '\n' +
+                "Closing Hour of the Vaccination Center: " + strClosingHour + '\n' +
+                "Slot Duration of the Vaccination Center: " + strSlotDuration + '\n' +
+                "Maximum number of Vaccines per slot of the Vaccination Center: " + strVaccinesPerSlot + '\n' +
+                "Road of the Vaccination Center: " + strRoad + '\n' +
+                "Zip Code of the Vaccination Center: " + strZipCode + '\n' +
+                "Local of the Vaccination Center: " + strLocal + '\n' +
+                "Center Coordinator of the Vaccination Center: " + strCenterCoordinatorID + '\n';
     }
 }

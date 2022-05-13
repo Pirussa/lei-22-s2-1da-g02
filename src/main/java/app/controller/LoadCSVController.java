@@ -2,7 +2,7 @@ package app.controller;
 
 import app.domain.model.Company;
 import app.domain.model.SNSUser;
-import app.ui.console.SNSUserDto;
+import dto.SNSUserDto;
 
 import java.util.ArrayList;
 

@@ -3,6 +3,8 @@ package app.ui.console;
 import app.controller.RegisterNewEmployeeController;
 import app.domain.model.Employee;
 import app.ui.console.utils.Utils;
+import dto.RegisterNewEmployeeDto;
+
 import java.util.ArrayList;
 
 /**

@@ -1,7 +1,7 @@
 package app.domain.model;
 
 import app.domain.shared.Constants;
-import app.ui.console.*;
+import dto.*;
 import pt.isep.lei.esoft.auth.AuthFacade;
 import org.apache.commons.lang3.StringUtils;
 
@@ -129,14 +129,6 @@ public class Company {
         return massVaccinationCenters;
     }
 
-    /**
-     * Gets the Vaccination Centers that are stored in the Company.
-     *
-     * @return A List of Vaccination Centers.
-     */
-    public List<VaccinationCenter> getVaccinationCenters(VaccinationCenter o) {
-        return vaccinationCenters;
-    }
 
     /**
      * Specifies a new Vaccine and its Administration Process:

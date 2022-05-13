@@ -2,7 +2,7 @@ package app.controller;
 
 import app.domain.model.Company;
 import app.domain.model.VaccineType;
-import app.ui.console.VaccineAndAdminProcessDto;
+import dto.VaccineAndAdminProcessDto;
 
 import java.util.ArrayList;
 
