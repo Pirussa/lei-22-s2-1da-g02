@@ -10,35 +10,31 @@ import java.util.Arrays;
  *
  * @author João Castro <1210816@isep.ipp.pt>
  */
-public class HealthcareCenter extends VaccinationCenter{
+public class HealthcareCenter extends VaccinationCenter {
 
     private String strARS;
     private String strAGES;
-    private ArrayList <String> strVaccineType;
+    private ArrayList<VaccineType> vaccineTypes;
 
     /**
-     *
-     * @param strARS            The healthcare center's Regional Health Administration.
-     * @param strAGES           The healthcare center's Grouping.
-     * @param strVaccineType    The healthcare center's administered Vaccine Types.
+     * @param strARS         The healthcare center's Regional Health Administration.
+     * @param strAGES        The healthcare center's Grouping.
+     * @param vaccineTypes The healthcare center's administered Vaccine Types.
      */
     public HealthcareCenter(String strID, String strName, String strPhoneNumber, String strEmail, String strFax, String strWebsite, String strOpeningHour, String strClosingHour, String strSlotDuration,
-                            String strVaccinesPerSlot, String strRoad, String strZipCode, String strLocal, String strCenterCoordinatorID, String strARS, String strAGES, ArrayList<String> strVaccineType) {
+                            String strVaccinesPerSlot, String strRoad, String strZipCode, String strLocal, String strCenterCoordinatorID, String strARS, String strAGES, ArrayList<VaccineType> vaccineTypes) {
         super(strID, strName, strPhoneNumber, strEmail, strFax, strWebsite, strOpeningHour, strClosingHour, strSlotDuration, strVaccinesPerSlot, strRoad, strZipCode, strLocal, strCenterCoordinatorID);
 
-        if ((strARS==null) || (strAGES==null) || (strVaccineType==null) || (strARS.isEmpty()) || (strAGES.isEmpty()) || (strVaccineType.isEmpty()))
+        if ((strARS == null) || (strAGES == null) || (vaccineTypes == null) || (strARS.isEmpty()) || (strAGES.isEmpty()) || (vaccineTypes.isEmpty()))
             throw new IllegalArgumentException("Arguments can't be null or empty.");
         this.strARS = strARS;
         this.strAGES = strAGES;
-        this.strVaccineType=strVaccineType;
+        this.vaccineTypes = vaccineTypes;
     }
 
     @Override
     public String toString() {
-        return super.toString() +
-                "Regional Health Administration of the Vaccination Center: " + strARS + '\n' +
-                "Grouping of the Vaccination Center: " + strAGES + '\n' +
-                "Vaccine Types administered in the Vaccination Center: " + strVaccineType;
+        return getStrName();
     }
 
     /**
@@ -47,7 +43,17 @@ public class HealthcareCenter extends VaccinationCenter{
      * @return a true or a false.
      */
     public boolean validateHealthcareCenters() {
-        return super.validateVaccinationCenters() && strARS != null && strAGES != null && strVaccineType != null && !strARS.isEmpty() && !strAGES.isEmpty() && !strVaccineType.isEmpty();
+        return super.validateVaccinationCenters() && strARS != null && strAGES != null && vaccineTypes != null && !strARS.isEmpty() && !strAGES.isEmpty();
+    }
+
+
+    /**
+     * Getter for the Vaccine Types associated to the HealthCare Center
+     *
+     * @return an ArrayList of Vaccine Types
+     */
+    public ArrayList<VaccineType> getVaccineTypes() {
+        return vaccineTypes;
     }
 }
 

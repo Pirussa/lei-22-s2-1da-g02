@@ -1,10 +1,7 @@
 package app.ui.console;
 
 import app.controller.App;
-import app.domain.model.Company;
-import app.domain.model.MassVaccinationCenter;
-import app.domain.model.SNSUser;
-import app.domain.model.VaccinationCenter;
+import app.domain.model.*;
 import app.ui.console.utils.Utils;
 import pt.isep.lei.esoft.auth.AuthFacade;
 import pt.isep.lei.esoft.auth.domain.model.Email;
@@ -25,10 +22,10 @@ public class ScheduleVaccineUI implements Runnable {
             System.out.println();
             String SNSNumber = introduceSnsNumberUI();
             VaccinationCenter vaccinationCenter = selectVaccinationCenterUI();
-            if (vaccinationCenter instanceof MassVaccinationCenter){
-                System.out.println("ola");
-            }
+            VaccineType vaccineType = selectVaccineTypeUI(vaccinationCenter);
+            if (vaccineType == null) {return;}
 
+            System.out.println("Sucesso"); //TEMP
 
         } else {
             System.out.println();
@@ -40,9 +37,84 @@ public class ScheduleVaccineUI implements Runnable {
 
     }
 
+    private VaccineType selectVaccineTypeUI(VaccinationCenter vaccinationCenter) {
+        if (vaccinationCenter instanceof MassVaccinationCenter) {
+            MassVaccinationCenter massVacCenter = (MassVaccinationCenter) vaccinationCenter;
+            System.out.println();
+            System.out.println("The available Vaccine Type for " + massVacCenter + " is: " + massVacCenter.getVaccineType());
+            System.out.printf("%nDo you want to proceed?%n1 - Yes%n2 - No%n%nType your option: ");
+            boolean check = true;
+
+            do {
+                int proceedVerification = Utils.insertInt("Insert a valid option: ");
+                if (proceedVerification == 1) {
+                    check = true;
+                } else if (proceedVerification == 2) {
+                    return null;
+                } else {
+                    System.out.println("Insert a valid option: ");
+                    check = false;
+                }
+            } while (!check);
+
+            return massVacCenter.getVaccineType();
+
+        } else if (vaccinationCenter instanceof HealthcareCenter) {
+            HealthcareCenter healthcareCenter = (HealthcareCenter) vaccinationCenter;
+            return selectVaccineTypeHealthCareCenterUI(healthcareCenter);
+        }
+        return null;
+    }
+
+
+    private VaccineType selectVaccineTypeHealthCareCenterUI(HealthcareCenter healthcareCenter) {
+        System.out.printf("%nSelect one Vaccine Type: %n");
+        int optionNumber = 1;
+        for (VaccineType vacCenter : healthcareCenter.getVaccineTypes()) {
+            System.out.println(optionNumber + " - " + vacCenter);
+            optionNumber++;
+        }
+        boolean check;
+        do {
+            System.out.println();
+            System.out.print("Insert your option: ");
+            int option = Utils.insertInt("Insert a valid option: ");
+
+            if ((option >= 0) && (option < c.getVaccinationCenters().size() + 1)) {
+                return c.getVaccineTypes().get(option - 1);
+            } else {
+                System.out.println("Invalid option.");
+                check = false;
+            }
+        } while (!check);
+
+        return null;
+    }
+
     private VaccinationCenter selectVaccinationCenterUI() {
-        int option = Utils.showAndSelectIndex(c.getVaccinationCenters(), "Select one Vaccination Center: ");
-        return c.getVaccinationCenters().get(option-1);
+
+        System.out.println("Select one Vaccination Center: ");
+        System.out.println();
+        int optionNumber = 1;
+        for (VaccinationCenter vacCenter : c.getVaccinationCenters()) {
+            System.out.println(optionNumber + " - " + vacCenter);
+            optionNumber++;
+        }
+        boolean check;
+        do {
+            System.out.println();
+            System.out.print("Insert your option: ");
+            int option = Utils.insertInt("Insert a valid option: ");
+
+            if ((option >= 0) && (option < c.getVaccinationCenters().size() + 1)) {
+                return c.getVaccinationCenters().get(option - 1);
+            } else {
+                System.out.println("Invalid option.");
+                check = false;
+            }
+        } while (!check);
+
+        return null;
     }
 
     private String introduceSnsNumberUI() {

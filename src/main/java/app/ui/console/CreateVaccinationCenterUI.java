@@ -148,7 +148,7 @@ public class CreateVaccinationCenterUI implements Runnable {
                     System.out.print("Choose your option: ");
                     int vaccineTypeOption = sc.nextInt();
                     System.out.println();
-                    dto.strVaccineType = controller.getVaccineTypeList().get(vaccineTypeOption).toString();
+                    dto.vaccineType = controller.getVaccineTypeList().get(vaccineTypeOption);
                     controller.createMassVaccinationCenter(dto);
                     break;
                 } catch (IndexOutOfBoundsException | InputMismatchException b) {
@@ -264,7 +264,7 @@ public class CreateVaccinationCenterUI implements Runnable {
                     System.out.print("Type your option: ");
                     optiontest = sc.nextInt();
                     if (optiontest != 0) {
-                        dto.strVaccineType.add(vts.get(optiontest - 1).toString());
+                        dto.vaccineTypes.add(vts.get(optiontest - 1));
                         vts.remove(optiontest - 1);
                     }
                 } catch (IndexOutOfBoundsException | InputMismatchException x) {

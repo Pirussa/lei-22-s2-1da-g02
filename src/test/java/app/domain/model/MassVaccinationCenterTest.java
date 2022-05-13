@@ -12,7 +12,7 @@ class MassVaccinationCenterTest {
 
     MassVaccinationCenter mvc = new MassVaccinationCenter("HC-1213","kahsdd21","933398881","hasjd-2131@gmail.com",
             "933398881","www.akhjd.com","12","23","12","13","ajkshd",
-            "7777-111","kahjsda","CC-1234","asdad");
+            "7777-111","kahjsda","CC-1234",new VaccineType( "COVID", "To prevent serious COVID-19 infections", VaccineType.vaccineTechnologies[5]));
 
     /**
      * Verifies if the Mass Vaccination Center is valid

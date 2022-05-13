@@ -1,6 +1,8 @@
 package app.domain.model;
 
 import app.controller.RegisterNewEmployeeController;
+import app.domain.shared.Constants;
+import app.ui.console.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.Objects;

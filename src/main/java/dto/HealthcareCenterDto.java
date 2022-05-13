@@ -1,5 +1,7 @@
 package dto;
 
+import app.domain.model.VaccineType;
+
 import java.util.ArrayList;
 
 /**
@@ -29,12 +31,12 @@ public class HealthcareCenterDto {
     public String strCenterCoordinatorID;
     public String strARS;
     public String strAGES;
-    public ArrayList <String> strVaccineType = new ArrayList <>();
+    public ArrayList <VaccineType> vaccineTypes = new ArrayList <>();
 
     public HealthcareCenterDto(String strID, String strName, String strPhoneNumber, String strEmail, String strFax, String strWebsite,
                                 String strOpeningHour, String strClosingHour, String strSlotDuration, String strVaccinesPerSlot,
                                 String strRoad, String strZipCode, String strLocal, String strCenterCoordinatorID, String strARS, String strAGES,
-                               ArrayList <String> strVaccineType) {
+                               ArrayList <VaccineType> vaccineTypes) {
         this.strID=strID;
         this.strName = strName;
         this.strPhoneNumber = strPhoneNumber;
@@ -51,7 +53,7 @@ public class HealthcareCenterDto {
         this.strCenterCoordinatorID=strCenterCoordinatorID;
         this.strARS=strARS;
         this.strAGES=strAGES;
-        this.strVaccineType=strVaccineType;
+        this.vaccineTypes =vaccineTypes;
     }
 
     @Override
@@ -72,6 +74,6 @@ public class HealthcareCenterDto {
                 "Center Coordinator of the Healthcare Center: " + strCenterCoordinatorID + '\n' +
                 "Regional Health Administration of the Healthcare Center: " + strARS + '\n' +
                 "Grouping of the Healthcare Center: " + strAGES + '\n' +
-                "Vaccine Types administered in the Healthcare Center: " + strVaccineType;
+                "Vaccine Types administered in the Healthcare Center: " + vaccineTypes;
     }
 }

@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class HealthcareCenterTest {
 
-    ArrayList<String> strVaccineTypeTest = new ArrayList<String>();
+    ArrayList<VaccineType> strVaccineTypeTest = new ArrayList<VaccineType>();
 
     /**
      * Verifies if the Healthcare Center is valid
@@ -21,8 +21,8 @@ class HealthcareCenterTest {
 
     @Test
     void validateHealthcareCenters(){
-        strVaccineTypeTest.add("EUHJS");
-        strVaccineTypeTest.add("ASDWR");
+        strVaccineTypeTest.add(new VaccineType("AAAAA","test123","tech1" ));
+        strVaccineTypeTest.add(new VaccineType("ASDWR","test123","tech1" ));
         HealthcareCenter hc = new HealthcareCenter("HC-2132","asdad","933398881","hasjd-2131@gmail.com",
                 "933398881","www.akhjd.pt","5","9","123","133","ajkshd",
                 "7337-111","kahjsda","CC-1234","asd1ad","ad", strVaccineTypeTest);
@@ -35,8 +35,8 @@ class HealthcareCenterTest {
      */
     @Test
     void validateVaccinationCenterHours() {
-        strVaccineTypeTest.add("EUHJS");
-        strVaccineTypeTest.add("ASDWR");
+        strVaccineTypeTest.add(new VaccineType("AAAAA","test123","tech1" ));
+        strVaccineTypeTest.add(new VaccineType("ASDWR","test123","tech1" ));
         HealthcareCenter hc = new HealthcareCenter("HC-2132","asdad","933398881","hasjd-2131@gmail.com",
                 "933398881","www.akhjd.pt","5","9","123","133","ajkshd",
                 "7337-111","kahjsda","CC-1234","asd1ad","ad", strVaccineTypeTest);
@@ -56,8 +56,8 @@ class HealthcareCenterTest {
      */
     @Test
     void validateWebsite() {
-        strVaccineTypeTest.add("EUHJS");
-        strVaccineTypeTest.add("ASDWR");
+        strVaccineTypeTest.add(new VaccineType("AAAAA","test123","tech1" ));
+        strVaccineTypeTest.add(new VaccineType("ASDWR","test123","tech1" ));
         HealthcareCenter hc = new HealthcareCenter("HC-2132","asdad","933398881","hasjd-2131@gmail.com",
                 "933398881","www.akhjd.pt","5","9","123","133","ajkshd",
                 "7337-111","kahjsda","CC-1234","asd1ad","ad", strVaccineTypeTest);
@@ -71,8 +71,8 @@ class HealthcareCenterTest {
      */
     @Test
     void validateEmail() {
-        strVaccineTypeTest.add("EUHJS");
-        strVaccineTypeTest.add("ASDWR");
+        strVaccineTypeTest.add(new VaccineType("AAAAA","test123","tech1" ));
+        strVaccineTypeTest.add(new VaccineType("ASDWR","test123","tech1" ));
         HealthcareCenter hc = new HealthcareCenter("HC-2132","asdad","933398881","hasjd-2131@gmail.com",
                 "933398881","www.akhjd.pt","5","9","123","133","ajkshd",
                 "7337-111","kahjsda","CC-1234","asd1ad","ad", strVaccineTypeTest);
@@ -86,8 +86,8 @@ class HealthcareCenterTest {
      */
     @Test
     void validatePhoneNumberAndFax() {
-        strVaccineTypeTest.add("EUHJS");
-        strVaccineTypeTest.add("ASDWR");
+        strVaccineTypeTest.add(new VaccineType("AAAAA","test123","tech1" ));
+        strVaccineTypeTest.add(new VaccineType("ASDWR","test123","tech1" ));
         HealthcareCenter hc = new HealthcareCenter("HC-2132","asdad","933398881","hasjd-2131@gmail.com",
                 "933398881","www.akhjd.pt","5","9","123","133","ajkshd",
                 "7337-111","kahjsda","CC-1234","asd1ad","ad", strVaccineTypeTest);
@@ -102,8 +102,8 @@ class HealthcareCenterTest {
      */
     @Test
     void validateZipCode() {
-        strVaccineTypeTest.add("EUHJS");
-        strVaccineTypeTest.add("ASDWR");
+        strVaccineTypeTest.add(new VaccineType("AAAAA","test123","tech1" ));
+        strVaccineTypeTest.add(new VaccineType("ASDWR","test123","tech1" ));
         HealthcareCenter hc = new HealthcareCenter("HC-2132","asdad","933398881","hasjd-2131@gmail.com",
                 "933398881","www.akhjd.pt","5","9","123","133","ajkshd",
                 "7337-111","kahjsda","CC-1234","asd1ad","ad", strVaccineTypeTest);
@@ -119,8 +119,8 @@ class HealthcareCenterTest {
      */
     @Test
     void validateSlotDuration() {
-        strVaccineTypeTest.add("EUHJS");
-        strVaccineTypeTest.add("ASDWR");
+        strVaccineTypeTest.add(new VaccineType("AAAAA","test123","tech1" ));
+        strVaccineTypeTest.add(new VaccineType("ASDWR","test123","tech1" ));
         HealthcareCenter hc = new HealthcareCenter("HC-2132","asdad","933398881","hasjd-2131@gmail.com",
                 "933398881","www.akhjd.pt","5","9","123","133","ajkshd",
                 "7337-111","kahjsda","CC-1234","asd1ad","ad", strVaccineTypeTest);
@@ -137,8 +137,8 @@ class HealthcareCenterTest {
      */
     @Test
     void validateVaccinesPerSlot() {
-        strVaccineTypeTest.add("EUHJS");
-        strVaccineTypeTest.add("ASDWR");
+        strVaccineTypeTest.add(new VaccineType("AAAAA","test123","tech1" ));
+        strVaccineTypeTest.add(new VaccineType("ASDWR","test123","tech1" ));
         HealthcareCenter hc = new HealthcareCenter("HC-2132","asdad","933398881","hasjd-2131@gmail.com",
                 "933398881","www.akhjd.pt","5","9","123","133","ajkshd",
                 "7337-111","kahjsda","CC-1234","asd1ad","ad", strVaccineTypeTest);

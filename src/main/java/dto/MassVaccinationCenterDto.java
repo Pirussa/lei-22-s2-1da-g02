@@ -1,6 +1,8 @@
 package dto;
 
 
+import app.domain.model.VaccineType;
+
 /**
  * This class is just a DTO (Data Transfer Object), responsible for helping to transfer data from the UI to the Domain.
  * DTO related to the US009 - As an administrator I want to register a Vaccination Center
@@ -24,11 +26,11 @@ public class MassVaccinationCenterDto {
     public String strZipCode;
     public String strLocal;
     public String strCenterCoordinatorID;
-    public String strVaccineType;
+    public VaccineType vaccineType;
 
     public MassVaccinationCenterDto(String strID, String strName, String strPhoneNumber, String strEmail, String strFax, String strWebsite,
                                 String strOpeningHour, String strClosingHour, String strSlotDuration, String strVaccinesPerSlot,
-                                String strRoad, String strZipCode, String strLocal, String strCenterCoordinatorID, String strVaccineType) {
+                                String strRoad, String strZipCode, String strLocal, String strCenterCoordinatorID, VaccineType vaccineType) {
         this.strID = strID;
         this.strName = strName;
         this.strPhoneNumber = strPhoneNumber;
@@ -43,7 +45,7 @@ public class MassVaccinationCenterDto {
         this.strZipCode=strZipCode;
         this.strLocal=strLocal;
         this.strCenterCoordinatorID=strCenterCoordinatorID;
-        this.strVaccineType = strVaccineType;
+        this.vaccineType =vaccineType ;
     }
 
     @Override
@@ -62,6 +64,6 @@ public class MassVaccinationCenterDto {
                 "Zip Code of the  Mass Vaccination Center: " + strZipCode + '\n' +
                 "Local of the  Mass Vaccination Center: " + strLocal + '\n' +
                 "Center Coordinator of the  Mass Vaccination Center: " + strCenterCoordinatorID + '\n' +
-                "Vaccine Types administered in the Mass Vaccination Center: " + strVaccineType;
+                "Vaccine Types administered in the Mass Vaccination Center: " + vaccineType;
     }
 }

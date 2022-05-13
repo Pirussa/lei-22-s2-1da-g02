@@ -211,7 +211,7 @@ public class Company {
      */
     public void createMassVaccinationCenter(MassVaccinationCenterDto dto) {
         MassVaccinationCenter mvc = new MassVaccinationCenter(dto.strID, dto.strName, dto.strPhoneNumber, dto.strEmail, dto.strFax, dto.strWebsite, dto.strOpeningHour,
-                dto.strClosingHour, dto.strSlotDuration, dto.strVaccinesPerSlot, dto.strRoad, dto.strZipCode, dto.strLocal, dto.strCenterCoordinatorID, dto.strVaccineType);
+                dto.strClosingHour, dto.strSlotDuration, dto.strVaccinesPerSlot, dto.strRoad, dto.strZipCode, dto.strLocal, dto.strCenterCoordinatorID, dto.vaccineType);
     }
 
     /**
@@ -222,7 +222,7 @@ public class Company {
     public void createHealthcareCenter(HealthcareCenterDto dto) {
         HealthcareCenter hc = new HealthcareCenter(dto.strID, dto.strName, dto.strPhoneNumber, dto.strEmail, dto.strFax, dto.strWebsite, dto.strOpeningHour,
                 dto.strClosingHour, dto.strSlotDuration, dto.strVaccinesPerSlot, dto.strRoad, dto.strZipCode, dto.strLocal, dto.strCenterCoordinatorID, dto.strARS, dto.strAGES,
-                dto.strVaccineType);
+                dto.vaccineTypes);
     }
 
     /**
@@ -232,7 +232,7 @@ public class Company {
      **/
     public void saveMassVaccinationCenter(MassVaccinationCenterDto dto) {
         MassVaccinationCenter mvc = new MassVaccinationCenter(dto.strID, dto.strName, dto.strPhoneNumber, dto.strEmail, dto.strFax, dto.strWebsite, dto.strOpeningHour,
-                dto.strClosingHour, dto.strSlotDuration, dto.strVaccinesPerSlot, dto.strRoad, dto.strZipCode, dto.strLocal, dto.strCenterCoordinatorID, dto.strVaccineType);
+                dto.strClosingHour, dto.strSlotDuration, dto.strVaccinesPerSlot, dto.strRoad, dto.strZipCode, dto.strLocal, dto.strCenterCoordinatorID, dto.vaccineType);
         massVaccinationCenters.add(mvc);
         vaccinationCenters.add(mvc);
     }
@@ -245,7 +245,7 @@ public class Company {
     public void saveHealthcareCenter(HealthcareCenterDto dto) {
         HealthcareCenter hc = new HealthcareCenter(dto.strID, dto.strName, dto.strPhoneNumber, dto.strEmail, dto.strFax, dto.strWebsite, dto.strOpeningHour,
                 dto.strClosingHour, dto.strSlotDuration, dto.strVaccinesPerSlot, dto.strRoad, dto.strZipCode, dto.strLocal, dto.strCenterCoordinatorID, dto.strARS, dto.strAGES,
-                dto.strVaccineType);
+                dto.vaccineTypes);
         healthcareCenters.add(hc);
         vaccinationCenters.add(hc);
     }
