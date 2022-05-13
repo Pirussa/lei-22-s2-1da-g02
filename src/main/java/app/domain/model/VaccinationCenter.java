@@ -117,6 +117,10 @@ public class  VaccinationCenter{
         return strCenterCoordinatorID;
     }
 
+    public String getStrName() {
+        return strName;
+    }
+
     @Override
     public String toString() {
         return strName;

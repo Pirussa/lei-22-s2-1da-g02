@@ -144,13 +144,14 @@ public class Company {
         AdministrationProcess adminProcess = new AdministrationProcess(dto.ageGroups, dto.numberOfDoses, dto.dosage, dto.timeIntervalBetweenVaccines);
         if (adminProcess.validateAdministrationProcess()) {
             Vaccine vac = new Vaccine(dto.name, dto.id, dto.brand, adminProcess, dto.vt);
-            if (vac.validateVaccine()){
+            if (vac.validateVaccine()) {
                 for (Vaccine vaccine : vaccines) {
                     return dto.id != vaccine.getId();
                 }
 
 
-            };
+            }
+            ;
         }
         return false;
     }
@@ -166,7 +167,7 @@ public class Company {
         vaccines.add(vac);
     }
 
-    public void saveVaccineTest(Vaccine v){
+    public void saveVaccineTest(Vaccine v) {
         vaccines.add(v);
     }
 
@@ -223,6 +224,7 @@ public class Company {
                 dto.strClosingHour, dto.strSlotDuration, dto.strVaccinesPerSlot, dto.strRoad, dto.strZipCode, dto.strLocal, dto.strCenterCoordinatorID, dto.strARS, dto.strAGES,
                 dto.strVaccineType);
     }
+
     /**
      * Saves a Mass Vaccination Center into two lists, one comprised of only Mass Vaccination Centers and another that has both kinds.
      *
@@ -234,6 +236,7 @@ public class Company {
         massVaccinationCenters.add(mvc);
         vaccinationCenters.add(mvc);
     }
+
     /**
      * Saves a Healthcare Center into two lists, one comprised of only Healthcare Centers and another that has both kinds.
      *
@@ -250,10 +253,10 @@ public class Company {
     /**
      * Gets the list of all Center Coordinators, copies it and fills it with only the IDs, only adds IDs if those aren't already inside the list.
      */
-    public void centerCoordinatorIDList(){
+    public void centerCoordinatorIDList() {
         ArrayList<Employee> centerCoordinators = getCentreCoordinatorList();
         for (int i = 0; i < centerCoordinators.size(); i++) {
-            if (!(centerCoordinatorIDs.contains(centerCoordinators.get(i).getId()))){
+            if (!(centerCoordinatorIDs.contains(centerCoordinators.get(i).getId()))) {
                 centerCoordinatorIDs.add(centerCoordinators.get(i).getId());
             }
         }
@@ -267,6 +270,7 @@ public class Company {
     public ArrayList<VaccinationCenter> getVaccinationCenters() {
         return vaccinationCenters;
     }
+
     /**
      * Gets a list of Mass Vaccination Centers
      *
@@ -275,6 +279,7 @@ public class Company {
     public ArrayList<MassVaccinationCenter> getMassVaccinationCenters() {
         return massVaccinationCenters;
     }
+
     /**
      * Gets a list of Healthcare Centers
      *
@@ -283,6 +288,7 @@ public class Company {
     public ArrayList<HealthcareCenter> getHealthcareCenters() {
         return healthcareCenters;
     }
+
     /**
      * Gets a list of Center Coordinators IDs
      *
@@ -316,15 +322,15 @@ public class Company {
         if (Objects.equals(selectedRole, "Nurse")) {
             Employee emp = new Nurse(dto.id, dto.name, dto.address, dto.phoneNumber, dto.email, dto.citizenCardNumber, dto.password);
             employees.add(emp);
-            this.authFacade.addUserWithRole(dto.name,dto.email, dto.password, Constants.ROLE_NURSE);
+            this.authFacade.addUserWithRole(dto.name, dto.email, dto.password, Constants.ROLE_NURSE);
         } else if (Objects.equals(selectedRole, "Receptionist")) {
             Employee emp = new Receptionist(dto.id, dto.name, dto.address, dto.phoneNumber, dto.email, dto.citizenCardNumber, dto.password);
             employees.add(emp);
-            this.authFacade.addUserWithRole(dto.name,dto.email, dto.password, Constants.ROLE_RECEPTIONIST);
+            this.authFacade.addUserWithRole(dto.name, dto.email, dto.password, Constants.ROLE_RECEPTIONIST);
         } else if (Objects.equals(selectedRole, "Center Coordinator")) {
             Employee emp = new CenterCoordinator(dto.id, dto.name, dto.address, dto.phoneNumber, dto.email, dto.citizenCardNumber, dto.password);
             employees.add(emp);
-            this.authFacade.addUserWithRole(dto.name,dto.email, dto.password, Constants.ROLE_CENTRE_COORDINATOR);
+            this.authFacade.addUserWithRole(dto.name, dto.email, dto.password, Constants.ROLE_CENTRE_COORDINATOR);
         }
     }
 
@@ -344,49 +350,25 @@ public class Company {
     public void fillListOfEmployeesWithAGivenRole() {
         ArrayList<Employee> emp = getEmployees();
         for (int positionArrayListEmployees = 0; positionArrayListEmployees < emp.size(); positionArrayListEmployees++) {
-           boolean check = false;
             if (emp.get(positionArrayListEmployees) instanceof Nurse) {
-                for (int nurseListPosition = 0; nurseListPosition < nurseList.size(); nurseListPosition++) {
-                    if (emp.get(positionArrayListEmployees).getEmail().equals(nurseList.get(nurseListPosition).getEmail()) && emp.get(positionArrayListEmployees).getCitizenCardNumber().equals(nurseList.get(nurseListPosition).getCitizenCardNumber())) {
-                        check = true;
-                    }
-                }
-                if (!check) {
-                    nurseList.add(emp.get(positionArrayListEmployees));
-                }
-
+                listOfEmployeesChecker(nurseList, emp, positionArrayListEmployees);
             } else if (emp.get(positionArrayListEmployees) instanceof Receptionist) {
-                for (int receptionistListPosition = 0; receptionistListPosition < receptionistList.size(); receptionistListPosition++) {
-                    if (emp.get(positionArrayListEmployees).getEmail().equals(receptionistList.get(receptionistListPosition).getEmail()) && emp.get(positionArrayListEmployees).getCitizenCardNumber().equals(receptionistList.get(receptionistListPosition).getCitizenCardNumber())) {
-                        check = true;
-                    }
-                }
-                if (!check) {
-                    receptionistList.add(emp.get(positionArrayListEmployees));
-                }
+                listOfEmployeesChecker(receptionistList, emp, positionArrayListEmployees);
             } else if (emp.get(positionArrayListEmployees) instanceof CenterCoordinator) {
-                for (int centreCoordinatorListPosition = 0; centreCoordinatorListPosition < centreCoordinatorList.size(); centreCoordinatorListPosition++) {
-                    if (emp.get(positionArrayListEmployees).getEmail().equals(centreCoordinatorList.get(centreCoordinatorListPosition).getEmail()) && emp.get(positionArrayListEmployees).getCitizenCardNumber().equals(centreCoordinatorList.get(centreCoordinatorListPosition).getCitizenCardNumber())) {
-                        check = true;
-                    }
-                }
-                if (!check) {
-                    centreCoordinatorList.add(emp.get(positionArrayListEmployees));
-                }
+                listOfEmployeesChecker(centreCoordinatorList, emp, positionArrayListEmployees);
             }
         }
     }
 
     /**
-     * Método para subistuir redundância do método de cima
-     * Alterar JavaDoc
+     * Checks if an employee is already registered in the employees' list
      */
-//    public static void teste(List<Employee> lista, List<Employee> mainLista, int position) {
-//        for (int listPosition = 0; listPosition < lista.size(); listPosition++)
-//            if (!mainLista.get(position).getEmail().equals(lista.get(listPosition).getEmail()) || !mainLista.get(position).getCitizenCardNumber().equals(lista.get(listPosition).getCitizenCardNumber()))
-//                lista.add(mainLista.get(position));
-//
-//    }
+    public static void listOfEmployeesChecker(List<Employee> listToFill, List<Employee> filledList, int position) {
+        for (int listPosition = 0; listPosition < listToFill.size(); listPosition++)
+            if (!filledList.get(position).getEmail().equals(listToFill.get(listPosition).getEmail()) || !filledList.get(position).getCitizenCardNumber().equals(listToFill.get(listPosition).getCitizenCardNumber()))
+                listToFill.add(filledList.get(position));
+
+    }
 
     /**
      * Gets the Nurses registered in the Company.
@@ -418,33 +400,33 @@ public class Company {
     //START
     ArrayList<SNSUser> snsUsers = new ArrayList<>();
 
-    public ArrayList<SNSUser> getSNSUserList(){
+    public ArrayList<SNSUser> getSNSUserList() {
         return snsUsers;
-   }
-
-    public SNSUser createSNSUser(SNSUserDto dto) {
-        return new SNSUser(dto.strName, dto.strSNSUserNumber,dto.strEmail,dto.strBirthDate,dto.strPhoneNumber,
-                dto.strSex,dto.strAddress,dto.strCitizenCardNumber,dto.strPassword);
     }
 
-    public String saveSNSUser(SNSUserDto dto){
-        boolean flag=false;
-        if (snsUsers.isEmpty()){
+    public SNSUser createSNSUser(SNSUserDto dto) {
+        return new SNSUser(dto.strName, dto.strSNSUserNumber, dto.strEmail, dto.strBirthDate, dto.strPhoneNumber,
+                dto.strSex, dto.strAddress, dto.strCitizenCardNumber, dto.strPassword);
+    }
+
+    public String saveSNSUser(SNSUserDto dto) {
+        boolean flag = false;
+        if (snsUsers.isEmpty()) {
             snsUsers.add(createSNSUser(dto));
             return "Saved";
         } else {
             for (int i = 0; i < snsUsers.size(); i++) {
-               if (!(Objects.equals(snsUsers.get(i).getStrSNSUserNumber(), createSNSUser(dto).getStrSNSUserNumber())) &&
-                       !(Objects.equals(snsUsers.get(i).getStrEmail(), createSNSUser(dto).getStrEmail())) &&
-                       !(Objects.equals(snsUsers.get(i).getStrPhoneNumber(), createSNSUser(dto).getStrPhoneNumber())) &&
-                       !(Objects.equals(snsUsers.get(i).getStrCitizenCardNumber(), createSNSUser(dto).getStrCitizenCardNumber()))){
-                   flag = true;
-               } else{
-                   flag = false;
-                   break;
-               }
+                if (!(Objects.equals(snsUsers.get(i).getStrSNSUserNumber(), createSNSUser(dto).getStrSNSUserNumber())) &&
+                        !(Objects.equals(snsUsers.get(i).getStrEmail(), createSNSUser(dto).getStrEmail())) &&
+                        !(Objects.equals(snsUsers.get(i).getStrPhoneNumber(), createSNSUser(dto).getStrPhoneNumber())) &&
+                        !(Objects.equals(snsUsers.get(i).getStrCitizenCardNumber(), createSNSUser(dto).getStrCitizenCardNumber()))) {
+                    flag = true;
+                } else {
+                    flag = false;
+                    break;
+                }
             }
-            if (flag){
+            if (flag) {
                 snsUsers.add(createSNSUser(dto));
                 System.out.println();
                 return "Saved";
@@ -458,7 +440,7 @@ public class Company {
     //END
 
     public String checkAppointment(int SNSNumber) {
-        return "DEVE DAR RETURN AO APPOINTMENT SE ESTE EXISTIR";
+        return "DEVE DAR RETURN AO APPOINTMENT, DATE E TIME, SE ESTE EXISTIR";
     }
 
 

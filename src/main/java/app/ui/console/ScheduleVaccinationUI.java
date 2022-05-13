@@ -1,6 +1,11 @@
 package app.ui.console;
 
 import app.controller.ScheduleVaccinationController;
+import app.domain.model.SNSUser;
+import app.ui.console.utils.Utils;
+import pt.isep.lei.esoft.auth.AuthFacade;
+
+import java.util.Objects;
 
 /**
  * US010 - Register New Employee UI
@@ -10,15 +15,27 @@ import app.controller.ScheduleVaccinationController;
 
 public class ScheduleVaccinationUI implements Runnable {
 
-    public ScheduleVaccinationUI() {}
+    ScheduleVaccinationController ctrl = new ScheduleVaccinationController();
+
+    private AuthFacade auth = new AuthFacade();
+    public ScheduleVaccinationUI() {
+    }
 
     public void run() {
-        ScheduleVaccinationController ctrl = new ScheduleVaccinationController();
+        System.out.printf("%n----------------------%n|Vaccination Schedule|%n----------------------%n%n");
+        int vaccinationCenterReceptionist = Utils.showAndSelectIndex(ctrl.getVaccinationCenterList(), "Vaccination Centers");
+        String snsNumber;
 
+        do {
+
+            snsNumber = Utils.readLineFromConsole("Introduce SNS Number: ");
+
+        } while (!SNSUser.validateSNSUserNumber(Objects.requireNonNull(snsNumber)) || SNSUser.userExists(snsNumber) < 0);
+        
+        }
     }
 
     /*
      Como iria funcionar? - O User dirige-se à rececionista e procede ao agendamento da vacina, a rececionista deve ter em conta,
       a data de nascimento e o tempo desde a última vacina que o user tomou.
     */
-}

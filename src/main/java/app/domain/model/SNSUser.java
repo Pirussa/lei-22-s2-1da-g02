@@ -1,6 +1,11 @@
 package app.domain.model;
 
+
 import app.ui.console.utils.Utils;
+
+import app.controller.App;
+import pt.isep.lei.esoft.auth.AuthFacade;
+
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -20,6 +25,12 @@ public class SNSUser {
     private String strPassword;
 
 
+
+    private static final int MAX_NUMBER_OF_CHARS_SNS_USER_NUMBER = 9;
+
+    private AuthFacade auth = new AuthFacade();
+
+    private static Company company = App.getInstance().getCompany();
 
 
     public SNSUser(String strName, String strSNSUserNumber , String strEmail, String strBirthDate,String strPhoneNumber,
@@ -65,8 +76,8 @@ public class SNSUser {
         String[] emailSplitter = strEmail.split("@");
         String[] validEmailDomain = {"gmail.com", "hotmail.com", "isep.ipp.pt", "sapo.pt", "outlook.com"};
 
-        for (int position = 0; position < validEmailDomain.length; position++) {
-            if (Objects.equals(emailSplitter[1], validEmailDomain[position]))
+        for (String s : validEmailDomain) {
+            if (Objects.equals(emailSplitter[1], s))
                 return true;
         }
         return false;
@@ -74,12 +85,14 @@ public class SNSUser {
 
     public boolean validatePassword(String strPassword){
         final int PASSWORDLENGHT = 7;
-        if (strPassword.length()==PASSWORDLENGHT){
-            return true;
-        } else return false;
+        return strPassword.length() == PASSWORDLENGHT;
     }
 
 
+
+    public static boolean validateSNSUserNumber(String strSNSUserNumber){
+        return strSNSUserNumber.trim().matches("^[0-9]*$") && strSNSUserNumber.length() == MAX_NUMBER_OF_CHARS_SNS_USER_NUMBER;
+    }
 
     public boolean validatePhoneNumber(String phoneNumber) {
         final int NUMBER_OF_PHONE_NUMBER_DIGITS = 9;
@@ -220,9 +233,7 @@ public class SNSUser {
     }
 
     public boolean validateSex(String strSex){
-        if (strSex.equals("Male")||strSex.equals("Female")||strSex.isEmpty()){
-            return true;
-        } else return false;
+        return strSex.equals("Male") || strSex.equals("Female") || strSex.isEmpty();
     }
 
     public boolean validateBirthDate(String strBirthDate) {
@@ -244,6 +255,15 @@ public class SNSUser {
                 !strAddress.isEmpty() && !strCitizenCardNumber.isEmpty() && validateEmail(strEmail) && validatePassword(strPassword) &&
                 Utils.validateSNSUserNumber(strSNSUserNumber) && validateSex(strSex) && validateAddress(strAddress) &&
                 validateCitizenCardNumber(strCitizenCardNumber) && validatePhoneNumber(strPhoneNumber) && validateBirthDate(strBirthDate);
+    }
+
+   public static int userExists(String strSNSUserNumber) {
+        for (int position = 0; position < company.getSNSUserList().size(); position++) {
+            if (strSNSUserNumber.equals(company.getSNSUserList().get(position).getStrSNSUserNumber())) {
+                return position;
+            }
+        }
+        return -1;
     }
 
     @Override
