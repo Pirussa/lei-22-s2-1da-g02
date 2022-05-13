@@ -1,5 +1,7 @@
 package app.domain.model;
 
+import pt.isep.lei.esoft.auth.AuthFacade;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -19,6 +21,8 @@ public class SNSUser {
 
 
     private static final int MAX_NUMBER_OF_CHARS_SNS_USER_NUMBER = 9;
+
+    private AuthFacade auth = new AuthFacade();
 
     public SNSUser(String strName, String strSNSUserNumber , String strEmail, String strBirthDate,String strPhoneNumber,
                    String strSex, String strAddress, String strCitizenCardNumber, String strPassword){
@@ -242,6 +246,12 @@ public class SNSUser {
                 validateCitizenCardNumber(strCitizenCardNumber) && validatePhoneNumber(strPhoneNumber) && validateBirthDate(strBirthDate);
     }
 
+   /* public boolean userExists(String strSNSUserNumber) {
+        for (int position = 0; position < auth.getUsers().size(); position++) {
+            if (strSNSUserNumber.equals(auth.getUsers().get(position).g))
+        }
+    }
+*/
     @Override
     public String toString() {
         return "Name of the SNS User: " + strName + '\n' +

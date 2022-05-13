@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class RegisterTheArrivalOfASNSUserUI implements Runnable {
 
-    private RegisterTheArrivalOfASNSUserController ctlr = new RegisterTheArrivalOfASNSUserController();
+    private RegisterTheArrivalOfASNSUserController ctrl = new RegisterTheArrivalOfASNSUserController();
 
     @Override
     public void run() {
@@ -19,7 +19,7 @@ public class RegisterTheArrivalOfASNSUserUI implements Runnable {
         System.out.println("------Register the Arrival of an SNS user------");
         System.out.println();
 
-        int vaccinationCenterReceptionist = Utils.showAndSelectIndex(ctlr.getVaccinationCenterList(), "Vaccination Centers");
+        int vaccinationCenterReceptionist = Utils.showAndSelectIndex(ctrl.getVaccinationCenterList(), "Vaccination Centers");
         boolean checkInt = false;
         boolean checkValid = false;
         int SNSNumber = 0;
@@ -27,7 +27,7 @@ public class RegisterTheArrivalOfASNSUserUI implements Runnable {
         do {
             do {
                 try {
-                    System.out.print("Introduze the SNS number: ");
+                    System.out.print("Introduce the SNS number: ");
                     SNSNumber = sc.nextInt();
                     checkInt = true;
 
@@ -50,7 +50,7 @@ public class RegisterTheArrivalOfASNSUserUI implements Runnable {
 
 
 
-        int vaccinationCenterSNSUser = Utils.showAndSelectIndex(ctlr.getVaccinationCenterList(), "Vaccination Centers");
+        int vaccinationCenterSNSUser = Utils.showAndSelectIndex(ctrl.getVaccinationCenterList(), "Vaccination Centers");
 
         /*
         PRÓXIMOS PASSOS
@@ -67,20 +67,20 @@ public class RegisterTheArrivalOfASNSUserUI implements Runnable {
     }
 
     public boolean checkRequirementsForRegistration(int SNSNumber, int vaccinationCenterReceptionist, int vaccinationCenterSNSUser, Date date, Time time) {
-        if (ctlr.checkAppointment(SNSNumber) == null) {
+        if (ctrl.checkAppointment(SNSNumber) == null) {
             System.out.println("The user does not have any appointment for today");
             return false;
         }
 
 
-        if (!ctlr.checkVaccinationCenters(vaccinationCenterReceptionist, vaccinationCenterSNSUser)) {
+        if (!ctrl.checkVaccinationCenters(vaccinationCenterReceptionist, vaccinationCenterSNSUser)) {
             System.out.println("Wrong Vaccination Center");
             return false;
         }
 
 
 
-        if (!ctlr.checkTimeAndDate(date, time)) {
+        if (!ctrl.checkTimeAndDate(date, time)) {
             System.out.println("Wrong Day/Hour");
             return false;
         }

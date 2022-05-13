@@ -460,6 +460,8 @@ public class Utils {
         dtoEmp3.address = "Rua Carlos Kimbo Slice / 4440-123 / Porto";
         ctrlEmp.saveCreatedEmployee(dtoEmp3, "Receptionist");
 
+        //SNSUser snsUser1 = new SNSUser("Carlos", "123456789", "carlos@gmail.com", "10/10/2003", "912657076", "Male", "Rua # 4440-569 # Valongo", "30035797 4 ZW9", "BBB12bb");
+
         CreateVaccinationCenterController ctrlVc= new CreateVaccinationCenterController();
         MassVaccinationCenterDto mvcDto= new MassVaccinationCenterDto();
         mvcDto.strID= "1234";
