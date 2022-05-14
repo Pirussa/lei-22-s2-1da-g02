@@ -124,14 +124,6 @@ public class VaccinationCenter{
         return strName;
     }
 
-    public String getStrOpeningHour() {
-        return strOpeningHour;
-    }
-
-    public String getStrClosingHour() {
-        return strClosingHour;
-    }
-
     @Override
     public String toString() {
         return strName;
