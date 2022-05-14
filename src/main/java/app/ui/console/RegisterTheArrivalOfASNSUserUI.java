@@ -1,7 +1,6 @@
 package app.ui.console;
 
 import app.controller.RegisterTheArrivalOfASNSUserController;
-import app.domain.model.SNSUser;
 import app.ui.console.utils.Utils;
 
 import java.sql.Time;
@@ -20,25 +19,16 @@ public class RegisterTheArrivalOfASNSUserUI implements Runnable {
         System.out.println();
 
         int vaccinationCenterReceptionist = Utils.showAndSelectIndex(ctrl.getVaccinationCenterList(), "Vaccination Centers");
-        boolean checkInt = false;
         boolean checkValid = false;
-        int SNSNumber = 0;
+        String SNSNumber;
 
         do {
-            do {
-                try {
-                    System.out.print("Introduce the SNS number: ");
-                    SNSNumber = sc.nextInt();
-                    checkInt = true;
 
-                } catch (NumberFormatException e) {
-                    System.out.println("Invalid SNS User");
-                    System.out.println();
-                }
+            System.out.print("Introduce the SNS number: ");
+            SNSNumber = sc.next();
 
-            } while (!checkInt);
-
-            if (SNSUser.validateSNSUserNumber(String.valueOf(SNSNumber)))
+            //
+            if (Utils.validateSNSUserNumber(SNSNumber))
                 checkValid = true;
 //            else if (check se o sns number dele coincide com algum já existente
 //                System.out.println(SNSNumber + " does not exist!");
@@ -52,6 +42,7 @@ public class RegisterTheArrivalOfASNSUserUI implements Runnable {
 
         int vaccinationCenterSNSUser = Utils.showAndSelectIndex(ctrl.getVaccinationCenterList(), "Vaccination Centers");
 
+
         /*
         PRÓXIMOS PASSOS
         • Receber a data e time
@@ -59,11 +50,6 @@ public class RegisterTheArrivalOfASNSUserUI implements Runnable {
         • Depois de validado, register o arrival
          */
 
-
-//        if (ctlr.checkRequirementsForRegistration(SNSNumber, vaccinationCenterReceptionist, vaccinationCenterSNSUser)) {
-//            //verificar se posso ser registado, saber o que considerar
-//            //Depois da verifacação user o crlr.registerArrival
-//        }
     }
 
     public boolean checkRequirementsForRegistration(int SNSNumber, int vaccinationCenterReceptionist, int vaccinationCenterSNSUser, Date date, Time time) {
@@ -92,7 +78,7 @@ public class RegisterTheArrivalOfASNSUserUI implements Runnable {
     /*
     Things to consider
     • Check if the SNS user has an appointment
-    • Know if I have to work with day and hours when check if the user is ready to go to the waitting room
+    • Know the time limit to accept a user knowing he has an appointment for that day and place
 
     Funcionamento
     • O user forneceria o seu SNS number e a receptionist iria à lista de appointments checkar se esse user realmente tem um appointment

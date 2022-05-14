@@ -49,13 +49,22 @@ public class RegisterTheArrivalOfASNSUserController {
         return vaccinationCenterReceptionist == vaccinationCenterSNSUser;
     }
 
-    // VAI DAR RETURN A UM OBJETO DE VACCINE APPOINTMENT OU APENAS À DATA E TIME
+    /**
+     * Check if a User has an appointment, introducing his/her SNS number
+     *
+     * @param SNSNumber Number that identifies the SNS user
+     * @return boolean ou Date and Time, or Object VaccinationAppointment
+     */
     public String checkAppointment(int SNSNumber) {
-        System.out.println("Invalid SNS Number");
         return company.checkAppointment(SNSNumber);
-    }
+    }// VAI DAR RETURN A UM OBJETO DE VACCINE APPOINTMENT OU APENAS À DATA E TIME
 
-    public void registerArrival(int SNSNumber) {
+    /**
+     * Register the arrival of an SNS user
+     *
+     * @param SNSNumber Number that identifies the SNS user
+     */
+    public void registerArrival(String SNSNumber) {
         company.registerArrival(SNSNumber);
     }
 }
