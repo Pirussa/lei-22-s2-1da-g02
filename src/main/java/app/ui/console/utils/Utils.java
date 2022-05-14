@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
+import java.util.concurrent.ConcurrentMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -133,7 +134,7 @@ public class Utils {
     }
 
     static public boolean validateAddress(String strAddress) {
-        String[] splitAddress = strAddress.split("#");
+        String[] splitAddress = strAddress.split("/");
         if (splitAddress.length != 3)
             return false;
 
@@ -498,5 +499,40 @@ public class Utils {
 
     public static boolean validateSNSUserNumber(String strSNSUserNumber) {
         return strSNSUserNumber.trim().matches("^[0-9]*$") && strSNSUserNumber.length() == MAXNUMBEROFCHARSSNSUSERNUMBER;
+    }
+
+    public static ArrayList<String> getVaccinationCenterList() {
+        ArrayList<String> getVaccinationCenterNameList = new ArrayList<>();
+        Company company = App.getInstance().getCompany();
+
+        for (int position = 0; position < company.getVaccinationCenters().size(); position++) {
+            getVaccinationCenterNameList.add(company.getVaccinationCenters().get(position).getStrName());
+        }
+
+        return getVaccinationCenterNameList;
+    }
+
+    public static int selectFromList(List list, String header) {
+
+        System.out.println(header + ":");
+        System.out.println();
+        int optionNumber = 1;
+        for (Object o : list) {
+            System.out.println(optionNumber + " - " + o);
+            optionNumber++;
+        }
+
+        do {
+            System.out.println();
+            System.out.print("Insert your option: ");
+            int option = Utils.insertInt("Insert a valid option: ");
+
+            if ((option >= 0) && (option < list.size() + 1))
+                return option - 1 ;
+            else
+                System.out.println("Invalid option.");
+
+        } while (true);
+
     }
 }

@@ -33,11 +33,11 @@ public class ScheduleVaccinationUI implements Runnable {
 
         } while (!SNSUser.validateSNSUserNumber(Objects.requireNonNull(snsNumber)) || SNSUser.userExists(snsNumber) < 0);
 
-        int vaccinationCenterReceptionist = Utils.showAndSelectIndex(ctrl.getVaccinationCenterList(), "Vaccination Centers");
+        int vaccinationCenterReceptionist = Utils.showAndSelectIndex(Utils.getVaccinationCenterList(), "Vaccination Centers");
         VaccinationCenter vaccinationCenter = company.getVaccinationCenters().get(vaccinationCenterReceptionist);
         VaccineType vaccineType = selectVaccineTypeUI(vaccinationCenter);
         VaccinationCenterScheduledVaccinations vaccinationCenterScheduledVaccinations = new VaccinationCenterScheduledVaccinations(vaccinationCenter.getStrName(), vaccinationCenter.getStrOpeningHour(), vaccinationCenter.getStrClosingHour(), VaccinationCenterScheduledVaccinations.createArrayForVaccinationScheduling(vaccinationCenter.getStrOpeningHour(), vaccinationCenter.getStrClosingHour()));
-        Utils.printIntegerArray(vaccinationCenterScheduledVaccinations.getScheduledVaccinations());
+
     }
 
     private VaccineType selectVaccineTypeUI(VaccinationCenter vaccinationCenter) {

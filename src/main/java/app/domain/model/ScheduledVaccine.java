@@ -8,7 +8,8 @@ import java.util.Date;
  * Has all the info about a scheduled Vaccine
  *
  * @author Gustavo Jorge <1211061@isep.ipp.pt>
- * @author
+ * @author Guilherme Sousa <1211073@isep.ipp.pt>
+ * @author Pedro Monteiro <1211076@isep.ipp.pt>
  */
 public class ScheduledVaccine {
 

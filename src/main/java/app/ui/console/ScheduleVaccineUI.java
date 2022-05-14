@@ -8,6 +8,7 @@ import pt.isep.lei.esoft.auth.domain.model.Email;
 
 
 import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.*;
 
 public class ScheduleVaccineUI implements Runnable {
@@ -19,28 +20,29 @@ public class ScheduleVaccineUI implements Runnable {
 
     @Override
     public void run() {
-        Company c = App.getInstance().getCompany();
-
-        //selectDateUI(c.getMassVaccinationCenter().get(0));
-
-        if (!c.getVaccineTypes().isEmpty() && !c.getVaccinationCenters().isEmpty() && !c.getSNSUserList().isEmpty()) {
-            System.out.println();
-            String SNSNumber = introduceSnsNumberUI();
-            VaccinationCenter vaccinationCenter = selectVaccinationCenterUI();
-            VaccineType vaccineType = selectVaccineTypeUI(vaccinationCenter);
-            if (vaccineType == null) {
-                return;
-            }
 
 
-            System.out.println("Sucesso"); //TEMP
+        selectDateUI(c.getMassVaccinationCenter().get(0));
 
-        } else {
-            System.out.println();
-            System.out.println("|------------------------------------------------------------------------------------------------------------|");
-            System.out.println("| There are no Vaccine Types or Vaccination Centers or SNS Users yet. Please add at least one of each first. |");
-            System.out.println("|------------------------------------------------------------------------------------------------------------|");
-        }
+//        if (!c.getVaccineTypes().isEmpty() && !c.getVaccinationCenters().isEmpty() && !c.getSNSUserList().isEmpty()) {
+//            System.out.println();
+//            String SNSNumber = introduceSnsNumberUI();
+//            VaccinationCenter vaccinationCenter = selectVaccinationCenterUI();
+//
+//            VaccineType vaccineType = selectVaccineTypeUI(vaccinationCenter);
+//            if (vaccineType == null) {
+//                return;
+//            }
+//
+//
+//            System.out.println("Sucesso"); //TEMP
+//
+//        } else {
+//            System.out.println();
+//            System.out.println("|------------------------------------------------------------------------------------------------------------|");
+//            System.out.println("| There are no Vaccine Types or Vaccination Centers or SNS Users yet. Please add at least one of each first. |");
+//            System.out.println("|------------------------------------------------------------------------------------------------------------|");
+//        }
 
 
     }
@@ -51,38 +53,37 @@ public class ScheduleVaccineUI implements Runnable {
         int closingHour = Integer.parseInt(vaccinationCenter.getStrClosingHour());
         int vaccinesPerSlot = Integer.parseInt(vaccinationCenter.getStrVaccinesPerSlot());
         int slotDuration = Integer.parseInt(vaccinationCenter.getStrSlotDuration());
-        List<Date> datesWithAppointmentsList = new ArrayList<>();
+        int slotsPerDay = calculateSlotsPerDay(openingHour, closingHour, slotDuration);
 
         //       ------------------------------IMPLEMENTATION-----------------------------------------
 
-        LocalDate dateWhenScheduling = LocalDate.now() ;
+        LocalDate dateWhenScheduling = LocalDate.now();
 
         System.out.printf("%nChoose one Date to take your Vaccine:%n");
-        boolean check;
+        int optionNumber = 1;
+        for (int date = dateWhenScheduling.getDayOfMonth() + 1; date < YearMonth.of(dateWhenScheduling.getYear(), dateWhenScheduling.getMonthValue()).lengthOfMonth(); date++) {
 
-        for (int date = 0; date <5  ; date++) {
+            if (dayHasAvailability(slotsPerDay,vaccinesPerSlot, LocalDate.of(LocalDate.now().getYear(), dateWhenScheduling.getMonthValue(),date), appointmentsList)) {
+                System.out.println(optionNumber + " - " + date + "/" + dateWhenScheduling.getMonthValue());
+                optionNumber++;
+            }
 
         }
-
-
-
-
-
+        System.out.println(optionNumber + " - Next Month");
+        System.out.printf("%nType your option: ");
+        int daySelected = Utils.insertInt("Insert a valid option: ");
 
 
         /*do {
 
             Calendar dateWhenScheduling = Calendar.getInstance();
             dateWhenScheduling.set(dateWhenScheduling.get(Calendar.YEAR), dateWhenScheduling.get(Calendar.MONTH), dateWhenScheduling.get(Calendar.DATE));
-            int optionNumber = 1;
+
             for (int dayToSelect = dateWhenScheduling.get(Calendar.DATE) + 1; dayToSelect <= dateWhenScheduling.getActualMaximum(Calendar.DAY_OF_MONTH); dayToSelect++) {
 
-                    System.out.println(optionNumber + " - " + dayToSelect + "/" + (dateWhenScheduling.get(Calendar.MONTH) + 1));
-                optionNumber++;
+
             }
-            System.out.println(optionNumber + " - Next Month");
-            System.out.printf("%nType your option: ");
-            int daySelected = Utils.insertInt("Insert a valid option: ");
+
             System.out.println();
             Date selectedDate;
             if (daySelected == optionNumber) {
@@ -114,10 +115,21 @@ public class ScheduleVaccineUI implements Runnable {
         } while (!check);
 */
 
-
-
-
         return null;
+    }
+
+    private boolean dayHasAvailability(int slotsPerDay, int vaccinesPerSlot, LocalDate date, List appointments ) {
+        int vaccinePerDay = slotsPerDay*vaccinesPerSlot;
+        
+        // Praticamente ir à lista e ver para o dia que isto recebe se: para cada slot, há pelo menos um que esteja livre (livre = ter pelo menos 1 espaço para vacina)
+        
+
+
+        return true;
+    }
+
+    private int calculateSlotsPerDay(int openingHour, int closingHour, int slotDuration) {
+        return (closingHour - openingHour) / slotDuration;
     }
 
     private VaccineType selectVaccineTypeUI(VaccinationCenter vaccinationCenter) {
@@ -149,53 +161,11 @@ public class ScheduleVaccineUI implements Runnable {
     }
 
     private VaccineType selectVaccineTypeHealthCareCenterUI(HealthcareCenter healthcareCenter) {
-        System.out.printf("%nSelect one Vaccine Type: %n");
-        int optionNumber = 1;
-        for (VaccineType vacCenter : healthcareCenter.getVaccineTypes()) {
-            System.out.println(optionNumber + " - " + vacCenter);
-            optionNumber++;
-        }
-        boolean check;
-        do {
-            System.out.println();
-            System.out.print("Insert your option: ");
-            int option = Utils.insertInt("Insert a valid option: ");
-
-            if ((option >= 0) && (option < c.getVaccinationCenters().size() + 1)) {
-                return c.getVaccineTypes().get(option - 1);
-            } else {
-                System.out.println("Invalid option.");
-                check = false;
-            }
-        } while (!check);
-
-        return null;
+        return healthcareCenter.getVaccineTypes().get(Utils.selectFromList(healthcareCenter.getVaccineTypes(), "Select one Vaccine Type"));
     }
 
     private VaccinationCenter selectVaccinationCenterUI() {
-
-        System.out.println("Select one Vaccination Center: ");
-        System.out.println();
-        int optionNumber = 1;
-        for (VaccinationCenter vacCenter : c.getVaccinationCenters()) {
-            System.out.println(optionNumber + " - " + vacCenter);
-            optionNumber++;
-        }
-        boolean check;
-        do {
-            System.out.println();
-            System.out.print("Insert your option: ");
-            int option = Utils.insertInt("Insert a valid option: ");
-
-            if ((option >= 0) && (option < c.getVaccinationCenters().size() + 1)) {
-                return c.getVaccinationCenters().get(option - 1);
-            } else {
-                System.out.println("Invalid option.");
-                check = false;
-            }
-        } while (!check);
-
-        return null;
+        return c.getVaccinationCenters().get(Utils.selectFromList(c.getVaccinationCenters(), "Select one Vaccination Center"));
     }
 
     private String introduceSnsNumberUI() {

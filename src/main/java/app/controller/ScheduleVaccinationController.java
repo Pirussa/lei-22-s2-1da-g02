@@ -20,15 +20,7 @@ public class ScheduleVaccinationController {
 
     public ScheduleVaccinationController() {}
 
-    public ArrayList<String> getVaccinationCenterList() {
-        ArrayList<String> getVaccinationCenterNameList = new ArrayList<>();
 
-        for (int position = 0; position < company.getVaccinationCenters().size(); position++) {
-            getVaccinationCenterNameList.add(company.getVaccinationCenters().get(position).getStrName());
-        }
-
-        return getVaccinationCenterNameList;
-    }
     public ArrayList<SNSUser> getSNSUsersList() {
         return company.getSNSUserList();
     }
