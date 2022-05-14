@@ -17,6 +17,8 @@ import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -440,17 +442,17 @@ public class Utils {
         mvcDto.strPhoneNumber = "915607321";
         mvcDto.strFax = "915607321";
         mvcDto.strEmail = "cvcmatosinhos@gmail.com";
-        mvcDto.strClosingHour = "20";
-        mvcDto.strOpeningHour = "8";
-        mvcDto.strVaccinesPerSlot = "5";
-        mvcDto.strSlotDuration = "20";
+        mvcDto.strClosingHour = "16";
+        mvcDto.strOpeningHour = "9";
+        mvcDto.strVaccinesPerSlot = "1";
+        mvcDto.strSlotDuration = "30";
         mvcDto.strWebsite = "www.cvcmatosinhos.com";
         mvcDto.strRoad = "Rua do Amial";
         mvcDto.strZipCode = "4460-098";
         mvcDto.strLocal = "Matosinhos";
         mvcDto.strCenterCoordinatorID = "CC-95634";
-        mvcDto.vaccineType = new VaccineType( "COVID", "To prevent serious COVID-19 infections", VaccineType.vaccineTechnologies[5]);
-
+        mvcDto.vaccineType = new VaccineType("COVID", "To prevent serious COVID-19 infections", VaccineType.vaccineTechnologies[5]);
+        MassVaccinationCenter massVaccinationCenter1 = new MassVaccinationCenter(mvcDto.strID,mvcDto.strName,mvcDto.strPhoneNumber,mvcDto.strEmail, mvcDto.strFax, mvcDto.strWebsite,mvcDto.strOpeningHour,mvcDto.strClosingHour,mvcDto.strSlotDuration, mvcDto.strVaccinesPerSlot,mvcDto.strRoad,mvcDto.strZipCode,mvcDto.strLocal,mvcDto.strCenterCoordinatorID,mvcDto.vaccineType);
         ctrlVc.saveMassVaccinationCenter(mvcDto);
 
         Company c = App.getInstance().getCompany();
@@ -459,8 +461,15 @@ public class Utils {
         SNSUserDto snsUserDto = new SNSUserDto("User Default", "243989890", "user@gmail.com", "16/03/2003", "915604428", "Male", "Rua da Telheira / 4560-098 / Porto", "14497557 2 ZX3", "AAA22aa");
         c.saveSNSUser(snsUserDto);
 
-        HealthcareCenterDto hCcDto = new HealthcareCenterDto("1236", "Centro de Saude da Maia", "915372312", "csmaia@gmail.com", "915372312", "www.csmaia.com", "9", "17", "15", "3", "Rua da Escola", "4470-073", "Maia", "CC-92634", "Norte", "SNS", new ArrayList<>(List.of(new VaccineType( "COVID", "To prevent serious COVID-19 infections", VaccineType.vaccineTechnologies[5]),new VaccineType( "FLU22", "To prevent serious Flu infections", VaccineType.vaccineTechnologies[5]))));
+        HealthcareCenterDto hCcDto = new HealthcareCenterDto("1236", "Centro de Saude da Maia", "915372312", "csmaia@gmail.com", "915372312", "www.csmaia.com", "9", "17", "15", "3", "Rua da Escola", "4470-073", "Maia", "CC-92634", "Norte", "SNS", new ArrayList<>(List.of(new VaccineType("COVID", "To prevent serious COVID-19 infections", VaccineType.vaccineTechnologies[5]), new VaccineType("FLU22", "To prevent serious Flu infections", VaccineType.vaccineTechnologies[5]))));
         c.saveHealthcareCenter(hCcDto);
+
+        LocalDateTime localDateTime = LocalDateTime.of(2022,6,7, 11, 30);
+
+        ScheduledVaccine scheduledVaccine1 = new ScheduledVaccine(243989890, c.getVaccineTypes().get(0), localDateTime);
+        c.getVaccinationCenters().get(0).addAppointment(scheduledVaccine1);
+
+
     }
 
     public static int insertInt(String errorMessage) {
@@ -474,7 +483,7 @@ public class Utils {
 
                 if (input > 0) {
                     check = 1;
-                }else{
+                } else {
                     System.out.print(errorMessage);
                 }
             } catch (InputMismatchException e) {

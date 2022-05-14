@@ -1,15 +1,15 @@
 package app.domain.model;
 
-
+/**
+ * Represents a Vaccine for a virus.
+ *
+ * @author Gustavo Jorge <1211061@isep.ipp.pt>
+ */
 
 public class Vaccine {
 
 
-    /**
-     * Represents a Vaccine for a virus.
-     *
-     * @author Gustavo Jorge <1211061@isep.ipp.pt>
-     */
+
 
     private String name;
 

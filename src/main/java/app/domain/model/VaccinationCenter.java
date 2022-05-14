@@ -1,8 +1,11 @@
 package app.domain.model;
 
 import app.controller.CreateVaccinationCenterController;
+import dto.MassVaccinationCenterDto;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -10,7 +13,7 @@ import java.util.Objects;
  *
  * @author João Castro <1210816@isep.ipp.pt>
  */
-public class  VaccinationCenter{
+public class VaccinationCenter{
 
     CreateVaccinationCenterController controller = new CreateVaccinationCenterController();
 
@@ -28,7 +31,7 @@ public class  VaccinationCenter{
     private String strZipCode;
     private String strLocal;
     private String strCenterCoordinatorID;
-
+    private List<ScheduledVaccine> scheduledVaccineList = new ArrayList<>();
 
     private static final int NUMBER_OF_PHONE_NUMBER_DIGITS = 9;
     private static final int STARTING_NUMBER_PORTUGUESE_PHONE = 9;
@@ -264,6 +267,12 @@ public class  VaccinationCenter{
                 validateVaccinesPerSlot(strVaccinesPerSlot);
     }
 
+
+    /**
+     * Method to return a String with all the info corresponding to a Vaccination Center
+     *
+     * @return a String
+     */
     public String fullInfo() {
         return "ID of the Vaccination Center: " + strID + '\n' +
                 "Name of the Vaccination Center: " + strName + '\n' +
@@ -279,5 +288,61 @@ public class  VaccinationCenter{
                 "Zip Code of the Vaccination Center: " + strZipCode + '\n' +
                 "Local of the Vaccination Center: " + strLocal + '\n' +
                 "Center Coordinator of the Vaccination Center: " + strCenterCoordinatorID + '\n';
+    }
+
+
+    /**
+     * Adds an appointment of a Vaccine to the List with all the Scheduled Vaccines
+     *
+     * @param newAppointment A Scheduled Vaccine object to be added to the List containing all the appointments
+     */
+    public void addAppointment(ScheduledVaccine newAppointment) {
+        this.scheduledVaccineList.add(newAppointment) ;
+    }
+
+
+    /**
+     * Gets the List with all the Scheduled Vaccines in the Vaccination Center
+     *
+     * @return A List
+     */
+    public List<ScheduledVaccine> getScheduledVaccineList() {
+        return scheduledVaccineList;
+    }
+
+    /**
+     * Gets opening hour.
+     *
+     * @return the String with the opening hour
+     */
+    public String getStrOpeningHour() {
+        return strOpeningHour;
+    }
+
+    /**
+     * Gets closing hour.
+     *
+     * @return the string with the closing hour
+     */
+    public String getStrClosingHour() {
+        return strClosingHour;
+    }
+
+    /**
+     * Gets slot duration time.
+     *
+     * @return the String with the slot duration
+     */
+    public String getStrSlotDuration() {
+        return strSlotDuration;
+    }
+
+    /**
+     * Gets the number of vaccines per slot.
+     *
+     * @return the String with the number vaccines per slot
+     */
+    public String getStrVaccinesPerSlot() {
+        return strVaccinesPerSlot;
     }
 }
