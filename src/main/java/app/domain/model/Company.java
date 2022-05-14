@@ -60,9 +60,14 @@ public class Company {
     private ArrayList<Employee> centreCoordinatorList = new ArrayList<>();
 
     /**
-     * List that stores the Arrivals of the SNS users
+     * List that stores the vaccine appointments
      */
-    private List<Integer> arrivals = new ArrayList<>();
+    private ArrayList<ScheduleVaccination> vaccineAppointments = new ArrayList<>();
+
+    /**
+     * List that stores the Arrivals of the SNS users (MAYBE DAR STORE APENAS AO SNS NUMBER ? )
+     */
+    private List<String> arrivals = new ArrayList<>();
 
     public Company(String designation) {
         if (StringUtils.isBlank(designation))
@@ -439,12 +444,22 @@ public class Company {
     }
     //END
 
+    /**
+     * Check if a User has an appointment, introducing his/her SNS number
+     *
+     * @param SNSNumber Number that identifies the SNS user
+     * @return boolean ou Date and Time
+     */
     public String checkAppointment(int SNSNumber) {
         return "DEVE DAR RETURN AO APPOINTMENT, DATE E TIME, SE ESTE EXISTIR";
     }
 
-
-    public void registerArrival(int SNSNumber) {
+    /**
+     * Register the arrival of an SNS user
+     *
+     * @param SNSNumber Number that identifies the SNS user
+     */
+    public void registerArrival(String SNSNumber) {
         arrivals.add(SNSNumber);
     }
 }

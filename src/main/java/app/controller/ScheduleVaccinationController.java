@@ -29,7 +29,6 @@ public class ScheduleVaccinationController {
 
         return getVaccinationCenterNameList;
     }
-
     public ArrayList<SNSUser> getSNSUsersList() {
         return company.getSNSUserList();
     }

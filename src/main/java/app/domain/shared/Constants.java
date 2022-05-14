@@ -38,4 +38,8 @@ public class Constants {
     public static final int NUMBER_OF_CITIZEN_CARD_DIGITS = 12;
 
     public static final int FIRST_SECOND_DIGIT_CC = 10;
+
+    public static final int NUMBER_OF_DAYS_FOR_VACCINATION_SCHEDULE = 365;
+
+    public static final int OPENING_CLOSING_HOURS = 2;
     }
