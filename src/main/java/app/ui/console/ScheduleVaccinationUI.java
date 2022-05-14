@@ -36,7 +36,7 @@ public class ScheduleVaccinationUI implements Runnable {
         int vaccinationCenterReceptionist = Utils.showAndSelectIndex(Utils.getVaccinationCenterList(), "Vaccination Centers");
         VaccinationCenter vaccinationCenter = company.getVaccinationCenters().get(vaccinationCenterReceptionist);
         VaccineType vaccineType = selectVaccineTypeUI(vaccinationCenter);
-        VaccinationCenterScheduledVaccinations vaccinationCenterScheduledVaccinations = new VaccinationCenterScheduledVaccinations(vaccinationCenter.getStrName(), vaccinationCenter.getStrOpeningHour(), vaccinationCenter.getStrClosingHour(), VaccinationCenterScheduledVaccinations.createArrayForVaccinationScheduling(vaccinationCenter.getStrOpeningHour(), vaccinationCenter.getStrClosingHour()));
+
 
     }
 

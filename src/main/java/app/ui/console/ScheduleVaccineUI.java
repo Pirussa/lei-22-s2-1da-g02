@@ -8,7 +8,10 @@ import pt.isep.lei.esoft.auth.domain.model.Email;
 
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.YearMonth;
+import java.time.temporal.TemporalAdjusters;
 import java.util.*;
 
 public class ScheduleVaccineUI implements Runnable {
@@ -55,34 +58,82 @@ public class ScheduleVaccineUI implements Runnable {
         int slotDuration = Integer.parseInt(vaccinationCenter.getStrSlotDuration());
         int slotsPerDay = calculateSlotsPerDay(openingHour, closingHour, slotDuration);
 
+        List<LocalDateTime> availableDays = new ArrayList<>();
+
         //       ------------------------------IMPLEMENTATION-----------------------------------------
 
         LocalDate dateWhenScheduling = LocalDate.now();
 
         System.out.printf("%nChoose one Date to take your Vaccine:%n");
         int optionNumber = 1;
-        for (int date = dateWhenScheduling.getDayOfMonth() + 1; date < YearMonth.of(dateWhenScheduling.getYear(), dateWhenScheduling.getMonthValue()).lengthOfMonth(); date++) {
+       for (int date = dateWhenScheduling.getDayOfMonth() + 1; date <= YearMonth.of(dateWhenScheduling.getYear(), dateWhenScheduling.getMonthValue()).lengthOfMonth(); date++) {
 
-            if (dayHasAvailability(slotsPerDay,vaccinesPerSlot, LocalDate.of(LocalDate.now().getYear(), dateWhenScheduling.getMonthValue(),date), appointmentsList)) {
-                System.out.println(optionNumber + " - " + date + "/" + dateWhenScheduling.getMonthValue());
+            if (dayHasAvailability(slotsPerDay, vaccinesPerSlot, LocalDate.of(LocalDate.now().getYear(), dateWhenScheduling.getMonthValue(), date), appointmentsList)) {
+                if (dateWhenScheduling.getMonthValue() < 10)
+                    System.out.println(optionNumber + " - " + date + "/" + "0" +dateWhenScheduling.getMonthValue());
+                else
+                    System.out.println(optionNumber + " - " + date + "/" + dateWhenScheduling.getMonthValue());
                 optionNumber++;
+                availableDays.add(LocalDateTime.of(LocalDateTime.now().getYear(), dateWhenScheduling.getMonthValue(), date, openingHour, 0));
             }
-
         }
-        System.out.println(optionNumber + " - Next Month");
+        optionNumber = 0;
+        System.out.printf("%n" + optionNumber + " - Next Month%n");
         System.out.printf("%nType your option: ");
         int daySelected = Utils.insertInt("Insert a valid option: ");
 
+        if (daySelected == optionNumber) {
+            optionNumber = 1;
+            LocalDate nextMonthdate = dateWhenScheduling.plusMonths(1).with(TemporalAdjusters.firstDayOfMonth());
+            for (int date = nextMonthdate.getDayOfMonth(); date <= YearMonth.of(nextMonthdate.getYear(), nextMonthdate.getMonthValue()).lengthOfMonth(); date++) {
+                if (dayHasAvailability(slotsPerDay, vaccinesPerSlot, LocalDate.of(LocalDate.now().getYear(), nextMonthdate.getMonthValue(), date), appointmentsList)) {
+                    if (nextMonthdate.getMonthValue() < 10)
+                        System.out.println(optionNumber + " - " + date + "/" + "0" +nextMonthdate.getMonthValue());
+                    else
+                        System.out.println(optionNumber + " - " + date + "/" + nextMonthdate.getMonthValue());
+                    optionNumber++;
+                    availableDays.add(LocalDateTime.of(LocalDateTime.now().getYear(), nextMonthdate.getMonthValue(), date, openingHour, 0));
+                }
+            }
+            optionNumber = 0;
+            System.out.printf("%n" + optionNumber + " - Previous Month%n");
+            System.out.printf("%nType your option: ");
+            int daySelected2 = Utils.insertInt("Insert a valid option: ");
 
-        /*do {
 
-            Calendar dateWhenScheduling = Calendar.getInstance();
-            dateWhenScheduling.set(dateWhenScheduling.get(Calendar.YEAR), dateWhenScheduling.get(Calendar.MONTH), dateWhenScheduling.get(Calendar.DATE));
 
-            for (int dayToSelect = dateWhenScheduling.get(Calendar.DATE) + 1; dayToSelect <= dateWhenScheduling.getActualMaximum(Calendar.DAY_OF_MONTH); dayToSelect++) {
 
+        } else {
+
+            /* Comentários para ajudar a perceber o que foi feito - Pedro Monteiro
+            ESTE ELSE É PARA DAR PRINT AOS VÁRIOS SLOTS, AINDA NÃO EXISTEM NENHUM TIPO DE VALIDAÇÃO PARA VER SE ESTÁ AVAILABLE
+
+            Criei um array que guardar os dias disponíveis para aqui em baixo poder saber qual o dia que foi escolhido (provavlemente há uma melhor forma de fazer)
+            Criei um método para sumar times (sumDates) para depois dar prints atravéz do for
+
+            Posso usar LocalDateTime, LocalDate e LocalTime right?
+             */
+            LocalDateTime date = availableDays.get(daySelected - 1);
+            optionNumber = 0;
+
+            LocalTime time = LocalTime.from(date);
+            for (int position = 0; position < slotsPerDay; position++) {
+                optionNumber++;
+                System.out.println(optionNumber + " - " + time);
+                time = sumDates(time, slotDuration);
 
             }
+        }
+
+
+        /*
+        Next month e previous month
+        Escolhendo um dia, mostrar os slots disponiveis
+            "Somar" slots para apresentar
+
+         */
+
+        /*do {
 
             System.out.println();
             Date selectedDate;
@@ -118,18 +169,39 @@ public class ScheduleVaccineUI implements Runnable {
         return null;
     }
 
-    private boolean dayHasAvailability(int slotsPerDay, int vaccinesPerSlot, LocalDate date, List appointments ) {
-        int vaccinePerDay = slotsPerDay*vaccinesPerSlot;
-        
-        // Praticamente ir à lista e ver para o dia que isto recebe se: para cada slot, há pelo menos um que esteja livre (livre = ter pelo menos 1 espaço para vacina)
-        
-
-
+    public boolean slotHasAvailability(LocalTime slot, List<ScheduledVaccine> appointments) {
         return true;
     }
 
+    public LocalTime sumDates(LocalTime date, int slotDuration) {
+        int dateMinute = date.getMinute();
+        int dateHour = date.getHour();
+
+
+        if (dateMinute + slotDuration >= 60)
+            return LocalTime.of(dateHour + 1, 60 - (slotDuration + dateMinute));
+
+        return LocalTime.of(dateHour, slotDuration + dateMinute);
+    }
+
+    private boolean dayHasAvailability(int slotsPerDay, int vaccinesPerSlot, LocalDate date, List<ScheduledVaccine> appointments) {
+        int vaccinePerDay = slotsPerDay * vaccinesPerSlot;
+        int counterAppointments = 0;
+
+        for (ScheduledVaccine appointment : appointments) {
+            if (appointment.getDate().equals(date))
+                counterAppointments++;
+
+            if (counterAppointments == vaccinePerDay)
+                return false;
+        }
+
+        return true;
+        // Praticamente ir à lista e ver para o dia que isto recebe se: para cada slot, há pelo menos um que esteja livre (livre = ter pelo menos 1 espaço para vacina)
+    }
+
     private int calculateSlotsPerDay(int openingHour, int closingHour, int slotDuration) {
-        return (closingHour - openingHour) / slotDuration;
+        return (closingHour - openingHour) * 60 / slotDuration;
     }
 
     private VaccineType selectVaccineTypeUI(VaccinationCenter vaccinationCenter) {

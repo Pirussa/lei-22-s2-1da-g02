@@ -1,5 +1,6 @@
 package app.domain.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
@@ -54,7 +55,7 @@ public class ScheduledVaccine {
      *
      * @return the date
      */
-    public Date getDate() {
-        return new Date(String.valueOf(this.date));
+    public LocalDateTime getDate() {
+        return date;
     }
 }

@@ -482,7 +482,7 @@ public class Utils {
                 input = sc.nextInt();
                 sc.nextLine();
 
-                if (input > 0) {
+                if (input >= 0) {
                     check = 1;
                 } else {
                     System.out.print(errorMessage);
