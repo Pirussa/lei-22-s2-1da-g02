@@ -30,7 +30,7 @@ public class SNSUser {
 
     private AuthFacade auth = new AuthFacade();
 
-    private static Company company = App.getInstance().getCompany();
+    private static Company company = App.getInstance().getCompany() ;
 
 
     public SNSUser(String strName, String strSNSUserNumber , String strEmail, String strBirthDate,String strPhoneNumber,
@@ -278,6 +278,4 @@ public class SNSUser {
                 "Citizen Card Number of the SNS User: " + strCitizenCardNumber + '\n' +
                 "Password of the SNS User: " + strPassword;
     }
-
-
 }
