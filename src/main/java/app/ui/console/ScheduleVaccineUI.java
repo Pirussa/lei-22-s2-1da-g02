@@ -65,45 +65,21 @@ public class ScheduleVaccineUI implements Runnable {
         LocalDate dateWhenScheduling = LocalDate.now();
 
         System.out.printf("%nChoose one Date to take your Vaccine:%n");
-        int optionNumber = 1;
-       for (int date = dateWhenScheduling.getDayOfMonth() + 1; date <= YearMonth.of(dateWhenScheduling.getYear(), dateWhenScheduling.getMonthValue()).lengthOfMonth(); date++) {
+        boolean check = false;
+        int option1 = 0;
+        do {
+            option1 = currentMonth(availableDays, appointmentsList, slotsPerDay, vaccinesPerSlot);
+            if (option1 == 0)
+                option1 = nextMonth(availableDays, appointmentsList, slotsPerDay, vaccinesPerSlot);
+            else check = true;
 
-            if (dayHasAvailability(slotsPerDay, vaccinesPerSlot, LocalDate.of(LocalDate.now().getYear(), dateWhenScheduling.getMonthValue(), date), appointmentsList)) {
-                if (dateWhenScheduling.getMonthValue() < 10)
-                    System.out.println(optionNumber + " - " + date + "/" + "0" +dateWhenScheduling.getMonthValue());
-                else
-                    System.out.println(optionNumber + " - " + date + "/" + dateWhenScheduling.getMonthValue());
-                optionNumber++;
-                availableDays.add(LocalDateTime.of(LocalDateTime.now().getYear(), dateWhenScheduling.getMonthValue(), date, openingHour, 0));
-            }
-        }
-        optionNumber = 0;
-        System.out.printf("%n" + optionNumber + " - Next Month%n");
-        System.out.printf("%nType your option: ");
-        int daySelected = Utils.insertInt("Insert a valid option: ");
+            if (option1 == 0) ;
+            else check = true;
+        } while (!check);
 
-        if (daySelected == optionNumber) {
-            optionNumber = 1;
-            LocalDate nextMonthdate = dateWhenScheduling.plusMonths(1).with(TemporalAdjusters.firstDayOfMonth());
-            for (int date = nextMonthdate.getDayOfMonth(); date <= YearMonth.of(nextMonthdate.getYear(), nextMonthdate.getMonthValue()).lengthOfMonth(); date++) {
-                if (dayHasAvailability(slotsPerDay, vaccinesPerSlot, LocalDate.of(LocalDate.now().getYear(), nextMonthdate.getMonthValue(), date), appointmentsList)) {
-                    if (nextMonthdate.getMonthValue() < 10)
-                        System.out.println(optionNumber + " - " + date + "/" + "0" +nextMonthdate.getMonthValue());
-                    else
-                        System.out.println(optionNumber + " - " + date + "/" + nextMonthdate.getMonthValue());
-                    optionNumber++;
-                    availableDays.add(LocalDateTime.of(LocalDateTime.now().getYear(), nextMonthdate.getMonthValue(), date, openingHour, 0));
-                }
-            }
-            optionNumber = 0;
-            System.out.printf("%n" + optionNumber + " - Previous Month%n");
-            System.out.printf("%nType your option: ");
-            int daySelected2 = Utils.insertInt("Insert a valid option: ");
-
-
-
-
-        } else {
+        /* Comentários para ajudar a perceber o que foi feito - Guilherme Sousa
+        Neste momento já é capaz de avançar e recuar um mês cada vez que o user assim o desejar.
+         */
 
             /* Comentários para ajudar a perceber o que foi feito - Pedro Monteiro
             ESTE ELSE É PARA DAR PRINT AOS VÁRIOS SLOTS, AINDA NÃO EXISTEM NENHUM TIPO DE VALIDAÇÃO PARA VER SE ESTÁ AVAILABLE
@@ -113,17 +89,18 @@ public class ScheduleVaccineUI implements Runnable {
 
             Posso usar LocalDateTime, LocalDate e LocalTime right?
              */
-            LocalDateTime date = availableDays.get(daySelected - 1);
-            optionNumber = 0;
+        LocalDateTime date = availableDays.get(option1 - 1);
+        option1 = 0;
 
-            LocalTime time = LocalTime.from(date);
-            for (int position = 0; position < slotsPerDay; position++) {
-                optionNumber++;
-                System.out.println(optionNumber + " - " + time);
-                time = sumDates(time, slotDuration);
+        LocalTime time = LocalTime.from(date);
+        for (int position = 0; position < slotsPerDay; position++) {
+            option1++;
+            System.out.println(option1 + " - " + time);
+            time = sumDates(time, slotDuration);
 
-            }
         }
+        return null;
+    }
 
 
         /*
@@ -165,10 +142,48 @@ public class ScheduleVaccineUI implements Runnable {
             }
         } while (!check);
 */
+    private int currentMonth(List<LocalDateTime> availableDays, List<ScheduledVaccine> appointmentsList, int slotsPerDay, int vaccinesPerSlot) {
+        LocalDate dateWhenScheduling = LocalDate.now();
 
-        return null;
+        System.out.printf("%nChoose one Date to take your Vaccine:%n");
+        int optionNumber = 1;
+
+        for (int date = dateWhenScheduling.getDayOfMonth() + 1; date <= YearMonth.of(dateWhenScheduling.getYear(), dateWhenScheduling.getMonthValue()).lengthOfMonth(); date++) {
+
+            if (dayHasAvailability(slotsPerDay, vaccinesPerSlot, LocalDate.of(LocalDate.now().getYear(), dateWhenScheduling.getMonthValue(), date), appointmentsList)) {
+                if (dateWhenScheduling.getMonthValue() < 10)
+                    System.out.println(optionNumber + " - " + date + "/" + "0" + dateWhenScheduling.getMonthValue());
+                else
+                    System.out.println(optionNumber + " - " + date + "/" + dateWhenScheduling.getMonthValue());
+                optionNumber++;
+                availableDays.add(LocalDateTime.of(LocalDateTime.now().getYear(), dateWhenScheduling.getMonthValue(), date, 0, 0));
+            }
+        }
+        optionNumber = 0;
+        System.out.printf("%n" + optionNumber + " - Next Month%n");
+        System.out.printf("%nType your option: ");
+        return Utils.insertInt("Insert a valid option: ");
     }
 
+    private int nextMonth(List<LocalDateTime> availableDays, List<ScheduledVaccine> appointmentsList, int slotsPerDay, int vaccinesPerSlot) {
+        int optionNumber = 1;
+        LocalDate dateWhenScheduling = LocalDate.now();
+        LocalDate nextMonthdate = dateWhenScheduling.plusMonths(1).with(TemporalAdjusters.firstDayOfMonth());
+        for (int date = nextMonthdate.getDayOfMonth(); date <= YearMonth.of(nextMonthdate.getYear(), nextMonthdate.getMonthValue()).lengthOfMonth(); date++) {
+            if (dayHasAvailability(slotsPerDay, vaccinesPerSlot, LocalDate.of(LocalDate.now().getYear(), nextMonthdate.getMonthValue(), date), appointmentsList)) {
+                if (nextMonthdate.getMonthValue() < 10)
+                    System.out.println(optionNumber + " - " + date + "/" + "0" + nextMonthdate.getMonthValue());
+                else
+                    System.out.println(optionNumber + " - " + date + "/" + nextMonthdate.getMonthValue());
+                optionNumber++;
+                availableDays.add(LocalDateTime.of(LocalDateTime.now().getYear(), nextMonthdate.getMonthValue(), date, 0, 0));
+            }
+        }
+        optionNumber = 0;
+        System.out.printf("%n" + optionNumber + " - Previous Month%n");
+        System.out.printf("%nType your option: ");
+        return Utils.insertInt("Insert a valid option: ");
+    }
     public boolean slotHasAvailability(LocalTime slot, List<ScheduledVaccine> appointments) {
         return true;
     }

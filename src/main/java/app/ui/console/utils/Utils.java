@@ -434,7 +434,7 @@ public class Utils {
         dtoEmp3.citizenCardNumber = "15925823 5 ZX3";
         dtoEmp3.email = "carla@gmail.com";
         dtoEmp3.address = "Rua Carlos Kimbo Slice / 4440-123 / Porto";
-        ctrlEmp.saveCreatedEmployee(dtoEmp3, "Center Coordinator");
+        ctrlEmp.saveCreatedEmployee(dtoEmp3, "Receptionist");
 
         CreateVaccinationCenterController ctrlVc = new CreateVaccinationCenterController();
         MassVaccinationCenterDto mvcDto = new MassVaccinationCenterDto();
