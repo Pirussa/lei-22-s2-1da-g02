@@ -1,11 +1,14 @@
 package app.controller;
 
 import app.domain.model.Company;
+import app.domain.model.ScheduledVaccine;
 import app.domain.model.VaccinationCenter;
+import app.domain.model.Vaccine;
 
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class RegisterTheArrivalOfASNSUserController {
 
@@ -20,6 +23,14 @@ public class RegisterTheArrivalOfASNSUserController {
      */
     public ArrayList<VaccinationCenter> getVaccinationCenterList() {
         return company.getVaccinationCenters();
+    }
+
+    public VaccinationCenter getVaccinationCenter(int position) {
+        return company.getVaccinationCenters().get(position);
+    }
+
+    public List<ScheduledVaccine> getScheduledVaccineList(VaccinationCenter vaccinationCenter) {
+        return vaccinationCenter.getScheduledVaccineList();
     }
 
     /**

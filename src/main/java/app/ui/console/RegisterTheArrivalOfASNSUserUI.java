@@ -1,6 +1,7 @@
 package app.ui.console;
 
 import app.controller.RegisterTheArrivalOfASNSUserController;
+import app.domain.model.VaccinationCenter;
 import app.ui.console.utils.Utils;
 
 import java.sql.Time;
@@ -18,7 +19,14 @@ public class RegisterTheArrivalOfASNSUserUI implements Runnable {
         System.out.println("------Register the Arrival of an SNS user------");
         System.out.println();
 
-        int vaccinationCenterReceptionist = Utils.showAndSelectIndex(ctrl.getVaccinationCenterList(), "Vaccination Centers");
+        int vaccinationCenterReceptionistPosition = Utils.showAndSelectIndex(ctrl.getVaccinationCenterList(), "Vaccination Centers");
+        VaccinationCenter vaccinationCenterReceptionist  = ctrl.getVaccinationCenter(vaccinationCenterReceptionistPosition);
+
+        /*
+        Criar um arraylist para get schedule vaccines
+        Tendo isso posso começar a fazer as validações do check appointment
+         */
+
         boolean checkValid = false;
         String SNSNumber;
 

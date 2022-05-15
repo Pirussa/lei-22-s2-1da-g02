@@ -124,6 +124,49 @@ public class VaccinationCenter{
         return strName;
     }
 
+    /**
+     * Gets the List with all the Scheduled Vaccines in the Vaccination Center
+     *
+     * @return A List
+     */
+    public List<ScheduledVaccine> getScheduledVaccineList() { return scheduledVaccineList; }
+
+    /**
+     * Gets opening hour.
+     *
+     * @return the String with the opening hour
+     */
+    public String getStrOpeningHour() {
+        return strOpeningHour;
+    }
+
+    /**
+     * Gets closing hour.
+     *
+     * @return the string with the closing hour
+     */
+    public String getStrClosingHour() {
+        return strClosingHour;
+    }
+
+    /**
+     * Gets slot duration time.
+     *
+     * @return the String with the slot duration
+     */
+    public String getStrSlotDuration() {
+        return strSlotDuration;
+    }
+
+    /**
+     * Gets the number of vaccines per slot.
+     *
+     * @return the String with the number vaccines per slot
+     */
+    public String getStrVaccinesPerSlot() {
+        return strVaccinesPerSlot;
+    }
+
     @Override
     public String toString() {
         return strName;
@@ -301,48 +344,4 @@ public class VaccinationCenter{
     }
 
 
-    /**
-     * Gets the List with all the Scheduled Vaccines in the Vaccination Center
-     *
-     * @return A List
-     */
-    public List<ScheduledVaccine> getScheduledVaccineList() {
-        return scheduledVaccineList;
-    }
-
-    /**
-     * Gets opening hour.
-     *
-     * @return the String with the opening hour
-     */
-    public String getStrOpeningHour() {
-        return strOpeningHour;
-    }
-
-    /**
-     * Gets closing hour.
-     *
-     * @return the string with the closing hour
-     */
-    public String getStrClosingHour() {
-        return strClosingHour;
-    }
-
-    /**
-     * Gets slot duration time.
-     *
-     * @return the String with the slot duration
-     */
-    public String getStrSlotDuration() {
-        return strSlotDuration;
-    }
-
-    /**
-     * Gets the number of vaccines per slot.
-     *
-     * @return the String with the number vaccines per slot
-     */
-    public String getStrVaccinesPerSlot() {
-        return strVaccinesPerSlot;
-    }
 }

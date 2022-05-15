@@ -11,24 +11,32 @@ import dto.MassVaccinationCenterDto;
 import dto.RegisterNewEmployeeDto;
 import dto.SNSUserDto;
 
-import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.*;
-import java.util.concurrent.ConcurrentMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
  * @author Paulo Maio <pam@isep.ipp.pt>
+ * @author Pedro Monteiro <1211076@isep.ipp.pt>
+ * @author Gustavo Jorge <1211061@isep.ipp.pt>
+ * @author Guilherme Sousa <1211073@isep.ipp.pt>
  */
 public class Utils {
 
+    private static final int MAXNUMBEROFCHARSSNSUSERNUMBER = 9;
+
+    /**
+     * Reads a String from the console
+     *
+     * @param prompt Read String
+     * @return String
+     */
     static public String readLineFromConsole(String prompt) {
         try {
             System.out.print("\n" + prompt);
@@ -43,6 +51,13 @@ public class Utils {
         }
     }
 
+    /**
+     * Validates emails
+     * Checks if there is a "@" and is it ends with a valid domain
+     *
+     * @param strEmail The email to be validated
+     * @return returnes true if the email is valid
+     */
     static public boolean validateEmail(String strEmail) {
         if (!strEmail.contains("@") && !strEmail.contains("."))
             return false;
@@ -50,41 +65,59 @@ public class Utils {
         String[] emailSplitter = strEmail.split("@");
         String[] validEmailDomain = {"gmail.com", "hotmail.com", "isep.ipp.pt", "sapo.pt", "outlook.com"};
 
-        for (int position = 0; position < validEmailDomain.length; position++) {
-            if (Objects.equals(emailSplitter[1], validEmailDomain[position]))
+        for (String s : validEmailDomain) {
+            if (Objects.equals(emailSplitter[1], s))
                 return true;
         }
         return false;
     }
 
+    /**
+     * Reads a String from the console and converts it into an integer
+     *
+     * @param prompt Read integer
+     * @return Integer
+     */
     static public int readIntegerFromConsole(String prompt) {
         do {
             try {
                 String input = readLineFromConsole(prompt);
 
-                int value = Integer.parseInt(input);
-
-                return value;
+                return Integer.parseInt(input);
             } catch (NumberFormatException ex) {
                 Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
             }
         } while (true);
     }
 
+    /**
+     * Reads a String from the console and converts it into a double
+     *
+     * @param prompt Read double
+     * @return Double
+     */
     static public double readDoubleFromConsole(String prompt) {
         do {
             try {
                 String input = readLineFromConsole(prompt);
 
-                double value = Double.parseDouble(input);
 
-                return value;
+                return Double.parseDouble(input);
             } catch (NumberFormatException ex) {
                 Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
             }
         } while (true);
     }
 
+
+    /**
+     * Validate phone numbers
+     * Checks if the first number is a 9 and if the second is whether a 1, 2, 3 or 6
+     * Checks if there are only 9 numbers
+     *
+     * @param strPhoneNumber The email to be validated
+     * @return returnes true if the email is valid
+     */
     public static boolean validatePhoneNumber(String strPhoneNumber) {
         final int NUMBER_OF_PHONE_NUMBER_DIGITS = 9;
         final int STARTING_NUMBER_PORTUGUESE_PHONE = 9;
@@ -146,9 +179,7 @@ public class Utils {
     }
 
     static public boolean validateSex(String strSex) {
-        if (strSex.equals("Male") || strSex.equals("Female") || strSex.isEmpty()) {
-            return true;
-        } else return false;
+        return strSex.equals("Male") || strSex.equals("Female") || strSex.isEmpty();
     }
 
     static public boolean validateBirthDate(String strBirthDate) {
@@ -241,7 +272,12 @@ public class Utils {
         throw new IllegalArgumentException("Invalid Value in the Document.");
     }
 
-
+    /**
+     * Read a date from the console
+     *
+     * @param prompt Read dates from console
+     * @return Read date
+     */
     static public Date readDateFromConsole(String prompt) {
         do {
             try {
@@ -249,9 +285,7 @@ public class Utils {
 
                 SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 
-                Date date = df.parse(strDate);
-
-                return date;
+                return df.parse(strDate);
             } catch (ParseException ex) {
                 Logger.getLogger(Utils.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -259,6 +293,11 @@ public class Utils {
     }
 
 
+    /**
+     * Generates a random password with 7 alphanumeric characters, being 3 capital Letters and 2 numbers
+     *
+     * @return String - a random password
+     */
     static public String passwordGenerator() {
         final int PASSWORD_LENGTH = 7;
         final String alphabetLetters = "abcdefghijklmnopqrstuvwyxzABCDEFGHIJKLMNOPQRSTUVWYXZ0123456789";
@@ -285,6 +324,12 @@ public class Utils {
         return String.valueOf(employeePassword);
     }
 
+    /**
+     * Let the user confirm the data that he introduced before
+     *
+     * @param message A choosen message
+     * @return Boolean - true if the user confirm the data
+     */
     static public boolean confirm(String message) {
         String input;
         do {
@@ -294,16 +339,36 @@ public class Utils {
         return input.equalsIgnoreCase("s");
     }
 
+    /**
+     * Shows the choosen list (showList) and let the user choose an option
+     *
+     * @param list A choosen list
+     * @param header A choosen header
+     * @return Object - the option choosen by the user
+     */
     static public Object showAndSelectOne(List list, String header) {
         showList(list, header);
         return selectsObject(list);
     }
 
+    /**
+     * Shows the choosen list (showList) and let the user choose an option
+     *
+     * @param list A choosen list
+     * @param header A choosen header
+     * @return Integer - the option choosen by the user
+     */
     static public int showAndSelectIndex(List list, String header) {
         showList(list, header);
         return selectsIndex(list);
     }
 
+    /**
+     * Prints the chossen list with a header and options
+     *
+     * @param list - A choosen list
+     * @param header - A choosen header
+     */
     static public void showList(List list, String header) {
         System.out.println(header);
         System.out.println();
@@ -317,12 +382,18 @@ public class Utils {
         System.out.println("0 - Cancel");
     }
 
+    /**
+     * Prints the choosen list with options and let the user choose one
+     *
+     * @param list A choosen list
+     * @return Object - the choosen option from a list
+     */
     static public Object selectsObject(List list) {
         String input;
-        Integer value;
+        int value;
         do {
             input = Utils.readLineFromConsole("Type your option: ");
-            value = Integer.valueOf(input);
+            value = Integer.parseInt(input);
         } while (value < 0 || value > list.size());
 
         if (value == 0) {
@@ -332,13 +403,19 @@ public class Utils {
         }
     }
 
+    /**
+     * Prints the choosen list with options and let the user choose one
+     *
+     * @param list A choosen list
+     * @return Integer - The choosen option from the list
+     */
     static public int selectsIndex(List list) {
         String input = "";
-        Integer value = -1;
+        int value = -1;
         do {
             try {
                 input = Utils.readLineFromConsole("Type your option: ");
-                value = Integer.valueOf(input);
+                value = Integer.parseInt(input);
             } catch (NumberFormatException e) {
                 System.out.println("Invalid option");
             }
@@ -384,6 +461,71 @@ public class Utils {
 
 
         return v;
+    }
+
+
+
+    public static int insertInt(String errorMessage) {
+        int check = 0;
+        Scanner sc = new Scanner(System.in);
+        int input = -1;
+        do {
+            try {
+                input = sc.nextInt();
+                sc.nextLine();
+
+                if (input >= 0) {
+                    check = 1;
+                } else {
+                    System.out.print(errorMessage);
+                }
+            } catch (InputMismatchException e) {
+                System.out.print(errorMessage);
+                sc.nextLine();
+            }
+        } while (check == 0);
+        return input;
+    }
+
+
+
+    public static boolean validateSNSUserNumber(String strSNSUserNumber) {
+        return strSNSUserNumber.trim().matches("^[0-9]*$") && strSNSUserNumber.length() == MAXNUMBEROFCHARSSNSUSERNUMBER;
+    }
+
+    public static ArrayList<String> getVaccinationCenterList() {
+        ArrayList<String> getVaccinationCenterNameList = new ArrayList<>();
+        Company company = App.getInstance().getCompany();
+
+        for (int position = 0; position < company.getVaccinationCenters().size(); position++) {
+            getVaccinationCenterNameList.add(company.getVaccinationCenters().get(position).getStrName());
+        }
+
+        return getVaccinationCenterNameList;
+    }
+
+    public static int selectFromList(List list, String header) {
+
+        System.out.println(header + ":");
+        System.out.println();
+        int optionNumber = 1;
+        for (Object o : list) {
+            System.out.println(optionNumber + " - " + o);
+            optionNumber++;
+        }
+
+        do {
+            System.out.println();
+            System.out.print("Insert your option: ");
+            int option = Utils.insertInt("Insert a valid option: ");
+
+            if ((option >= 0) && (option < list.size() + 1))
+                return option - 1 ;
+            else
+                System.out.println("Invalid option.");
+
+        } while (true);
+
     }
 
     public static void bootstrapOptional() {
@@ -470,69 +612,6 @@ public class Utils {
         ScheduledVaccine scheduledVaccine1 = new ScheduledVaccine(243989890, c.getVaccineTypes().get(0), localDateTime);
         c.getVaccinationCenters().get(0).addAppointment(scheduledVaccine1);
 
-
-    }
-
-    public static int insertInt(String errorMessage) {
-        int check = 0;
-        Scanner sc = new Scanner(System.in);
-        int input = -1;
-        do {
-            try {
-                input = sc.nextInt();
-                sc.nextLine();
-
-                if (input >= 0) {
-                    check = 1;
-                } else {
-                    System.out.print(errorMessage);
-                }
-            } catch (InputMismatchException e) {
-                System.out.print(errorMessage);
-                sc.nextLine();
-            }
-        } while (check == 0);
-        return input;
-    }
-
-    private static final int MAXNUMBEROFCHARSSNSUSERNUMBER = 9;
-
-    public static boolean validateSNSUserNumber(String strSNSUserNumber) {
-        return strSNSUserNumber.trim().matches("^[0-9]*$") && strSNSUserNumber.length() == MAXNUMBEROFCHARSSNSUSERNUMBER;
-    }
-
-    public static ArrayList<String> getVaccinationCenterList() {
-        ArrayList<String> getVaccinationCenterNameList = new ArrayList<>();
-        Company company = App.getInstance().getCompany();
-
-        for (int position = 0; position < company.getVaccinationCenters().size(); position++) {
-            getVaccinationCenterNameList.add(company.getVaccinationCenters().get(position).getStrName());
-        }
-
-        return getVaccinationCenterNameList;
-    }
-
-    public static int selectFromList(List list, String header) {
-
-        System.out.println(header + ":");
-        System.out.println();
-        int optionNumber = 1;
-        for (Object o : list) {
-            System.out.println(optionNumber + " - " + o);
-            optionNumber++;
-        }
-
-        do {
-            System.out.println();
-            System.out.print("Insert your option: ");
-            int option = Utils.insertInt("Insert a valid option: ");
-
-            if ((option >= 0) && (option < list.size() + 1))
-                return option - 1 ;
-            else
-                System.out.println("Invalid option.");
-
-        } while (true);
 
     }
 }
