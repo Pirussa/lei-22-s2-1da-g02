@@ -599,19 +599,28 @@ public class Utils {
         ctrlVc.saveMassVaccinationCenter(mvcDto);
 
         Company c = App.getInstance().getCompany();
+
+
+        SNSUserDto snsUserDto = new SNSUserDto("User Default", "243989890", "user@gmail.com", "16/03/2003", "915604428", "Male", "Rua da Telheira / 4560-098 / Porto", "14698413 7 ZY7", "AAA22aa");
+        c.saveSNSUser(snsUserDto);
         c.getAuthFacade().addUserWithRole("UserDefault", "user@gmail.com", "123", Constants.ROLE_SNS_USER);
 
-        SNSUserDto snsUserDto = new SNSUserDto("User Default", "243989890", "user@gmail.com", "16/03/2003", "915604428", "Male", "Rua da Telheira / 4560-098 / Porto", "14497557 2 ZX3", "AAA22aa");
-        c.saveSNSUser(snsUserDto);
+        SNSUserDto snsUserDto1 = new SNSUserDto("User Default", "111111111", "u1@gmail.com", "16/03/2003", "915604429", "Male", "Rua da Telheira / 4560-098 / Porto", "16068893 0 ZX7", "AAA22aa");
+        c.saveSNSUser(snsUserDto1);
+        c.getAuthFacade().addUserWithRole("UserDefault1", "u1@gmail.com", "123", Constants.ROLE_SNS_USER);
+
+
 
         HealthcareCenterDto hCcDto = new HealthcareCenterDto("1236", "Centro de Saude da Maia", "915372312", "csmaia@gmail.com", "915372312", "www.csmaia.com", "9", "17", "15", "3", "Rua da Escola", "4470-073", "Maia", "CC-92634", "Norte", "SNS", new ArrayList<>(List.of(new VaccineType("COVID", "To prevent serious COVID-19 infections", VaccineType.vaccineTechnologies[5]), new VaccineType("FLU22", "To prevent serious Flu infections", VaccineType.vaccineTechnologies[5]))));
         c.saveHealthcareCenter(hCcDto);
 
-        LocalDateTime localDateTime = LocalDateTime.of(2022,6,7, 11, 30);
 
-        ScheduledVaccine scheduledVaccine1 = new ScheduledVaccine(243989890, c.getVaccineTypes().get(0), localDateTime);
+        ScheduledVaccine scheduledVaccine1 = new ScheduledVaccine(243989890, c.getVaccineTypes().get(0), LocalDateTime.of(2022,5,18, 10, 0) );
+        ScheduledVaccine scheduledVaccine2 = new ScheduledVaccine(111111111, c.getVaccineTypes().get(0), LocalDateTime.of(2022,5,18, 11, 0) );
+
+
         c.getVaccinationCenters().get(0).addAppointment(scheduledVaccine1);
-
+        c.getVaccinationCenters().get(0).addAppointment(scheduledVaccine2);
 
     }
 }

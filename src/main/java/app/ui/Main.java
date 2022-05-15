@@ -13,12 +13,10 @@ public class Main {
     public static void main(String[] args) {
         try {
             Utils.bootstrapOptional();
-            ScheduleVaccineUI a = new ScheduleVaccineUI();
-            a.run();
 
-//            MainMenuUI menu = new MainMenuUI();
-//
-//            menu.run();
+            MainMenuUI menu = new MainMenuUI();
+
+            menu.run();
         } catch (Exception e) {
             e.printStackTrace();
         }
