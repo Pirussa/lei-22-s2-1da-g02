@@ -622,5 +622,9 @@ public class Utils {
         c.getVaccinationCenters().get(0).addAppointment(scheduledVaccine1);
         c.getVaccinationCenters().get(0).addAppointment(scheduledVaccine2);
 
+        //ADICIONAR UMA VACINA A UM USER:
+        // TakenVaccine a = new TakenVaccine(atributos necessarios)
+        //c.getSNSUserList().get(0).registerVaccine(a);
+
     }
 }

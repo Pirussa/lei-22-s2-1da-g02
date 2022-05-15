@@ -339,8 +339,9 @@ public class VaccinationCenter{
      *
      * @param newAppointment A Scheduled Vaccine object to be added to the List containing all the appointments
      */
-    public void addAppointment(ScheduledVaccine newAppointment) {
+    public boolean addAppointment(ScheduledVaccine newAppointment) {
         this.scheduledVaccineList.add(newAppointment) ;
+        return true;
     }
 
 

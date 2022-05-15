@@ -58,4 +58,22 @@ public class ScheduledVaccine {
     public LocalDateTime getDate() {
         return date;
     }
+
+    /**
+     * Gets SNS number.
+     *
+     * @return the sns number
+     */
+    public int getSnsNumber() {
+        return snsNumber;
+    }
+
+    /**
+     * Gets vaccine type.
+     *
+     * @return the vaccine type
+     */
+    public VaccineType getVaccineType() {
+        return vaccineType;
+    }
 }

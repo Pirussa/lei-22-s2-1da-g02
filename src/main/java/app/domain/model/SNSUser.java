@@ -10,6 +10,7 @@ import pt.isep.lei.esoft.auth.AuthFacade;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Objects;
 
 public class SNSUser {
@@ -23,7 +24,7 @@ public class SNSUser {
     private String strAddress;
     private String strCitizenCardNumber;
     private String strPassword;
-
+    private List <TakenVaccine> takenVaccines;
 
 
     private static final int MAX_NUMBER_OF_CHARS_SNS_USER_NUMBER = 9;
@@ -65,7 +66,7 @@ public class SNSUser {
 
     public String getStrCitizenCardNumber(){return strCitizenCardNumber;}
 
-    public String getStrBirthDate(){return strBirthDate;}
+     String getStrBirthDate(){return strBirthDate;}
 
 
 
@@ -257,7 +258,7 @@ public class SNSUser {
                 validateCitizenCardNumber(strCitizenCardNumber) && validatePhoneNumber(strPhoneNumber) && validateBirthDate(strBirthDate);
     }
 
-   public static int userExists(String strSNSUserNumber) {
+   public static int getUserIndexInUsersList(String strSNSUserNumber) {
         for (int position = 0; position < company.getSNSUserList().size(); position++) {
             if (strSNSUserNumber.equals(company.getSNSUserList().get(position).getStrSNSUserNumber())) {
                 return position;
@@ -277,5 +278,9 @@ public class SNSUser {
                 "Address of the SNS User: " + strAddress + '\n' +
                 "Citizen Card Number of the SNS User: " + strCitizenCardNumber + '\n' +
                 "Password of the SNS User: " + strPassword;
+    }
+
+    public void registerVaccine(TakenVaccine takenVaccine ){
+        takenVaccines.add(takenVaccine);
     }
 }

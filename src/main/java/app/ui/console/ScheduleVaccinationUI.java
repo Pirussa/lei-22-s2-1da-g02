@@ -4,7 +4,6 @@ import app.controller.App;
 import app.controller.ScheduleVaccinationController;
 import app.domain.model.*;
 import app.ui.console.utils.Utils;
-import pt.isep.lei.esoft.auth.AuthFacade;
 
 import java.util.Objects;
 
@@ -31,7 +30,7 @@ public class ScheduleVaccinationUI implements Runnable {
 
             snsNumber = Utils.readLineFromConsole("Introduce SNS Number: ");
 
-        } while (!SNSUser.validateSNSUserNumber(Objects.requireNonNull(snsNumber)) || SNSUser.userExists(snsNumber) < 0);
+        } while (!SNSUser.validateSNSUserNumber(Objects.requireNonNull(snsNumber)) || SNSUser.getUserIndexInUsersList(snsNumber) < 0);
 
         int vaccinationCenterReceptionist = Utils.showAndSelectIndex(Utils.getVaccinationCenterList(), "Vaccination Centers");
         VaccinationCenter vaccinationCenter = company.getVaccinationCenters().get(vaccinationCenterReceptionist);

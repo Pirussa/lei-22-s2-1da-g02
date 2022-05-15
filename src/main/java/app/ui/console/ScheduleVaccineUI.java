@@ -1,8 +1,10 @@
 package app.ui.console;
 
 import app.controller.App;
+import app.controller.ScheduledVaccineController;
 import app.domain.model.*;
 import app.ui.console.utils.Utils;
+import dto.ScheduledVaccineDto;
 import pt.isep.lei.esoft.auth.AuthFacade;
 import pt.isep.lei.esoft.auth.domain.model.Email;
 
@@ -17,9 +19,10 @@ import java.util.*;
 public class ScheduleVaccineUI implements Runnable {
 
 
-    private Company c = App.getInstance().getCompany();
-    private AuthFacade aF = c.getAuthFacade();
+    private final Company c = App.getInstance().getCompany();
+    private final AuthFacade aF = c.getAuthFacade();
     private final Scanner sc = new Scanner(System.in);
+    private final ScheduledVaccineController controller = new ScheduledVaccineController();
 
     @Override
     public void run() {
@@ -27,9 +30,8 @@ public class ScheduleVaccineUI implements Runnable {
 
         if (!c.getVaccineTypes().isEmpty() && !c.getVaccinationCenters().isEmpty() && !c.getSNSUserList().isEmpty()) {
             System.out.println();
-            String SNSNumber = introduceSnsNumberUI();
+            String snsNumber = introduceSnsNumberUI();
             VaccinationCenter vaccinationCenter = selectVaccinationCenterUI();
-
             VaccineType vaccineType = selectVaccineTypeUI(vaccinationCenter);
             if (vaccineType == null) {
                 return;
@@ -37,7 +39,21 @@ public class ScheduleVaccineUI implements Runnable {
 
             LocalDateTime date = selectDateUI(vaccinationCenter);
 
-            System.out.println("Sucesso:  " + date); //TEMP
+            ScheduledVaccineDto scheduledVaccineDto = new ScheduledVaccineDto();
+
+            scheduledVaccineDto.snsNumber = snsNumber;
+            scheduledVaccineDto.vaccineType = vaccineType;
+            scheduledVaccineDto.date = date;
+
+            if (controller.validateAppointment(scheduledVaccineDto, vaccinationCenter)) {
+                System.out.println();
+                if (Utils.confirmCreation()) {
+                    controller.scheduleVaccine(scheduledVaccineDto, vaccinationCenter);
+                }
+            }
+
+
+
 
         } else {
             System.out.println();
@@ -58,23 +74,22 @@ public class ScheduleVaccineUI implements Runnable {
             System.out.println();
             sc.nextLine();
             if (Utils.validateSNSUserNumber(SNSNumber)) {
-
+                boolean flag = false;
                 for (SNSUser snsUser : c.getSNSUserList()) {
-                    if (snsUser.getStrSNSUserNumber().contains(SNSNumber)) {
 
-                        if (snsUser.getStrSNSUserNumber().equals(SNSNumber)) {
-
-                            Email snsUserEmail = new Email(snsUser.getStrEmail());
-                            if (aF.getCurrentUserSession().getUserId().equals(snsUserEmail)) {
-                                return SNSNumber;
-                            } else {
-                                System.out.println("That is not your SNS number");
-                            }
+                    if (snsUser.getStrSNSUserNumber().equals(SNSNumber)) {
+                        flag = true;
+                        Email snsUserEmail = new Email(snsUser.getStrEmail());
+                        if (aF.getCurrentUserSession().getUserId().equals(snsUserEmail)) {
+                            return SNSNumber;
+                        } else {
+                            System.out.println("That is not your SNS number");
                         }
-                    } else {
-                        System.out.println("There is no such SNS number.");
                     }
+
                 }
+                if (!flag) System.out.println("There is no such SNS number.");
+
 
             } else {
                 System.out.println("--Invalid number--");
@@ -164,14 +179,33 @@ public class ScheduleVaccineUI implements Runnable {
         2 --- opening hour + 1*slotDuration
         3 --- opening hour + 2*slotDuration
         4 --- opening hours + 3*slotDuration
-         */
+        */
 
-        System.out.printf("%nType your option: ");
-        int selectedOption = Utils.insertInt("Insert a valid option: ");
+        boolean flag;
+        int selectedOption;
+        LocalTime timeSelected;
+        do {
+            System.out.printf("%nType your option: ");
+            selectedOption = Utils.insertInt("Insert a valid option: ");
+            LocalTime openingHourCenter = LocalTime.of(openingHour, 0);
+            LocalTime closingHourCenter = LocalTime.of(closingHour, 0);
+            int minutesToBeAdded;
+            flag = true;
+            if (selectedOption > 0) {
+                minutesToBeAdded = selectedOption * slotDuration;
+            } else {
+                flag = false;
+                minutesToBeAdded = 0;
+                System.out.println("Invalid option.");
+            }
+            timeSelected = openingHourCenter.plusMinutes(minutesToBeAdded);
 
-        LocalTime openingHourCenter = LocalTime.of(openingHour, 0);
-        int minutesToBeAdded = selectedOption * slotDuration;
-        LocalTime timeSelected = openingHourCenter.plusMinutes(minutesToBeAdded);
+            if (timeSelected.isBefore(openingHourCenter) || timeSelected.isAfter(closingHourCenter) || selectedOption > slotsPerDay) {
+                flag = false;
+                System.out.println("Invalid option.");
+            }
+
+        } while (!flag);
 
         return LocalDateTime.of(selectedDate, timeSelected);
 
@@ -194,33 +228,53 @@ public class ScheduleVaccineUI implements Runnable {
         }
         optionNumber = 0;
         System.out.printf("%n" + optionNumber + " - Next Month%n");
-        System.out.printf("%nType your option: ");
-        int selectedOption = Utils.insertInt("Insert a valid option: ");
-        int selectedDay = dateWhenScheduling.getDayOfMonth() + selectedOption;
-        return LocalDate.of(LocalDate.now().getYear(), dateWhenScheduling.getMonthValue(), selectedDay);
+        boolean flag;
+        int selectedDay;
+        do {
+            System.out.printf("%nType your option: ");
+            int selectedOption = Utils.insertInt("Insert a valid option: ");
+            selectedDay = dateWhenScheduling.getDayOfMonth() + selectedOption;
+            flag = true;
+            if (selectedDay > YearMonth.of(dateWhenScheduling.getYear(), dateWhenScheduling.getMonthValue()).lengthOfMonth()) {
+                flag = false;
+                System.out.println("Invalid option.");
+            }
 
+        } while (!flag);
+
+        return LocalDate.of(LocalDate.now().getYear(), dateWhenScheduling.getMonthValue(), selectedDay);
     }
 
     public LocalDate selectDateFromNextMonth(List<ScheduledVaccine> appointmentsList, int slotsPerDay, int vaccinesPerSlot) {
         int optionNumber = 1;
         LocalDate dateWhenScheduling = LocalDate.now();
-        LocalDate nextMonthdate = dateWhenScheduling.plusMonths(1).with(TemporalAdjusters.firstDayOfMonth());
-        for (int date = nextMonthdate.getDayOfMonth(); date <= YearMonth.of(nextMonthdate.getYear(), nextMonthdate.getMonthValue()).lengthOfMonth(); date++) {
-            if (dayHasAvailability(slotsPerDay, vaccinesPerSlot, LocalDate.of(LocalDate.now().getYear(), nextMonthdate.getMonthValue(), date), appointmentsList)) {
-                if (nextMonthdate.getMonthValue() < 10)
-                    System.out.println(optionNumber + " - " + date + "/" + "0" + nextMonthdate.getMonthValue());
+        LocalDate nextMonthDate = dateWhenScheduling.plusMonths(1).with(TemporalAdjusters.firstDayOfMonth());
+        for (int date = nextMonthDate.getDayOfMonth(); date <= YearMonth.of(nextMonthDate.getYear(), nextMonthDate.getMonthValue()).lengthOfMonth(); date++) {
+            if (dayHasAvailability(slotsPerDay, vaccinesPerSlot, LocalDate.of(LocalDate.now().getYear(), nextMonthDate.getMonthValue(), date), appointmentsList)) {
+                if (nextMonthDate.getMonthValue() < 10)
+                    System.out.println(optionNumber + " - " + date + "/" + "0" + nextMonthDate.getMonthValue());
                 else
-                    System.out.println(optionNumber + " - " + date + "/" + nextMonthdate.getMonthValue());
+                    System.out.println(optionNumber + " - " + date + "/" + nextMonthDate.getMonthValue());
                 optionNumber++;
             }
         }
         optionNumber = 0;
         System.out.printf("%n" + optionNumber + " - Previous Month%n");
-        System.out.printf("%nType your option: ");
-        int selectedOption = Utils.insertInt("Insert a valid option: ");
-        if (selectedOption == 0)
+        boolean flag;
+        int selectedDay;
+        do {
+            System.out.printf("%nType your option: ");
+            selectedDay = Utils.insertInt("Insert a valid option: ");
+            flag = true;
+            if (selectedDay > YearMonth.of(dateWhenScheduling.getYear(), nextMonthDate.getMonthValue()).lengthOfMonth()) {
+                flag = false;
+                System.out.println("Invalid option.");
+            }
+        } while (!flag);
+
+        if (selectedDay == 0)
             return LocalDate.of(LocalDate.now().getYear(), dateWhenScheduling.getMonthValue(), LocalDate.now().getDayOfMonth());
-        return LocalDate.of(LocalDate.now().getYear(), nextMonthdate.getMonthValue(), selectedOption);
+        return LocalDate.of(LocalDate.now().getYear(), nextMonthDate.getMonthValue(), selectedDay);
 
     }
 
