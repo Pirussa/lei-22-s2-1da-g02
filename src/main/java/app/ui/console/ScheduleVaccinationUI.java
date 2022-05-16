@@ -2,9 +2,12 @@ package app.ui.console;
 
 import app.controller.App;
 import app.controller.ScheduleVaccinationController;
+import app.controller.ScheduledVaccineController;
 import app.domain.model.*;
 import app.ui.console.utils.Utils;
+import dto.ScheduledVaccineDto;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
@@ -15,7 +18,7 @@ import java.util.Objects;
 
 public class ScheduleVaccinationUI implements Runnable {
 
-    ScheduleVaccinationController ctrl = new ScheduleVaccinationController();
+    private final ScheduleVaccinationController ctrl = new ScheduleVaccinationController();
 
     private static Company company = App.getInstance().getCompany();
 
@@ -23,17 +26,31 @@ public class ScheduleVaccinationUI implements Runnable {
     }
 
     public void run() {
-        System.out.printf("%n----------------------%n|Schedule Vaccination|%n----------------------%n%n");
-        String snsNumber;
+        if (Utils.arrayListIsEmpty(company.getVaccineTypes(), company.getVaccinationCenters(), company.getSNSUserList())) {
+            String snsNumber;
+            do {
+                snsNumber = Utils.readLineFromConsole("Introduce SNS Number: ");
+            } while (!SNSUser.validateSNSUserNumber(Objects.requireNonNull(snsNumber)) || SNSUser.getUserIndexInUsersList(snsNumber) < 0);
 
-        do {
+            int selectedVaccinationCenterIndexInArrayList = Utils.showAndSelectIndex(Utils.getVaccinationCenterList(), "Vaccination Centers");
+            VaccinationCenter selectedVaccinationCenter = company.getVaccinationCenters().get(selectedVaccinationCenterIndexInArrayList);
 
-            snsNumber = Utils.readLineFromConsole("Introduce SNS Number: ");
+            VaccineType vaccineType = ScheduleVaccineUI.selectVaccineTypeUI(selectedVaccinationCenter);
+            if (vaccineType == null) return;
 
-        } while (!SNSUser.validateSNSUserNumber(Objects.requireNonNull(snsNumber)) || SNSUser.getUserIndexInUsersList(snsNumber) < 0);
+            LocalDateTime dateTime = ScheduleVaccineUI.selectDateUI(selectedVaccinationCenter);
 
-        int vaccinationCenterReceptionist = Utils.showAndSelectIndex(Utils.getVaccinationCenterList(), "Vaccination Centers");
-        VaccinationCenter vaccinationCenter = company.getVaccinationCenters().get(vaccinationCenterReceptionist);
+            if (ctrl.validateAppointment(snsNumber, vaccineType, dateTime, selectedVaccinationCenter)) {
+                System.out.println();
+                if (Utils.confirmCreation()) {
+                    ScheduledVaccineDto scheduledVaccineDto = new ScheduledVaccineDto();
+                    scheduledVaccineDto.snsNumber = snsNumber;
+                    scheduledVaccineDto.vaccineType = vaccineType;
+                    scheduledVaccineDto.date = dateTime;
+                    ctrl.scheduleVaccine(scheduledVaccineDto, selectedVaccinationCenter);
+                }
+            }
+        }
     }
 }
     /*

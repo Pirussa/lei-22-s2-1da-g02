@@ -21,7 +21,6 @@ public class VaccineAndAdminProcessDto {
     public String name;
 
     public String brand;
-
     public VaccineType vt;
 
     public ArrayList <ArrayList<Integer>> ageGroups= new ArrayList<>();

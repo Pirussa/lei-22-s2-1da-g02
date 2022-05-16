@@ -18,14 +18,10 @@ public class ScheduledVaccineController {
 
     public boolean scheduleVaccine(ScheduledVaccineDto dto, VaccinationCenter vaccinationCenter) {
         ScheduledVaccineMapper mapper = new ScheduledVaccineMapper();
-
        return   vaccinationCenter.addAppointment(mapper.dtoToDomain(dto));
     }
 
     public boolean validateAppointment(ScheduledVaccineDto dto, VaccinationCenter vaccinationCenter){
-
-
-
 
         return true;
     }

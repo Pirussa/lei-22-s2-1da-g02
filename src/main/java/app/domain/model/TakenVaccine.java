@@ -8,8 +8,8 @@ public class TakenVaccine {
 
     private LocalDateTime dateTime;
 
-
-
-
-
+    public TakenVaccine(Vaccine vaccine, LocalDateTime dateTime) {
+        this.vaccine = vaccine;
+        this.dateTime = dateTime;
+    }
 }

@@ -104,11 +104,11 @@ public class ScheduleVaccineUI implements Runnable {
         return c.getVaccinationCenters().get(Utils.selectFromList(c.getVaccinationCenters(), "Select one Vaccination Center"));
     }
 
-    public VaccineType selectVaccineTypeHealthCareCenterUI(HealthcareCenter healthcareCenter) {
+    public static VaccineType selectVaccineTypeHealthCareCenterUI(HealthcareCenter healthcareCenter) {
         return healthcareCenter.getVaccineTypes().get(Utils.selectFromList(healthcareCenter.getVaccineTypes(), "Select one Vaccine Type"));
     }
 
-    public VaccineType selectVaccineTypeUI(VaccinationCenter vaccinationCenter) {
+    public static VaccineType selectVaccineTypeUI(VaccinationCenter vaccinationCenter) {
         if (vaccinationCenter instanceof MassVaccinationCenter) {
             MassVaccinationCenter massVacCenter = (MassVaccinationCenter) vaccinationCenter;
             System.out.println();
@@ -136,7 +136,7 @@ public class ScheduleVaccineUI implements Runnable {
         return null;
     }
 
-    public LocalDateTime selectDateUI(VaccinationCenter vaccinationCenter) {
+    public static LocalDateTime selectDateUI(VaccinationCenter vaccinationCenter) {
         List<ScheduledVaccine> appointmentsList = vaccinationCenter.getScheduledVaccineList();
         int openingHour = Integer.parseInt(vaccinationCenter.getStrOpeningHour());
         int closingHour = Integer.parseInt(vaccinationCenter.getStrClosingHour());
@@ -211,7 +211,7 @@ public class ScheduleVaccineUI implements Runnable {
 
     }
 
-    public LocalDate selectDateFromCurrentMonth(List<ScheduledVaccine> appointmentsList, int slotsPerDay, int vaccinesPerSlot) {
+    public static LocalDate selectDateFromCurrentMonth(List<ScheduledVaccine> appointmentsList, int slotsPerDay, int vaccinesPerSlot) {
         LocalDate dateWhenScheduling = LocalDate.now();
 
         int optionNumber = 1;
@@ -245,7 +245,7 @@ public class ScheduleVaccineUI implements Runnable {
         return LocalDate.of(LocalDate.now().getYear(), dateWhenScheduling.getMonthValue(), selectedDay);
     }
 
-    public LocalDate selectDateFromNextMonth(List<ScheduledVaccine> appointmentsList, int slotsPerDay, int vaccinesPerSlot) {
+    public static LocalDate selectDateFromNextMonth(List<ScheduledVaccine> appointmentsList, int slotsPerDay, int vaccinesPerSlot) {
         int optionNumber = 1;
         LocalDate dateWhenScheduling = LocalDate.now();
         LocalDate nextMonthDate = dateWhenScheduling.plusMonths(1).with(TemporalAdjusters.firstDayOfMonth());
@@ -278,11 +278,11 @@ public class ScheduleVaccineUI implements Runnable {
 
     }
 
-    public int calculateSlotsPerDay(int openingHour, int closingHour, int slotDuration) {
+    public static int calculateSlotsPerDay(int openingHour, int closingHour, int slotDuration) {
         return (closingHour - openingHour) * 60 / slotDuration;
     }
 
-    public boolean dayHasAvailability(int slotsPerDay, int vaccinesPerSlot, LocalDate date, List<ScheduledVaccine> appointments) {
+    public static boolean dayHasAvailability(int slotsPerDay, int vaccinesPerSlot, LocalDate date, List<ScheduledVaccine> appointments) {
         int vaccinesPerDay = slotsPerDay * vaccinesPerSlot;
         int counterAppointments = 0;
 
@@ -298,7 +298,7 @@ public class ScheduleVaccineUI implements Runnable {
         // Praticamente ir à lista e ver para o dia que isto recebe se: há pelo menos um slot que esteja livre (livre = ter pelo menos 1 espaço para vacina)
     }
 
-    public boolean slotHasAvailability(int vaccinesPerSlot, LocalDate date, LocalTime slot, List<ScheduledVaccine> appointments) {
+    public static boolean slotHasAvailability(int vaccinesPerSlot, LocalDate date, LocalTime slot, List<ScheduledVaccine> appointments) {
         int counterAppointments = 0;
         for (ScheduledVaccine appointment : appointments) {
             if (((appointment.getDate().toLocalDate()).equals(date)) && (appointment.getDate().toLocalTime().equals(slot))) {

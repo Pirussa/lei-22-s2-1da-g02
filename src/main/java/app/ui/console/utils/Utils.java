@@ -6,10 +6,7 @@ import app.controller.RegisterNewEmployeeController;
 import app.controller.SpecifyNewVaccineTypeController;
 import app.domain.model.*;
 import app.domain.shared.Constants;
-import dto.HealthcareCenterDto;
-import dto.MassVaccinationCenterDto;
-import dto.RegisterNewEmployeeDto;
-import dto.SNSUserDto;
+import dto.*;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -528,6 +525,10 @@ public class Utils {
 
     }
 
+    public static boolean arrayListIsEmpty(List<VaccineType> getVaccineTypes, List<VaccinationCenter> getVaccinationCenters, List<SNSUser> getSNSUser) {
+        return !getSNSUser.isEmpty() && !getVaccinationCenters.isEmpty() && !getVaccineTypes.isEmpty();
+    }
+
     public static void bootstrapOptional() {
 
         SpecifyNewVaccineTypeController ctrlVt = new SpecifyNewVaccineTypeController();
@@ -623,8 +624,8 @@ public class Utils {
         c.getVaccinationCenters().get(0).addAppointment(scheduledVaccine2);
 
         //ADICIONAR UMA VACINA A UM USER:
-        // TakenVaccine a = new TakenVaccine(atributos necessarios)
+        //AdministrationProcess administrationProcess = new AdministrationProcess();
+        //TakenVaccine takenVaccine = new TakenVaccine( scheduledVaccine1.getDate(new Vaccine("Test", "12", "Brand", "20.0", "12", "15", "16"), ));
         //c.getSNSUserList().get(0).registerVaccine(a);
-
     }
 }
