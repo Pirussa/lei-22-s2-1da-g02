@@ -1,11 +1,16 @@
 package app.ui.console;
 
 import app.controller.RegisterTheArrivalOfASNSUserController;
+import app.domain.model.SNSUser;
+import app.domain.model.ScheduledVaccine;
 import app.domain.model.VaccinationCenter;
 import app.ui.console.utils.Utils;
 
 import java.sql.Time;
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class RegisterTheArrivalOfASNSUserUI implements Runnable {
@@ -19,69 +24,47 @@ public class RegisterTheArrivalOfASNSUserUI implements Runnable {
         System.out.println("------Register the Arrival of an SNS user------");
         System.out.println();
 
-        int vaccinationCenterReceptionistPosition = Utils.showAndSelectIndex(ctrl.getVaccinationCenterList(), "Vaccination Centers");
-        VaccinationCenter vaccinationCenterReceptionist  = ctrl.getVaccinationCenter(vaccinationCenterReceptionistPosition);
+        VaccinationCenter vaccinationCenterReceptionist  = ctrl.getVaccinationCenter();
+        List<ScheduledVaccine> scheduleVaccinesOfTheVaccinationCenter = ctrl.getScheduledVaccineList(vaccinationCenterReceptionist);
 
         /*
         Criar um arraylist para get schedule vaccines
         Tendo isso posso começar a fazer as validações do check appointment
          */
 
-        boolean checkValid = false;
-        String SNSNumber;
-
+        String snsNumber;
         do {
+            snsNumber = Utils.readLineFromConsole("Introduce SNS Number: ");
+        } while (!SNSUser.validateSNSUserNumber(Objects.requireNonNull(snsNumber)) || SNSUser.getUserIndexInUsersList(snsNumber) < 0);
 
-            System.out.print("Introduce the SNS number: ");
-            SNSNumber = sc.next();
-
-            //
-            if (Utils.validateSNSUserNumber(SNSNumber))
-                checkValid = true;
-//            else if (check se o sns number dele coincide com algum já existente
-//                System.out.println(SNSNumber + " does not exist!");
-            else
-                System.out.println("Invalid SNS User");
-
-        } while (!checkValid);
+        VaccinationCenter vaccinationCenterSNSUser = ctrl.getVaccinationCenter();
 
 
+        if(checkRequirementsForRegistration(snsNumber, scheduleVaccinesOfTheVaccinationCenter, vaccinationCenterReceptionist, vaccinationCenterSNSUser)) {
+            ctrl.registerArrival(snsNumber);
+            System.out.printf("%n The user has been registered");
+        }
 
 
-        int vaccinationCenterSNSUser = Utils.showAndSelectIndex(ctrl.getVaccinationCenterList(), "Vaccination Centers");
-
-
-        /*
-        PRÓXIMOS PASSOS
-        • Receber a data e time
-        • Validar tudo com o if comentado em baixo, ele dará feedback
-        • Depois de validado, register o arrival
-         */
 
     }
 
-    public boolean checkRequirementsForRegistration(int SNSNumber, int vaccinationCenterReceptionist, int vaccinationCenterSNSUser, Date date, Time time) {
-        if (ctrl.checkAppointment(SNSNumber) == null) {
-            System.out.println("The user does not have any appointment for today");
+    public boolean checkRequirementsForRegistration(String SNSNumber, List<ScheduledVaccine> vaccineAppointments, VaccinationCenter vaccinationCenterReceptionist, VaccinationCenter vaccinationCenterSNSUser) {
+        if (!ctrl.checkAppointment(SNSNumber, vaccineAppointments)) {
+            System.out.printf("%nThe user does not have any appointment");
             return false;
         }
 
 
         if (!ctrl.checkVaccinationCenters(vaccinationCenterReceptionist, vaccinationCenterSNSUser)) {
-            System.out.println("Wrong Vaccination Center");
+            System.out.printf("%nWrong Vaccination Center");
             return false;
         }
 
-
-
-        if (!ctrl.checkTimeAndDate(date, time)) {
-            System.out.println("Wrong Day/Hour");
-            return false;
-        }
-
-
+        System.out.printf("%nThe user is ready to be registered");
         return true;
     }
+
 
     /*
     Things to consider

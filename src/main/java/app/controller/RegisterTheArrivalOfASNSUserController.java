@@ -4,8 +4,10 @@ import app.domain.model.Company;
 import app.domain.model.ScheduledVaccine;
 import app.domain.model.VaccinationCenter;
 import app.domain.model.Vaccine;
+import app.ui.console.utils.Utils;
 
 import java.sql.Time;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,66 +18,35 @@ public class RegisterTheArrivalOfASNSUserController {
 
     public RegisterTheArrivalOfASNSUserController() {}
 
-    /**
-     * Gets a list of Vaccination Centers
-     *
-     * @return Arraylist - an array list of the previous created vaccination centers
-     */
-    public ArrayList<VaccinationCenter> getVaccinationCenterList() {
-        return company.getVaccinationCenters();
-    }
 
-    public VaccinationCenter getVaccinationCenter(int position) {
-        return company.getVaccinationCenters().get(position);
+    public VaccinationCenter getVaccinationCenter() {
+        return Utils.selectVaccinationCenterUI();
     }
 
     public List<ScheduledVaccine> getScheduledVaccineList(VaccinationCenter vaccinationCenter) {
         return vaccinationCenter.getScheduledVaccineList();
     }
 
-    /**
-     * Checks if the user is at the right time to be registered
-     *
-     * @param date the Date of the vaccine appointment
-     * @param time the Time of the vaccine appointment
-     * @return boolean - checks if the user is at the right time to be registered
-     */
-    public boolean checkTimeAndDate(Date date, Time time) {
-        Date currentDate = new Date();
-        Time currentTime = new Time(currentDate.getTime());
-
-        if (!date.equals(currentDate)) {
-            System.out.println("Wrong Date");
-            return false;
-        }
-
-        if(!time.equals(currentTime)) {
-            System.out.println("Wrong time");
-            return false;
-        }
-        return true;
-    }
-
-    public boolean checkVaccinationCenters(int vaccinationCenterReceptionist, int vaccinationCenterSNSUser) {
+    public boolean checkVaccinationCenters(VaccinationCenter vaccinationCenterReceptionist, VaccinationCenter vaccinationCenterSNSUser) {
         return vaccinationCenterReceptionist == vaccinationCenterSNSUser;
     }
 
     /**
-     * Check if a User has an appointment, introducing his/her SNS number
+     * Check if a User has an appointment, for that day and time, introducing his/her SNS number
      *
-     * @param SNSNumber Number that identifies the SNS user
-     * @return boolean ou Date and Time, or Object VaccinationAppointment
+     * @param snsNumber Number that identifies the SNS user
+     * @return boolean - true if the user has
      */
-    public String checkAppointment(int SNSNumber) {
-        return company.checkAppointment(SNSNumber);
-    }// VAI DAR RETURN A UM OBJETO DE VACCINE APPOINTMENT OU APENAS À DATA E TIME
+    public boolean checkAppointment(String snsNumber, List<ScheduledVaccine> vaccineAppointments) {
+        return company.checkAppointment(snsNumber, vaccineAppointments);
+    }
 
     /**
      * Register the arrival of an SNS user
      *
-     * @param SNSNumber Number that identifies the SNS user
+     * @param snsNumber Number that identifies the SNS user
      */
-    public void registerArrival(String SNSNumber) {
-        company.registerArrival(SNSNumber);
+    public void registerArrival(String snsNumber) {
+        company.registerArrival(snsNumber);
     }
 }

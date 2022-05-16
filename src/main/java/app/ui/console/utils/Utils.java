@@ -609,8 +609,8 @@ public class Utils {
         c.saveHealthcareCenter(hCcDto);
 
 
-        ScheduledVaccine scheduledVaccine1 = new ScheduledVaccine(243989890, c.getVaccineTypes().get(0), LocalDateTime.of(2022,5,18, 10, 0) );
-        ScheduledVaccine scheduledVaccine2 = new ScheduledVaccine(111111111, c.getVaccineTypes().get(0), LocalDateTime.of(2022,5,18, 11, 0) );
+        ScheduledVaccine scheduledVaccine1 = new ScheduledVaccine("243989890", c.getVaccineTypes().get(0), LocalDateTime.of(2022,5,18, 10, 0) );
+        ScheduledVaccine scheduledVaccine2 = new ScheduledVaccine("111111111", c.getVaccineTypes().get(0), LocalDateTime.of(2022,5,16, 23, 0) );
 
 
         //c.getVaccinationCenters().get(0).addAppointment(scheduledVaccine1);

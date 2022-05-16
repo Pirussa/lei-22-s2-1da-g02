@@ -11,6 +11,7 @@ import dto.ScheduledVaccineDto;
 import mapper.ScheduledVaccineMapper;
 
 import java.util.List;
+import java.util.Objects;
 
 public class ScheduledVaccineController {
 
@@ -29,7 +30,7 @@ public class ScheduledVaccineController {
 
         for (ScheduledVaccine appointment : appointmentsList) {
 
-            if ((appointment.getSnsNumber() == Integer.parseInt(scheduledVaccineDto.snsNumber)) && (appointment.getVaccineType().equals(scheduledVaccineDto.vaccineType))) {
+            if ((Objects.equals(appointment.getSnsNumber(), scheduledVaccineDto.snsNumber)) && (appointment.getVaccineType().equals(scheduledVaccineDto.vaccineType))) {
                 return false;
             }
         }
