@@ -37,7 +37,7 @@ public class RegisterTheArrivalOfASNSUserController {
      * @param snsNumber Number that identifies the SNS user
      * @return boolean - true if the user has
      */
-    public boolean checkAppointment(String snsNumber, List<ScheduledVaccine> vaccineAppointments) {
+    public boolean checkAppointment(int snsNumber, List<ScheduledVaccine> vaccineAppointments) {
         return company.checkAppointment(snsNumber, vaccineAppointments);
     }
 
@@ -46,7 +46,7 @@ public class RegisterTheArrivalOfASNSUserController {
      *
      * @param snsNumber Number that identifies the SNS user
      */
-    public void registerArrival(String snsNumber) {
+    public void registerArrival(int snsNumber) {
         company.registerArrival(snsNumber);
     }
 }

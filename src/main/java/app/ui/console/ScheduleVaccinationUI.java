@@ -26,9 +26,9 @@ public class ScheduleVaccinationUI implements Runnable {
 
     public void run() {
         if (Utils.arrayListIsEmpty(company.getVaccineTypes(), company.getVaccinationCenters(), company.getSNSUserList())) {
-            String snsNumber;
+            int snsNumber;
             do {
-                snsNumber = Utils.readLineFromConsole("Introduce SNS Number: ");
+                snsNumber = Integer.parseInt( Utils.readLineFromConsole("Introduce SNS Number: "));
             } while (!SNSUser.validateSNSUserNumber(Objects.requireNonNull(snsNumber)) || SNSUser.getUserIndexInUsersList(snsNumber) < 0);
 
             int selectedVaccinationCenterIndexInArrayList = Utils.showAndSelectIndex(company.getVaccinationCenters(), "Available Vaccination Centers: ");

@@ -42,7 +42,7 @@ public class ScheduledVaccineController {
     }
 
     private boolean dataIsAllFilled(ScheduledVaccineDto scheduledVaccineDto) {
-        if (scheduledVaccineDto.snsNumber == null || scheduledVaccineDto.snsNumber.isEmpty()) return false;
+        if (!Utils.validateSNSUserNumber(scheduledVaccineDto.snsNumber)) return false;
 
         if (scheduledVaccineDto.vaccineType == null) return false;
 

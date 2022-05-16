@@ -14,7 +14,7 @@ import java.util.Date;
  */
 public class ScheduledVaccine {
 
-    private String snsNumber;
+    private int snsNumber;
 
     private VaccineType vaccineType;
 
@@ -28,7 +28,7 @@ public class ScheduledVaccine {
      * @param vaccineType The Vaccine's Type.
      * @param date        The date of the appointment.
      */
-    public ScheduledVaccine(String snsNumber, VaccineType vaccineType, LocalDateTime date) {
+    public ScheduledVaccine(int snsNumber, VaccineType vaccineType, LocalDateTime date) {
         this.snsNumber = snsNumber;
         this.vaccineType = vaccineType;
         this.date = date;
@@ -64,7 +64,7 @@ public class ScheduledVaccine {
      *
      * @return the sns number
      */
-    public String getSnsNumber() {
+    public int getSnsNumber() {
         return snsNumber;
     }
 

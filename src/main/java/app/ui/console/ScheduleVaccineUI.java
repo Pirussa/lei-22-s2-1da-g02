@@ -30,7 +30,7 @@ public class ScheduleVaccineUI implements Runnable {
 
         if (!c.getVaccineTypes().isEmpty() && !c.getVaccinationCenters().isEmpty() && !c.getSNSUserList().isEmpty()) {
             System.out.println();
-            String snsNumber = introduceSnsNumberUI();
+            int snsNumber = introduceSnsNumberUI();
             VaccinationCenter vaccinationCenter = Utils.selectVaccinationCenterUI();
             VaccineType vaccineType = selectVaccineTypeUI(vaccinationCenter);
             if (vaccineType == null) {
@@ -49,7 +49,7 @@ public class ScheduleVaccineUI implements Runnable {
                 printDataAboutAnAppointment(scheduledVaccineDto, vaccinationCenter);
                 if (Utils.confirmCreation()) {
                     controller.scheduleVaccine(scheduledVaccineDto, vaccinationCenter);
-                    System.out.printf("%n--------------Scheduling completed--------------%nYou have an appointment to take a %s vaccine, at %s in %s, on %s.%n------------------------------------------------%n", vaccineType, date.toLocalTime(),Utils.formatDateToPrint(date.toLocalDate()), vaccinationCenter);
+                    System.out.printf("%n|-----------------------------------Scheduling completed------------------------------------|%n|You have an appointment to take a %s vaccine, at %s in %s, on %s.|%n|-------------------------------------------------------------------------------------------|%n", vaccineType, date.toLocalTime(),Utils.formatDateToPrint(date.toLocalDate()), vaccinationCenter);
                 }else{
                     System.out.printf("%n--------------No appointment was registered--------------%n");
                 }
@@ -69,19 +69,19 @@ public class ScheduleVaccineUI implements Runnable {
 
     }
 
-    private String introduceSnsNumberUI() {
-        String SNSNumber;
+    private int introduceSnsNumberUI() {
+        int SNSNumber;
         boolean check = false;
         do {
             System.out.print("Introduce your SNS Number: ");
-            SNSNumber = sc.next();
+            SNSNumber = sc.nextInt();
             System.out.println();
             sc.nextLine();
             if (Utils.validateSNSUserNumber(SNSNumber)) {
                 boolean flag = false;
                 for (SNSUser snsUser : c.getSNSUserList()) {
 
-                    if (snsUser.getStrSNSUserNumber().equals(SNSNumber)) {
+                    if (snsUser.getSnsUserNumber() == (SNSNumber)) {
                         flag = true;
                         Email snsUserEmail = new Email(snsUser.getStrEmail());
                         if (aF.getCurrentUserSession().getUserId().equals(snsUserEmail)) {

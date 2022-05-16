@@ -17,7 +17,7 @@ import java.util.Objects;
 public class SNSUser {
 
     private String strName;
-    private String strSNSUserNumber;
+    private int snsUserNumber;
     private String strEmail;
     private String strBirthDate;
     private String strPhoneNumber;
@@ -33,11 +33,11 @@ public class SNSUser {
     private static Company company = App.getInstance().getCompany();
 
 
-    public SNSUser(String strName, String strSNSUserNumber, String strEmail, String strBirthDate, String strPhoneNumber,
+    public SNSUser(String strName, int snsUserNumber, String strEmail, String strBirthDate, String strPhoneNumber,
                    String strSex, String strAddress, String strCitizenCardNumber, String strPassword) {
 
         this.strName = strName;
-        this.strSNSUserNumber = strSNSUserNumber;
+        this.snsUserNumber = snsUserNumber;
         this.strEmail = strEmail;
         this.strBirthDate = strBirthDate;
         this.strPhoneNumber = strPhoneNumber;
@@ -55,8 +55,8 @@ public class SNSUser {
         }
     }
 
-    public String getStrSNSUserNumber() {
-        return strSNSUserNumber;
+    public int getSnsUserNumber() {
+        return snsUserNumber;
     }
 
     public String getStrEmail() {
@@ -99,8 +99,8 @@ public class SNSUser {
     }
 
 
-    public static boolean validateSNSUserNumber(String strSNSUserNumber) {
-        return strSNSUserNumber.trim().matches("^[0-9]*$") && strSNSUserNumber.length() == MAX_NUMBER_OF_CHARS_SNS_USER_NUMBER;
+    public static boolean validateSNSUserNumber(int snsUserNumber) {
+        return String.valueOf(snsUserNumber).length() == MAX_NUMBER_OF_CHARS_SNS_USER_NUMBER;
     }
 
     public boolean validatePhoneNumber(String phoneNumber) {
@@ -258,17 +258,17 @@ public class SNSUser {
     }
 
     public boolean validateSNSUser() {
-        return strName != null && strEmail != null && strPassword != null && strSNSUserNumber != null && strBirthDate != null &&
+        return strName != null && strEmail != null && strPassword != null && strBirthDate != null &&
                 strPhoneNumber != null && strAddress != null && strCitizenCardNumber != null && !strName.isEmpty() && !strEmail.isEmpty() &&
-                !strPassword.isEmpty() && !strSNSUserNumber.isEmpty() && !strBirthDate.isEmpty() && !strPhoneNumber.isEmpty() &&
+                !strPassword.isEmpty() && !strBirthDate.isEmpty() && !strPhoneNumber.isEmpty() &&
                 !strAddress.isEmpty() && !strCitizenCardNumber.isEmpty() && validateEmail(strEmail) && validatePassword(strPassword) &&
-                Utils.validateSNSUserNumber(strSNSUserNumber) && validateSex(strSex) && validateAddress(strAddress) &&
+                Utils.validateSNSUserNumber(snsUserNumber) && validateSex(strSex) && validateAddress(strAddress) &&
                 validateCitizenCardNumber(strCitizenCardNumber) && validatePhoneNumber(strPhoneNumber) && validateBirthDate(strBirthDate);
     }
 
-    public static int getUserIndexInUsersList(String strSNSUserNumber) {
+    public static int getUserIndexInUsersList(int snsUserNumber) {
         for (int position = 0; position < company.getSNSUserList().size(); position++) {
-            if (strSNSUserNumber.equals(company.getSNSUserList().get(position).getStrSNSUserNumber())) {
+            if (snsUserNumber == (company.getSNSUserList().get(position).getSnsUserNumber())) {
                 return position;
             }
         }
@@ -278,7 +278,7 @@ public class SNSUser {
     @Override
     public String toString() {
         return "Name of the SNS User: " + strName + '\n' +
-                "SNS User Number of the SNS User: " + strSNSUserNumber + '\n' +
+                "SNS User Number of the SNS User: " + snsUserNumber + '\n' +
                 "Email of the SNS User: " + strEmail + '\n' +
                 "Birth Date of the SNS User: " + strBirthDate + '\n' +
                 "Phone Number of the SNS User: " + strPhoneNumber + '\n' +

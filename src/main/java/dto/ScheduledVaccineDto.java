@@ -5,7 +5,7 @@ import app.domain.model.VaccineType;
 import java.time.LocalDateTime;
 
 public class ScheduledVaccineDto {
-    public String snsNumber;
+    public int snsNumber;
 
     public VaccineType vaccineType;
 
@@ -18,7 +18,7 @@ public class ScheduledVaccineDto {
      * @param vaccineType The Vaccine's Type.
      * @param date        The date of the appointment.
      */
-    public ScheduledVaccineDto(String snsNumber, VaccineType vaccineType, LocalDateTime date) {
+    public ScheduledVaccineDto(int snsNumber, VaccineType vaccineType, LocalDateTime date) {
         this.snsNumber = snsNumber;
         this.vaccineType = vaccineType;
         this.date = date;

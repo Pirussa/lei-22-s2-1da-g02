@@ -16,7 +16,7 @@ public class ScheduledVaccineMapper {
         if (object == null) {
             return null;
         }
-        return new ScheduledVaccineDto(String.valueOf(object.getSnsNumber()), object.getVaccineType(), object.getDate());
+        return new ScheduledVaccineDto(object.getSnsNumber(), object.getVaccineType(), object.getDate());
     }
 
 }

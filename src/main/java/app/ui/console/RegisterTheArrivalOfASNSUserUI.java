@@ -32,9 +32,9 @@ public class RegisterTheArrivalOfASNSUserUI implements Runnable {
         Tendo isso posso começar a fazer as validações do check appointment
          */
 
-        String snsNumber;
+        int snsNumber;
         do {
-            snsNumber = Utils.readLineFromConsole("Introduce SNS Number: ");
+            snsNumber = Integer.parseInt( Utils.readLineFromConsole("Introduce SNS Number: "));
         } while (!SNSUser.validateSNSUserNumber(Objects.requireNonNull(snsNumber)) || SNSUser.getUserIndexInUsersList(snsNumber) < 0);
 
         VaccinationCenter vaccinationCenterSNSUser = ctrl.getVaccinationCenter();
@@ -49,7 +49,7 @@ public class RegisterTheArrivalOfASNSUserUI implements Runnable {
 
     }
 
-    public boolean checkRequirementsForRegistration(String SNSNumber, List<ScheduledVaccine> vaccineAppointments, VaccinationCenter vaccinationCenterReceptionist, VaccinationCenter vaccinationCenterSNSUser) {
+    public boolean checkRequirementsForRegistration(int SNSNumber, List<ScheduledVaccine> vaccineAppointments, VaccinationCenter vaccinationCenterReceptionist, VaccinationCenter vaccinationCenterSNSUser) {
         if (!ctrl.checkAppointment(SNSNumber, vaccineAppointments)) {
             System.out.printf("%nThe user does not have any appointment");
             return false;

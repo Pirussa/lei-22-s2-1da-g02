@@ -5,10 +5,8 @@ import dto.*;
 import pt.isep.lei.esoft.auth.AuthFacade;
 import org.apache.commons.lang3.StringUtils;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.chrono.ChronoLocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -68,7 +66,7 @@ public class Company {
     /**
      * List that stores the Arrivals of the SNS users (MAYBE DAR STORE APENAS AO SNS NUMBER ? )
      */
-    private List<String> arrivals = new ArrayList<>();
+    private List<Integer> arrivals = new ArrayList<>();
 
     public Company(String designation) {
         if (StringUtils.isBlank(designation))
@@ -411,7 +409,7 @@ public class Company {
     }
 
     public SNSUser createSNSUser(SNSUserDto dto) {
-        return new SNSUser(dto.strName, dto.strSNSUserNumber, dto.strEmail, dto.strBirthDate, dto.strPhoneNumber,
+        return new SNSUser(dto.strName, dto.snsUserNumber, dto.strEmail, dto.strBirthDate, dto.strPhoneNumber,
                 dto.strSex, dto.strAddress, dto.strCitizenCardNumber, dto.strPassword);
     }
 
@@ -422,7 +420,7 @@ public class Company {
             return "Saved";
         } else {
             for (int i = 0; i < snsUsers.size(); i++) {
-                if (!(Objects.equals(snsUsers.get(i).getStrSNSUserNumber(), createSNSUser(dto).getStrSNSUserNumber())) &&
+                if (!(Objects.equals(snsUsers.get(i).getSnsUserNumber(), createSNSUser(dto).getSnsUserNumber())) &&
                         !(Objects.equals(snsUsers.get(i).getStrEmail(), createSNSUser(dto).getStrEmail())) &&
                         !(Objects.equals(snsUsers.get(i).getStrPhoneNumber(), createSNSUser(dto).getStrPhoneNumber())) &&
                         !(Objects.equals(snsUsers.get(i).getStrCitizenCardNumber(), createSNSUser(dto).getStrCitizenCardNumber()))) {
@@ -451,7 +449,7 @@ public class Company {
      * @param snsNumber Number that identifies the SNS user
      * @return boolean ou Date and Time
      */
-    public boolean checkAppointment(String snsNumber, List<ScheduledVaccine> vaccineAppointments) {
+    public boolean checkAppointment(int snsNumber, List<ScheduledVaccine> vaccineAppointments) {
         LocalDateTime currentDay = LocalDateTime.now();
         LocalTime currentTime = LocalTime.now();
         int currentHourMinus1 = currentTime.getHour() - 1;
@@ -460,7 +458,7 @@ public class Company {
 
 
         for (ScheduledVaccine vaccineAppointment : vaccineAppointments) {
-            if (vaccineAppointment.getSnsNumber().equals(snsNumber)) {
+            if (vaccineAppointment.getSnsNumber() == snsNumber) {
 
                 if (!vaccineAppointment.checkDate(currentDay))
                     return false;
@@ -484,7 +482,7 @@ public class Company {
      *
      * @param snsNumber Number that identifies the SNS user
      */
-    public void registerArrival(String snsNumber) {
+    public void registerArrival(int snsNumber) {
         arrivals.add(snsNumber);
     }
 }
