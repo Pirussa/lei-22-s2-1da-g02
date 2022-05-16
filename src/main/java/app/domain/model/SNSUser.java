@@ -10,6 +10,7 @@ import pt.isep.lei.esoft.auth.AuthFacade;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -24,34 +25,32 @@ public class SNSUser {
     private String strAddress;
     private String strCitizenCardNumber;
     private String strPassword;
-    private List <TakenVaccine> takenVaccines;
-
-
+    private List<TakenVaccine> takenVaccines = new ArrayList<>();
     private static final int MAX_NUMBER_OF_CHARS_SNS_USER_NUMBER = 9;
 
     private AuthFacade auth = new AuthFacade();
 
-    private static Company company = App.getInstance().getCompany() ;
+    private static Company company = App.getInstance().getCompany();
 
 
-    public SNSUser(String strName, String strSNSUserNumber , String strEmail, String strBirthDate,String strPhoneNumber,
-                   String strSex, String strAddress, String strCitizenCardNumber, String strPassword){
+    public SNSUser(String strName, String strSNSUserNumber, String strEmail, String strBirthDate, String strPhoneNumber,
+                   String strSex, String strAddress, String strCitizenCardNumber, String strPassword) {
 
         this.strName = strName;
         this.strSNSUserNumber = strSNSUserNumber;
-        this.strEmail=strEmail;
+        this.strEmail = strEmail;
         this.strBirthDate = strBirthDate;
-        this.strPhoneNumber=strPhoneNumber;
-        this.strSex=strSex;
-        this.strAddress=strAddress;
-        this.strCitizenCardNumber=strCitizenCardNumber;
-        this.strPassword=strPassword;
+        this.strPhoneNumber = strPhoneNumber;
+        this.strSex = strSex;
+        this.strAddress = strAddress;
+        this.strCitizenCardNumber = strCitizenCardNumber;
+        this.strPassword = strPassword;
 
         try {
-            if (!validateSNSUser()){
+            if (!validateSNSUser()) {
                 throw new IllegalArgumentException("SNS User Info is Invalid");
             }
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             e.printStackTrace();
         }
     }
@@ -60,15 +59,25 @@ public class SNSUser {
         return strSNSUserNumber;
     }
 
-    public String getStrEmail(){return strEmail;}
+    public String getStrEmail() {
+        return strEmail;
+    }
 
-    public String getStrPhoneNumber(){return strPhoneNumber;}
+    public String getStrPhoneNumber() {
+        return strPhoneNumber;
+    }
 
-    public String getStrCitizenCardNumber(){return strCitizenCardNumber;}
+    public String getStrCitizenCardNumber() {
+        return strCitizenCardNumber;
+    }
 
-     String getStrBirthDate(){return strBirthDate;}
+    public String getStrBirthDate() {
+        return strBirthDate;
+    }
 
-
+    public List<TakenVaccine> getTakenVaccines() {
+        return takenVaccines;
+    }
 
     public boolean validateEmail(String strEmail) {
         if (!strEmail.contains("@") && !strEmail.contains("."))
@@ -84,14 +93,13 @@ public class SNSUser {
         return false;
     }
 
-    public boolean validatePassword(String strPassword){
+    public boolean validatePassword(String strPassword) {
         final int PASSWORDLENGHT = 7;
         return strPassword.length() == PASSWORDLENGHT;
     }
 
 
-
-    public static boolean validateSNSUserNumber(String strSNSUserNumber){
+    public static boolean validateSNSUserNumber(String strSNSUserNumber) {
         return strSNSUserNumber.trim().matches("^[0-9]*$") && strSNSUserNumber.length() == MAX_NUMBER_OF_CHARS_SNS_USER_NUMBER;
     }
 
@@ -233,12 +241,12 @@ public class SNSUser {
         return true;
     }
 
-    public boolean validateSex(String strSex){
+    public boolean validateSex(String strSex) {
         return strSex.equals("Male") || strSex.equals("Female") || strSex.isEmpty();
     }
 
     public boolean validateBirthDate(String strBirthDate) {
-        String dateFormat= "dd/MM/yyyy";
+        String dateFormat = "dd/MM/yyyy";
         DateFormat sdf = new SimpleDateFormat(dateFormat);
         sdf.setLenient(false);
         try {
@@ -249,16 +257,16 @@ public class SNSUser {
         return true;
     }
 
-    public boolean validateSNSUser(){
-        return strName!=null && strEmail!=null && strPassword!=null && strSNSUserNumber!=null && strBirthDate !=null &&
-                strPhoneNumber!= null && strAddress!=null && strCitizenCardNumber!=null && !strName.isEmpty() && !strEmail.isEmpty() &&
+    public boolean validateSNSUser() {
+        return strName != null && strEmail != null && strPassword != null && strSNSUserNumber != null && strBirthDate != null &&
+                strPhoneNumber != null && strAddress != null && strCitizenCardNumber != null && !strName.isEmpty() && !strEmail.isEmpty() &&
                 !strPassword.isEmpty() && !strSNSUserNumber.isEmpty() && !strBirthDate.isEmpty() && !strPhoneNumber.isEmpty() &&
                 !strAddress.isEmpty() && !strCitizenCardNumber.isEmpty() && validateEmail(strEmail) && validatePassword(strPassword) &&
                 Utils.validateSNSUserNumber(strSNSUserNumber) && validateSex(strSex) && validateAddress(strAddress) &&
                 validateCitizenCardNumber(strCitizenCardNumber) && validatePhoneNumber(strPhoneNumber) && validateBirthDate(strBirthDate);
     }
 
-   public static int getUserIndexInUsersList(String strSNSUserNumber) {
+    public static int getUserIndexInUsersList(String strSNSUserNumber) {
         for (int position = 0; position < company.getSNSUserList().size(); position++) {
             if (strSNSUserNumber.equals(company.getSNSUserList().get(position).getStrSNSUserNumber())) {
                 return position;
@@ -271,7 +279,7 @@ public class SNSUser {
     public String toString() {
         return "Name of the SNS User: " + strName + '\n' +
                 "SNS User Number of the SNS User: " + strSNSUserNumber + '\n' +
-                "Email of the SNS User: " + strEmail+ '\n' +
+                "Email of the SNS User: " + strEmail + '\n' +
                 "Birth Date of the SNS User: " + strBirthDate + '\n' +
                 "Phone Number of the SNS User: " + strPhoneNumber + '\n' +
                 "Sex of the SNS User: " + strSex + '\n' +
@@ -280,7 +288,7 @@ public class SNSUser {
                 "Password of the SNS User: " + strPassword;
     }
 
-    public void registerVaccine(TakenVaccine takenVaccine ){
+    public void registerVaccine(TakenVaccine takenVaccine) {
         takenVaccines.add(takenVaccine);
     }
 }

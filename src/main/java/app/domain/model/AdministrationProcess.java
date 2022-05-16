@@ -7,7 +7,6 @@ import java.util.ArrayList;
  *
  * @author Gustavo Jorge <1211061@isep.ipp.pt>
  */
-
 public class AdministrationProcess {
 
     private ArrayList<ArrayList<Integer>> ageGroups;

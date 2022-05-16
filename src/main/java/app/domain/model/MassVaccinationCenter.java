@@ -5,7 +5,7 @@ package app.domain.model;
  * @author João Castro <1210816@isep.ipp.pt>
  */
 
-public class MassVaccinationCenter extends  VaccinationCenter{
+public class MassVaccinationCenter extends VaccinationCenter{
 
     private VaccineType vaccineType;
 

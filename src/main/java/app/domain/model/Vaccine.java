@@ -7,18 +7,10 @@ package app.domain.model;
  */
 
 public class Vaccine {
-
-
-
-
     private String name;
-
     private int id;
-
     private String brand;
-
     private AdministrationProcess adminProcess;
-
     private VaccineType vt;
 
     /**
@@ -30,7 +22,6 @@ public class Vaccine {
      * @param adminProcess The Administration Process related to the vaccine.
      * @param vt           The Vaccine Type of the vaccine (e.g.: Covid-19, Flu) - The disease related to the vaccine.
      */
-
     public Vaccine(String name, int id, String brand, AdministrationProcess adminProcess, VaccineType vt) {
         this.name = name;
         this.id = id;
@@ -41,6 +32,14 @@ public class Vaccine {
 
     public int getId() {
         return id;
+    }
+
+    public AdministrationProcess getAdminProcess() {
+        return adminProcess;
+    }
+
+    public VaccineType getVaccineType() {
+        return vt;
     }
 
     /**

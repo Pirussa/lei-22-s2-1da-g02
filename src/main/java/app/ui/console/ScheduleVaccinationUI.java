@@ -4,6 +4,7 @@ import app.controller.App;
 import app.controller.ScheduleVaccinationController;
 import app.controller.ScheduledVaccineController;
 import app.domain.model.*;
+import app.domain.shared.Constants;
 import app.ui.console.utils.Utils;
 import dto.ScheduledVaccineDto;
 
@@ -17,9 +18,7 @@ import java.util.Objects;
  */
 
 public class ScheduleVaccinationUI implements Runnable {
-
     private final ScheduleVaccinationController ctrl = new ScheduleVaccinationController();
-
     private static Company company = App.getInstance().getCompany();
 
     public ScheduleVaccinationUI() {
@@ -32,7 +31,8 @@ public class ScheduleVaccinationUI implements Runnable {
                 snsNumber = Utils.readLineFromConsole("Introduce SNS Number: ");
             } while (!SNSUser.validateSNSUserNumber(Objects.requireNonNull(snsNumber)) || SNSUser.getUserIndexInUsersList(snsNumber) < 0);
 
-            int selectedVaccinationCenterIndexInArrayList = Utils.showAndSelectIndex(Utils.getVaccinationCenterList(), "Vaccination Centers");
+            int selectedVaccinationCenterIndexInArrayList = Utils.showAndSelectIndex(company.getVaccinationCenters(), "Available Vaccination Centers: ");
+            if (selectedVaccinationCenterIndexInArrayList == Constants.INVALID_VALUE) return;
             VaccinationCenter selectedVaccinationCenter = company.getVaccinationCenters().get(selectedVaccinationCenterIndexInArrayList);
 
             VaccineType vaccineType = ScheduleVaccineUI.selectVaccineTypeUI(selectedVaccinationCenter);
@@ -40,20 +40,23 @@ public class ScheduleVaccinationUI implements Runnable {
 
             LocalDateTime dateTime = ScheduleVaccineUI.selectDateUI(selectedVaccinationCenter);
 
-            if (ctrl.validateAppointment(snsNumber, vaccineType, dateTime, selectedVaccinationCenter)) {
-                System.out.println();
+            ScheduledVaccineDto scheduledVaccineDto = new ScheduledVaccineDto();
+            scheduledVaccineDto.snsNumber = snsNumber;
+            scheduledVaccineDto.vaccineType = vaccineType;
+            scheduledVaccineDto.date = dateTime;
+
+            if (ctrl.validateAppointment(scheduledVaccineDto, selectedVaccinationCenter)) {
+                ScheduleVaccineUI.printDataAboutAnAppointment(scheduledVaccineDto, selectedVaccinationCenter);
                 if (Utils.confirmCreation()) {
-                    ScheduledVaccineDto scheduledVaccineDto = new ScheduledVaccineDto();
-                    scheduledVaccineDto.snsNumber = snsNumber;
-                    scheduledVaccineDto.vaccineType = vaccineType;
-                    scheduledVaccineDto.date = dateTime;
                     ctrl.scheduleVaccine(scheduledVaccineDto, selectedVaccinationCenter);
+                    System.out.printf("%n------------------------------------Scheduling completed-------------------------------------%n|You have an appointment to take a %s vaccine, at %s in %s, on %s.|%n---------------------------------------------------------------------------------------------%n", vaccineType, dateTime.toLocalTime(),Utils.formatDateToPrint(dateTime.toLocalDate()), selectedVaccinationCenter);
+                } else {
+                    System.out.printf("%n--------------No appointment was registered--------------%n");
                 }
+            } else {
+                System.out.printf("%nUps, something went wrong. Please try again!%n");
+                System.out.println("Common causes: You already have an appointment for that vaccine; Your slot is not available anymore. ");
             }
         }
     }
 }
-    /*
-     Como iria funcionar? - O User dirige-se à rececionista e procede ao agendamento da vacina, a rececionista deve ter em conta,
-      a data de nascimento e o tempo desde a última vacina que o user tomou.
-    */

@@ -494,17 +494,6 @@ public class Utils {
         return strSNSUserNumber.trim().matches("^[0-9]*$") && strSNSUserNumber.length() == MAXNUMBEROFCHARSSNSUSERNUMBER;
     }
 
-    public static ArrayList<String> getVaccinationCenterList() {
-        ArrayList<String> getVaccinationCenterNameList = new ArrayList<>();
-        Company company = App.getInstance().getCompany();
-
-        for (int position = 0; position < company.getVaccinationCenters().size(); position++) {
-            getVaccinationCenterNameList.add(company.getVaccinationCenters().get(position).getStrName());
-        }
-
-        return getVaccinationCenterNameList;
-    }
-
     public static int selectFromList(List list, String header) {
 
         System.out.println(header + ":");
@@ -628,9 +617,15 @@ public class Utils {
         c.getVaccinationCenters().get(0).addAppointment(scheduledVaccine2);
 
         //ADICIONAR UMA VACINA A UM USER:
-        //AdministrationProcess administrationProcess = new AdministrationProcess();
-        //TakenVaccine takenVaccine = new TakenVaccine( scheduledVaccine1.getDate(new Vaccine("Test", "12", "Brand", "20.0", "12", "15", "16"), ));
-        //c.getSNSUserList().get(0).registerVaccine(a);
+        ArrayList<Integer> minAge = new ArrayList<>(List.of(1, 19));
+        ArrayList<Integer> maxAge = new ArrayList<>(List.of(18, 30));
+
+        ArrayList<Integer> timeBetween1stAnd2ndDose = new ArrayList<>(List.of(15, 15));
+        ArrayList<Integer> timeBetween2ndAnd3rdDose = new ArrayList<>(List.of(0, 150));
+        AdministrationProcess administrationProcess = new AdministrationProcess(new ArrayList<>(Arrays.asList(minAge, maxAge)), new ArrayList<>(List.of(2, 3)), new ArrayList<>(List.of(20.0, 30.0)), new ArrayList<>(Arrays.asList(timeBetween1stAnd2ndDose, timeBetween2ndAnd3rdDose)));
+        Vaccine vaccine = new Vaccine("Test", 12, "Brand1", administrationProcess, c.getVaccineTypes().get(1));
+        TakenVaccine takenVaccine = new TakenVaccine(vaccine, LocalDateTime.of(2022, 12, 30, 10, 30), 1);
+        c.getSNSUserList().get(0).registerVaccine(takenVaccine);
     }
 
     public static boolean slotHasAvailability(int vaccinesPerSlot, LocalDate date, LocalTime slot, List<ScheduledVaccine> appointments) {
@@ -643,10 +638,9 @@ public class Utils {
         return counterAppointments != vaccinesPerSlot;
     }
 
-    public static String formatDateToPrint(LocalDate date){
-        String [] newDate = date.toString().split("-");
-        return (newDate[2] + newDate[1] + newDate[0]);
-
+    public static String formatDateToPrint(LocalDate date) {
+        String[] newDate = date.toString().split("-");
+        return (newDate[2] + "/" + newDate[1] + "/" + newDate[0]);
     }
 
     public static VaccinationCenter selectVaccinationCenterUI() {

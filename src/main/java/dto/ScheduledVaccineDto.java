@@ -5,14 +5,11 @@ import app.domain.model.VaccineType;
 import java.time.LocalDateTime;
 
 public class ScheduledVaccineDto {
-
-
     public String snsNumber;
 
     public VaccineType vaccineType;
 
     public LocalDateTime date;
-
 
     /**
      * Creates a scheduled vaccine with the following attributes:
