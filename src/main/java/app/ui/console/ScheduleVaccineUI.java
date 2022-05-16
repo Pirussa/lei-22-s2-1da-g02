@@ -31,7 +31,7 @@ public class ScheduleVaccineUI implements Runnable {
         if (!c.getVaccineTypes().isEmpty() && !c.getVaccinationCenters().isEmpty() && !c.getSNSUserList().isEmpty()) {
             System.out.println();
             String snsNumber = introduceSnsNumberUI();
-            VaccinationCenter vaccinationCenter = selectVaccinationCenterUI();
+            VaccinationCenter vaccinationCenter = Utils.selectVaccinationCenterUI();
             VaccineType vaccineType = selectVaccineTypeUI(vaccinationCenter);
             if (vaccineType == null) {
                 return;
@@ -104,10 +104,7 @@ public class ScheduleVaccineUI implements Runnable {
         return SNSNumber;
     }
 
-    public VaccinationCenter selectVaccinationCenterUI() {
 
-        return c.getVaccinationCenters().get(Utils.selectFromList(c.getVaccinationCenters(), "Select one Vaccination Center"));
-    }
 
     public static VaccineType selectVaccineTypeHealthCareCenterUI(HealthcareCenter healthcareCenter) {
         return healthcareCenter.getVaccineTypes().get(Utils.selectFromList(healthcareCenter.getVaccineTypes(), "Select one Vaccine Type"));

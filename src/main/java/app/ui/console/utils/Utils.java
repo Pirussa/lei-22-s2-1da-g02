@@ -649,5 +649,8 @@ public class Utils {
 
     }
 
-
+    public static VaccinationCenter selectVaccinationCenterUI() {
+        Company company = App.getInstance().getCompany();
+        return company.getVaccinationCenters().get(Utils.selectFromList(company.getVaccinationCenters(), "Select one Vaccination Center"));
+    }
 }
