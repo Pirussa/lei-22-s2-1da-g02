@@ -13,7 +13,11 @@ import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -516,7 +520,7 @@ public class Utils {
             System.out.print("Insert your option: ");
             int option = Utils.insertInt("Insert a valid option: ");
 
-            if ((option >= 0) && (option < list.size() + 1))
+            if ((option > 0) && (option < list.size() + 1))
                 return option - 1 ;
             else
                 System.out.println("Invalid option.");
@@ -620,7 +624,7 @@ public class Utils {
         ScheduledVaccine scheduledVaccine2 = new ScheduledVaccine(111111111, c.getVaccineTypes().get(0), LocalDateTime.of(2022,5,18, 11, 0) );
 
 
-        c.getVaccinationCenters().get(0).addAppointment(scheduledVaccine1);
+        //c.getVaccinationCenters().get(0).addAppointment(scheduledVaccine1);
         c.getVaccinationCenters().get(0).addAppointment(scheduledVaccine2);
 
         //ADICIONAR UMA VACINA A UM USER:
@@ -628,4 +632,22 @@ public class Utils {
         //TakenVaccine takenVaccine = new TakenVaccine( scheduledVaccine1.getDate(new Vaccine("Test", "12", "Brand", "20.0", "12", "15", "16"), ));
         //c.getSNSUserList().get(0).registerVaccine(a);
     }
+
+    public static boolean slotHasAvailability(int vaccinesPerSlot, LocalDate date, LocalTime slot, List<ScheduledVaccine> appointments) {
+        int counterAppointments = 0;
+        for (ScheduledVaccine appointment : appointments) {
+            if (((appointment.getDate().toLocalDate()).equals(date)) && (appointment.getDate().toLocalTime().equals(slot))) {
+                counterAppointments++;
+            }
+        }
+        return counterAppointments != vaccinesPerSlot;
+    }
+
+    public static String formatDateToPrint(LocalDate date){
+        String [] newDate = date.toString().split("-");
+        return (newDate[2] + newDate[1] + newDate[0]);
+
+    }
+
+
 }

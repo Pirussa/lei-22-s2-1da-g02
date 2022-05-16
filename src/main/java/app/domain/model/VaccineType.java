@@ -2,6 +2,11 @@ package app.domain.model;
 
 import app.controller.App;
 
+import java.util.Objects;
+
+/**
+ * The type Vaccine type.
+ */
 public class VaccineType {
 
     /**
@@ -69,8 +74,22 @@ public class VaccineType {
         return true;
     }
 
+    /**
+     * Gets code.
+     *
+     * @return the code
+     */
     public String getCode() {
         return code;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof VaccineType)) return false;
+        VaccineType that = (VaccineType) o;
+        return Objects.equals(code, that.code) && Objects.equals(vaccineTechnology, that.vaccineTechnology);
     }
 
 

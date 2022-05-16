@@ -5,11 +5,11 @@ import dto.ScheduledVaccineDto;
 
 public class ScheduledVaccineMapper {
 
-    public ScheduledVaccine dtoToDomain(ScheduledVaccineDto dto) {
-        if (dto == null) {
+    public ScheduledVaccine dtoToDomain(ScheduledVaccineDto scheduledVaccineDto) {
+        if (scheduledVaccineDto == null) {
             return null;
         }
-        return new ScheduledVaccine(Integer.parseInt(dto.snsNumber), dto.vaccineType, dto.date);
+        return new ScheduledVaccine(Integer.parseInt(scheduledVaccineDto.snsNumber), scheduledVaccineDto.vaccineType, scheduledVaccineDto.date);
     }
 
     public ScheduledVaccineDto domainToDto(ScheduledVaccine object) {

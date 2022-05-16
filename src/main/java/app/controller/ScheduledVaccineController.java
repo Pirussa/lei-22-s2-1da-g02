@@ -4,26 +4,56 @@ import app.domain.model.Company;
 
 import app.domain.model.ScheduledVaccine;
 import app.domain.model.VaccinationCenter;
+import app.ui.console.utils.Utils;
 import dto.ScheduledVaccineDto;
 
 
 import mapper.ScheduledVaccineMapper;
 
+import java.util.List;
+
 public class ScheduledVaccineController {
 
-    private final Company  company = App.getInstance().getCompany();
 
     public ScheduledVaccineController() {
     }
 
-    public boolean scheduleVaccine(ScheduledVaccineDto dto, VaccinationCenter vaccinationCenter) {
+    public boolean scheduleVaccine(ScheduledVaccineDto scheduledVaccineDto, VaccinationCenter vaccinationCenter) {
+        if (!validateAppointment(scheduledVaccineDto, vaccinationCenter)) return false;
         ScheduledVaccineMapper mapper = new ScheduledVaccineMapper();
-       return   vaccinationCenter.addAppointment(mapper.dtoToDomain(dto));
+        return vaccinationCenter.addAppointment(mapper.dtoToDomain(scheduledVaccineDto));
     }
 
-    public boolean validateAppointment(ScheduledVaccineDto dto, VaccinationCenter vaccinationCenter){
+    public boolean validateAppointment(ScheduledVaccineDto scheduledVaccineDto, VaccinationCenter vaccinationCenter) {
+        List<ScheduledVaccine> appointmentsList = vaccinationCenter.getScheduledVaccineList();
+
+        for (ScheduledVaccine appointment : appointmentsList) {
+
+            if ((appointment.getSnsNumber() == Integer.parseInt(scheduledVaccineDto.snsNumber)) && (appointment.getVaccineType().equals(scheduledVaccineDto.vaccineType))) {
+                return false;
+            }
+        }
+        if (!dataIsAllFilled(scheduledVaccineDto)) return false;
+
+        if (!centerHasAvailability(appointmentsList, scheduledVaccineDto, vaccinationCenter)) return false;
 
         return true;
+    }
+
+    private boolean dataIsAllFilled(ScheduledVaccineDto scheduledVaccineDto) {
+        if (scheduledVaccineDto.snsNumber == null || scheduledVaccineDto.snsNumber.isEmpty()) return false;
+
+        if (scheduledVaccineDto.vaccineType == null) return false;
+
+        if (scheduledVaccineDto.date == null) return false;
+
+        return true;
+    }
+
+    private boolean centerHasAvailability(List<ScheduledVaccine> appointmentsList, ScheduledVaccineDto scheduledVaccineDto, VaccinationCenter center) {
+
+        return Utils.slotHasAvailability(Integer.parseInt(center.getStrVaccinesPerSlot()), scheduledVaccineDto.date.toLocalDate(), scheduledVaccineDto.date.toLocalTime(), appointmentsList);
+
     }
 
 }

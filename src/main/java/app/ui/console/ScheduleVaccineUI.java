@@ -46,13 +46,17 @@ public class ScheduleVaccineUI implements Runnable {
             scheduledVaccineDto.date = date;
 
             if (controller.validateAppointment(scheduledVaccineDto, vaccinationCenter)) {
-                System.out.println();
+                printDataAboutAnAppointment(scheduledVaccineDto, vaccinationCenter);
                 if (Utils.confirmCreation()) {
                     controller.scheduleVaccine(scheduledVaccineDto, vaccinationCenter);
+                    System.out.printf("%n--------------Scheduling completed--------------%nYou have an appointment to take a %s vaccine, at %s in %s, on %s.%n------------------------------------------------%n", vaccineType, date.toLocalTime(),Utils.formatDateToPrint(date.toLocalDate()), vaccinationCenter);
+                }else{
+                    System.out.printf("%n--------------No appointment was registered--------------%n");
                 }
+            } else {
+                System.out.printf("%nUps, something went wrong. Please try again!%n");
+                System.out.println("Common causes: You already have an appointment for that vaccine; Your slot is not available anymore. ");
             }
-
-
 
 
         } else {
@@ -101,6 +105,7 @@ public class ScheduleVaccineUI implements Runnable {
     }
 
     public VaccinationCenter selectVaccinationCenterUI() {
+
         return c.getVaccinationCenters().get(Utils.selectFromList(c.getVaccinationCenters(), "Select one Vaccination Center"));
     }
 
@@ -169,7 +174,7 @@ public class ScheduleVaccineUI implements Runnable {
         LocalTime timeOfTheSlot = LocalTime.of(openingHour, 0);
 
         for (int slot = 0; slot < slotsPerDay; slot++) {
-            if (slotHasAvailability(vaccinesPerSlot, selectedDate, timeOfTheSlot, appointmentsList))
+            if (Utils.slotHasAvailability(vaccinesPerSlot, selectedDate, timeOfTheSlot, appointmentsList))
                 System.out.println(slot + 1 + " - " + timeOfTheSlot);
 
             timeOfTheSlot = timeOfTheSlot.plusMinutes(slotDuration);
@@ -295,16 +300,17 @@ public class ScheduleVaccineUI implements Runnable {
         }
 
         return true;
-        // Praticamente ir à lista e ver para o dia que isto recebe se: há pelo menos um slot que esteja livre (livre = ter pelo menos 1 espaço para vacina)
     }
 
-    public static boolean slotHasAvailability(int vaccinesPerSlot, LocalDate date, LocalTime slot, List<ScheduledVaccine> appointments) {
-        int counterAppointments = 0;
-        for (ScheduledVaccine appointment : appointments) {
-            if (((appointment.getDate().toLocalDate()).equals(date)) && (appointment.getDate().toLocalTime().equals(slot))) {
-                counterAppointments++;
-            }
-        }
-        return counterAppointments != vaccinesPerSlot;
+    public static void printDataAboutAnAppointment(ScheduledVaccineDto scheduledVaccineDto, VaccinationCenter center) {
+        System.out.println();
+        System.out.println("------------Appointment Info------------");
+        System.out.println("         Date: " + Utils.formatDateToPrint(scheduledVaccineDto.date.toLocalDate()));
+        System.out.println("         Time: " + scheduledVaccineDto.date.toLocalTime());
+        System.out.println("         Vaccine Type: " + scheduledVaccineDto.vaccineType);
+        System.out.println("         Center: " + center);
+        System.out.println("         Your SNS Number: " + scheduledVaccineDto.snsNumber);
+        System.out.println("----------------------------------------");
+        System.out.println();
     }
 }
