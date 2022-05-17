@@ -47,22 +47,28 @@ public class ScheduleVaccineUI implements Runnable {
                 if (controller.validateAppointmentAccordingToAgeGroupAndTimeSinceLastDose(scheduledVaccineDto, vaccinationCenter)) {
                     printAppointmentInfo(scheduledVaccineDto, vaccinationCenter);
                     if (Utils.confirmCreation()) {
-                        controller.scheduleVaccine(scheduledVaccineDto, vaccinationCenter);
-                        printValidAppointmentInfo(scheduledVaccineDto, vaccinationCenter);
+                        if (controller.scheduleVaccine(scheduledVaccineDto, vaccinationCenter))
+                            printValidAppointmentInfo(scheduledVaccineDto, vaccinationCenter);
+                        else
+                            System.out.printf("%n-----------------------------|No appointment was registered|-----------------------------%n");
+
                     } else
                         System.out.printf("%n-----------------------------|No appointment was registered|-----------------------------%n");
                 } else
-                    System.out.printf("%nOops, something went wrong. Please try again!%nCommon causes: Your age doesn´t meet any of the existing age groups or the waiting time since the last dose isn´t finished.");
+                    System.out.printf("%nOops, something went wrong. Please try again!%nCommon causes: Your age doesn't meet any of the existing age groups or the waiting time since the last dose isn´t finished.");
             } else {
                 if (controller.validateAppointment(scheduledVaccineDto, vaccinationCenter)) {
                     printAppointmentInfo(scheduledVaccineDto, vaccinationCenter);
                     if (Utils.confirmCreation()) {
-                        controller.scheduleVaccine(scheduledVaccineDto, vaccinationCenter);
-                        printValidAppointmentInfo(scheduledVaccineDto, vaccinationCenter);
+                        if (controller.scheduleVaccine(scheduledVaccineDto, vaccinationCenter))
+                            printValidAppointmentInfo(scheduledVaccineDto, vaccinationCenter);
+                        else
+                            System.out.printf("%n-----------------------------|No appointment was registered|-----------------------------%n");
                     } else
                         System.out.printf("%n-----------------------------|No appointment was registered|-----------------------------%n");
-                } else
+                } else {
                     System.out.printf("%nOops, something went wrong. Please try again!%nCommon causes: You already have an appointment for that vaccine; Your slot is not available anymore. ");
+                }
             }
         } else
             printInvalidAppointment();
@@ -88,8 +94,6 @@ public class ScheduleVaccineUI implements Runnable {
                         } else {
                             System.out.println("That is not your SNS number");
                         }
-
-
                     }
 
                 }

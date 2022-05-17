@@ -1,5 +1,10 @@
 package app.domain.model;
 
+import app.ui.console.utils.Utils;
+import dto.ScheduledVaccineDto;
+
+import java.time.Duration;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -9,7 +14,7 @@ import java.util.Objects;
  *
  * @author João Castro <1210816@isep.ipp.pt>
  */
-public class VaccinationCenter{
+public class VaccinationCenter {
 
 
     private String strID;
@@ -35,64 +40,64 @@ public class VaccinationCenter{
     private static final int SECOND_SECOND_NUMBER_PORTUGUESE_PHONE = 2;
     private static final int THIRD_SECOND_NUMBER_PORTUGUESE_PHONE = 3;
     private static final int FOURTH_SECOND_NUMBER_PORTUGUESE_PHONE = 6;
-    private static String[] strTopLevelDomain = {".com",".pt",".co.uk"};
-    private static String strWorldWideWeb= "www.";
+    private static String[] strTopLevelDomain = {".com", ".pt", ".co.uk"};
+    private static String strWorldWideWeb = "www.";
 
     /**
      * Creates a vaccination center with the following attributes, also verifies inside the constructors the those attributes are valid.
      *
-     * @param strID                    The vaccination center's ID.
-     * @param strName                  The vaccination center's name.
-     * @param strPhoneNumber           The vaccination center's Phone Number.
-     * @param strEmail                 The vaccination center's Email.
-     * @param strFax                   The vaccination center's Fax Number.
-     * @param strWebsite               The vaccination center's Website.
-     * @param strOpeningHour           The vaccination center's Opening Hour.
-     * @param strClosingHour           The vaccination center's Closing Hour.
-     * @param strSlotDuration          The vaccination center's Slot Duration.
-     * @param strVaccinesPerSlot       The vaccination center's Maximum Number of Vaccines per Slot.
-     * @param strRoad                  The vaccination center's Road.
-     * @param strZipCode               The vaccination center's Zip Code.
-     * @param strLocal                 The vaccination center's Local.
-     * @param strCenterCoordinatorID   The vaccination center's Center Coordinator's ID.
+     * @param strID                  The vaccination center's ID.
+     * @param strName                The vaccination center's name.
+     * @param strPhoneNumber         The vaccination center's Phone Number.
+     * @param strEmail               The vaccination center's Email.
+     * @param strFax                 The vaccination center's Fax Number.
+     * @param strWebsite             The vaccination center's Website.
+     * @param strOpeningHour         The vaccination center's Opening Hour.
+     * @param strClosingHour         The vaccination center's Closing Hour.
+     * @param strSlotDuration        The vaccination center's Slot Duration.
+     * @param strVaccinesPerSlot     The vaccination center's Maximum Number of Vaccines per Slot.
+     * @param strRoad                The vaccination center's Road.
+     * @param strZipCode             The vaccination center's Zip Code.
+     * @param strLocal               The vaccination center's Local.
+     * @param strCenterCoordinatorID The vaccination center's Center Coordinator's ID.
      */
     public VaccinationCenter(String strID, String strName, String strPhoneNumber, String strEmail, String strFax, String strWebsite,
                              String strOpeningHour, String strClosingHour, String strSlotDuration, String strVaccinesPerSlot,
                              String strRoad, String strZipCode, String strLocal, String strCenterCoordinatorID) {
 
-        if (((strID==null) ||(strName==null) || (strPhoneNumber==null) || (strEmail==null) || (strFax==null) || (strWebsite==null) || (strOpeningHour==null) ||
-                (strClosingHour==null) || (strSlotDuration==null)  || (strVaccinesPerSlot==null) || (strRoad==null) || (strZipCode==null) ||
-                (strLocal==null) || (strCenterCoordinatorID==null) || (strID.isEmpty()) ||(strName.isEmpty()) || (strPhoneNumber.isEmpty() || (strEmail.isEmpty()) ||
+        if (((strID == null) || (strName == null) || (strPhoneNumber == null) || (strEmail == null) || (strFax == null) || (strWebsite == null) || (strOpeningHour == null) ||
+                (strClosingHour == null) || (strSlotDuration == null) || (strVaccinesPerSlot == null) || (strRoad == null) || (strZipCode == null) ||
+                (strLocal == null) || (strCenterCoordinatorID == null) || (strID.isEmpty()) || (strName.isEmpty()) || (strPhoneNumber.isEmpty() || (strEmail.isEmpty()) ||
                 (strFax.isEmpty()) || (strWebsite.isEmpty()) || (strOpeningHour.isEmpty()) || (strClosingHour.isEmpty()) || (strSlotDuration.isEmpty()) ||
-                (strVaccinesPerSlot.isEmpty()) ||(strRoad.isEmpty()||(strZipCode.isEmpty()||(strLocal.isEmpty()||(strCenterCoordinatorID.isEmpty())))))))
-        throw new IllegalArgumentException("Arguments can't be null or empty.");
+                (strVaccinesPerSlot.isEmpty()) || (strRoad.isEmpty() || (strZipCode.isEmpty() || (strLocal.isEmpty() || (strCenterCoordinatorID.isEmpty())))))))
+            throw new IllegalArgumentException("Arguments can't be null or empty.");
 
-        if(!validatePhoneNumberAndFax(strPhoneNumber)){
+        if (!validatePhoneNumberAndFax(strPhoneNumber)) {
             throw new IllegalArgumentException("Only supports the Portuguese format, .e.i, 933398881.");
         }
 
-        if(!validatePhoneNumberAndFax(strFax)){
+        if (!validatePhoneNumberAndFax(strFax)) {
             throw new IllegalArgumentException("Only supports the Portuguese format, .e.i, 933398881.");
         }
 
-        if (!validateEmail(strEmail)){
+        if (!validateEmail(strEmail)) {
             throw new IllegalArgumentException("Needs an @, a . and a valid domain,");
         }
 
-        if (!validateWebsite(strWebsite, strTopLevelDomain,strWorldWideWeb))
+        if (!validateWebsite(strWebsite, strTopLevelDomain, strWorldWideWeb))
             throw new IllegalArgumentException("Needs a valid prefix and domain.");
 
-        if (!validateVaccinationCenterHours(strOpeningHour,strClosingHour))
+        if (!validateVaccinationCenterHours(strOpeningHour, strClosingHour))
             throw new IllegalArgumentException("Between 0 and 24, Opening Hour < Closing Hour.");
 
         if (!validateZipCode(strZipCode))
             throw new IllegalArgumentException("Zip Code format is invalid.");
 
-        if (!validateSlotDuration(strSlotDuration)){
+        if (!validateSlotDuration(strSlotDuration)) {
             throw new IllegalArgumentException("No more than three numerical chars.");
         }
 
-        if (!validateVaccinesPerSlot(strVaccinesPerSlot)){
+        if (!validateVaccinesPerSlot(strVaccinesPerSlot)) {
             throw new IllegalArgumentException("No more than three numerical chars.");
         }
 
@@ -106,10 +111,10 @@ public class VaccinationCenter{
         this.strClosingHour = strClosingHour;
         this.strSlotDuration = strSlotDuration;
         this.strVaccinesPerSlot = strVaccinesPerSlot;
-        this.strRoad=strRoad;
-        this.strZipCode=strZipCode;
-        this.strLocal=strLocal;
-        this.strCenterCoordinatorID=strCenterCoordinatorID;
+        this.strRoad = strRoad;
+        this.strZipCode = strZipCode;
+        this.strLocal = strLocal;
+        this.strCenterCoordinatorID = strCenterCoordinatorID;
     }
 
     public String getStrCenterCoordinatorID() {
@@ -125,9 +130,13 @@ public class VaccinationCenter{
      *
      * @return A List
      */
-    public List<ScheduledVaccine> getScheduledVaccineList() { return scheduledVaccineList; }
+    public List<ScheduledVaccine> getScheduledVaccineList() {
+        return scheduledVaccineList;
+    }
 
-    public List<Arrival> getArrivalsList() { return arrivalsList; }
+    public List<Arrival> getArrivalsList() {
+        return arrivalsList;
+    }
 
 
     /**
@@ -179,8 +188,7 @@ public class VaccinationCenter{
      * @return a true or a false
      */
     public boolean validateVaccinationCenterHours(String strOpeningHour, String strClosingHour) {
-        if (Integer.parseInt(strOpeningHour) >= 0 && Integer.parseInt(strOpeningHour) < 24 && Integer.parseInt(strClosingHour) > 0 && Integer.parseInt(strClosingHour) <= 24)
-        {
+        if (Integer.parseInt(strOpeningHour) >= 0 && Integer.parseInt(strOpeningHour) < 24 && Integer.parseInt(strClosingHour) > 0 && Integer.parseInt(strClosingHour) <= 24) {
             return Integer.parseInt(strOpeningHour) < Integer.parseInt(strClosingHour);
         } else
             return false;
@@ -189,13 +197,12 @@ public class VaccinationCenter{
     /**
      * Validates the website, the website needs to have the prefix "www." and one of the available domains as suffix.
      *
-     * @param strWebsite is the website of the centre
+     * @param strWebsite        is the website of the centre
      * @param strTopLevelDomain is one of the domains allowed
-     * @param strWorldWideWeb is the prefix that is needed to create the website
-     *
+     * @param strWorldWideWeb   is the prefix that is needed to create the website
      * @return a true or a false
      */
-    public boolean validateWebsite(String strWebsite, String[] strTopLevelDomain, String strWorldWideWeb){
+    public boolean validateWebsite(String strWebsite, String[] strTopLevelDomain, String strWorldWideWeb) {
 
         for (String s : strTopLevelDomain) {
             if (strWebsite.startsWith(strWorldWideWeb) && strWebsite.endsWith(s))
@@ -208,7 +215,6 @@ public class VaccinationCenter{
      * Validates the email, it need to have an "@" and a ".", and one valid domain.
      *
      * @param email is the email of the centre
-     *
      * @return a true or a false
      */
     public boolean validateEmail(String email) {
@@ -229,7 +235,6 @@ public class VaccinationCenter{
      * Validates the Phone and Fax Number of the centre, basically checks if it's in the Portuguese format
      *
      * @param strPhoneNumberOrFaxNumber is the Phone or the Fax Number of the centre since both follow the same rules.
-     *
      * @return a true or a false
      */
     public boolean validatePhoneNumberAndFax(String strPhoneNumberOrFaxNumber) {
@@ -253,10 +258,9 @@ public class VaccinationCenter{
      * Validates the Zip Code, checks if it's in the Portuguese format.
      *
      * @param strZipCode is the Zip Code of the centre.
-     *
      * @return a true or a false
      */
-    public boolean validateZipCode(String strZipCode){
+    public boolean validateZipCode(String strZipCode) {
         return strZipCode.matches("^[0-9]{4}(?:-[0-9]{3})?$");
     }
 
@@ -264,10 +268,9 @@ public class VaccinationCenter{
      * Validates the Slot Duration, checks if its only numbers and if it has no more than 3 chars.
      *
      * @param strSlotDuration is slot duration of the centre.
-     *
      * @return a true or a false
      */
-    public boolean validateSlotDuration(String strSlotDuration){
+    public boolean validateSlotDuration(String strSlotDuration) {
         return strSlotDuration.matches("[0-9]{1,3}");
     }
 
@@ -275,10 +278,9 @@ public class VaccinationCenter{
      * Validates the maximum number of vaccines per slot, checks if its only numbers and if it has no more than 3 chars.
      *
      * @param strVaccinesPerSlot is the maximum number of vaccines per slot allowed by the centre.
-     *
      * @return a true or a false
      */
-    public boolean validateVaccinesPerSlot(String strVaccinesPerSlot){
+    public boolean validateVaccinesPerSlot(String strVaccinesPerSlot) {
         return strVaccinesPerSlot.matches("[0-9]{1,3}");
     }
 
@@ -288,17 +290,16 @@ public class VaccinationCenter{
      * @return a true or a false
      */
     public boolean validateVaccinationCenters() {
-        return  strName != null && strID != null && strPhoneNumber != null && strEmail != null && strFax != null &&
+        return strName != null && strID != null && strPhoneNumber != null && strEmail != null && strFax != null &&
                 strWebsite != null && strOpeningHour != null && strClosingHour != null && strSlotDuration != null && strVaccinesPerSlot != null &&
                 strRoad != null && strZipCode != null && strLocal != null && strCenterCoordinatorID != null &&
                 !strName.isEmpty() && !strID.isEmpty() && !strPhoneNumber.isEmpty() && !strEmail.isEmpty() && !strFax.isEmpty() &&
                 !strWebsite.isEmpty() && !strOpeningHour.isEmpty() && !strClosingHour.isEmpty() && !strSlotDuration.isEmpty() && !strVaccinesPerSlot.isEmpty() &&
-                !strRoad.isEmpty() && !strZipCode.isEmpty() && !strLocal.isEmpty() && !strCenterCoordinatorID.isEmpty()  && validatePhoneNumberAndFax(strPhoneNumber)
-                && validatePhoneNumberAndFax(strFax) && validateEmail(strEmail) && validateWebsite(strWebsite, strTopLevelDomain,strWorldWideWeb) &&
-                validateVaccinationCenterHours(strOpeningHour,strClosingHour) && validateZipCode(strZipCode) && validateSlotDuration(strSlotDuration) &&
+                !strRoad.isEmpty() && !strZipCode.isEmpty() && !strLocal.isEmpty() && !strCenterCoordinatorID.isEmpty() && validatePhoneNumberAndFax(strPhoneNumber)
+                && validatePhoneNumberAndFax(strFax) && validateEmail(strEmail) && validateWebsite(strWebsite, strTopLevelDomain, strWorldWideWeb) &&
+                validateVaccinationCenterHours(strOpeningHour, strClosingHour) && validateZipCode(strZipCode) && validateSlotDuration(strSlotDuration) &&
                 validateVaccinesPerSlot(strVaccinesPerSlot);
     }
-
 
     /**
      * Method to return a String with all the info corresponding to a Vaccination Center
@@ -308,7 +309,7 @@ public class VaccinationCenter{
     public String fullInfo() {
         return "ID of the Vaccination Center: " + strID + '\n' +
                 "Name of the Vaccination Center: " + strName + '\n' +
-                "Phone Number of the Vaccination Center: " + strPhoneNumber+ '\n' +
+                "Phone Number of the Vaccination Center: " + strPhoneNumber + '\n' +
                 "Email of the Vaccination Center: " + strEmail + '\n' +
                 "Fax of the Vaccination Center: " + strFax + '\n' +
                 "Website of the Vaccination Center: " + strWebsite + '\n' +
@@ -322,16 +323,85 @@ public class VaccinationCenter{
                 "Center Coordinator of the Vaccination Center: " + strCenterCoordinatorID + '\n';
     }
 
-
     /**
      * Adds an appointment of a Vaccine to the List with all the Scheduled Vaccines
      *
      * @param newAppointment A Scheduled Vaccine object to be added to the List containing all the appointments
      */
-    public boolean addAppointment(ScheduledVaccine newAppointment) {
-        this.scheduledVaccineList.add(newAppointment) ;
+    public void addAppointment(ScheduledVaccine newAppointment) {
+        this.scheduledVaccineList.add(newAppointment);
+
+    }
+
+    public boolean validateAppointment(ScheduledVaccineDto scheduledVaccineDto) {
+        List<ScheduledVaccine> appointmentsList = getScheduledVaccineList();
+
+        for (ScheduledVaccine appointment : appointmentsList) {
+
+            if ((Objects.equals(appointment.getSnsNumber(), scheduledVaccineDto.snsNumber)) && (appointment.getVaccineType().equals(scheduledVaccineDto.vaccineType))) {
+                return false;
+            }
+        }
+
+        return centerHasAvailability(appointmentsList, scheduledVaccineDto, this);
+    }
+
+    private boolean centerHasAvailability(List<ScheduledVaccine> appointmentsList, ScheduledVaccineDto scheduledVaccineDto, VaccinationCenter center) {
+
+        return Utils.slotHasAvailability(Integer.parseInt(center.getStrVaccinesPerSlot()), scheduledVaccineDto.date.toLocalDate(), scheduledVaccineDto.date.toLocalTime(), appointmentsList);
+
+    }
+
+    public boolean validateAppointmentAccordingToAgeGroupAndTimeSinceLastDose(ScheduledVaccineDto dto, Company company) {
+        SNSUser snsUser = company.getSNSUserList().get(SNSUser.getUserIndexInUsersList(dto.snsNumber));
+
+        if (!snsUser.getTakenVaccines().isEmpty()) {
+            for (TakenVaccine takenVaccine : snsUser.getTakenVaccines()) {
+                if (dto.vaccineType.equals(takenVaccine.getVaccine().getVaccineType())) {
+                    if (!validateAppointmentAccordingToAdminProcess(snsUser, dto, takenVaccine)) {
+                        return false;
+                    }
+                }
+            }
+        }
         return true;
     }
 
+    public boolean validateAppointmentAccordingToAdminProcess(SNSUser snsUser, ScheduledVaccineDto dto, TakenVaccine takenVaccine) {
+        int days = (int) Duration.between(dto.date, takenVaccine.getDateTime()).toDays();
 
+        int doseNumber = takenVaccine.getDose();
+        AdministrationProcess administrationProcess = takenVaccine.getVaccine().getAdminProcess();
+        ArrayList<ArrayList<Integer>> timeIntervalBetweenDoses = administrationProcess.getTimeIntervalBetweenVaccines();
+        if (!validateAgeGroup(snsUser, administrationProcess)) {
+            return false;
+        }
+
+        int ageGroupColumn = getUserAgeGroup(snsUser, administrationProcess);
+        int timeIntervalBetweenUserDose = timeIntervalBetweenDoses.get(doseNumber).get(ageGroupColumn);
+        if (doseNumber == administrationProcess.getNumberOfDoses().get(ageGroupColumn)) return false;
+
+        return timeIntervalBetweenUserDose <= days;
+    }
+
+    private int getUserAgeGroup(SNSUser snsUser, AdministrationProcess administrationProcess) {
+
+        String[] birthDateComponents = snsUser.getStrBirthDate().split("/");
+        LocalDate birthDate = LocalDate.of(Integer.parseInt(birthDateComponents[2]), Integer.parseInt(birthDateComponents[1]), Integer.parseInt(birthDateComponents[0]));
+        int userAgeInDays = (int) Duration.between(LocalDate.now(), birthDate).toDays();
+        int userAge = userAgeInDays / 365;
+        for (int columns = 0; columns < administrationProcess.getAgeGroups().get(0).size(); columns++) {
+            for (int rows = 0; rows < administrationProcess.getAgeGroups().size(); rows++) {
+                if ((userAge > administrationProcess.getAgeGroups().get(columns).get(rows)) && userAge < administrationProcess.getAgeGroups().get(columns).get(rows + 1)) {
+                    return columns;
+                }
+            }
+        }
+        return -1;
+
+    }
+
+    private boolean validateAgeGroup(SNSUser snsUser, AdministrationProcess administrationProcess) {
+        return getUserAgeGroup(snsUser, administrationProcess) >= 0;
+    }
 }
