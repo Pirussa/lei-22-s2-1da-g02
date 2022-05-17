@@ -1,6 +1,7 @@
 package app.ui.console;
 
 import app.controller.ConsultUsersInTheWaitingRoomController;
+import app.ui.console.utils.Utils;
 
 import java.util.Scanner;
 
@@ -17,8 +18,9 @@ public class ConsultUsersInTheWaitingRoomUI implements Runnable {
 
     private ConsultUsersInTheWaitingRoomController ctrl = new ConsultUsersInTheWaitingRoomController();
 
+    @Override
     public void run() {
-
+        Utils.selectVaccinationCenterUI();
     }
 
 }

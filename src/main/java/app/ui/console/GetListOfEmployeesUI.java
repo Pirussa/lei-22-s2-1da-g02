@@ -1,6 +1,7 @@
 package app.ui.console;
 
 import app.controller.GetListOfEmployeesController;
+
 import java.util.Scanner;
 
 /**
@@ -16,26 +17,25 @@ public class GetListOfEmployeesUI implements Runnable {
 
     private GetListOfEmployeesController ctrl = new GetListOfEmployeesController();
 
+        
     public void run() {
-
         int option;
         Scanner read = new Scanner(System.in);
         System.out.println("");
         System.out.println("**You have chosen to get a list of Employees**");
-        System.out.println("");
-        System.out.println("Select the option you pretend to get a list of:");
-        System.out.println("1- List of Nurses.");
-        System.out.println("2- List of Receptionists.");
-        System.out.println("3- List of Centre Coordinators.");
-        System.out.println("");
-        System.out.println("0- Return.");
-        System.out.println("");
-
 
         do {
+            System.out.println("Select the option you pretend to get a list of:");
+            System.out.println("1- List of Nurses.");
+            System.out.println("2- List of Receptionists.");
+            System.out.println("3- List of Centre Coordinators.");
+            System.out.println("");
+            System.out.println("0- Return.");
+            System.out.println("");
             ctrl.fillListOfEmployeesWithAGivenRole();
             System.out.print("Type your option: ");
             option = read.nextInt();
+            System.out.println("");
 
             switch (option) {
                 case 1:
@@ -45,7 +45,7 @@ public class GetListOfEmployeesUI implements Runnable {
                             System.out.println(ctrl.getNurseList().get(listPosition));
                         }
                     } else {
-                        System.out.println("There aren't any Nurses registered in the system.");
+                        System.out.println("**There aren't any Nurses registered in the system.**");
                         System.out.println("");
                     }
                     break;
@@ -56,7 +56,7 @@ public class GetListOfEmployeesUI implements Runnable {
                             System.out.println(ctrl.getReceptionistList().get(listPosition));
                         }
                     } else {
-                        System.out.println("There aren't any Receptionists registered in the system.");
+                        System.out.println("**There aren't any Receptionists registered in the system.**");
                         System.out.println("");
                     }
                     break;
@@ -67,7 +67,7 @@ public class GetListOfEmployeesUI implements Runnable {
                             System.out.println(ctrl.getCentreCoordinatorList().get(listPosition));
                         }
                     } else {
-                        System.out.println("There aren't any Centre Coordinators registered in the system.");
+                        System.out.println("**There aren't any Centre Coordinators registered in the system.**");
                         System.out.println("");
                     }
                     break;
@@ -78,33 +78,7 @@ public class GetListOfEmployeesUI implements Runnable {
                 default:
                     System.out.println("Invalid option, please select one that's valid.");
             }
-            if (option == 1) {
-                System.out.println("");
-                System.out.println("**Other options:**");
-                System.out.println("2 - Receptionists List.");
-                System.out.println("3 - Centre Coordinators List.");
-                System.out.println("0 - Return.");
-                System.out.println("");
-            }
-
-            if (option == 2) {
-                System.out.println("");
-                System.out.println("**Other options:**");
-                System.out.println("1 - Nurses List.");
-                System.out.println("3 - Centre Coordinators List.");
-                System.out.println("0 - Return.");
-                System.out.println("");
-            }
-
-            if (option == 3) {
-                System.out.println("");
-                System.out.println("**Other options:**");
-                System.out.println("1 - Nurses List.");
-                System.out.println("2 - Receptionists List.");
-                System.out.println("0 - Return.");
-                System.out.println("");
-            }
-
+//
         } while (option == 1 || option == 2 || option == 3);
 
     }
