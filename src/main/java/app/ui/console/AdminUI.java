@@ -26,13 +26,6 @@ public class AdminUI implements Runnable{
         options.add(new MenuItem("Load a CSV file.", new LoadCSVUI()));
         options.add(new MenuItem("Consult the users in the waiting room of a Vaccination Centre.", new ConsultUsersInTheWaitingRoomUI()));
 
-
-
-
-        
-
-
-
         int option = 0;
         do
         {
