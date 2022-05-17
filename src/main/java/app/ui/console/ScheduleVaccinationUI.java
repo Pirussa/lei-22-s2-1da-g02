@@ -35,28 +35,19 @@ public class ScheduleVaccinationUI implements Runnable {
             if (selectedVaccinationCenterIndexInArrayList == Constants.INVALID_VALUE) return;
             VaccinationCenter selectedVaccinationCenter = company.getVaccinationCenters().get(selectedVaccinationCenterIndexInArrayList);
 
-            VaccineType vaccineType = ScheduleVaccineUI.selectVaccineTypeUI(selectedVaccinationCenter);
-            if (vaccineType == null) return;
+   //        VaccineType vaccineType = ScheduleVaccineUI.selectVaccineTypeUI(selectedVaccinationCenter);
+   //        if (vaccineType == null) return;
 
-            LocalDateTime dateTime = ScheduleVaccineUI.selectDateUI(selectedVaccinationCenter);
+   //        LocalDateTime dateTime = ScheduleVaccineUI.selectDateUI(selectedVaccinationCenter);
 
-            ScheduledVaccineDto scheduledVaccineDto = new ScheduledVaccineDto();
-            scheduledVaccineDto.snsNumber = snsNumber;
-            scheduledVaccineDto.vaccineType = vaccineType;
-            scheduledVaccineDto.date = dateTime;
+   //        ScheduledVaccineDto scheduledVaccineDto = new ScheduledVaccineDto();
+   //        scheduledVaccineDto.snsNumber = snsNumber;
+   //        scheduledVaccineDto.vaccineType = vaccineType;
+   //        scheduledVaccineDto.date = dateTime;
 
-            if (ctrl.validateAppointment(scheduledVaccineDto, selectedVaccinationCenter)) {
-                printAppointmentInfo(scheduledVaccineDto, selectedVaccinationCenter);
-                if (Utils.confirmCreation()) {
-                    ctrl.scheduleVaccine(scheduledVaccineDto, selectedVaccinationCenter);
-                    System.out.printf("%n---------------------------------------|Vaccination Was Scheduled Sucessfully|---------------------------------------");
-                } else {
-                    System.out.printf("%n--------------No appointment was registered--------------%n");
-                }
-            } else {
-                System.out.printf("%nUps, something went wrong. Please try again!%n");
-                System.out.println("Common causes: You already have an appointment for that vaccine; Your slot is not available anymore. ");
-            }
+   //        if (ctrl.validateAppointment(scheduledVaccineDto, selectedVaccinationCenter)) {
+   //            printAppointmentInfo(scheduledVaccineDto, selectedVaccinationCenter);
+   //        }
         }
     }
 

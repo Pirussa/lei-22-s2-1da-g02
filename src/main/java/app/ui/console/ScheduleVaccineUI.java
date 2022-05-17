@@ -3,6 +3,7 @@ package app.ui.console;
 import app.controller.App;
 import app.controller.ScheduledVaccineController;
 import app.domain.model.*;
+import app.domain.shared.Constants;
 import app.ui.console.utils.Utils;
 import dto.ScheduledVaccineDto;
 import pt.isep.lei.esoft.auth.AuthFacade;
@@ -28,29 +29,30 @@ public class ScheduleVaccineUI implements Runnable {
     public void run() {
 
 
-        if (!c.getVaccineTypes().isEmpty() && !c.getVaccinationCenters().isEmpty() && !c.getSNSUserList().isEmpty()) {
+        if (Utils.arrayListIsEmpty(c.getVaccineTypes(), c.getVaccinationCenters(), c.getSNSUserList())) {
             System.out.println();
             int snsNumber = introduceSnsNumberUI();
+
             VaccinationCenter vaccinationCenter = Utils.selectVaccinationCenterUI();
+
             VaccineType vaccineType = selectVaccineTypeUI(vaccinationCenter);
-            if (vaccineType == null) {
-                return;
-            }
+            if (vaccineType == null) return;
 
             LocalDateTime date = selectDateUI(vaccinationCenter);
 
             ScheduledVaccineDto scheduledVaccineDto = new ScheduledVaccineDto();
-
             scheduledVaccineDto.snsNumber = snsNumber;
             scheduledVaccineDto.vaccineType = vaccineType;
             scheduledVaccineDto.date = date;
 
-            if (controller.validateAppointment(scheduledVaccineDto, vaccinationCenter)) {
+            if (aF.getCurrentUserSession().isLoggedInWithRole(Constants.ROLE_RECEPTIONIST)) {
+
+            } else if (controller.validateAppointment(scheduledVaccineDto, vaccinationCenter)) {
                 printDataAboutAnAppointment(scheduledVaccineDto, vaccinationCenter);
                 if (Utils.confirmCreation()) {
                     controller.scheduleVaccine(scheduledVaccineDto, vaccinationCenter);
-                    System.out.printf("%n-----------------------------------Scheduling completed------------------------------------%nYou have an appointment to take a %s vaccine, at %s in %s, on %s.", vaccineType, date.toLocalTime(),Utils.formatDateToPrint(date.toLocalDate()), vaccinationCenter);
-                }else{
+                    System.out.printf("%n-----------------------------------Scheduling completed------------------------------------%nYou have an appointment to take a %s vaccine, at %s in %s, on %s.", vaccineType, date.toLocalTime(), Utils.formatDateToPrint(date.toLocalDate()), vaccinationCenter);
+                } else {
                     System.out.printf("%n--------------No appointment was registered--------------%n");
                 }
             } else {
@@ -84,11 +86,13 @@ public class ScheduleVaccineUI implements Runnable {
                     if (snsUser.getSnsUserNumber() == (SNSNumber)) {
                         flag = true;
                         Email snsUserEmail = new Email(snsUser.getStrEmail());
-                        if (aF.getCurrentUserSession().getUserId().equals(snsUserEmail)) {
+                        if (aF.getCurrentUserSession().getUserId().equals(snsUserEmail) || aF.getCurrentUserSession().isLoggedInWithRole(Constants.ROLE_RECEPTIONIST)) {
                             return SNSNumber;
                         } else {
                             System.out.println("That is not your SNS number");
                         }
+
+
                     }
 
                 }
@@ -105,12 +109,11 @@ public class ScheduleVaccineUI implements Runnable {
     }
 
 
-
-    public static VaccineType selectVaccineTypeHealthCareCenterUI(HealthcareCenter healthcareCenter) {
+    private VaccineType selectVaccineTypeHealthCareCenterUI(HealthcareCenter healthcareCenter) {
         return healthcareCenter.getVaccineTypes().get(Utils.selectFromList(healthcareCenter.getVaccineTypes(), "Select one Vaccine Type"));
     }
 
-    public static VaccineType selectVaccineTypeUI(VaccinationCenter vaccinationCenter) {
+    private VaccineType selectVaccineTypeUI(VaccinationCenter vaccinationCenter) {
         if (vaccinationCenter instanceof MassVaccinationCenter) {
             MassVaccinationCenter massVacCenter = (MassVaccinationCenter) vaccinationCenter;
             System.out.println();
@@ -138,7 +141,7 @@ public class ScheduleVaccineUI implements Runnable {
         return null;
     }
 
-    public static LocalDateTime selectDateUI(VaccinationCenter vaccinationCenter) {
+    private LocalDateTime selectDateUI(VaccinationCenter vaccinationCenter) {
         List<ScheduledVaccine> appointmentsList = vaccinationCenter.getScheduledVaccineList();
         int openingHour = Integer.parseInt(vaccinationCenter.getStrOpeningHour());
         int closingHour = Integer.parseInt(vaccinationCenter.getStrClosingHour());
@@ -213,7 +216,7 @@ public class ScheduleVaccineUI implements Runnable {
 
     }
 
-    public static LocalDate selectDateFromCurrentMonth(List<ScheduledVaccine> appointmentsList, int slotsPerDay, int vaccinesPerSlot) {
+    private LocalDate selectDateFromCurrentMonth(List<ScheduledVaccine> appointmentsList, int slotsPerDay, int vaccinesPerSlot) {
         LocalDate dateWhenScheduling = LocalDate.now();
 
         int optionNumber = 1;
@@ -247,7 +250,7 @@ public class ScheduleVaccineUI implements Runnable {
         return LocalDate.of(LocalDate.now().getYear(), dateWhenScheduling.getMonthValue(), selectedDay);
     }
 
-    public static LocalDate selectDateFromNextMonth(List<ScheduledVaccine> appointmentsList, int slotsPerDay, int vaccinesPerSlot) {
+    private LocalDate selectDateFromNextMonth(List<ScheduledVaccine> appointmentsList, int slotsPerDay, int vaccinesPerSlot) {
         int optionNumber = 1;
         LocalDate dateWhenScheduling = LocalDate.now();
         LocalDate nextMonthDate = dateWhenScheduling.plusMonths(1).with(TemporalAdjusters.firstDayOfMonth());
@@ -280,11 +283,11 @@ public class ScheduleVaccineUI implements Runnable {
 
     }
 
-    public static int calculateSlotsPerDay(int openingHour, int closingHour, int slotDuration) {
+    private int calculateSlotsPerDay(int openingHour, int closingHour, int slotDuration) {
         return (closingHour - openingHour) * 60 / slotDuration;
     }
 
-    public static boolean dayHasAvailability(int slotsPerDay, int vaccinesPerSlot, LocalDate date, List<ScheduledVaccine> appointments) {
+    private boolean dayHasAvailability(int slotsPerDay, int vaccinesPerSlot, LocalDate date, List<ScheduledVaccine> appointments) {
         int vaccinesPerDay = slotsPerDay * vaccinesPerSlot;
         int counterAppointments = 0;
 
@@ -299,7 +302,7 @@ public class ScheduleVaccineUI implements Runnable {
         return true;
     }
 
-    public static void printDataAboutAnAppointment(ScheduledVaccineDto scheduledVaccineDto, VaccinationCenter center) {
+    private void printDataAboutAnAppointment(ScheduledVaccineDto scheduledVaccineDto, VaccinationCenter center) {
         System.out.println();
         System.out.println("------------Appointment Info------------");
         System.out.println("         Date: " + Utils.formatDateToPrint(scheduledVaccineDto.date.toLocalDate()));

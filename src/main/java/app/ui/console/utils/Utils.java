@@ -489,7 +489,7 @@ public class Utils {
 
         return v;
     }
-    
+
     /**
      * Check if a set of Array Lists is empty.
      *
@@ -773,7 +773,6 @@ public class Utils {
         Company company = App.getInstance().getCompany();
         return company.getVaccinationCenters().get(Utils.selectFromList(company.getVaccinationCenters(), "Select one Vaccination Center"));
     }
-
 
 
 
