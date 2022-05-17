@@ -43,4 +43,8 @@ public class RegisterTheArrivalOfASNSUserController {
     public void registerArrival(Arrival arrival, VaccinationCenter vaccinationCenter) {
         company.registerArrival(arrival, vaccinationCenter);
     }
+
+    public boolean checkRegistration(int snsNumber, VaccinationCenter vaccinationCenterReceptionist) {
+        return Arrival.checkRegistration(snsNumber, vaccinationCenterReceptionist);
+    }
 }

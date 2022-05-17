@@ -62,6 +62,7 @@ public class RegisterTheArrivalOfASNSUserUI implements Runnable {
 
         Arrival arrival = new Arrival(snsNumber, appointment.getVaccineType());
 
+
         if(!arrival.checkDate(appointment.getDate()) || !arrival.checkTime(appointment.getDate())) {
             System.out.println("Wrong Day/Time");
             return false;
@@ -70,6 +71,11 @@ public class RegisterTheArrivalOfASNSUserUI implements Runnable {
 
         if (!ctrl.checkVaccinationCenters(vaccinationCenterReceptionist, vaccinationCenterSNSUser)) {
             System.out.printf("%nWrong Vaccination Center");
+            return false;
+        }
+
+        if(!ctrl.checkRegistration(snsNumber, vaccinationCenterReceptionist)) {
+            System.out.printf("%nUser has already been registered");
             return false;
         }
 

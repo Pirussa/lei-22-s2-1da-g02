@@ -17,6 +17,10 @@ public class Arrival {
         this.vaccineType = vaccineType;
     }
 
+    public int getSnsNumber() {
+        return snsNumber;
+    }
+
     @Override
     public String toString() {
         return "Arrival{" +
@@ -63,5 +67,15 @@ public class Arrival {
         // em vez de ser 1h maybe devia trabalhar uma SLOT DURATION
 
         return timeArrival >= appointmentHour - 1 && timeArrival <= appointmentHour;
+    }
+
+    public static boolean checkRegistration(int snsNumber, VaccinationCenter vaccinationCenterReceptionist) {
+        List<Arrival> arrivals = vaccinationCenterReceptionist.getArrivalsList();
+
+        for (Arrival arrival : arrivals)
+            if (arrival.getSnsNumber() == snsNumber)
+                return false;
+
+        return true;
     }
 }

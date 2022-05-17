@@ -77,7 +77,7 @@ public class Utils {
      */
     private static void bootstrapScheduledAppointments() {
         ScheduledVaccine scheduledVaccine1 = new ScheduledVaccine(243989890, company.getVaccineTypes().get(0), LocalDateTime.of(2022, 5, 18, 10, 0));
-        ScheduledVaccine scheduledVaccine2 = new ScheduledVaccine(100000000, company.getVaccineTypes().get(0), LocalDateTime.of(2022, 5, 17, 15, 0));
+        ScheduledVaccine scheduledVaccine2 = new ScheduledVaccine(100000000, company.getVaccineTypes().get(0), LocalDateTime.of(2022, 5, 17, 22, 0));
         //---------------------------------------------------------------------------------------------------------------------------------------------------
         company.getVaccinationCenters().get(0).addAppointment(scheduledVaccine1);
         company.getVaccinationCenters().get(0).addAppointment(scheduledVaccine2);
