@@ -1,6 +1,8 @@
 package app.ui.console;
 
+import app.controller.App;
 import app.controller.RegisterNewEmployeeController;
+import app.domain.model.Company;
 import app.domain.model.Employee;
 import app.ui.console.utils.Utils;
 import dto.RegisterNewEmployeeDto;
@@ -16,6 +18,7 @@ import java.util.ArrayList;
 public class RegisterNewEmployeeUI implements Runnable {
 
     public final int INVALID = -1;
+
     public RegisterNewEmployeeUI() {
     }
 
@@ -33,9 +36,9 @@ public class RegisterNewEmployeeUI implements Runnable {
         if (index == INVALID) {
         } else {
             String selectedRole = roles.get(index);
-            dto.id = String.valueOf(Employee.idGenerator(selectedRole));
+            dto.id = String.valueOf(Company.idGenerator());
             dto.password = Employee.passwordGenerator();
-            dto.name =  Utils.readLineFromConsole("- Insert Name: ").trim();
+            dto.name = Utils.readLineFromConsole("- Insert Name: ").trim();
             dto.address = Utils.readLineFromConsole("- Insert Address (Street / Zip Code / Location): ");
             dto.phoneNumber = Utils.readLineFromConsole("- Insert Phone Number (9 chars, only numbers): (+351) ").trim();
             dto.email = Utils.readLineFromConsole("- Insert Email (@ and . are required): ").trim();
@@ -55,10 +58,11 @@ public class RegisterNewEmployeeUI implements Runnable {
             }
         }
     }
+
     /**
      * Shows all the data relative to the new Employee.
      *
-     * @param dto A data transfer object with all the necessary information about the new Employee
+     * @param dto          A data transfer object with all the necessary information about the new Employee
      * @param selectedRole Selected role for the new Employee by the user
      */
     public void showNewEmployeeData(RegisterNewEmployeeDto dto, String selectedRole) {

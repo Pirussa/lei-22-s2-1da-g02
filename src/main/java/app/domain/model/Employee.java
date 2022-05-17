@@ -110,35 +110,6 @@ public class Employee {
     }
 
     /**
-     * Generates a new id for each created Employee.
-     *
-     * @param role Selected by the user in the UI
-     * @return new Employee generated id
-     */
-
-    public static StringBuilder idGenerator(String role) {
-        StringBuilder orderedID = new StringBuilder();
-        Random generate = new Random();
-
-        for (int position = 0; position < Constants.ID_LENGTH; position++) {
-            orderedID.append(String.valueOf(generate.nextInt(9)));
-        }
-
-        switch (role) {
-            case "Center Coordinator":
-                orderedID = new StringBuilder("CC-" + orderedID);
-                break;
-            case "Receptionist":
-                orderedID = new StringBuilder("RC-" + orderedID);
-                break;
-            case "Nurse":
-                orderedID = new StringBuilder("NR-" + orderedID);
-                break;
-        }
-        return orderedID;
-    }
-
-    /**
      * Validate new Employee data
      *
      * @return true if all the validations are also true

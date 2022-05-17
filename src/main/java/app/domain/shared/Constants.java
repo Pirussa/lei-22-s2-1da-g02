@@ -17,6 +17,8 @@ public class Constants {
     public static final String ROLE_CENTRE_COORDINATOR = "CENTRE_COORDINATOR";
     public static final String PARAMS_FILENAME = "config.properties";
     public static final String PARAMS_COMPANY_DESIGNATION = "Company.Designation";
+
+    public static final String ID_FIRST_EMPLOYEE = "Company.Designation";
     public static final int PASSWORD_LENGTH = 7;
     public static final int ID_LENGTH = 5;
 
@@ -39,5 +41,8 @@ public class Constants {
     public static final int NUMBER_OF_DAYS_FOR_VACCINATION_SCHEDULE = 365;
 
     public static final int OPENING_CLOSING_HOURS = 2;
+
     public static final int INVALID_VALUE = -1;
+
+    public static final int NEW_EMPLOYEE = 1;
     }

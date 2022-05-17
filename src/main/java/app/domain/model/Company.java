@@ -4,6 +4,7 @@ import app.domain.shared.Constants;
 import dto.*;
 import pt.isep.lei.esoft.auth.AuthFacade;
 import org.apache.commons.lang3.StringUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -300,6 +301,22 @@ public class Company {
     //END
 
     /**
+     * Generates a new id for each created Employee.
+     *
+     * @return new Employee generated id
+     */
+    public static StringBuilder idGenerator() {
+        int numberOfEmployees = getEmployees().size() + Constants.NEW_EMPLOYEE;
+        if (numberOfEmployees > 0) {
+            int lenght = (int) (Math.log10(numberOfEmployees) + 1);
+            StringBuilder generatedID = new StringBuilder("");
+            generatedID.append("0".repeat(Math.max(0, ID_LENGTH - lenght)));
+            return generatedID.append(String.valueOf(numberOfEmployees));
+        } else
+            return new StringBuilder("00001");
+    }
+
+    /**
      * Register an Employee in the company storage
      *
      * @param dto A data transfer object with all the necessary information about the new Employee
@@ -442,7 +459,7 @@ public class Company {
     /**
      * Register the arrival of an SNS user
      *
-     * @param arrival An object regarding the  arrival of a user
+     * @param arrival           An object regarding the  arrival of a user
      * @param vaccinationCenter The vacciantion center the user is
      */
     public void registerArrival(Arrival arrival, VaccinationCenter vaccinationCenter) {

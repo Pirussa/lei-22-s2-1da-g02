@@ -90,7 +90,7 @@ public class Utils {
         RegisterNewEmployeeController ctrlEmp = new RegisterNewEmployeeController();
 
         RegisterNewEmployeeDto dtoEmp = new RegisterNewEmployeeDto();
-        dtoEmp.id = "CC-95634";
+        dtoEmp.id = "00001";
         dtoEmp.name = "João";
         dtoEmp.password = "AAA22vx";
         dtoEmp.phoneNumber = "915604427";
@@ -101,7 +101,7 @@ public class Utils {
         //---------------------------------------------------------------------------------------------------------------------------------------------------
 
         RegisterNewEmployeeDto dtoEmp1 = new RegisterNewEmployeeDto();
-        dtoEmp1.id = "CC-92634";
+        dtoEmp1.id = "00002";
         dtoEmp1.name = "Francisca";
         dtoEmp1.password = "ah56BCC";
         dtoEmp1.phoneNumber = "919700873";
@@ -112,7 +112,7 @@ public class Utils {
         //---------------------------------------------------------------------------------------------------------------------------------------------------
 
         RegisterNewEmployeeDto dtoEmp2 = new RegisterNewEmployeeDto();
-        dtoEmp2.id = "NR-91272";
+        dtoEmp2.id = "00003";
         dtoEmp2.name = "Joana";
         dtoEmp2.password = "fv93ACK";
         dtoEmp2.phoneNumber = "919880654";
@@ -123,7 +123,7 @@ public class Utils {
         //---------------------------------------------------------------------------------------------------------------------------------------------------
 
         RegisterNewEmployeeDto dtoEmp3 = new RegisterNewEmployeeDto();
-        dtoEmp3.id = "CC-12345";
+        dtoEmp3.id = "00004";
         dtoEmp3.name = "Carla";
         dtoEmp3.password = "AAA12aa";
         dtoEmp3.phoneNumber = "912345678";
@@ -773,19 +773,4 @@ public class Utils {
         Company company = App.getInstance().getCompany();
         return company.getVaccinationCenters().get(Utils.selectFromList(company.getVaccinationCenters(), "Select one Vaccination Center"));
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
