@@ -49,7 +49,7 @@ public class ScheduleVaccineUI implements Runnable {
                 printDataAboutAnAppointment(scheduledVaccineDto, vaccinationCenter);
                 if (Utils.confirmCreation()) {
                     controller.scheduleVaccine(scheduledVaccineDto, vaccinationCenter);
-                    System.out.printf("%n|-----------------------------------Scheduling completed------------------------------------|%n|You have an appointment to take a %s vaccine, at %s in %s, on %s.|%n|-------------------------------------------------------------------------------------------|%n", vaccineType, date.toLocalTime(),Utils.formatDateToPrint(date.toLocalDate()), vaccinationCenter);
+                    System.out.printf("%n-----------------------------------Scheduling completed------------------------------------%nYou have an appointment to take a %s vaccine, at %s in %s, on %s.", vaccineType, date.toLocalTime(),Utils.formatDateToPrint(date.toLocalDate()), vaccinationCenter);
                 }else{
                     System.out.printf("%n--------------No appointment was registered--------------%n");
                 }
