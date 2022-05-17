@@ -4,10 +4,6 @@ import app.domain.shared.Constants;
 import dto.*;
 import pt.isep.lei.esoft.auth.AuthFacade;
 import org.apache.commons.lang3.StringUtils;
-
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -441,48 +437,17 @@ public class Company {
 
         }
     }
-    //END
 
-    /** ATUALIZAR
-     * Check if a User has an appointment, introducing his/her SNS number
-     *
-     * @param snsNumber Number that identifies the SNS user
-     * @return boolean ou Date and Time
-     */
-    public boolean checkAppointment(int snsNumber, List<ScheduledVaccine> vaccineAppointments) {
-        LocalDateTime currentDay = LocalDateTime.now();
-        LocalTime currentTime = LocalTime.now();
-        int currentHourMinus1 = currentTime.getHour() - 1;
-        DateTimeFormatter hmFormatter = DateTimeFormatter.ofPattern("H:mm");
-
-
-
-        for (ScheduledVaccine vaccineAppointment : vaccineAppointments) {
-            if (vaccineAppointment.getSnsNumber() == snsNumber) {
-
-                if (!vaccineAppointment.checkDate(currentDay))
-                    return false;
-
-                // ISTO NÃO ESTÁ A DAR BEM, FAZER TIPO O MÉTODO DO IF EM CIMA
-
-                if(currentTime.isAfter(LocalTime.parse(currentHourMinus1 + ":00", hmFormatter)) ||
-                        currentTime.isBefore(LocalTime.parse(currentHourMinus1 + ":00", hmFormatter)))
-                    return false;
-
-
-                return true;
-            }
-        }
-
-        return false;
-    } // PERGUNTAR SE ESTE MÉTODO DEVIA ESTAR AQUI AO NO SCHEDULEVACCINE
 
     /**
      * Register the arrival of an SNS user
      *
-     * @param snsNumber Number that identifies the SNS user
+     * @param arrival An object regarding the  arrival of a user
+     * @param vaccinationCenter The vacciantion center the user is
      */
-    public void registerArrival(int snsNumber) {
-        arrivals.add(snsNumber);
+    public void registerArrival(Arrival arrival, VaccinationCenter vaccinationCenter) {
+        vaccinationCenter.getArrivalsList().add(arrival);
     }
+
+    //END
 }

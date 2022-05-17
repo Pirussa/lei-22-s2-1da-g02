@@ -1,10 +1,6 @@
 package app.domain.model;
 
-import app.controller.CreateVaccinationCenterController;
-import dto.MassVaccinationCenterDto;
-
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Objects;
 
@@ -15,7 +11,6 @@ import java.util.Objects;
  */
 public class VaccinationCenter{
 
-    CreateVaccinationCenterController controller = new CreateVaccinationCenterController();
 
     private String strID;
     private String strName;
@@ -32,6 +27,7 @@ public class VaccinationCenter{
     private String strLocal;
     private String strCenterCoordinatorID;
     private List<ScheduledVaccine> scheduledVaccineList = new ArrayList<>();
+    private List<Arrival> arrivalsList = new ArrayList<>();
 
     private static final int NUMBER_OF_PHONE_NUMBER_DIGITS = 9;
     private static final int STARTING_NUMBER_PORTUGUESE_PHONE = 9;
@@ -131,6 +127,9 @@ public class VaccinationCenter{
      */
     public List<ScheduledVaccine> getScheduledVaccineList() { return scheduledVaccineList; }
 
+    public List<Arrival> getArrivalsList() { return arrivalsList; }
+
+
     /**
      * Gets opening hour.
      *
@@ -182,11 +181,9 @@ public class VaccinationCenter{
     public boolean validateVaccinationCenterHours(String strOpeningHour, String strClosingHour) {
         if (Integer.parseInt(strOpeningHour) >= 0 && Integer.parseInt(strOpeningHour) < 24 && Integer.parseInt(strClosingHour) > 0 && Integer.parseInt(strClosingHour) <= 24)
         {
-            if (Integer.parseInt(strOpeningHour) < Integer.parseInt(strClosingHour))
-            {
-                return true;
-            } else return false;
-        } else return false;
+            return Integer.parseInt(strOpeningHour) < Integer.parseInt(strClosingHour);
+        } else
+            return false;
     }
 
     /**
@@ -200,8 +197,8 @@ public class VaccinationCenter{
      */
     public boolean validateWebsite(String strWebsite, String[] strTopLevelDomain, String strWorldWideWeb){
 
-        for (int position = 0; position < strTopLevelDomain.length; position++) {
-            if (strWebsite.startsWith(strWorldWideWeb) && strWebsite.endsWith(strTopLevelDomain[position]))
+        for (String s : strTopLevelDomain) {
+            if (strWebsite.startsWith(strWorldWideWeb) && strWebsite.endsWith(s))
                 return true;
         }
         return false;
@@ -221,8 +218,8 @@ public class VaccinationCenter{
         String[] emailSplitter = email.split("@");
         String[] validEmailDomain = {"gmail.com", "hotmail.com", "isep.ipp.pt", "sapo.pt", "outlook.com"};
 
-        for (int position = 0; position < validEmailDomain.length; position++) {
-            if (Objects.equals(emailSplitter[1], validEmailDomain[position]))
+        for (String s : validEmailDomain) {
+            if (Objects.equals(emailSplitter[1], s))
                 return true;
         }
         return false;
@@ -260,11 +257,7 @@ public class VaccinationCenter{
      * @return a true or a false
      */
     public boolean validateZipCode(String strZipCode){
-        if (strZipCode.matches("^[0-9]{4}(?:-[0-9]{3})?$")){
-            return true;
-        } else{
-            return false;
-        }
+        return strZipCode.matches("^[0-9]{4}(?:-[0-9]{3})?$");
     }
 
     /**
@@ -275,9 +268,7 @@ public class VaccinationCenter{
      * @return a true or a false
      */
     public boolean validateSlotDuration(String strSlotDuration){
-        if (strSlotDuration.matches("[0-9]{1,3}")){
-            return true;
-        } else return false;
+        return strSlotDuration.matches("[0-9]{1,3}");
     }
 
     /**
@@ -288,9 +279,7 @@ public class VaccinationCenter{
      * @return a true or a false
      */
     public boolean validateVaccinesPerSlot(String strVaccinesPerSlot){
-        if (strVaccinesPerSlot.matches("[0-9]{1,3}")){
-            return true;
-        } else return false;
+        return strVaccinesPerSlot.matches("[0-9]{1,3}");
     }
 
     /**
