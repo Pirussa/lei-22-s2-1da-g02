@@ -1,9 +1,6 @@
 package app.domain.model;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.Date;
 
 /**
  * Has all the info about a scheduled Vaccine
@@ -77,16 +74,4 @@ public class ScheduledVaccine {
         return vaccineType;
     }
 
-    public boolean checkDate(LocalDateTime date) {
-        if (date.getDayOfMonth() != this.date.getDayOfMonth())
-            return false;
-
-        if (date.getMonth() != this.date.getMonth())
-            return false;
-
-        if (date.getYear() != this.date.getYear())
-            return false;
-
-        return true;
-    }
 }

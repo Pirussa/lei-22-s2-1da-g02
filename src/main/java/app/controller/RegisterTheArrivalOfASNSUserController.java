@@ -1,15 +1,8 @@
 package app.controller;
 
-import app.domain.model.Company;
-import app.domain.model.ScheduledVaccine;
-import app.domain.model.VaccinationCenter;
-import app.domain.model.Vaccine;
+import app.domain.model.*;
 import app.ui.console.utils.Utils;
 
-import java.sql.Time;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class RegisterTheArrivalOfASNSUserController {
@@ -37,16 +30,17 @@ public class RegisterTheArrivalOfASNSUserController {
      * @param snsNumber Number that identifies the SNS user
      * @return boolean - true if the user has
      */
-    public boolean checkAppointment(int snsNumber, List<ScheduledVaccine> vaccineAppointments) {
-        return company.checkAppointment(snsNumber, vaccineAppointments);
+    public ScheduledVaccine checkAppointment(int snsNumber, List<ScheduledVaccine> vaccineAppointments) {
+        return Arrival.getUserAppointment(snsNumber, vaccineAppointments);
     }
 
     /**
      * Register the arrival of an SNS user
      *
-     * @param snsNumber Number that identifies the SNS user
+     * @param arrival An object regarding the  arrival of a user
+     * @param vaccinationCenter The vacciantion center the user is
      */
-    public void registerArrival(int snsNumber) {
-        company.registerArrival(snsNumber);
+    public void registerArrival(Arrival arrival, VaccinationCenter vaccinationCenter) {
+        company.registerArrival(arrival, vaccinationCenter);
     }
 }
