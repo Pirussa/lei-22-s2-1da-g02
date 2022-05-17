@@ -194,7 +194,7 @@ public class ScheduleVaccineUI implements Runnable {
             int minutesToBeAdded;
             flag = true;
             if (selectedOption > 0) {
-                minutesToBeAdded = selectedOption * slotDuration;
+                minutesToBeAdded = (selectedOption - 1) * slotDuration;
             } else {
                 flag = false;
                 minutesToBeAdded = 0;
