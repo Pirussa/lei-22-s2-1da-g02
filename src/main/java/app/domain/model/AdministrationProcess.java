@@ -7,7 +7,6 @@ import java.util.ArrayList;
  *
  * @author Gustavo Jorge <1211061@isep.ipp.pt>
  */
-
 public class AdministrationProcess {
 
     private ArrayList<ArrayList<Integer>> ageGroups;
@@ -76,5 +75,17 @@ public class AdministrationProcess {
             return false;
 
         return true;
+    }
+
+    public ArrayList<ArrayList<Integer>> getTimeIntervalBetweenVaccines() {
+        return getTimeIntervalBetweenVaccines();
+    }
+
+    public ArrayList<ArrayList<Integer>> getAgeGroups() {
+        return ageGroups;
+    }
+
+    public ArrayList<Integer> getNumberOfDoses() {
+        return numberOfDoses;
     }
 }

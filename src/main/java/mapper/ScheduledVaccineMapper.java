@@ -9,14 +9,14 @@ public class ScheduledVaccineMapper {
         if (scheduledVaccineDto == null) {
             return null;
         }
-        return new ScheduledVaccine(Integer.parseInt(scheduledVaccineDto.snsNumber), scheduledVaccineDto.vaccineType, scheduledVaccineDto.date);
+        return new ScheduledVaccine(scheduledVaccineDto.snsNumber, scheduledVaccineDto.vaccineType, scheduledVaccineDto.date);
     }
 
     public ScheduledVaccineDto domainToDto(ScheduledVaccine object) {
         if (object == null) {
             return null;
         }
-        return new ScheduledVaccineDto(String.valueOf(object.getSnsNumber()), object.getVaccineType(), object.getDate());
+        return new ScheduledVaccineDto(object.getSnsNumber(), object.getVaccineType(), object.getDate());
     }
 
 }

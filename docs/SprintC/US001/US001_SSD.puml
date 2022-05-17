@@ -1,46 +1,54 @@
 @startuml
 
 autonumber
-actor "Administrator" as A
+actor "SNS User" as U
 
-activate A
-A -> ":System" : asks to specify a new Vaccine and its Administration Process
-
-activate ":System"
-":System" --> A : shows a list with all the Vaccine Types available
-deactivate ":System"
-
-A -> ":System" : selects one Vaccine Type
+activate U
+U -> ":System" : asks to schedule a vaccine
 
 activate ":System"
-":System" --> A : requests data for the Vaccine (Id, Name and Brand)
+":System" --> U : requests data (SNS number)
 deactivate ":System"
-A -> ":System" : types requested data
+
+U -> ":System"  : types SNS number
+
+activate ":System"
+":System" --> U : shows a list with the available vaccination centers
+deactivate ":System"
+U -> ":System" : selects one vaccination center
 
 activate ":System"
 
-loop while adding age groups
- ":System" --> A : requests data (age limits, number of doses,\n vaccine dosage, time interval between vaccines )
+ ":System" --> U : shows a list with the Vaccine Types available
 
-note right
-information for the Administration Process
-end note
 deactivate ":System"
 
-A -> ":System" : types requested data
+U -> ":System" : selects one Vaccine Type
 activate ":System"
 
-end
-
-":System" --> A : shows all data and requests confirmation
+":System" --> U : shows a list with all the dates available
 deactivate ":System"
 
-A -> ":System" : confirms the data
+U -> ":System" : selects one date
 
 activate ":System"
-":System" --> A : informs operation success
+":System" --> U : shows a list with all the available slots (times)
 deactivate ":System"
 
-deactivate A
+U -> ":System" : selects one slot
+
+
+activate ":System"
+
+":System" --> U : shows all the data and asks for confirmation
+deactivate ":System"
+
+U -> ":System" : confirms the data
+
+activate ":System"
+":System" --> U : informs operation sucess
+
+deactivate ":System"
+deactivate U
 
 @enduml

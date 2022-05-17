@@ -4,7 +4,6 @@ import app.domain.shared.Constants;
 import dto.*;
 import pt.isep.lei.esoft.auth.AuthFacade;
 import org.apache.commons.lang3.StringUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -63,7 +62,7 @@ public class Company {
     /**
      * List that stores the Arrivals of the SNS users (MAYBE DAR STORE APENAS AO SNS NUMBER ? )
      */
-    private List<String> arrivals = new ArrayList<>();
+    private List<Integer> arrivals = new ArrayList<>();
 
     public Company(String designation) {
         if (StringUtils.isBlank(designation))
@@ -406,7 +405,7 @@ public class Company {
     }
 
     public SNSUser createSNSUser(SNSUserDto dto) {
-        return new SNSUser(dto.strName, dto.strSNSUserNumber, dto.strEmail, dto.strBirthDate, dto.strPhoneNumber,
+        return new SNSUser(dto.strName, dto.snsUserNumber, dto.strEmail, dto.strBirthDate, dto.strPhoneNumber,
                 dto.strSex, dto.strAddress, dto.strCitizenCardNumber, dto.strPassword);
     }
 
@@ -417,7 +416,7 @@ public class Company {
             return "Saved";
         } else {
             for (int i = 0; i < snsUsers.size(); i++) {
-                if (!(Objects.equals(snsUsers.get(i).getStrSNSUserNumber(), createSNSUser(dto).getStrSNSUserNumber())) &&
+                if (!(Objects.equals(snsUsers.get(i).getSnsUserNumber(), createSNSUser(dto).getSnsUserNumber())) &&
                         !(Objects.equals(snsUsers.get(i).getStrEmail(), createSNSUser(dto).getStrEmail())) &&
                         !(Objects.equals(snsUsers.get(i).getStrPhoneNumber(), createSNSUser(dto).getStrPhoneNumber())) &&
                         !(Objects.equals(snsUsers.get(i).getStrCitizenCardNumber(), createSNSUser(dto).getStrCitizenCardNumber()))) {
@@ -438,24 +437,17 @@ public class Company {
 
         }
     }
-    //END
 
-    /**
-     * Check if a User has an appointment, introducing his/her SNS number
-     *
-     * @param SNSNumber Number that identifies the SNS user
-     * @return boolean ou Date and Time
-     */
-    public String checkAppointment(int SNSNumber) {
-        return "DEVE DAR RETURN AO APPOINTMENT, DATE E TIME, SE ESTE EXISTIR";
-    }
 
     /**
      * Register the arrival of an SNS user
      *
-     * @param SNSNumber Number that identifies the SNS user
+     * @param arrival An object regarding the  arrival of a user
+     * @param vaccinationCenter The vacciantion center the user is
      */
-    public void registerArrival(String SNSNumber) {
-        arrivals.add(SNSNumber);
+    public void registerArrival(Arrival arrival, VaccinationCenter vaccinationCenter) {
+        vaccinationCenter.getArrivalsList().add(arrival);
     }
+
+    //END
 }

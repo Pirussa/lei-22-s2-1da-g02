@@ -3,6 +3,7 @@ package app.ui.console;
 import app.controller.App;
 import app.controller.ScheduledVaccineController;
 import app.domain.model.*;
+import app.domain.shared.Constants;
 import app.ui.console.utils.Utils;
 import dto.ScheduledVaccineDto;
 import pt.isep.lei.esoft.auth.AuthFacade;
@@ -26,69 +27,69 @@ public class ScheduleVaccineUI implements Runnable {
 
     @Override
     public void run() {
-
-
-        if (!c.getVaccineTypes().isEmpty() && !c.getVaccinationCenters().isEmpty() && !c.getSNSUserList().isEmpty()) {
+        if (Utils.arrayListIsEmpty(c.getVaccineTypes(), c.getVaccinationCenters(), c.getSNSUserList())) {
             System.out.println();
-            String snsNumber = introduceSnsNumberUI();
+            int snsNumber = introduceSnsNumberUI();
+
             VaccinationCenter vaccinationCenter = Utils.selectVaccinationCenterUI();
+
             VaccineType vaccineType = selectVaccineTypeUI(vaccinationCenter);
-            if (vaccineType == null) {
-                return;
-            }
+            if (vaccineType == null) return;
 
             LocalDateTime date = selectDateUI(vaccinationCenter);
 
             ScheduledVaccineDto scheduledVaccineDto = new ScheduledVaccineDto();
-
             scheduledVaccineDto.snsNumber = snsNumber;
             scheduledVaccineDto.vaccineType = vaccineType;
             scheduledVaccineDto.date = date;
 
-            if (controller.validateAppointment(scheduledVaccineDto, vaccinationCenter)) {
-                printDataAboutAnAppointment(scheduledVaccineDto, vaccinationCenter);
-                if (Utils.confirmCreation()) {
-                    controller.scheduleVaccine(scheduledVaccineDto, vaccinationCenter);
-                    System.out.printf("%n--------------Scheduling completed--------------%nYou have an appointment to take a %s vaccine, at %s in %s, on %s.%n------------------------------------------------%n", vaccineType, date.toLocalTime(),Utils.formatDateToPrint(date.toLocalDate()), vaccinationCenter);
-                }else{
-                    System.out.printf("%n--------------No appointment was registered--------------%n");
-                }
+            if (aF.getCurrentUserSession().isLoggedInWithRole(Constants.ROLE_RECEPTIONIST)) {
+                if (controller.validateAppointmentAccordingToAgeGroupAndTimeSinceLastDose(scheduledVaccineDto, vaccinationCenter)) {
+                    printAppointmentInfo(scheduledVaccineDto, vaccinationCenter);
+                    if (Utils.confirmCreation()) {
+                        controller.scheduleVaccine(scheduledVaccineDto, vaccinationCenter);
+                        printValidAppointmentInfo(scheduledVaccineDto, vaccinationCenter);
+                    } else
+                        System.out.printf("%n-----------------------------|No appointment was registered|-----------------------------%n");
+                } else
+                    System.out.printf("%nOops, something went wrong. Please try again!%nCommon causes: Your age doesn´t meet any of the existing age groups or the waiting time since the last dose isn´t finished.");
             } else {
-                System.out.printf("%nUps, something went wrong. Please try again!%n");
-                System.out.println("Common causes: You already have an appointment for that vaccine; Your slot is not available anymore. ");
+                if (controller.validateAppointment(scheduledVaccineDto, vaccinationCenter)) {
+                    printAppointmentInfo(scheduledVaccineDto, vaccinationCenter);
+                    if (Utils.confirmCreation()) {
+                        controller.scheduleVaccine(scheduledVaccineDto, vaccinationCenter);
+                        printValidAppointmentInfo(scheduledVaccineDto, vaccinationCenter);
+                    } else
+                        System.out.printf("%n-----------------------------|No appointment was registered|-----------------------------%n");
+                } else
+                    System.out.printf("%nOops, something went wrong. Please try again!%nCommon causes: You already have an appointment for that vaccine; Your slot is not available anymore. ");
             }
-
-
-        } else {
-            System.out.println();
-            System.out.println("|------------------------------------------------------------------------------------------------------------|");
-            System.out.println("| There are no Vaccine Types or Vaccination Centers or SNS Users yet. Please add at least one of each first. |");
-            System.out.println("|------------------------------------------------------------------------------------------------------------|");
-        }
-
-
+        } else
+            printInvalidAppointment();
     }
 
-    private String introduceSnsNumberUI() {
-        String SNSNumber;
+    private int introduceSnsNumberUI() {
+        int SNSNumber;
         boolean check = false;
         do {
             System.out.print("Introduce your SNS Number: ");
-            SNSNumber = sc.next();
+            SNSNumber = sc.nextInt();
             System.out.println();
             sc.nextLine();
             if (Utils.validateSNSUserNumber(SNSNumber)) {
                 boolean flag = false;
                 for (SNSUser snsUser : c.getSNSUserList()) {
 
-                    if (snsUser.getStrSNSUserNumber().equals(SNSNumber)) {
+                    if (snsUser.getSnsUserNumber() == (SNSNumber)) {
                         flag = true;
                         Email snsUserEmail = new Email(snsUser.getStrEmail());
-                        if (aF.getCurrentUserSession().getUserId().equals(snsUserEmail)) {
+                        if (aF.getCurrentUserSession().getUserId().equals(snsUserEmail) || aF.getCurrentUserSession().isLoggedInWithRole(Constants.ROLE_RECEPTIONIST)) {
                             return SNSNumber;
                         } else {
                             System.out.println("That is not your SNS number");
                         }
+
+
                     }
 
                 }
@@ -105,12 +106,11 @@ public class ScheduleVaccineUI implements Runnable {
     }
 
 
-
-    public static VaccineType selectVaccineTypeHealthCareCenterUI(HealthcareCenter healthcareCenter) {
+    private VaccineType selectVaccineTypeHealthCareCenterUI(HealthcareCenter healthcareCenter) {
         return healthcareCenter.getVaccineTypes().get(Utils.selectFromList(healthcareCenter.getVaccineTypes(), "Select one Vaccine Type"));
     }
 
-    public static VaccineType selectVaccineTypeUI(VaccinationCenter vaccinationCenter) {
+    private VaccineType selectVaccineTypeUI(VaccinationCenter vaccinationCenter) {
         if (vaccinationCenter instanceof MassVaccinationCenter) {
             MassVaccinationCenter massVacCenter = (MassVaccinationCenter) vaccinationCenter;
             System.out.println();
@@ -138,7 +138,7 @@ public class ScheduleVaccineUI implements Runnable {
         return null;
     }
 
-    public static LocalDateTime selectDateUI(VaccinationCenter vaccinationCenter) {
+    private LocalDateTime selectDateUI(VaccinationCenter vaccinationCenter) {
         List<ScheduledVaccine> appointmentsList = vaccinationCenter.getScheduledVaccineList();
         int openingHour = Integer.parseInt(vaccinationCenter.getStrOpeningHour());
         int closingHour = Integer.parseInt(vaccinationCenter.getStrClosingHour());
@@ -176,12 +176,6 @@ public class ScheduleVaccineUI implements Runnable {
 
             timeOfTheSlot = timeOfTheSlot.plusMinutes(slotDuration);
         }
-        /*
-        1 --- opening hour + 0*slotDuration
-        2 --- opening hour + 1*slotDuration
-        3 --- opening hour + 2*slotDuration
-        4 --- opening hours + 3*slotDuration
-        */
 
         boolean flag;
         int selectedOption;
@@ -194,7 +188,7 @@ public class ScheduleVaccineUI implements Runnable {
             int minutesToBeAdded;
             flag = true;
             if (selectedOption > 0) {
-                minutesToBeAdded = selectedOption * slotDuration;
+                minutesToBeAdded = (selectedOption - 1) * slotDuration;
             } else {
                 flag = false;
                 minutesToBeAdded = 0;
@@ -213,7 +207,7 @@ public class ScheduleVaccineUI implements Runnable {
 
     }
 
-    public static LocalDate selectDateFromCurrentMonth(List<ScheduledVaccine> appointmentsList, int slotsPerDay, int vaccinesPerSlot) {
+    private LocalDate selectDateFromCurrentMonth(List<ScheduledVaccine> appointmentsList, int slotsPerDay, int vaccinesPerSlot) {
         LocalDate dateWhenScheduling = LocalDate.now();
 
         int optionNumber = 1;
@@ -247,7 +241,7 @@ public class ScheduleVaccineUI implements Runnable {
         return LocalDate.of(LocalDate.now().getYear(), dateWhenScheduling.getMonthValue(), selectedDay);
     }
 
-    public static LocalDate selectDateFromNextMonth(List<ScheduledVaccine> appointmentsList, int slotsPerDay, int vaccinesPerSlot) {
+    private LocalDate selectDateFromNextMonth(List<ScheduledVaccine> appointmentsList, int slotsPerDay, int vaccinesPerSlot) {
         int optionNumber = 1;
         LocalDate dateWhenScheduling = LocalDate.now();
         LocalDate nextMonthDate = dateWhenScheduling.plusMonths(1).with(TemporalAdjusters.firstDayOfMonth());
@@ -280,11 +274,11 @@ public class ScheduleVaccineUI implements Runnable {
 
     }
 
-    public static int calculateSlotsPerDay(int openingHour, int closingHour, int slotDuration) {
+    private int calculateSlotsPerDay(int openingHour, int closingHour, int slotDuration) {
         return (closingHour - openingHour) * 60 / slotDuration;
     }
 
-    public static boolean dayHasAvailability(int slotsPerDay, int vaccinesPerSlot, LocalDate date, List<ScheduledVaccine> appointments) {
+    private boolean dayHasAvailability(int slotsPerDay, int vaccinesPerSlot, LocalDate date, List<ScheduledVaccine> appointments) {
         int vaccinesPerDay = slotsPerDay * vaccinesPerSlot;
         int counterAppointments = 0;
 
@@ -299,15 +293,16 @@ public class ScheduleVaccineUI implements Runnable {
         return true;
     }
 
-    public static void printDataAboutAnAppointment(ScheduledVaccineDto scheduledVaccineDto, VaccinationCenter center) {
-        System.out.println();
-        System.out.println("------------Appointment Info------------");
-        System.out.println("         Date: " + Utils.formatDateToPrint(scheduledVaccineDto.date.toLocalDate()));
-        System.out.println("         Time: " + scheduledVaccineDto.date.toLocalTime());
-        System.out.println("         Vaccine Type: " + scheduledVaccineDto.vaccineType);
-        System.out.println("         Center: " + center);
-        System.out.println("         Your SNS Number: " + scheduledVaccineDto.snsNumber);
-        System.out.println("----------------------------------------");
-        System.out.println();
+    private void printAppointmentInfo(ScheduledVaccineDto scheduledVaccineDto, VaccinationCenter vaccinationCenter) {
+        System.out.printf("%n-------------------------%n|Appointment Information|%n-------------------------%n%n");
+        System.out.printf("Given SNS Number: " + scheduledVaccineDto.snsNumber + "%n%nSelected Vaccination Center: " + vaccinationCenter + "%n%nSelected Vaccine Type: " + scheduledVaccineDto.vaccineType + "%n%nDate: " + Utils.formatDateToPrint(scheduledVaccineDto.date.toLocalDate()) + "%n%nTime: " + scheduledVaccineDto.date.toLocalTime() + "%n%n");
+    }
+
+    private void printValidAppointmentInfo(ScheduledVaccineDto scheduledVaccineDto, VaccinationCenter vaccinationCenter) {
+        System.out.printf("%n----------------------%n|Scheduling completed|%n----------------------%n%nYou have an appointment to take a %s vaccine, at %s in %s, on %s.%n", scheduledVaccineDto.vaccineType, scheduledVaccineDto.date.toLocalTime(), Utils.formatDateToPrint(scheduledVaccineDto.date.toLocalDate()), vaccinationCenter);
+    }
+
+    private void printInvalidAppointment() {
+        System.out.printf("System is unable to schedule a vaccination without at least:%n- One Vaccination Center;%n- One Vaccine Type;%n- One Know System User.");
     }
 }

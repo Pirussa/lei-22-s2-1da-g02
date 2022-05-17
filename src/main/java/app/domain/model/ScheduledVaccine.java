@@ -1,9 +1,6 @@
 package app.domain.model;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.Date;
 
 /**
  * Has all the info about a scheduled Vaccine
@@ -76,4 +73,5 @@ public class ScheduledVaccine {
     public VaccineType getVaccineType() {
         return vaccineType;
     }
+
 }

@@ -1,7 +1,6 @@
 package app.ui;
 
 import app.ui.console.MainMenuUI;
-import app.ui.console.ScheduleVaccineUI;
 import app.ui.console.utils.Utils;
 
 /**
@@ -12,7 +11,7 @@ public class Main {
 
     public static void main(String[] args) {
         try {
-            Utils.bootstrapOptional();
+            Utils.bootstrap();
 
             MainMenuUI menu = new MainMenuUI();
 

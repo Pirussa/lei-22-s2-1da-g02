@@ -20,5 +20,15 @@ public class RegisterNewEmployeeDto {
     public RegisterNewEmployeeDto() {
 
     }
+
+    public RegisterNewEmployeeDto(String id, String name, String address, String phoneNumber, String email, String citizenCardNumber, String password) {
+        this.id = id;
+        this.name = name;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.citizenCardNumber = citizenCardNumber;
+        this.password = password;
+    }
 }
 

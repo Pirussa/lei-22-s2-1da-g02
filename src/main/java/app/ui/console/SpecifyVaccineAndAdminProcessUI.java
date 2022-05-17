@@ -304,7 +304,6 @@ public class SpecifyVaccineAndAdminProcessUI implements Runnable {
             System.out.println("Select the number of doses for the respective age group: ");
             System.out.println("1- 2 doses");
             System.out.println("2- 3 doses");
-            System.out.println("0- Insert manually");
             System.out.println();
             System.out.println("Type your option: ");
             int option = sc.nextInt();
