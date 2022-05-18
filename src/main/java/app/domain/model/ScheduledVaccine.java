@@ -11,10 +11,19 @@ import java.time.LocalDateTime;
  */
 public class ScheduledVaccine {
 
+    /**
+     * User´s SNS Number
+     */
     private int snsNumber;
 
+    /**
+     * User´s selected vaccine type
+     */
     private VaccineType vaccineType;
 
+    /**
+     * User´s selected date and time to be vaccinated
+     */
     private LocalDateTime date;
 
 
@@ -73,5 +82,4 @@ public class ScheduledVaccine {
     public VaccineType getVaccineType() {
         return vaccineType;
     }
-
 }

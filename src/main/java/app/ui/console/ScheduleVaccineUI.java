@@ -20,14 +20,17 @@ import java.util.*;
 public class ScheduleVaccineUI implements Runnable {
 
 
-    private final Company c = App.getInstance().getCompany();
-    private final AuthFacade aF = c.getAuthFacade();
+    private final Company company = App.getInstance().getCompany();
+    private final AuthFacade aF = company.getAuthFacade();
     private final Scanner sc = new Scanner(System.in);
     private final ScheduledVaccineController controller = new ScheduledVaccineController();
 
+    /**
+     * When the run() method calls, the code specified in the run() method is executed.
+     */
     @Override
     public void run() {
-        if (Utils.arrayListIsEmpty(c.getVaccineTypes(), c.getVaccinationCenters(), c.getSNSUserList())) {
+        if (Utils.arrayListIsNotEmpty(company.getVaccineTypes(), company.getVaccinationCenters(), company.getSNSUserList())) {
             System.out.println();
             int snsNumber = introduceSnsNumberUI();
 
@@ -84,7 +87,7 @@ public class ScheduleVaccineUI implements Runnable {
             sc.nextLine();
             if (Utils.validateSNSUserNumber(SNSNumber)) {
                 boolean flag = false;
-                for (SNSUser snsUser : c.getSNSUserList()) {
+                for (SNSUser snsUser : company.getSNSUserList()) {
 
                     if (snsUser.getSnsUserNumber() == (SNSNumber)) {
                         flag = true;
