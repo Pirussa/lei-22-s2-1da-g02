@@ -21,6 +21,8 @@ public class Arrival {
         return snsNumber;
     }
 
+    public LocalDateTime getDateTime() { return dateTime; }
+
     @Override
     public String toString() {
         return "Arrival{" +
@@ -45,8 +47,15 @@ public class Arrival {
         return null;
     }
 
+    public static boolean checkDateAndTime(LocalDateTime date, LocalDateTime day, int hour) {
+        if(!Arrival.checkDate(date, day))
+            return false;
 
-    public boolean checkDate(LocalDateTime appointmentDay) {
+        return Arrival.checkTime(date, hour);
+    }
+
+
+    private static boolean checkDate(LocalDateTime appointmentDay, LocalDateTime dateTime) {
 
         if (appointmentDay.getDayOfMonth() != dateTime.getDayOfMonth())
             return false;
@@ -60,8 +69,7 @@ public class Arrival {
         return true;
     }
 
-    public boolean checkTime(LocalDateTime appointmentTime) {
-        int timeArrival = dateTime.getHour();
+    private static boolean checkTime(LocalDateTime appointmentTime, int timeArrival) {
         int appointmentHour = appointmentTime.getHour();
 
         // em vez de ser 1h maybe devia trabalhar uma SLOT DURATION

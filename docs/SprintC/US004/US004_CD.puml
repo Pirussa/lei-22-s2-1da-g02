@@ -1,23 +1,38 @@
 @startuml
 'https://plantuml.com/class-diagram
 
+skinparam classAttributeIconSize 0
+
 class Company {
-+checkAppointment(int SNSNumber)
-+registerArrival(int SNSNumber)
++registerArrival(Arrival arrival, VaccinationCenter vaccinationCenter)
 }
 
 
 class RegisterArrivalOfSNSUserUI
 
 class RegisterArrivalOfSNSUserController{
-+checkAppointment(int SNSNumber)
-+registerArrival(int SNSNumber)
++checkRegistration(int snsNumber, VaccinationCenter vaccinationCenter)
++getUserAppointment(int snsNumber, List<ScheduledVaccine> vaccineAppointments)
++checkDateAndTie(LocalDateTime date, LocalDateTime Day, int hour)
++registerArrival(int snsNumber, VaccinationCenter vaccinationCenter)
+}
+
+class Arrival {
+-int snsNumber
+-LocalDateTime dateTime
+-VaccineType vaccineType
++getUserAppointment(int snsNumber, List<ScheduledVaccine> vaccineAppointments)
+-checkDate(LocalDateTime appointmentDay)
+-checkTime(LocalDateTime appointmentTime)
++checkDateAndTie(LocalDateTime date, LocalDateTime Day, int hour)
++registerArrival(int snsNumber, VaccinationCenter vaccinationCenter)
 }
 
 
 left to right direction
 
 RegisterArrivalOfSNSUserController -> Company
+RegisterArrivalOfSNSUserController -- Arrival
 RegisterArrivalOfSNSUserUI - RegisterArrivalOfSNSUserController
 
 @enduml

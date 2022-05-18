@@ -134,12 +134,19 @@ public class VaccinationCenter {
         return scheduledVaccineList;
     }
 
+
+    /**
+     * Gets the List of the arrivals in the Vaccination Center
+     *
+     * @return List of arrivals
+     */
     public List<Arrival> getArrivalsList() {
         return arrivalsList;
     }
 
 
     /**
+     *
      * Gets opening hour.
      *
      * @return the String with the opening hour

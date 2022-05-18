@@ -91,9 +91,9 @@ No other remarks
 |:---------------|:--------------------------------------------|:-----------------------------------|:--------------------------------------------------------------------------------------------------------------|
 | Step 1         | ...interacting with the actor?              | RegisterArrivalOfSNSUserUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. |
 |                | ...coordinating the US                      | RegisterArrivalOfSNSUserController | **Controller**                                                                                                |
-| Step 2         | ...check the requirements for registration  | RegisterArrivalOfSNSUserController | **Validation**                                                                                                | 
+| Step 2         | ...check the requirements for registration  | Arrival                            | **Validation**                                                                                                | 
 | Step 2         | ...register the arrival of an SNS user      | Company                            | **Registration**                                                                                              |
-| Step 3         | ...saving the inputted data of the arrival  | Company                            | IE: Company stores everything                                                                                 |
+| Step 3         | ...saving the inputted data of the arrival  | VaccinationCenter                  | IE: Company stores everything                                                                                 |
 | Step 4         | ...informing operation success              | RegisterArrivalOfSNSUserUI         | IE: is responsible for user interactions                                                                      |
 
 
