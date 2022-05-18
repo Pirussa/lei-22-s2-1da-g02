@@ -11,19 +11,6 @@ class SpecifyNewVaccineAndAdminProcessController {
 +saveVaccine(vaccineAndAdminProcessDto)
 }
 
-class Company {
--vaccineTypes
--vaccines
--employees
--roles
-+saveVaccine(vaccineAndAdminProcessDto)
-+specifyNewVaccineAndAdminProcess(vaccineAndAdminProcessDto)
-+specifyNewVaccineType(code, description, technology)
-+saveVaccineType(code, description, technology)
-+registerNewEmployee(registerNewEmployeeDto)
-+saveCreatedEmployee(registerNewEmployeeDto)
-}
-
 class Vaccine{
 -id
 -name

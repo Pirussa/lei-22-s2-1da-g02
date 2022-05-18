@@ -26,6 +26,8 @@ import java.util.logging.Logger;
  * @author Pedro Monteiro <1211076@isep.ipp.pt>
  * @author Gustavo Jorge <1211061@isep.ipp.pt>
  * @author Guilherme Sousa <1211073@isep.ipp.pt>
+ * @author João Castro <1210816@isep.ipp.pt>
+ * @author João Leitão <12110632isep.ipp.pt>
  */
 public class Utils {
 
@@ -498,7 +500,7 @@ public class Utils {
      * @param getSNSUser            List of sns user
      * @return True if the lists are not empty
      */
-    public static boolean arrayListIsEmpty(List<VaccineType> getVaccineTypes, List<VaccinationCenter> getVaccinationCenters, List<SNSUser> getSNSUser) {
+    public static boolean arrayListIsNotEmpty(List<VaccineType> getVaccineTypes, List<VaccinationCenter> getVaccinationCenters, List<SNSUser> getSNSUser) {
         return !getSNSUser.isEmpty() && !getVaccinationCenters.isEmpty() && !getVaccineTypes.isEmpty();
     }
 

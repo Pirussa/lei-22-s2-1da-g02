@@ -5,6 +5,7 @@ import dto.ScheduledVaccineDto;
 
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -134,12 +135,19 @@ public class VaccinationCenter {
         return scheduledVaccineList;
     }
 
+
+    /**
+     * Gets the List of the arrivals in the Vaccination Center
+     *
+     * @return List of arrivals
+     */
     public List<Arrival> getArrivalsList() {
         return arrivalsList;
     }
 
 
     /**
+     *
      * Gets opening hour.
      *
      * @return the String with the opening hour
@@ -403,5 +411,13 @@ public class VaccinationCenter {
 
     private boolean validateAgeGroup(SNSUser snsUser, AdministrationProcess administrationProcess) {
         return getUserAgeGroup(snsUser, administrationProcess) >= 0;
+    }
+
+    public void cleanArrivalsList() {
+        int currentHour = LocalDateTime.now().getHour();
+
+        if (currentHour == Integer.parseInt(strClosingHour))
+            for (Arrival arrival : arrivalsList)
+                arrivalsList.remove(arrival);
     }
 }

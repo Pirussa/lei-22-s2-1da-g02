@@ -1,35 +1,31 @@
 @startuml
 skinparam classAttributeIconSize 0
 
-class SpecifyNewVaccineAndAdminProcessUI {
--showVaccineAndAdminProcessData(vaccineAndAdminProcessDto)
--chooseNumberOfDoses()
+class ScheduleVaccineUI {
++run()
+-introduceSnsNumberUI()
+-selectVaccineTypeHealthCareCenterUI(healthcareCenter)
+-selectVaccineTypeUI(vaccinationCenter)
+-selectDateUI(vaccinationCenter)
+-selectDateFromCurrentMonth(appointmentsList, slotsPerDay, vaccinesPerSlot)
+-selectDateFromNextMonth(appointmentsList, slotsPerDay, vaccinesPerSlot)
+-calculateSlotsPerDay(openingHour, closingHour, slotDuration)
+-dayHasAvailability(slotsPerDay, vaccinesPerSlot, date, appointments)
+-printAppointmentInfo(scheduledVaccineDto, vaccinationCenter)
+-printValidAppointmentInfo(scheduledVaccineDto, vaccinationCenter)
+-printInvalidAppointment()
 }
 
-class SpecifyNewVaccineAndAdminProcessController {
-+specifyNewVaccineAndAdminProcess(vaccineAndAdminProcessDto)
-+saveVaccine(vaccineAndAdminProcessDto)
+class ScheduleVaccineController {
++ScheduleVaccineController()
++scheduleVaccine(scheduledVaccineDto, vaccinationCenter)
++validateAppointment(scheduledVaccineDto, vaccinationCenter)
++validateAppointmentAccordingToAgeGroupAndTimeSinceLastDose(scheduledVaccineDto, center)
+-dataIsAllFilled(scheduledVaccineDto)
 }
 
-class Company {
--vaccineTypes
--vaccines
--employees
--roles
-+saveVaccine(vaccineAndAdminProcessDto)
-+specifyNewVaccineAndAdminProcess(vaccineAndAdminProcessDto)
-+specifyNewVaccineType(code, description, technology)
-+saveVaccineType(code, description, technology)
-+registerNewEmployee(registerNewEmployeeDto)
-+saveCreatedEmployee(registerNewEmployeeDto)
-}
 
-class Vaccine{
--id
--name
--brand
 
-}
 class VaccineType {
 -code
 -description
@@ -38,16 +34,44 @@ class VaccineType {
 +validateCode()
 }
 
-class AdministrationProcess {
--ageGroups
--dosages
--numberOfDoses
--timeIntervalBetweenVaccines
-
+class VaccinationCenter {
+-id
+-name
+-phoneNumber
+-email
+-fax
+-website
+-openingHour
+-closingHour
+-slotDuration
+-vaccinesPerSlot
+-road
+-zipCode
+-local
+centerCoordinatorID
+-arrivalsList
++VaccinationCenter(id, name, phoneNumber, email, fax, website, openingHour, closingHour, slotDuration, vaccinesPerSlot, road, zipCode, local, centerCoordinatorID)
++toString()
++validateVaccinationCenterHours(openingHour, closingHour)
++validateWebsite(website, topLevelDomain, worldWideWeb)
++validateEmail(email)
++validatePhoneNumberAndFax(strPhoneNumberOrFaxNumber)
++validateZipCode(strZipCode)
++validateSlotDuration(strSlotDuration)
++validateVaccinesPerSlot(strVaccinesPerSlot)
++validateVaccinationCenters()
++fullInfo()
++addAppointment(newAppointment)
++validateAppointment(scheduledVaccineDto)
+-centerHasAvailability(appointmentsList, scheduledVaccineDto, center)
++validateAppointmentAccordingToAgeGroupAndTimeSinceLastDose(dto, company)
++validateAppointmentAccordingToAdminProcess(snsUser, dto, takenVaccine)
+-getUserAgeGroup(snsUser, administrationProcess)
+-validateAgeGroup(snsUser, administrationProcess)
 }
 
-SpecifyNewVaccineAndAdminProcessUI ..> SpecifyNewVaccineAndAdminProcessController
-SpecifyNewVaccineAndAdminProcessController ..> Company
+ScheduleVaccineUI ..> ScheduleVaccineController
+ScheduleVaccineController ..> VaccinationCenter
 Company "1" - "*" Vaccine : storages >
 SpecifyNewVaccineAndAdminProcessController ..> Vaccine
 Vaccine "*" *-- "1" VaccineType

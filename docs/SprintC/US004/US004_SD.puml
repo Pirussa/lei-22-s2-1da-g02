@@ -5,6 +5,7 @@ actor "Receptionist" as R
 
 participant ":RegisterArrivalOfASNSUserUI" as UI
 participant ":RegisterArrivalOfASNSUserController" as CTRL
+participant ":Arrival" as A
 participant ":Company" as C
 
 activate R
@@ -12,23 +13,24 @@ activate R
 R -> UI : asks to check if an SNS user has an appointment
 activate UI
 
-UI --> R : requests data (SNS number)
+UI --> R : requests data (SNS number, Vaccination Center)
 deactivate UI
 
 R -> UI : types requested data
 activate UI
 
-UI -> CTRL : checkUserAppointment(SNS number)
+UI -> CTRL : checkRequirementsForRegistration(SNS number, Vaccination Center User, Vaccination Center Receptionist, Date and Time)
 activate CTRL
 
-CTRL -> C : checkUserAppointment(SNS number)
-activate C
+CTRL -> A : checkRequirementsForRegistration(SNS number, Vaccination Center User, Vaccination Center Receptionist, Date and Time)
+activate A
 
 CTRL --> UI : result
 
 UI --> R: shows the result
 
-deactivate C
+deactivate A
+
 deactivate CTRL
 deactivate UI
 
@@ -36,10 +38,10 @@ deactivate UI
 R -> UI : registers the arrival depending on the result
 activate UI
 
-UI -> CTRL : registerArrival(SNS number)
+UI -> CTRL : registerArrival(SNS number, Vaccination Center)
 activate CTRL
 
-CTRL -> C : registerArrival(SNS number)
+CTRL -> C : registerArrival(SNS number, Vaccination Center)
 activate C
 
 
