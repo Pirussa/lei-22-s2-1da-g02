@@ -109,7 +109,6 @@ public class ScheduleVaccineUI implements Runnable {
         return SNSNumber;
     }
 
-
     private VaccineType selectVaccineTypeHealthCareCenterUI(HealthcareCenter healthcareCenter) {
         return healthcareCenter.getVaccineTypes().get(Utils.selectFromList(healthcareCenter.getVaccineTypes(), "Select one Vaccine Type"));
     }
