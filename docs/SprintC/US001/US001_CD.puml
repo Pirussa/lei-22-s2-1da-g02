@@ -2,8 +2,8 @@
 skinparam classAttributeIconSize 0
 
 class SpecifyNewVaccineAndAdminProcessUI {
--showVaccineAndAdminProcessData(vaccineAndAdminProcessDto)
--chooseNumberOfDoses()
+-selectVaccineTypeHealthCareCenterUI(healthcareCenter)
+
 }
 
 class SpecifyNewVaccineAndAdminProcessController {

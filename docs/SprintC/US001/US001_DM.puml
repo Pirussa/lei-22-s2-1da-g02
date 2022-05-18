@@ -5,25 +5,17 @@ left to right direction
 skinparam classAttributeIconSize 0
 
 
-class Administrator {
-
+class SNSUser {
+-snsUserNumber
+-birthdate
+-phoneNumber
+-sex
+-address
+-citizenCardNumber
+-takenVaccines : List<TakenVacine>
 }
 
-class Company{}
 
-class Vaccine{
-    -name
-    -id
-    -brand
-}
-
-class AdministrationProcess {
-    -ageLimits
-    -numberOfDoses
-    -vaccineDosage
-    -timeIntervalBetweenVaccines
-
-}
 
 class VaccineType{
 -description
@@ -38,14 +30,18 @@ class ApplicationUser {
     -role
 }
 
-Administrator "1" -- "*" Vaccine: specifies new >
-Administrator "1" -- "*" AdministrationProcess: specifies  >
-Administrator "1" -- "*" VaccineType: specifies  >
+class VaccineAppointment {
+-snsUserNumber
+-date
+}
 
-Vaccine "1" -- "1" AdministrationProcess: has an >
-Vaccine "1" -- "1" VaccineType: has an >
-ApplicationUser  <|-- Administrator
+SNSUser "1" --> "*" VaccineAppointment: schedules >
 
-Company "1" --- "*" Vaccine : storages >
+ApplicationUser  <|-- SNSUser
+
+VaccineAppointment "*" --> "1" VaccineType: has one  >
+
+Company "1" --- "*" VaccineType : storages >
+
 
 @enduml
