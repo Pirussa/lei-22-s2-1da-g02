@@ -1,8 +1,12 @@
 package app.ui.console;
 
 import app.controller.ConsultUsersInTheWaitingRoomController;
+import app.domain.model.Arrival;
+import app.domain.model.ScheduledVaccine;
+import app.domain.model.VaccinationCenter;
 import app.ui.console.utils.Utils;
 
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -20,6 +24,15 @@ public class ConsultUsersInTheWaitingRoomUI implements Runnable {
 
     @Override
     public void run() {
+        System.out.println();
+        System.out.println("------ Consult the sns users in the waiting room of a vaccination centre ------");
+        System.out.println();
+
+        VaccinationCenter vaccinationCenter  = ctrl.getVaccinationCenter();
+        List<Arrival> listOfUsersThatArrivedInAVaccinationCentre = ctrl.getVaccinationCenter(vaccinationCenter);
+
+
+
         Utils.selectVaccinationCenterUI();
     }
 
