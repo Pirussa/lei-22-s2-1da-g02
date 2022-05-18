@@ -15,11 +15,10 @@ public class RegisterTheArrivalOfASNSUserUI implements Runnable {
 
     @Override
     public void run() {
-        System.out.println();
-        System.out.println("------Register the Arrival of an SNS user------");
-        System.out.println();
+        System.out.printf("%n------Register the Arrival of an SNS user------%n");
 
         VaccinationCenter vaccinationCenterReceptionist  = ctrl.getVaccinationCenter();
+        vaccinationCenterReceptionist.cleanArrivalsList();
         List<ScheduledVaccine> scheduleVaccinesOfTheVaccinationCenter = ctrl.getScheduledVaccineList(vaccinationCenterReceptionist);
 
 
