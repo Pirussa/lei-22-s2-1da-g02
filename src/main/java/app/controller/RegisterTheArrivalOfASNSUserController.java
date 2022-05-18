@@ -51,6 +51,7 @@ public class RegisterTheArrivalOfASNSUserController {
      */
     public void registerArrival(Arrival arrival, VaccinationCenter vaccinationCenter) {
         company.registerArrival(arrival, vaccinationCenter);
+        //
     }
 
 }
