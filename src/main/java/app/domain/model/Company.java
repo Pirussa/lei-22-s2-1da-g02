@@ -455,16 +455,5 @@ public class Company {
         }
     }
 
-
-    /**
-     * Register the arrival of an SNS user
-     *
-     * @param arrival           An object regarding the  arrival of a user
-     * @param vaccinationCenter The vacciantion center the user is
-     */
-    public void registerArrival(Arrival arrival, VaccinationCenter vaccinationCenter) {
-        vaccinationCenter.getArrivalsList().add(arrival);
-    }
-
     //END
 }

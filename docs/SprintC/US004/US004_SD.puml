@@ -19,10 +19,10 @@ deactivate UI
 R -> UI : types requested data
 activate UI
 
-UI -> CTRL : checkRequirementsForRegistration(SNS number, Vaccination Center User, Vaccination Center Receptionist, Date and Time)
+UI -> CTRL : checkRequirementsForRegistration(SNS number, Vaccination Center User, Vaccination Center Receptionist, Date)
 activate CTRL
 
-CTRL -> A : checkRequirementsForRegistration(SNS number, Vaccination Center User, Vaccination Center Receptionist, Date and Time)
+CTRL -> A : checkRequirementsForRegistration(SNS number, Vaccination Center User, Vaccination Center Receptionist, Date)
 activate A
 
 CTRL --> UI : result

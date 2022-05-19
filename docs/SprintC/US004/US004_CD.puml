@@ -3,7 +3,36 @@
 
 skinparam classAttributeIconSize 0
 
-class Company {
+
+class ScheduledVaccine {
+int snsNumber
+LocalDateTime date
+VaccineType vaccineType
++getSnsNumber()
++getDate()
++getVaccineType()
+}
+
+class VaccinationCenter {
+-String strID
+-String strName
+-String strPhoneNumber
+-String strEmail
+-String strFax
+-String strWebsite
+-String strOpeningHour
+-String strClosingHour
+-String strSlotDuration
+-String strVaccinesPerSlot
+-String strRoad
+-String strZipCode
+-String strLocal
+-String strCenterCoordinatorID
+-List<ScheduledVaccine> scheduledVaccineList
+-List<Arrival> arrivalsList
++getArrivalsList()
++getStrOpeningHour()
++cleanArrivalsList()
 +registerArrival(Arrival arrival, VaccinationCenter vaccinationCenter)
 }
 
@@ -31,8 +60,9 @@ class Arrival {
 
 left to right direction
 
-RegisterArrivalOfSNSUserController -> Company
-RegisterArrivalOfSNSUserController -- Arrival
-RegisterArrivalOfSNSUserUI - RegisterArrivalOfSNSUserController
+RegisterArrivalOfSNSUserController -up- Arrival
+RegisterArrivalOfSNSUserController -- VaccinationCenter
+RegisterArrivalOfSNSUserController -- ScheduledVaccine
+RegisterArrivalOfSNSUserUI -> RegisterArrivalOfSNSUserController
 
 @enduml
