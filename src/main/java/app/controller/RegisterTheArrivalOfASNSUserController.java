@@ -8,8 +8,6 @@ import java.util.List;
 
 public class RegisterTheArrivalOfASNSUserController {
 
-    private Company company = App.getInstance().getCompany();
-
     public RegisterTheArrivalOfASNSUserController() {}
 
 
@@ -50,7 +48,7 @@ public class RegisterTheArrivalOfASNSUserController {
      * @param vaccinationCenter The vaccination center the user is
      */
     public void registerArrival(Arrival arrival, VaccinationCenter vaccinationCenter) {
-        company.registerArrival(arrival, vaccinationCenter);
+        vaccinationCenter.registerArrival(arrival, vaccinationCenter);
     }
 
 }
