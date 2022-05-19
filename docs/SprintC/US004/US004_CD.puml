@@ -3,9 +3,6 @@
 
 skinparam classAttributeIconSize 0
 
-class Company {
-+registerArrival(Arrival arrival, VaccinationCenter vaccinationCenter)
-}
 
 class ScheduledVaccine {
 int snsNumber
@@ -36,6 +33,7 @@ class VaccinationCenter {
 +getArrivalsList()
 +getStrOpeningHour()
 +cleanArrivalsList()
++registerArrival(Arrival arrival, VaccinationCenter vaccinationCenter)
 }
 
 
@@ -62,8 +60,7 @@ class Arrival {
 
 left to right direction
 
-RegisterArrivalOfSNSUserController -> Company
-RegisterArrivalOfSNSUserController -- Arrival
+RegisterArrivalOfSNSUserController -up- Arrival
 RegisterArrivalOfSNSUserController -- VaccinationCenter
 RegisterArrivalOfSNSUserController -- ScheduledVaccine
 RegisterArrivalOfSNSUserUI -> RegisterArrivalOfSNSUserController
