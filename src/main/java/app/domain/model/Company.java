@@ -381,8 +381,8 @@ public class Company {
      * Checks if an employee is already registered in the employees' list
      */
     public static void listOfEmployeesChecker(List<Employee> listToFill, List<Employee> filledList, int position) {
-        for (int listPosition = 0; listPosition < listToFill.size(); listPosition++)
-            if (!filledList.get(position).getEmail().equals(listToFill.get(listPosition).getEmail()) || !filledList.get(position).getCitizenCardNumber().equals(listToFill.get(listPosition).getCitizenCardNumber()))
+        for (int listPosition = 0; listPosition < filledList.size(); listPosition++)
+            if (!(filledList.get(listPosition).getEmail().equals(listToFill.get(listPosition).getEmail()) || filledList.get(listPosition).getCitizenCardNumber().equals(listToFill.get(listPosition).getCitizenCardNumber())))
                 listToFill.add(filledList.get(position));
 
     }

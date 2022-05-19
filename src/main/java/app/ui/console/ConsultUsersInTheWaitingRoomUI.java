@@ -31,9 +31,14 @@ public class ConsultUsersInTheWaitingRoomUI implements Runnable {
         VaccinationCenter vaccinationCenter  = ctrl.getVaccinationCenter();
         List<Arrival> listOfUsersThatArrivedInAVaccinationCentre = ctrl.getVaccinationCenter(vaccinationCenter);
 
+        if(!listOfUsersThatArrivedInAVaccinationCentre.isEmpty()) {
+            for (int listPosition = 0; listPosition < listOfUsersThatArrivedInAVaccinationCentre.size(); listPosition++) {
+                System.out.println(listOfUsersThatArrivedInAVaccinationCentre.get(listPosition));
+            }
+        } else {
+            System.out.println("No user has arrived yet.");
+        }
 
-
-        Utils.selectVaccinationCenterUI();
     }
 
 }

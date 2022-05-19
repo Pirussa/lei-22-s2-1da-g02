@@ -1,9 +1,6 @@
 package app.ui.console.utils;
 
-import app.controller.App;
-import app.controller.CreateVaccinationCenterController;
-import app.controller.RegisterNewEmployeeController;
-import app.controller.SpecifyNewVaccineTypeController;
+import app.controller.*;
 import app.domain.model.*;
 import app.domain.shared.Constants;
 import dto.*;
@@ -184,16 +181,33 @@ public class Utils {
         company.getSNSUserList().get(1).registerVaccine(takenVaccine2);
     }
 
+    private static void bootstrapArrivals() {
+        Arrival firstArrival = new Arrival(149923123, company.getVaccineTypes().get(0));
+        company.registerArrival(firstArrival, company.getVaccinationCenters().get(0));
+
+        Arrival secondArrival = new Arrival(123456789, company.getVaccineTypes().get(1));
+        company.registerArrival(secondArrival, company.getVaccinationCenters().get(1));
+
+        Arrival thirdArrival = new Arrival(987654321, company.getVaccineTypes().get(0));
+        company.registerArrival(thirdArrival, company.getVaccinationCenters().get(0));
+
+        Arrival fourthArrival = new Arrival(321329941, company.getVaccineTypes().get(1));
+        company.registerArrival(fourthArrival, company.getVaccinationCenters().get(1));
+
+    }
+
     /**
      * It creates and adds everything that the App needs as soon as it runs, so it is not needed to create something prior to using one functionality
      */
     public static void bootstrap() {
+
         bootstrapVaccineTypes();
         bootstrapEmployees();
         bootstrapSnsUsers();
         bootstrapVaccinationCenters();
         bootstrapVaccines();
         bootstrapScheduledAppointments();
+        bootstrapArrivals();
 
     }
 

@@ -21,18 +21,17 @@ public class Arrival {
         return snsNumber;
     }
 
-    public LocalDateTime getDateTime() { return dateTime; }
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
 
     @Override
     public String toString() {
-        return "Arrival{" +
-                "snsNumber=" + snsNumber +
-                ", dateTime=" + dateTime +
-                ", vaccineType=" + vaccineType +
-                '}';
+        return "SNS Number: " + snsNumber + " | Date and Time: " + dateTime + " |  Vaccine Type: " + vaccineType;
     }
 
-    /** ATUALIZAR
+    /**
+     * ATUALIZAR
      * Check if a User has an appointment, introducing his/her SNS number
      *
      * @param snsNumber Number that identifies the SNS user
@@ -48,7 +47,7 @@ public class Arrival {
     }
 
     public static boolean checkDateAndTime(LocalDateTime date, LocalDateTime day, int hour) {
-        if(!Arrival.checkDate(date, day))
+        if (!Arrival.checkDate(date, day))
             return false;
 
         return Arrival.checkTime(date, hour);
