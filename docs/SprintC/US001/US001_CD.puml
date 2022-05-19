@@ -25,15 +25,6 @@ class ScheduleVaccineController {
 }
 
 
-
-class VaccineType {
--code
--description
--technology
-+validateVaccineType()
-+validateCode()
-}
-
 class VaccinationCenter {
 -id
 -name
@@ -70,12 +61,22 @@ centerCoordinatorID
 -validateAgeGroup(snsUser, administrationProcess)
 }
 
+class Vaccine {
+-id;
+-brand;
+-vaccine type;
+}
+
+ class ScheduledVaccine {
+ -snsUserNumber
+ -date
+ -vaccineType
+
+ }
+
 ScheduleVaccineUI ..> ScheduleVaccineController
 ScheduleVaccineController ..> VaccinationCenter
-Company "1" - "*" Vaccine : storages >
-SpecifyNewVaccineAndAdminProcessController ..> Vaccine
-Vaccine "*" *-- "1" VaccineType
-Vaccine "1" *-- "1  " AdministrationProcess
-
-
+ScheduleVaccineController -- ScheduledVaccine : creates
+VaccinationCenter ..> Vaccine
+VaccinationCenter --> ScheduledVaccine : has a list of
 @enduml
