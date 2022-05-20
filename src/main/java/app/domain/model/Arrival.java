@@ -27,7 +27,7 @@ public class Arrival {
 
     @Override
     public String toString() {
-        return "SNS Number: " + snsNumber + " | Date and Time: " + dateTime + " |  Vaccine Type: " + vaccineType;
+        return "SNS Number: " + snsNumber + " | Day: " + dateTime.getDayOfMonth() + "/" + dateTime.getMonth() + "/" + dateTime.getYear() + " , at " + dateTime.getHour()  + ":" + dateTime.getMinute() + " |  Vaccine Type: " + vaccineType;
     }
 
     /**
