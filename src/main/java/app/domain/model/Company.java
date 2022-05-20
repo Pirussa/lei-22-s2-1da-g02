@@ -367,25 +367,39 @@ public class Company {
     public void fillListOfEmployeesWithAGivenRole() {
         ArrayList<Employee> emp = getEmployees();
         for (int positionArrayListEmployees = 0; positionArrayListEmployees < emp.size(); positionArrayListEmployees++) {
+       boolean check= false;
             if (emp.get(positionArrayListEmployees) instanceof Nurse) {
-                listOfEmployeesChecker(nurseList, emp, positionArrayListEmployees);
+                fillListOfEmployeesChecker(emp, positionArrayListEmployees, check, nurseList);
+
             } else if (emp.get(positionArrayListEmployees) instanceof Receptionist) {
-                listOfEmployeesChecker(receptionistList, emp, positionArrayListEmployees);
+                fillListOfEmployeesChecker(emp, positionArrayListEmployees, check, receptionistList);
+
             } else if (emp.get(positionArrayListEmployees) instanceof CenterCoordinator) {
-                listOfEmployeesChecker(centreCoordinatorList, emp, positionArrayListEmployees);
+                fillListOfEmployeesChecker(emp, positionArrayListEmployees, check, centreCoordinatorList);
             }
+        }
+    }
+
+    private void fillListOfEmployeesChecker(ArrayList<Employee> emp, int positionArrayListEmployees, boolean check, ArrayList<Employee> listToBeFilled) {
+        for (int centerCoordinatorListPosition = 0; centerCoordinatorListPosition < listToBeFilled.size(); centerCoordinatorListPosition++) {
+            if(!emp.get(positionArrayListEmployees).getEmail().equals(listToBeFilled.get(centerCoordinatorListPosition).getEmail()) && !emp.get(positionArrayListEmployees).getCitizenCardNumber().equals(listToBeFilled.get(centerCoordinatorListPosition).getCitizenCardNumber())){
+                check = true;
+            }
+        }
+        if(!check){
+            listToBeFilled.add(emp.get(positionArrayListEmployees));
         }
     }
 
     /**
      * Checks if an employee is already registered in the employees' list
      */
-    public static void listOfEmployeesChecker(List<Employee> listToFill, List<Employee> filledList, int position) {
-        for (int listPosition = 0; listPosition < filledList.size(); listPosition++)
-            if (!(filledList.get(listPosition).getEmail().equals(listToFill.get(listPosition).getEmail()) || filledList.get(listPosition).getCitizenCardNumber().equals(listToFill.get(listPosition).getCitizenCardNumber())))
-                listToFill.add(filledList.get(position));
+ //  public static void listOfEmployeesChecker(List<Employee> listToFill, List<Employee> filledList, int position) {
+ //      for (int listPosition = 0; listPosition < filledList.size(); listPosition++)
+ //          if (!(filledList.get(listPosition).getEmail().equals(listToFill.get(listPosition).getEmail()) || filledList.get(listPosition).getCitizenCardNumber().equals(listToFill.get(listPosition).getCitizenCardNumber())))
+ //              listToFill.add(filledList.get(position));
 
-    }
+ //  }
 
     /**
      * Gets the Nurses registered in the Company.

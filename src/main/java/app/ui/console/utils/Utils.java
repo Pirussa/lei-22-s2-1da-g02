@@ -75,11 +75,17 @@ public class Utils {
      * It creates and adds Scheduled Appointments to the Company as soon as the App runs
      */
     private static void bootstrapScheduledAppointments() {
-        ScheduledVaccine scheduledVaccine1 = new ScheduledVaccine(243989890, company.getVaccineTypes().get(0), LocalDateTime.of(2022, 5, 18, 10, 0));
-        ScheduledVaccine scheduledVaccine2 = new ScheduledVaccine(100000000, company.getVaccineTypes().get(0), LocalDateTime.of(2022, 5, 17, 22, 0));
+        ScheduledVaccine scheduledVaccine1 = new ScheduledVaccine(200000000, company.getVaccineTypes().get(0), LocalDateTime.of(2022, 5, 20, 12, 0));
+        ScheduledVaccine scheduledVaccine2 = new ScheduledVaccine(100000000, company.getVaccineTypes().get(1), LocalDateTime.of(2022, 5, 20, 12, 0));
+        ScheduledVaccine scheduledVaccine3 = new ScheduledVaccine(300000000, company.getVaccineTypes().get(2), LocalDateTime.of(2022, 5, 20, 12, 0));
+        ScheduledVaccine scheduledVaccine4 = new ScheduledVaccine(400000000, company.getVaccineTypes().get(0), LocalDateTime.of(2022, 5, 20, 12, 0));
+
         //---------------------------------------------------------------------------------------------------------------------------------------------------
         company.getVaccinationCenters().get(0).addAppointment(scheduledVaccine1);
-        company.getVaccinationCenters().get(0).addAppointment(scheduledVaccine2);
+        company.getVaccinationCenters().get(1).addAppointment(scheduledVaccine2);
+        company.getVaccinationCenters().get(0).addAppointment(scheduledVaccine3);
+        company.getVaccinationCenters().get(1).addAppointment(scheduledVaccine4);
+
     }
 
     /**
@@ -113,7 +119,7 @@ public class Utils {
         RegisterNewEmployeeDto dtoEmp2 = new RegisterNewEmployeeDto();
         dtoEmp2.id = "00003";
         dtoEmp2.name = "Joana";
-        dtoEmp2.password = "fv93ACK";
+        dtoEmp2.password = "aa12AAA";
         dtoEmp2.phoneNumber = "919880654";
         dtoEmp2.citizenCardNumber = "38002291 5 ZY5";
         dtoEmp2.email = "joana@gmail.com";
@@ -188,13 +194,13 @@ public class Utils {
         ctrlArrival.registerArrival(firstArrival, company.getVaccinationCenters().get(0));
 
         Arrival secondArrival = new Arrival(123456789, company.getVaccineTypes().get(1));
-        ctrlArrival.registerArrival(secondArrival, company.getVaccinationCenters().get(1));
+        ctrlArrival.registerArrival(secondArrival, company.getVaccinationCenters().get(0));
 
         Arrival thirdArrival = new Arrival(987654321, company.getVaccineTypes().get(0));
         ctrlArrival.registerArrival(thirdArrival, company.getVaccinationCenters().get(0));
 
         Arrival fourthArrival = new Arrival(321329941, company.getVaccineTypes().get(1));
-        ctrlArrival.registerArrival(fourthArrival, company.getVaccinationCenters().get(1));
+        ctrlArrival.registerArrival(fourthArrival, company.getVaccinationCenters().get(0));
 
     }
 
