@@ -1,6 +1,7 @@
 package app.ui.console;
 
 import app.controller.LoadCSVController;
+import app.domain.model.SNSUser;
 import app.ui.console.utils.Utils;
 import dto.SNSUserDto;
 
@@ -11,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class LoadCSVUI implements Runnable {
+
+    LoadCSVController controller = new LoadCSVController();
 
     public void run() {
 
@@ -45,7 +48,9 @@ public class LoadCSVUI implements Runnable {
                     }
                 }
                 fillSNSUserDto(csvData);
-                getListOfSNSUsers();
+                System.out.println(controller.getSNSUserList().size());
+                //getListOfSNSUsers();
+
             } else {
                 System.out.println();
                 System.out.println("Only files ending in .csv are allowed.");
@@ -64,13 +69,15 @@ public class LoadCSVUI implements Runnable {
         int MAXNUMBEROFCHARSSNSUSERNUMBER = 9;
         return !values[0].isEmpty() && !values[1].isEmpty() && values[1].trim().matches("^[0-9]*$") && values[1].length() == MAXNUMBEROFCHARSSNSUSERNUMBER
                 && !values[2].isEmpty() && Utils.validateEmail(values[2]) && !values[3].isEmpty() && Utils.validateBirthDate(values[3]) &&
-                !values[4].isEmpty() && Utils.validatePhoneNumber(values[4]) && Utils.validateSex(values[5]) && !values[6].isEmpty() && Utils.validateAddress(values[6])
+                !values[4].isEmpty() && Utils.validatePhoneNumber(values[4]) && Utils.validateSex(values[5]) && !values[6].isEmpty() && SNSUser.validateAddress(values[6])
                 && !values[7].isEmpty() && Utils.validateCitizenCardNumber(values[7]);
     }
 
     public void fillSNSUserDto(ArrayList<String> csvData) {
         LoadCSVController controller = new LoadCSVController();
         String[] values;
+        int createCounter = 0;
+        int saveCounter = 0;
         for (int i = 0; i < csvData.size(); i++) {
             SNSUserDto dto = new SNSUserDto();
             values = csvData.get(i).split("_");
@@ -84,12 +91,14 @@ public class LoadCSVUI implements Runnable {
             dto.strCitizenCardNumber = values[7];
             dto.strPassword = values[8];
             System.out.println();
-            System.out.println(controller.createSNSUser(dto));
+            controller.createSNSUser(dto);
+            createCounter++;
             System.out.println();
-            if (Utils.confirmCreation()) {
-                System.out.println(controller.saveSNSUser(dto));
-            } else System.out.println("Not confirmed");
+            if (controller.saveSNSUser(dto).equals("Not Saved because the data is duplicated")) {
+                saveCounter++;
+            }
         }
+        System.out.printf("Saved %d Users out of %d",createCounter - saveCounter, createCounter);
     }
 
     public void getListOfSNSUsers() {

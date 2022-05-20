@@ -229,8 +229,8 @@ public class SNSUser {
         throw new IllegalArgumentException("Invalid Value in the Document.");
     }
 
-    public boolean validateAddress(String strAddress) {
-        String[] splitAddress = strAddress.split("/");
+    public static boolean validateAddress(String strAddress) {
+        String[] splitAddress = strAddress.split("#");
         if (splitAddress.length != 3)
             return false;
 

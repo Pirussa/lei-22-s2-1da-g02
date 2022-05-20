@@ -11,9 +11,7 @@ deactivate System
 
 Administrator -> System: Types the path of the CSV file
 activate System
-Administrator <-- System: Informs if the operation was successful
-Administrator <-- System: If successful it verifies the User data contained in the CSV
-Administrator <-- System: If the data is valid then it saves the Users.
-
+Administrator <-- System: Informs if the path is valid
+Administrator <-- System: If the path is valid then informs if the User data contained in the CSV is valid.
 
 @enduml
