@@ -19,7 +19,10 @@ public class Constants {
     public static final String PARAMS_COMPANY_DESIGNATION = "Company.Designation";
 
     public static final String ID_FIRST_EMPLOYEE = "Company.Designation";
+
+    public static final String PATH_SMS_MESSAGE = "SMS.txt";
     public static final int PASSWORD_LENGTH = 7;
+
     public static final int ID_LENGTH = 5;
 
     public static final int NUMBER_OF_PHONE_NUMBER_DIGITS = 9;

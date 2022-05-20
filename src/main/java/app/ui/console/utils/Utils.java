@@ -682,7 +682,7 @@ public class Utils {
      */
     public static boolean validateSNSUserNumber(int snsUserNumber) {
         String strSnsUserNumber = String.valueOf(snsUserNumber);
-        return strSnsUserNumber.trim().matches("^[0-9]*$") && strSnsUserNumber.length() == MAXNUMBEROFCHARSSNSUSERNUMBER;
+        return strSnsUserNumber.trim().matches("^[0-9]*$") && strSnsUserNumber.length() == MAXNUMBEROFCHARSSNSUSERNUMBER && snsUserNumber % 1 == 0;
     }
 
     /**
@@ -795,6 +795,6 @@ public class Utils {
      */
     public static VaccinationCenter selectVaccinationCenterUI() {
         Company company = App.getInstance().getCompany();
-        return company.getVaccinationCenters().get(Utils.selectFromList(company.getVaccinationCenters(), "Select one Vaccination Center"));
+        return company.getVaccinationCenters().get(Utils.selectFromList(company.getVaccinationCenters(), "\nSelect one Vaccination Center"));
     }
 }

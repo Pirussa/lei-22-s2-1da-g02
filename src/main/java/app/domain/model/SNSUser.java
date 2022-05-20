@@ -32,7 +32,6 @@ public class SNSUser {
 
     private static Company company = App.getInstance().getCompany();
 
-
     public SNSUser(String strName, int snsUserNumber, String strEmail, String strBirthDate, String strPhoneNumber,
                    String strSex, String strAddress, String strCitizenCardNumber, String strPassword) {
 

@@ -10,6 +10,8 @@ import pt.isep.lei.esoft.auth.AuthFacade;
 import pt.isep.lei.esoft.auth.domain.model.Email;
 
 
+import java.io.*;
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -19,7 +21,7 @@ import java.util.*;
 
 public class ScheduleVaccineUI implements Runnable {
 
-private final VaccinationCenter vaccinationCenter;
+    private final VaccinationCenter vaccinationCenter;
     private final Company company = App.getInstance().getCompany();
     private final AuthFacade aF = company.getAuthFacade();
     private final Scanner sc = new Scanner(System.in);
@@ -52,11 +54,15 @@ private final VaccinationCenter vaccinationCenter;
                 if (controller.validateAppointmentAccordingToAgeGroupAndTimeSinceLastDose(scheduledVaccineDto, vaccinationCenter)) {
                     printAppointmentInfo(scheduledVaccineDto, vaccinationCenter);
                     if (Utils.confirmCreation()) {
-                        if (controller.scheduleVaccine(scheduledVaccineDto, vaccinationCenter))
+                        if (controller.scheduleVaccine(scheduledVaccineDto, vaccinationCenter)) {
                             printValidAppointmentInfo(scheduledVaccineDto, vaccinationCenter);
-                        else
+                            try {
+                                printAppointmentToFile(scheduledVaccineDto, vaccinationCenter);
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        } else
                             System.out.printf("%n-----------------------------|No appointment was registered|-----------------------------%n");
-
                     } else
                         System.out.printf("%n-----------------------------|No appointment was registered|-----------------------------%n");
                 } else
@@ -65,9 +71,14 @@ private final VaccinationCenter vaccinationCenter;
                 if (controller.validateAppointment(scheduledVaccineDto, vaccinationCenter)) {
                     printAppointmentInfo(scheduledVaccineDto, vaccinationCenter);
                     if (Utils.confirmCreation()) {
-                        if (controller.scheduleVaccine(scheduledVaccineDto, vaccinationCenter))
+                        if (controller.scheduleVaccine(scheduledVaccineDto, vaccinationCenter)) {
                             printValidAppointmentInfo(scheduledVaccineDto, vaccinationCenter);
-                        else
+                            try {
+                                printAppointmentToFile(scheduledVaccineDto, vaccinationCenter);
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        } else
                             System.out.printf("%n-----------------------------|No appointment was registered|-----------------------------%n");
                     } else
                         System.out.printf("%n-----------------------------|No appointment was registered|-----------------------------%n");
@@ -307,10 +318,21 @@ private final VaccinationCenter vaccinationCenter;
     }
 
     private void printValidAppointmentInfo(ScheduledVaccineDto scheduledVaccineDto, VaccinationCenter vaccinationCenter) {
-        System.out.printf("%n----------------------%n|Scheduling completed|%n----------------------%n%nYou have an appointment to take a %s vaccine, at %s in %s, on %s.%n", scheduledVaccineDto.vaccineType, scheduledVaccineDto.date.toLocalTime(), Utils.formatDateToPrint(scheduledVaccineDto.date.toLocalDate()), vaccinationCenter);
+        System.out.printf("%n----------------------%n|Scheduling completed|%n----------------------%n%nYou have an appointment to take a %s vaccine, at %s in %s, on %s.%n%n", scheduledVaccineDto.vaccineType, scheduledVaccineDto.date.toLocalTime(), Utils.formatDateToPrint(scheduledVaccineDto.date.toLocalDate()), vaccinationCenter);
     }
 
     private void printInvalidAppointment() {
         System.out.printf("System is unable to schedule a vaccination without at least:%n- One Vaccination Center;%n- One Vaccine Type;%n- One Know System User.");
+    }
+
+    private void printAppointmentToFile(ScheduledVaccineDto scheduledVaccineDto, VaccinationCenter vaccinationCenter) throws IOException {
+        System.out.printf("Do you want to receive an SMS.txt with the appointment information?%n1 - Yes%n0 - No%n%nType your option: ");
+        int option;
+        do option = Utils.insertInt("Invalid, Type 0 or 1:"); while (option != 0 && option != 1);
+        if (option == 1) {
+            PrintWriter printWriter = new PrintWriter(Constants.PATH_SMS_MESSAGE);
+            printWriter.printf("You have an appointment to take a %s vaccine, at %s in %s, on %s.", scheduledVaccineDto.vaccineType, scheduledVaccineDto.date.toLocalTime(), Utils.formatDateToPrint(scheduledVaccineDto.date.toLocalDate()), vaccinationCenter);
+            printWriter.close();
+        }
     }
 }
