@@ -48,7 +48,6 @@ public class LoadCSVUI implements Runnable {
                     }
                 }
                 fillSNSUserDto(csvData);
-                System.out.println(controller.getSNSUserList().size());
                 //getListOfSNSUsers();
 
             } else {
@@ -90,15 +89,13 @@ public class LoadCSVUI implements Runnable {
             dto.strAddress = values[6];
             dto.strCitizenCardNumber = values[7];
             dto.strPassword = values[8];
-            System.out.println();
             controller.createSNSUser(dto);
             createCounter++;
-            System.out.println();
             if (controller.saveSNSUser(dto).equals("Not Saved because the data is duplicated")) {
                 saveCounter++;
             }
         }
-        System.out.printf("Saved %d Users out of %d",createCounter - saveCounter, createCounter);
+        System.out.printf("Saved %d Users out of %d, because %d had duplicated information.",createCounter - saveCounter, createCounter, saveCounter);
     }
 
     public void getListOfSNSUsers() {

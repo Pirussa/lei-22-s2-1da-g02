@@ -445,10 +445,8 @@ public class Company {
             }
             if (flag) {
                 snsUsers.add(createSNSUser(dto));
-                System.out.println();
                 return "Saved";
             } else {
-                System.out.println();
                 return "Not Saved because the data is duplicated";
             }
 
