@@ -21,16 +21,17 @@ public class Arrival {
         return snsNumber;
     }
 
-    @Override
-    public String toString() {
-        return "Arrival{" +
-                "snsNumber=" + snsNumber +
-                ", dateTime=" + dateTime +
-                ", vaccineType=" + vaccineType +
-                '}';
+    public LocalDateTime getDateTime() {
+        return dateTime;
     }
 
-    /** ATUALIZAR
+    @Override
+    public String toString() {
+        return "SNS Number: " + snsNumber + " | Date and Time: " + dateTime + " |  Vaccine Type: " + vaccineType;
+    }
+
+    /**
+     * ATUALIZAR
      * Check if a User has an appointment, introducing his/her SNS number
      *
      * @param snsNumber Number that identifies the SNS user
@@ -45,8 +46,15 @@ public class Arrival {
         return null;
     }
 
+    public static boolean checkDateAndTime(LocalDateTime date, LocalDateTime day, int hour) {
+        if (!Arrival.checkDate(date, day))
+            return false;
 
-    public boolean checkDate(LocalDateTime appointmentDay) {
+        return Arrival.checkTime(date, hour);
+    }
+
+
+    private static boolean checkDate(LocalDateTime appointmentDay, LocalDateTime dateTime) {
 
         if (appointmentDay.getDayOfMonth() != dateTime.getDayOfMonth())
             return false;
@@ -60,8 +68,7 @@ public class Arrival {
         return true;
     }
 
-    public boolean checkTime(LocalDateTime appointmentTime) {
-        int timeArrival = dateTime.getHour();
+    private static boolean checkTime(LocalDateTime appointmentTime, int timeArrival) {
         int appointmentHour = appointmentTime.getHour();
 
         // em vez de ser 1h maybe devia trabalhar uma SLOT DURATION

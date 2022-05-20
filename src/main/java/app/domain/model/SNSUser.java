@@ -98,7 +98,6 @@ public class SNSUser {
         return strPassword.length() == PASSWORDLENGHT;
     }
 
-
     public static boolean validateSNSUserNumber(int snsUserNumber) {
         return String.valueOf(snsUserNumber).length() == MAX_NUMBER_OF_CHARS_SNS_USER_NUMBER;
     }

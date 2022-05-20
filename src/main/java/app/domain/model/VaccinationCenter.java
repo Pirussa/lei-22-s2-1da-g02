@@ -5,6 +5,7 @@ import dto.ScheduledVaccineDto;
 
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -134,12 +135,19 @@ public class VaccinationCenter {
         return scheduledVaccineList;
     }
 
+
+    /**
+     * Gets the List of the arrivals in the Vaccination Center
+     *
+     * @return List of arrivals
+     */
     public List<Arrival> getArrivalsList() {
         return arrivalsList;
     }
 
 
     /**
+     *
      * Gets opening hour.
      *
      * @return the String with the opening hour
@@ -212,7 +220,7 @@ public class VaccinationCenter {
     }
 
     /**
-     * Validates the email, it need to have an "@" and a ".", and one valid domain.
+     * Validates the email, it needs to have an "@" and a ".", and one valid domain.
      *
      * @param email is the email of the centre
      * @return a true or a false
@@ -245,11 +253,8 @@ public class VaccinationCenter {
                 return false;
 
             int ch2 = Integer.parseInt(String.valueOf(strPhoneNumberOrFaxNumber.charAt(1)));
-            if (ch2 != FIRST_SECOND_NUMBER_PORTUGUESE_PHONE && ch2 != SECOND_SECOND_NUMBER_PORTUGUESE_PHONE &&
-                    ch2 != THIRD_SECOND_NUMBER_PORTUGUESE_PHONE && ch2 != FOURTH_SECOND_NUMBER_PORTUGUESE_PHONE) {
-                return false;
-            }
-            return true;
+            return ch2 == FIRST_SECOND_NUMBER_PORTUGUESE_PHONE || ch2 == SECOND_SECOND_NUMBER_PORTUGUESE_PHONE ||
+                    ch2 == THIRD_SECOND_NUMBER_PORTUGUESE_PHONE || ch2 == FOURTH_SECOND_NUMBER_PORTUGUESE_PHONE;
         }
         return false;
     }
@@ -403,5 +408,23 @@ public class VaccinationCenter {
 
     private boolean validateAgeGroup(SNSUser snsUser, AdministrationProcess administrationProcess) {
         return getUserAgeGroup(snsUser, administrationProcess) >= 0;
+    }
+
+    /**
+     * Register the arrival of an SNS user
+     *
+     * @param arrival           An object regarding the  arrival of a user
+     * @param vaccinationCenter The vaccination center the user is
+     */
+    public void registerArrival(Arrival arrival, VaccinationCenter vaccinationCenter) {
+        vaccinationCenter.getArrivalsList().add(arrival);
+    }
+
+    public void cleanArrivalsList() {
+        int currentHour = LocalDateTime.now().getHour();
+
+        if (currentHour == Integer.parseInt(strClosingHour))
+            for (Arrival arrival : arrivalsList)
+                arrivalsList.remove(arrival);
     }
 }

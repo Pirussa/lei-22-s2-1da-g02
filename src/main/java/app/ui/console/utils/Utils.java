@@ -1,9 +1,6 @@
 package app.ui.console.utils;
 
-import app.controller.App;
-import app.controller.CreateVaccinationCenterController;
-import app.controller.RegisterNewEmployeeController;
-import app.controller.SpecifyNewVaccineTypeController;
+import app.controller.*;
 import app.domain.model.*;
 import app.domain.shared.Constants;
 import dto.*;
@@ -26,6 +23,8 @@ import java.util.logging.Logger;
  * @author Pedro Monteiro <1211076@isep.ipp.pt>
  * @author Gustavo Jorge <1211061@isep.ipp.pt>
  * @author Guilherme Sousa <1211073@isep.ipp.pt>
+ * @author João Castro <1210816@isep.ipp.pt>
+ * @author João Leitão <12110632isep.ipp.pt>
  */
 public class Utils {
 
@@ -182,16 +181,35 @@ public class Utils {
         company.getSNSUserList().get(1).registerVaccine(takenVaccine2);
     }
 
+    private static void bootstrapArrivals() {
+        RegisterTheArrivalOfASNSUserController ctrlArrival = new RegisterTheArrivalOfASNSUserController();
+
+        Arrival firstArrival = new Arrival(149923123, company.getVaccineTypes().get(0));
+        ctrlArrival.registerArrival(firstArrival, company.getVaccinationCenters().get(0));
+
+        Arrival secondArrival = new Arrival(123456789, company.getVaccineTypes().get(1));
+        ctrlArrival.registerArrival(secondArrival, company.getVaccinationCenters().get(1));
+
+        Arrival thirdArrival = new Arrival(987654321, company.getVaccineTypes().get(0));
+        ctrlArrival.registerArrival(thirdArrival, company.getVaccinationCenters().get(0));
+
+        Arrival fourthArrival = new Arrival(321329941, company.getVaccineTypes().get(1));
+        ctrlArrival.registerArrival(fourthArrival, company.getVaccinationCenters().get(1));
+
+    }
+
     /**
      * It creates and adds everything that the App needs as soon as it runs, so it is not needed to create something prior to using one functionality
      */
     public static void bootstrap() {
+
         bootstrapVaccineTypes();
         bootstrapEmployees();
         bootstrapSnsUsers();
         bootstrapVaccinationCenters();
         bootstrapVaccines();
         bootstrapScheduledAppointments();
+        bootstrapArrivals();
 
     }
 
@@ -498,7 +516,7 @@ public class Utils {
      * @param getSNSUser            List of sns user
      * @return True if the lists are not empty
      */
-    public static boolean arrayListIsEmpty(List<VaccineType> getVaccineTypes, List<VaccinationCenter> getVaccinationCenters, List<SNSUser> getSNSUser) {
+    public static boolean arrayListIsNotEmpty(List<VaccineType> getVaccineTypes, List<VaccinationCenter> getVaccinationCenters, List<SNSUser> getSNSUser) {
         return !getSNSUser.isEmpty() && !getVaccinationCenters.isEmpty() && !getVaccineTypes.isEmpty();
     }
 

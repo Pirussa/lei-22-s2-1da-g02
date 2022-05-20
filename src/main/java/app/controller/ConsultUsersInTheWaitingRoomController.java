@@ -1,8 +1,12 @@
 package app.controller;
 
-import app.domain.model.Company;
+import app.domain.model.Arrival;
+import app.domain.model.ScheduledVaccine;
+import app.domain.model.VaccinationCenter;
+import app.ui.console.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * US005 - Consult the users in the waiting room of a Vaccination Centre.
@@ -12,9 +16,16 @@ import java.util.ArrayList;
 
 public class ConsultUsersInTheWaitingRoomController {
 
-    private Company company = App.getInstance().getCompany();
-
     public ConsultUsersInTheWaitingRoomController() {
+    }
+
+
+    public VaccinationCenter getVaccinationCenter() {
+        return Utils.selectVaccinationCenterUI();
+    }
+
+    public List<Arrival> getVaccinationCenter(VaccinationCenter vaccinationCenter) {
+        return vaccinationCenter.getArrivalsList();
     }
 
 

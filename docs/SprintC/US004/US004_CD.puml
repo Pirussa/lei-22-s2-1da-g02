@@ -1,23 +1,68 @@
 @startuml
 'https://plantuml.com/class-diagram
 
-class Company {
-+checkAppointment(int SNSNumber)
-+registerArrival(int SNSNumber)
+skinparam classAttributeIconSize 0
+
+
+class ScheduledVaccine {
+int snsNumber
+LocalDateTime date
+VaccineType vaccineType
++getSnsNumber()
++getDate()
++getVaccineType()
+}
+
+class VaccinationCenter {
+-String strID
+-String strName
+-String strPhoneNumber
+-String strEmail
+-String strFax
+-String strWebsite
+-String strOpeningHour
+-String strClosingHour
+-String strSlotDuration
+-String strVaccinesPerSlot
+-String strRoad
+-String strZipCode
+-String strLocal
+-String strCenterCoordinatorID
+-List<ScheduledVaccine> scheduledVaccineList
+-List<Arrival> arrivalsList
++getArrivalsList()
++getStrOpeningHour()
++cleanArrivalsList()
++registerArrival(Arrival arrival, VaccinationCenter vaccinationCenter)
 }
 
 
 class RegisterArrivalOfSNSUserUI
 
 class RegisterArrivalOfSNSUserController{
-+checkAppointment(int SNSNumber)
-+registerArrival(int SNSNumber)
++checkRegistration(int snsNumber, VaccinationCenter vaccinationCenter)
++getUserAppointment(int snsNumber, List<ScheduledVaccine> vaccineAppointments)
++checkDateAndTie(LocalDateTime date, LocalDateTime Day, int hour)
++registerArrival(int snsNumber, VaccinationCenter vaccinationCenter)
+}
+
+class Arrival {
+-int snsNumber
+-LocalDateTime dateTime
+-VaccineType vaccineType
++getUserAppointment(int snsNumber, List<ScheduledVaccine> vaccineAppointments)
+-checkDate(LocalDateTime appointmentDay)
+-checkTime(LocalDateTime appointmentTime)
++checkDateAndTie(LocalDateTime date, LocalDateTime Day, int hour)
++registerArrival(int snsNumber, VaccinationCenter vaccinationCenter)
 }
 
 
 left to right direction
 
-RegisterArrivalOfSNSUserController -> Company
-RegisterArrivalOfSNSUserUI - RegisterArrivalOfSNSUserController
+RegisterArrivalOfSNSUserController -up- Arrival
+RegisterArrivalOfSNSUserController -- VaccinationCenter
+RegisterArrivalOfSNSUserController -- ScheduledVaccine
+RegisterArrivalOfSNSUserUI -> RegisterArrivalOfSNSUserController
 
 @enduml

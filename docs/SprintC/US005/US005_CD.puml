@@ -1,8 +1,7 @@
 @startuml
 'https://plantuml.com/class-diagram
 
-class Company {
-}
+
 
 
 class ConsultUsersInTheWaitingRoomUI
@@ -14,6 +13,5 @@ class ConsultUsersInTheWaitingRoomController{
 left to right direction
 
 ConsultUsersInTheWaitingRoomUI .> ConsultUsersInTheWaitingRoomController
-ConsultUsersInTheWaitingRoomController .> Company
 
 @enduml
