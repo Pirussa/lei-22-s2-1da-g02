@@ -60,8 +60,8 @@ public class RegisterTheArrivalOfASNSUserController {
      * @param hour Hour of the arrival
      * @return boolean - true if day and time match
      */
-    public boolean checkDateAndTime(LocalDateTime date, LocalDateTime day, int hour) {
-        return Arrival.checkDateAndTime(date, day, hour);
+    public boolean checkDateAndTime(LocalDateTime date, LocalDateTime day, int hour, VaccinationCenter vaccinationCenter) {
+        return Arrival.checkDateAndTime(date, day, hour, vaccinationCenter);
     }
 
     /**

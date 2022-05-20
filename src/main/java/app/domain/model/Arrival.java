@@ -14,8 +14,8 @@ public class Arrival {
     /**
      * Creates and instance of the Arrival class with the following attributes
      *
-     * @param snsNumber
-     * @param vaccineType
+     * @param snsNumber Number that identifies the SNS user
+     * @param vaccineType The type of vaccine
      */
     public Arrival(int snsNumber, VaccineType vaccineType) {
         this.snsNumber = snsNumber;
@@ -75,11 +75,11 @@ public class Arrival {
      * @param hour Hour of the arrival
      * @return boolean - true if day and time match
      */
-    public static boolean checkDateAndTime(LocalDateTime date, LocalDateTime day, int hour) {
+    public static boolean checkDateAndTime(LocalDateTime date, LocalDateTime day, int hour, VaccinationCenter vaccinationCenter) {
         if (!Arrival.checkDate(date, day))
             return false;
 
-        return Arrival.checkTime(date, hour);
+        return Arrival.checkTime(date, hour, vaccinationCenter);
     }
 
 
@@ -97,10 +97,16 @@ public class Arrival {
         return true;
     }
 
-    private static boolean checkTime(LocalDateTime appointmentTime, int timeArrival) {
+    private static boolean checkTime(LocalDateTime appointmentTime, int timeArrival, VaccinationCenter vaccinationCenter) {
         int appointmentHour = appointmentTime.getHour();
 
-        // em vez de ser 1h maybe devia trabalhar uma SLOT DURATION
+        /*
+        O QUE FAZER - EM VEZ DE 1H VAMOS USAR SLOT DURATION
+        Saber os vários slot durations, mayve uma lista ou algo do género
+        Criar método para identificar a qual slot pertence o appointment
+        Verificar se o arrival está compreendido entre o slot anterior e o ínicio do dele
+            Se sim, registar
+         */
 
         return timeArrival >= appointmentHour - 1 && timeArrival <= appointmentHour;
     }
