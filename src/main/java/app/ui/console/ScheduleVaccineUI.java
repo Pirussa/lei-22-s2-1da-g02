@@ -19,11 +19,15 @@ import java.util.*;
 
 public class ScheduleVaccineUI implements Runnable {
 
-
+private final VaccinationCenter vaccinationCenter;
     private final Company company = App.getInstance().getCompany();
     private final AuthFacade aF = company.getAuthFacade();
     private final Scanner sc = new Scanner(System.in);
     private final ScheduledVaccineController controller = new ScheduledVaccineController();
+
+    public ScheduleVaccineUI(VaccinationCenter vaccinationCenter) {
+        this.vaccinationCenter = vaccinationCenter;
+    }
 
     /**
      * When the run() method calls, the code specified in the run() method is executed.
@@ -33,8 +37,6 @@ public class ScheduleVaccineUI implements Runnable {
         if (Utils.arrayListIsNotEmpty(company.getVaccineTypes(), company.getVaccinationCenters(), company.getSNSUserList())) {
             System.out.println();
             int snsNumber = introduceSnsNumberUI();
-
-            VaccinationCenter vaccinationCenter = Utils.selectVaccinationCenterUI();
 
             VaccineType vaccineType = selectVaccineTypeUI(vaccinationCenter);
             if (vaccineType == null) return;
