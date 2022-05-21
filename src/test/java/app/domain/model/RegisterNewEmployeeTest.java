@@ -12,8 +12,6 @@ class RegisterNewEmployeeTest {
 
     private static List<Employee> employees;
 
-    private Company comp = App.getInstance().getCompany();
-
     /**
      * Verifies if the register Employee method is able to create an Employee with all valid inputs.
       */

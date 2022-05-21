@@ -78,7 +78,7 @@ public class AdministrationProcess {
     }
 
     public ArrayList<ArrayList<Integer>> getTimeIntervalBetweenVaccines() {
-        return getTimeIntervalBetweenVaccines();
+        return timeIntervalBetweenVaccines;
     }
 
     public ArrayList<ArrayList<Integer>> getAgeGroups() {
