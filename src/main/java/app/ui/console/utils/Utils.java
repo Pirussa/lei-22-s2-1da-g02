@@ -682,7 +682,7 @@ public class Utils {
      */
     public static boolean validateSNSUserNumber(int snsUserNumber) {
         String strSnsUserNumber = String.valueOf(snsUserNumber);
-        return strSnsUserNumber.trim().matches("^[0-9]*$") && strSnsUserNumber.length() == MAXNUMBEROFCHARSSNSUSERNUMBER && snsUserNumber % 1 == 0;
+        return strSnsUserNumber.trim().matches("^[0-9]*$") && strSnsUserNumber.length() == MAXNUMBEROFCHARSSNSUSERNUMBER;
     }
 
     /**

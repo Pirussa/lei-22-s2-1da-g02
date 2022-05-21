@@ -3,6 +3,9 @@ package app.domain.shared;
 
 import app.domain.model.Company;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Paulo Maio <pam@isep.ipp.pt>
@@ -48,4 +51,7 @@ public class Constants {
     public static final int INVALID_VALUE = -1;
 
     public static final int NEW_EMPLOYEE = 1;
+
+    public static final String[] options = {"Yes", "No"};
+
     }
