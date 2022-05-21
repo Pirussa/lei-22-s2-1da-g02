@@ -6,12 +6,14 @@
 
 class ConsultUsersInTheWaitingRoomUI
 
-class ConsultUsersInTheWaitingRoomController{
-}
+class ConsultUsersInTheWaitingRoomController
+
+class Arrivals
 
 
 left to right direction
 
 ConsultUsersInTheWaitingRoomUI .> ConsultUsersInTheWaitingRoomController
+ConsultUsersInTheWaitingRoomController .> Arrivals
 
 @enduml

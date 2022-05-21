@@ -24,26 +24,34 @@
 
 > **Answer:** _Nurses and receptionists can work in any vaccination center._
  
-> **Question** What does consulting constitute in this context? Does it refer only to seeing who is present and deciding who gets the vaccine or is checking the user info to administer the vaccine, registering the process, and sending it to the recovery room also part of this US?
+> **Question:** What does consulting constitute in this context? Does it refer only to seeing who is present and deciding who gets the vaccine or is checking the user info to administer the vaccine, registering the process, and sending it to the recovery room also part of this US?
 
-> **Answer** _The goal is to check the list of users that are waiting and ready to take the vaccine._
+> **Answer:** _The goal is to check the list of users that are waiting and ready to take the vaccine._
  
-> **Question** Do we need to know if the nurse have to choose the vaccination centre before executing the list or if that information comes from the employee file?
+> **Question:** Do we need to know if the nurse have to choose the vaccination centre before executing the list or if that information comes from the employee file?
  
-> **Answer** _When the nurse starts to use the application, firstly, the nurse should select the vaccination center where she his working. The nurse wants to check the list of SNS users that are waiting in the vaccination center where she his working._
+> **Answer:** _When the nurse starts to use the application, firstly, the nurse should select the vaccination center where she his working. The nurse wants to check the list of SNS users that are waiting in the vaccination center where she his working._
   
-> **Question** Do we need to know what is the name of the attribute that defines that the user has arrived? In the last sprint we have created the “Status” attribute, can we continue using it?
+> **Question:** Do we need to know what is the name of the attribute that defines that the user has arrived? In the last sprint we have created the “Status” attribute, can we continue using it?
  
-> **Answer** _This is not a question for the client._
+> **Answer:** _This is not a question for the client._
  
-> **Question** Which are the attributes of the waiting room?
+> **Question:** Which are the attributes of the waiting room?
 
-> **Answer** _The waiting room will not be registered or defined in the system. The waiting room of each vaccination center has the capacity to receive all users who take the vaccine on given slot._
+> **Answer:** _The waiting room will not be registered or defined in the system. The waiting room of each vaccination center has the capacity to receive all users who take the vaccine on given slot._
+
+> **Question:** What information about the Users (name, SNS number, etc) should the system display when listing them?
+
+> **Answer:** _Name, Sex, Birth Date, SNS User Number and Phone Number._
+
+> **Question:** Regarding US05, the listing is supposed to be for the day itself or for a specific day?
+ 
+> **Answer:**  The list should show the users in the waiting room of a vaccination center.
 
 ### 1.3. Acceptance Criteria
 
 
->* **AC1:** SNS Users' list should be presented by order of arrival.
+* **AC1:** SNS Users' list should be presented by order of arrival
 
 
 ### 1.4. Found out Dependencies
@@ -96,13 +104,13 @@
 |:-------------  |:--------------------- |:------------|:---------------------------- |
 | Step 1  		 |	... interacting with the actor?	 |       ConsultUsersInTheWaitingRoomUI     |    Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. | Step 2  		 |							 |             |                              |
 | |... coordinating the US? | ConsultUsersInTheWaitingRoomController| **Controller** |
-| Step 2  		 |		... requesting the list of users in the waiting room					 |   Company          |      **Creator**         |
+| Step 2  		 |		... requesting the list of users in the waiting room					 |   Arrivals          |      **Creator**         |
 | Step 3  		 |		... presenting the results  |  ConsultUsersInTheWaitingRoomUI          |         IE: is responsible for user interactions.           |
 ### Systematization ##
 
 According to the taken rationale, the conceptual classes promoted to software classes are: 
 
- * Company
+ * Arrivals
 
 Other software classes (i.e. Pure Fabrication) identified: 
 

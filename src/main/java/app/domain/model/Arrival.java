@@ -3,6 +3,11 @@ package app.domain.model;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * @author Pedro Monteiro <1211076@isep.ipp.pt>
+ * @author João Leitão <1211063@isep.ipp.pt>
+ */
+
 public class Arrival {
 
     private int snsNumber;
@@ -14,7 +19,7 @@ public class Arrival {
     /**
      * Creates and instance of the Arrival class with the following attributes
      *
-     * @param snsNumber Number that identifies the SNS user
+     * @param snsNumber   Number that identifies the SNS user
      * @param vaccineType The type of vaccine
      */
     public Arrival(int snsNumber, VaccineType vaccineType) {
@@ -48,7 +53,7 @@ public class Arrival {
      */
     @Override
     public String toString() {
-        return "SNS Number: " + snsNumber + " | Day: " + dateTime.getDayOfMonth() + "/" + dateTime.getMonth() + "/" + dateTime.getYear() + " , at " + dateTime.getHour()  + ":" + dateTime.getMinute() + " |  Vaccine Type: " + vaccineType;
+        return "SNS Number: " + snsNumber + " | Day: " + dateTime.getDayOfMonth() + "/" + dateTime.getMonth() + "/" + dateTime.getYear() + " , at " + dateTime.getHour() + ":" + dateTime.getMinute() + " |  Vaccine Type: " + vaccineType;
     }
 
     /**
@@ -71,7 +76,7 @@ public class Arrival {
      * Checks if the user is on the vaccination center on the right day and time
      *
      * @param date Date of the appointment
-     * @param day Day of the arrival
+     * @param day  Day of the arrival
      * @param hour Hour of the arrival
      * @return boolean - true if day and time match
      */
@@ -114,7 +119,7 @@ public class Arrival {
     /**
      * Checks if a user has already been registered
      *
-     * @param snsNumber The number that identifies an SNS user
+     * @param snsNumber                     The number that identifies an SNS user
      * @param vaccinationCenterReceptionist The vaccination center where the receptionist is located
      * @return boolean - true if the user is already registered
      */

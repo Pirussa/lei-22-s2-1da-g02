@@ -18,6 +18,11 @@ public class ConsultUsersInTheWaitingRoomUI implements Runnable {
 
     private ConsultUsersInTheWaitingRoomController ctrl = new ConsultUsersInTheWaitingRoomController();
 
+
+    /**
+     * Initializes the user interface.
+     */
+
     @Override
     public void run() {
         System.out.printf("%n------ Consult the sns users in the waiting room of a vaccination center ------%n");
@@ -30,7 +35,6 @@ public class ConsultUsersInTheWaitingRoomUI implements Runnable {
                 System.out.println(arrival);
         else
             System.out.println("No user has arrived yet.");
-
     }
 
 }
