@@ -1,28 +1,18 @@
- @startuml
+  @startuml
 
 hide methods
 left to right direction
 skinparam classAttributeIconSize 0
 
 
-class Administrator {
-
-}
-
-class Company{}
-
-class Vaccine{
-    -name
-    -id
-    -brand
-}
-
-class AdministrationProcess {
-    -ageLimits
-    -numberOfDoses
-    -vaccineDosage
-    -timeIntervalBetweenVaccines
-
+class Receptionist {
+-ID
+-Name
+-phoneNumber
+-email
+-address
+-citizenCardNumber
+-Password
 }
 
 class VaccineType{
@@ -31,21 +21,17 @@ class VaccineType{
 -vaccineTechnology
 }
 
-class ApplicationUser {
-    -name
-    -email
-    -password
-    -role
+
+class VaccineAppointment {
+-snsUserNumber
+-date
 }
 
-Administrator "1" -- "*" Vaccine: specifies new >
-Administrator "1" -- "*" AdministrationProcess: specifies  >
-Administrator "1" -- "*" VaccineType: specifies  >
+Receptionist "1" --> "*" VaccineAppointment: schedules >
 
-Vaccine "1" -- "1" AdministrationProcess: has an >
-Vaccine "1" -- "1" VaccineType: has an >
-ApplicationUser  <|-- Administrator
+VaccineAppointment "*" --> "1" VaccineType: has one  >
 
-Company "1" --- "*" Vaccine : storages >
+Company "1" --- "*" VaccineType : storages >
+
 
 @enduml
