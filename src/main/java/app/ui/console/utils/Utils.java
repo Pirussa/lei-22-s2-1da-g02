@@ -144,19 +144,19 @@ public class Utils {
     private static void bootstrapSnsUsers() {
         AuthFacade aF = company.getAuthFacade();
 
-        SNSUserDto dto = new SNSUserDto("User Default", 100000000, "u0@gmail.com", "01/01/1998", "915604428", "Male", "Default / 4000-000 / Default", "14698413 7 ZY7", "AAA00aa");
+        SNSUserDto dto = new SNSUserDto("User Default", 100000000, "u0@gmail.com", "01/01/1998", "915604428", "Male", "Default # 4000-000 # Default", "14698413 7 ZY7", "AAA00aa");
         company.saveSNSUser(dto);
         company.getAuthFacade().addUserWithRole("UserDefault", "u@gmail.com", "123", Constants.ROLE_SNS_USER);
         //---------------------------------------------------------------------------------------------------------------------------------------------------
-        SNSUserDto dto1 = new SNSUserDto("User Default1", 200000000, "u1@gmail.com", "01/01/2003", "915604429", "Male", "Default / 4000-001 / Default", "16068893 0 ZX7", "AAA11aa");
+        SNSUserDto dto1 = new SNSUserDto("User Default1", 200000000, "u1@gmail.com", "01/01/2003", "915604429", "Male", "Default # 4000-001 # Default", "16068893 0 ZX7", "AAA11aa");
         company.saveSNSUser(dto1);
         company.getAuthFacade().addUserWithRole("UserDefault1", "u1@gmail.com", "123", Constants.ROLE_SNS_USER);
         //---------------------------------------------------------------------------------------------------------------------------------------------------
-        SNSUserDto dto2 = new SNSUserDto("User Default2", 300000000, "u2@gmail.com", "02/02/2000", "915604430", "Male", "Default / 4000-002 / Default", "35906158 3 ZZ5", "AAA22aa");
+        SNSUserDto dto2 = new SNSUserDto("User Default2", 300000000, "u2@gmail.com", "02/02/2000", "915604430", "Male", "Default # 4000-002 # Default", "35906158 3 ZZ5", "AAA22aa");
         company.saveSNSUser(dto2);
         aF.addUserWithRole("User Default2", "u2@gmail.com", "123", Constants.ROLE_SNS_USER);
         //---------------------------------------------------------------------------------------------------------------------------------------------------
-        SNSUserDto dto3 = new SNSUserDto("User Default3", 400000000, "u3@gmail.com", "03/03/2000", "915604431", "Male", "Default / 4000-003 / Default", "35906158 3 ZZ5", "AAA33aa");
+        SNSUserDto dto3 = new SNSUserDto("User Default3", 400000000, "u3@gmail.com", "03/03/2000", "915604431", "Male", "Default # 4000-003 # Default", "35906158 3 ZZ5", "AAA33aa");
         company.saveSNSUser(dto3);
         aF.addUserWithRole("User Default3", "u3@gmail.com", "123", Constants.ROLE_SNS_USER);
     }
@@ -188,7 +188,7 @@ public class Utils {
     }
 
     private static void bootstrapArrivals() {
-        RegisterTheArrivalOfASNSUserController ctrlArrival = new RegisterTheArrivalOfASNSUserController();
+        RegisterTheArrivalOfAnSnsUserController ctrlArrival = new RegisterTheArrivalOfAnSnsUserController();
 
         Arrival firstArrival = new Arrival(149923123, company.getVaccineTypes().get(0));
         ctrlArrival.registerArrival(firstArrival, company.getVaccinationCenters().get(0));

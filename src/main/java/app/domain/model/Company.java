@@ -60,11 +60,6 @@ public class Company {
     private ArrayList<Employee> centreCoordinatorList = new ArrayList<>();
 
 
-    /**
-     * List that stores the Arrivals of the SNS users (MAYBE DAR STORE APENAS AO SNS NUMBER ? )
-     */
-    private List<Integer> arrivals = new ArrayList<>();
-
     public Company(String designation) {
         if (StringUtils.isBlank(designation))
             throw new IllegalArgumentException("Designation cannot be blank.");

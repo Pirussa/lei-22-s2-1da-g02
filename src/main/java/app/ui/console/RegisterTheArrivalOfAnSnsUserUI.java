@@ -1,6 +1,6 @@
 package app.ui.console;
 
-import app.controller.RegisterTheArrivalOfASNSUserController;
+import app.controller.RegisterTheArrivalOfAnSnsUserController;
 import app.domain.model.Arrival;
 import app.domain.model.SNSUser;
 import app.domain.model.ScheduledVaccine;
@@ -9,19 +9,16 @@ import app.ui.console.utils.Utils;
 import java.util.List;
 import java.util.Objects;
 
-public class RegisterTheArrivalOfASNSUserUI implements Runnable {
-    private final VaccinationCenter vaccinationCenterReceptionist;
+public class RegisterTheArrivalOfAnSnsUserUI implements Runnable {
 
-    public RegisterTheArrivalOfASNSUserUI(VaccinationCenter vaccinationCenterReceptionist) {
-        this.vaccinationCenterReceptionist = vaccinationCenterReceptionist;
-    }
 
-    private RegisterTheArrivalOfASNSUserController ctrl = new RegisterTheArrivalOfASNSUserController();
+    private RegisterTheArrivalOfAnSnsUserController ctrl = new RegisterTheArrivalOfAnSnsUserController();
 
     @Override
     public void run() {
         System.out.printf("%n------Register the Arrival of an SNS user------%n");
 
+        VaccinationCenter vaccinationCenterReceptionist  = Utils.selectVaccinationCenterUI();
         vaccinationCenterReceptionist.cleanArrivalsList();
         List<ScheduledVaccine> scheduleVaccinesOfTheVaccinationCenter = ctrl.getScheduledVaccineList(vaccinationCenterReceptionist);
 
@@ -38,6 +35,7 @@ public class RegisterTheArrivalOfASNSUserUI implements Runnable {
 
         if(checkRequirementsForRegistration(snsNumber, scheduleVaccinesOfTheVaccinationCenter, vaccinationCenterReceptionist, vaccinationCenterSNSUser)) {
 
+            System.out.printf("%nThe user meets all the requirements to be registered. Do you confirm this arrival?%n%n");
             System.out.println("1. Yes");
             System.out.println("2. No");
             if(Utils.readIntegerFromConsole("Insert your option: ") == 1) {
@@ -86,7 +84,6 @@ public class RegisterTheArrivalOfASNSUserUI implements Runnable {
             return false;
         }
 
-        System.out.printf("%nThe user meets all the requirements to be registered. Do you confirm this arrival?%n%n");
         return true;
     }
 }

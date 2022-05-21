@@ -9,10 +9,9 @@ import java.util.List;
 public class SnsUserUI implements Runnable {
     @Override
     public void run() {
-        VaccinationCenter vaccinationCenter = Utils.selectVaccinationCenterUI();
 
         List<MenuItem> options = new ArrayList<>();
-        options.add(new MenuItem("Schedule a vaccine.", new ScheduleVaccineUI(vaccinationCenter)));
+        options.add(new MenuItem("Schedule a vaccine.", new ScheduleVaccineUI()));
 
 
 

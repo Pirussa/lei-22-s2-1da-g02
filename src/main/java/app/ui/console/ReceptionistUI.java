@@ -11,11 +11,10 @@ public class ReceptionistUI implements Runnable {
 
     @Override
     public void run() {
-        VaccinationCenter vaccinationCenter  = Utils.selectVaccinationCenterUI();
         List<MenuItem> options = new ArrayList<>();
 
-        options.add(new MenuItem("Schedule a vaccination.", new ScheduleVaccineUI(vaccinationCenter)));
-        options.add(new MenuItem("Register the arrival of a SNS user to take the vaccine.", new RegisterTheArrivalOfASNSUserUI(vaccinationCenter)));
+        options.add(new MenuItem("Schedule a vaccination.", new ScheduleVaccineUI()));
+        options.add(new MenuItem("Register the arrival of a SNS user to take the vaccine.", new RegisterTheArrivalOfAnSnsUserUI()));
 
         int option = 0;
         do {

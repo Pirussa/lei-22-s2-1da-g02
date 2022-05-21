@@ -1,14 +1,13 @@
 package app.controller;
 
 import app.domain.model.*;
-import app.ui.console.utils.Utils;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class RegisterTheArrivalOfASNSUserController {
+public class RegisterTheArrivalOfAnSnsUserController {
 
-    public RegisterTheArrivalOfASNSUserController() {}
+    public RegisterTheArrivalOfAnSnsUserController() {}
 
     /**
      * Gets the list that contains the appointments of a certain vaccination center
