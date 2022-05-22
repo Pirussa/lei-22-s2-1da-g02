@@ -514,17 +514,6 @@ public class Utils {
         return v;
     }
 
-    /**
-     * Check if a set of Array Lists is empty.
-     *
-     * @param getVaccineTypes       List of vaccine types
-     * @param getVaccinationCenters List of vaccination centers
-     * @param getSNSUser            List of sns user
-     * @return True if the lists are not empty
-     */
-    public static boolean arrayListIsNotEmpty(List<VaccineType> getVaccineTypes, List<VaccinationCenter> getVaccinationCenters, List<SNSUser> getSNSUser) {
-        return !getSNSUser.isEmpty() && !getVaccinationCenters.isEmpty() && !getVaccineTypes.isEmpty();
-    }
 
     /**
      * Checks if a certain slot has availability for a certain day.

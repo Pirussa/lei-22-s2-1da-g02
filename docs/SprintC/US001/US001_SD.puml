@@ -80,7 +80,7 @@ CTRL -> VC : validateAppointment(scheduleVaccineDto)
 activate VC
 VC ---> CTRL : result
 deactivate VC
-CTRL -> M : scheduledVaccine = dtoToDomain(scheduleVaccineDto)
+CTRL -> M : scheduledVaccine = createScheduledVaccine(scheduleVaccineDto)
 activate M
 note over M, DTO
 Several steps to extract data from the DTO

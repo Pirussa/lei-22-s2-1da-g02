@@ -147,7 +147,6 @@ public class VaccinationCenter {
 
 
     /**
-     *
      * Gets opening hour.
      *
      * @return the String with the opening hour
@@ -338,6 +337,12 @@ public class VaccinationCenter {
 
     }
 
+    /**
+     * Validates appointment.
+     *
+     * @param scheduledVaccineDto the scheduled vaccine dto
+     * @return true if appointment is validated
+     */
     public boolean validateAppointment(ScheduledVaccineDto scheduledVaccineDto) {
         List<ScheduledVaccine> appointmentsList = getScheduledVaccineList();
 
@@ -351,12 +356,27 @@ public class VaccinationCenter {
         return centerHasAvailability(appointmentsList, scheduledVaccineDto, this);
     }
 
+
+    /**
+     * Checks center availability.
+     *
+     * @param scheduledVaccineDto the scheduled vaccine dto
+     * @return true if the center has availability
+     */
     private boolean centerHasAvailability(List<ScheduledVaccine> appointmentsList, ScheduledVaccineDto scheduledVaccineDto, VaccinationCenter center) {
 
         return Utils.slotHasAvailability(Integer.parseInt(center.getStrVaccinesPerSlot()), scheduledVaccineDto.date.toLocalDate(), scheduledVaccineDto.date.toLocalTime(), appointmentsList);
 
     }
 
+
+    /**
+     * Validate appointment according to age group and time since last dose.
+     *
+     * @param dto     the dto
+     * @param company the company
+     * @return true if the appointment is validated according to age group and time since last dose.
+     */
     public boolean validateAppointmentAccordingToAgeGroupAndTimeSinceLastDose(ScheduledVaccineDto dto, Company company) {
         SNSUser snsUser = company.getSNSUserList().get(SNSUser.getUserIndexInUsersList(dto.snsNumber));
 
@@ -372,6 +392,14 @@ public class VaccinationCenter {
         return true;
     }
 
+    /**
+     * Validate appointment according to admin process.
+     *
+     * @param snsUser      the sns user
+     * @param dto          the dto
+     * @param takenVaccine the taken vaccine
+     * @return if the appointment is validated according to the admin process
+     */
     public boolean validateAppointmentAccordingToAdminProcess(SNSUser snsUser, ScheduledVaccineDto dto, TakenVaccine takenVaccine) {
         int days = (int) Duration.between(dto.date, takenVaccine.getDateTime()).toDays();
 
@@ -382,14 +410,22 @@ public class VaccinationCenter {
             return false;
         }
 
-        int ageGroupColumn = getUserAgeGroup(snsUser, administrationProcess);
+        int ageGroupColumn = getUserAgeGroupIndex(snsUser, administrationProcess);
         int timeIntervalBetweenUserDose = timeIntervalBetweenDoses.get(doseNumber).get(ageGroupColumn);
         if (doseNumber == administrationProcess.getNumberOfDoses().get(ageGroupColumn)) return false;
 
         return timeIntervalBetweenUserDose <= days;
     }
 
-    private int getUserAgeGroup(SNSUser snsUser, AdministrationProcess administrationProcess) {
+
+    /**
+     * Validate appointment according to admin process.
+     *
+     * @param snsUser               the sns user
+     * @param administrationProcess the administration process
+     * @return user age group index
+     */
+    private int getUserAgeGroupIndex(SNSUser snsUser, AdministrationProcess administrationProcess) {
 
         String[] birthDateComponents = snsUser.getStrBirthDate().split("/");
         LocalDate birthDate = LocalDate.of(Integer.parseInt(birthDateComponents[2]), Integer.parseInt(birthDateComponents[1]), Integer.parseInt(birthDateComponents[0]));
@@ -406,14 +442,21 @@ public class VaccinationCenter {
 
     }
 
+    /**
+     * Validates user age group.
+     *
+     * @param snsUser               the sns user
+     * @param administrationProcess administration process
+     * @return true if the user age group is validated
+     */
     private boolean validateAgeGroup(SNSUser snsUser, AdministrationProcess administrationProcess) {
-        return getUserAgeGroup(snsUser, administrationProcess) >= 0;
+        return getUserAgeGroupIndex(snsUser, administrationProcess) >= 0;
     }
 
     /**
      * Register the arrival of an SNS user
      *
-     * @param arrival An object regarding the  arrival of a user
+     * @param arrival           An object regarding the  arrival of a user
      * @param vaccinationCenter The vaccination center the user is
      */
     public void registerArrival(Arrival arrival, VaccinationCenter vaccinationCenter) {
