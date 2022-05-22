@@ -18,7 +18,21 @@ As a **receptionist**, I want to schedule a **vaccination**.
 
 > **Question:** Receptionists have the ability to schedule an appointment in different vaccination centres or only on their own?
 >
-> **Answer** ...
+> **Answer** The receptionist has the ability to schedule the vaccine in any vaccination center. The receptionist should ask the SNS user to indicate/select the preferred vaccination center.
+
+> **Question:** How should we verify that a vaccination center is already registered in the system? Which attribute should the system use to verify this (ex. name, phone number)?
+>
+> **Answer** To schedule a vaccination, a user (US1) or a receptionist (US2) should select a vaccination center from a list.
+
+> **Question:** When a receptionist schedules a vaccination for an SNS user, should they be presented with a list of available vaccines (brands, that meet acceptance criteria) from which to choose?
+Or should the application suggest only one?
+>
+> **Answer** The receptionist do not select the vaccine brand. When the user is at the vaccination center to take the vaccine, the nurse selects the vaccine. 
+In Sprint D we will introduce new USs where the nurse records the administration of a vaccine to a SNS user.
+
+> **Question:** We are unsure if it's in this user stories that's asked to implement the "send a SMS message with information about the scheduled appointment" found on the Project Description available in moodle. Could you clarify?
+>
+> **Answer** [...] A file named SMS.txt should be used to receive/record the SMS messages. We will not use a real word service to send SMSs.
 
 ### 1.3. Acceptance Criteria
 
@@ -43,11 +57,13 @@ There is also a dependency related to both US003 and US014, because to schedule 
     - SNS Number;
 
 * Selected data:
-    - Date and Time;
+    - Vaccination Center;
     - Type of vaccine to be administered;
+    - Date and Time;
 
 **Output Data:**
 
+* A list with all the available vaccination centers.
 * A list with all the available dates and times.
 * (In)Success of the operation (confirm that the vaccination is scheduled).
 * inform the user that (s)he should be at the vaccination center (the one where (s)he scheduled the vaccine with the receptionist) at the scheduled day and time.
@@ -62,7 +78,7 @@ There is also a dependency related to both US003 and US014, because to schedule 
 
 ### 2.1. Relevant Domain Model Excerpt
 
-![US013_DM](US013_DM.svg)
+![US002_DM](US002_DM.svg)
 
 ### 2.2. Other Remarks
 
@@ -103,12 +119,11 @@ Other software classes (i.e. Pure Fabrication) identified:
 
 ## 3.2. Sequence Diagram (SD)
 
-![US013-SD](US013_SD.svg)
+![US002-SD](US002_SD.svg)
 
 ## 3.3. Class Diagram (CD)
 
 *In this section, it is suggested to present an UML static view representing the main domain related software classes
 that are involved in fulfilling the requirement as well as and their relations, attributes and methods.*
 
-![US013_CD](US013_CD.svg)
-
+![US002_CD](US002_CD.svg)
