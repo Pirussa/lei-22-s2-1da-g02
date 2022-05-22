@@ -326,13 +326,12 @@ public class ScheduleVaccineUI implements Runnable {
         System.out.printf("System is unable to schedule a vaccination without at least:%n- One Vaccination Center;%n- One Vaccine Type;%n- One Know System User.");
     }
 
-    private void printAppointmentToFile(ScheduledVaccineDto scheduledVaccineDto, VaccinationCenter
-            vaccinationCenter) throws IOException {
-        System.out.printf("---------%n|SMS.txt|%n---------%n%n");
-        int options = Utils.selectFromList(List.of(Constants.options), "Do you want to create an SMS.txt with the appointment information");
+    private void printAppointmentToFile(ScheduledVaccineDto scheduledVaccineDto, VaccinationCenter vaccinationCenter) throws IOException {
+        System.out.printf("-----%n|SMS|%n-----%n%n");
+        int options = Utils.selectFromList(List.of(Constants.options), "Do you want to receive an SMS with the appointment information");
         if (options == 0) {
             PrintWriter printWriter = new PrintWriter(Constants.PATH_SMS_MESSAGE);
-            printWriter.printf("You have an appointment to take a %s vaccine, at %s in %s, on %s.", scheduledVaccineDto.vaccineType, scheduledVaccineDto.date.toLocalTime(), Utils.formatDateToPrint(scheduledVaccineDto.date.toLocalDate()), vaccinationCenter);
+            printWriter.printf("Received at: " + Utils.formatDateToPrint(LocalDate.now()) + "%n%nYou have an appointment to take a %s vaccine, at %s in %s, on %s.", scheduledVaccineDto.vaccineType, scheduledVaccineDto.date.toLocalTime(), Utils.formatDateToPrint(scheduledVaccineDto.date.toLocalDate()), vaccinationCenter);
             printWriter.close();
         }
     }
