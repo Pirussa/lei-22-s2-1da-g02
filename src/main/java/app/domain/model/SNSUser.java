@@ -16,13 +16,15 @@ import java.util.Objects;
 
 public class SNSUser {
 
+
+
     private String strName;
-    private int snsUserNumber;
-    private String strEmail;
-    private String strBirthDate;
-    private String strPhoneNumber;
     private String strSex;
+    private String strBirthDate;
     private String strAddress;
+    private String strPhoneNumber;
+    private String strEmail;
+    private int snsUserNumber;
     private String strCitizenCardNumber;
     private String strPassword;
     private List<TakenVaccine> takenVaccines = new ArrayList<>();
@@ -32,18 +34,18 @@ public class SNSUser {
 
     private static Company company = App.getInstance().getCompany();
 
-    public SNSUser(String strName, int snsUserNumber, String strEmail, String strBirthDate, String strPhoneNumber,
-                   String strSex, String strAddress, String strCitizenCardNumber, String strPassword) {
+    public SNSUser(String strName, String strSex, String strBirthDate, String strAddress, String strPhoneNumber,
+                   String strEmail, int snsUserNumber, String strCitizenCardNumber, String strPassword) {
 
         this.strName = strName;
-        this.snsUserNumber = snsUserNumber;
-        this.strEmail = strEmail;
-        this.strBirthDate = strBirthDate;
-        this.strPhoneNumber = strPhoneNumber;
         this.strSex = strSex;
+        this.strBirthDate =strBirthDate;
         this.strAddress = strAddress;
-        this.strCitizenCardNumber = strCitizenCardNumber;
-        this.strPassword = strPassword;
+        this.strPhoneNumber=strPhoneNumber;
+        this.strEmail=strEmail;
+        this.snsUserNumber=snsUserNumber;
+        this.strCitizenCardNumber=strCitizenCardNumber;
+        this.strPassword=strPassword;
 
         try {
             if (!validateSNSUser()) {
@@ -276,14 +278,14 @@ public class SNSUser {
     @Override
     public String toString() {
         return "Name: " + strName + '\n' +
-                "SNS User Number: " + snsUserNumber + '\n' +
-                "Email: " + strEmail + '\n' +
+                "Sex: " + strSex + '\n' +
                 "Birth Date: " + strBirthDate + '\n' +
+                "Address of the SNS User: " + strAddress + '\n' +
                 "Phone Number: " + strPhoneNumber + '\n' +
-                "Sex: " + strSex + '\n';// +
-        //    "Address of the SNS User: " + strAddress + '\n' +
-        //    "Citizen Card Number of the SNS User: " + strCitizenCardNumber + '\n' +
-        //  "Password of the SNS User: " + strPassword;
+                "Email: " + strEmail + '\n' +
+                "SNS User Number: " + snsUserNumber + '\n' +
+                "Citizen Card Number of the SNS User: " + strCitizenCardNumber + '\n' +
+                "Password of the SNS User: " + strPassword;
     }
 
     public void registerVaccine(TakenVaccine takenVaccine) {

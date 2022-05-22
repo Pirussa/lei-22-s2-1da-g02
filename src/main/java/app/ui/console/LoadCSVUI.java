@@ -66,10 +66,10 @@ public class LoadCSVUI implements Runnable {
     public boolean validateCSVData(String[] values) throws IOException {
 
         int MAXNUMBEROFCHARSSNSUSERNUMBER = 9;
-        return !values[0].isEmpty() && !values[1].isEmpty() && values[1].trim().matches("^[0-9]*$") && values[1].length() == MAXNUMBEROFCHARSSNSUSERNUMBER
-                && !values[2].isEmpty() && Utils.validateEmail(values[2]) && !values[3].isEmpty() && Utils.validateBirthDate(values[3]) &&
-                !values[4].isEmpty() && Utils.validatePhoneNumber(values[4]) && Utils.validateSex(values[5]) && !values[6].isEmpty() && SNSUser.validateAddress(values[6])
-                && !values[7].isEmpty() && Utils.validateCitizenCardNumber(values[7]);
+        return !values[0].isEmpty() && Utils.validateSex(values[1]) && !values[2].isEmpty() && Utils.validateBirthDate(values[2]) &&
+                !values[3].isEmpty() && SNSUser.validateAddress(values[3]) && !values[4].isEmpty() && Utils.validatePhoneNumber(values[4]) &&
+                !values[5].isEmpty() && Utils.validateEmail(values[5]) && values[6].trim().matches("^[0-9]*$") && values[6].length() == MAXNUMBEROFCHARSSNSUSERNUMBER &&
+                !values[7].isEmpty() && Utils.validateCitizenCardNumber(values[7]);
     }
 
     public void fillSNSUserDto(ArrayList<String> csvData) {
@@ -81,12 +81,12 @@ public class LoadCSVUI implements Runnable {
             SNSUserDto dto = new SNSUserDto();
             values = csvData.get(i).split("_");
             dto.strName = values[0];
-            dto.snsUserNumber = Integer.parseInt(values[1]);
-            dto.strEmail = values[2];
-            dto.strBirthDate = values[3];
+            dto.strSex = values[1];
+            dto.strBirthDate = values[2];
+            dto.strAddress = values[3];
             dto.strPhoneNumber = values[4];
-            dto.strSex = values[5];
-            dto.strAddress = values[6];
+            dto.strEmail = values[5];
+            dto.snsUserNumber = Integer.parseInt(values[6]);
             dto.strCitizenCardNumber = values[7];
             dto.strPassword = values[8];
             controller.createSNSUser(dto);

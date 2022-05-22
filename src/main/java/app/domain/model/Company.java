@@ -422,8 +422,8 @@ public class Company {
     }
 
     public SNSUser createSNSUser(SNSUserDto dto) {
-        return new SNSUser(dto.strName, dto.snsUserNumber, dto.strEmail, dto.strBirthDate, dto.strPhoneNumber,
-                dto.strSex, dto.strAddress, dto.strCitizenCardNumber, dto.strPassword);
+        return new SNSUser(dto.strName, dto.strSex, dto.strBirthDate, dto.strAddress, dto.strPhoneNumber,
+                dto.strEmail, dto.snsUserNumber, dto.strCitizenCardNumber, dto.strPassword);
     }
 
     public String saveSNSUser(SNSUserDto dto) {
