@@ -190,16 +190,16 @@ public class Utils {
     private static void bootstrapArrivals() {
         RegisterTheArrivalOfAnSnsUserController ctrlArrival = new RegisterTheArrivalOfAnSnsUserController();
 
-        Arrival firstArrival = new Arrival(149923123, company.getVaccineTypes().get(0));
+        Arrival firstArrival = new Arrival(100000000, company.getVaccineTypes().get(0));
         ctrlArrival.registerArrival(firstArrival, company.getVaccinationCenters().get(0));
 
-        Arrival secondArrival = new Arrival(123456789, company.getVaccineTypes().get(1));
+        Arrival secondArrival = new Arrival(200000000, company.getVaccineTypes().get(1));
         ctrlArrival.registerArrival(secondArrival, company.getVaccinationCenters().get(0));
 
-        Arrival thirdArrival = new Arrival(987654321, company.getVaccineTypes().get(0));
+        Arrival thirdArrival = new Arrival(300000000, company.getVaccineTypes().get(0));
         ctrlArrival.registerArrival(thirdArrival, company.getVaccinationCenters().get(0));
 
-        Arrival fourthArrival = new Arrival(321329941, company.getVaccineTypes().get(1));
+        Arrival fourthArrival = new Arrival(400000000, company.getVaccineTypes().get(1));
         ctrlArrival.registerArrival(fourthArrival, company.getVaccinationCenters().get(0));
 
     }

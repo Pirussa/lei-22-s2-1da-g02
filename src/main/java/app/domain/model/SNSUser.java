@@ -275,15 +275,15 @@ public class SNSUser {
 
     @Override
     public String toString() {
-        return "Name of the SNS User: " + strName + '\n' +
-                "SNS User Number of the SNS User: " + snsUserNumber + '\n' +
-                "Email of the SNS User: " + strEmail + '\n' +
-                "Birth Date of the SNS User: " + strBirthDate + '\n' +
-                "Phone Number of the SNS User: " + strPhoneNumber + '\n' +
-                "Sex of the SNS User: " + strSex + '\n' +
-                "Address of the SNS User: " + strAddress + '\n' +
-                "Citizen Card Number of the SNS User: " + strCitizenCardNumber + '\n' +
-                "Password of the SNS User: " + strPassword;
+        return "Name: " + strName + '\n' +
+                "SNS User Number: " + snsUserNumber + '\n' +
+                "Email: " + strEmail + '\n' +
+                "Birth Date: " + strBirthDate + '\n' +
+                "Phone Number: " + strPhoneNumber + '\n' +
+                "Sex: " + strSex + '\n';// +
+        //    "Address of the SNS User: " + strAddress + '\n' +
+        //    "Citizen Card Number of the SNS User: " + strCitizenCardNumber + '\n' +
+        //  "Password of the SNS User: " + strPassword;
     }
 
     public void registerVaccine(TakenVaccine takenVaccine) {
