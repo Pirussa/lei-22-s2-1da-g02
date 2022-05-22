@@ -51,7 +51,7 @@ public class ScheduleVaccineUI implements Runnable {
                 if (controller.validateAppointmentAccordingToAgeGroupAndTimeSinceLastDose(scheduledVaccineDto, vaccinationCenter)) {
                     printAppointmentInfo(scheduledVaccineDto, vaccinationCenter);
                     if (Utils.confirmCreation()) {
-                        if (controller.scheduleVaccine(scheduledVaccineDto, vaccinationCenter)) {
+                        if (controller.scheduleVaccine(scheduledVaccineDto, vaccinationCenter)) { // ESTÁ A FAZER A MESMA VALIDAÇÃO QUE NO MEU - depois atualiza
                             printValidAppointmentInfo(scheduledVaccineDto, vaccinationCenter);
                             try {
                                 printAppointmentToFile(scheduledVaccineDto, vaccinationCenter);
