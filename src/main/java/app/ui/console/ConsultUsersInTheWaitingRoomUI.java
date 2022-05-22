@@ -2,7 +2,9 @@ package app.ui.console;
 
 import app.controller.ConsultUsersInTheWaitingRoomController;
 import app.domain.model.Arrival;
+import app.domain.model.SNSUser;
 import app.domain.model.VaccinationCenter;
+
 import java.util.List;
 
 /**
@@ -28,11 +30,10 @@ public class ConsultUsersInTheWaitingRoomUI implements Runnable {
         System.out.printf("%n------ Consult the sns users in the waiting room of a vaccination center ------%n");
 
         VaccinationCenter vaccinationCenter = ctrl.getVaccinationCenter();
-        List<Arrival> listOfUsersThatArrivedInAVaccinationCentre = ctrl.getVaccinationCenter(vaccinationCenter);
 
-        if (!listOfUsersThatArrivedInAVaccinationCentre.isEmpty())
-            for (Arrival arrival : listOfUsersThatArrivedInAVaccinationCentre)
-                System.out.println(arrival);
+        if (!ctrl.listOfUsersInTheWaitingRoom(vaccinationCenter).isEmpty())
+            for (SNSUser snsUser : ctrl.listOfUsersInTheWaitingRoom(vaccinationCenter))
+                System.out.printf(snsUser + "%n");
         else
             System.out.println("No user has arrived yet.");
     }
