@@ -31,11 +31,13 @@ public class ConsultUsersInTheWaitingRoomUI implements Runnable {
 
         VaccinationCenter vaccinationCenter = ctrl.getVaccinationCenter();
 
-        if (!ctrl.listOfUsersInTheWaitingRoom(vaccinationCenter).isEmpty())
+
+        if (!ctrl.listOfUsersInTheWaitingRoom(vaccinationCenter).isEmpty()) {
+            System.out.printf("%n------You've chosen to get the list of SNS Users in the " + vaccinationCenter + " waiting room:------%n");
             for (SNSUser snsUser : ctrl.listOfUsersInTheWaitingRoom(vaccinationCenter))
-                System.out.printf(snsUser + "%n");
-        else
-            System.out.println("No user has arrived yet.");
+                System.out.printf("%n" + snsUser);
+        } else
+            System.out.printf("%nNo user has arrived yet.%n");
     }
 
 }
