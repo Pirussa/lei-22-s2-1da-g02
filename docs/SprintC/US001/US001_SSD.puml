@@ -7,7 +7,7 @@ activate U
 U -> ":System" : asks to schedule a vaccine
 
 activate ":System"
-":System" --> U : requests data (SNS number)
+":System" --> U : requests data (SNS user number)
 deactivate ":System"
 
 U -> ":System"  : types SNS number

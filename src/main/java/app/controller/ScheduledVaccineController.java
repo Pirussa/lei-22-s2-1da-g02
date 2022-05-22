@@ -31,6 +31,7 @@ public class ScheduledVaccineController {
      */
     public boolean scheduleVaccine(ScheduledVaccineDto scheduledVaccineDto, VaccinationCenter vaccinationCenter) {
         if (!validateAppointment(scheduledVaccineDto, vaccinationCenter)) return false;
+        //criar aqui para adicionar um metodo CreateSomething
         ScheduledVaccineMapper mapper = new ScheduledVaccineMapper();
         vaccinationCenter.addAppointment(mapper.dtoToDomain(scheduledVaccineDto));
         return true;
