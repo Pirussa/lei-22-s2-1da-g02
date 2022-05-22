@@ -1,17 +1,13 @@
 package app.ui.console;
 
-import app.controller.App;
 import app.controller.ScheduledVaccineController;
 import app.domain.model.*;
 import app.domain.shared.Constants;
 import app.ui.console.utils.Utils;
 import dto.ScheduledVaccineDto;
-import pt.isep.lei.esoft.auth.AuthFacade;
 import pt.isep.lei.esoft.auth.domain.model.Email;
 
-
 import java.io.*;
-import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -21,8 +17,7 @@ import java.util.*;
 
 public class ScheduleVaccineUI implements Runnable {
 
-    private final Company company = App.getInstance().getCompany();
-    private final AuthFacade aF = company.getAuthFacade();
+
     private final Scanner sc = new Scanner(System.in);
     private final ScheduledVaccineController controller = new ScheduledVaccineController();
 
@@ -32,11 +27,11 @@ public class ScheduleVaccineUI implements Runnable {
      */
     @Override
     public void run() {
-        if (Utils.arrayListIsNotEmpty(company.getVaccineTypes(), company.getVaccinationCenters(), company.getSNSUserList())) {
+        if (controller.companyHasNecessaryInfo()) {
             System.out.println();
             int snsNumber = introduceSnsNumberUI();
 
-            VaccinationCenter vaccinationCenter  = Utils.selectVaccinationCenterUI();
+            VaccinationCenter vaccinationCenter = Utils.selectVaccinationCenterUI();
             VaccineType vaccineType = selectVaccineTypeUI(vaccinationCenter);
             if (vaccineType == null) return;
 
@@ -47,11 +42,11 @@ public class ScheduleVaccineUI implements Runnable {
             scheduledVaccineDto.vaccineType = vaccineType;
             scheduledVaccineDto.date = date;
 
-            if (aF.getCurrentUserSession().isLoggedInWithRole(Constants.ROLE_RECEPTIONIST)) {
+            if (controller.loggedUserIsReceptionist()) {
                 if (controller.validateAppointmentAccordingToAgeGroupAndTimeSinceLastDose(scheduledVaccineDto, vaccinationCenter)) {
                     printAppointmentInfo(scheduledVaccineDto, vaccinationCenter);
                     if (Utils.confirmCreation()) {
-                        if (controller.scheduleVaccine(scheduledVaccineDto, vaccinationCenter)) { // ESTÁ A FAZER A MESMA VALIDAÇÃO QUE NO MEU - depois atualiza
+                        if (controller.scheduleVaccination(scheduledVaccineDto, vaccinationCenter)) {
                             printValidAppointmentInfo(scheduledVaccineDto, vaccinationCenter);
                             try {
                                 printAppointmentToFile(scheduledVaccineDto, vaccinationCenter);
@@ -102,12 +97,12 @@ public class ScheduleVaccineUI implements Runnable {
             System.out.println();
             if (Utils.validateSNSUserNumber(SNSNumber)) {
                 boolean flag = false;
-                for (SNSUser snsUser : company.getSNSUserList()) {
+                for (SNSUser snsUser : controller.getSnsUsersList()) {
 
                     if (snsUser.getSnsUserNumber() == (SNSNumber)) {
                         flag = true;
                         Email snsUserEmail = new Email(snsUser.getStrEmail());
-                        if (aF.getCurrentUserSession().getUserId().equals(snsUserEmail) || aF.getCurrentUserSession().isLoggedInWithRole(Constants.ROLE_RECEPTIONIST)) {
+                        if (controller.getLoggedUserEmail().equals(snsUserEmail) || controller.loggedUserIsReceptionist()) {
                             return SNSNumber;
                         } else {
                             System.out.println("That is not your SNS number.");
@@ -237,13 +232,7 @@ public class ScheduleVaccineUI implements Runnable {
         int date;
         for (date = dateWhenScheduling.getDayOfMonth() + 1; date <= YearMonth.of(dateWhenScheduling.getYear(), dateWhenScheduling.getMonthValue()).lengthOfMonth(); date++) {
 
-            if (dayHasAvailability(slotsPerDay, vaccinesPerSlot, LocalDate.of(LocalDate.now().getYear(), dateWhenScheduling.getMonthValue(), date), appointmentsList)) {
-                if (dateWhenScheduling.getMonthValue() < 10)
-                    System.out.println(optionNumber + " - " + date + "/" + "0" + dateWhenScheduling.getMonthValue());
-                else
-                    System.out.println(optionNumber + " - " + date + "/" + dateWhenScheduling.getMonthValue());
-                optionNumber++;
-            }
+            optionNumber = getOptionNumber(appointmentsList, slotsPerDay, vaccinesPerSlot, optionNumber, dateWhenScheduling, date);
         }
         optionNumber = 0;
         System.out.printf("%n" + optionNumber + " - Next Month%n");
@@ -270,13 +259,7 @@ public class ScheduleVaccineUI implements Runnable {
         LocalDate dateWhenScheduling = LocalDate.now();
         LocalDate nextMonthDate = dateWhenScheduling.plusMonths(1).with(TemporalAdjusters.firstDayOfMonth());
         for (int date = nextMonthDate.getDayOfMonth(); date <= YearMonth.of(nextMonthDate.getYear(), nextMonthDate.getMonthValue()).lengthOfMonth(); date++) {
-            if (dayHasAvailability(slotsPerDay, vaccinesPerSlot, LocalDate.of(LocalDate.now().getYear(), nextMonthDate.getMonthValue(), date), appointmentsList)) {
-                if (nextMonthDate.getMonthValue() < 10)
-                    System.out.println(optionNumber + " - " + date + "/" + "0" + nextMonthDate.getMonthValue());
-                else
-                    System.out.println(optionNumber + " - " + date + "/" + nextMonthDate.getMonthValue());
-                optionNumber++;
-            }
+            optionNumber = getOptionNumber(appointmentsList, slotsPerDay, vaccinesPerSlot, optionNumber, nextMonthDate, date);
         }
         optionNumber = 0;
         System.out.printf("%n" + optionNumber + " - Previous Month%n");
@@ -296,6 +279,17 @@ public class ScheduleVaccineUI implements Runnable {
             return LocalDate.of(LocalDate.now().getYear(), dateWhenScheduling.getMonthValue(), LocalDate.now().getDayOfMonth());
         return LocalDate.of(LocalDate.now().getYear(), nextMonthDate.getMonthValue(), selectedDay);
 
+    }
+
+    private int getOptionNumber(List<ScheduledVaccine> appointmentsList, int slotsPerDay, int vaccinesPerSlot, int optionNumber, LocalDate nextMonthDate, int date) {
+        if (dayHasAvailability(slotsPerDay, vaccinesPerSlot, LocalDate.of(LocalDate.now().getYear(), nextMonthDate.getMonthValue(), date), appointmentsList)) {
+            if (nextMonthDate.getMonthValue() < 10)
+                System.out.println(optionNumber + " - " + date + "/" + "0" + nextMonthDate.getMonthValue());
+            else
+                System.out.println(optionNumber + " - " + date + "/" + nextMonthDate.getMonthValue());
+            optionNumber++;
+        }
+        return optionNumber;
     }
 
     private int calculateSlotsPerDay(int openingHour, int closingHour, int slotDuration) {
