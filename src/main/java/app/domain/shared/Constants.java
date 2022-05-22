@@ -52,6 +52,6 @@ public class Constants {
 
     public static final int NEW_EMPLOYEE = 1;
 
-    public static final String[] options = {"Yes", "No"};
+    public static final String[] OPTIONS = {"Yes", "No"};
 
     }

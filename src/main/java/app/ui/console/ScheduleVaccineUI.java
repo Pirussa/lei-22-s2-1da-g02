@@ -1,6 +1,6 @@
 package app.ui.console;
 
-import app.controller.ScheduledVaccineController;
+import app.controller.ScheduleVaccineController;
 import app.domain.model.*;
 import app.domain.shared.Constants;
 import app.ui.console.utils.Utils;
@@ -19,7 +19,7 @@ public class ScheduleVaccineUI implements Runnable {
 
 
     private final Scanner sc = new Scanner(System.in);
-    private final ScheduledVaccineController controller = new ScheduledVaccineController();
+    private final ScheduleVaccineController controller = new ScheduleVaccineController();
 
 
     /**
@@ -328,11 +328,12 @@ public class ScheduleVaccineUI implements Runnable {
 
     private void printAppointmentToFile(ScheduledVaccineDto scheduledVaccineDto, VaccinationCenter vaccinationCenter) throws IOException {
         System.out.printf("-----%n|SMS|%n-----%n%n");
-        int options = Utils.selectFromList(List.of(Constants.options), "Do you want to receive an SMS with the appointment information");
+        int options = Utils.selectFromList(List.of(Constants.OPTIONS), "Do you want to receive an SMS with the appointment information");
         if (options == 0) {
             PrintWriter printWriter = new PrintWriter(Constants.PATH_SMS_MESSAGE);
             printWriter.printf("Received at: " + Utils.formatDateToPrint(LocalDate.now()) + "%n%nYou have an appointment to take a %s vaccine, at %s in %s, on %s.", scheduledVaccineDto.vaccineType, scheduledVaccineDto.date.toLocalTime(), Utils.formatDateToPrint(scheduledVaccineDto.date.toLocalDate()), vaccinationCenter);
             printWriter.close();
+            System.out.printf("%nA message with the information was sent to " + controller.getUserPhoneNumber()+".");
         }
     }
 }

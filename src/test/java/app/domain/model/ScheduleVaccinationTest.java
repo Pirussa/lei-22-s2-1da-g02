@@ -1,9 +1,7 @@
 package app.domain.model;
 
 import app.controller.App;
-import app.controller.ScheduledVaccineController;
-import app.ui.console.utils.Utils;
-import dto.HealthcareCenterDto;
+import app.controller.ScheduleVaccineController;
 import dto.SNSUserDto;
 import dto.ScheduledVaccineDto;
 import org.junit.jupiter.api.Test;
@@ -18,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ScheduleVaccinationTest {
 
-    private final ScheduledVaccineController controller = new ScheduledVaccineController();
+    private final ScheduleVaccineController controller = new ScheduleVaccineController();
 
     private final Company company = App.getInstance().getCompany();
 

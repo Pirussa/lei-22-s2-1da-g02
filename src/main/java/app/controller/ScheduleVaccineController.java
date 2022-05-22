@@ -16,14 +16,14 @@ import java.util.List;
  * @author Gustavo Jorge <1211061@isep.ipp.pt>
  * @author Guilherme Sousa <1211073@isep.ipp.pt>
  */
-public class ScheduledVaccineController {
+public class ScheduleVaccineController {
 
 
     private final Company company = App.getInstance().getCompany();
     private final AuthFacade authFacade = company.getAuthFacade();
 
 
-    public ScheduledVaccineController() {
+    public ScheduleVaccineController() {
     }
 
 
@@ -105,6 +105,15 @@ public class ScheduledVaccineController {
      */
     public List<SNSUser> getSnsUsersList() {
         return company.getSNSUserList();
+    }
+
+    public int getUserPhoneNumber() {
+        for (SNSUser user : company.getSNSUserList()) {
+            if (user.getStrEmail().equals(String.valueOf(authFacade.getCurrentUserSession().getUserId()))) {
+                return Integer.parseInt( user.getStrPhoneNumber());
+            }
+        }
+        return 0;
     }
 
     /**

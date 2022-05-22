@@ -2,7 +2,7 @@
 
 autonumber
 
-actor Receptionist as R
+actor SNSUser as U
 
 participant ":ScheduleVaccineUI" as UI
 participant ":ScheduleVaccineController" as CTRL
@@ -13,38 +13,38 @@ participant "appointmentsList\nList<ScheduledVaccine>" as L
 
 'participant "Utils" as U
 
-activate R
-R -> UI : asks to schedule a vaccine
+activate U
+U -> UI : asks to schedule a vaccine
 
 
 activate UI
-UI-> R : requests data (SNS number)
+UI-> U : requests data (SNS number)
 deactivate UI
-R-> UI : types SNS user number
+U-> UI : types SNS user number
 
 
 activate UI
-UI --> R : shows a list with the available vaccination centers
+UI --> U : shows a list with the available vaccination centers
 deactivate UI
-R -> UI : selects one vaccination center
+U -> UI : selects one vaccination center
 
 
 activate UI
- UI --> R : shows a list with the Vaccine Types available
+ UI --> U : shows a list with the Vaccine Types available
 deactivate UI
-R -> UI : selects one Vaccine Type
+U -> UI : selects one Vaccine Type
 
 
 activate UI
- UI --> R : shows a list with all the dates available
+ UI --> U : shows a list with all the dates available
 deactivate UI
-R -> UI : selects one date
+U -> UI : selects one date
 
 
 activate UI
- UI --> R : shows a list with all the slots available
+ UI --> U : shows a list with all the slots available
 deactivate UI
-R -> UI : selects one slot
+U -> UI : selects one slot
 
 
 
@@ -65,10 +65,10 @@ deactivate VC
 CTRL ---> UI : result
 deactivate CTRL
 
-UI -> R : shows the data and requests confirmation
+UI -> U : shows the data and requests confirmation
 deactivate UI
 
-R -> UI : confirms the data
+U -> UI : confirms the data
 activate UI
 
 UI -> CTRL : scheduledVaccine(scheduleVaccineDto, vaccinationCenter)
@@ -104,15 +104,18 @@ deactivate VC
 
 
 
-
-
-
-
-
-
-
 CTRL ---> UI : result
-UI --> R : informs operation success
+UI --> U : informs operation success and shows appointment information
+
+UI -> U : asks if the user wants to receive an SMS with the appointment information
 deactivate UI
-deactivate R
+
+U -> UI : authorizes the application to send him an SMS
+activate UI
+UI -> UI : printAppointmentToFile(scheduledVaccineDto, vaccinationCenter)
+activate UI
+deactivate UI
+UI ---> U : informs operation success
+deactivate UI
+deactivate U
 @enduml

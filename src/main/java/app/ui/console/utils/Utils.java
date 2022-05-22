@@ -81,8 +81,8 @@ public class Utils {
         ScheduledVaccine scheduledVaccine4 = new ScheduledVaccine(400000000, company.getVaccineTypes().get(0), LocalDateTime.of(2022, 5, 20, 12, 0));
 
         //---------------------------------------------------------------------------------------------------------------------------------------------------
-        company.getVaccinationCenters().get(0).addAppointment(scheduledVaccine1);
-        company.getVaccinationCenters().get(1).addAppointment(scheduledVaccine2);
+        //company.getVaccinationCenters().get(0).addAppointment(scheduledVaccine1);
+        //company.getVaccinationCenters().get(1).addAppointment(scheduledVaccine2);
         company.getVaccinationCenters().get(0).addAppointment(scheduledVaccine3);
         company.getVaccinationCenters().get(1).addAppointment(scheduledVaccine4);
 
@@ -144,7 +144,7 @@ public class Utils {
     private static void bootstrapSnsUsers() {
         AuthFacade aF = company.getAuthFacade();
 
-        SNSUserDto dto = new SNSUserDto("User Default", 100000000, "u0@gmail.com", "01/01/1998", "915604428", "Male", "Default # 4000-000 # Default", "14698413 7 ZY7", "AAA00aa");
+        SNSUserDto dto = new SNSUserDto("User Default", 100000000, "u@gmail.com", "01/01/1998", "915604428", "Male", "Default # 4000-000 # Default", "14698413 7 ZY7", "AAA00aa");
         company.saveSNSUser(dto);
         company.getAuthFacade().addUserWithRole("UserDefault", "u@gmail.com", "123", Constants.ROLE_SNS_USER);
         //---------------------------------------------------------------------------------------------------------------------------------------------------
