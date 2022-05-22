@@ -51,6 +51,7 @@ public class ScheduleVaccineController {
         if (!validateAppointmentAccordingToAgeGroupAndTimeSinceLastDose(scheduledVaccineDto, vaccinationCenter))
             return false;
         vaccinationCenter.addAppointment(createScheduledVaccine(scheduledVaccineDto));
+        ScheduledVaccine.addAppointment(createScheduledVaccine(scheduledVaccineDto));
         return true;
     }
 
@@ -64,8 +65,10 @@ public class ScheduleVaccineController {
      */
     public boolean validateAppointment(ScheduledVaccineDto scheduledVaccineDto, VaccinationCenter vaccinationCenter) {
         if (!dataIsAllFilled(scheduledVaccineDto)) return false;
+        if (!ScheduledVaccine.userIsEligibleForTheAppointment(scheduledVaccineDto)) return false;
 
-        return vaccinationCenter.validateAppointment(scheduledVaccineDto);
+        return vaccinationCenter.centerHasAvailability(scheduledVaccineDto);
+
     }
 
     /**
@@ -110,7 +113,16 @@ public class ScheduleVaccineController {
     public int getUserPhoneNumber() {
         for (SNSUser user : company.getSNSUserList()) {
             if (user.getStrEmail().equals(String.valueOf(authFacade.getCurrentUserSession().getUserId()))) {
-                return Integer.parseInt( user.getStrPhoneNumber());
+                return Integer.parseInt(user.getStrPhoneNumber());
+            }
+        }
+        return 0;
+    }
+
+    public int getSnsUserNumber() {
+        for (SNSUser user : company.getSNSUserList()) {
+            if (user.getStrEmail().equals(String.valueOf(authFacade.getCurrentUserSession().getUserId()))) {
+                return user.getSnsUserNumber();
             }
         }
         return 0;

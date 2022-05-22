@@ -45,7 +45,10 @@ the system.
 >
 >When scheduling a vaccination event, the SNS user should always see all the information about the scheduled appointment.
 
-
+> **Question:** "We are unsure if it's in this user stories that's asked to implement the "send a SMS message with information about the scheduled appointment" found on the Project Description available in moodle. Could you clarify?"
+>
+> **Answer:** In a previous clarification that I made on this forum, I said: "[The user should receive a] SMS Message to warn of a scheduling [and the message] should include: Date, Time and vaccination center". Teams must record the answers!
+>A file named SMS.txt should be used to receive/record the SMS messages. We will not use a real word service to send SMSs.
 
 
 
@@ -110,36 +113,32 @@ No other relevant remarks.
 | Interaction ID | Question: Which class is responsible for... | Answer  | Justification (with patterns)  |
 |:-------------  |:--------------------- |:------------|:---------------------------- |
 | Step 1         |    ... interacting with the actor? | ScheduleVaccineUI   |  Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model.   |
-| 			  		 |    ... coordinating the US? | ScheduleVaccineController | **Controller**  |
+| 			  		 |    ... coordinating the US? | ScheduleVaccineController | **Controller**: act as a mediator between the UI and the Model. Has the responsibility of controlling the data transmission between both. It maps the user action into model updates.  |
 | Step 2  |    ...transfer the data typed in the UI to the domain? | ScheduleVaccineDTO | **DTO:** When there is so much data to transfer, it is better to opt by using a DTO in order to reduce coupling between UI and domain |
-| Step 3     |    ... instantiating a new Vaccine  | Company | By applying the **Creator** pattern, the "Company" is responsible for instantiating a new "Vaccine", since it is the one who storages the Vaccines.   |
-| 	 |    ... instantiating a new Administration Process | Vaccine |By applying the **Creator** pattern, the "Vaccine" is responsible for instantiating the "Administration Process", since a "Vaccine" has/contains an Administration Process|
-| Step 4         |    ...validating the inputted data for the Vaccine | Vaccine | The Vaccine class should know what needs to be validated in order to actually create a "Vaccine"|
-| 		 |    ...validating the inputted data for the Administration Process | Administration Process |The Administration Process class should know what needs to be validated in order to actually create an "Administration Process"  |
-| Step 5         |    ...saving the inputted data for the Vaccine ? | Vaccine | **IE:** A Vaccine has its own data |
-|   		 |    ...saving the inputted data for the Administration Process? | AdministrationProcess  | **IE:** An Administration Process has its own data |
+| Step 3     |    ... instantiating a Scheduled Vaccine?  | XXXXXXX VaccinationCenter | By applying the **Creator** pattern, the "VaccinationCenter" is responsible for instantiating a new "ScheduledVaccine", since it is the one who storages the appointments.   |
+| Step 4         |    ...validating the data for the appointment? | ScheduledVaccine | The Scheduled Vaccine class has all the appointments, therefore it can check if the user is user is trying to schedule the same Vaccine again|
+| Step 5         |    ...saving the inputted data for the Appointment? | VaccinationCenter & ScheduledVaccine| **IE:** A Vaccination Center has its own appointments. The Scheduled Vaccine class needs all the appointments so it can validate future appointments  |
+| Step 6  |    ... sending an SMS to the user | SpecifyVaccineAndAdminProcessUI  | **IE:** is responsible for user interactions  |
 | Step 7  |    ... informing operation success | SpecifyVaccineAndAdminProcessUI  | **IE:** is responsible for user interactions  | 
 
 ### Systematization ##
 
 According to the taken rationale, the conceptual classes promoted to software classes are: 
 
-* VaccineAndAdminProcessDto
-* Vaccine
-* AdministrationProcess
-* Company (already implemented)
+* ScheduledVaccineDto
+* ScheduledVaccine
+* VaccinationCenter (already implemented)
+
 
 Other software classes (i.e. Pure Fabrication) identified: 
-* SpecifyVaccineAndAdminProcessUI
-* SpecifyVaccineAndAdminProcessController
+* ScheduleVaccineUI
+* ScheduleVaccineController
 
 ## 3.2. Sequence Diagram (SD)
 
-![US013-SD](US013_SD.svg)
+![US001-SD](US001_SD.svg)
 
 ## 3.3. Class Diagram (CD)
 
-*In this section, it is suggested to present an UML static view representing the main domain related software classes that are involved in fulfilling the requirement as well as and their relations, attributes and methods.*
-
-![US013_CD](US013_CD.svg)
+![US001_CD](US001_CD.svg)
 

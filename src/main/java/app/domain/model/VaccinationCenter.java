@@ -337,25 +337,6 @@ public class VaccinationCenter {
 
     }
 
-    /**
-     * Validates appointment.
-     *
-     * @param scheduledVaccineDto the scheduled vaccine dto
-     * @return true if appointment is validated
-     */
-    public boolean validateAppointment(ScheduledVaccineDto scheduledVaccineDto) {
-        List<ScheduledVaccine> appointmentsList = getScheduledVaccineList();
-
-        for (ScheduledVaccine appointment : appointmentsList) {
-
-            if ((Objects.equals(appointment.getSnsNumber(), scheduledVaccineDto.snsNumber)) && (appointment.getVaccineType().equals(scheduledVaccineDto.vaccineType))) {
-                return false;
-            }
-        }
-
-        return centerHasAvailability(appointmentsList, scheduledVaccineDto, this);
-    }
-
 
     /**
      * Checks center availability.
@@ -363,9 +344,9 @@ public class VaccinationCenter {
      * @param scheduledVaccineDto the scheduled vaccine dto
      * @return true if the center has availability
      */
-    private boolean centerHasAvailability(List<ScheduledVaccine> appointmentsList, ScheduledVaccineDto scheduledVaccineDto, VaccinationCenter center) {
-
-        return Utils.slotHasAvailability(Integer.parseInt(center.getStrVaccinesPerSlot()), scheduledVaccineDto.date.toLocalDate(), scheduledVaccineDto.date.toLocalTime(), appointmentsList);
+    public boolean centerHasAvailability(ScheduledVaccineDto scheduledVaccineDto) {
+        List<ScheduledVaccine> appointmentsList = getScheduledVaccineList();
+        return Utils.slotHasAvailability(Integer.parseInt(this.getStrVaccinesPerSlot()), scheduledVaccineDto.date.toLocalDate(), scheduledVaccineDto.date.toLocalTime(), appointmentsList);
 
     }
 
