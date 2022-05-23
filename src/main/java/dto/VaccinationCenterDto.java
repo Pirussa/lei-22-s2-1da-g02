@@ -1,5 +1,10 @@
 package dto;
 
+import app.domain.model.ScheduledVaccine;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * This class is just a DTO (Data Transfer Object), responsible for helping to transfer data from the UI to the Domain.
  * DTO related to the US009 - As an administrator I want to register a Vaccination Center
@@ -24,6 +29,8 @@ public class VaccinationCenterDto {
     public String strZipCode;
     public String strLocal;
     public String strCenterCoordinatorID;
+    public List<ScheduledVaccine> scheduledVaccineList = new ArrayList<>();
+    public int slotsPerDay;
 
     public VaccinationCenterDto(String strID, String strName, String strPhoneNumber, String strEmail, String strFax, String strWebsite,
                                 String strOpeningHour, String strClosingHour, String strSlotDuration, String strVaccinesPerSlot,

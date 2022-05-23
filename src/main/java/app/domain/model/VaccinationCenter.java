@@ -463,4 +463,80 @@ public class VaccinationCenter {
             for (Arrival arrival : arrivalsList)
                 arrivalsList.remove(arrival);
     }
+
+    /**
+     * Gets str id.
+     *
+     * @return the str id
+     */
+    public String getStrID() {
+        return strID;
+    }
+
+    /**
+     * Gets str phone number.
+     *
+     * @return the str phone number
+     */
+    public String getStrPhoneNumber() {
+        return strPhoneNumber;
+    }
+
+    /**
+     * Gets str email.
+     *
+     * @return the str email
+     */
+    public String getStrEmail() {
+        return strEmail;
+    }
+
+    /**
+     * Gets str fax.
+     *
+     * @return the str fax
+     */
+    public String getStrFax() {
+        return strFax;
+    }
+
+    /**
+     * Gets str website.
+     *
+     * @return the str website
+     */
+    public String getStrWebsite() {
+        return strWebsite;
+    }
+
+    /**
+     * Gets str road.
+     *
+     * @return the str road
+     */
+    public String getStrRoad() {
+        return strRoad;
+    }
+
+    /**
+     * Gets str zip code.
+     *
+     * @return the str zip code
+     */
+    public String getStrZipCode() {
+        return strZipCode;
+    }
+
+    /**
+     * Gets str local.
+     *
+     * @return the str local
+     */
+    public String getStrLocal() {
+        return strLocal;
+    }
+
+
+
+
 }
