@@ -1,5 +1,6 @@
 package app.domain.model;
 
+import app.ui.console.ScheduleVaccineUI;
 import app.ui.console.utils.Utils;
 import dto.ScheduledVaccineDto;
 
@@ -346,10 +347,21 @@ public class VaccinationCenter {
      */
     public boolean centerHasAvailability(ScheduledVaccineDto scheduledVaccineDto) {
         List<ScheduledVaccine> appointmentsList = getScheduledVaccineList();
+
+        if (!ScheduleVaccineUI.dayHasAvailability(getSlotsPerDay(), Integer.parseInt(getStrVaccinesPerSlot()), scheduledVaccineDto.date.toLocalDate(), appointmentsList))
+            return false;
+
         return Utils.slotHasAvailability(Integer.parseInt(this.getStrVaccinesPerSlot()), scheduledVaccineDto.date.toLocalDate(), scheduledVaccineDto.date.toLocalTime(), appointmentsList);
 
     }
 
+    public int getSlotsPerDay() {
+        int closingHour = Integer.parseInt(strClosingHour);
+        int openingHour = Integer.parseInt(strOpeningHour);
+        int slotDuration = Integer.parseInt(strSlotDuration);
+
+        return (closingHour - openingHour) * 60 / slotDuration;
+    }
 
     /**
      * Validate appointment according to age group and time since last dose.

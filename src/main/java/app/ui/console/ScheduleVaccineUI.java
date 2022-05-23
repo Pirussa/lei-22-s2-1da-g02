@@ -161,7 +161,7 @@ public class ScheduleVaccineUI implements Runnable {
         int closingHour = Integer.parseInt(vaccinationCenter.getStrClosingHour());
         int vaccinesPerSlot = Integer.parseInt(vaccinationCenter.getStrVaccinesPerSlot());
         int slotDuration = Integer.parseInt(vaccinationCenter.getStrSlotDuration());
-        int slotsPerDay = calculateSlotsPerDay(openingHour, closingHour, slotDuration);
+        int slotsPerDay = controller.getSlotsPerDay(vaccinationCenter);
         LocalDate dateWhenScheduling = LocalDate.now();
 
         System.out.printf("%nChoose the Date for the appointment:%n");
@@ -292,11 +292,7 @@ public class ScheduleVaccineUI implements Runnable {
         return optionNumber;
     }
 
-    private int calculateSlotsPerDay(int openingHour, int closingHour, int slotDuration) {
-        return (closingHour - openingHour) * 60 / slotDuration;
-    }
-
-    private boolean dayHasAvailability(int slotsPerDay, int vaccinesPerSlot, LocalDate
+    public static boolean dayHasAvailability(int slotsPerDay, int vaccinesPerSlot, LocalDate
             date, List<ScheduledVaccine> appointments) {
         int vaccinesPerDay = slotsPerDay * vaccinesPerSlot;
         int counterAppointments = 0;

@@ -2,9 +2,6 @@ package app.domain.model;
 
 import dto.ScheduledVaccineDto;
 import mapper.ScheduledVaccineMapper;
-import pt.isep.lei.esoft.auth.AuthFacade;
-import pt.isep.lei.esoft.auth.domain.model.Email;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;

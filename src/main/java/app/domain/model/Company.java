@@ -393,6 +393,7 @@ public class Company {
      * @return An ArrayList of Nurses.
      */
     public ArrayList<Employee> getNurseList() {
+        fillListOfEmployeesWithAGivenRole();
         return nurseList;
     }
 
@@ -402,6 +403,7 @@ public class Company {
      * @return An ArrayList of Receptionists.
      */
     public ArrayList<Employee> getReceptionistList() {
+        fillListOfEmployeesWithAGivenRole();
         return receptionistList;
     }
 
@@ -411,6 +413,7 @@ public class Company {
      * @return An ArrayList of Centre Coordinator.
      */
     public ArrayList<Employee> getCentreCoordinatorList() {
+        fillListOfEmployeesWithAGivenRole();
         return centreCoordinatorList;
     }
 

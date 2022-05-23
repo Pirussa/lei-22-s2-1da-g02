@@ -159,4 +159,7 @@ public class ScheduleVaccineController {
         return mapper.dtoToDomain(scheduledVaccineDto);
     }
 
+    public int getSlotsPerDay(VaccinationCenter vaccinationCenter) {
+    return vaccinationCenter.getSlotsPerDay();
+    }
 }

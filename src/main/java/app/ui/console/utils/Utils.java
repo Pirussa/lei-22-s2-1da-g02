@@ -539,7 +539,7 @@ public class Utils {
      * Checks if there is a "@" and is it ends with a valid domain
      *
      * @param strEmail The email to be validated
-     * @return returnes true if the email is valid
+     * @return returns true if the email is valid
      */
     static public boolean validateEmail(String strEmail) {
         if (!strEmail.contains("@") && !strEmail.contains("."))
