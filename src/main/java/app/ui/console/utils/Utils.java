@@ -156,9 +156,17 @@ public class Utils {
         company.saveSNSUser(dto2);
         aF.addUserWithRole("User Default2", "u2@gmail.com", "123", Constants.ROLE_SNS_USER);
         //---------------------------------------------------------------------------------------------------------------------------------------------------
-        SNSUserDto dto3 = new SNSUserDto("User Default3", 400000000, "u3@gmail.com", "03/03/2000", "915604431", "Male", "Default # 4000-003 # Default", "35906158 3 ZZ5", "AAA33aa");
+        SNSUserDto dto3 = new SNSUserDto("User Default3", 400000000, "u3@gmail.com", "03/03/2000", "915604431", "Male", "Default # 4000-003 # Default", "35419916 1 ZZ6", "AAA33aa");
         company.saveSNSUser(dto3);
         aF.addUserWithRole("User Default3", "u3@gmail.com", "123", Constants.ROLE_SNS_USER);
+        //---------------------------------------------------------------------------------------------------------------------------------------------------
+        SNSUserDto test = new SNSUserDto("UserTest", 999999999, "testUser@gmail.com", "03/03/2000", "915604432", "Male", "Default # 4000-004 # Default", "32006024 1 ZW9", "AAA33aa");
+        company.saveSNSUser(test);
+        aF.addUserWithRole("UserTest", "testUser@gmail.com", "123", Constants.ROLE_SNS_USER);
+        //---------------------------------------------------------------------------------------------------------------------------------------------------
+        SNSUserDto test2 = new SNSUserDto("UserTest2", 888888888, "testUser2@gmail.com", "03/03/2000", "915604433", "Male", "Default # 4000-005 # Default", "35841509 8 ZZ9", "AAA33aa");
+        company.saveSNSUser(test2);
+        aF.addUserWithRole("UserTest2", "testUser2@gmail.com", "123", Constants.ROLE_SNS_USER);
     }
 
     /**

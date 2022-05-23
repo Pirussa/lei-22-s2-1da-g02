@@ -2,6 +2,7 @@ package app.domain.model;
 
 import dto.ScheduledVaccineDto;
 import mapper.ScheduledVaccineMapper;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,8 +60,8 @@ public class ScheduledVaccine {
         ScheduledVaccineMapper mapper = new ScheduledVaccineMapper();
         ScheduledVaccine appointment = mapper.dtoToDomain(scheduledVaccineDto);
         for (ScheduledVaccine appointmentCheck : appointmentsList) {
-            if ((appointment.getVaccineType() == appointmentCheck.getVaccineType()) && (appointment.getSnsNumber() == appointmentCheck.getSnsNumber()))
-                return false;
+            if ((appointment.getVaccineType().equals(appointmentCheck.getVaccineType()) && (appointment.getSnsNumber() == appointmentCheck.getSnsNumber())))
+            return false;
         }
         return true;
     }
@@ -115,4 +116,9 @@ public class ScheduledVaccine {
     public VaccineType getVaccineType() {
         return vaccineType;
     }
+
+    public static void cleanAppointments(){
+        appointmentsList.clear();
+    }
+
 }
