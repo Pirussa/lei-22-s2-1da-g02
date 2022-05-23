@@ -371,7 +371,7 @@ public class VaccinationCenter {
      * @return true if the appointment is validated according to age group and time since last dose.
      */
     public boolean validateAppointmentAccordingToAgeGroupAndTimeSinceLastDose(ScheduledVaccineDto dto, Company company) {
-        SNSUser snsUser = company.getSNSUserList().get(SNSUser.getUserIndexInUsersList(dto.snsNumber));
+        SnsUser snsUser = company.getSNSUserList().get(SnsUser.getUserIndexInUsersList(dto.snsNumber));
 
         if (!snsUser.getTakenVaccines().isEmpty()) {
             for (TakenVaccine takenVaccine : snsUser.getTakenVaccines()) {
@@ -393,7 +393,7 @@ public class VaccinationCenter {
      * @param takenVaccine the taken vaccine
      * @return if the appointment is validated according to the admin process
      */
-    public boolean validateAppointmentAccordingToAdminProcess(SNSUser snsUser, ScheduledVaccineDto dto, TakenVaccine takenVaccine) {
+    public boolean validateAppointmentAccordingToAdminProcess(SnsUser snsUser, ScheduledVaccineDto dto, TakenVaccine takenVaccine) {
         int days = (int) Duration.between(dto.date, takenVaccine.getDateTime()).toDays();
 
         int doseNumber = takenVaccine.getDose();
@@ -418,7 +418,7 @@ public class VaccinationCenter {
      * @param administrationProcess the administration process
      * @return user age group index
      */
-    private int getUserAgeGroupIndex(SNSUser snsUser, AdministrationProcess administrationProcess) {
+    private int getUserAgeGroupIndex(SnsUser snsUser, AdministrationProcess administrationProcess) {
 
         String[] birthDateComponents = snsUser.getStrBirthDate().split("/");
         LocalDate birthDate = LocalDate.of(Integer.parseInt(birthDateComponents[2]), Integer.parseInt(birthDateComponents[1]), Integer.parseInt(birthDateComponents[0]));
@@ -442,7 +442,7 @@ public class VaccinationCenter {
      * @param administrationProcess administration process
      * @return true if the user age group is validated
      */
-    private boolean validateAgeGroup(SNSUser snsUser, AdministrationProcess administrationProcess) {
+    private boolean validateAgeGroup(SnsUser snsUser, AdministrationProcess administrationProcess) {
         return getUserAgeGroupIndex(snsUser, administrationProcess) >= 0;
     }
 

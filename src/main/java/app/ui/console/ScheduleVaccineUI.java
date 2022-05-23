@@ -30,7 +30,14 @@ public class ScheduleVaccineUI implements Runnable {
     public void run() {
         if (controller.companyHasNecessaryInfo()) {
             System.out.println();
-            int snsNumber = introduceSnsNumberUI();
+
+            int snsNumber;
+            if (controller.loggedUserIsReceptionist()) {
+                snsNumber = introduceSnsNumberUI();
+            } else {
+                snsNumber = controller.getSnsUserNumber();
+            }
+
 
             VaccinationCenter vaccinationCenterO = Utils.selectVaccinationCenterUI();
             int vaccinationCenterIndex = controller.getVaccinationCenterIndex(vaccinationCenterO);
@@ -46,44 +53,27 @@ public class ScheduleVaccineUI implements Runnable {
             scheduledVaccineDto.vaccineType = vaccineType;
             scheduledVaccineDto.date = date;
 
-            if (controller.loggedUserIsReceptionist()) {
-                if (controller.validateAppointmentAccordingToAgeGroupAndTimeSinceLastDose(scheduledVaccineDto, vaccinationCenterO)) {
-                    printAppointmentInfo(scheduledVaccineDto, vaccinationCenterO);
-                    if (Utils.confirmCreation()) {
-                        if (controller.scheduleVaccination(scheduledVaccineDto, vaccinationCenterO)) {
-                            printValidAppointmentInfo(scheduledVaccineDto, vaccinationCenterO);
-                            try {
-                                printAppointmentToFile(scheduledVaccineDto, vaccinationCenterO);
-                            } catch (IOException e) {
-                                throw new RuntimeException(e);
-                            }
-                        } else
-                            System.out.printf("%n-----------------------------|No appointment was registered|-----------------------------%n");
+
+            if (controller.validateAppointment(scheduledVaccineDto, vaccinationCenterO)) {
+                printAppointmentInfo(scheduledVaccineDto, vaccinationCenterO);
+                if (Utils.confirmCreation()) {
+                    if (controller.scheduleVaccine(scheduledVaccineDto, vaccinationCenterO)) {
+                        printValidAppointmentInfo(scheduledVaccineDto, vaccinationCenterO);
+                        try {
+                            printAppointmentToFile(scheduledVaccineDto, vaccinationCenterO);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
                     } else
                         System.out.printf("%n-----------------------------|No appointment was registered|-----------------------------%n");
                 } else
-                    System.out.printf("%nOops, something went wrong. Please try again!%nCommon causes: Your age doesn't meet any of the existing age groups or the waiting time since the last dose isn´t finished.");
+                    System.out.printf("%n-----------------------------|No appointment was registered|-----------------------------%n");
             } else {
-                if (controller.validateAppointment(scheduledVaccineDto, vaccinationCenterO)) {
-                    printAppointmentInfo(scheduledVaccineDto, vaccinationCenterO);
-                    if (Utils.confirmCreation()) {
-                        if (controller.scheduleVaccine(scheduledVaccineDto, vaccinationCenterO)) {
-                            printValidAppointmentInfo(scheduledVaccineDto, vaccinationCenterO);
-                            try {
-                                printAppointmentToFile(scheduledVaccineDto, vaccinationCenterO);
-                            } catch (IOException e) {
-                                throw new RuntimeException(e);
-                            }
-                        } else
-                            System.out.printf("%n-----------------------------|No appointment was registered|-----------------------------%n");
-                    } else
-                        System.out.printf("%n-----------------------------|No appointment was registered|-----------------------------%n");
-                } else {
-                    System.out.printf("%nOops, something went wrong. Please try again!%nCommon causes: You already have an appointment for that vaccine; Your slot is not available anymore. ");
-                }
+                System.out.printf("%nOops, something went wrong. Please try again!%nCommon causes: You already have an appointment for that vaccine; Your slot is not available anymore.%nYour age doesn't meet any of the existing age groups or the waiting time since the last dose isn´t finished.%n");
             }
+
         } else
-            printInvalidAppointment();
+            printNotEnoughData();
     }
 
     private int introduceSnsNumberUI() {
@@ -101,7 +91,7 @@ public class ScheduleVaccineUI implements Runnable {
             System.out.println();
             if (Utils.validateSNSUserNumber(SNSNumber)) {
                 boolean flag = false;
-                for (SNSUser snsUser : controller.getSnsUsersList()) {
+                for (SnsUser snsUser : controller.getSnsUsersList()) {
 
                     if (snsUser.getSnsUserNumber() == (SNSNumber)) {
                         flag = true;
@@ -128,6 +118,7 @@ public class ScheduleVaccineUI implements Runnable {
     }
 
     private VaccineType selectVaccineTypeHealthCareCenterUI(HealthcareCenter healthcareCenter) {
+        System.out.printf("%nSuggested: COVID%n");
         return healthcareCenter.getVaccineTypes().get(Utils.selectFromList(healthcareCenter.getVaccineTypes(), "Select one Vaccine Type"));
     }
 
@@ -296,6 +287,15 @@ public class ScheduleVaccineUI implements Runnable {
         return optionNumber;
     }
 
+    /**
+     * Checks if the Day has availability .
+     *
+     * @param slotsPerDay     the slots per day
+     * @param vaccinesPerSlot the vaccines per slot
+     * @param date            the date
+     * @param appointments    the appointments
+     * @return the boolean
+     */
     public static boolean dayHasAvailability(int slotsPerDay, int vaccinesPerSlot, LocalDate
             date, List<ScheduledVaccine> appointments) {
         int vaccinesPerDay = slotsPerDay * vaccinesPerSlot;
@@ -322,7 +322,7 @@ public class ScheduleVaccineUI implements Runnable {
         System.out.printf("%n----------------------%n|Scheduling completed|%n----------------------%n%nYou have an appointment to take a %s vaccine, at %s in %s, on %s.%n%n", scheduledVaccineDto.vaccineType, scheduledVaccineDto.date.toLocalTime(), Utils.formatDateToPrint(scheduledVaccineDto.date.toLocalDate()), vaccinationCenter);
     }
 
-    private void printInvalidAppointment() {
+    private void printNotEnoughData() {
         System.out.printf("System is unable to schedule a vaccination without at least:%n- One Vaccination Center;%n- One Vaccine Type;%n- One Know System User.");
     }
 
@@ -333,7 +333,7 @@ public class ScheduleVaccineUI implements Runnable {
             PrintWriter printWriter = new PrintWriter(Constants.PATH_SMS_MESSAGE);
             printWriter.printf("Received at: " + Utils.formatDateToPrint(LocalDate.now()) + "%n%nYou have an appointment to take a %s vaccine, at %s in %s, on %s.", scheduledVaccineDto.vaccineType, scheduledVaccineDto.date.toLocalTime(), Utils.formatDateToPrint(scheduledVaccineDto.date.toLocalDate()), vaccinationCenter);
             printWriter.close();
-            System.out.printf("%nA message with the information was sent to " + controller.getUserPhoneNumber()+".");
+            System.out.printf("%nA message with the information was sent to " + controller.getUserPhoneNumber() + ".");
         }
     }
 }

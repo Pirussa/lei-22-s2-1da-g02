@@ -1,7 +1,7 @@
 package app.ui.console;
 
 import app.controller.LoadCSVController;
-import app.domain.model.SNSUser;
+import app.domain.model.SnsUser;
 import app.ui.console.utils.Utils;
 import dto.SNSUserDto;
 
@@ -67,7 +67,7 @@ public class LoadCSVUI implements Runnable {
 
         int MAXNUMBEROFCHARSSNSUSERNUMBER = 9;
         return !values[0].isEmpty() && Utils.validateSex(values[1]) && !values[2].isEmpty() && Utils.validateBirthDate(values[2]) &&
-                !values[3].isEmpty() && SNSUser.validateAddress(values[3]) && !values[4].isEmpty() && Utils.validatePhoneNumber(values[4]) &&
+                !values[3].isEmpty() && SnsUser.validateAddress(values[3]) && !values[4].isEmpty() && Utils.validatePhoneNumber(values[4]) &&
                 !values[5].isEmpty() && Utils.validateEmail(values[5]) && values[6].trim().matches("^[0-9]*$") && values[6].length() == MAXNUMBEROFCHARSSNSUSERNUMBER &&
                 !values[7].isEmpty() && Utils.validateCitizenCardNumber(values[7]);
     }

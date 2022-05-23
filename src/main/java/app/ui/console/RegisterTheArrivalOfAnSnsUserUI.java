@@ -2,7 +2,7 @@ package app.ui.console;
 
 import app.controller.RegisterTheArrivalOfAnSnsUserController;
 import app.domain.model.Arrival;
-import app.domain.model.SNSUser;
+import app.domain.model.SnsUser;
 import app.domain.model.ScheduledVaccine;
 import app.domain.model.VaccinationCenter;
 import app.ui.console.utils.Utils;
@@ -26,7 +26,7 @@ public class RegisterTheArrivalOfAnSnsUserUI implements Runnable {
         int snsNumber;
         do {
             snsNumber = Utils.readIntegerFromConsole("Introduce SNS Number: ");
-        } while (!SNSUser.validateSNSUserNumber(Objects.requireNonNull(snsNumber)) || SNSUser.getUserIndexInUsersList(snsNumber) < 0);
+        } while (!SnsUser.validateSNSUserNumber(Objects.requireNonNull(snsNumber)) || SnsUser.getUserIndexInUsersList(snsNumber) < 0);
 
         System.out.println();
 

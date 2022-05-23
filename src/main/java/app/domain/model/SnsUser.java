@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class SNSUser {
+public class SnsUser {
 
 
 
@@ -34,7 +34,7 @@ public class SNSUser {
 
     private static Company company = App.getInstance().getCompany();
 
-    public SNSUser(String strName, String strSex, String strBirthDate, String strAddress, String strPhoneNumber,
+    public SnsUser(String strName, String strSex, String strBirthDate, String strAddress, String strPhoneNumber,
                    String strEmail, int snsUserNumber, String strCitizenCardNumber, String strPassword) {
 
         this.strName = strName;

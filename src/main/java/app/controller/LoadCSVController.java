@@ -1,7 +1,7 @@
 package app.controller;
 
 import app.domain.model.Company;
-import app.domain.model.SNSUser;
+import app.domain.model.SnsUser;
 import dto.SNSUserDto;
 
 import java.util.ArrayList;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class LoadCSVController {
     private Company company = App.getInstance().getCompany();
 
-    public SNSUser createSNSUser(SNSUserDto dto) {
+    public SnsUser createSNSUser(SNSUserDto dto) {
         return company.createSNSUser(dto);
     }
 
@@ -17,7 +17,7 @@ public class LoadCSVController {
         return company.saveSNSUser(dto);
     }
 
-    public ArrayList<SNSUser> getSNSUserList(){
+    public ArrayList<SnsUser> getSNSUserList(){
         return company.getSNSUserList();
     }
 }

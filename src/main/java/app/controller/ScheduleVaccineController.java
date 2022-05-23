@@ -25,6 +25,9 @@ public class ScheduleVaccineController {
     private final AuthFacade authFacade = company.getAuthFacade();
 
 
+    /**
+     * Instantiates a new Schedule vaccine controller.
+     */
     public ScheduleVaccineController() {
     }
 
@@ -39,24 +42,9 @@ public class ScheduleVaccineController {
     public boolean scheduleVaccine(ScheduledVaccineDto scheduledVaccineDto, VaccinationCenter vaccinationCenter) {
         if (!validateAppointment(scheduledVaccineDto, vaccinationCenter)) return false;
         vaccinationCenter.addAppointment(createScheduledVaccine(scheduledVaccineDto));
-        return true;
-    }
-
-    /**
-     * Schedule vaccination if the appointment is valid
-     *
-     * @param scheduledVaccineDto the scheduled vaccine dto
-     * @param vaccinationCenter   the vaccination center
-     * @return True if the vaccine appointment was valid and scheduled
-     */
-    public boolean scheduleVaccination(ScheduledVaccineDto scheduledVaccineDto, VaccinationCenter vaccinationCenter) {
-        if (!validateAppointmentAccordingToAgeGroupAndTimeSinceLastDose(scheduledVaccineDto, vaccinationCenter))
-            return false;
-        vaccinationCenter.addAppointment(createScheduledVaccine(scheduledVaccineDto));
         ScheduledVaccine.addAppointment(createScheduledVaccine(scheduledVaccineDto));
         return true;
     }
-
 
     /**
      * Validate appointment boolean.
@@ -68,22 +56,12 @@ public class ScheduleVaccineController {
     public boolean validateAppointment(ScheduledVaccineDto scheduledVaccineDto, VaccinationCenter vaccinationCenter) {
         if (!dataIsAllFilled(scheduledVaccineDto)) return false;
         if (!ScheduledVaccine.userIsEligibleForTheAppointment(scheduledVaccineDto)) return false;
+        if (!vaccinationCenter.validateAppointmentAccordingToAgeGroupAndTimeSinceLastDose(scheduledVaccineDto, company)) return false;
 
         return vaccinationCenter.centerHasAvailability(scheduledVaccineDto);
 
     }
 
-    /**
-     * Validate appointment according to age group and time since last dose.
-     *
-     * @param scheduledVaccineDto The scheduled vaccine dto
-     * @param center              The Vaccination Center selected by the user
-     * @return true if the user´s appointment is valid
-     */
-    public boolean validateAppointmentAccordingToAgeGroupAndTimeSinceLastDose(ScheduledVaccineDto scheduledVaccineDto, VaccinationCenter center) {
-        return (center.validateAppointmentAccordingToAgeGroupAndTimeSinceLastDose(scheduledVaccineDto, company));
-
-    }
 
     /**
      * Checks if the logged user is a Receptionist
@@ -108,12 +86,17 @@ public class ScheduleVaccineController {
      *
      * @return the list
      */
-    public List<SNSUser> getSnsUsersList() {
+    public List<SnsUser> getSnsUsersList() {
         return company.getSNSUserList();
     }
 
+    /**
+     * Gets user phone number.
+     *
+     * @return the user phone number
+     */
     public int getUserPhoneNumber() {
-        for (SNSUser user : company.getSNSUserList()) {
+        for (SnsUser user : company.getSNSUserList()) {
             if (user.getStrEmail().equals(String.valueOf(authFacade.getCurrentUserSession().getUserId()))) {
                 return Integer.parseInt(user.getStrPhoneNumber());
             }
@@ -127,7 +110,7 @@ public class ScheduleVaccineController {
      * @return the sns user number
      */
     public int getSnsUserNumber() {
-        for (SNSUser user : company.getSNSUserList()) {
+        for (SnsUser user : company.getSNSUserList()) {
             if (user.getStrEmail().equals(String.valueOf(authFacade.getCurrentUserSession().getUserId()))) {
                 return user.getSnsUserNumber();
             }
@@ -145,7 +128,6 @@ public class ScheduleVaccineController {
         if (company.getVaccineTypes().isEmpty()) return false;
         return !company.getVaccinationCenters().isEmpty();
     }
-
 
     /**
      * Verifies if a DTO has all the data for an appointment
@@ -172,25 +154,22 @@ public class ScheduleVaccineController {
      * @param vaccinationCenterIndexInList the vaccination center index in list
      * @return the vaccination center dto
      */
-    public VaccinationCenterDto getVaccinationCenterInfo(int vaccinationCenterIndexInList){
+    public VaccinationCenterDto getVaccinationCenterInfo(int vaccinationCenterIndexInList) {
         VaccinationCenter vaccinationCenter = company.getVaccinationCenters().get(vaccinationCenterIndexInList);
         VaccinationCenterMapper mapper = new VaccinationCenterMapper();
         return mapper.domainToDto(vaccinationCenter);
     }
+
     /**
-     * Gets slots per day.
+     * Gets vaccination center index in the list of vaccination centers.
      *
      * @param vaccinationCenter the vaccination center
-     * @return the slots per day
+     * @return the vaccination center index
      */
-    public int getSlotsPerDay(VaccinationCenter vaccinationCenter) {
-    return vaccinationCenter.getSlotsPerDay();
-    }
-
     public int getVaccinationCenterIndex(VaccinationCenter vaccinationCenter) {
-        int counter =0;
-        for (VaccinationCenter vacCenter: company.getVaccinationCenters()) {
-            if (vacCenter.getStrName().equals(vaccinationCenter.getStrName()))return counter;
+        int counter = 0;
+        for (VaccinationCenter vacCenter : company.getVaccinationCenters()) {
+            if (vacCenter.getStrName().equals(vaccinationCenter.getStrName())) return counter;
 
             counter++;
         }

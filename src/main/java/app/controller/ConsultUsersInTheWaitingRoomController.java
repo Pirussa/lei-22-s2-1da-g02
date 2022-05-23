@@ -34,8 +34,8 @@ public class ConsultUsersInTheWaitingRoomController {
      * @return the list of users in the waiting room.
      */
 
-    public ArrayList<SNSUser> listOfUsersInTheWaitingRoom(VaccinationCenter vaccinationCenter){
-        ArrayList<SNSUser> listOfUsersInTheWaitingRoom = new ArrayList<>();
+    public ArrayList<SnsUser> listOfUsersInTheWaitingRoom(VaccinationCenter vaccinationCenter){
+        ArrayList<SnsUser> listOfUsersInTheWaitingRoom = new ArrayList<>();
         for (int arrivalListPosition = 0; arrivalListPosition < getVaccinationCenter(vaccinationCenter).size(); arrivalListPosition++) {
             for (int snsUserListPosition = 0; snsUserListPosition < company.getSNSUserList().size(); snsUserListPosition++) {
                 if(getVaccinationCenter(vaccinationCenter).get(arrivalListPosition).getSnsNumber() == company.getSNSUserList().get(snsUserListPosition).getSnsUserNumber())

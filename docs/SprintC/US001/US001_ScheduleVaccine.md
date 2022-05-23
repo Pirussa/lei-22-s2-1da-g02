@@ -50,6 +50,13 @@ the system.
 > **Answer:** In a previous clarification that I made on this forum, I said: "[The user should receive a] SMS Message to warn of a scheduling [and the message] should include: Date, Time and vaccination center". Teams must record the answers!
 >A file named SMS.txt should be used to receive/record the SMS messages. We will not use a real word service to send SMSs.
 
+> **Question:** "For the US1, the acceptance criteria is: A SNS user cannot schedule the same vaccine more than once. For the US2, the acceptance criteria is: The algorithm should check if the SNS User is within the age and time since the last vaccine.
+[1] Are this acceptance criteria exclusive of each US or are implemented in both?
+[2] To make the development of each US more clear, could you clarify the differences between the two US?"
+>
+> **Answer:** 1- The acceptance criteria for US1 and US2 should be merged. The acceptance criteria por US1 and US2 is: A SNS user cannot schedule the same vaccine more than once. The algorithm should check if the SNS User is within the age and time since the last vaccine."
+>
+> 2- In US1 the actor is the SNS user, in US2 the actor is the receptionist. In US1 the SNS user is already logged in the system and information that is required and that exists in the system should be automatically obtained. In US2 the receptionist should ask the SNS user for the information needed to schedule a vaccination. Information describing the SNS user should be automatically obtained by introducing the SNS user number.
 
 
 ### 1.3. Acceptance Criteria
@@ -58,6 +65,8 @@ the system.
   once.
 * **AC2:** All required data must be filled.
 * **AC3:** The vaccination center has to have availability.
+* **AC4:** The SNS User must be is within the age of the Vaccine.
+* **AC5:** Time since the last dose for that Vaccine has to be completed.
 
 ### 1.4. Found out Dependencies
 

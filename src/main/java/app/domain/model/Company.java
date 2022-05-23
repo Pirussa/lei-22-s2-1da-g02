@@ -60,6 +60,11 @@ public class Company {
     private ArrayList<Employee> centreCoordinatorList = new ArrayList<>();
 
 
+    /**
+     * Instantiates a new Company.
+     *
+     * @param designation the designation
+     */
     public Company(String designation) {
         if (StringUtils.isBlank(designation))
             throw new IllegalArgumentException("Designation cannot be blank.");
@@ -188,10 +193,6 @@ public class Company {
     public void saveVaccineType(String code, String description, String technology) {
         VaccineType vt = new VaccineType(code, description, technology);
         vaccineTypes.add(vt);
-    }
-
-    public void addNewRole() {
-
     }
 
     //START
@@ -418,17 +419,34 @@ public class Company {
     }
 
     //START
-    ArrayList<SNSUser> snsUsers = new ArrayList<>();
+    ArrayList<SnsUser> snsUsers = new ArrayList<>();
 
-    public ArrayList<SNSUser> getSNSUserList() {
+    /**
+     * Gets sns user list.
+     *
+     * @return the sns user list
+     */
+    public ArrayList<SnsUser> getSNSUserList() {
         return snsUsers;
     }
 
-    public SNSUser createSNSUser(SNSUserDto dto) {
-        return new SNSUser(dto.strName, dto.strSex, dto.strBirthDate, dto.strAddress, dto.strPhoneNumber,
+    /**
+     * Create sns user sns user.
+     *
+     * @param dto the dto
+     * @return the sns user
+     */
+    public SnsUser createSNSUser(SNSUserDto dto) {
+        return new SnsUser(dto.strName, dto.strSex, dto.strBirthDate, dto.strAddress, dto.strPhoneNumber,
                 dto.strEmail, dto.snsUserNumber, dto.strCitizenCardNumber, dto.strPassword);
     }
 
+    /**
+     * Save sns user string.
+     *
+     * @param dto the dto
+     * @return the string
+     */
     public String saveSNSUser(SNSUserDto dto) {
         boolean flag = false;
         if (snsUsers.isEmpty()) {
