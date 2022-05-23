@@ -288,6 +288,14 @@ public class SnsUser {
                 "Password of the SNS User: " + strPassword;
     }
 
+    public String restrictedUsersInTheWaitingRoomInfo(){
+        return "Name: " + strName + '\n' +
+                "Sex: " + strSex + '\n' +
+                "Birth Date: " + strBirthDate + '\n' +
+                "SNS User Number: " + snsUserNumber + '\n' +
+                "Phone Number: " + strPhoneNumber + '\n';
+    }
+
     public void registerVaccine(TakenVaccine takenVaccine) {
         takenVaccines.add(takenVaccine);
     }

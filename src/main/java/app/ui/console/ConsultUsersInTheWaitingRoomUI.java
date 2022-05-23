@@ -1,8 +1,11 @@
 package app.ui.console;
 
 import app.controller.ConsultUsersInTheWaitingRoomController;
+import app.domain.model.Arrival;
 import app.domain.model.SnsUser;
 import app.domain.model.VaccinationCenter;
+
+import java.util.List;
 
 /**
  * US005 - Consult the users in the waiting room of a Vaccination Centre.
@@ -32,7 +35,7 @@ public class ConsultUsersInTheWaitingRoomUI implements Runnable {
         if (!ctrl.listOfUsersInTheWaitingRoom(vaccinationCenter).isEmpty()) {
             System.out.printf("%n------You've chosen to get the list of SNS Users in the " + vaccinationCenter + " waiting room:------%n");
             for (SnsUser snsUser : ctrl.listOfUsersInTheWaitingRoom(vaccinationCenter))
-                System.out.printf("%n" + snsUser);
+                System.out.printf("%n" + snsUser.restrictedUsersInTheWaitingRoomInfo());
         } else
             System.out.printf("%nNo user has arrived yet.%n");
     }

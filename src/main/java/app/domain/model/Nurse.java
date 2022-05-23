@@ -16,15 +16,4 @@ public class Nurse extends Employee {
                 " | Email: " + super.getEmail() +
                 " | Citizen Card Number: " + super.getCitizenCardNumber();
     }
-
-//    public ArrayList<SNSUser> listOfUsersInTheWaitingRoom(VaccinationCenter vaccinationCenter){
-//        ArrayList<SNSUser> listOfUsersInTheWaitingRoom = new ArrayList<>();
-//        for (int arrivalListPosition = 0; arrivalListPosition < getVaccinationCenter(vaccinationCenter).size(); arrivalListPosition++) {
-//            for (int snsUserListPosition = 0; snsUserListPosition < company.getSNSUserList().size(); snsUserListPosition++) {
-//                if(getVaccinationCenter(vaccinationCenter).get(arrivalListPosition).getSnsNumber() == company.getSNSUserList().get(snsUserListPosition).getSnsUserNumber())
-//                    listOfUsersInTheWaitingRoom.add(company.getSNSUserList().get(snsUserListPosition));
-//            }
-//        }
-//        return listOfUsersInTheWaitingRoom;
-//    }
 }
