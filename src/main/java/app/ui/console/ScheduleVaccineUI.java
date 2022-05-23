@@ -5,6 +5,7 @@ import app.domain.model.*;
 import app.domain.shared.Constants;
 import app.ui.console.utils.Utils;
 import dto.ScheduledVaccineDto;
+import dto.VaccinationCenterDto;
 import pt.isep.lei.esoft.auth.domain.model.Email;
 
 import java.io.*;
@@ -31,8 +32,11 @@ public class ScheduleVaccineUI implements Runnable {
             System.out.println();
             int snsNumber = introduceSnsNumberUI();
 
-            VaccinationCenter vaccinationCenter = Utils.selectVaccinationCenterUI();
-            VaccineType vaccineType = selectVaccineTypeUI(vaccinationCenter);
+            VaccinationCenter vaccinationCenterO = Utils.selectVaccinationCenterUI();
+            int vaccinationCenterIndex = controller.getVaccinationCenterIndex(vaccinationCenterO);
+            VaccinationCenterDto vaccinationCenter = controller.getVaccinationCenterInfo(vaccinationCenterIndex);
+
+            VaccineType vaccineType = selectVaccineTypeUI(vaccinationCenterO);
             if (vaccineType == null) return;
 
             LocalDateTime date = selectDateUI(vaccinationCenter);
@@ -43,13 +47,13 @@ public class ScheduleVaccineUI implements Runnable {
             scheduledVaccineDto.date = date;
 
             if (controller.loggedUserIsReceptionist()) {
-                if (controller.validateAppointmentAccordingToAgeGroupAndTimeSinceLastDose(scheduledVaccineDto, vaccinationCenter)) {
-                    printAppointmentInfo(scheduledVaccineDto, vaccinationCenter);
+                if (controller.validateAppointmentAccordingToAgeGroupAndTimeSinceLastDose(scheduledVaccineDto, vaccinationCenterO)) {
+                    printAppointmentInfo(scheduledVaccineDto, vaccinationCenterO);
                     if (Utils.confirmCreation()) {
-                        if (controller.scheduleVaccination(scheduledVaccineDto, vaccinationCenter)) {
-                            printValidAppointmentInfo(scheduledVaccineDto, vaccinationCenter);
+                        if (controller.scheduleVaccination(scheduledVaccineDto, vaccinationCenterO)) {
+                            printValidAppointmentInfo(scheduledVaccineDto, vaccinationCenterO);
                             try {
-                                printAppointmentToFile(scheduledVaccineDto, vaccinationCenter);
+                                printAppointmentToFile(scheduledVaccineDto, vaccinationCenterO);
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
                             }
@@ -60,13 +64,13 @@ public class ScheduleVaccineUI implements Runnable {
                 } else
                     System.out.printf("%nOops, something went wrong. Please try again!%nCommon causes: Your age doesn't meet any of the existing age groups or the waiting time since the last dose isn´t finished.");
             } else {
-                if (controller.validateAppointment(scheduledVaccineDto, vaccinationCenter)) {
-                    printAppointmentInfo(scheduledVaccineDto, vaccinationCenter);
+                if (controller.validateAppointment(scheduledVaccineDto, vaccinationCenterO)) {
+                    printAppointmentInfo(scheduledVaccineDto, vaccinationCenterO);
                     if (Utils.confirmCreation()) {
-                        if (controller.scheduleVaccine(scheduledVaccineDto, vaccinationCenter)) {
-                            printValidAppointmentInfo(scheduledVaccineDto, vaccinationCenter);
+                        if (controller.scheduleVaccine(scheduledVaccineDto, vaccinationCenterO)) {
+                            printValidAppointmentInfo(scheduledVaccineDto, vaccinationCenterO);
                             try {
-                                printAppointmentToFile(scheduledVaccineDto, vaccinationCenter);
+                                printAppointmentToFile(scheduledVaccineDto, vaccinationCenterO);
                             } catch (IOException e) {
                                 throw new RuntimeException(e);
                             }
@@ -155,13 +159,13 @@ public class ScheduleVaccineUI implements Runnable {
         return null;
     }
 
-    private LocalDateTime selectDateUI(VaccinationCenter vaccinationCenter) {
-        List<ScheduledVaccine> appointmentsList = vaccinationCenter.getScheduledVaccineList();
-        int openingHour = Integer.parseInt(vaccinationCenter.getStrOpeningHour());
-        int closingHour = Integer.parseInt(vaccinationCenter.getStrClosingHour());
-        int vaccinesPerSlot = Integer.parseInt(vaccinationCenter.getStrVaccinesPerSlot());
-        int slotDuration = Integer.parseInt(vaccinationCenter.getStrSlotDuration());
-        int slotsPerDay = controller.getSlotsPerDay(vaccinationCenter);
+    private LocalDateTime selectDateUI(VaccinationCenterDto vaccinationCenter) {
+        List<ScheduledVaccine> appointmentsList = vaccinationCenter.scheduledVaccineList;
+        int openingHour = Integer.parseInt(vaccinationCenter.strOpeningHour);
+        int closingHour = Integer.parseInt(vaccinationCenter.strClosingHour);
+        int vaccinesPerSlot = Integer.parseInt(vaccinationCenter.strVaccinesPerSlot);
+        int slotDuration = Integer.parseInt(vaccinationCenter.strSlotDuration);
+        int slotsPerDay = vaccinationCenter.slotsPerDay;
         LocalDate dateWhenScheduling = LocalDate.now();
 
         System.out.printf("%nChoose the Date for the appointment:%n");

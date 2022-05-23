@@ -4,7 +4,9 @@ import app.domain.model.*;
 import app.domain.shared.Constants;
 import app.ui.console.utils.Utils;
 import dto.ScheduledVaccineDto;
+import dto.VaccinationCenterDto;
 import mapper.ScheduledVaccineMapper;
+import mapper.VaccinationCenterMapper;
 import pt.isep.lei.esoft.auth.AuthFacade;
 import pt.isep.lei.esoft.auth.domain.model.Email;
 
@@ -119,6 +121,11 @@ public class ScheduleVaccineController {
         return 0;
     }
 
+    /**
+     * Gets sns user number.
+     *
+     * @return the sns user number
+     */
     public int getSnsUserNumber() {
         for (SNSUser user : company.getSNSUserList()) {
             if (user.getStrEmail().equals(String.valueOf(authFacade.getCurrentUserSession().getUserId()))) {
@@ -159,7 +166,34 @@ public class ScheduleVaccineController {
         return mapper.dtoToDomain(scheduledVaccineDto);
     }
 
+    /**
+     * Get vaccination center info.
+     *
+     * @param vaccinationCenterIndexInList the vaccination center index in list
+     * @return the vaccination center dto
+     */
+    public VaccinationCenterDto getVaccinationCenterInfo(int vaccinationCenterIndexInList){
+        VaccinationCenter vaccinationCenter = company.getVaccinationCenters().get(vaccinationCenterIndexInList);
+        VaccinationCenterMapper mapper = new VaccinationCenterMapper();
+        return mapper.domainToDto(vaccinationCenter);
+    }
+    /**
+     * Gets slots per day.
+     *
+     * @param vaccinationCenter the vaccination center
+     * @return the slots per day
+     */
     public int getSlotsPerDay(VaccinationCenter vaccinationCenter) {
     return vaccinationCenter.getSlotsPerDay();
+    }
+
+    public int getVaccinationCenterIndex(VaccinationCenter vaccinationCenter) {
+        int counter =0;
+        for (VaccinationCenter vacCenter: company.getVaccinationCenters()) {
+            if (vacCenter.getStrName().equals(vaccinationCenter.getStrName()))return counter;
+
+            counter++;
+        }
+        return -1;
     }
 }
