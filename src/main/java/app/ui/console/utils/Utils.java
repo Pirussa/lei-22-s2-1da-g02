@@ -131,6 +131,18 @@ public class Utils {
         dtoEmp4.email = "r@gmail.com";
         dtoEmp4.address = "Rua rua / 4440-124 / Porto";
         ctrlEmp.saveCreatedEmployee(dtoEmp4, "Receptionist");
+
+        //---------------------------------------------------------------------------------------------------------------------------------------------------
+
+        RegisterNewEmployeeDto dtoEmp5 = new RegisterNewEmployeeDto();
+        dtoEmp5.id = "00006";
+        dtoEmp5.name = "Xico";
+        dtoEmp5.password = "AAA45aa";
+        dtoEmp5.phoneNumber = "912652345";
+        dtoEmp5.citizenCardNumber = "15261880 5 ZW5";
+        dtoEmp5.email = "xico@gmail.com";
+        dtoEmp5.address = "Rua de São Tomé / 4200-489 / Porto";
+        ctrlEmp.saveCreatedEmployee(dtoEmp5, "Center Coordinator");
     }
 
     /**
@@ -155,7 +167,7 @@ public class Utils {
         company.saveSNSUser(dto3);
         aF.addUserWithRole("User Default3", "u3@gmail.com", "123", Constants.ROLE_SNS_USER);
         //---------------------------------------------------------------------------------------------------------------------------------------------------
-        SNSUserDto test = new SNSUserDto("UserTest", 999999999, "testUser@gmail.com", "03/03/2000", "915604432", "Male", "Default # 4000-004 # Default", "32006024 1 ZW9", "AAA33aa");
+        SNSUserDto test = new SNSUserDto("UserTest", 999999999, "testUser@gmail.com", "03/03/2010", "915604432", "Male", "Default # 4000-004 # Default", "32006024 1 ZW9", "AAA33aa");
         company.saveSNSUser(test);
         aF.addUserWithRole("UserTest", "testUser@gmail.com", "123", Constants.ROLE_SNS_USER);
         //---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -208,7 +220,7 @@ public class Utils {
     }
 
     private static void bootstrapArrivals() {
-       RegisterTheArrivalOfAnSnsUserController ctrlArrival = new RegisterTheArrivalOfAnSnsUserController();
+        RegisterTheArrivalOfAnSnsUserController ctrlArrival = new RegisterTheArrivalOfAnSnsUserController();
 
         Arrival firstArrival = new Arrival(100000000, company.getVaccineTypes().get(1));
         ctrlArrival.setVaccinationCenterReceptionist(1);
