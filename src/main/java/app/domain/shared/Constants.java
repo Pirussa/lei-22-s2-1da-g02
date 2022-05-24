@@ -54,6 +54,8 @@ public class Constants {
 
     public static final int NEW_EMPLOYEE = 1;
 
+    public static final int SEPTEMBER = 10;
+
     public static final String[] OPTIONS = {"Yes", "No"};
 
     }
