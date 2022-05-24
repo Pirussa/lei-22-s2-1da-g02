@@ -36,7 +36,7 @@ public class ScheduleVaccineUI implements Runnable {
                 snsNumber = controller.getSnsUserNumber();
             }
 
-            //VaccinationCenter vaccinationCenterO =
+
             int vaccinationCenterIndex = Utils.selectVaccinationCenterIndex();
             controller.setVaccinationCenter(vaccinationCenterIndex);
 
@@ -139,10 +139,8 @@ public class ScheduleVaccineUI implements Runnable {
     }
 
     private LocalDateTime selectDateUI(VaccinationCenterDto vaccinationCenter) {
-        List<ScheduledVaccine> appointmentsList = vaccinationCenter.scheduledVaccineList;
         int openingHour = Integer.parseInt(vaccinationCenter.strOpeningHour);
         int closingHour = Integer.parseInt(vaccinationCenter.strClosingHour);
-        int vaccinesPerSlot = Integer.parseInt(vaccinationCenter.strVaccinesPerSlot);
         int slotDuration = Integer.parseInt(vaccinationCenter.strSlotDuration);
         int slotsPerDay = vaccinationCenter.slotsPerDay;
         LocalDate dateWhenScheduling = LocalDate.now();
@@ -219,6 +217,7 @@ public class ScheduleVaccineUI implements Runnable {
         System.out.printf("%n" + optionNumber + " - Next Month%n");
         boolean flag;
         int selectedDay;
+
         do {
             System.out.printf("%nType your option: ");
             int selectedOption = Utils.insertInt("Insert a valid option: ");
@@ -240,9 +239,13 @@ public class ScheduleVaccineUI implements Runnable {
         LocalDate nextMonthDate = dateWhenScheduling.plusMonths(1).with(TemporalAdjusters.firstDayOfMonth());
         for (int date = nextMonthDate.getDayOfMonth(); date <= YearMonth.of(nextMonthDate.getYear(), nextMonthDate.getMonthValue()).lengthOfMonth(); date++) {
             optionNumber = getOptionNumber(optionNumber, nextMonthDate, date);
+
         }
         optionNumber = 0;
         System.out.printf("%n" + optionNumber + " - Previous Month%n");
+
+
+
         boolean flag;
         int selectedDay;
         do {
@@ -261,12 +264,12 @@ public class ScheduleVaccineUI implements Runnable {
 
     }
 
-    private int getOptionNumber(int optionNumber, LocalDate nextMonthDate, int date) {
-        if (controller.dayHasAvailability(LocalDate.of(LocalDate.now().getYear(), nextMonthDate.getMonthValue(), date))) {
-            if (nextMonthDate.getMonthValue() < 10)
-                System.out.println(optionNumber + " - " + date + "/" + "0" + nextMonthDate.getMonthValue());
+    private int getOptionNumber(int optionNumber, LocalDate localDate, int date) {
+        if (controller.dayHasAvailability(LocalDate.of(LocalDate.now().getYear(), localDate.getMonthValue(), date))) {
+            if (localDate.getMonthValue() < 10)
+                System.out.println(optionNumber + " - " + date + "/" + "0" + localDate.getMonthValue());
             else
-                System.out.println(optionNumber + " - " + date + "/" + nextMonthDate.getMonthValue());
+                System.out.println(optionNumber + " - " + date + "/" + localDate.getMonthValue());
             optionNumber++;
         }
         return optionNumber;

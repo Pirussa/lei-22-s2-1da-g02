@@ -225,4 +225,8 @@ public class ScheduleVaccineController {
     public boolean slotHasAvailability(LocalDate selectedDate, LocalTime timeOfTheSlot) {
         return vaccinationCenter.slotHasAvailability(selectedDate,timeOfTheSlot);
     }
+
+    private boolean isMonthNumberSingleDigit(LocalDate localDate){
+        return localDate.getMonthValue() <= Constants.SEPTEMBER;
+    }
 }

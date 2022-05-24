@@ -7,12 +7,6 @@ activate U
 U -> ":System" : asks to schedule a vaccine
 
 activate ":System"
-":System" --> U : requests data (SNS user number)
-deactivate ":System"
-
-U -> ":System"  : types SNS number
-
-activate ":System"
 ":System" --> U : shows a list with the available vaccination centers
 deactivate ":System"
 U -> ":System" : selects one vaccination center
