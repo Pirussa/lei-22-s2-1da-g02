@@ -39,7 +39,6 @@ public class ScheduleVaccineController {
      * Schedule vaccine if the appointment is valid
      *
      * @param scheduledVaccineDto the scheduled vaccine dto
-     * @param vaccinationCenter   the vaccination center
      * @return True if the vaccine appointment was valid and scheduled
      */
     public boolean scheduleVaccine(ScheduledVaccineDto scheduledVaccineDto) {
@@ -53,7 +52,6 @@ public class ScheduleVaccineController {
      * Validate appointment boolean.
      *
      * @param scheduledVaccineDto the scheduled vaccine dto
-     * @param vaccinationCenter   the vaccination center
      * @return the boolean
      */
     public boolean validateAppointment(ScheduledVaccineDto scheduledVaccineDto) {
@@ -181,23 +179,41 @@ public class ScheduleVaccineController {
     }
 
 
+    /**
+     * Gets vaccine type.
+     *
+     * @return the vaccine type
+     */
     public ArrayList<String> getVaccineType() {
-        List <String> vaccineTypes ;
+        ArrayList<String> vaccineTypes = new ArrayList<>();
 
-        if (isMassVaccinationCenter()){
+        if (isMassVaccinationCenter()) {
             MassVaccinationCenter massVaccinationCenter = (MassVaccinationCenter) vaccinationCenter;
-             vaccineTypes= new ArrayList<>(Arrays.of(massVaccinationCenter.getStrVaccineType()));
-            return vaccineTypes;
-        }else{
+            vaccineTypes = new ArrayList<>(List.of(massVaccinationCenter.getStrVaccineType()));
+        } else {
             HealthcareCenter healthcareCenter = (HealthcareCenter) vaccinationCenter;
             int index = 0;
-            for (VaccineType vacineType: healthcareCenter.getVaccineTypes()) {
-                vaccineTypes.add(index,vacineType.toString());
+            for (VaccineType vacineType : healthcareCenter.getVaccineTypes()) {
+                vaccineTypes.add(index, vacineType.toString());
                 index++;
-
             }
+        }
+        return vaccineTypes;
+    }
 
-            return
+
+    /**
+     * Sets vaccine type.
+     *
+     * @param vaccineTypeIndex the vaccine type index in the Vacine Types list
+     */
+    public void setVaccineType(int vaccineTypeIndex, ScheduledVaccineDto scheduledVaccineDto) {
+        if (isMassVaccinationCenter()) {
+            MassVaccinationCenter massVaccinationCenter = (MassVaccinationCenter) vaccinationCenter;
+            scheduledVaccineDto.vaccineType = massVaccinationCenter.getVaccineType();
+        } else {
+            HealthcareCenter healthcareCenter = (HealthcareCenter) vaccinationCenter;
+            scheduledVaccineDto.vaccineType = healthcareCenter.getVaccineTypes().get(vaccineTypeIndex);
         }
     }
 }

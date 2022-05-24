@@ -28,7 +28,7 @@ public class ScheduleVaccineUI implements Runnable {
     public void run() {
         if (controller.companyHasNecessaryInfo()) {
             System.out.println();
-
+            ScheduledVaccineDto scheduledVaccineDto = new ScheduledVaccineDto();
             int snsNumber;
             if (controller.loggedUserIsReceptionist()) {
                 snsNumber = introduceSnsNumberUI();
@@ -39,21 +39,21 @@ public class ScheduleVaccineUI implements Runnable {
             //VaccinationCenter vaccinationCenterO =
             int vaccinationCenterIndex = Utils.selectVaccinationCenterIndex();
             controller.setVaccinationCenter(vaccinationCenterIndex);
-            
-            
-            VaccinationCenterDto vaccinationCenterInfo = controller.getVaccinationCenterInfo();
-            
-            
 
-            VaccineType vaccineType = selectVaccineTypeUI(vaccinationCenterO);
-            if (vaccineType == null) return;
+
+            VaccinationCenterDto vaccinationCenterInfo = controller.getVaccinationCenterInfo();
+
+
+            selectVaccineTypeUI(vaccinationCenterInfo, scheduledVaccineDto);
+            // if (vaccineType == null) return; --> Possivelmente tornar metodo boolean e ver se dá return a falso para dar o return;
+            //Só é preciso isso se ao escolher a opção "nao" ele continuar nesta US
 
             LocalDateTime date = selectDateUI(vaccinationCenterInfo);
 
-            ScheduledVaccineDto scheduledVaccineDto = new ScheduledVaccineDto();
+
             scheduledVaccineDto.snsNumber = snsNumber;
-            scheduledVaccineDto.vaccineType = vaccineType;
             scheduledVaccineDto.date = date;
+
 
 
             if (controller.validateAppointment(scheduledVaccineDto)) {
@@ -119,16 +119,15 @@ public class ScheduleVaccineUI implements Runnable {
         return SNSNumber;
     }
 
-    private VaccineType selectVaccineTypeHealthCareCenterUI(HealthcareCenter healthcareCenter) {
+    private int selectVaccineTypeHealthCareCenterIndex(ArrayList vaccineTypesList) {
         System.out.printf("%nSuggested: " + Constants.SUGGESTED_VACCINE_TYPE_ONGOING_OUTBREAK + "%n");
-        return healthcareCenter.getVaccineTypes().get(Utils.selectFromList(healthcareCenter.getVaccineTypes(), "Select one Vaccine Type"));
+        return Utils.selectFromList(vaccineTypesList, "Select one Vaccine Type");
     }
 
-    private VaccineType selectVaccineTypeUI(VaccinationCenterDto vaccinationCenter) {
-        
-        
+    private void selectVaccineTypeUI(VaccinationCenterDto vaccinationCenter, ScheduledVaccineDto scheduledVaccineDto) {
+
         if (controller.isMassVaccinationCenter()) {
-            
+
             System.out.println();
             System.out.println("The available Vaccine Type for " + vaccinationCenter.strName + " is: " + controller.getVaccineType());
             System.out.printf("%nDo you want to proceed?%n1 - Yes%n2 - No%n%nType your option: ");
@@ -138,20 +137,19 @@ public class ScheduleVaccineUI implements Runnable {
                 if (proceedVerification == 1) {
                     check = true;
                 } else if (proceedVerification == 2) {
-                    return null;
+                    return;
                 } else {
                     System.out.println("Insert a valid option: ");
                     check = false;
                 }
             } while (!check);
 
-            return massVacCenter.getVaccineType();
+            controller.setVaccineType(1,scheduledVaccineDto );
 
-        } else if (vaccinationCenter instanceof HealthcareCenter) {
-            HealthcareCenter healthcareCenter = (HealthcareCenter) vaccinationCenter;
-            return selectVaccineTypeHealthCareCenterUI(healthcareCenter);
+        } else {
+            controller.setVaccineType(selectVaccineTypeHealthCareCenterIndex(controller.getVaccineType()), scheduledVaccineDto);
         }
-        return null;
+
     }
 
     private LocalDateTime selectDateUI(VaccinationCenterDto vaccinationCenter) {
