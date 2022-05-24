@@ -92,7 +92,7 @@ class ScheduledVaccineTest {
         VaccinationCenter vaccinationCenter = new VaccinationCenter("test", "test", "911111111", "test@gmail.com", "911111111", "www.test.com", "9", "16", "420", "1", "test", "4470-111", "test", company.getCentreCoordinatorList().get(0).getId());
         company.getVaccinationCenters().add(vaccinationCenter);
 
-        controller.setVaccinationCenter(company.getVaccinationCenters().size()-1);
+        controller.setVaccinationCenter(company.getVaccinationCenters().size() - 1);
 
         final VaccineType vaccineType = new VaccineType("TEST1", "test", "test1");
         scheduledVaccineDto1.vaccineType = vaccineType;

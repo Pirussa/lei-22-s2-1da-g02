@@ -449,7 +449,6 @@ public class VaccinationCenter {
         return timeIntervalBetweenUserDose <= days;
     }
 
-
     /**
      * Validate appointment according to admin process.
      *
@@ -458,7 +457,6 @@ public class VaccinationCenter {
      * @return user age group index
      */
     private int getUserAgeGroupIndex(SnsUser snsUser, AdministrationProcess administrationProcess) {
-
         String[] birthDateComponents = snsUser.getStrBirthDate().split("/");
         LocalDate birthDate = LocalDate.of(Integer.parseInt(birthDateComponents[2]), Integer.parseInt(birthDateComponents[1]), Integer.parseInt(birthDateComponents[0]));
         int userAgeInDays = (int) Duration.between(LocalDate.now().atStartOfDay(), birthDate.atStartOfDay()).toDays();
@@ -471,7 +469,6 @@ public class VaccinationCenter {
             }
         }
         return -1;
-
     }
 
     /**
