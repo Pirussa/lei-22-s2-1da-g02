@@ -79,7 +79,7 @@ public class Arrival {
      * @return boolean - true if day and time match
      */
     public boolean checkDateAndTime(LocalDateTime date, VaccinationCenter vaccinationCenter) {
-        if (checkDate(date))
+        if (!checkDate(date))
             return false;
 
         return checkTime(date, vaccinationCenter);
@@ -101,17 +101,19 @@ public class Arrival {
     }
 
     private boolean checkTime(LocalDateTime appointmentTime, VaccinationCenter vaccinationCenter) {
-        int appointmentHour = appointmentTime.getHour();
+        int slotDuration = Integer.parseInt(vaccinationCenter.getStrSlotDuration());
+        LocalDateTime minusTime = subtractTimes(slotDuration, appointmentTime);
+        LocalDateTime plusTime = sumTimes(appointmentTime);
 
-        /*
-        O QUE FAZER - EM VEZ DE 1H VAMOS USAR SLOT DURATION
-        Saber os vários slot durations, mayve uma lista ou algo do género
-        Criar método para identificar a qual slot pertence o appointment
-        Verificar se o arrival está compreendido entre o slot anterior e o ínicio do dele
-            Se sim, registar
-         */
+        return (dateTime.getHour() == minusTime.getHour() && dateTime.getMinute() >= minusTime.getMinute()) && dateTime.getHour() <= plusTime.getHour() ;
+    }
 
-        return dateTime.getHour() >= appointmentHour - 1 && dateTime.getHour() <= appointmentHour;
+    private LocalDateTime subtractTimes(int slotDuration, LocalDateTime appointmentTime) {
+        return appointmentTime.minusMinutes(slotDuration);
+    }
+
+    private LocalDateTime sumTimes(LocalDateTime appointmentTime) {
+        return appointmentTime.plusMinutes(10);
     }
 
     /**

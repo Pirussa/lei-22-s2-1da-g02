@@ -43,7 +43,7 @@ class RegisterTheArrivalOfAnSnsUserTest {
         VaccinationCenter vc = new VaccinationCenter("1234", "CVC Matosinhos", "915607321", "cvcmatosinhos@gmail.com", "915607321", "www.cvcmatosinhos.com", "9",
                 "16", "30", "1", "Rua do Amial", "4460-098", "Matosinhos", "CC-95634");
 
-        assertTrue(UI.checkRequirementsForRegistration(arrival.getSnsNumber(), list, vc, vc));
+        assertTrue(UI.checkRequirementsForRegistration(arrival.getSnsNumber()));
 
     }
 
@@ -62,7 +62,7 @@ class RegisterTheArrivalOfAnSnsUserTest {
         VaccinationCenter vc = new VaccinationCenter("1234", "CVC Matosinhos", "915607321", "cvcmatosinhos@gmail.com", "915607321", "www.cvcmatosinhos.com", "9",
                 "16", "30", "1", "Rua do Amial", "4460-098", "Matosinhos", "CC-95634");
 
-        assertFalse(UI.checkRequirementsForRegistration(arrival.getSnsNumber(), list, vc, vc));
+        assertFalse(UI.checkRequirementsForRegistration(arrival.getSnsNumber()));
 
     }
 
@@ -81,7 +81,7 @@ class RegisterTheArrivalOfAnSnsUserTest {
         VaccinationCenter vc = new VaccinationCenter("1234", "CVC Matosinhos", "915607321", "cvcmatosinhos@gmail.com", "915607321", "www.cvcmatosinhos.com", "9",
                 "16", "30", "1", "Rua do Amial", "4460-098", "Matosinhos", "CC-95634");
 
-        assertFalse(UI.checkRequirementsForRegistration(arrival.getSnsNumber(), list, vc, vc));
+        assertFalse(UI.checkRequirementsForRegistration(arrival.getSnsNumber()));
     }
 
     @Test
@@ -101,7 +101,7 @@ class RegisterTheArrivalOfAnSnsUserTest {
         VaccinationCenter vcU = new VaccinationCenter("1234", "Isep", "915607321", "cvcmatosinhos@gmail.com", "915607321", "www.cvcmatosinhos.com", "9",
                 "16", "30", "1", "Rua do Amial", "4460-098", "Matosinhos", "CC-95634");
 
-        assertFalse(UI.checkRequirementsForRegistration(arrival.getSnsNumber(), list, vcR, vcU));
+        assertFalse(UI.checkRequirementsForRegistration(arrival.getSnsNumber()));
     }
 
 
@@ -119,9 +119,9 @@ class RegisterTheArrivalOfAnSnsUserTest {
         list.add(appointment2);
         VaccinationCenter vc = new VaccinationCenter("1234", "CVC Matosinhos", "915607321", "cvcmatosinhos@gmail.com", "915607321", "www.cvcmatosinhos.com", "9",
                 "16", "30", "1", "Rua do Amial", "4460-098", "Matosinhos", "CC-95634");
-        vc.registerArrival(arrival, vc);
+        vc.registerArrival(arrival);
 
-        assertFalse(UI.checkRequirementsForRegistration(arrival.getSnsNumber(), list, vc, vc));
+        assertFalse(UI.checkRequirementsForRegistration(arrival.getSnsNumber()));
 
     }
 

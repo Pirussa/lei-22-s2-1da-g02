@@ -1,13 +1,8 @@
 package app.ui.console;
 
 import app.controller.RegisterTheArrivalOfAnSnsUserController;
-import app.domain.model.Arrival;
 import app.domain.model.SnsUser;
-import app.domain.model.ScheduledVaccine;
-import app.domain.model.VaccinationCenter;
 import app.ui.console.utils.Utils;
-import java.util.List;
-import java.util.Objects;
 
 public class RegisterTheArrivalOfAnSnsUserUI implements Runnable {
 
@@ -26,7 +21,7 @@ public class RegisterTheArrivalOfAnSnsUserUI implements Runnable {
         int snsNumber;
         do {
             snsNumber = Utils.readIntegerFromConsole("Introduce SNS Number: ");
-        } while (!SnsUser.validateSNSUserNumber(Objects.requireNonNull(snsNumber)) || SnsUser.getUserIndexInUsersList(snsNumber) < 0);
+        } while (!SnsUser.validateSNSUserNumber(snsNumber) || SnsUser.getUserIndexInUsersList(snsNumber) < 0);
 
         System.out.println();
 
@@ -44,7 +39,7 @@ public class RegisterTheArrivalOfAnSnsUserUI implements Runnable {
                 System.out.printf("%nThe user has been registered");
             }
             else
-                System.out.printf("%nThe user has not been registered");
+                System.out.printf("%nThe user has not been registered %n");
 
         }
 
@@ -62,19 +57,21 @@ public class RegisterTheArrivalOfAnSnsUserUI implements Runnable {
             System.out.printf("%nThe user does not have any appointment%n");
             return false;
         }
+        else
+            ctrl.setArrival(snsNumber);
 
         if (!ctrl.checkVaccinationCenters()) {
-            System.out.printf("%nWrong Vaccination Center%n");
+            System.out.printf("%nWrong Vaccination Center %n");
             return false;
         }
 
-        if(!ctrl.checkDateAndTime(snsNumber)) {
-            System.out.println("Wrong Day/Time%n");
+        if(!ctrl.checkDateAndTime()) {
+            System.out.printf("Wrong Day/Time %n");
             return false;
         }
 
         if(!ctrl.checkRegistration(snsNumber)) {
-            System.out.printf("%nUser has already been registered%n");
+            System.out.printf("%nUser has already been registered %n");
             return false;
         }
 

@@ -1,8 +1,6 @@
 package app.controller;
 
 import app.domain.model.*;
-
-import java.time.LocalDateTime;
 import java.util.List;
 
 public class RegisterTheArrivalOfAnSnsUserController {
@@ -16,24 +14,25 @@ public class RegisterTheArrivalOfAnSnsUserController {
 
     public RegisterTheArrivalOfAnSnsUserController() {}
 
+    /**
+     * Sets the Receptionist vaccination center
+     *
+     * @param index Position of the vaccination center
+     */
     public void setVaccinationCenterReceptionist(int index) {
-        vaccinationCenterReceptionist = company.getVaccinationCenters().get(index - 1);
+        vaccinationCenterReceptionist = company.getVaccinationCenters().get(index);
         scheduledVaccineList = vaccinationCenterReceptionist.getScheduledVaccineList();
     }
 
+    /**
+     * Sets the Sns User vaccination center
+     *
+     * @param index Position of the vaccination center
+     */
     public void setVaccinationCenterSnsUser(int index) {
-        vaccinationCenterReceptionist = company.getVaccinationCenters().get(index - 1);
+        vaccinationCenterSnsUser = company.getVaccinationCenters().get(index);
     }
 
-    /**
-     * Gets the list that contains the appointments of a certain vaccination center
-     *
-     * @param vaccinationCenter The chosen vaccination center
-     * @return the list of appointments
-     */
-    public List<ScheduledVaccine> getScheduledVaccineList(VaccinationCenter vaccinationCenter) {
-        return vaccinationCenter.getScheduledVaccineList();
-    }
 
     /**
      * Checks the if user and receptionist are on the same vaccination center
@@ -70,20 +69,27 @@ public class RegisterTheArrivalOfAnSnsUserController {
      *
      * @return boolean - true if day and time match
      */
-    public boolean checkDateAndTime(int snsNumber) {
-        Arrival arrival = new Arrival(snsNumber, appointment.getVaccineType());
+    public boolean checkDateAndTime() {
         return arrival.checkDateAndTime(appointment.getDate(), vaccinationCenterReceptionist);
     }
 
     /**
-     * Register the arrival of an SNS user
+     * Registers the arrival of an SNS user
      *
      */
     public void registerArrival() {
         vaccinationCenterReceptionist.registerArrival(arrival);
     }
 
+    /**
+     * Cleans the lisf of arrivals
+     *
+     */
     public void cleanArrivalsList() {
         vaccinationCenterReceptionist.cleanArrivalsList();
+    }
+
+    public void setArrival(int snsNumber) {
+        arrival = new Arrival(snsNumber, appointment.getVaccineType());
     }
 }
