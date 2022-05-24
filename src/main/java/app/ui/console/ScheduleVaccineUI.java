@@ -18,10 +18,8 @@ import java.util.*;
 
 public class ScheduleVaccineUI implements Runnable {
 
-
     private final Scanner sc = new Scanner(System.in);
     private final ScheduleVaccineController controller = new ScheduleVaccineController();
-
 
     /**
      * When the run() method calls, the code specified in the run() method is executed.
@@ -65,9 +63,9 @@ public class ScheduleVaccineUI implements Runnable {
                             throw new RuntimeException(e);
                         }
                     } else
-                        System.out.printf("%n-----------------------------|No appointment was registered|-----------------------------%n");
+                        System.out.printf("%n-------------------------------%n|No appointment was registered|%n-------------------------------n");
                 } else
-                    System.out.printf("%n-----------------------------|No appointment was registered|-----------------------------%n");
+                    System.out.printf("%n-------------------------------%n|No appointment was registered|%n-------------------------------%n");
             } else {
                 System.out.printf("%nOops, something went wrong. Please try again!%nCommon causes: You already have an appointment for that vaccine; Your slot is not available anymore.%nYour age doesn't meet any of the existing age groups or the waiting time since the last dose isn´t finished.%n");
             }
@@ -118,7 +116,7 @@ public class ScheduleVaccineUI implements Runnable {
     }
 
     private VaccineType selectVaccineTypeHealthCareCenterUI(HealthcareCenter healthcareCenter) {
-        System.out.printf("%nSuggested: COVID%n");
+        System.out.printf("%nSuggested: " + Constants.SUGGESTED_VACCINE_TYPE_ONGOING_OUTBREAK + "%n");
         return healthcareCenter.getVaccineTypes().get(Utils.selectFromList(healthcareCenter.getVaccineTypes(), "Select one Vaccine Type"));
     }
 
@@ -219,8 +217,7 @@ public class ScheduleVaccineUI implements Runnable {
 
     }
 
-    private LocalDate selectDateFromCurrentMonth(List<ScheduledVaccine> appointmentsList, int slotsPerDay,
-                                                 int vaccinesPerSlot) {
+    private LocalDate selectDateFromCurrentMonth(List<ScheduledVaccine> appointmentsList, int slotsPerDay, int vaccinesPerSlot) {
         LocalDate dateWhenScheduling = LocalDate.now();
 
         int optionNumber = 1;
@@ -248,8 +245,7 @@ public class ScheduleVaccineUI implements Runnable {
         return LocalDate.of(LocalDate.now().getYear(), dateWhenScheduling.getMonthValue(), selectedDay);
     }
 
-    private LocalDate selectDateFromNextMonth(List<ScheduledVaccine> appointmentsList, int slotsPerDay,
-                                              int vaccinesPerSlot) {
+    private LocalDate selectDateFromNextMonth(List<ScheduledVaccine> appointmentsList, int slotsPerDay, int vaccinesPerSlot) {
         int optionNumber = 1;
         LocalDate dateWhenScheduling = LocalDate.now();
         LocalDate nextMonthDate = dateWhenScheduling.plusMonths(1).with(TemporalAdjusters.firstDayOfMonth());
@@ -296,8 +292,7 @@ public class ScheduleVaccineUI implements Runnable {
      * @param appointments    the appointments
      * @return the boolean
      */
-    public static boolean dayHasAvailability(int slotsPerDay, int vaccinesPerSlot, LocalDate
-            date, List<ScheduledVaccine> appointments) {
+    public static boolean dayHasAvailability(int slotsPerDay, int vaccinesPerSlot, LocalDate date, List<ScheduledVaccine> appointments) {
         int vaccinesPerDay = slotsPerDay * vaccinesPerSlot;
         int counterAppointments = 0;
 
@@ -317,8 +312,7 @@ public class ScheduleVaccineUI implements Runnable {
         System.out.printf("Given SNS Number: " + scheduledVaccineDto.snsNumber + "%n%nSelected Vaccination Center: " + vaccinationCenter + "%n%nSelected Vaccine Type: " + scheduledVaccineDto.vaccineType + "%n%nDate: " + Utils.formatDateToPrint(scheduledVaccineDto.date.toLocalDate()) + "%n%nTime: " + scheduledVaccineDto.date.toLocalTime() + "%n%n");
     }
 
-    private void printValidAppointmentInfo(ScheduledVaccineDto scheduledVaccineDto, VaccinationCenter
-            vaccinationCenter) {
+    private void printValidAppointmentInfo(ScheduledVaccineDto scheduledVaccineDto, VaccinationCenter vaccinationCenter) {
         System.out.printf("%n----------------------%n|Scheduling completed|%n----------------------%n%nYou have an appointment to take a %s vaccine, at %s in %s, on %s.%n%n", scheduledVaccineDto.vaccineType, scheduledVaccineDto.date.toLocalTime(), Utils.formatDateToPrint(scheduledVaccineDto.date.toLocalDate()), vaccinationCenter);
     }
 

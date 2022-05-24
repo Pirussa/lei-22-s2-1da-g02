@@ -23,6 +23,8 @@ public class Constants {
 
     public static final String ID_FIRST_EMPLOYEE = "Company.Designation";
 
+    public static final String SUGGESTED_VACCINE_TYPE_ONGOING_OUTBREAK = "COVID";
+
     public static final String PATH_SMS_MESSAGE = "SMS.txt";
     public static final int PASSWORD_LENGTH = 7;
 
