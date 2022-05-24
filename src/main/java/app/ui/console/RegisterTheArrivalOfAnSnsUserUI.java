@@ -34,14 +34,13 @@ public class RegisterTheArrivalOfAnSnsUserUI implements Runnable {
         ctrl.setVaccinationCenterSnsUser(vaccinationCenterSNSUser);
 
 
-        if(checkRequirementsForRegistration(snsNumber, scheduleVaccinesOfTheVaccinationCenter, vaccinationCenterReceptionist, vaccinationCenterSNSUser)) {
+        if(checkRequirementsForRegistration(snsNumber)) {
 
             System.out.printf("%nThe user meets all the requirements to be registered. Do you confirm this arrival?%n%n");
             System.out.println("1. Yes");
             System.out.println("2. No");
             if(Utils.readIntegerFromConsole("Insert your option: ") == 1) {
-                ScheduledVaccine appointment = ctrl.getUserAppointment(snsNumber, scheduleVaccinesOfTheVaccinationCenter);
-                ctrl.registerArrival(new Arrival(snsNumber, appointment.getVaccineType()), vaccinationCenterSNSUser);
+                ctrl.registerArrival();
                 System.out.printf("%nThe user has been registered");
             }
             else
@@ -55,32 +54,26 @@ public class RegisterTheArrivalOfAnSnsUserUI implements Runnable {
      * Checks all the requirements needed in order to register an arrival
      *
      * @param snsNumber The number that identifies an SNS user
-     * @param vaccineAppointments The list of appointments of the chosen vaccination center
-     * @param vaccinationCenterReceptionist The vaccination center where the receptionist is located
-     * @param vaccinationCenterSNSUser The vaccination center where the user is located
      * @return return true if all the requirements are met
      */
-    public boolean checkRequirementsForRegistration(int snsNumber, List<ScheduledVaccine> vaccineAppointments, VaccinationCenter vaccinationCenterReceptionist, VaccinationCenter vaccinationCenterSNSUser) {
-        ScheduledVaccine appointment = ctrl.getUserAppointment(snsNumber, vaccineAppointments);
+    public boolean checkRequirementsForRegistration(int snsNumber) {
 
-        if (appointment == null) {
+        if (!ctrl.getUserAppointment(snsNumber)) {
             System.out.printf("%nThe user does not have any appointment%n");
             return false;
         }
 
-        if (!ctrl.checkVaccinationCenters(vaccinationCenterReceptionist, vaccinationCenterSNSUser)) {
+        if (!ctrl.checkVaccinationCenters()) {
             System.out.printf("%nWrong Vaccination Center%n");
             return false;
         }
 
-        Arrival arrival = new Arrival(snsNumber, appointment.getVaccineType());
-
-        if(!ctrl.checkDateAndTime(appointment.getDate(), arrival.getDateTime(), arrival.getDateTime().getHour(), vaccinationCenterReceptionist)) {
+        if(!ctrl.checkDateAndTime(snsNumber)) {
             System.out.println("Wrong Day/Time%n");
             return false;
         }
 
-        if(!ctrl.checkRegistration(snsNumber, vaccinationCenterReceptionist)) {
+        if(!ctrl.checkRegistration(snsNumber)) {
             System.out.printf("%nUser has already been registered%n");
             return false;
         }

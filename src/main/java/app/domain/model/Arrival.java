@@ -76,19 +76,17 @@ public class Arrival {
      * Checks if the user is on the vaccination center on the right day and time
      *
      * @param date Date of the appointment
-     * @param day  Day of the arrival
-     * @param hour Hour of the arrival
      * @return boolean - true if day and time match
      */
-    public static boolean checkDateAndTime(LocalDateTime date, LocalDateTime day, int hour, VaccinationCenter vaccinationCenter) {
-        if (!Arrival.checkDate(date, day))
+    public boolean checkDateAndTime(LocalDateTime date, VaccinationCenter vaccinationCenter) {
+        if (checkDate(date))
             return false;
 
-        return Arrival.checkTime(date, hour, vaccinationCenter);
+        return checkTime(date, vaccinationCenter);
     }
 
 
-    private static boolean checkDate(LocalDateTime appointmentDay, LocalDateTime dateTime) {
+    private boolean checkDate(LocalDateTime appointmentDay) {
 
         if (appointmentDay.getDayOfMonth() != dateTime.getDayOfMonth())
             return false;
@@ -102,7 +100,7 @@ public class Arrival {
         return true;
     }
 
-    private static boolean checkTime(LocalDateTime appointmentTime, int timeArrival, VaccinationCenter vaccinationCenter) {
+    private boolean checkTime(LocalDateTime appointmentTime, VaccinationCenter vaccinationCenter) {
         int appointmentHour = appointmentTime.getHour();
 
         /*
@@ -113,7 +111,7 @@ public class Arrival {
             Se sim, registar
          */
 
-        return timeArrival >= appointmentHour - 1 && timeArrival <= appointmentHour;
+        return dateTime.getHour() >= appointmentHour - 1 && dateTime.getHour() <= appointmentHour;
     }
 
     /**
