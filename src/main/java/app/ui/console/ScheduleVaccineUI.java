@@ -40,9 +40,7 @@ public class ScheduleVaccineUI implements Runnable {
             int vaccinationCenterIndex = Utils.selectVaccinationCenterIndex();
             controller.setVaccinationCenter(vaccinationCenterIndex);
 
-
             VaccinationCenterDto vaccinationCenterInfo = controller.getVaccinationCenterInfo();
-
 
             selectVaccineTypeUI(vaccinationCenterInfo, scheduledVaccineDto);
             // if (vaccineType == null) return; --> Possivelmente tornar metodo boolean e ver se dá return a falso para dar o return;
@@ -50,11 +48,8 @@ public class ScheduleVaccineUI implements Runnable {
 
             LocalDateTime date = selectDateUI(vaccinationCenterInfo);
 
-
             scheduledVaccineDto.snsNumber = snsNumber;
             scheduledVaccineDto.date = date;
-
-
 
             if (controller.validateAppointment(scheduledVaccineDto)) {
                 printAppointmentInfo(scheduledVaccineDto, vaccinationCenterInfo);
@@ -94,7 +89,6 @@ public class ScheduleVaccineUI implements Runnable {
             if (Utils.validateSNSUserNumber(SNSNumber)) {
                 boolean flag = false;
                 for (SnsUser snsUser : controller.getSnsUsersList()) {
-
                     if (snsUser.getSnsUserNumber() == (SNSNumber)) {
                         flag = true;
                         Email snsUserEmail = new Email(snsUser.getStrEmail());
@@ -144,7 +138,7 @@ public class ScheduleVaccineUI implements Runnable {
                 }
             } while (!check);
 
-            controller.setVaccineType(1,scheduledVaccineDto );
+            controller.setVaccineType(1, scheduledVaccineDto);
 
         } else {
             controller.setVaccineType(selectVaccineTypeHealthCareCenterIndex(controller.getVaccineType()), scheduledVaccineDto);

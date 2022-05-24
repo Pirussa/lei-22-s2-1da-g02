@@ -14,10 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * The type Sns user.
+ */
 public class SnsUser {
-
-
-
     private String strName;
     private String strSex;
     private String strBirthDate;
@@ -56,28 +56,91 @@ public class SnsUser {
         }
     }
 
+    public String getStrName() {
+        return strName;
+    }
+
+    public String getStrSex() {
+        return strSex;
+    }
+
+    public String getStrAddress() {
+        return strAddress;
+    }
+
+    public String getStrPassword() {
+        return strPassword;
+    }
+
+    public AuthFacade getAuth() {
+        return auth;
+    }
+
+    public static Company getCompany() {
+        return company;
+    }
+
+    /**
+     * Gets sns user number.
+     *
+     * @return the sns user number
+     */
     public int getSnsUserNumber() {
         return snsUserNumber;
     }
 
+    /**
+     * Gets user email.
+     *
+     * @return the email
+     */
     public String getStrEmail() {
         return strEmail;
     }
 
+    /**
+     * Gets phone number.
+     *
+     * @return the phone number
+     */
     public String getStrPhoneNumber() {
         return strPhoneNumber;
     }
 
+    /**
+     * Gets citizen card number.
+     *
+     * @return the citizen card number
+     */
     public String getStrCitizenCardNumber() {
         return strCitizenCardNumber;
     }
 
+    /**
+     * Gets user birthdate.
+     *
+     * @return the user birthdate
+     */
     public String getStrBirthDate() {
         return strBirthDate;
     }
 
+    /**
+     * Gets taken vaccines.
+     *
+     * @return the taken vaccines list
+     */
     public List<TakenVaccine> getTakenVaccines() {
         return takenVaccines;
+    }
+
+    /**
+     * Sets taken vaccines list.
+     *
+     * @param takenVaccines the taken vaccines
+     */
+    public void setTakenVaccines(List<TakenVaccine> takenVaccines) {
+        this.takenVaccines = takenVaccines;
     }
 
     public boolean validateEmail(String strEmail) {

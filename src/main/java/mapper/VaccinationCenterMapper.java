@@ -28,6 +28,4 @@ public class VaccinationCenterMapper {
         vaccinationCenter.setArrivalsList(dto.arrivalList);
         return vaccinationCenter;
     }
-
-
 }

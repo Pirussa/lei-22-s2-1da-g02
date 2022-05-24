@@ -178,7 +178,6 @@ public class ScheduleVaccineController {
         return vaccinationCenter instanceof MassVaccinationCenter;
     }
 
-
     /**
      * Gets vaccine type.
      *
