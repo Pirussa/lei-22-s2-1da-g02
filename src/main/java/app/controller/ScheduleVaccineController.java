@@ -42,8 +42,8 @@ public class ScheduleVaccineController {
      * @param vaccinationCenter   the vaccination center
      * @return True if the vaccine appointment was valid and scheduled
      */
-    public boolean scheduleVaccine(ScheduledVaccineDto scheduledVaccineDto, VaccinationCenter vaccinationCenter) {
-        if (!validateAppointment(scheduledVaccineDto, vaccinationCenter)) return false;
+    public boolean scheduleVaccine(ScheduledVaccineDto scheduledVaccineDto) {
+        if (!validateAppointment(scheduledVaccineDto)) return false;
         vaccinationCenter.addAppointment(createScheduledVaccine(scheduledVaccineDto));
         ScheduledVaccine.addAppointment(createScheduledVaccine(scheduledVaccineDto));
         return true;
@@ -56,7 +56,7 @@ public class ScheduleVaccineController {
      * @param vaccinationCenter   the vaccination center
      * @return the boolean
      */
-    public boolean validateAppointment(ScheduledVaccineDto scheduledVaccineDto, VaccinationCenter vaccinationCenter) {
+    public boolean validateAppointment(ScheduledVaccineDto scheduledVaccineDto) {
         if (!dataIsAllFilled(scheduledVaccineDto)) return false;
         if (!ScheduledVaccine.userIsEligibleForTheAppointment(scheduledVaccineDto)) return false;
         if (!vaccinationCenter.validateAppointmentAccordingToAgeGroupAndTimeSinceLastDose(scheduledVaccineDto, company))

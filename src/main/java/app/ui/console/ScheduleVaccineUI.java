@@ -56,13 +56,13 @@ public class ScheduleVaccineUI implements Runnable {
             scheduledVaccineDto.date = date;
 
 
-            if (controller.validateAppointment(scheduledVaccineDto, vaccinationCenterO)) {
-                printAppointmentInfo(scheduledVaccineDto, vaccinationCenterO);
+            if (controller.validateAppointment(scheduledVaccineDto)) {
+                printAppointmentInfo(scheduledVaccineDto, vaccinationCenterInfo);
                 if (Utils.confirmCreation()) {
-                    if (controller.scheduleVaccine(scheduledVaccineDto, vaccinationCenterO)) {
-                        printValidAppointmentInfo(scheduledVaccineDto, vaccinationCenterO);
+                    if (controller.scheduleVaccine(scheduledVaccineDto)) {
+                        printValidAppointmentInfo(scheduledVaccineDto, vaccinationCenterInfo);
                         try {
-                            printAppointmentToFile(scheduledVaccineDto, vaccinationCenterO);
+                            printAppointmentToFile(scheduledVaccineDto, vaccinationCenterInfo);
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
@@ -313,12 +313,12 @@ public class ScheduleVaccineUI implements Runnable {
         return true;
     }
 
-    private void printAppointmentInfo(ScheduledVaccineDto scheduledVaccineDto, VaccinationCenter vaccinationCenter) {
+    private void printAppointmentInfo(ScheduledVaccineDto scheduledVaccineDto, VaccinationCenterDto vaccinationCenter) {
         System.out.printf("%n-------------------------%n|Appointment Information|%n-------------------------%n%n");
         System.out.printf("Given SNS Number: " + scheduledVaccineDto.snsNumber + "%n%nSelected Vaccination Center: " + vaccinationCenter + "%n%nSelected Vaccine Type: " + scheduledVaccineDto.vaccineType + "%n%nDate: " + Utils.formatDateToPrint(scheduledVaccineDto.date.toLocalDate()) + "%n%nTime: " + scheduledVaccineDto.date.toLocalTime() + "%n%n");
     }
 
-    private void printValidAppointmentInfo(ScheduledVaccineDto scheduledVaccineDto, VaccinationCenter vaccinationCenter) {
+    private void printValidAppointmentInfo(ScheduledVaccineDto scheduledVaccineDto, VaccinationCenterDto vaccinationCenter) {
         System.out.printf("%n----------------------%n|Scheduling completed|%n----------------------%n%nYou have an appointment to take a %s vaccine, at %s in %s, on %s.%n%n", scheduledVaccineDto.vaccineType, scheduledVaccineDto.date.toLocalTime(), Utils.formatDateToPrint(scheduledVaccineDto.date.toLocalDate()), vaccinationCenter);
     }
 
@@ -326,7 +326,7 @@ public class ScheduleVaccineUI implements Runnable {
         System.out.printf("System is unable to schedule a vaccination without at least:%n- One Vaccination Center;%n- One Vaccine Type;%n- One Know System User.");
     }
 
-    private void printAppointmentToFile(ScheduledVaccineDto scheduledVaccineDto, VaccinationCenter vaccinationCenter) throws IOException {
+    private void printAppointmentToFile(ScheduledVaccineDto scheduledVaccineDto, VaccinationCenterDto vaccinationCenter) throws IOException {
         System.out.printf("-----%n|SMS|%n-----%n%n");
         int options = Utils.selectFromList(List.of(Constants.OPTIONS), "Do you want to receive an SMS with the appointment information");
         if (options == 0) {
