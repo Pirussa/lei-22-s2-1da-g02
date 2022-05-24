@@ -1,12 +1,9 @@
 package app.ui.console;
 
 import app.controller.ConsultUsersInTheWaitingRoomController;
-import app.domain.model.Arrival;
-import app.domain.model.SnsUser;
-import app.domain.model.VaccinationCenter;
 import app.ui.console.utils.Utils;
+import dto.VaccinationCenterDto;
 
-import java.util.List;
 
 /**
  * US005 - Consult the users in the waiting room of a Vaccination Center.
@@ -28,14 +25,14 @@ public class ConsultUsersInTheWaitingRoomUI implements Runnable {
     public void run() {
         System.out.printf("%n------ Consult the sns users in the waiting room of a vaccination center ------%n");
 
-        //int vaccinationCenter = Utils.selectVaccinationCenterUI();
-
+        int index = Utils.selectVaccinationCenterIndex();
+        ctrl.setVaccinationCenter(index);
 
         if (!ctrl.listOfUsersInTheWaitingRoom().isEmpty()) {
             System.out.printf("%n------You've chosen to get the list of SNS Users in the waiting room:------%n");
-          // for (int listPosition = 0; listPosition < ctrl.listOfUsersInTheWaitingRoom().size(); listPosition++) {
-          //     System.out.printf("%n" + ctrl.listOfUsersInTheWaitingRoom().;
-          // }
+            for (int listPosition = 0; listPosition < ctrl.listOfUsersInTheWaitingRoom().size(); listPosition++) {
+                System.out.printf("%n" + ctrl.listOfUsersInTheWaitingRoom());
+            }
 
         } else
             System.out.printf("%nNo user has arrived yet.%n");

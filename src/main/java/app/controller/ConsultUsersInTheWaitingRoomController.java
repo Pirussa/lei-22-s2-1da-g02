@@ -1,7 +1,8 @@
 package app.controller;
 
 import app.domain.model.*;
-import app.ui.console.utils.Utils;
+import dto.VaccinationCenterDto;
+import mapper.VaccinationCenterMapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,19 +21,30 @@ public class ConsultUsersInTheWaitingRoomController {
     public ConsultUsersInTheWaitingRoomController() {
     }
 
-    public void setVaccinationCenter(int index) {
-        vaccinationCenter = company.getVaccinationCenters().get(index - 1);
-    }
-
-    /*
-    public VaccinationCenter getVaccinationCenter() {
-        return Utils.selectVaccinationCenterIndex();
-    }
+    /**
+     * Gets the vaccination center according to the selected index.
+     *
+     * @param index is the option selected by the nurse containing the vaccination center they work at.
      */
 
+    public void setVaccinationCenter(int index) {
+        vaccinationCenter = company.getVaccinationCenters().get(index);
+    }
 
-    public List<Arrival> getVaccinationCenter(VaccinationCenter vaccinationCenter) {
+    /**
+     * Gets the Arrivals List.
+     *
+     * @return a list of Users that arrived in the selected vaccination center.
+     */
+
+    public List<Arrival> getArrivalsList() {
         return vaccinationCenter.getArrivalsList();
+    }
+
+
+    public VaccinationCenterDto getVaccinationCenterInfo() {
+        VaccinationCenterMapper vaccinationCenterMapper = new VaccinationCenterMapper();
+        return vaccinationCenterMapper.domainToDto(vaccinationCenter);
     }
 
     /**
@@ -41,20 +53,20 @@ public class ConsultUsersInTheWaitingRoomController {
      * @return the list of users in the waiting room.
      */
 
-    public ArrayList<SnsUser> listOfUsersInTheWaitingRoom(){
-        ArrayList<SnsUser> listOfUsersInTheWaitingRoom = new ArrayList<>();
-        for (int arrivalListPosition = 0; arrivalListPosition < getVaccinationCenter(vaccinationCenter).size(); arrivalListPosition++) {
+    public ArrayList<String> listOfUsersInTheWaitingRoom() {
+        ArrayList<String> listOfUsersInTheWaitingRoom = new ArrayList<>();
+        String snsUserInfo = "";
+        for (int arrivalListPosition = 0; arrivalListPosition < getArrivalsList().size(); arrivalListPosition++) {
             for (int snsUserListPosition = 0; snsUserListPosition < company.getSNSUserList().size(); snsUserListPosition++) {
-                if(getVaccinationCenter(vaccinationCenter).get(arrivalListPosition).getSnsNumber() == company.getSNSUserList().get(snsUserListPosition).getSnsUserNumber())
-                    listOfUsersInTheWaitingRoom.add(company.getSNSUserList().get(snsUserListPosition));
+                if (getArrivalsList().get(arrivalListPosition).getSnsNumber() == company.getSNSUserList().get(snsUserListPosition).getSnsUserNumber())
+                    snsUserInfo = "Name: " + company.getSNSUserList().get(snsUserListPosition).getStrName() + '\n' +
+                            "Sex: " + company.getSNSUserList().get(snsUserListPosition).getStrSex() + '\n' +
+                            "Birth Date: " + company.getSNSUserList().get(snsUserListPosition).getStrBirthDate() + '\n' +
+                            "SNS User Number: " + company.getSNSUserList().get(snsUserListPosition).getSnsUserNumber() + '\n' +
+                            "Phone Number: " + company.getSNSUserList().get(snsUserListPosition).getStrPhoneNumber() + '\n';
+                listOfUsersInTheWaitingRoom.add(snsUserInfo);
             }
         }
         return listOfUsersInTheWaitingRoom;
     }
-
-
-
 }
-
-
-
