@@ -49,7 +49,7 @@ public class RegisterTheArrivalOfAnSnsUserUI implements Runnable {
      * Checks all the requirements needed in order to register an arrival
      *
      * @param snsNumber The number that identifies an SNS user
-     * @return return true if all the requirements are met
+     * @return boolean - true if all the requirements are met
      */
     public boolean checkRequirementsForRegistration(int snsNumber) {
 
