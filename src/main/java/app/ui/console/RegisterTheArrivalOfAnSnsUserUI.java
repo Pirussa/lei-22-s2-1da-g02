@@ -36,7 +36,7 @@ public class RegisterTheArrivalOfAnSnsUserUI implements Runnable {
             System.out.println("2. No");
             if(Utils.readIntegerFromConsole("Insert your option: ") == 1) {
                 ctrl.registerArrival();
-                System.out.printf("%nThe user has been registered");
+                System.out.printf("%nThe user has been registered%n");
             }
             else
                 System.out.printf("%nThe user has not been registered %n");
@@ -66,7 +66,7 @@ public class RegisterTheArrivalOfAnSnsUserUI implements Runnable {
         }
 
         if(!ctrl.checkDateAndTime()) {
-            System.out.printf("Wrong Day/Time %n");
+            System.out.printf("%nWrong Day/Time %n");
             return false;
         }
 
