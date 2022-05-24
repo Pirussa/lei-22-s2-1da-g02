@@ -75,14 +75,14 @@ public class Utils {
      * It creates and adds Scheduled Appointments to the Company as soon as the App runs
      */
     private static void bootstrapScheduledAppointments() {
-        ScheduledVaccine scheduledVaccine1 = new ScheduledVaccine(200000000, company.getVaccineTypes().get(0), LocalDateTime.of(2022, 5, 20, 12, 0));
-        ScheduledVaccine scheduledVaccine2 = new ScheduledVaccine(100000000, company.getVaccineTypes().get(1), LocalDateTime.of(2022, 5, 20, 12, 0));
-        ScheduledVaccine scheduledVaccine3 = new ScheduledVaccine(300000000, company.getVaccineTypes().get(2), LocalDateTime.of(2022, 5, 20, 12, 0));
-        ScheduledVaccine scheduledVaccine4 = new ScheduledVaccine(400000000, company.getVaccineTypes().get(0), LocalDateTime.of(2022, 5, 20, 12, 0));
+        ScheduledVaccine scheduledVaccine1 = new ScheduledVaccine(200000000, company.getVaccineTypes().get(0), LocalDateTime.of(2022, 5, 24, 11, 30));
+        ScheduledVaccine scheduledVaccine2 = new ScheduledVaccine(100000000, company.getVaccineTypes().get(1), LocalDateTime.of(2022, 5, 24, 11, 10));
+        ScheduledVaccine scheduledVaccine3 = new ScheduledVaccine(300000000, company.getVaccineTypes().get(2), LocalDateTime.of(2022, 5, 24, 11, 0));
+        ScheduledVaccine scheduledVaccine4 = new ScheduledVaccine(400000000, company.getVaccineTypes().get(0), LocalDateTime.of(2022, 5, 24, 11, 20));
 
         //---------------------------------------------------------------------------------------------------------------------------------------------------
-        //company.getVaccinationCenters().get(0).addAppointment(scheduledVaccine1);
-        //company.getVaccinationCenters().get(1).addAppointment(scheduledVaccine2);
+        company.getVaccinationCenters().get(0).addAppointment(scheduledVaccine1);
+        company.getVaccinationCenters().get(1).addAppointment(scheduledVaccine2);
         company.getVaccinationCenters().get(0).addAppointment(scheduledVaccine3);
         company.getVaccinationCenters().get(1).addAppointment(scheduledVaccine4);
 
@@ -198,17 +198,17 @@ public class Utils {
     private static void bootstrapArrivals() {
         RegisterTheArrivalOfAnSnsUserController ctrlArrival = new RegisterTheArrivalOfAnSnsUserController();
 
-        Arrival firstArrival = new Arrival(100000000, company.getVaccineTypes().get(0));
-        ctrlArrival.registerArrival(firstArrival, company.getVaccinationCenters().get(0));
+        Arrival firstArrival = new Arrival(100000000, company.getVaccineTypes().get(1));
+        ctrlArrival.registerArrival(firstArrival, company.getVaccinationCenters().get(1));
 
-        Arrival secondArrival = new Arrival(200000000, company.getVaccineTypes().get(1));
+        Arrival secondArrival = new Arrival(200000000, company.getVaccineTypes().get(0));
         ctrlArrival.registerArrival(secondArrival, company.getVaccinationCenters().get(0));
 
-        Arrival thirdArrival = new Arrival(300000000, company.getVaccineTypes().get(0));
+        Arrival thirdArrival = new Arrival(300000000, company.getVaccineTypes().get(2));
         ctrlArrival.registerArrival(thirdArrival, company.getVaccinationCenters().get(0));
 
-        Arrival fourthArrival = new Arrival(400000000, company.getVaccineTypes().get(1));
-        ctrlArrival.registerArrival(fourthArrival, company.getVaccinationCenters().get(0));
+        Arrival fourthArrival = new Arrival(400000000, company.getVaccineTypes().get(0));
+        ctrlArrival.registerArrival(fourthArrival, company.getVaccinationCenters().get(1));
 
     }
 

@@ -6,14 +6,24 @@
 
 class ConsultUsersInTheWaitingRoomUI
 
-class ConsultUsersInTheWaitingRoomController
+class ConsultUsersInTheWaitingRoomController{
++getVaccinationCenter()
++listOfUsersInTheWaitingRoom(VaccinationCenter vaccinationCenter)
+}
 
 class Arrivals
+
+class Company
+
+class SnsUser
 
 
 left to right direction
 
 ConsultUsersInTheWaitingRoomUI .> ConsultUsersInTheWaitingRoomController
 ConsultUsersInTheWaitingRoomController .> Arrivals
+ConsultUsersInTheWaitingRoomController .> Company
+Company -> SnsUser
+
 
 @enduml

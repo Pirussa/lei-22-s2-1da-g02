@@ -4,9 +4,15 @@
 left to right direction
 
 class Nurse
-
+class UserInfo
 class UsersWaitingList
+class SnsUser {
+==-SnsUserNumber
+}
+
 
 Nurse "*" -- "1" UsersWaitingList : checks >
+SnsUser "1" --  "*" UserInfo : has >
+SnsUser "*" -- "1" UsersWaitingList: is on >
 
 @enduml

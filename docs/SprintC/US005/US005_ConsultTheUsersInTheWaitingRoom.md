@@ -1,4 +1,4 @@
-# US 005 - Consult the users in the waiting room of a vaccination centre. 
+# US 005 - Consult the users in the waiting room of a vaccination center. 
 
 ## 1. Requirements Engineering
 
@@ -6,7 +6,7 @@
 ### 1.1. User Story Description
 
 
->* **_As a nurse, I intend to consult the users in the waiting room of a vaccination centre._**
+>* **_As a nurse, I intend to consult the users in the waiting room of a vaccination center._**
 
 
 
@@ -20,7 +20,7 @@
 
 **From the client clarifications:**
 
-> **Question:** In the PI description it is said that, by now, the nurses and the receptionists will work at any centre. Will this information remain the same on this Sprint?
+> **Question:** In the PI description it is said that, by now, the nurses and the receptionists will work at any center. Will this information remain the same on this Sprint?
 
 > **Answer:** _Nurses and receptionists can work in any vaccination center._
  
@@ -28,7 +28,7 @@
 
 > **Answer:** _The goal is to check the list of users that are waiting and ready to take the vaccine._
  
-> **Question:** Do we need to know if the nurse have to choose the vaccination centre before executing the list or if that information comes from the employee file?
+> **Question:** Do we need to know if the nurse have to choose the vaccination center before executing the list or if that information comes from the employee file?
  
 > **Answer:** _When the nurse starts to use the application, firstly, the nurse should select the vaccination center where she his working. The nurse wants to check the list of SNS users that are waiting in the vaccination center where she his working._
   
@@ -57,7 +57,7 @@
 ### 1.4. Found out Dependencies
 
 
->* There is a dependency to "US004 - register the arrival of a SNS user to take the vaccine" since in order to consult the users in a waiting room of a vaccination centre, they must arrive at one.
+>* There is a dependency to "US004 - register the arrival of a SNS user to take the vaccine" since in order to consult the users in a waiting room of a vaccination center, they must arrive at one.
 
 
 ### 1.5 Input and Output Data
@@ -65,12 +65,11 @@
 
 **Input Data:**
 
->* Select the option to get a list of SNS Users in the waiting room of a vaccination centre.
->* Select the option containing the vaccination centre the nurse belongs to.
+>* Select the option containing the vaccination center the nurse belongs to.
 
 **Output Data:**
 
->* A list containing the SNS Users in the waiting room of a vaccination centre.
+>* A list containing the SNS Users in the waiting room of the selected vaccination center.
 
 ### 1.6. System Sequence Diagram (SSD)
 
@@ -80,7 +79,7 @@
 
 ### 1.7 Other Relevant Remarks
 
->* The list of users in the waiting room to be presented is from the vaccination centre the nurse belongs to, and sorted by order of arrival.
+>* The list of users in the waiting room to be presented is from the vaccination center the nurse belongs to, and sorted by order of arrival.
 
 
 ## 2. OO Analysis
@@ -103,14 +102,15 @@
 | **_Interaction ID_** | **_Question: Which class is responsible for..._** | **_Answer_**  | **_Justification (with patterns)_**  |
 |:-------------  |:--------------------- |:------------|:---------------------------- |
 | Step 1  		 |	... interacting with the actor?	 |       ConsultUsersInTheWaitingRoomUI     |    Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. | Step 2  		 |							 |             |                              |
-| |... coordinating the US? | ConsultUsersInTheWaitingRoomController| **Controller** |
-| Step 2  		 |		... requesting the list of users in the waiting room					 |   Arrivals          |      **Creator**         |
-| Step 3  		 |		... presenting the results  |  ConsultUsersInTheWaitingRoomUI          |         IE: is responsible for user interactions.           |
+| |... coordinating the US? | ConsultUsersInTheWaitingRoomController| **Controller**: Intermediary between the UI and the Domain Model, and as it's name says, controls the information that is transferred between both them. |
+| Step 2  		 |		... requesting the vaccination center the nurse belongs to	 |   Utils          |      **Creator** the "Utils" class is responsible for letting the nurse select the vaccination center she works at, and saves that information.     |
+| Step 3  		 |		... requesting the list of users in the waiting room					 |   ConsultUsersInTheWaitingRoomController          |      **Creator** the "ConsultUsersInTheWaitingRoomController" class is responsible for getting the information from the arrivals list, and return the list of SNSUsers that are in the waiting room.     |
+| Step 4 		 |		... presenting the results  |  ConsultUsersInTheWaitingRoomUI          |         IE: is responsible for user interactions with the application.           |
 ### Systematization ##
 
 According to the taken rationale, the conceptual classes promoted to software classes are: 
 
- * Arrivals
+ * Utils
 
 Other software classes (i.e. Pure Fabrication) identified: 
 
