@@ -24,9 +24,9 @@ public class ConsultUsersInTheWaitingRoomController {
         vaccinationCenter = company.getVaccinationCenters().get(index - 1);
     }
 
-    public VaccinationCenter getVaccinationCenter() {
-        return Utils.selectVaccinationCenterIndex();
-    }
+//    public VaccinationCenter getVaccinationCenter() {
+//        return Utils.selectVaccinationCenterIndex();
+//    }
 
     public List<Arrival> getVaccinationCenter(VaccinationCenter vaccinationCenter) {
         return vaccinationCenter.getArrivalsList();
