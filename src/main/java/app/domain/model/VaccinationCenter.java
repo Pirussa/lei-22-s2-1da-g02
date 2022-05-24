@@ -461,7 +461,7 @@ public class VaccinationCenter {
 
         String[] birthDateComponents = snsUser.getStrBirthDate().split("/");
         LocalDate birthDate = LocalDate.of(Integer.parseInt(birthDateComponents[2]), Integer.parseInt(birthDateComponents[1]), Integer.parseInt(birthDateComponents[0]));
-        int userAgeInDays = (int) Duration.between(LocalDate.now(), birthDate).toDays();
+        int userAgeInDays = (int) Duration.between(LocalDate.now().atStartOfDay(), birthDate.atStartOfDay()).toDays();
         int userAge = userAgeInDays / 365;
         for (int columns = 0; columns < administrationProcess.getAgeGroups().get(0).size(); columns++) {
             for (int rows = 0; rows < administrationProcess.getAgeGroups().size(); rows++) {

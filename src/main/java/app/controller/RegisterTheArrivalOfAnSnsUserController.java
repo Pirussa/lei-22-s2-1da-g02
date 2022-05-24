@@ -37,7 +37,7 @@ public class RegisterTheArrivalOfAnSnsUserController {
     /**
      * Checks the if user and receptionist are on the same vaccination center
      *
-     * @return Boolean - true if both are on the same vaccination center
+     * @return boolean - true if both are on the same vaccination center
      */
     public boolean checkVaccinationCenters() {
         return vaccinationCenterReceptionist == vaccinationCenterSnsUser;
@@ -89,6 +89,11 @@ public class RegisterTheArrivalOfAnSnsUserController {
         vaccinationCenterReceptionist.cleanArrivalsList();
     }
 
+    /**
+     * Sets the arrival
+     *
+     * @param snsNumber The number that identifies an SNS user
+     */
     public void setArrival(int snsNumber) {
         arrival = new Arrival(snsNumber, appointment.getVaccineType());
     }

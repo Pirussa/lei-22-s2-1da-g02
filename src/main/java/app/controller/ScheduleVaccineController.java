@@ -58,8 +58,7 @@ public class ScheduleVaccineController {
     public boolean validateAppointment(ScheduledVaccineDto scheduledVaccineDto) {
         if (!dataIsAllFilled(scheduledVaccineDto)) return false;
         if (!ScheduledVaccine.userIsEligibleForTheAppointment(scheduledVaccineDto)) return false;
-        if (!vaccinationCenter.validateAppointmentAccordingToAgeGroupAndTimeSinceLastDose(scheduledVaccineDto, company))
-            return false;
+        if (!vaccinationCenter.validateAppointmentAccordingToAgeGroupAndTimeSinceLastDose(scheduledVaccineDto, company)) return false;
 
         return vaccinationCenter.centerHasAvailability(scheduledVaccineDto);
 
@@ -223,7 +222,7 @@ public class ScheduleVaccineController {
      * @return true if the slot has availability
      */
     public boolean slotHasAvailability(LocalDate selectedDate, LocalTime timeOfTheSlot) {
-        return vaccinationCenter.slotHasAvailability(selectedDate,timeOfTheSlot);
+        return vaccinationCenter.slotHasAvailability(selectedDate, timeOfTheSlot);
     }
 
     private boolean isMonthNumberSingleDigit(LocalDate localDate){

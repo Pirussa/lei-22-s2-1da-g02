@@ -19,7 +19,7 @@ public class Arrival {
     /**
      * Creates and instance of the Arrival class with the following attributes
      *
-     * @param snsNumber   Number that identifies the SNS user
+     * @param snsNumber Number that identifies the SNS user
      * @param vaccineType The type of vaccine
      */
     public Arrival(int snsNumber, VaccineType vaccineType) {
@@ -31,7 +31,7 @@ public class Arrival {
     /**
      * Gets the SNS number
      *
-     * @return int
+     * @return int - snsNumber
      */
     public int getSnsNumber() {
         return snsNumber;
@@ -40,7 +40,7 @@ public class Arrival {
     /**
      * Gets the Date and Time
      *
-     * @return LocalDateTime
+     * @return LocalDateTime - dateTime
      */
     public LocalDateTime getDateTime() {
         return dateTime;
@@ -57,11 +57,11 @@ public class Arrival {
     }
 
     /**
-     * ATUALIZAR
      * Check if a User has an appointment, introducing his/her SNS number
      *
      * @param snsNumber Number that identifies the SNS user
-     * @return ScheduleVaccine - return an appointment of a user
+     * @param vaccineAppointments List that contains the appointments
+     * @return ScheduleVaccine - returns the appointment of a user
      */
     public static ScheduledVaccine getUserAppointment(int snsNumber, List<ScheduledVaccine> vaccineAppointments) {
 
@@ -73,10 +73,10 @@ public class Arrival {
     }
 
     /**
-     * Checks if the user is on the vaccination center on the right day and time
      *
      * @param date Date of the appointment
-     * @return boolean - true if day and time match
+     * @param vaccinationCenter Vaccination Center where the user has an appointment
+     * @return boolean - true if the user is on time
      */
     public boolean checkDateAndTime(LocalDateTime date, VaccinationCenter vaccinationCenter) {
         if (!checkDate(date))
@@ -119,7 +119,7 @@ public class Arrival {
     /**
      * Checks if a user has already been registered
      *
-     * @param snsNumber                     The number that identifies an SNS user
+     * @param snsNumber The number that identifies an SNS user
      * @param vaccinationCenterReceptionist The vaccination center where the receptionist is located
      * @return boolean - true if the user is already registered
      */
