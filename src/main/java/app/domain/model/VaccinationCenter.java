@@ -7,6 +7,7 @@ import dto.ScheduledVaccineDto;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -354,13 +355,43 @@ public class VaccinationCenter {
      * @return true if the center has availability
      */
     public boolean centerHasAvailability(ScheduledVaccineDto scheduledVaccineDto) {
-        List<ScheduledVaccine> appointmentsList = getScheduledVaccineList();
-
-        if (!ScheduleVaccineUI.dayHasAvailability(getSlotsPerDay(), Integer.parseInt(getStrVaccinesPerSlot()), scheduledVaccineDto.date.toLocalDate(), appointmentsList))
+        if (!dayHasAvailability(scheduledVaccineDto.date.toLocalDate()))
             return false;
 
-        return Utils.slotHasAvailability(Integer.parseInt(this.getStrVaccinesPerSlot()), scheduledVaccineDto.date.toLocalDate(), scheduledVaccineDto.date.toLocalTime(), appointmentsList);
+        return slotHasAvailability(scheduledVaccineDto.date.toLocalDate(), scheduledVaccineDto.date.toLocalTime());
 
+    }
+
+    /**
+     * Checks if a certain slot has availability for a certain day.
+     *
+     * @param date the date
+     * @param slot the slot
+     * @return true if slot has capacity to another appointment
+     */
+    public boolean slotHasAvailability(LocalDate date, LocalTime slot) {
+        int counterAppointments = 0;
+        for (ScheduledVaccine appointment : scheduledVaccineList) {
+            if (((appointment.getDate().toLocalDate()).equals(date)) && (appointment.getDate().toLocalTime().equals(slot))) {
+                counterAppointments++;
+            }
+        }
+        return counterAppointments != Integer.parseInt(strVaccinesPerSlot);
+    }
+
+    public boolean dayHasAvailability(LocalDate date) {
+        int vaccinesPerDay = getSlotsPerDay() * Integer.parseInt(strVaccinesPerSlot);
+        int counterAppointments = 0;
+
+        for (ScheduledVaccine appointment : scheduledVaccineList) {
+            if ((appointment.getDate().toLocalDate()).equals(date))
+                counterAppointments++;
+
+            if (counterAppointments == vaccinesPerDay)
+                return false;
+        }
+
+        return true;
     }
 
     public int getSlotsPerDay() {
@@ -457,7 +488,7 @@ public class VaccinationCenter {
     /**
      * Register the arrival of an SNS user
      *
-     * @param arrival           An object regarding the  arrival of a user
+     * @param arrival An object regarding the  arrival of a user
      */
     public void registerArrival(Arrival arrival) {
         getArrivalsList().add(arrival);

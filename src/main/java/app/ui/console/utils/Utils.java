@@ -119,6 +119,18 @@ public class Utils {
         dtoEmp3.email = "carla@gmail.com";
         dtoEmp3.address = "Rua Carlos Kimbo Slice / 4440-123 / Porto";
         ctrlEmp.saveCreatedEmployee(dtoEmp3, "Receptionist");
+
+        //---------------------------------------------------------------------------------------------------------------------------------------------------
+
+        RegisterNewEmployeeDto dtoEmp4 = new RegisterNewEmployeeDto();
+        dtoEmp4.id = "00005";
+        dtoEmp4.name = "Carla";
+        dtoEmp4.password = "AAA11aa";
+        dtoEmp4.phoneNumber = "912345679";
+        dtoEmp4.citizenCardNumber = "19112459 1 ZY2";
+        dtoEmp4.email = "r@gmail.com";
+        dtoEmp4.address = "Rua rua / 4440-124 / Porto";
+        ctrlEmp.saveCreatedEmployee(dtoEmp4, "Receptionist");
     }
 
     /**
@@ -536,26 +548,6 @@ public class Utils {
 
 
         return v;
-    }
-
-
-    /**
-     * Checks if a certain slot has availability for a certain day.
-     *
-     * @param vaccinesPerSlot the vaccines per slot
-     * @param date            the date
-     * @param slot            the slot
-     * @param appointments    the appointments
-     * @return true if slot has capacity to another appointment
-     */
-    public static boolean slotHasAvailability(int vaccinesPerSlot, LocalDate date, LocalTime slot, List<ScheduledVaccine> appointments) {
-        int counterAppointments = 0;
-        for (ScheduledVaccine appointment : appointments) {
-            if (((appointment.getDate().toLocalDate()).equals(date)) && (appointment.getDate().toLocalTime().equals(slot))) {
-                counterAppointments++;
-            }
-        }
-        return counterAppointments != vaccinesPerSlot;
     }
 
     /**

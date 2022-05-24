@@ -5,19 +5,17 @@ import app.controller.App;
 import java.util.Objects;
 
 /**
- * The type Vaccine type.
+ * Represents a Vaccine for a virus.
+ *
+ * @author Pedro Monteiro <1211076@isep.ipp.pt>
  */
+
 public class VaccineType {
 
-    /**
-     * Represents a Vaccine for a virus.
-     *
-     * @author Pedro Monteiro <1211076@isep.ipp.pt>
-     */
 
-    private String description;
-    private String code;
-    private String vaccineTechnology;
+    private final String description;
+    private final String code;
+    private final String vaccineTechnology;
 
     public static String[] vaccineTechnologies = {"Live-attenuated vaccine", "Inactivated vaccine", "Subunit vaccine", "Toxoid vaccine", "Viral vector vaccine", "Messenger RNA (mRNA) vaccine"};
 

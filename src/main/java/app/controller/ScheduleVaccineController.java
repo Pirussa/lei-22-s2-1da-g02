@@ -10,6 +10,8 @@ import mapper.VaccinationCenterMapper;
 import pt.isep.lei.esoft.auth.AuthFacade;
 import pt.isep.lei.esoft.auth.domain.model.Email;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -33,7 +35,6 @@ public class ScheduleVaccineController {
      */
     public ScheduleVaccineController() {
     }
-
 
     /**
      * Schedule vaccine if the appointment is valid
@@ -64,7 +65,6 @@ public class ScheduleVaccineController {
 
     }
 
-
     /**
      * Checks if the logged user is a Receptionist
      *
@@ -72,15 +72,6 @@ public class ScheduleVaccineController {
      */
     public boolean loggedUserIsReceptionist() {
         return authFacade.getCurrentUserSession().isLoggedInWithRole(Constants.ROLE_RECEPTIONIST);
-    }
-
-    /**
-     * Gets logged user email.
-     *
-     * @return the email
-     */
-    public Email getLoggedUserEmail() {
-        return authFacade.getCurrentUserSession().getUserId();
     }
 
     /**
@@ -166,7 +157,7 @@ public class ScheduleVaccineController {
      * @param index the index
      */
     public void setVaccinationCenter(int index) {
-        vaccinationCenter = company.getVaccinationCenters().get(index - 1);
+        vaccinationCenter = company.getVaccinationCenters().get(index);
     }
 
     /**
@@ -188,7 +179,7 @@ public class ScheduleVaccineController {
 
         if (isMassVaccinationCenter()) {
             MassVaccinationCenter massVaccinationCenter = (MassVaccinationCenter) vaccinationCenter;
-            vaccineTypes = new ArrayList<>(List.of(massVaccinationCenter.getStrVaccineType()));
+            vaccineTypes = new ArrayList<>(List.of(massVaccinationCenter.getVaccineType().toString()));
         } else {
             HealthcareCenter healthcareCenter = (HealthcareCenter) vaccinationCenter;
             int index = 0;
@@ -199,7 +190,6 @@ public class ScheduleVaccineController {
         }
         return vaccineTypes;
     }
-
 
     /**
      * Sets vaccine type.
@@ -214,5 +204,25 @@ public class ScheduleVaccineController {
             HealthcareCenter healthcareCenter = (HealthcareCenter) vaccinationCenter;
             scheduledVaccineDto.vaccineType = healthcareCenter.getVaccineTypes().get(vaccineTypeIndex);
         }
+    }
+
+    /**
+     * Checks if the Day has availability .
+     *
+     * @return true if the Day has availability
+     */
+    public boolean dayHasAvailability(LocalDate date) {
+        return vaccinationCenter.dayHasAvailability(date);
+    }
+
+    /**
+     * Checks if the slot has availability.
+     *
+     * @param selectedDate  the selected date
+     * @param timeOfTheSlot the time of the slot
+     * @return true if the slot has availability
+     */
+    public boolean slotHasAvailability(LocalDate selectedDate, LocalTime timeOfTheSlot) {
+        return vaccinationCenter.slotHasAvailability(selectedDate,timeOfTheSlot);
     }
 }
