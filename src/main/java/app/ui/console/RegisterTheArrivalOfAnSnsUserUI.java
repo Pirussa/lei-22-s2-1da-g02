@@ -18,9 +18,9 @@ public class RegisterTheArrivalOfAnSnsUserUI implements Runnable {
     public void run() {
         System.out.printf("%n------Register the Arrival of an SNS user------%n");
 
-        VaccinationCenter vaccinationCenterReceptionist  = Utils.selectVaccinationCenterUI();
-        vaccinationCenterReceptionist.cleanArrivalsList();
-        List<ScheduledVaccine> scheduleVaccinesOfTheVaccinationCenter = ctrl.getScheduledVaccineList(vaccinationCenterReceptionist);
+        int vaccinationCenterReceptionist  = Utils.selectVaccinationCenterIndex();
+        ctrl.setVaccinationCenterReceptionist(vaccinationCenterReceptionist);
+        ctrl.cleanArrivalsList();
 
 
         int snsNumber;
@@ -30,7 +30,8 @@ public class RegisterTheArrivalOfAnSnsUserUI implements Runnable {
 
         System.out.println();
 
-        VaccinationCenter vaccinationCenterSNSUser = Utils.selectVaccinationCenterUI();
+        int vaccinationCenterSNSUser = Utils.selectVaccinationCenterIndex();
+        ctrl.setVaccinationCenterSnsUser(vaccinationCenterSNSUser);
 
 
         if(checkRequirementsForRegistration(snsNumber, scheduleVaccinesOfTheVaccinationCenter, vaccinationCenterReceptionist, vaccinationCenterSNSUser)) {

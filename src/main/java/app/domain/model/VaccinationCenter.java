@@ -136,6 +136,14 @@ public class VaccinationCenter {
         return scheduledVaccineList;
     }
 
+    /**
+     * Sets scheduled vaccine list.
+     *
+     * @param scheduledVaccineList the scheduled vaccine list
+     */
+    public void setScheduledVaccineList(List<ScheduledVaccine> scheduledVaccineList) {
+        this.scheduledVaccineList = scheduledVaccineList;
+    }
 
     /**
      * Gets the List of the arrivals in the Vaccination Center
@@ -536,7 +544,12 @@ public class VaccinationCenter {
         return strLocal;
     }
 
-
-
-
+    /**
+     * Sets arrivals list.
+     *
+     * @param arrivalsList the arrivals list
+     */
+    public void setArrivalsList(List<Arrival> arrivalsList) {
+        this.arrivalsList = arrivalsList;
+    }
 }

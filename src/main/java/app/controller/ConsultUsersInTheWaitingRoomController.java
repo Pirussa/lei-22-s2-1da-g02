@@ -25,7 +25,7 @@ public class ConsultUsersInTheWaitingRoomController {
     }
 
     public VaccinationCenter getVaccinationCenter() {
-        return Utils.selectVaccinationCenterUI();
+        return Utils.selectVaccinationCenterIndex();
     }
 
     public List<Arrival> getVaccinationCenter(VaccinationCenter vaccinationCenter) {

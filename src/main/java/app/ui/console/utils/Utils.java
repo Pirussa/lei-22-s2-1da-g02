@@ -790,8 +790,8 @@ public class Utils {
      *
      * @return the chosen vaccination center
      */
-    public static VaccinationCenter selectVaccinationCenterUI() {
+    public static int selectVaccinationCenterIndex() {
         Company company = App.getInstance().getCompany();
-        return company.getVaccinationCenters().get(Utils.selectFromList(company.getVaccinationCenters(), "\nSelect one Vaccination Center"));
+        return Utils.selectFromList(company.getVaccinationCenters(), "\nSelect one Vaccination Center");
     }
 }

@@ -36,15 +36,19 @@ public class ScheduleVaccineUI implements Runnable {
                 snsNumber = controller.getSnsUserNumber();
             }
 
-
-            VaccinationCenter vaccinationCenterO = Utils.selectVaccinationCenterUI();
-            int vaccinationCenterIndex = controller.getVaccinationCenterIndex(vaccinationCenterO);
-            VaccinationCenterDto vaccinationCenter = controller.getVaccinationCenterInfo(vaccinationCenterIndex);
+            //VaccinationCenter vaccinationCenterO =
+            int vaccinationCenterIndex = Utils.selectVaccinationCenterIndex();
+            controller.setVaccinationCenter(vaccinationCenterIndex);
+            
+            
+            VaccinationCenterDto vaccinationCenterInfo = controller.getVaccinationCenterInfo();
+            
+            
 
             VaccineType vaccineType = selectVaccineTypeUI(vaccinationCenterO);
             if (vaccineType == null) return;
 
-            LocalDateTime date = selectDateUI(vaccinationCenter);
+            LocalDateTime date = selectDateUI(vaccinationCenterInfo);
 
             ScheduledVaccineDto scheduledVaccineDto = new ScheduledVaccineDto();
             scheduledVaccineDto.snsNumber = snsNumber;
@@ -120,11 +124,13 @@ public class ScheduleVaccineUI implements Runnable {
         return healthcareCenter.getVaccineTypes().get(Utils.selectFromList(healthcareCenter.getVaccineTypes(), "Select one Vaccine Type"));
     }
 
-    private VaccineType selectVaccineTypeUI(VaccinationCenter vaccinationCenter) {
-        if (vaccinationCenter instanceof MassVaccinationCenter) {
-            MassVaccinationCenter massVacCenter = (MassVaccinationCenter) vaccinationCenter;
+    private VaccineType selectVaccineTypeUI(VaccinationCenterDto vaccinationCenter) {
+        
+        
+        if (controller.isMassVaccinationCenter()) {
+            
             System.out.println();
-            System.out.println("The available Vaccine Type for " + massVacCenter + " is: " + massVacCenter.getVaccineType());
+            System.out.println("The available Vaccine Type for " + vaccinationCenter.strName + " is: " + controller.getVaccineType());
             System.out.printf("%nDo you want to proceed?%n1 - Yes%n2 - No%n%nType your option: ");
             boolean check;
             do {

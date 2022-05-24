@@ -1,6 +1,8 @@
 package dto;
 
+import app.domain.model.Arrival;
 import app.domain.model.ScheduledVaccine;
+import app.domain.model.VaccineType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +33,10 @@ public class VaccinationCenterDto {
     public String strCenterCoordinatorID;
     public List<ScheduledVaccine> scheduledVaccineList = new ArrayList<>();
     public int slotsPerDay;
-
+    public List<Arrival> arrivalList =  new ArrayList<>();
+    
+    
+    
     public VaccinationCenterDto(String strID, String strName, String strPhoneNumber, String strEmail, String strFax, String strWebsite,
                                 String strOpeningHour, String strClosingHour, String strSlotDuration, String strVaccinesPerSlot,
                                 String strRoad, String strZipCode, String strLocal, String strCenterCoordinatorID) {

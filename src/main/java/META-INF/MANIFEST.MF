@@ -1,3 +1,5 @@
 Manifest-Version: 1.0
-Main-Class: app.ui.Main
+Main-Class: 
+Class-Path: bytes-1.3.0.jar bcrypt-0.9.0.jar commons-lang3-3.5.jar AuthL
+ ib-1.0-20220308.131530-2.jar
 

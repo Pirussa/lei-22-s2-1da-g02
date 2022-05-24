@@ -10,6 +10,8 @@ import mapper.VaccinationCenterMapper;
 import pt.isep.lei.esoft.auth.AuthFacade;
 import pt.isep.lei.esoft.auth.domain.model.Email;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -23,6 +25,7 @@ public class ScheduleVaccineController {
 
     private final Company company = App.getInstance().getCompany();
     private final AuthFacade authFacade = company.getAuthFacade();
+    private VaccinationCenter vaccinationCenter;
 
 
     /**
@@ -152,28 +155,49 @@ public class ScheduleVaccineController {
     /**
      * Get vaccination center info.
      *
-     * @param vaccinationCenterIndexInList the vaccination center index in list
      * @return the vaccination center dto
      */
-    public VaccinationCenterDto getVaccinationCenterInfo(int vaccinationCenterIndexInList) {
-        VaccinationCenter vaccinationCenter = company.getVaccinationCenters().get(vaccinationCenterIndexInList);
+    public VaccinationCenterDto getVaccinationCenterInfo() {
         VaccinationCenterMapper mapper = new VaccinationCenterMapper();
         return mapper.domainToDto(vaccinationCenter);
     }
 
     /**
-     * Gets vaccination center index in the list of vaccination centers.
+     * Sets vaccination center.
      *
-     * @param vaccinationCenter the vaccination center
-     * @return the vaccination center index
+     * @param index the index
      */
-    public int getVaccinationCenterIndex(VaccinationCenter vaccinationCenter) {
-        int counter = 0;
-        for (VaccinationCenter vacCenter : company.getVaccinationCenters()) {
-            if (vacCenter.getStrName().equals(vaccinationCenter.getStrName())) return counter;
+    public void setVaccinationCenter(int index) {
+        vaccinationCenter = company.getVaccinationCenters().get(index - 1);
+    }
 
-            counter++;
+    /**
+     * Is mass vaccination center or a Healthcare center.
+     *
+     * @return true if it is a Mass Vaccination Center
+     */
+    public boolean isMassVaccinationCenter() {
+        return vaccinationCenter instanceof MassVaccinationCenter;
+    }
+
+
+    public ArrayList<String> getVaccineType() {
+        List <String> vaccineTypes ;
+
+        if (isMassVaccinationCenter()){
+            MassVaccinationCenter massVaccinationCenter = (MassVaccinationCenter) vaccinationCenter;
+             vaccineTypes= new ArrayList<>(Arrays.of(massVaccinationCenter.getStrVaccineType()));
+            return vaccineTypes;
+        }else{
+            HealthcareCenter healthcareCenter = (HealthcareCenter) vaccinationCenter;
+            int index = 0;
+            for (VaccineType vacineType: healthcareCenter.getVaccineTypes()) {
+                vaccineTypes.add(index,vacineType.toString());
+                index++;
+
+            }
+
+            return
         }
-        return -1;
     }
 }
