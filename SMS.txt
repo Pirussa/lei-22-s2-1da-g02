@@ -1,3 +1,3 @@
 Received at: 25/05/2022
 
-You have an appointment to take a COVID vaccine, at 09:00 in 30/06/2022, on VaccinationCenterDto{strID=1234, strName='CVC Matosinhos', strPhoneNumber='915607321', strEmail='cvcmatosinhos@gmail.com', strFax='915607321', strWebsite='www.cvcmatosinhos.com', strOpeningHour='9', strClosingHour='16', strSlotDuration='30', strVaccinesPerSlot='1', strRoad='Rua do Amial', strZipCode='4460-098', strLocal='Matosinhos', strCenterCoordinatorID='CC-95634'}.
+You have an appointment to take a COVID vaccine, at 09:00 in 26/05/2022, on CVC Matosinhos.

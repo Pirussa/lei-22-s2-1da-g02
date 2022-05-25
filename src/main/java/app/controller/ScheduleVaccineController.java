@@ -9,6 +9,8 @@ import mapper.ScheduledVaccineMapper;
 import mapper.VaccinationCenterMapper;
 import pt.isep.lei.esoft.auth.AuthFacade;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.YearMonth;
@@ -89,7 +91,7 @@ public class ScheduleVaccineController {
      */
     public int getUserPhoneNumber() {
         for (SnsUser user : company.getSNSUserList()) {
-            if (user.getStrEmail().equals(String.valueOf(authFacade.getCurrentUserSession().getUserId()))) {
+            if (user.getStrEmail().equals(String.valueOf(authFacade.getCurrentUserSession().getUserId())) || authFacade.getCurrentUserSession().isLoggedInWithRole("Receptionist")) {
                 return Integer.parseInt(user.getStrPhoneNumber());
             }
         }
@@ -300,6 +302,24 @@ public class ScheduleVaccineController {
      */
     public int timeSelected(int selectedOption, int slotDuration) {
         int minutesToBeAdded;
-        return  minutesToBeAdded = (selectedOption - 1) * slotDuration;
+        return minutesToBeAdded = (selectedOption - 1) * slotDuration;
+    }
+
+    /**
+     * Print appointment to file, since the UI layer can be replaced by an FX layer, this was the best way of acting.
+     *
+     * @param scheduledVaccineDto the scheduled vaccine dto
+     * @param vaccinationCenter   the vaccination center
+     * @throws IOException the io exception
+     */
+    public void printAppointmentToFile(ScheduledVaccineDto scheduledVaccineDto, VaccinationCenterDto vaccinationCenter) throws IOException {
+        System.out.printf("-----%n|SMS|%n-----%n%n");
+        int options = Utils.selectFromList(List.of(Constants.OPTIONS), "Do you want to receive an SMS with the appointment information");
+        if (options == 0) {
+            PrintWriter printWriter = new PrintWriter(Constants.PATH_SMS_MESSAGE);
+            printWriter.printf("Received at: " + Utils.formatDateToPrint(LocalDate.now()) + "%n%nYou have an appointment to take a %s vaccine, at %s in %s, on %s.", scheduledVaccineDto.vaccineType, scheduledVaccineDto.date.toLocalTime(), Utils.formatDateToPrint(scheduledVaccineDto.date.toLocalDate()), vaccinationCenter.strName);
+            printWriter.close();
+            System.out.printf("%nA message with the information was sent to " + getUserPhoneNumber() + ".");
+        }
     }
 }

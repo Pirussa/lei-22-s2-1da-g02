@@ -90,18 +90,40 @@ No other relevant remarks.
 
 **The rationale grounds on the SSD interactions and the identified input/output data.**
 
-| Interaction ID | Question: Which class is responsible for...                    | Answer                          | Justification (with patterns)                                                                                                                                              |
-|:---------------|:---------------------------------------------------------------|:--------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Step 1         | ...interacting with the actor?                                 | ScheduleVaccinationUI           | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model.                                                              |
-| 			  		        | ...coordinating the US?                                        | ScheduleVaccinationController   | **Controller**                                                                                                                                                             |
-| Step 2         | ...transfer the data typed in the UI to the domain?            | VaccineAndAdminProcessDto       | **DTO:** When there is so much data to transfer, it is better to opt by using a DTO in order to reduce coupling between UI and domain                                      |
-| Step 3         | ...instantiating a new Vaccine                                 | Company                         | By applying the **Creator** pattern, the "Company" is responsible for instantiating a new "Vaccine", since it is the one who storages the Vaccines.                        |
-| 	              | ...instantiating a new Administration Process                  | Vaccine                         | By applying the **Creator** pattern, the "Vaccine" is responsible for instantiating the "Administration Process", since a "Vaccine" has/contains an Administration Process |
-| Step 4         | ...validating the inputted data for the Vaccine                | Vaccine                         | The Vaccine class should know what needs to be validated in order to actually create a "Vaccine"                                                                           |
-| 		             | ...validating the inputted data for the Administration Process | Administration Process          | The Administration Process class should know what needs to be validated in order to actually create an "Administration Process"                                            |
-| Step 5         | ...saving the inputted data for the Vaccine ?                  | Vaccine                         | **IE:** A Vaccine has its own data                                                                                                                                         |
-| 		             | ...saving the inputted data for the Administration Process?    | AdministrationProcess           | **IE:** An Administration Process has its own data                                                                                                                         |
-| Step 7         | ...informing operation success                                 | SpecifyVaccineAndAdminProcessUI | **IE:** is responsible for user interactions                                                                                                                               | 
+| Interaction ID | Question: Which class is responsible for...                                                   | Answer  | Justification (with patterns)  |
+|:---------------|:----------------------------------------------------------------------------------------------|:------------|:---------------------------- |
+| Step 1         | ... asking the user with user to insert is SNS Number    | ScheduleVaccineUI   |  **Pure Fabrication:** there is no reason to assign this responsibility to any existing class in the Domain Model.   |
+| Step 2         | ... showing the list with all the Vaccination Centers available                               | ScheduleVaccineUI   |  **Pure Fabrication:** there is no reason to assign this responsibility to any existing class in the Domain Model.   |
+| 			  		        | ... disponibilize the previous list to the ScheduleVaccineUI                                  | ScheduleVaccineController | **Controller:** act as a mediator between the UI and the Model. Has the responsibility of controlling the data transmission between both. It maps the user action into model updates.  |
+| 			  		        | ... disponibilize the previous list to the ScheduleVaccineController                          | Company | **IE:** The Company knows all of it's Vaccination Centers.  |
+|                | ...saving the selected Vaccination Center                                                     | ScheduleVaccineController | **IE:** the controller needs to know the selected Vaccination Center throughout the whole process of scheduling a Vaccine |
+| Step 3         | ... showing the list with all the Vaccine Types available for the selected Vaccination Center | ScheduleVaccineUI   |  **Pure Fabrication:** there is no reason to assign this responsibility to any existing class in the Domain Model.   |
+| 			  		        | ... disponibilize the previous list to the ScheduleVaccineUI                                  | ScheduleVaccineController | **Controller:** act as a mediator between the UI and the Model. Has the responsibility of controlling the data transmission between both. It maps the user action into model updates.  |
+| 			  		        | ... disponibilize the previous list to the ScheduleVaccineController                          | VaccinationCenter | **IE:** The Vaccination Center knows all of it's Vaccine Types.  |
+|                | ...saving the selected Vaccine Type                                                           | ScheduleVaccineDto | **IE:** In order to schedule a Vaccine there are required: a Vaccine Type, a Date and an SNS number, therefore those have to be temporarily stored, so that in moment of instantiating an appointment all the information is together |
+| Step 4         | ... showing the list with all the available dates to schedule Vaccine                         | ScheduleVaccineUI   |  **Pure Fabrication:** there is no reason to assign this responsibility to any existing class in the Domain Model.   |
+| 			  		        | ... disponibilize the previous list to the ScheduleVaccineUI                                  | ScheduleVaccineController | **Controller:** act as a mediator between the UI and the Model. Has the responsibility of controlling the data transmission between both. It maps the user action into model updates.  |
+| 			  		        | ... disponibilize the appointments to the controller                                          | VaccinationCenter | **IE:** The Vaccination Center knows all of it's Scheduled Vaccines.  |
+|                | ...saving the selected date                                                                   | ScheduleVaccineDto | **IE:** In order to schedule a Vaccine there are required: a Vaccine Type, a Date and an SNS number, therefore those have to be temporarily stored, so that in moment of instantiating an appointment all the information is together   |
+| Step 5         | ... showing the list with all the available slots to schedule Vaccine                         | ScheduleVaccineUI   |  **Pure Fabrication:** there is no reason to assign this responsibility to any existing class in the Domain Model.   |
+| 			  		        | ... disponibilize the previous list to the ScheduleVaccineUI                                  | ScheduleVaccineController | **Controller:** act as a mediator between the UI and the Model. Has the responsibility of controlling the data transmission between both. It maps the user action into model updates.  |
+| 			  		        | ... disponibilize the appointments to the controller                                          | VaccinationCenter | **IE:** The Vaccination Center knows all of it's Scheduled Vaccines.  |
+|                | ...saving the selected date                                                                   | ScheduleVaccineDto | **IE:** In order to schedule a Vaccine there are required: a Vaccine Type, a Date and an SNS number, therefore those have to be temporarily stored, so that in moment of instantiating an appointment all the information is together   |
+| Step 6         | ...transfer the selected and typed data in the UI to the domain?                              | ScheduleVaccineDto | **DTO:** When there is so much data to transfer, it is better to opt by using a DTO in order to reduce coupling between UI and domain |
+| Step 7         | ... validating an an appointment                                                              | ScheduleVaccineController | **Controller:** act as a mediator between the UI and the Model. Has the responsibility of controlling the data transmission between both. It maps the user action into model updates. |
+|                | ... validating if the user is eligible for the Vaccine                                        | Company |  **IE:** The Company knows all the appointments, therefore it can check if a User already has an appointment for the same Vaccine Type |
+|                | ... validating the selected data for the appointment                                          | VaccinationCenter  |  **IE:** The Vaccination Center knows it's appointments, it's Vaccines and Administration processes, therefore it can check if the validity of an appointment |
+|                | ... knowing the time interval between doses for a given age group and knowing the age groups  | AdministrationProcess |  **IE:** The Sns User knows it's taken vaccines and all the personal information about a User, therefore when was the last dose of one and the age. |
+|                | ... knowing the Administration Processes for a Vaccine                                        | Vaccine |  **IE:** The Vaccine knows it's Administration Processes |
+|                | ... knowing the time since the user's last Vaccine and user's age                             | SnsUser |  **IE:** The Sns User knows it's taken vaccines and all the personal information about a User, therefore when was the last dose of one and the age. |
+| Step 8         | ... showing all the data to be confirmed                                                      | ScheduleVaccineUI   |  **Pure Fabrication:** there is no reason to assign this responsibility to any existing class in the Domain Model.   |
+| Step 9         | ... schedule a Vaccine                                                                        | ScheduleVaccineController | **Controller:** act as a mediator between the UI and the Model. Has the responsibility of controlling the data transmission between both. It maps the user action into model updates.   |
+|                | ... instantiating a Scheduled Vaccine?                                                        | ScheduleVaccineMapper | By applying the **Creator** pattern, the "ScheduleVaccineMapper" is responsible for instantiating a new "ScheduledVaccine", since it is the one who   |
+|                | ...saving the Appointment?                                                                    | VaccinationCenter & ScheduledVaccine| **IE:** A Vaccination Center has its own appointments. The Company needs all the appointments so it can validate future appointments  |
+| Step 10        | ... informing the operation success and showing the appointment info                          | ScheduleVaccineUI | **Pure Fabrication:** there is no reason to assign this responsibility to any existing class in the Domain Model.   |
+| Step 11        | ... asking the User if he wants to receive an SMS with the appointment info                   | ScheduleVaccineUI | **Pure Fabrication:** there is no reason to assign this responsibility to any existing class in the Domain Model.   |
+| Step 12        | ... printing the SMS information to a file                                                    | ScheduleVaccineController |  **Controller:** act as a mediator between the UI and the Model. Has the responsibility of controlling the data transmission between both. It maps the user action into model updates.   |
+| Step 13        | ... informing the operation success                                                           | ScheduleVaccineUI | **Pure Fabrication:** there is no reason to assign this responsibility to any existing class in the Domain Model.   |
 
 ### Systematization ##
 
@@ -111,11 +133,16 @@ According to the taken rationale, the conceptual classes promoted to software cl
 * Vaccine
 * AdministrationProcess
 * Company (already implemented)
+* VaccinationCenter
+* ScheduledVaccine
 
 Other software classes (i.e. Pure Fabrication) identified:
 
-* SpecifyVaccineAndAdminProcessUI
-* SpecifyVaccineAndAdminProcessController
+* ScheduleVaccineUI
+* ScheduleVaccineController
+* ScheduledVaccineDto
+* ScheduledVaccineMapper
+
 
 ## 3.2. Sequence Diagram (SD)
 

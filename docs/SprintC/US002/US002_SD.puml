@@ -7,21 +7,19 @@ actor Receptionist as R
 participant ":ScheduleVaccineUI" as UI
 participant ":ScheduleVaccineController" as CTRL
 participant "vaccinationCenter\n:VaccinationCenter" as VC
+participant "snsUser\n:SnsUser" as SU
 participant "scheduledVaccineDtoMapper\n:ScheduledVaccineMapper" as M
 participant "scheduledVaccineDto\n:ScheduledVaccineDto" as DTO
+participant "scheduledVaccine\n:ScheduledVaccine" as SV
 participant "appointmentsList\nList<ScheduledVaccine>" as L
 
-'participant "Utils" as U
 
 activate R
 R -> UI : asks to schedule a vaccine
-
-
 activate UI
-UI-> R : requests data (SNS number)
+UI --> R : requests user´s SNS number
 deactivate UI
-R-> UI : types SNS user number
-
+R -> UI : introduces user´s SNS number
 
 activate UI
 UI --> R : shows a list with the available vaccination centers
@@ -55,8 +53,20 @@ activate CTRL
 CTRL -> CTRL : dataIsAllFilled(scheduleVaccineDto)
 activate CTRL
 deactivate CTRL
-CTRL -> VC : validateAppointmentAccordingToAgeGroupAndTimeSinceLastDose(scheduleVaccineDto, vaccinationCenterac)
+CTRL -> SV : userIsEligibleForTheAppointment(scheduledVaccineDto)
+activate SV
+SV ---> CTRL : result
+deactivate SV
 
+
+
+CTRL -> SU : validateAppointmentAccordingToAgeGroupAndTimeSinceLastDose(scheduledVaccineDto)
+
+activate SU
+SU ---> CTRL : result
+deactivate SU
+
+CTRL -> VC : centerHasAvailability(scheduledVaccineDto)
 activate VC
 VC ---> CTRL : result
 deactivate VC
@@ -75,7 +85,7 @@ UI -> CTRL : scheduledVaccine(scheduleVaccineDto, vaccinationCenter)
 activate CTRL
 
 
-CTRL -> VC : validateAppointment(scheduleVaccineDto)
+CTRL -> VC : centerHasAvailability(scheduleVaccineDto)
 
 activate VC
 VC ---> CTRL : result
@@ -85,7 +95,9 @@ activate M
 note over M, DTO
 Several steps to extract data from the DTO
 end note
-M -> "scheduledVaccine\n:ScheduledVaccine" ** : dtoToDomain(scheduleVaccineDto)
+M ---> SV ** : createScheduledVaccine(scheduleVaccineDto)
+activate SV
+deactivate SV
 deactivate M
 
 CTRL -> VC : addAppointment(scheduledVaccine)
@@ -104,15 +116,19 @@ deactivate VC
 
 
 
-
-
-
-
-
-
-
 CTRL ---> UI : result
-UI --> R : informs operation success
+deactivate CTRL
+UI --> R : informs operation success and shows appointment information
+
+UI -> R : asks if the user wants to receive an SMS with the appointment information
+deactivate UI
+
+R -> UI : authorizes the application to send him an SMS
+activate UI
+UI -> UI : printAppointmentToFile(scheduledVaccineDto, vaccinationCenter)
+activate UI
+deactivate UI
+UI ---> R : informs operation success
 deactivate UI
 deactivate R
 @enduml

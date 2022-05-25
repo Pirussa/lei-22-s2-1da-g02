@@ -29,11 +29,10 @@ public class ScheduleVaccineUI implements Runnable {
             System.out.println();
             ScheduledVaccineDto scheduledVaccineDto = new ScheduledVaccineDto();
             int snsNumber;
-            if (controller.loggedUserIsReceptionist()) {
+            if (controller.loggedUserIsReceptionist())
                 snsNumber = introduceSnsNumberUI();
-            } else {
+            else
                 snsNumber = controller.getSnsUserNumber();
-            }
 
             int vaccinationCenterIndex = Utils.selectVaccinationCenterIndex();
             controller.setVaccinationCenter(vaccinationCenterIndex);
@@ -53,7 +52,7 @@ public class ScheduleVaccineUI implements Runnable {
                     if (controller.scheduleVaccine(scheduledVaccineDto)) {
                         printValidAppointmentInfo(scheduledVaccineDto, vaccinationCenterInfo);
                         try {
-                            printAppointmentToFile(scheduledVaccineDto, vaccinationCenterInfo);
+                            controller.printAppointmentToFile(scheduledVaccineDto, vaccinationCenterInfo);
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
@@ -61,10 +60,8 @@ public class ScheduleVaccineUI implements Runnable {
                         System.out.printf("%n-------------------------------%n|No appointment was registered|%n-------------------------------n");
                 } else
                     System.out.printf("%n-------------------------------%n|No appointment was registered|%n-------------------------------%n");
-            } else {
+            } else
                 System.out.printf("%nOops, something went wrong. Please try again!%nCommon causes: You already have an appointment for that vaccine; Your slot is not available anymore.%nYour age doesn't meet any of the existing age groups or the waiting time since the last dose isn´t finished.%n");
-            }
-
         } else
             printNotEnoughData();
     }
@@ -148,17 +145,6 @@ public class ScheduleVaccineUI implements Runnable {
 
     private void printNotEnoughData() {
         System.out.printf("System is unable to schedule a vaccination without at least:%n- One Vaccination Center;%n- One Vaccine Type;%n- One Know System User.");
-    }
-
-    private void printAppointmentToFile(ScheduledVaccineDto scheduledVaccineDto, VaccinationCenterDto vaccinationCenter) throws IOException {
-        System.out.printf("-----%n|SMS|%n-----%n%n");
-        int options = Utils.selectFromList(List.of(Constants.OPTIONS), "Do you want to receive an SMS with the appointment information");
-        if (options == 0) {
-            PrintWriter printWriter = new PrintWriter(Constants.PATH_SMS_MESSAGE);
-            printWriter.printf("Received at: " + Utils.formatDateToPrint(LocalDate.now()) + "%n%nYou have an appointment to take a %s vaccine, at %s in %s, on %s.", scheduledVaccineDto.vaccineType, scheduledVaccineDto.date.toLocalTime(), Utils.formatDateToPrint(scheduledVaccineDto.date.toLocalDate()), vaccinationCenter);
-            printWriter.close();
-            System.out.printf("%nA message with the information was sent to " + controller.getUserPhoneNumber() + ".");
-        }
     }
 
     private LocalDateTime selectDateUIok(VaccinationCenterDto vaccinationCenter) {
