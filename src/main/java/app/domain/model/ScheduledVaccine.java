@@ -1,11 +1,8 @@
 package app.domain.model;
-
 import dto.ScheduledVaccineDto;
 import mapper.ScheduledVaccineMapper;
-
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+
 
 /**
  * Has all the info about a scheduled Vaccine
@@ -32,11 +29,6 @@ public class ScheduledVaccine {
     private LocalDateTime date;
 
     /**
-     * List with all the appointments
-     */
-    private static List<ScheduledVaccine> appointmentsList = new ArrayList<>();
-
-    /**
      * Creates a scheduled vaccine with the following attributes:
      *
      * @param snsNumber   The SNS Number related to the User with the scheduled Vaccine.
@@ -50,30 +42,6 @@ public class ScheduledVaccine {
 
     }
 
-    /**
-     * User is eligible for the appointment.
-     *
-     * @param scheduledVaccineDto the scheduled vaccine dto
-     * @return true if the user doesn't have another appointment for the same Vaccine
-     */
-    public static boolean userIsEligibleForTheAppointment(ScheduledVaccineDto scheduledVaccineDto) {
-        ScheduledVaccineMapper mapper = new ScheduledVaccineMapper();
-        ScheduledVaccine appointment = mapper.createScheduledVaccine(scheduledVaccineDto);
-        for (ScheduledVaccine appointmentCheck : appointmentsList) {
-            if ((appointment.getVaccineType().equals(appointmentCheck.getVaccineType()) && (appointment.getSnsNumber() == appointmentCheck.getSnsNumber())))
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * Adds appointment.
-     *
-     * @param scheduledVaccine the scheduled vaccine
-     */
-    public static void addAppointment(ScheduledVaccine scheduledVaccine) {
-        appointmentsList.add(scheduledVaccine);
-    }
 
     /**
      * Gives the info of a Scheduled Vaccine in String
@@ -117,8 +85,5 @@ public class ScheduledVaccine {
         return vaccineType;
     }
 
-    public static void cleanAppointments(){
-        appointmentsList.clear();
-    }
 
 }

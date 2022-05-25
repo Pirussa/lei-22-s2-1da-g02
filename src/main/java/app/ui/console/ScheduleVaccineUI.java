@@ -11,8 +11,6 @@ import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.YearMonth;
-import java.time.temporal.TemporalAdjusters;
 import java.util.*;
 
 public class ScheduleVaccineUI implements Runnable {
@@ -147,15 +145,15 @@ public class ScheduleVaccineUI implements Runnable {
         System.out.printf("System is unable to schedule a vaccination without at least:%n- One Vaccination Center;%n- One Vaccine Type;%n- One Know System User.");
     }
 
-    private LocalDateTime selectDateUIok(VaccinationCenterDto vaccinationCenter) {
-        int openingHour = Integer.parseInt(vaccinationCenter.strOpeningHour);
-        int closingHour = Integer.parseInt(vaccinationCenter.strClosingHour);
-        int slotDuration = Integer.parseInt(vaccinationCenter.strSlotDuration);
-        int slotsPerDay = vaccinationCenter.slotsPerDay;
+    private LocalDateTime selectDateUIok(VaccinationCenterDto vaccinationCenterDto) {
+        int openingHour = Integer.parseInt(vaccinationCenterDto.strOpeningHour);
+        int closingHour = Integer.parseInt(vaccinationCenterDto.strClosingHour);
+        int slotDuration = Integer.parseInt(vaccinationCenterDto.strSlotDuration);
+        int slotsPerDay = vaccinationCenterDto.slotsPerDay;
         LocalDate dateWhenScheduling = LocalDate.now();
         ArrayList<String> availableDaysCurrentMonth = new ArrayList<>();
         ArrayList<String> availableDaysNextMonth = new ArrayList<>();
-        ArrayList<LocalTime> availableHours = new ArrayList<>();
+        ArrayList<LocalTime> availableSlotsList = new ArrayList<>();
 
         System.out.printf("%nChoose the Date for the appointment:%n%n");
         boolean check = false;
@@ -163,8 +161,8 @@ public class ScheduleVaccineUI implements Runnable {
         LocalDate selectedDate;
         int selectedDay;
 
-        availableDaysCurrentMonth = controller.availableDaysListCurrentMonth(availableDaysCurrentMonth, dateWhenScheduling);
-        availableDaysNextMonth = controller.availableDaysListNextMonth(availableDaysNextMonth);
+         controller.getAvailableDaysListCurrentMonth(availableDaysCurrentMonth);
+         controller.getAvailableDaysListNextMonth(availableDaysNextMonth);
 
         do {
             selectedDay = Utils.showAndSelectFromList(availableDaysCurrentMonth, 0) + dateWhenScheduling.getDayOfMonth() + 1;
@@ -189,12 +187,12 @@ public class ScheduleVaccineUI implements Runnable {
         System.out.printf("%nChoose the time");
         LocalTime timeOfTheSlot = LocalTime.of(openingHour, 0);
 
-        availableHours = controller.availableHoursList(availableHours, slotsPerDay, selectedDate, timeOfTheSlot, slotDuration);
+        controller.getAvailableSlotsList(availableSlotsList, slotsPerDay, selectedDate, timeOfTheSlot, slotDuration);
         int selectedOption;
         boolean flag;
         LocalTime timeSelected;
         do {
-            selectedOption = Utils.selectFromList(availableHours, "") + 1;
+            selectedOption = Utils.selectFromList(availableSlotsList, "") + 1;
             LocalTime openingHourCenter = LocalTime.of(openingHour, 0);
             LocalTime closingHourCenter = LocalTime.of(closingHour, 0);
             int minutesToBeAdded = 0;

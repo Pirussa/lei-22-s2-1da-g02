@@ -403,17 +403,17 @@ public class VaccinationCenter {
     /**
      * Validate appointment according to age group and time since last dose.
      *
-     * @param dto     the dto
+     * @param scheduledVaccineDto     the dto
      * @param company the company
      * @return true if the appointment is validated according to age group and time since last dose.
      */
-    public boolean validateAppointmentAccordingToAgeGroupAndTimeSinceLastDose(ScheduledVaccineDto dto, Company company) {
-        SnsUser snsUser = company.getSNSUserList().get(SnsUser.getUserIndexInUsersList(dto.snsNumber));
+    public boolean validateAppointmentAccordingToAgeGroupAndTimeSinceLastDose(ScheduledVaccineDto scheduledVaccineDto, Company company) {
+        SnsUser snsUser = company.getSNSUserList().get(SnsUser.getUserIndexInUsersList(scheduledVaccineDto.snsNumber));
 
         if (!snsUser.getTakenVaccines().isEmpty()) {
             for (TakenVaccine takenVaccine : snsUser.getTakenVaccines()) {
-                if (dto.vaccineType.equals(takenVaccine.getVaccine().getVaccineType())) {
-                    if (!validateAppointmentAccordingToAdminProcess(snsUser, dto, takenVaccine)) {
+                if (scheduledVaccineDto.vaccineType.equals(takenVaccine.getVaccine().getVaccineType())) {
+                    if (!validateAppointmentAccordingToAdminProcess(snsUser, scheduledVaccineDto, takenVaccine)) {
                         return false;
                     }
                 }

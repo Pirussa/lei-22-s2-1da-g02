@@ -47,7 +47,7 @@ public class ScheduleVaccineController {
     public boolean scheduleVaccine(ScheduledVaccineDto scheduledVaccineDto) {
         if (!validateAppointment(scheduledVaccineDto)) return false;
         vaccinationCenter.addAppointment(createScheduledVaccine(scheduledVaccineDto));
-        ScheduledVaccine.addAppointment(createScheduledVaccine(scheduledVaccineDto));
+        company.addAppointment(createScheduledVaccine(scheduledVaccineDto));
         return true;
     }
 
@@ -59,7 +59,7 @@ public class ScheduleVaccineController {
      */
     public boolean validateAppointment(ScheduledVaccineDto scheduledVaccineDto) {
         if (!dataIsAllFilled(scheduledVaccineDto)) return false;
-        if (!ScheduledVaccine.userIsEligibleForTheAppointment(scheduledVaccineDto)) return false;
+        if (!company.userIsEligibleForTheAppointment(scheduledVaccineDto)) return false;
         if (!vaccinationCenter.validateAppointmentAccordingToAgeGroupAndTimeSinceLastDose(scheduledVaccineDto, company))
             return false;
 
@@ -232,40 +232,36 @@ public class ScheduleVaccineController {
      * Gets the available days in current month and fill´s a list.
      *
      * @param availableDaysCurrentMonth List that will receive the available days
-     * @param localDate                 The date when the user is scheduling
-     * @return the filled array list
      */
-    public ArrayList<String> availableDaysListCurrentMonth(ArrayList<String> availableDaysCurrentMonth, LocalDate localDate) {
+    public void getAvailableDaysListCurrentMonth(ArrayList<String> availableDaysCurrentMonth) {
         LocalDate dateWhenScheduling = LocalDate.now();
         for (int date = dateWhenScheduling.getDayOfMonth() + 1; date <= YearMonth.of(dateWhenScheduling.getYear(), dateWhenScheduling.getMonthValue()).lengthOfMonth(); date++) {
-            if (dayHasAvailability(LocalDate.of(LocalDate.now().getYear(), localDate.getMonthValue(), date))) {
-                if (isMonthNumberSingleDigit(localDate.getMonthValue()))
-                    availableDaysCurrentMonth.add(String.valueOf(date + "/" + localDate.getMonthValue()));
+            if (dayHasAvailability(LocalDate.of(LocalDate.now().getYear(), dateWhenScheduling.getMonthValue(), date))) {
+                if (isMonthNumberSingleDigit(dateWhenScheduling.getMonthValue()))
+                    availableDaysCurrentMonth.add(date + "/" + dateWhenScheduling.getMonthValue());
                 else
-                    availableDaysCurrentMonth.add(String.valueOf(date + "/ 0" + localDate.getMonthValue()));
+                    availableDaysCurrentMonth.add(date + "/ 0" + dateWhenScheduling.getMonthValue());
             }
         }
-        return availableDaysCurrentMonth;
     }
 
     /**
      * Gets the available days in next month and fill´s a list.
      *
      * @param availableDaysNextMonth List that will receive the available days
-     * @return the filled array list
      */
-    public ArrayList<String> availableDaysListNextMonth(ArrayList<String> availableDaysNextMonth) {
+    public void getAvailableDaysListNextMonth(ArrayList<String> availableDaysNextMonth) {
         LocalDate dateWhenScheduling = LocalDate.now();
         LocalDate nextMonthDate = dateWhenScheduling.plusMonths(1).with(TemporalAdjusters.firstDayOfMonth());
         for (int date = nextMonthDate.getDayOfMonth(); date <= YearMonth.of(nextMonthDate.getYear(), nextMonthDate.getMonthValue()).lengthOfMonth(); date++) {
             if (dayHasAvailability(LocalDate.of(LocalDate.now().getYear(), nextMonthDate.getMonthValue(), date))) {
                 if (isMonthNumberSingleDigit(nextMonthDate.getMonthValue()))
-                    availableDaysNextMonth.add(String.valueOf(date + "/" + nextMonthDate.getMonthValue()));
+                    availableDaysNextMonth.add(date + "/" + nextMonthDate.getMonthValue());
                 else
-                    availableDaysNextMonth.add(String.valueOf(date + "/ 0" + nextMonthDate.getMonthValue()));
+                    availableDaysNextMonth.add(date + "/ 0" + nextMonthDate.getMonthValue());
             }
         }
-        return availableDaysNextMonth;
+
     }
 
     private boolean isMonthNumberSingleDigit(int month) {
@@ -280,16 +276,14 @@ public class ScheduleVaccineController {
      * @param selectedDate   the selected date by the user
      * @param timeOfTheSlot  the time of the slot
      * @param slotDuration   the slot duration
-     * @return the array list filled with available hours
      */
-    public ArrayList<LocalTime> availableHoursList(ArrayList<LocalTime> availableHours, int slotsPerDay, LocalDate selectedDate, LocalTime timeOfTheSlot, int slotDuration) {
+    public void getAvailableSlotsList(ArrayList<LocalTime> availableHours, int slotsPerDay, LocalDate selectedDate, LocalTime timeOfTheSlot, int slotDuration) {
         for (int slot = 0; slot < slotsPerDay; slot++) {
             if (slotHasAvailability(selectedDate, timeOfTheSlot))
                 availableHours.add(timeOfTheSlot);
 
             timeOfTheSlot = timeOfTheSlot.plusMinutes(slotDuration);
         }
-        return availableHours;
     }
 
 
@@ -301,8 +295,7 @@ public class ScheduleVaccineController {
      * @return the minutes to be added to the opening hour to determine the selected time by the user
      */
     public int timeSelected(int selectedOption, int slotDuration) {
-        int minutesToBeAdded;
-        return minutesToBeAdded = (selectedOption - 1) * slotDuration;
+        return  (selectedOption - 1) * slotDuration;
     }
 
     /**

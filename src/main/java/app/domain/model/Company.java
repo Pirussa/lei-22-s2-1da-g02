@@ -2,6 +2,7 @@ package app.domain.model;
 
 import app.domain.shared.Constants;
 import dto.*;
+import mapper.ScheduledVaccineMapper;
 import pt.isep.lei.esoft.auth.AuthFacade;
 import org.apache.commons.lang3.StringUtils;
 
@@ -25,6 +26,11 @@ public class Company {
     private AuthFacade authFacade;
 
     /**
+     * List with all the appointments
+     */
+
+
+    /**
      * List that stores the Vaccine Types
      */
     private ArrayList<VaccineType> vaccineTypes = new ArrayList<>();
@@ -38,11 +44,6 @@ public class Company {
      * List that stores the Employees
      */
     private static ArrayList<Employee> employees = new ArrayList<>();
-
-    /**
-     * List that stores the roles
-     */
-    private ArrayList<String> roles = new ArrayList<>();
 
     /**
      * List that stores the Nurses
@@ -129,6 +130,8 @@ public class Company {
     public List<MassVaccinationCenter> getMassVaccinationCenter() {
         return massVaccinationCenters;
     }
+
+    private  List<ScheduledVaccine> appointmentsList = new ArrayList<>();
 
 
     /**
@@ -474,5 +477,32 @@ public class Company {
         }
     }
 
-    //END
+    /**
+     * Adds appointment.
+     *
+     * @param scheduledVaccine the scheduled vaccine
+     */
+    public void addAppointment(ScheduledVaccine scheduledVaccine) {
+        appointmentsList.add(scheduledVaccine);
+    }
+
+    /**
+     * User is eligible for the appointment.
+     *
+     * @param scheduledVaccineDto the scheduled vaccine dto
+     * @return true if the user doesn't have another appointment for the same Vaccine
+     */
+    public boolean userIsEligibleForTheAppointment(ScheduledVaccineDto scheduledVaccineDto) {
+        ScheduledVaccineMapper mapper = new ScheduledVaccineMapper();
+        ScheduledVaccine appointment = mapper.createScheduledVaccine(scheduledVaccineDto);
+        for (ScheduledVaccine appointmentCheck : appointmentsList) {
+            if ((appointment.getVaccineType().equals(appointmentCheck.getVaccineType()) && (appointment.getSnsNumber() == appointmentCheck.getSnsNumber())))
+                return false;
+        }
+        return true;
+    }
+
+    public void cleanAppointments(){
+        appointmentsList.clear();
+    }
 }

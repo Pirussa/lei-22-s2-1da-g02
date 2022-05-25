@@ -30,14 +30,14 @@ class ScheduledVaccineTest {
         scheduledVaccineDto1.snsNumber = snsUserNumber;
 
         ScheduledVaccine appointment1 = mapper.createScheduledVaccine(scheduledVaccineDto1);
-        ScheduledVaccine.addAppointment(appointment1);
+        company.addAppointment(appointment1);
 
         scheduledVaccineDto2.vaccineType = vaccineType;
         scheduledVaccineDto2.date = LocalDateTime.of(2022, 6, 23, 10, 30);
         scheduledVaccineDto2.snsNumber = snsUserNumber;
 
-        assertFalse(ScheduledVaccine.userIsEligibleForTheAppointment(scheduledVaccineDto2));
-        ScheduledVaccine.cleanAppointments();
+        assertFalse(company.userIsEligibleForTheAppointment(scheduledVaccineDto2));
+        company.cleanAppointments();
     }
 
     @Test
@@ -47,7 +47,7 @@ class ScheduledVaccineTest {
         controller.setVaccinationCenter(0);
 
         assertFalse(controller.validateAppointment(scheduledVaccineDto1));
-        ScheduledVaccine.cleanAppointments();
+        company.cleanAppointments();
     }
 
     @Test
@@ -58,7 +58,7 @@ class ScheduledVaccineTest {
         scheduledVaccineDto1.vaccineType = company.getVaccineTypes().get(0);
         scheduledVaccineDto1.date = LocalDateTime.of(2022, 6, 22, 10, 0);
         assertFalse(controller.validateAppointment(scheduledVaccineDto1));
-        ScheduledVaccine.cleanAppointments();
+        company.cleanAppointments();
     }
 
     @Test
@@ -69,7 +69,7 @@ class ScheduledVaccineTest {
         scheduledVaccineDto1.snsNumber = 999999999;
         scheduledVaccineDto1.date = LocalDateTime.of(2022, 6, 22, 10, 0);
         assertFalse(controller.validateAppointment(scheduledVaccineDto1));
-        ScheduledVaccine.cleanAppointments();
+        company.cleanAppointments();
     }
 
     @Test
@@ -80,7 +80,7 @@ class ScheduledVaccineTest {
         scheduledVaccineDto1.snsNumber = 999999999;
         scheduledVaccineDto1.vaccineType = company.getVaccineTypes().get(0);
         assertFalse(controller.validateAppointment(scheduledVaccineDto1));
-        ScheduledVaccine.cleanAppointments();
+        company.cleanAppointments();
     }
 
     @Test
@@ -101,14 +101,14 @@ class ScheduledVaccineTest {
 
         ScheduledVaccine appointment1 = mapper.createScheduledVaccine(scheduledVaccineDto1);
         assertTrue(controller.scheduleVaccine(scheduledVaccineDto1));
-        ScheduledVaccine.addAppointment(appointment1);
+        company.addAppointment(appointment1);
 
         scheduledVaccineDto2.vaccineType = vaccineType;
         scheduledVaccineDto2.date = LocalDateTime.of(2022, 6, 22, 10, 30);
         scheduledVaccineDto2.snsNumber = 888888888;
 
         assertFalse(controller.scheduleVaccine(scheduledVaccineDto2));
-        ScheduledVaccine.cleanAppointments();
+        company.cleanAppointments();
     }
 
     @Test
@@ -129,9 +129,9 @@ class ScheduledVaccineTest {
 
         ScheduledVaccine appointment1 = mapper.createScheduledVaccine(scheduledVaccineDto1);
         assertTrue(controller.scheduleVaccine(scheduledVaccineDto1));
-         ScheduledVaccine.addAppointment(appointment1);
+         company.addAppointment(appointment1);
 
-        ScheduledVaccine.cleanAppointments();
+        company.cleanAppointments();
     }
 
     @Test
@@ -152,13 +152,13 @@ class ScheduledVaccineTest {
 
         ScheduledVaccine appointment1 = mapper.createScheduledVaccine(scheduledVaccineDto1);
         assertTrue(controller.scheduleVaccine(scheduledVaccineDto1));
-        ScheduledVaccine.addAppointment(appointment1);
+        company.addAppointment(appointment1);
 
         scheduledVaccineDto2.vaccineType = vaccineType;
         scheduledVaccineDto2.date = LocalDateTime.of(2022, 6, 22, 9, 30);
         scheduledVaccineDto2.snsNumber = 888888888;
 
         assertFalse(controller.scheduleVaccine(scheduledVaccineDto2));
-        ScheduledVaccine.cleanAppointments();
+        company.cleanAppointments();
     }
 }
