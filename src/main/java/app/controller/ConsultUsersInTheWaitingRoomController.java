@@ -42,11 +42,6 @@ public class ConsultUsersInTheWaitingRoomController {
     }
 
 
-    public VaccinationCenterDto getVaccinationCenterInfo() {
-        VaccinationCenterMapper vaccinationCenterMapper = new VaccinationCenterMapper();
-        return vaccinationCenterMapper.domainToDto(vaccinationCenter);
-    }
-
     /**
      * Searches in the SNS Users' list for the users from the arrivals list, using the sns user number, and adds them to the waiting room list.
      *

@@ -5,7 +5,7 @@ actor "Nurse" as N
 activate N
 N -> ":System" : asks to consult the users in the waiting room of a vaccination center
 activate ":System"
-":System" --> N : requests the vaccination center
+":System" --> N : shows a list with the available vaccination centers and requests to select one
 deactivate ":System"
 
 N -> ":System" : chooses the option containing the requested vaccination center
