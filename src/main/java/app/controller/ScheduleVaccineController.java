@@ -225,6 +225,14 @@ public class ScheduleVaccineController {
         return vaccinationCenter.slotHasAvailability(selectedDate, timeOfTheSlot);
     }
 
+
+    /**
+     * Gets the available days in current month and fill´s a list.
+     *
+     * @param availableDaysCurrentMonth List that will receive the available days
+     * @param localDate                 The date when the user is scheduling
+     * @return the filled array list
+     */
     public ArrayList<String> availableDaysListCurrentMonth(ArrayList<String> availableDaysCurrentMonth, LocalDate localDate) {
         LocalDate dateWhenScheduling = LocalDate.now();
         for (int date = dateWhenScheduling.getDayOfMonth() + 1; date <= YearMonth.of(dateWhenScheduling.getYear(), dateWhenScheduling.getMonthValue()).lengthOfMonth(); date++) {
@@ -238,6 +246,12 @@ public class ScheduleVaccineController {
         return availableDaysCurrentMonth;
     }
 
+    /**
+     * Gets the available days in next month and fill´s a list.
+     *
+     * @param availableDaysNextMonth List that will receive the available days
+     * @return the filled array list
+     */
     public ArrayList<String> availableDaysListNextMonth(ArrayList<String> availableDaysNextMonth) {
         LocalDate dateWhenScheduling = LocalDate.now();
         LocalDate nextMonthDate = dateWhenScheduling.plusMonths(1).with(TemporalAdjusters.firstDayOfMonth());
@@ -256,6 +270,16 @@ public class ScheduleVaccineController {
         return month <= Constants.SEPTEMBER;
     }
 
+    /**
+     * Gets the available hours and fill´s array list.
+     *
+     * @param availableHours the available hours empty list
+     * @param slotsPerDay    the slots per day
+     * @param selectedDate   the selected date by the user
+     * @param timeOfTheSlot  the time of the slot
+     * @param slotDuration   the slot duration
+     * @return the array list filled with available hours
+     */
     public ArrayList<LocalTime> availableHoursList(ArrayList<LocalTime> availableHours, int slotsPerDay, LocalDate selectedDate, LocalTime timeOfTheSlot, int slotDuration) {
         for (int slot = 0; slot < slotsPerDay; slot++) {
             if (slotHasAvailability(selectedDate, timeOfTheSlot))
@@ -266,8 +290,16 @@ public class ScheduleVaccineController {
         return availableHours;
     }
 
-    public int timeSelected(int openingHour, int closingHour, int selectedOption, int slotDuration, int minutesToBeAdded) {
-        LocalTime openingHourCenter = LocalTime.of(openingHour, 0); LocalTime closingHourCenter = LocalTime.of(closingHour, 0);
-        return minutesToBeAdded = (selectedOption - 1) * slotDuration;
+
+    /**
+     * Time selected by the user converted into minutes to be added.
+     *
+     * @param selectedOption the selected slot
+     * @param slotDuration   the slot duration
+     * @return the minutes to be added to the opening hour to determine the selected time by the user
+     */
+    public int timeSelected(int selectedOption, int slotDuration) {
+        int minutesToBeAdded;
+        return  minutesToBeAdded = (selectedOption - 1) * slotDuration;
     }
 }
