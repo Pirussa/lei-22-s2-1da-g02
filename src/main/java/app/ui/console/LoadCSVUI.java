@@ -105,7 +105,7 @@ public class LoadCSVUI implements Runnable {
     }
 
     public static boolean confirmCreationCSV() {
-        System.out.println("CSV Data is invalid.");
+        System.out.println("CSV Data is invalid or the CSV file does not exist.");
         System.out.println();
         System.out.println("Do you want to load another file?");
         System.out.println();
