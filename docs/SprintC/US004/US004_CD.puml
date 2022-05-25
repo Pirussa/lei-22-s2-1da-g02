@@ -16,20 +16,10 @@ VaccineType vaccineType
 'class Company
 
 class VaccinationCenter {
--String strID
 -String strName
--String strPhoneNumber
--String strEmail
--String strFax
--String strWebsite
 -String strOpeningHour
 -String strClosingHour
 -String strSlotDuration
--String strVaccinesPerSlot
--String strRoad
--String strZipCode
--String strLocal
--String strCenterCoordinatorID
 -List<ScheduledVaccine> scheduledVaccineList
 -List<Arrival> arrivalsList
 +getArrivalsList()
@@ -44,11 +34,17 @@ class VaccinationCenter {
 class RegisterArrivalOfSNSUserUI
 
 class RegisterArrivalOfSNSUserController{
+-VaccinationCenter vaccinationCenter
+-ScheduledVaccine appointment
+-Arrival arrival
+-List<ScheduledVaccine> vaccineAppointments
++setVaccinationCenter(int index)
 +checkIfAlreadyRegistered(int snsNumber)
-+getUserAppointment(int snsNumber, List<ScheduledVaccine> vaccineAppointments)
++checkAndSetUserAppointment(int snsNumber, List<ScheduledVaccine> vaccineAppointments)
 +validateDateAndTime()
++cleanArrivalsList()
 +registerArrival(int snsNumber, VaccinationCenter vaccinationCenter)
-+validateVaccinationCenters()
++setArrival(int snsNumber)
 }
 
 class Arrival {
