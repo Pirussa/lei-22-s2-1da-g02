@@ -39,12 +39,12 @@ public class RegisterTheArrivalOfAnSnsUserController {
      *
      * @return boolean - true if both are on the same vaccination center
      */
-    public boolean checkVaccinationCenters() {
+    public boolean validateVaccinationCenters() {
         return vaccinationCenterReceptionist == vaccinationCenterSnsUser;
     }
 
     /**
-     * Check if a User has an appointment, for that day and time, introducing his/her SNS number
+     * Check if a User has an appointment
      *
      * @param snsNumber Number that identifies the SNS user
      * @return ScheduleVaccine - return an appointment of a user
@@ -67,8 +67,8 @@ public class RegisterTheArrivalOfAnSnsUserController {
      * @param snsNumber The number that identifies an SNS user
      * @return boolean - true if the user is already registered
      */
-    public boolean checkRegistration(int snsNumber) {
-        return Arrival.checkRegistration(snsNumber, vaccinationCenterReceptionist);
+    public boolean checkIfAlreadyRegistered(int snsNumber) {
+        return vaccinationCenterReceptionist.checkIfAlreadyRegistered(snsNumber);
     }
 
     /**
@@ -76,8 +76,8 @@ public class RegisterTheArrivalOfAnSnsUserController {
      *
      * @return boolean - true if day and time match
      */
-    public boolean checkDateAndTime() {
-        return arrival.checkDateAndTime(appointment.getDate(), vaccinationCenterReceptionist);
+    public boolean validateDateAndTime() {
+        return arrival.validateDateAndTime(appointment.getDate(), vaccinationCenterReceptionist);
     }
 
     /**
@@ -90,7 +90,7 @@ public class RegisterTheArrivalOfAnSnsUserController {
     }
 
     /**
-     * Cleans the lisf of arrivals
+     * Cleans the list of arrivals
      *
      */
     public void cleanArrivalsList() {

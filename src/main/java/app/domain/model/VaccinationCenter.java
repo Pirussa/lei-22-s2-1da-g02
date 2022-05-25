@@ -489,6 +489,9 @@ public class VaccinationCenter {
         getArrivalsList().add(arrival);
     }
 
+    /**
+     * Cleans the arrivals list
+     */
     public void cleanArrivalsList() {
         int currentHour = LocalDateTime.now().getHour();
 
@@ -497,8 +500,28 @@ public class VaccinationCenter {
                 arrivalsList.remove(arrival);
     }
 
+    /**
+     * Removes an appointment from the appointments list
+     *
+     * @param appointment The user's appointment
+     */
     public void removeAppointment(ScheduledVaccine appointment) {
         getScheduledVaccineList().remove(appointment);
+    }
+
+
+    /**
+     * Checks if a user has already been registered
+     *
+     * @param snsNumber The number that identifies an SNS user
+     * @return boolean - true if the user is already registered
+     */
+    public boolean checkIfAlreadyRegistered(int snsNumber)   {
+        for (Arrival arrival : arrivalsList)
+            if (arrival.getSnsNumber() == snsNumber)
+                return false;
+
+        return true;
     }
 
     /**

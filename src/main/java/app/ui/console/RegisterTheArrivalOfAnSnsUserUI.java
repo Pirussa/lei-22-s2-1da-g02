@@ -60,17 +60,17 @@ public class RegisterTheArrivalOfAnSnsUserUI implements Runnable {
         else
             ctrl.setArrival(snsNumber);
 
-        if (!ctrl.checkVaccinationCenters()) {
+        if (!ctrl.validateVaccinationCenters()) {
             System.out.printf("%nWrong Vaccination Center %n");
             return false;
         }
 
-        if(!ctrl.checkDateAndTime()) {
+        if(!ctrl.validateDateAndTime()) {
             System.out.printf("%nWrong Day/Time %n");
             return false;
         }
 
-        if(!ctrl.checkRegistration(snsNumber)) {
+        if(!ctrl.checkIfAlreadyRegistered(snsNumber)) {
             System.out.printf("%nUser has already been registered %n");
             return false;
         }

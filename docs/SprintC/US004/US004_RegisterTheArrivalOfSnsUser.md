@@ -1,4 +1,4 @@
-# US 006 - To register the arrival of a SNS user
+# US 006 - To register the arrival of an SNS user
 
 ## 1. Requirements Engineering
 
@@ -20,14 +20,13 @@ correct, the receptionist acknowledges the system that the user is ready to take
 
 
 
-
 **From the client clarifications:**
 
 In this user story, the receptionist registers the arrival of an SNS User. Does the receptionist choose the center she works at during login like the nurse?
 
 > **Question:** In this user story, the receptionist registers the arrival of an SNS User. Does the receptionist choose the center she works at during login like the nurse?
 >  
-> **Answer:** To start using the application, the receptionist should first select the vaccination center where she is working. The receptionists register the arrival of a SNS user at the vaccination center where she is working.
+> **Answer:** To start using the application, the receptionist should first select the vaccination center where she is working. The receptionists register the arrival of an SNS user at the vaccination center where she is working.
 
 
 > **Question:** The nurse  must have the possibility to choose which center she wants to register the SNS user's arrival every time she uses this feature, or should we make the nurse pick a center after they log in?
@@ -37,25 +36,25 @@ In this user story, the receptionist registers the arrival of an SNS User. Does 
 
 > **Question:** When the receptionist registers a SNSUser arrival, should we validate that the vaccination center where the SNS user arrives is the same as where the receptionist is currently working? If so, should we allocate receptionists to vaccination centers, i.e., ask the receptionist which vaccination center is she currently working at?
 >
-> **Answer:** To start using the application, the receptionist should first select the vaccination center where she is working. The receptionists register the arrival of a SNS user at the vaccination center where she is working.
+> **Answer:** To start using the application, the receptionist should first select the vaccination center where she is working. The receptionists register the arrival of an SNS user at the vaccination center where she is working.
 
 
-> **Question:** Regarding US04, what are the attributes needed in order to register the arrival of a SNS user to a vaccination center.
+> **Question:** Regarding US04, what are the attributes needed in order to register the arrival of an SNS user to a vaccination center.
 > 
 > **Answer:** The time of arrival should be registered.
 
 
-> **Question:** Regarding US04, a receptionist register the arrival of a SNS user imediately when he arrives at the vaccination center or only after the recepcionist confirms that the respective user has a vaccine schedule for that day and time.
+> **Question:** Regarding US04, a receptionist register the arrival of an SNS user immediately when he arrives at the vaccination center or only after the receptionist confirms that the respective user has a vaccine schedule for that day and time.
 >
-> **Answer:** The receptionist registers the arrival of a SNS user only after confirming that the user has a vaccine scheduled for that day and time.
+> **Answer:** The receptionist registers the arrival of an SNS user only after confirming that the user has a vaccine scheduled for that day and time.
 
 
 > **Question:** When the SNS user number is introduce by the receptionist and the system has no appointment for that SNS user number, how should the system proceed?
 >
-> **Answer:** The application should present a message saying that the SNS user did not scheduled a vaccination.
+> **Answer:** The application should present a message saying that the SNS user did not schedule a vaccination.
 
 
-> **Question:** Regarding US04, i would like to know what's the capacity of the waiting room.
+> **Question:** Regarding US04, I would like to know what's the capacity of the waiting room.
 >
 > **Answer:** The waiting room will not be registered or defined in the system. The waiting room of each vaccination center has the capacity to receive all users who take the vaccine on given slot.
 
@@ -85,9 +84,9 @@ he/she needs to have a vaccination appointment.
 
 * Typed data:
     * SNS number
-    * The choosen Vaccination Center
+    * Vaccination center where the receptionist is located
+    * Vaccination center where the user has the appointment
     
-
 
 **Output Data:**
 
@@ -121,14 +120,18 @@ No other remarks
 ### 3.1. Rationale
 
 
-| Interaction ID | Which class responsible for...              | Answer                             | Justification                                                                                                 |
-|:---------------|:--------------------------------------------|:-----------------------------------|:--------------------------------------------------------------------------------------------------------------|
-| Step 1         | ...interacting with the actor?              | RegisterArrivalOfSNSUserUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. |
-|                | ...coordinating the US                      | RegisterArrivalOfSNSUserController | **Controller**                                                                                                |
-| Step 2         | ...check the requirements for registration  | Arrival                            | **Validation**                                                                                                | 
-| Step 2         | ...register the arrival of an SNS user      | Company                            | **Registration**                                                                                              |
-| Step 3         | ...saving the inputted data of the arrival  | VaccinationCenter                  | IE: Company stores everything                                                                                 |
-| Step 4         | ...informing operation success              | RegisterArrivalOfSNSUserUI         | IE: is responsible for user interactions                                                                      |
+| Interaction ID | Which class responsible for...             | Answer                               | Justification                                                                                                 |
+|:---------------|:-------------------------------------------|:-------------------------------------|:--------------------------------------------------------------------------------------------------------------|
+| Step 1         | ...interacting with the actor?             | RegisterArrivalOfSNSUserUI           | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. |
+|                | ...coordinating the US                     | RegisterArrivalOfSNSUserController   | **Controller**                                                                                                |
+| Step 2         | ...check the requirements for registration | RegisterArrivalOfSNSUserController   | **Validation**                                                                                                | 
+|                | ...validate Date and Time                  | Arrival                              |                                                                                                               |
+|                | ...validate Vaccination centers            | RegisterArrivalOfSNSUserController   |                                                                                                               |
+|                | ...check if an User is already registered  | VaccinationCenter                    |                                                                                                               | 
+|                | ...get user's appointment                  | RegisterArrivalOfSNSUserController   |                                                                                                               |
+| Step 3         | ...register the arrival of an SNS user     | VaccinationCenter                    | **Registration**                                                                                              |
+|                | ...saving the inputted data of the arrival | VaccinationCenter                    | IE: Company stores everything                                                                                 |
+| Step 4         | ...informing operation success             | RegisterArrivalOfSNSUserUI           | IE: is responsible for user interactions                                                                      |
 
 
 
@@ -136,13 +139,13 @@ No other remarks
 
 According to the taken rationale, the conceptual classes promoted to software classes are: 
 
- * None
+ * VaccinationCenter
+ * Arrival
 
 Other software classes (i.e. Pure Fabrication) identified: 
 
  * CreateTaskUI  
  * CreateTaskController
- * Company
 
 
 ## 3.2. Sequence Diagram (SD)

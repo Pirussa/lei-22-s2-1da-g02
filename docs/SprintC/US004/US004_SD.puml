@@ -10,10 +10,10 @@ participant ":Company" as C
 
 activate R
 
-R -> UI : asks to check if an SNS user has an appointment
+R -> UI : asks to register an arrival
 activate UI
 
-UI --> R : requests data (SNS number, Vaccination Center)
+UI --> R : requests data (SNS number, Vaccination Center of the Receptionist and of the User)
 deactivate UI
 
 R -> UI : types requested data

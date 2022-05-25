@@ -29,7 +29,7 @@ class RegisterTheArrivalOfAnSnsUserTest {
         ctrl.getUserAppointment(100000000);
         ctrl.setArrival(100000000);
 
-        assertTrue(ctrl.getUserAppointment(100000000) && ctrl.checkRegistration(100000000) && ctrl.checkDateAndTime() && ctrl.checkVaccinationCenters());
+        assertTrue(ctrl.getUserAppointment(100000000) && ctrl.checkIfAlreadyRegistered(100000000) && ctrl.validateDateAndTime() && ctrl.validateVaccinationCenters());
 
     }
 
@@ -45,7 +45,7 @@ class RegisterTheArrivalOfAnSnsUserTest {
         ctrl.setVaccinationCenterSnsUser(0);
         ctrl.getUserAppointment(300000000);
 
-        assertFalse(ctrl.getUserAppointment(300000000) && ctrl.checkRegistration(300000000) && ctrl.checkDateAndTime() && ctrl.checkVaccinationCenters());
+        assertFalse(ctrl.getUserAppointment(300000000) && ctrl.checkIfAlreadyRegistered(300000000) && ctrl.validateDateAndTime() && ctrl.validateVaccinationCenters());
     }
 
     @Test
@@ -61,7 +61,7 @@ class RegisterTheArrivalOfAnSnsUserTest {
         ctrl.getUserAppointment(200000000);
         ctrl.setArrival(200000000);
 
-        assertFalse(ctrl.getUserAppointment(200000000) && ctrl.checkRegistration(200000000) && ctrl.checkDateAndTime() && ctrl.checkVaccinationCenters());
+        assertFalse(ctrl.getUserAppointment(200000000) && ctrl.checkIfAlreadyRegistered(200000000) && ctrl.validateDateAndTime() && ctrl.validateVaccinationCenters());
     }
 
     @Test
@@ -77,7 +77,7 @@ class RegisterTheArrivalOfAnSnsUserTest {
         ctrl.getUserAppointment(100000000);
         ctrl.setArrival(100000000);
 
-        assertFalse(ctrl.getUserAppointment(100000000) && ctrl.checkRegistration(100000000) && ctrl.checkDateAndTime() && ctrl.checkVaccinationCenters());
+        assertFalse(ctrl.getUserAppointment(100000000) && ctrl.checkIfAlreadyRegistered(100000000) && ctrl.validateDateAndTime() && ctrl.validateVaccinationCenters());
     }
 
 
@@ -95,7 +95,7 @@ class RegisterTheArrivalOfAnSnsUserTest {
         ctrl.setArrival(100000000);
         ctrl.registerArrival();
 
-        assertFalse(ctrl.getUserAppointment(100000000) && ctrl.checkRegistration(100000000) && ctrl.checkDateAndTime() && ctrl.checkVaccinationCenters());
+        assertFalse(ctrl.getUserAppointment(100000000) && ctrl.checkIfAlreadyRegistered(100000000) && ctrl.validateDateAndTime() && ctrl.validateVaccinationCenters());
     }
 
 
