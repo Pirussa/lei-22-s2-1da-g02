@@ -6,7 +6,6 @@ import app.domain.shared.Constants;
 import app.ui.console.utils.Utils;
 import dto.ScheduledVaccineDto;
 import dto.VaccinationCenterDto;
-import pt.isep.lei.esoft.auth.domain.model.Email;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -35,7 +34,6 @@ public class ScheduleVaccineUI implements Runnable {
             } else {
                 snsNumber = controller.getSnsUserNumber();
             }
-
 
             int vaccinationCenterIndex = Utils.selectVaccinationCenterIndex();
             controller.setVaccinationCenter(vaccinationCenterIndex);
@@ -227,7 +225,6 @@ public class ScheduleVaccineUI implements Runnable {
                 flag = false;
                 System.out.println("Invalid option.");
             }
-
         } while (!flag);
 
         return LocalDate.of(LocalDate.now().getYear(), dateWhenScheduling.getMonthValue(), selectedDay);
@@ -239,12 +236,9 @@ public class ScheduleVaccineUI implements Runnable {
         LocalDate nextMonthDate = dateWhenScheduling.plusMonths(1).with(TemporalAdjusters.firstDayOfMonth());
         for (int date = nextMonthDate.getDayOfMonth(); date <= YearMonth.of(nextMonthDate.getYear(), nextMonthDate.getMonthValue()).lengthOfMonth(); date++) {
             optionNumber = getOptionNumber(optionNumber, nextMonthDate, date);
-
         }
         optionNumber = 0;
         System.out.printf("%n" + optionNumber + " - Previous Month%n");
-
-
 
         boolean flag;
         int selectedDay;
@@ -261,7 +255,6 @@ public class ScheduleVaccineUI implements Runnable {
         if (selectedDay == 0)
             return LocalDate.of(LocalDate.now().getYear(), dateWhenScheduling.getMonthValue(), LocalDate.now().getDayOfMonth());
         return LocalDate.of(LocalDate.now().getYear(), nextMonthDate.getMonthValue(), selectedDay);
-
     }
 
     private int getOptionNumber(int optionNumber, LocalDate localDate, int date) {
@@ -298,5 +291,71 @@ public class ScheduleVaccineUI implements Runnable {
             printWriter.close();
             System.out.printf("%nA message with the information was sent to " + controller.getUserPhoneNumber() + ".");
         }
+    }
+
+    private LocalDateTime selectDateUIok(VaccinationCenterDto vaccinationCenter) {
+        int openingHour = Integer.parseInt(vaccinationCenter.strOpeningHour);
+        int closingHour = Integer.parseInt(vaccinationCenter.strClosingHour);
+        int slotDuration = Integer.parseInt(vaccinationCenter.strSlotDuration);
+        int slotsPerDay = vaccinationCenter.slotsPerDay;
+        LocalDate dateWhenScheduling = LocalDate.now();
+        ArrayList<String> availableDaysCurrentMonth = new ArrayList<>();
+        ArrayList<String> availableDaysNextMonth = new ArrayList<>();
+        ArrayList<LocalTime> availableHours = new ArrayList<>();
+
+        System.out.printf("%nChoose the Date for the appointment:%n");
+        boolean check = false;
+
+        LocalDate selectedDate;
+        int selectedDay;
+
+        availableDaysCurrentMonth = controller.availableDaysListCurrentMonth(availableDaysCurrentMonth, dateWhenScheduling);
+        availableDaysNextMonth = controller.availableDaysListNextMonth(availableDaysNextMonth);
+
+        do {
+            selectedDay = Utils.showAndSelectFromList(availableDaysCurrentMonth) + dateWhenScheduling.getDayOfMonth() + 1;
+            selectedDate = LocalDate.of(LocalDate.now().getYear(), dateWhenScheduling.getMonthValue(), selectedDay);
+
+            if (selectedDate.equals(dateWhenScheduling)) {
+                selectedDay = Utils.showAndSelectFromList(availableDaysNextMonth) + 1;
+                if (selectedDay != 0)
+                selectedDate = LocalDate.of(LocalDate.now().getYear(), dateWhenScheduling.getMonthValue() + 1, selectedDay);
+                else
+                    selectedDay = 1;
+                    selectedDate = LocalDate.of(LocalDate.now().getYear(), dateWhenScheduling.getMonthValue(), selectedDay);
+            } else check = true;
+
+            if (!(selectedDate.getMonth() == dateWhenScheduling.getMonth())) {
+                check = true;
+            }
+        } while (!check);
+
+        System.out.printf("%nChoose the time:%n");
+        LocalTime timeOfTheSlot = LocalTime.of(openingHour, 0);
+
+        controller.availableHoursList(availableHours, slotsPerDay, selectedDate, timeOfTheSlot, slotDuration);
+        int selectedOption;
+        boolean flag;
+        LocalTime timeSelected;
+        do {
+            selectedOption = Utils.showAndSelectFromList(availableHours) + 1;
+            LocalTime openingHourCenter = LocalTime.of(openingHour, 0);
+            LocalTime closingHourCenter = LocalTime.of(closingHour, 0);
+            int minutesToBeAdded = 0;
+            flag = true;
+            if (selectedOption > 0) {
+                minutesToBeAdded = controller.timeSelected(openingHour, closingHour, selectedOption, slotDuration, minutesToBeAdded);
+            } else {
+                flag = false;
+                System.out.println("Invalid option.");
+            }
+            timeSelected = openingHourCenter.plusMinutes(minutesToBeAdded);
+            if (timeSelected.isBefore(openingHourCenter) || timeSelected.isAfter(closingHourCenter) || selectedOption > slotsPerDay) {
+                flag = false;
+                System.out.println("Invalid option.");
+            }
+        } while (!flag);
+
+        return LocalDateTime.of(selectedDate, timeSelected);
     }
 }

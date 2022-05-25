@@ -57,22 +57,6 @@ public class Arrival {
     }
 
     /**
-     * Check if a User has an appointment, introducing his/her SNS number
-     *
-     * @param snsNumber Number that identifies the SNS user
-     * @param vaccineAppointments List that contains the appointments
-     * @return ScheduleVaccine - returns the appointment of a user
-     */
-    public static ScheduledVaccine getUserAppointment(int snsNumber, List<ScheduledVaccine> vaccineAppointments) {
-
-        for (ScheduledVaccine vaccineAppointment : vaccineAppointments)
-            if (vaccineAppointment.getSnsNumber() == snsNumber)
-                return vaccineAppointment;
-
-        return null;
-    }
-
-    /**
      *
      * @param date Date of the appointment
      * @param vaccinationCenter Vaccination Center where the user has an appointment

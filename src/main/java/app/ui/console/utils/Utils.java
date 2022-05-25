@@ -13,7 +13,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -465,6 +464,11 @@ public class Utils {
         return selectsIndex(list);
     }
 
+    static public int showAndSelectFromList(List list) {
+        showDaysList(list);
+        return selectsIndex(list);
+    }
+
     /**
      * Select one option from a list and returns the index in the list.
      *
@@ -803,6 +807,16 @@ public class Utils {
         }
         System.out.println("");
         System.out.println("0 - Cancel");
+    }
+
+    static public void showDaysList(List list) {
+        int index = 0;
+        for (Object o : list) {
+            index++;
+            System.out.println(index + ". " + o.toString());
+        }
+        System.out.println("");
+        System.out.println("0 - Next Month");
     }
 
     /**

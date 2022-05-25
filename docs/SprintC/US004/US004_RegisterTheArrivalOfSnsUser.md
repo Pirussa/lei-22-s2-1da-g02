@@ -23,12 +23,46 @@ correct, the receptionist acknowledges the system that the user is ready to take
 
 **From the client clarifications:**
 
-> **Question:** 
+In this user story, the receptionist registers the arrival of an SNS User. Does the receptionist choose the center she works at during login like the nurse?
+
+> **Question:** In this user story, the receptionist registers the arrival of an SNS User. Does the receptionist choose the center she works at during login like the nurse?
 >  
-> **Answer:** 
+> **Answer:** To start using the application, the receptionist should first select the vaccination center where she is working. The receptionists register the arrival of a SNS user at the vaccination center where she is working.
 
--
 
+> **Question:** The nurse  must have the possibility to choose which center she wants to register the SNS user's arrival every time she uses this feature, or should we make the nurse pick a center after they log in?
+>
+> **Answer:** To start using the application, the nurse should first select the vaccination center where she is working.
+
+
+> **Question:** When the receptionist registers a SNSUser arrival, should we validate that the vaccination center where the SNS user arrives is the same as where the receptionist is currently working? If so, should we allocate receptionists to vaccination centers, i.e., ask the receptionist which vaccination center is she currently working at?
+>
+> **Answer:** To start using the application, the receptionist should first select the vaccination center where she is working. The receptionists register the arrival of a SNS user at the vaccination center where she is working.
+
+
+> **Question:** Regarding US04, what are the attributes needed in order to register the arrival of a SNS user to a vaccination center.
+> 
+> **Answer:** The time of arrival should be registered.
+
+
+> **Question:** Regarding US04, a receptionist register the arrival of a SNS user imediately when he arrives at the vaccination center or only after the recepcionist confirms that the respective user has a vaccine schedule for that day and time.
+>
+> **Answer:** The receptionist registers the arrival of a SNS user only after confirming that the user has a vaccine scheduled for that day and time.
+
+
+> **Question:** When the SNS user number is introduce by the receptionist and the system has no appointment for that SNS user number, how should the system proceed?
+>
+> **Answer:** The application should present a message saying that the SNS user did not scheduled a vaccination.
+
+
+> **Question:** Regarding US04, i would like to know what's the capacity of the waiting room.
+>
+> **Answer:** The waiting room will not be registered or defined in the system. The waiting room of each vaccination center has the capacity to receive all users who take the vaccine on given slot.
+
+
+> **Question:** Respectively to US04, after the receptionist registers the SNS User's arrival at the Vaccination Center, the system creates the list that will be available for the Nurse to view, correct?
+>
+> **Answer:** The nurse checks the list (of SNS users in the waiting room) in US05.
 
 
 ### 1.3. Acceptance Criteria
@@ -73,7 +107,7 @@ he/she needs to have a vaccination appointment.
 
 ## 2. OO Analysis
 
-### 2.1. Relevant Domain Model Excerpt 
+### 2.1. Relevant Domain Model Excerpt  - NÃO ESQUECER DOS * E 1'S
 
 ![US004_MD](US004_MD.svg)
 

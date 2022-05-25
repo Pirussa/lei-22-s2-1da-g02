@@ -5,13 +5,11 @@ import app.controller.RegisterTheArrivalOfAnSnsUserController;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class RegisterTheArrivalOfAnSnsUserTest {
-    private static List<Vaccine> vaccines;
 
     private Company c = App.getInstance().getCompany();
     private RegisterTheArrivalOfAnSnsUserController ctrl = new RegisterTheArrivalOfAnSnsUserController();
@@ -24,7 +22,7 @@ class RegisterTheArrivalOfAnSnsUserTest {
      */
     public void registerValidArrival() {
 
-        creationOfTheNecessary();
+        setUp();
 
         ctrl.setVaccinationCenterReceptionist(0);
         ctrl.setVaccinationCenterSnsUser(0);
@@ -41,7 +39,7 @@ class RegisterTheArrivalOfAnSnsUserTest {
      */
     public void registerArrivalWithNoAppointment() {
 
-        creationOfTheNecessary();
+        setUp();
 
         ctrl.setVaccinationCenterReceptionist(0);
         ctrl.setVaccinationCenterSnsUser(0);
@@ -56,7 +54,7 @@ class RegisterTheArrivalOfAnSnsUserTest {
      */
     public void registerArrivalWithWrongDate() {
 
-        creationOfTheNecessary();
+        setUp();
 
         ctrl.setVaccinationCenterReceptionist(0);
         ctrl.setVaccinationCenterSnsUser(0);
@@ -72,7 +70,7 @@ class RegisterTheArrivalOfAnSnsUserTest {
      */
     public void registerArrivalWithWrongVaccinationCenters() {
 
-        creationOfTheNecessary();
+        setUp();
 
         ctrl.setVaccinationCenterReceptionist(0);
         ctrl.setVaccinationCenterSnsUser(1);
@@ -89,7 +87,7 @@ class RegisterTheArrivalOfAnSnsUserTest {
      */
     public void registerArrivalWithAnAlreadyRegisteredArrival() {
 
-        creationOfTheNecessary();
+        setUp();
 
         ctrl.setVaccinationCenterReceptionist(0);
         ctrl.setVaccinationCenterSnsUser(1);
@@ -104,7 +102,7 @@ class RegisterTheArrivalOfAnSnsUserTest {
     /**
      * Creations instances of what is necessary in order to test the User Story correctly
      */
-    private void creationOfTheNecessary() {
+    private void setUp() {
         VaccinationCenter vcR = new VaccinationCenter("1234", "CVC Matosinhos", "915607321", "cvcmatosinhos@gmail.com", "915607321", "www.cvcmatosinhos.com", "9",
                 "16", "30", "1", "Rua do Amial", "4460-098", "Matosinhos", "CC-95634");
         VaccinationCenter vcU = new VaccinationCenter("1234", "Isep", "915607321", "cvcmatosinhos@gmail.com", "915607321", "www.cvcmatosinhos.com", "9",
@@ -112,7 +110,7 @@ class RegisterTheArrivalOfAnSnsUserTest {
         c.getVaccinationCenters().add(vcR);
         c.getVaccinationCenters().add(vcU);
 
-        VaccineType vt1 = new VaccineType("12345" ,"Covideiros", VaccineType.vaccineTechnologies[0]);
+        VaccineType vt1 = new VaccineType("12345" ,"Covid", VaccineType.vaccineTechnologies[0]);
 
         ScheduledVaccine appointment1 = new ScheduledVaccine(100000000, vt1, LocalDateTime.of(2022, 5, 24, 21, 30));
         ScheduledVaccine appointment2 = new ScheduledVaccine(200000000, vt1, LocalDateTime.of(2022, 5, 24, 22, 30));

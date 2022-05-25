@@ -1,7 +1,5 @@
 package app.domain.model;
 
-import app.ui.console.ScheduleVaccineUI;
-import app.ui.console.utils.Utils;
 import dto.ScheduledVaccineDto;
 
 import java.time.Duration;
@@ -497,6 +495,10 @@ public class VaccinationCenter {
         if (currentHour == Integer.parseInt(strClosingHour))
             for (Arrival arrival : arrivalsList)
                 arrivalsList.remove(arrival);
+    }
+
+    public void removeAppointment(ScheduledVaccine appointment) {
+        getScheduledVaccineList().remove(appointment);
     }
 
     /**
