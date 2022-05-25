@@ -93,7 +93,7 @@ activate M
 note over M, DTO
 Several steps to extract data from the DTO
 end note
-M -> SV  : dtoToDomain(scheduleVaccineDto)
+M ---> SV ** : createScheduledVaccine(scheduleVaccineDto)
 activate SV
 deactivate SV
 deactivate M
