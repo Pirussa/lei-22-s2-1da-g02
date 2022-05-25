@@ -464,7 +464,7 @@ public class Utils {
         return selectsIndex(list);
     }
 
-    static public int showAndSelectFromList(List list) {
+    static public int showAndSelectFromList(List list, int ) {
         showDaysList(list);
         return selectsIndex(list);
     }
@@ -816,7 +816,6 @@ public class Utils {
             System.out.println(index + ". " + o.toString());
         }
         System.out.println("");
-        System.out.println("0 - Next Month");
     }
 
     /**

@@ -62,7 +62,6 @@ public class ScheduleVaccineController {
             return false;
 
         return vaccinationCenter.centerHasAvailability(scheduledVaccineDto);
-
     }
 
     /**

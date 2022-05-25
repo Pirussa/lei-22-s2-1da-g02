@@ -313,16 +313,17 @@ public class ScheduleVaccineUI implements Runnable {
         availableDaysNextMonth = controller.availableDaysListNextMonth(availableDaysNextMonth);
 
         do {
-            selectedDay = Utils.showAndSelectFromList(availableDaysCurrentMonth) + dateWhenScheduling.getDayOfMonth() + 1;
+            selectedDay = Utils.selectFromList(availableDaysCurrentMonth, "Select Date:") + dateWhenScheduling.getDayOfMonth() + 1;
             selectedDate = LocalDate.of(LocalDate.now().getYear(), dateWhenScheduling.getMonthValue(), selectedDay);
 
             if (selectedDate.equals(dateWhenScheduling)) {
                 selectedDay = Utils.showAndSelectFromList(availableDaysNextMonth) + 1;
                 if (selectedDay != 0)
                 selectedDate = LocalDate.of(LocalDate.now().getYear(), dateWhenScheduling.getMonthValue() + 1, selectedDay);
-                else
+                else {
                     selectedDay = 1;
                     selectedDate = LocalDate.of(LocalDate.now().getYear(), dateWhenScheduling.getMonthValue(), selectedDay);
+                }
             } else check = true;
 
             if (!(selectedDate.getMonth() == dateWhenScheduling.getMonth())) {
