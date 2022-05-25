@@ -106,7 +106,7 @@ he/she needs to have a vaccination appointment.
 
 ## 2. OO Analysis
 
-### 2.1. Relevant Domain Model Excerpt  - NÃO ESQUECER DOS * E 1'S
+### 2.1. Relevant Domain Model Excerpt
 
 ![US004_MD](US004_MD.svg)
 
@@ -120,18 +120,25 @@ No other remarks
 ### 3.1. Rationale
 
 
-| Interaction ID | Which class responsible for...             | Answer                               | Justification                                                                                                 |
-|:---------------|:-------------------------------------------|:-------------------------------------|:--------------------------------------------------------------------------------------------------------------|
-| Step 1         | ...interacting with the actor?             | RegisterArrivalOfSNSUserUI           | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. |
-|                | ...coordinating the US                     | RegisterArrivalOfSNSUserController   | **Controller**                                                                                                |
-| Step 2         | ...check the requirements for registration | RegisterArrivalOfSNSUserController   | **Validation**                                                                                                | 
-|                | ...validate Date and Time                  | Arrival                              |                                                                                                               |
-|                | ...validate Vaccination centers            | RegisterArrivalOfSNSUserController   |                                                                                                               |
-|                | ...check if an User is already registered  | VaccinationCenter                    |                                                                                                               | 
-|                | ...get user's appointment                  | RegisterArrivalOfSNSUserController   |                                                                                                               |
-| Step 3         | ...register the arrival of an SNS user     | VaccinationCenter                    | **Registration**                                                                                              |
-|                | ...saving the inputted data of the arrival | VaccinationCenter                    | IE: Company stores everything                                                                                 |
-| Step 4         | ...informing operation success             | RegisterArrivalOfSNSUserUI           | IE: is responsible for user interactions                                                                      |
+| Interaction ID | Which class responsible for...                                                | Answer                             | Justification                                                                                                                                                                         |
+|:---------------|:------------------------------------------------------------------------------|:-----------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Step 1         | ...showing the list with all the Vaccination Centers available                | RegisterArrivalOfSNSUserUI         | **Pure Fabrication**: there is no reason to assign this responsibility to any existing class in the Domain Model.                                                                     |
+ |                | ...disponibilize the previous list to the RegisterArrivalOfSNSUserUI          | RegisterArrivalOfSNSUserController | **Controller:** act as a mediator between the UI and the Model. Has the responsibility of controlling the data transmission between both. It maps the user action into model updates. |   
+ |                | ... disponibilize the previous list to the RegisterArrivalOfSNSUserController | Company                            | **IE:** The Company knows all of it's Vaccination Centers.                                                                                                                            |
+|                | ...saving the selected Vaccination Center for the Receptionist                | RegisterArrivalOfSNSUserController | **IE:** the controller needs to know the selected Vaccination Center throughout the whole process of registering a arrival                                                            |
+ | Step 2         | ...request the sns number                                                     | RegisterArrivalOfSNSUserUI         | **Pure Fabrication**: there is no reason to assign this responsibility to any existing class in the Domain Model.                                                                     |
+| Step 3         | ...showing the list with all the Vaccination Centers available                | RegisterArrivalOfSNSUserUI         | **Pure Fabrication**: there is no reason to assign this responsibility to any existing class in the Domain Model.                                                                     |
+|                | ...disponibilize the previous list to the RegisterArrivalOfSNSUserUI          | RegisterArrivalOfSNSUserController | **Controller:** act as a mediator between the UI and the Model. Has the responsibility of controlling the data transmission between both. It maps the user action into model updates. |   
+|                | ... disponibilize the previous list to the RegisterArrivalOfSNSUserController | Company                            | **IE:** The Company knows all of it's Vaccination Centers.                                                                                                                            |
+|                | ...saving the selected Vaccination Center for the user                        | RegisterArrivalOfSNSUserController | **IE:** the controller needs to know the selected Vaccination Center throughout the whole process of registering a arrival                                                            |
+| Step 4         | ...check the requirements for registration                                    | RegisterArrivalOfSNSUserController | **Validation**                                                                                                                                                                        | 
+|                | ...validate Date and Time                                                     | Arrival                            | The class Arrival knows the date and time of the arrival, therefore it can check whether or not the user has arried on the right time                                                 |
+|                | ...validate Vaccination centers                                               | RegisterArrivalOfSNSUserController | The class RegisterArrivalOfSNSUserController has to know the two vaccination centers, so it can check whether or not they are the same                                                |
+|                | ...check if an User is already registered                                     | VaccinationCenter                  | The class VaccinationCenter knows all the arrivals, so it can check whether or not a user has already been registered                                                                 | 
+|                | ...get user's appointment                                                     | RegisterArrivalOfSNSUserController | The class RegisterArrivalOfSNSUserController has to know the appointment of the user therefore it can check whether or not the appointment is valid                                   |
+| Step 5         | ...register the arrival of an SNS user                                        | VaccinationCenter                  | **Registration**                                                                                                                                                                      |
+|                | ...saving the inputted data of the arrival                                    | VaccinationCenter                  | IE: Company stores everything                                                                                                                                                         |
+| Step 6         | ...informing operation success                                                | RegisterArrivalOfSNSUserUI         | IE: is responsible for user interactions                                                                                                                                              |
 
 
 
@@ -141,11 +148,12 @@ According to the taken rationale, the conceptual classes promoted to software cl
 
  * VaccinationCenter
  * Arrival
-
+ 
 Other software classes (i.e. Pure Fabrication) identified: 
 
  * CreateTaskUI  
  * CreateTaskController
+ * Company
 
 
 ## 3.2. Sequence Diagram (SD)

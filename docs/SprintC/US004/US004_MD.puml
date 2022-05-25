@@ -15,7 +15,7 @@ class Arrival
 
 Receptionist "1" --- "*" SNSUser : registers the arrival of >
 Receptionist "1" --- "*" Arrival : registers >
-Arrival "*" -- "1" ListOfArrivals : are stored on >
+Arrival "*" -- "1" ListOfArrivals : is stored on >
 
 
 @enduml

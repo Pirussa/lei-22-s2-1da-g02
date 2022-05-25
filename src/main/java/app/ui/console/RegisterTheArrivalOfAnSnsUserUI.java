@@ -14,7 +14,7 @@ public class RegisterTheArrivalOfAnSnsUserUI implements Runnable {
         System.out.printf("%n------Register the Arrival of an SNS user------%n");
 
         int vaccinationCenterReceptionist  = Utils.selectVaccinationCenterIndex();
-        ctrl.setVaccinationCenterReceptionist(vaccinationCenterReceptionist);
+        ctrl.setVaccinationCenter(vaccinationCenterReceptionist);
         ctrl.cleanArrivalsList();
 
 
@@ -22,11 +22,6 @@ public class RegisterTheArrivalOfAnSnsUserUI implements Runnable {
         do {
             snsNumber = Utils.readIntegerFromConsole("Introduce SNS Number: ");
         } while (!SnsUser.validateSNSUserNumber(snsNumber) || SnsUser.getUserIndexInUsersList(snsNumber) < 0);
-
-        System.out.println();
-
-        int vaccinationCenterSNSUser = Utils.selectVaccinationCenterIndex();
-        ctrl.setVaccinationCenterSnsUser(vaccinationCenterSNSUser);
 
 
         if(checkRequirementsForRegistration(snsNumber)) {
@@ -53,17 +48,12 @@ public class RegisterTheArrivalOfAnSnsUserUI implements Runnable {
      */
     public boolean checkRequirementsForRegistration(int snsNumber) {
 
-        if (!ctrl.getUserAppointment(snsNumber)) {
+        if (!ctrl.checkAndSetUserAppointment(snsNumber)) {
             System.out.printf("%nThe user does not have any appointment%n");
             return false;
         }
         else
             ctrl.setArrival(snsNumber);
-
-        if (!ctrl.validateVaccinationCenters()) {
-            System.out.printf("%nWrong Vaccination Center %n");
-            return false;
-        }
 
         if(!ctrl.validateDateAndTime()) {
             System.out.printf("%nWrong Day/Time %n");

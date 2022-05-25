@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 
 /**
  * @author Pedro Monteiro <1211076@isep.ipp.pt>
- * @author João Leitão <1211063@isep.ipp.pt>
  */
 
 public class Arrival {
@@ -34,15 +33,6 @@ public class Arrival {
      */
     public int getSnsNumber() {
         return snsNumber;
-    }
-
-    /**
-     * Gets the Date and Time
-     *
-     * @return LocalDateTime - dateTime
-     */
-    public LocalDateTime getDateTime() {
-        return dateTime;
     }
 
     /**

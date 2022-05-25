@@ -66,7 +66,7 @@ public class Utils {
         ctrlVc.saveMassVaccinationCenter(mvcDto);
         //---------------------------------------------------------------------------------------------------------------------------------------------------
 
-        HealthcareCenterDto hCcDto = new HealthcareCenterDto("1236", "Centro de Saude da Maia", "915372312", "csmaia@gmail.com", "915372312", "www.csmaia.com", "9", "17", "15", "1", "Rua da Escola", "4470-073", "Maia", "CC-92634", "Norte", "SNS", new ArrayList<>(List.of(new VaccineType("COVID", "To prevent serious COVID-19 infections", VaccineType.vaccineTechnologies[5]), new VaccineType("FLU22", "To prevent serious Flu infections", VaccineType.vaccineTechnologies[5]))));
+        HealthcareCenterDto hCcDto = new HealthcareCenterDto("1236", "Centro de Saude da Maia", "915372312", "csmaia@gmail.com", "915372312", "www.csmaia.com", "9", "17", "15", "3", "Rua da Escola", "4470-073", "Maia", "CC-92634", "Norte", "SNS", new ArrayList<>(List.of(new VaccineType("COVID", "To prevent serious COVID-19 infections", VaccineType.vaccineTechnologies[5]), new VaccineType("FLU22", "To prevent serious Flu infections", VaccineType.vaccineTechnologies[5]))));
         company.saveHealthcareCenter(hCcDto);
     }
 
@@ -162,7 +162,7 @@ public class Utils {
         company.saveSNSUser(dto2);
         aF.addUserWithRole("User Default2", "u2@gmail.com", "123", Constants.ROLE_SNS_USER);
         //---------------------------------------------------------------------------------------------------------------------------------------------------
-       SNSUserDto dto3 = new SNSUserDto("User Default3", 400000000, "u3@gmail.com", "03/03/2000", "915604431", "Male", "Default # 4000-003 # Default", "35419916 1 ZZ6", "AAA33aa");
+        SNSUserDto dto3 = new SNSUserDto("User Default3", 400000000, "u3@gmail.com", "03/03/2000", "915604431", "Male", "Default # 4000-003 # Default", "35419916 1 ZZ6", "AAA33aa");
         company.saveSNSUser(dto3);
         aF.addUserWithRole("User Default3", "u3@gmail.com", "123", Constants.ROLE_SNS_USER);
         //---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -464,8 +464,8 @@ public class Utils {
         return selectsIndex(list);
     }
 
-    static public int showAndSelectFromList(List list, int value) {
-        showDaysList(list, value);
+    static public int showAndSelectFromList(List list, int ) {
+        showDaysList(list);
         return selectsIndex(list);
     }
 
@@ -809,17 +809,13 @@ public class Utils {
         System.out.println("0 - Cancel");
     }
 
-    static public void showDaysList(List list, int value) {
+    static public void showDaysList(List list) {
         int index = 0;
         for (Object o : list) {
             index++;
             System.out.println(index + ". " + o.toString());
         }
         System.out.println("");
-        if (value == 0)
-            System.out.println("0 - Next Month");
-        else if (value == 1)
-            System.out.println("0 - Previous Month");
     }
 
     /**

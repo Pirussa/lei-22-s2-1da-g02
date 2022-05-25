@@ -16,11 +16,6 @@ deactivate ":System"
 
 R -> ":System" : types the sns number
 activate ":System"
-":System" --> R : shows a list with all the available vaccination centers for the user
-deactivate ":System"
-
-R -> ":System" : selects one vaccination center
-activate ":System"
 ":System" --> R : requests confirmation
 deactivate ":System"
 

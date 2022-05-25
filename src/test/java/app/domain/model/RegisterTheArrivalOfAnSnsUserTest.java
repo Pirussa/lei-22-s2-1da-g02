@@ -24,12 +24,11 @@ class RegisterTheArrivalOfAnSnsUserTest {
 
         setUp();
 
-        ctrl.setVaccinationCenterReceptionist(0);
-        ctrl.setVaccinationCenterSnsUser(0);
-        ctrl.getUserAppointment(100000000);
+        ctrl.setVaccinationCenter(0);
+        ctrl.checkAndSetUserAppointment(100000000);
         ctrl.setArrival(100000000);
 
-        assertTrue(ctrl.getUserAppointment(100000000) && ctrl.checkIfAlreadyRegistered(100000000) && ctrl.validateDateAndTime() && ctrl.validateVaccinationCenters());
+        assertTrue(ctrl.checkAndSetUserAppointment(100000000) && ctrl.checkIfAlreadyRegistered(100000000) && ctrl.validateDateAndTime());
 
     }
 
@@ -41,11 +40,10 @@ class RegisterTheArrivalOfAnSnsUserTest {
 
         setUp();
 
-        ctrl.setVaccinationCenterReceptionist(0);
-        ctrl.setVaccinationCenterSnsUser(0);
-        ctrl.getUserAppointment(300000000);
+        ctrl.setVaccinationCenter(0);
+        ctrl.checkAndSetUserAppointment(300000000);
 
-        assertFalse(ctrl.getUserAppointment(300000000) && ctrl.checkIfAlreadyRegistered(300000000) && ctrl.validateDateAndTime() && ctrl.validateVaccinationCenters());
+        assertFalse(ctrl.checkAndSetUserAppointment(300000000) && ctrl.checkIfAlreadyRegistered(300000000) && ctrl.validateDateAndTime());
     }
 
     @Test
@@ -56,12 +54,11 @@ class RegisterTheArrivalOfAnSnsUserTest {
 
         setUp();
 
-        ctrl.setVaccinationCenterReceptionist(0);
-        ctrl.setVaccinationCenterSnsUser(0);
-        ctrl.getUserAppointment(200000000);
+        ctrl.setVaccinationCenter(0);
+        ctrl.checkAndSetUserAppointment(200000000);
         ctrl.setArrival(200000000);
 
-        assertFalse(ctrl.getUserAppointment(200000000) && ctrl.checkIfAlreadyRegistered(200000000) && ctrl.validateDateAndTime() && ctrl.validateVaccinationCenters());
+        assertFalse(ctrl.checkAndSetUserAppointment(200000000) && ctrl.checkIfAlreadyRegistered(200000000) && ctrl.validateDateAndTime());
     }
 
     @Test
@@ -72,12 +69,11 @@ class RegisterTheArrivalOfAnSnsUserTest {
 
         setUp();
 
-        ctrl.setVaccinationCenterReceptionist(0);
-        ctrl.setVaccinationCenterSnsUser(1);
-        ctrl.getUserAppointment(100000000);
+        ctrl.setVaccinationCenter(0);
+        ctrl.checkAndSetUserAppointment(100000000);
         ctrl.setArrival(100000000);
 
-        assertFalse(ctrl.getUserAppointment(100000000) && ctrl.checkIfAlreadyRegistered(100000000) && ctrl.validateDateAndTime() && ctrl.validateVaccinationCenters());
+        assertFalse(ctrl.checkAndSetUserAppointment(100000000) && ctrl.checkIfAlreadyRegistered(100000000) && ctrl.validateDateAndTime());
     }
 
 
@@ -89,13 +85,12 @@ class RegisterTheArrivalOfAnSnsUserTest {
 
         setUp();
 
-        ctrl.setVaccinationCenterReceptionist(0);
-        ctrl.setVaccinationCenterSnsUser(1);
-        ctrl.getUserAppointment(100000000);
+        ctrl.setVaccinationCenter(0);
+        ctrl.checkAndSetUserAppointment(100000000);
         ctrl.setArrival(100000000);
         ctrl.registerArrival();
 
-        assertFalse(ctrl.getUserAppointment(100000000) && ctrl.checkIfAlreadyRegistered(100000000) && ctrl.validateDateAndTime() && ctrl.validateVaccinationCenters());
+        assertFalse(ctrl.checkAndSetUserAppointment(100000000) && ctrl.checkIfAlreadyRegistered(100000000) && ctrl.validateDateAndTime());
     }
 
 

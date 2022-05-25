@@ -39,12 +39,11 @@ class ConsultUsersInTheWaitingRoomTest {
         vc.getScheduledVaccineList().add(appointment1);
         vc.getScheduledVaccineList().add(appointment2);
 
-        ctrl2.setVaccinationCenterReceptionist(0);
-        ctrl2.setVaccinationCenterSnsUser(0);
+        ctrl2.setVaccinationCenter(0);
 
-        ctrl2.getUserAppointment(100000000);
+        ctrl2.checkAndSetUserAppointment(100000000);
         ctrl2.setArrival(100000000);
-        ctrl2.getUserAppointment(200000000);
+        ctrl2.checkAndSetUserAppointment(200000000);
         ctrl2.setArrival(200000000);
 
         Arrival arrival1 = new Arrival(100000000,vt1);
