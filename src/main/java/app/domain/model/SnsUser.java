@@ -305,7 +305,7 @@ public class SnsUser {
     }
 
     public boolean validateSex(String strSex) {
-        return strSex.equals("Male") || strSex.equals("Female") || strSex.isEmpty();
+        return strSex.equals("Male") || strSex.equals("Female") || strSex.equals("NA") || strSex.isEmpty();
     }
 
     public boolean validateBirthDate(String strBirthDate) {
