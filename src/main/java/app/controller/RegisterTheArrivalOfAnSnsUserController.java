@@ -7,7 +7,7 @@ public class RegisterTheArrivalOfAnSnsUserController {
 
     private VaccinationCenter vaccinationCenterReceptionist;
     private VaccinationCenter vaccinationCenterSnsUser;
-    private List<ScheduledVaccine> scheduledVaccineList;
+    private List<ScheduledVaccine> vaccineAppointments;
     private ScheduledVaccine appointment;
     private Arrival arrival;
     private Company company = App.getInstance().getCompany();
@@ -21,7 +21,7 @@ public class RegisterTheArrivalOfAnSnsUserController {
      */
     public void setVaccinationCenterReceptionist(int index) {
         vaccinationCenterReceptionist = company.getVaccinationCenters().get(index);
-        scheduledVaccineList = vaccinationCenterReceptionist.getScheduledVaccineList();
+        vaccineAppointments = vaccinationCenterReceptionist.getScheduledVaccineList();
     }
 
     /**
@@ -50,8 +50,15 @@ public class RegisterTheArrivalOfAnSnsUserController {
      * @return ScheduleVaccine - return an appointment of a user
      */
     public boolean getUserAppointment(int snsNumber) {
-        appointment = Arrival.getUserAppointment(snsNumber, scheduledVaccineList);
-        return appointment != null;
+
+        for (ScheduledVaccine vaccineAppointment : vaccineAppointments)
+            if (vaccineAppointment.getSnsNumber() == snsNumber) {
+                appointment = vaccineAppointment;
+                return true;
+            }
+
+        appointment = null;
+        return false;
     }
 
     /**
@@ -79,6 +86,7 @@ public class RegisterTheArrivalOfAnSnsUserController {
      */
     public void registerArrival() {
         vaccinationCenterReceptionist.registerArrival(arrival);
+        vaccinationCenterReceptionist.removeAppointment(appointment);
     }
 
     /**
