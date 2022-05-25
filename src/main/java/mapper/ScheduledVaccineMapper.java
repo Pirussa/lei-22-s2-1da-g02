@@ -5,7 +5,7 @@ import dto.ScheduledVaccineDto;
 
 public class ScheduledVaccineMapper {
 
-    public ScheduledVaccine dtoToDomain(ScheduledVaccineDto scheduledVaccineDto) {
+    public ScheduledVaccine createScheduledVaccine(ScheduledVaccineDto scheduledVaccineDto) {
         if (scheduledVaccineDto == null) {
             return null;
         }

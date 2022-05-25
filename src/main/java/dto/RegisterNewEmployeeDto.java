@@ -18,7 +18,6 @@ public class RegisterNewEmployeeDto {
     public String password;
 
     public RegisterNewEmployeeDto() {
-
     }
 
     public RegisterNewEmployeeDto(String id, String name, String address, String phoneNumber, String email, String citizenCardNumber, String password) {

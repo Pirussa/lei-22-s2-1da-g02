@@ -8,12 +8,12 @@ import dto.VaccinationCenterDto;
 import mapper.ScheduledVaccineMapper;
 import mapper.VaccinationCenterMapper;
 import pt.isep.lei.esoft.auth.AuthFacade;
-import pt.isep.lei.esoft.auth.domain.model.Email;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.YearMonth;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -58,7 +58,8 @@ public class ScheduleVaccineController {
     public boolean validateAppointment(ScheduledVaccineDto scheduledVaccineDto) {
         if (!dataIsAllFilled(scheduledVaccineDto)) return false;
         if (!ScheduledVaccine.userIsEligibleForTheAppointment(scheduledVaccineDto)) return false;
-        if (!vaccinationCenter.validateAppointmentAccordingToAgeGroupAndTimeSinceLastDose(scheduledVaccineDto, company)) return false;
+        if (!vaccinationCenter.validateAppointmentAccordingToAgeGroupAndTimeSinceLastDose(scheduledVaccineDto, company))
+            return false;
 
         return vaccinationCenter.centerHasAvailability(scheduledVaccineDto);
 
@@ -137,7 +138,7 @@ public class ScheduleVaccineController {
 
     private ScheduledVaccine createScheduledVaccine(ScheduledVaccineDto scheduledVaccineDto) {
         ScheduledVaccineMapper mapper = new ScheduledVaccineMapper();
-        return mapper.dtoToDomain(scheduledVaccineDto);
+        return mapper.createScheduledVaccine(scheduledVaccineDto);
     }
 
     /**
@@ -225,7 +226,49 @@ public class ScheduleVaccineController {
         return vaccinationCenter.slotHasAvailability(selectedDate, timeOfTheSlot);
     }
 
-    private boolean isMonthNumberSingleDigit(LocalDate localDate){
-        return localDate.getMonthValue() <= Constants.SEPTEMBER;
+    public ArrayList<String> availableDaysListCurrentMonth(ArrayList<String> availableDaysCurrentMonth, LocalDate localDate) {
+        LocalDate dateWhenScheduling = LocalDate.now();
+        for (int date = dateWhenScheduling.getDayOfMonth() + 1; date <= YearMonth.of(dateWhenScheduling.getYear(), dateWhenScheduling.getMonthValue()).lengthOfMonth(); date++) {
+            if (dayHasAvailability(LocalDate.of(LocalDate.now().getYear(), localDate.getMonthValue(), date))) {
+                if (isMonthNumberSingleDigit(localDate.getMonthValue()))
+                    availableDaysCurrentMonth.add(String.valueOf(date + "/" + localDate.getMonthValue()));
+                else
+                    availableDaysCurrentMonth.add(String.valueOf(date + "/ 0" + localDate.getMonthValue()));
+            }
+        }
+        return availableDaysCurrentMonth;
+    }
+
+    public ArrayList<String> availableDaysListNextMonth(ArrayList<String> availableDaysNextMonth) {
+        LocalDate dateWhenScheduling = LocalDate.now();
+        LocalDate nextMonthDate = dateWhenScheduling.plusMonths(1).with(TemporalAdjusters.firstDayOfMonth());
+        for (int date = nextMonthDate.getDayOfMonth(); date <= YearMonth.of(nextMonthDate.getYear(), nextMonthDate.getMonthValue()).lengthOfMonth(); date++) {
+            if (dayHasAvailability(LocalDate.of(LocalDate.now().getYear(), nextMonthDate.getMonthValue(), date))) {
+                if (isMonthNumberSingleDigit(nextMonthDate.getMonthValue()))
+                    availableDaysNextMonth.add(String.valueOf(date + "/" + nextMonthDate.getMonthValue()));
+                else
+                    availableDaysNextMonth.add(String.valueOf(date + "/ 0" + nextMonthDate.getMonthValue()));
+            }
+        }
+        return availableDaysNextMonth;
+    }
+
+    private boolean isMonthNumberSingleDigit(int month) {
+        return month <= Constants.SEPTEMBER;
+    }
+
+    public ArrayList<LocalTime> availableHoursList(ArrayList<LocalTime> availableHours, int slotsPerDay, LocalDate selectedDate, LocalTime timeOfTheSlot, int slotDuration) {
+        for (int slot = 0; slot < slotsPerDay; slot++) {
+            if (slotHasAvailability(selectedDate, timeOfTheSlot))
+                availableHours.add(timeOfTheSlot);
+
+            timeOfTheSlot = timeOfTheSlot.plusMinutes(slotDuration);
+        }
+        return availableHours;
+    }
+
+    public int timeSelected(int openingHour, int closingHour, int selectedOption, int slotDuration, int minutesToBeAdded) {
+        LocalTime openingHourCenter = LocalTime.of(openingHour, 0); LocalTime closingHourCenter = LocalTime.of(closingHour, 0);
+        return minutesToBeAdded = (selectedOption - 1) * slotDuration;
     }
 }

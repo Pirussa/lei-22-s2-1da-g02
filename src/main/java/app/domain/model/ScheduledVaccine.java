@@ -58,7 +58,7 @@ public class ScheduledVaccine {
      */
     public static boolean userIsEligibleForTheAppointment(ScheduledVaccineDto scheduledVaccineDto) {
         ScheduledVaccineMapper mapper = new ScheduledVaccineMapper();
-        ScheduledVaccine appointment = mapper.dtoToDomain(scheduledVaccineDto);
+        ScheduledVaccine appointment = mapper.createScheduledVaccine(scheduledVaccineDto);
         for (ScheduledVaccine appointmentCheck : appointmentsList) {
             if ((appointment.getVaccineType().equals(appointmentCheck.getVaccineType()) && (appointment.getSnsNumber() == appointmentCheck.getSnsNumber())))
             return false;
