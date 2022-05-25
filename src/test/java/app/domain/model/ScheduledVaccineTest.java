@@ -29,7 +29,7 @@ class ScheduledVaccineTest {
         scheduledVaccineDto1.date = LocalDateTime.of(2022, 6, 22, 10, 30);
         scheduledVaccineDto1.snsNumber = snsUserNumber;
 
-        ScheduledVaccine appointment1 = mapper.dtoToDomain(scheduledVaccineDto1);
+        ScheduledVaccine appointment1 = mapper.createScheduledVaccine(scheduledVaccineDto1);
         ScheduledVaccine.addAppointment(appointment1);
 
         scheduledVaccineDto2.vaccineType = vaccineType;
@@ -92,14 +92,14 @@ class ScheduledVaccineTest {
         VaccinationCenter vaccinationCenter = new VaccinationCenter("test", "test", "911111111", "test@gmail.com", "911111111", "www.test.com", "9", "16", "420", "1", "test", "4470-111", "test", company.getCentreCoordinatorList().get(0).getId());
         company.getVaccinationCenters().add(vaccinationCenter);
 
-        controller.setVaccinationCenter(company.getVaccinationCenters().size()-1);
+        controller.setVaccinationCenter(company.getVaccinationCenters().size() - 1);
 
         final VaccineType vaccineType = new VaccineType("TEST1", "test", "test1");
         scheduledVaccineDto1.vaccineType = vaccineType;
         scheduledVaccineDto1.date = LocalDateTime.of(2022, 6, 22, 9, 0);
         scheduledVaccineDto1.snsNumber = 999999999;
 
-        ScheduledVaccine appointment1 = mapper.dtoToDomain(scheduledVaccineDto1);
+        ScheduledVaccine appointment1 = mapper.createScheduledVaccine(scheduledVaccineDto1);
         assertTrue(controller.scheduleVaccine(scheduledVaccineDto1));
         ScheduledVaccine.addAppointment(appointment1);
 
@@ -127,7 +127,7 @@ class ScheduledVaccineTest {
         scheduledVaccineDto1.date = LocalDateTime.of(2022, 6, 22, 9, 0);
         scheduledVaccineDto1.snsNumber = 999999999;
 
-        ScheduledVaccine appointment1 = mapper.dtoToDomain(scheduledVaccineDto1);
+        ScheduledVaccine appointment1 = mapper.createScheduledVaccine(scheduledVaccineDto1);
         assertTrue(controller.scheduleVaccine(scheduledVaccineDto1));
          ScheduledVaccine.addAppointment(appointment1);
 
@@ -150,7 +150,7 @@ class ScheduledVaccineTest {
         scheduledVaccineDto1.date = LocalDateTime.of(2022, 6, 22, 9, 30);
         scheduledVaccineDto1.snsNumber = 999999999;
 
-        ScheduledVaccine appointment1 = mapper.dtoToDomain(scheduledVaccineDto1);
+        ScheduledVaccine appointment1 = mapper.createScheduledVaccine(scheduledVaccineDto1);
         assertTrue(controller.scheduleVaccine(scheduledVaccineDto1));
         ScheduledVaccine.addAppointment(appointment1);
 

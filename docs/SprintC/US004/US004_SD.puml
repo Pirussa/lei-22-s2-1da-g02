@@ -5,56 +5,98 @@ actor "Receptionist" as R
 
 participant ":RegisterArrivalOfASNSUserUI" as UI
 participant ":RegisterArrivalOfASNSUserController" as CTRL
-participant ":Arrival" as A
 participant ":Company" as C
+participant ":VaccinationCenter" as VC
+participant ":Arrival" as A
 
 activate R
 
-R -> UI : asks to check if an SNS user has an appointment
+R -> UI : asks to register an arrival
 activate UI
 
-UI --> R : requests data (SNS number, Vaccination Center)
-deactivate UI
-
-R -> UI : types requested data
-activate UI
-
-UI -> CTRL : checkRequirementsForRegistration(SNS number, Vaccination Center User, Vaccination Center Receptionist, Date)
+UI -> CTRL : vaccinationCentersList = getVaccinationCenters()
 activate CTRL
 
-CTRL -> A : checkRequirementsForRegistration(SNS number, Vaccination Center User, Vaccination Center Receptionist, Date)
-activate A
-
-CTRL --> UI : result
-
-UI --> R: shows the result
-
-deactivate A
-
-deactivate CTRL
-deactivate UI
-
-
-R -> UI : registers the arrival depending on the result
-activate UI
-
-UI -> CTRL : registerArrival(SNS number, Vaccination Center)
-activate CTRL
-
-CTRL -> C : registerArrival(SNS number, Vaccination Center)
+CTRL -> C : vaccinationCentersList = getVaccinationCenters()
 activate C
-
-
-
-
-CTRL --> UI: result
-
-UI --> R : informs operation success
 
 deactivate C
 deactivate CTRL
+UI --> R : shows a list with all the available vaccination centers
 deactivate UI
-deactivate R
 
+R -> UI : selects one vaccination center
+activate UI
+
+UI -> CTRL : setVaccinationCenter(index)
+activate CTRL
+
+
+deactivate CTRL
+deactivate UI
+
+UI --> R : requests data (snsNumber)
+activate UI
+
+
+R -> UI : types data
+
+UI -> CTRL : checkAndSetUserAppointment(snsNumber)
+activate CTRL
+
+CTRL --> UI : result
+deactivate CTRL
+
+UI -> CTRL : setArrival()
+activate CTRL
+
+CTRL ---> A ** : arrival = createArrival(snsNumber, vaccineType)
+
+deactivate CTRL
+
+UI -> CTRL : checkIfAlreadyRegistered(snsNumber)
+activate CTRL
+
+CTRL -> VC : checkIfAlreadyRegistered(snsNumber)
+activate VC
+
+VC --> CTRL : result
+deactivate VC
+
+CTRL --> UI : resut
+deactivate CTRL
+
+UI -> CTRL : checkDateAndTime()
+activate CTRL
+
+
+CTRL -> A : checkDateAndTime(date, vaccinationCenter)
+activate A
+
+A --> CTRL : result
+deactivate A
+
+CTRL --> UI : resut
+deactivate CTRL
+
+UI --> R : result
+deactivate A
+
+deactivate UI
+
+
+R -> UI : registers the arrival
+activate UI
+
+UI -> CTRL : registerArrival()
+activate CTRL
+
+
+CTRL -> VC : registerArrival(arrival)
+activate VC
+
+deactivate VC
+deactivate CTRL
+UI --> R : informs operation success
 
 @enduml

@@ -8,12 +8,12 @@ import dto.VaccinationCenterDto;
 import mapper.ScheduledVaccineMapper;
 import mapper.VaccinationCenterMapper;
 import pt.isep.lei.esoft.auth.AuthFacade;
-import pt.isep.lei.esoft.auth.domain.model.Email;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.YearMonth;
+import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -58,10 +58,10 @@ public class ScheduleVaccineController {
     public boolean validateAppointment(ScheduledVaccineDto scheduledVaccineDto) {
         if (!dataIsAllFilled(scheduledVaccineDto)) return false;
         if (!ScheduledVaccine.userIsEligibleForTheAppointment(scheduledVaccineDto)) return false;
-        if (!vaccinationCenter.validateAppointmentAccordingToAgeGroupAndTimeSinceLastDose(scheduledVaccineDto, company)) return false;
+        if (!vaccinationCenter.validateAppointmentAccordingToAgeGroupAndTimeSinceLastDose(scheduledVaccineDto, company))
+            return false;
 
         return vaccinationCenter.centerHasAvailability(scheduledVaccineDto);
-
     }
 
     /**
@@ -137,7 +137,7 @@ public class ScheduleVaccineController {
 
     private ScheduledVaccine createScheduledVaccine(ScheduledVaccineDto scheduledVaccineDto) {
         ScheduledVaccineMapper mapper = new ScheduledVaccineMapper();
-        return mapper.dtoToDomain(scheduledVaccineDto);
+        return mapper.createScheduledVaccine(scheduledVaccineDto);
     }
 
     /**
@@ -225,7 +225,81 @@ public class ScheduleVaccineController {
         return vaccinationCenter.slotHasAvailability(selectedDate, timeOfTheSlot);
     }
 
-    private boolean isMonthNumberSingleDigit(LocalDate localDate){
-        return localDate.getMonthValue() <= Constants.SEPTEMBER;
+
+    /**
+     * Gets the available days in current month and fill´s a list.
+     *
+     * @param availableDaysCurrentMonth List that will receive the available days
+     * @param localDate                 The date when the user is scheduling
+     * @return the filled array list
+     */
+    public ArrayList<String> availableDaysListCurrentMonth(ArrayList<String> availableDaysCurrentMonth, LocalDate localDate) {
+        LocalDate dateWhenScheduling = LocalDate.now();
+        for (int date = dateWhenScheduling.getDayOfMonth() + 1; date <= YearMonth.of(dateWhenScheduling.getYear(), dateWhenScheduling.getMonthValue()).lengthOfMonth(); date++) {
+            if (dayHasAvailability(LocalDate.of(LocalDate.now().getYear(), localDate.getMonthValue(), date))) {
+                if (isMonthNumberSingleDigit(localDate.getMonthValue()))
+                    availableDaysCurrentMonth.add(String.valueOf(date + "/" + localDate.getMonthValue()));
+                else
+                    availableDaysCurrentMonth.add(String.valueOf(date + "/ 0" + localDate.getMonthValue()));
+            }
+        }
+        return availableDaysCurrentMonth;
+    }
+
+    /**
+     * Gets the available days in next month and fill´s a list.
+     *
+     * @param availableDaysNextMonth List that will receive the available days
+     * @return the filled array list
+     */
+    public ArrayList<String> availableDaysListNextMonth(ArrayList<String> availableDaysNextMonth) {
+        LocalDate dateWhenScheduling = LocalDate.now();
+        LocalDate nextMonthDate = dateWhenScheduling.plusMonths(1).with(TemporalAdjusters.firstDayOfMonth());
+        for (int date = nextMonthDate.getDayOfMonth(); date <= YearMonth.of(nextMonthDate.getYear(), nextMonthDate.getMonthValue()).lengthOfMonth(); date++) {
+            if (dayHasAvailability(LocalDate.of(LocalDate.now().getYear(), nextMonthDate.getMonthValue(), date))) {
+                if (isMonthNumberSingleDigit(nextMonthDate.getMonthValue()))
+                    availableDaysNextMonth.add(String.valueOf(date + "/" + nextMonthDate.getMonthValue()));
+                else
+                    availableDaysNextMonth.add(String.valueOf(date + "/ 0" + nextMonthDate.getMonthValue()));
+            }
+        }
+        return availableDaysNextMonth;
+    }
+
+    private boolean isMonthNumberSingleDigit(int month) {
+        return month <= Constants.SEPTEMBER;
+    }
+
+    /**
+     * Gets the available hours and fill´s array list.
+     *
+     * @param availableHours the available hours empty list
+     * @param slotsPerDay    the slots per day
+     * @param selectedDate   the selected date by the user
+     * @param timeOfTheSlot  the time of the slot
+     * @param slotDuration   the slot duration
+     * @return the array list filled with available hours
+     */
+    public ArrayList<LocalTime> availableHoursList(ArrayList<LocalTime> availableHours, int slotsPerDay, LocalDate selectedDate, LocalTime timeOfTheSlot, int slotDuration) {
+        for (int slot = 0; slot < slotsPerDay; slot++) {
+            if (slotHasAvailability(selectedDate, timeOfTheSlot))
+                availableHours.add(timeOfTheSlot);
+
+            timeOfTheSlot = timeOfTheSlot.plusMinutes(slotDuration);
+        }
+        return availableHours;
+    }
+
+
+    /**
+     * Time selected by the user converted into minutes to be added.
+     *
+     * @param selectedOption the selected slot
+     * @param slotDuration   the slot duration
+     * @return the minutes to be added to the opening hour to determine the selected time by the user
+     */
+    public int timeSelected(int selectedOption, int slotDuration) {
+        int minutesToBeAdded;
+        return  minutesToBeAdded = (selectedOption - 1) * slotDuration;
     }
 }

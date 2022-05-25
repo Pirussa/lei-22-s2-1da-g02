@@ -305,7 +305,7 @@ public class SnsUser {
     }
 
     public boolean validateSex(String strSex) {
-        return strSex.equals("Male") || strSex.equals("Female") || strSex.isEmpty();
+        return strSex.equals("Male") || strSex.equals("Female") || strSex.equals("NA") || strSex.isEmpty();
     }
 
     public boolean validateBirthDate(String strBirthDate) {
@@ -343,12 +343,12 @@ public class SnsUser {
         return "Name: " + strName + '\n' +
                 "Sex: " + strSex + '\n' +
                 "Birth Date: " + strBirthDate + '\n' +
-                "Address of the SNS User: " + strAddress + '\n' +
+                "Address: " + strAddress + '\n' +
                 "Phone Number: " + strPhoneNumber + '\n' +
                 "Email: " + strEmail + '\n' +
                 "SNS User Number: " + snsUserNumber + '\n' +
-                "Citizen Card Number of the SNS User: " + strCitizenCardNumber + '\n' +
-                "Password of the SNS User: " + strPassword;
+                "Citizen Card Number: " + strCitizenCardNumber + '\n' +
+                "Password: " + strPassword;
     }
 
     public String restrictedUsersInTheWaitingRoomInfo(){

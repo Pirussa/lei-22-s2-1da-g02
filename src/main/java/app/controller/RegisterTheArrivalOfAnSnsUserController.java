@@ -5,9 +5,8 @@ import java.util.List;
 
 public class RegisterTheArrivalOfAnSnsUserController {
 
-    private VaccinationCenter vaccinationCenterReceptionist;
-    private VaccinationCenter vaccinationCenterSnsUser;
-    private List<ScheduledVaccine> scheduledVaccineList;
+    private VaccinationCenter vaccinationCenter;
+    private List<ScheduledVaccine> vaccineAppointments;
     private ScheduledVaccine appointment;
     private Arrival arrival;
     private Company company = App.getInstance().getCompany();
@@ -19,39 +18,29 @@ public class RegisterTheArrivalOfAnSnsUserController {
      *
      * @param index Position of the vaccination center
      */
-    public void setVaccinationCenterReceptionist(int index) {
-        vaccinationCenterReceptionist = company.getVaccinationCenters().get(index);
-        scheduledVaccineList = vaccinationCenterReceptionist.getScheduledVaccineList();
-    }
-
-    /**
-     * Sets the Sns User vaccination center
-     *
-     * @param index Position of the vaccination center
-     */
-    public void setVaccinationCenterSnsUser(int index) {
-        vaccinationCenterSnsUser = company.getVaccinationCenters().get(index);
+    public void setVaccinationCenter(int index) {
+        vaccinationCenter = company.getVaccinationCenters().get(index);
     }
 
 
-    /**
-     * Checks the if user and receptionist are on the same vaccination center
-     *
-     * @return boolean - true if both are on the same vaccination center
-     */
-    public boolean checkVaccinationCenters() {
-        return vaccinationCenterReceptionist == vaccinationCenterSnsUser;
-    }
 
     /**
-     * Check if a User has an appointment, for that day and time, introducing his/her SNS number
+     * Check if a User has an appointment
      *
      * @param snsNumber Number that identifies the SNS user
      * @return ScheduleVaccine - return an appointment of a user
      */
-    public boolean getUserAppointment(int snsNumber) {
-        appointment = Arrival.getUserAppointment(snsNumber, scheduledVaccineList);
-        return appointment != null;
+    public boolean checkAndSetUserAppointment(int snsNumber) {
+        vaccineAppointments = vaccinationCenter.getScheduledVaccineList();
+
+        for (ScheduledVaccine vaccineAppointment : vaccineAppointments)
+            if (vaccineAppointment.getSnsNumber() == snsNumber) {
+                appointment = vaccineAppointment;
+                return true;
+            }
+
+        appointment = null;
+        return false;
     }
 
     /**
@@ -60,8 +49,8 @@ public class RegisterTheArrivalOfAnSnsUserController {
      * @param snsNumber The number that identifies an SNS user
      * @return boolean - true if the user is already registered
      */
-    public boolean checkRegistration(int snsNumber) {
-        return Arrival.checkRegistration(snsNumber, vaccinationCenterReceptionist);
+    public boolean checkIfAlreadyRegistered(int snsNumber) {
+        return vaccinationCenter.checkIfAlreadyRegistered(snsNumber);
     }
 
     /**
@@ -69,8 +58,8 @@ public class RegisterTheArrivalOfAnSnsUserController {
      *
      * @return boolean - true if day and time match
      */
-    public boolean checkDateAndTime() {
-        return arrival.checkDateAndTime(appointment.getDate(), vaccinationCenterReceptionist);
+    public boolean validateDateAndTime() {
+        return arrival.validateDateAndTime(appointment.getDate(), vaccinationCenter);
     }
 
     /**
@@ -78,15 +67,16 @@ public class RegisterTheArrivalOfAnSnsUserController {
      *
      */
     public void registerArrival() {
-        vaccinationCenterReceptionist.registerArrival(arrival);
+        vaccinationCenter.registerArrival(arrival);
+        vaccinationCenter.removeAppointment(appointment);
     }
 
     /**
-     * Cleans the lisf of arrivals
+     * Cleans the list of arrivals
      *
      */
     public void cleanArrivalsList() {
-        vaccinationCenterReceptionist.cleanArrivalsList();
+        vaccinationCenter.cleanArrivalsList();
     }
 
     /**

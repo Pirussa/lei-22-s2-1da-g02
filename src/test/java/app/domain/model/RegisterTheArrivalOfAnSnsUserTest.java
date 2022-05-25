@@ -5,13 +5,11 @@ import app.controller.RegisterTheArrivalOfAnSnsUserController;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class RegisterTheArrivalOfAnSnsUserTest {
-    private static List<Vaccine> vaccines;
 
     private Company c = App.getInstance().getCompany();
     private RegisterTheArrivalOfAnSnsUserController ctrl = new RegisterTheArrivalOfAnSnsUserController();
@@ -24,14 +22,13 @@ class RegisterTheArrivalOfAnSnsUserTest {
      */
     public void registerValidArrival() {
 
-        creationOfTheNecessary();
+        setUp();
 
-        ctrl.setVaccinationCenterReceptionist(0);
-        ctrl.setVaccinationCenterSnsUser(0);
-        ctrl.getUserAppointment(100000000);
+        ctrl.setVaccinationCenter(0);
+        ctrl.checkAndSetUserAppointment(100000000);
         ctrl.setArrival(100000000);
 
-        assertTrue(ctrl.getUserAppointment(100000000) && ctrl.checkRegistration(100000000) && ctrl.checkDateAndTime() && ctrl.checkVaccinationCenters());
+        assertTrue(ctrl.checkAndSetUserAppointment(100000000) && ctrl.checkIfAlreadyRegistered(100000000) && ctrl.validateDateAndTime());
 
     }
 
@@ -41,13 +38,12 @@ class RegisterTheArrivalOfAnSnsUserTest {
      */
     public void registerArrivalWithNoAppointment() {
 
-        creationOfTheNecessary();
+        setUp();
 
-        ctrl.setVaccinationCenterReceptionist(0);
-        ctrl.setVaccinationCenterSnsUser(0);
-        ctrl.getUserAppointment(300000000);
+        ctrl.setVaccinationCenter(0);
+        ctrl.checkAndSetUserAppointment(300000000);
 
-        assertFalse(ctrl.getUserAppointment(300000000) && ctrl.checkRegistration(300000000) && ctrl.checkDateAndTime() && ctrl.checkVaccinationCenters());
+        assertFalse(ctrl.checkAndSetUserAppointment(300000000) && ctrl.checkIfAlreadyRegistered(300000000) && ctrl.validateDateAndTime());
     }
 
     @Test
@@ -56,14 +52,13 @@ class RegisterTheArrivalOfAnSnsUserTest {
      */
     public void registerArrivalWithWrongDate() {
 
-        creationOfTheNecessary();
+        setUp();
 
-        ctrl.setVaccinationCenterReceptionist(0);
-        ctrl.setVaccinationCenterSnsUser(0);
-        ctrl.getUserAppointment(200000000);
+        ctrl.setVaccinationCenter(0);
+        ctrl.checkAndSetUserAppointment(200000000);
         ctrl.setArrival(200000000);
 
-        assertFalse(ctrl.getUserAppointment(200000000) && ctrl.checkRegistration(200000000) && ctrl.checkDateAndTime() && ctrl.checkVaccinationCenters());
+        assertFalse(ctrl.checkAndSetUserAppointment(200000000) && ctrl.checkIfAlreadyRegistered(200000000) && ctrl.validateDateAndTime());
     }
 
     @Test
@@ -72,14 +67,13 @@ class RegisterTheArrivalOfAnSnsUserTest {
      */
     public void registerArrivalWithWrongVaccinationCenters() {
 
-        creationOfTheNecessary();
+        setUp();
 
-        ctrl.setVaccinationCenterReceptionist(0);
-        ctrl.setVaccinationCenterSnsUser(1);
-        ctrl.getUserAppointment(100000000);
+        ctrl.setVaccinationCenter(0);
+        ctrl.checkAndSetUserAppointment(100000000);
         ctrl.setArrival(100000000);
 
-        assertFalse(ctrl.getUserAppointment(100000000) && ctrl.checkRegistration(100000000) && ctrl.checkDateAndTime() && ctrl.checkVaccinationCenters());
+        assertFalse(ctrl.checkAndSetUserAppointment(100000000) && ctrl.checkIfAlreadyRegistered(100000000) && ctrl.validateDateAndTime());
     }
 
 
@@ -89,22 +83,21 @@ class RegisterTheArrivalOfAnSnsUserTest {
      */
     public void registerArrivalWithAnAlreadyRegisteredArrival() {
 
-        creationOfTheNecessary();
+        setUp();
 
-        ctrl.setVaccinationCenterReceptionist(0);
-        ctrl.setVaccinationCenterSnsUser(1);
-        ctrl.getUserAppointment(100000000);
+        ctrl.setVaccinationCenter(0);
+        ctrl.checkAndSetUserAppointment(100000000);
         ctrl.setArrival(100000000);
         ctrl.registerArrival();
 
-        assertFalse(ctrl.getUserAppointment(100000000) && ctrl.checkRegistration(100000000) && ctrl.checkDateAndTime() && ctrl.checkVaccinationCenters());
+        assertFalse(ctrl.checkAndSetUserAppointment(100000000) && ctrl.checkIfAlreadyRegistered(100000000) && ctrl.validateDateAndTime());
     }
 
 
     /**
      * Creations instances of what is necessary in order to test the User Story correctly
      */
-    private void creationOfTheNecessary() {
+    private void setUp() {
         VaccinationCenter vcR = new VaccinationCenter("1234", "CVC Matosinhos", "915607321", "cvcmatosinhos@gmail.com", "915607321", "www.cvcmatosinhos.com", "9",
                 "16", "30", "1", "Rua do Amial", "4460-098", "Matosinhos", "CC-95634");
         VaccinationCenter vcU = new VaccinationCenter("1234", "Isep", "915607321", "cvcmatosinhos@gmail.com", "915607321", "www.cvcmatosinhos.com", "9",
@@ -112,7 +105,7 @@ class RegisterTheArrivalOfAnSnsUserTest {
         c.getVaccinationCenters().add(vcR);
         c.getVaccinationCenters().add(vcU);
 
-        VaccineType vt1 = new VaccineType("12345" ,"Covideiros", VaccineType.vaccineTechnologies[0]);
+        VaccineType vt1 = new VaccineType("12345" ,"Covid", VaccineType.vaccineTechnologies[0]);
 
         ScheduledVaccine appointment1 = new ScheduledVaccine(100000000, vt1, LocalDateTime.of(2022, 5, 24, 21, 30));
         ScheduledVaccine appointment2 = new ScheduledVaccine(200000000, vt1, LocalDateTime.of(2022, 5, 24, 22, 30));

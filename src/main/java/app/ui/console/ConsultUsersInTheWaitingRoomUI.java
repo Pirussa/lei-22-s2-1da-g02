@@ -31,7 +31,7 @@ public class ConsultUsersInTheWaitingRoomUI implements Runnable {
         if (!ctrl.listOfUsersInTheWaitingRoom().isEmpty()) {
             System.out.printf("%n------You've chosen to get the list of SNS Users in the waiting room:------%n");
             for (int listPosition = 0; listPosition < ctrl.listOfUsersInTheWaitingRoom().size(); listPosition++) {
-                System.out.printf("%n" + ctrl.listOfUsersInTheWaitingRoom());
+                System.out.printf("%n" + ctrl.listOfUsersInTheWaitingRoom().get(listPosition));
             }
 
         } else

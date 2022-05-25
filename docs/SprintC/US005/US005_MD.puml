@@ -13,6 +13,6 @@ class SnsUser {
 
 Nurse "*" -- "1" UsersWaitingList : checks >
 SnsUser "1" --  "*" UserInfo : has >
-SnsUser "*" -- "1" UsersWaitingList: is on >
+SnsUser "*" -- "1" UsersWaitingList: belongs >
 
 @enduml

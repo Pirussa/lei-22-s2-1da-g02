@@ -4,22 +4,22 @@ actor "Receptionist" as R
 
 activate R
 
-R -> ":System" : asks to check if an SNS user has an appointment
+R -> ":System" : asks register an arrival
 activate ":System"
-":System" --> R : requests data (SNS number)
+":System" --> R : shows a list with all the available vaccination centers for the receptionist
 deactivate ":System"
 
-R -> ":System" : types requested data
+R -> ":System" : selects one vaccination center
 activate ":System"
-":System" --> R : shows the data
+":System" --> R : requests the sns number
 deactivate ":System"
 
-R -> ":System" : search for appointment through the SNS number
+R -> ":System" : types the sns number
 activate ":System"
-":System" --> R : result
+":System" --> R : requests confirmation
 deactivate ":System"
 
-R -> ":System" : Registers arrival depending on the result
+R -> ":System" : confirms
 activate ":System"
 ":System" --> R : informs operation success
 deactivate ":System"

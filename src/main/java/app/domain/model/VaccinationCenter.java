@@ -1,7 +1,5 @@
 package app.domain.model;
 
-import app.ui.console.ScheduleVaccineUI;
-import app.ui.console.utils.Utils;
 import dto.ScheduledVaccineDto;
 
 import java.time.Duration;
@@ -449,7 +447,6 @@ public class VaccinationCenter {
         return timeIntervalBetweenUserDose <= days;
     }
 
-
     /**
      * Validate appointment according to admin process.
      *
@@ -458,7 +455,6 @@ public class VaccinationCenter {
      * @return user age group index
      */
     private int getUserAgeGroupIndex(SnsUser snsUser, AdministrationProcess administrationProcess) {
-
         String[] birthDateComponents = snsUser.getStrBirthDate().split("/");
         LocalDate birthDate = LocalDate.of(Integer.parseInt(birthDateComponents[2]), Integer.parseInt(birthDateComponents[1]), Integer.parseInt(birthDateComponents[0]));
         int userAgeInDays = (int) Duration.between(LocalDate.now().atStartOfDay(), birthDate.atStartOfDay()).toDays();
@@ -471,7 +467,6 @@ public class VaccinationCenter {
             }
         }
         return -1;
-
     }
 
     /**
@@ -494,12 +489,39 @@ public class VaccinationCenter {
         getArrivalsList().add(arrival);
     }
 
+    /**
+     * Cleans the arrivals list
+     */
     public void cleanArrivalsList() {
         int currentHour = LocalDateTime.now().getHour();
 
         if (currentHour == Integer.parseInt(strClosingHour))
             for (Arrival arrival : arrivalsList)
                 arrivalsList.remove(arrival);
+    }
+
+    /**
+     * Removes an appointment from the appointments list
+     *
+     * @param appointment The user's appointment
+     */
+    public void removeAppointment(ScheduledVaccine appointment) {
+        getScheduledVaccineList().remove(appointment);
+    }
+
+
+    /**
+     * Checks if a user has already been registered
+     *
+     * @param snsNumber The number that identifies an SNS user
+     * @return boolean - true if the user is already registered
+     */
+    public boolean checkIfAlreadyRegistered(int snsNumber)   {
+        for (Arrival arrival : arrivalsList)
+            if (arrival.getSnsNumber() == snsNumber)
+                return false;
+
+        return true;
     }
 
     /**

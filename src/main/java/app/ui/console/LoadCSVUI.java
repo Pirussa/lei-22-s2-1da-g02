@@ -8,7 +8,9 @@ import dto.SNSUserDto;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class LoadCSVUI implements Runnable {
@@ -17,7 +19,7 @@ public class LoadCSVUI implements Runnable {
 
     public void run() {
 
-        System.out.println("");
+            System.out.println("");
         try {
             Scanner readPath = new Scanner(System.in);
             System.out.println("File Location: ");
@@ -28,7 +30,7 @@ public class LoadCSVUI implements Runnable {
                 String line = null;
                 BufferedReader br = new BufferedReader(new FileReader(path));
                 String delimiter = null;
-                br.mark(1000);
+                br.mark(2000);
                 if (br.readLine().contains(";")) {
                     delimiter = ";";
                 } else {
@@ -48,14 +50,18 @@ public class LoadCSVUI implements Runnable {
                     }
                 }
                 fillSNSUserDto(csvData);
-                //getListOfSNSUsers();
 
             } else {
                 System.out.println();
                 System.out.println("Only files ending in .csv are allowed.");
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
+            System.out.println();
+            if (confirmCreationCSV()){
+                run();
+            }
+            return;
         }
     }
 
@@ -98,18 +104,31 @@ public class LoadCSVUI implements Runnable {
         System.out.printf("Saved %d Users out of %d, because %d had duplicated information.",createCounter - saveCounter, createCounter, saveCounter);
     }
 
-    public void getListOfSNSUsers() {
-        LoadCSVController controller = new LoadCSVController();
-        if (!controller.getSNSUserList().isEmpty()) {
-            for (int i = 0; i < controller.getSNSUserList().size(); i++) {
-                System.out.println("\nPosition " + i + ": " + "\n" + controller.getSNSUserList().get(i));
-                System.out.println();
+    public static boolean confirmCreationCSV() {
+        System.out.println("CSV Data is invalid or the CSV file does not exist.");
+        System.out.println();
+        System.out.println("Do you want to load another file?");
+        System.out.println();
+        System.out.println("1 - Yes");
+        System.out.println("0 - No");
+        Scanner sc = new Scanner(System.in);
+        System.out.printf("%nType your option: ");
+        int check = 0;
+        int option = 0;
+        do {
+            try {
+                option = sc.nextInt();
+                sc.nextLine();
+                check = 1;
+            } catch (InputMismatchException e) {
+                System.out.println("Insert a valid option.");
+                sc.nextLine();
             }
-        } else {
-            System.out.println();
-            System.out.println("There aren't any registered SNS Users.");
-        }
+        } while (check == 0);
+
+        return option == 1;
     }
+
 }
 
 

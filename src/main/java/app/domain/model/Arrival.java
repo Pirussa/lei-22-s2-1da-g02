@@ -1,11 +1,9 @@
 package app.domain.model;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * @author Pedro Monteiro <1211076@isep.ipp.pt>
- * @author João Leitão <1211063@isep.ipp.pt>
  */
 
 public class Arrival {
@@ -38,15 +36,6 @@ public class Arrival {
     }
 
     /**
-     * Gets the Date and Time
-     *
-     * @return LocalDateTime - dateTime
-     */
-    public LocalDateTime getDateTime() {
-        return dateTime;
-    }
-
-    /**
      * Information about the arrival of a user
      *
      * @return String
@@ -57,36 +46,20 @@ public class Arrival {
     }
 
     /**
-     * Check if a User has an appointment, introducing his/her SNS number
-     *
-     * @param snsNumber Number that identifies the SNS user
-     * @param vaccineAppointments List that contains the appointments
-     * @return ScheduleVaccine - returns the appointment of a user
-     */
-    public static ScheduledVaccine getUserAppointment(int snsNumber, List<ScheduledVaccine> vaccineAppointments) {
-
-        for (ScheduledVaccine vaccineAppointment : vaccineAppointments)
-            if (vaccineAppointment.getSnsNumber() == snsNumber)
-                return vaccineAppointment;
-
-        return null;
-    }
-
-    /**
      *
      * @param date Date of the appointment
      * @param vaccinationCenter Vaccination Center where the user has an appointment
      * @return boolean - true if the user is on time
      */
-    public boolean checkDateAndTime(LocalDateTime date, VaccinationCenter vaccinationCenter) {
-        if (!checkDate(date))
+    public boolean validateDateAndTime(LocalDateTime date, VaccinationCenter vaccinationCenter) {
+        if (!validateDate(date))
             return false;
 
-        return checkTime(date, vaccinationCenter);
+        return validateTime(date, vaccinationCenter);
     }
 
 
-    private boolean checkDate(LocalDateTime appointmentDay) {
+    private boolean validateDate(LocalDateTime appointmentDay) {
 
         if (appointmentDay.getDayOfMonth() != dateTime.getDayOfMonth())
             return false;
@@ -100,7 +73,7 @@ public class Arrival {
         return true;
     }
 
-    private boolean checkTime(LocalDateTime appointmentTime, VaccinationCenter vaccinationCenter) {
+    private boolean validateTime(LocalDateTime appointmentTime, VaccinationCenter vaccinationCenter) {
         int slotDuration = Integer.parseInt(vaccinationCenter.getStrSlotDuration());
         LocalDateTime minusTime = subtractTimes(slotDuration, appointmentTime);
         LocalDateTime plusTime = sumTimes(appointmentTime);
@@ -116,20 +89,4 @@ public class Arrival {
         return appointmentTime.plusMinutes(10);
     }
 
-    /**
-     * Checks if a user has already been registered
-     *
-     * @param snsNumber The number that identifies an SNS user
-     * @param vaccinationCenterReceptionist The vaccination center where the receptionist is located
-     * @return boolean - true if the user is already registered
-     */
-    public static boolean checkRegistration(int snsNumber, VaccinationCenter vaccinationCenterReceptionist) {
-        List<Arrival> arrivals = vaccinationCenterReceptionist.getArrivalsList();
-
-        for (Arrival arrival : arrivals)
-            if (arrival.getSnsNumber() == snsNumber)
-                return false;
-
-        return true;
-    }
 }

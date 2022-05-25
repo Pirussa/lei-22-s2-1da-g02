@@ -13,6 +13,8 @@ class ConsultUsersInTheWaitingRoomController{
 
 class Arrivals
 
+class VaccinationCenter
+
 class Company
 
 class SnsUser
@@ -21,9 +23,11 @@ class SnsUser
 left to right direction
 
 ConsultUsersInTheWaitingRoomUI .> ConsultUsersInTheWaitingRoomController
-ConsultUsersInTheWaitingRoomController .> Arrivals
-ConsultUsersInTheWaitingRoomController .> Company
+ConsultUsersInTheWaitingRoomController ..> Arrivals
+ConsultUsersInTheWaitingRoomController .r.> Company
 Company -> SnsUser
+ConsultUsersInTheWaitingRoomController ..> VaccinationCenter
+VaccinationCenter->Arrivals
 
 
 @enduml

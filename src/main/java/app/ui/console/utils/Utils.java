@@ -13,7 +13,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -206,10 +205,10 @@ public class Utils {
      * It creates and adds Scheduled Appointments to the Company as soon as the App runs
      */
     private static void bootstrapScheduledAppointments() {
-        ScheduledVaccine scheduledVaccine1 = new ScheduledVaccine(100000000, company.getVaccineTypes().get(1), LocalDateTime.of(2022, 5, 24, 21, 0));
-        ScheduledVaccine scheduledVaccine2 = new ScheduledVaccine(200000000, company.getVaccineTypes().get(0), LocalDateTime.of(2022, 5, 24, 21, 30));
-        ScheduledVaccine scheduledVaccine3 = new ScheduledVaccine(300000000, company.getVaccineTypes().get(2), LocalDateTime.of(2022, 5, 24, 21, 30));
-        ScheduledVaccine scheduledVaccine4 = new ScheduledVaccine(400000000, company.getVaccineTypes().get(0), LocalDateTime.of(2022, 5, 24, 21, 0));
+        ScheduledVaccine scheduledVaccine1 = new ScheduledVaccine(100000000, company.getVaccineTypes().get(1), LocalDateTime.of(2022, 5, 25, 9, 15));
+        ScheduledVaccine scheduledVaccine2 = new ScheduledVaccine(200000000, company.getVaccineTypes().get(0), LocalDateTime.of(2022, 5, 25, 9, 30));
+        ScheduledVaccine scheduledVaccine3 = new ScheduledVaccine(300000000, company.getVaccineTypes().get(2), LocalDateTime.of(2022, 5, 25, 9, 0));
+        ScheduledVaccine scheduledVaccine4 = new ScheduledVaccine(400000000, company.getVaccineTypes().get(0), LocalDateTime.of(2022, 5, 25, 9, 0));
 
         //---------------------------------------------------------------------------------------------------------------------------------------------------
         company.getVaccinationCenters().get(0).addAppointment(scheduledVaccine1);
@@ -465,6 +464,11 @@ public class Utils {
         return selectsIndex(list);
     }
 
+    static public int showAndSelectFromList(List list, int ) {
+        showDaysList(list);
+        return selectsIndex(list);
+    }
+
     /**
      * Select one option from a list and returns the index in the list.
      *
@@ -670,7 +674,7 @@ public class Utils {
      * @return true if the sex is valid
      */
     static public boolean validateSex(String strSex) {
-        return strSex.equals("Male") || strSex.equals("Female") || strSex.isEmpty();
+        return strSex.equals("Male") || strSex.equals("Female") || strSex.equals("NA") || strSex.isEmpty();
     }
 
     /**
@@ -803,6 +807,15 @@ public class Utils {
         }
         System.out.println("");
         System.out.println("0 - Cancel");
+    }
+
+    static public void showDaysList(List list) {
+        int index = 0;
+        for (Object o : list) {
+            index++;
+            System.out.println(index + ". " + o.toString());
+        }
+        System.out.println("");
     }
 
     /**

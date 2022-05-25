@@ -13,6 +13,8 @@ VaccineType vaccineType
 +getVaccineType()
 }
 
+'class Company
+
 class VaccinationCenter {
 -String strID
 -String strName
@@ -33,36 +35,39 @@ class VaccinationCenter {
 +getArrivalsList()
 +getStrOpeningHour()
 +cleanArrivalsList()
-+registerArrival(Arrival arrival, VaccinationCenter vaccinationCenter)
++removeAppointment(ScheduledVaccine appointment)
++registerArrival(Arrival arrival)
++checkIfAlreadyRegistered(int snsNumber)
 }
 
 
 class RegisterArrivalOfSNSUserUI
 
 class RegisterArrivalOfSNSUserController{
-+checkRegistration(int snsNumber, VaccinationCenter vaccinationCenter)
++checkIfAlreadyRegistered(int snsNumber)
 +getUserAppointment(int snsNumber, List<ScheduledVaccine> vaccineAppointments)
-+checkDateAndTie(LocalDateTime date, LocalDateTime Day, int hour)
++validateDateAndTime()
 +registerArrival(int snsNumber, VaccinationCenter vaccinationCenter)
++validateVaccinationCenters()
 }
 
 class Arrival {
 -int snsNumber
 -LocalDateTime dateTime
 -VaccineType vaccineType
-+getUserAppointment(int snsNumber, List<ScheduledVaccine> vaccineAppointments)
--checkDate(LocalDateTime appointmentDay)
--checkTime(LocalDateTime appointmentTime)
-+checkDateAndTie(LocalDateTime date, LocalDateTime Day, int hour)
-+registerArrival(int snsNumber, VaccinationCenter vaccinationCenter)
++validateDateAndTime(LocalDateTime date, VaccinationCenter vaccinationCenter)
+-checkDate(LocalDateTime date)
+-checkTime(LocalDateTime date)
+-subtractTimes(int slotDuration, LocalDateTime date)
+-sumTimes(LocalDateTime date)
 }
 
 
 left to right direction
 
-RegisterArrivalOfSNSUserController -up- Arrival
-RegisterArrivalOfSNSUserController -- VaccinationCenter
-RegisterArrivalOfSNSUserController -- ScheduledVaccine
+RegisterArrivalOfSNSUserController .up-> Arrival
+RegisterArrivalOfSNSUserController ..> VaccinationCenter
+RegisterArrivalOfSNSUserController ..> ScheduledVaccine
 RegisterArrivalOfSNSUserUI -> RegisterArrivalOfSNSUserController
 
 @enduml

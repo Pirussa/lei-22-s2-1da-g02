@@ -431,7 +431,7 @@ public class Company {
     }
 
     /**
-     * Create sns user sns user.
+     * Create sns user.
      *
      * @param dto the dto
      * @return the sns user
