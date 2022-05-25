@@ -28,7 +28,7 @@ public class LoadCSVUI implements Runnable {
                 String line = null;
                 BufferedReader br = new BufferedReader(new FileReader(path));
                 String delimiter = null;
-                br.mark(1000);
+                br.mark(2000);
                 if (br.readLine().contains(";")) {
                     delimiter = ";";
                 } else {
@@ -48,7 +48,6 @@ public class LoadCSVUI implements Runnable {
                     }
                 }
                 fillSNSUserDto(csvData);
-                //getListOfSNSUsers();
 
             } else {
                 System.out.println();
@@ -98,18 +97,6 @@ public class LoadCSVUI implements Runnable {
         System.out.printf("Saved %d Users out of %d, because %d had duplicated information.",createCounter - saveCounter, createCounter, saveCounter);
     }
 
-    public void getListOfSNSUsers() {
-        LoadCSVController controller = new LoadCSVController();
-        if (!controller.getSNSUserList().isEmpty()) {
-            for (int i = 0; i < controller.getSNSUserList().size(); i++) {
-                System.out.println("\nPosition " + i + ": " + "\n" + controller.getSNSUserList().get(i));
-                System.out.println();
-            }
-        } else {
-            System.out.println();
-            System.out.println("There aren't any registered SNS Users.");
-        }
-    }
 }
 
 

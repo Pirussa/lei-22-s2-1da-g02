@@ -670,7 +670,7 @@ public class Utils {
      * @return true if the sex is valid
      */
     static public boolean validateSex(String strSex) {
-        return strSex.equals("Male") || strSex.equals("Female") || strSex.isEmpty();
+        return strSex.equals("Male") || strSex.equals("Female") || strSex.equals("NA") || strSex.isEmpty();
     }
 
     /**
