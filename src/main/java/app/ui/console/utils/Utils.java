@@ -218,7 +218,7 @@ public class Utils {
 
     }
 
-    private static void bootstrapArrivals() {
+    /*private static void bootstrapArrivals() {
         RegisterTheArrivalOfAnSnsUserController ctrlArrival = new RegisterTheArrivalOfAnSnsUserController();
 
         Arrival firstArrival = new Arrival(100000000, company.getVaccineTypes().get(1));
@@ -249,7 +249,7 @@ public class Utils {
         ctrlArrival.setArrival(400000000);
         ctrlArrival.registerArrival();
 
-    }
+    }*/
 
     /**
      * It creates and adds everything that the App needs as soon as it runs, so it is not needed to create something prior to using one functionality
@@ -464,8 +464,8 @@ public class Utils {
         return selectsIndex(list);
     }
 
-    static public int showAndSelectFromList(List list, int ) {
-        showDaysList(list);
+    static public int showAndSelectFromList(List list, int value) {
+        showDaysList(list, value);
         return selectsIndex(list);
     }
 
@@ -809,13 +809,17 @@ public class Utils {
         System.out.println("0 - Cancel");
     }
 
-    static public void showDaysList(List list) {
+    static public void showDaysList(List list, int value) {
         int index = 0;
         for (Object o : list) {
             index++;
             System.out.println(index + ". " + o.toString());
         }
         System.out.println("");
+        if (value == 0)
+            System.out.println("0 - Next Month");
+        else if (value == 1)
+            System.out.println("0 - Previous Month");
     }
 
     /**
