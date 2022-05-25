@@ -58,13 +58,15 @@ public class ConsultUsersInTheWaitingRoomController {
         String snsUserInfo = "";
         for (int arrivalListPosition = 0; arrivalListPosition < getArrivalsList().size(); arrivalListPosition++) {
             for (int snsUserListPosition = 0; snsUserListPosition < company.getSNSUserList().size(); snsUserListPosition++) {
-                if (getArrivalsList().get(arrivalListPosition).getSnsNumber() == company.getSNSUserList().get(snsUserListPosition).getSnsUserNumber())
+                if (getArrivalsList().get(arrivalListPosition).getSnsNumber() == company.getSNSUserList().get(snsUserListPosition).getSnsUserNumber()) {
                     snsUserInfo = "Name: " + company.getSNSUserList().get(snsUserListPosition).getStrName() + '\n' +
                             "Sex: " + company.getSNSUserList().get(snsUserListPosition).getStrSex() + '\n' +
                             "Birth Date: " + company.getSNSUserList().get(snsUserListPosition).getStrBirthDate() + '\n' +
                             "SNS User Number: " + company.getSNSUserList().get(snsUserListPosition).getSnsUserNumber() + '\n' +
                             "Phone Number: " + company.getSNSUserList().get(snsUserListPosition).getStrPhoneNumber() + '\n';
-                listOfUsersInTheWaitingRoom.add(snsUserInfo);
+                    listOfUsersInTheWaitingRoom.add(snsUserInfo);
+                }
+
             }
         }
         return listOfUsersInTheWaitingRoom;
