@@ -30,7 +30,7 @@ public class LoadCSVController {
      * @param dto the dto
      * @return a string that confirms if the User was saved or not
      */
-    public String saveSNSUser(SNSUserDto dto){
+    public boolean saveSNSUser(SNSUserDto dto){
         return company.saveSNSUser(dto);
     }
 
