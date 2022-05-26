@@ -187,7 +187,7 @@ public class Utils {
         AdministrationProcess administrationProcess1 = new AdministrationProcess(new ArrayList<>(Arrays.asList(minAge1, maxAge1)), new ArrayList<>(List.of(2, 3)), new ArrayList<>(List.of(20.0, 30.0)), new ArrayList<>(Arrays.asList(timeBetween1stAnd2ndDose1, timeBetween2ndAnd3rdDose1)));
         Vaccine vaccine1 = new Vaccine("Test", 12, "Brand1", administrationProcess1, company.getVaccineTypes().get(1));
         TakenVaccine takenVaccine1 = new TakenVaccine(vaccine1, LocalDateTime.of(2022, 12, 30, 10, 30), 1);
-        company.getSNSUserList().get(0).registerVaccine(takenVaccine1);
+        company.getSnsUserList().get(0).registerVaccine(takenVaccine1);
         //---------------------------------------------------------------------------------------------------------------------------------------------------
 
         ArrayList<Integer> minAge2 = new ArrayList<>(List.of(8, 22));
@@ -198,14 +198,14 @@ public class Utils {
         AdministrationProcess administrationProcess2 = new AdministrationProcess(new ArrayList<>(Arrays.asList(minAge2, maxAge2)), new ArrayList<>(List.of(1, 3)), new ArrayList<>(List.of(25.0, 35.0)), new ArrayList<>(Arrays.asList(timeBetween1stAnd2ndDose2, timeBetween2ndAnd3rdDose2)));
         Vaccine vaccine2 = new Vaccine("Test", 15, "Brand1", administrationProcess2, company.getVaccineTypes().get(1));
         TakenVaccine takenVaccine2 = new TakenVaccine(vaccine2, LocalDateTime.of(2022, 5, 3, 15, 30), 5);
-        company.getSNSUserList().get(1).registerVaccine(takenVaccine2);
+        company.getSnsUserList().get(1).registerVaccine(takenVaccine2);
     }
 
     /**
      * It creates and adds Scheduled Appointments to the Company as soon as the App runs
      */
     private static void bootstrapScheduledAppointments() {
-        ScheduledVaccine scheduledVaccine1 = new ScheduledVaccine(100000000, company.getVaccineTypes().get(1), LocalDateTime.of(2022, 5, 25, 9, 15));
+        ScheduledVaccine scheduledVaccine1 = new ScheduledVaccine(100000000, company.getVaccineTypes().get(1), LocalDateTime.of(2022, 5, 26, 13, 0));
         ScheduledVaccine scheduledVaccine2 = new ScheduledVaccine(200000000, company.getVaccineTypes().get(0), LocalDateTime.of(2022, 5, 25, 9, 30));
         ScheduledVaccine scheduledVaccine3 = new ScheduledVaccine(300000000, company.getVaccineTypes().get(2), LocalDateTime.of(2022, 5, 25, 9, 0));
         ScheduledVaccine scheduledVaccine4 = new ScheduledVaccine(400000000, company.getVaccineTypes().get(0), LocalDateTime.of(2022, 5, 25, 9, 0));
@@ -701,7 +701,7 @@ public class Utils {
      * @param snsUserNumber the Sns user number
      * @return true if the Sns number is valid
      */
-    public static boolean validateSNSUserNumber(int snsUserNumber) {
+    public static boolean validateSnsUserNumber(int snsUserNumber) {
         String strSnsUserNumber = String.valueOf(snsUserNumber);
         return strSnsUserNumber.trim().matches("^[0-9]*$") && strSnsUserNumber.length() == MAXNUMBEROFCHARSSNSUSERNUMBER;
     }

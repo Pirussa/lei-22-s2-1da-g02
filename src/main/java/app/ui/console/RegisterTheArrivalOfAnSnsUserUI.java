@@ -1,43 +1,43 @@
 package app.ui.console;
 
 import app.controller.RegisterTheArrivalOfAnSnsUserController;
-import app.domain.model.SnsUser;
 import app.ui.console.utils.Utils;
 
 public class RegisterTheArrivalOfAnSnsUserUI implements Runnable {
 
 
-    private RegisterTheArrivalOfAnSnsUserController ctrl = new RegisterTheArrivalOfAnSnsUserController();
+    private final RegisterTheArrivalOfAnSnsUserController controller = new RegisterTheArrivalOfAnSnsUserController();
 
     @Override
     public void run() {
         System.out.printf("%n------Register the Arrival of an SNS user------%n");
 
-        int vaccinationCenterReceptionist  = Utils.selectVaccinationCenterIndex();
-        ctrl.setVaccinationCenter(vaccinationCenterReceptionist);
-        ctrl.cleanArrivalsList();
-
+        int vaccinationCenterReceptionist = Utils.selectVaccinationCenterIndex();
+        controller.setVaccinationCenter(vaccinationCenterReceptionist);
+        controller.cleanArrivalsList();
 
         int snsNumber;
+
         do {
             snsNumber = Utils.readIntegerFromConsole("Introduce SNS Number: ");
-        } while (!SnsUser.validateSNSUserNumber(snsNumber) || SnsUser.getUserIndexInUsersList(snsNumber) < 0);
+        } while (!Utils.validateSnsUserNumber(snsNumber) || controller.getUserIndexInUsersList(snsNumber) < 0);
 
-
-        if(checkRequirementsForRegistration(snsNumber)) {
-
-            System.out.printf("%nThe user meets all the requirements to be registered. Do you confirm this arrival?%n%n");
-            System.out.println("1. Yes");
-            System.out.println("2. No");
-            if(Utils.readIntegerFromConsole("Insert your option: ") == 1) {
-                ctrl.registerArrival();
-                System.out.printf("%nThe user has been registered%n");
-            }
-            else
-                System.out.printf("%nThe user has not been registered %n");
-
+        boolean flag;
+        if (checkRequirementsForRegistration(snsNumber)) {
+            System.out.printf("%nThe user meets all the requirements to be registered. Do you confirm this arrival?%n%n1. Yes%n2. No%n");
+            do {
+                int option = Utils.readIntegerFromConsole("Insert your option: ");
+                if (option == 1) {
+                    controller.registerArrival();
+                    System.out.printf("%n------------------------------%n|The user has been registered|%n------------------------------%n");
+                    flag = true;
+                } else if (option == 0) {
+                    System.out.printf("%n----------------------------------%n|The user has not been registered|%n----------------------------------%n");
+                    flag = true;
+                } else
+                    flag = false;
+            } while (!flag);
         }
-
     }
 
     /**
@@ -48,23 +48,24 @@ public class RegisterTheArrivalOfAnSnsUserUI implements Runnable {
      */
     public boolean checkRequirementsForRegistration(int snsNumber) {
 
-        if (!ctrl.checkAndSetUserAppointment(snsNumber)) {
-            System.out.printf("%nThe user does not have any appointment%n");
+        if (!controller.checkAndSetUserAppointment(snsNumber)) {
+            System.out.printf("%n----------------------------------------%n|The user does not have any appointment|%n----------------------------------------%n");
+            return false;
+        } else
+            controller.setArrival(snsNumber);
+
+        if (!controller.validateDateAndTime()) {
+            System.out.printf("%n----------------%n|Wrong Day/Time|%n----------------%n");
             return false;
         }
-        else
-            ctrl.setArrival(snsNumber);
 
-        if(!ctrl.validateDateAndTime()) {
-            System.out.printf("%nWrong Day/Time %n");
-            return false;
-        }
-
-        if(!ctrl.checkIfAlreadyRegistered(snsNumber)) {
-            System.out.printf("%nUser has already been registered %n");
+        if (!controller.checkIfAlreadyRegistered(snsNumber)) {
+            System.out.printf("%n----------------------------------%n|User has already been registered|%n---------------------------------- %n");
             return false;
         }
 
         return true;
     }
+
+
 }

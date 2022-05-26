@@ -1,7 +1,6 @@
 package app.ui.console;
 
 import app.controller.ScheduleVaccineController;
-import app.domain.model.*;
 import app.domain.shared.Constants;
 import app.ui.console.utils.Utils;
 import dto.ScheduledVaccineDto;
@@ -12,6 +11,13 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
+
+/**
+ * Has all the info about a scheduled Vaccine
+ *
+ * @author Gustavo Jorge <1211061@isep.ipp.pt>
+ * @author Guilherme Sousa <1211073@isep.ipp.pt>
+ */
 
 public class ScheduleVaccineUI implements Runnable {
 
@@ -39,23 +45,23 @@ public class ScheduleVaccineUI implements Runnable {
 
             if (!selectVaccineTypeUI(vaccinationCenterInfo, scheduledVaccineDto)) return;
 
-            LocalDateTime date = selectDateUIok(vaccinationCenterInfo);
+            LocalDateTime date = selectDateUI(vaccinationCenterInfo);
 
             scheduledVaccineDto.snsNumber = snsNumber;
             scheduledVaccineDto.date = date;
 
             if (controller.validateAppointment(scheduledVaccineDto)) {
                 printAppointmentInfo(scheduledVaccineDto, vaccinationCenterInfo);
-                if (Utils.confirmCreation()) {
-                    if (controller.scheduleVaccine(scheduledVaccineDto)) {
-                        printValidAppointmentInfo(scheduledVaccineDto, vaccinationCenterInfo);
-                        try {
-                            controller.printAppointmentToFile(scheduledVaccineDto, vaccinationCenterInfo);
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                    } else
-                        System.out.printf("%n-------------------------------%n|No appointment was registered|%n-------------------------------n");
+                if (Utils.confirmCreation() && (controller.scheduleVaccine(scheduledVaccineDto))) {
+                    printValidAppointmentInfo(scheduledVaccineDto, vaccinationCenterInfo);
+                    try {
+                        System.out.printf("-----%n|SMS|%n-----%n%n");
+                        int options = Utils.selectFromList(List.of(Constants.OPTIONS), "Do you want to receive an SMS with the appointment information");
+                        if (controller.printAppointmentToFile(scheduledVaccineDto, vaccinationCenterInfo, options)) System.out.printf("%nA message with the information was sent to " + controller.getUserPhoneNumber() + ".");
+
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 } else
                     System.out.printf("%n-------------------------------%n|No appointment was registered|%n-------------------------------%n");
             } else
@@ -77,10 +83,10 @@ public class ScheduleVaccineUI implements Runnable {
                 sc.nextLine();
             }
             System.out.println();
-            if (Utils.validateSNSUserNumber(SNSNumber)) {
+            if (Utils.validateSnsUserNumber(SNSNumber)) {
 
-                for (SnsUser snsUser : controller.getSnsUsersList()) {
-                    if (snsUser.getSnsUserNumber() == (SNSNumber)) {
+                for (int snsUser : controller.getSnsUsersList()) {
+                    if (snsUser == (SNSNumber)) {
                         return SNSNumber;
                     }
 
@@ -145,7 +151,7 @@ public class ScheduleVaccineUI implements Runnable {
         System.out.printf("System is unable to schedule a vaccination without at least:%n- One Vaccination Center;%n- One Vaccine Type;%n- One Know System User.");
     }
 
-    private LocalDateTime selectDateUIok(VaccinationCenterDto vaccinationCenterDto) {
+    private LocalDateTime selectDateUI(VaccinationCenterDto vaccinationCenterDto) {
         int openingHour = Integer.parseInt(vaccinationCenterDto.strOpeningHour);
         int closingHour = Integer.parseInt(vaccinationCenterDto.strClosingHour);
         int slotDuration = Integer.parseInt(vaccinationCenterDto.strSlotDuration);
@@ -161,8 +167,8 @@ public class ScheduleVaccineUI implements Runnable {
         LocalDate selectedDate;
         int selectedDay;
 
-         controller.getAvailableDaysListCurrentMonth(availableDaysCurrentMonth);
-         controller.getAvailableDaysListNextMonth(availableDaysNextMonth);
+        controller.getAvailableDaysListCurrentMonth(availableDaysCurrentMonth);
+        controller.getAvailableDaysListNextMonth(availableDaysNextMonth);
 
         do {
             selectedDay = Utils.showAndSelectFromList(availableDaysCurrentMonth, 0) + dateWhenScheduling.getDayOfMonth() + 1;
@@ -198,7 +204,7 @@ public class ScheduleVaccineUI implements Runnable {
             int minutesToBeAdded = 0;
             flag = true;
             if (selectedOption > 0) {
-                minutesToBeAdded = controller.timeSelected(selectedOption, slotDuration);
+                minutesToBeAdded = controller.getSelectedTime(selectedOption, slotDuration);
             } else {
                 flag = false;
                 System.out.println("Invalid option.");

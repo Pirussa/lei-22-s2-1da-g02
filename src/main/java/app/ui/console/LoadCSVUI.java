@@ -136,26 +136,23 @@ public class LoadCSVUI implements Runnable {
      * @return a boolean
      */
     public static boolean confirmCreationCSV() {
-        System.out.println("CSV Data is invalid or the CSV file does not exist.");
-        System.out.println();
-        System.out.println("Do you want to load another file?");
-        System.out.println();
-        System.out.println("1 - Yes");
-        System.out.println("0 - No");
-        Scanner sc = new Scanner(System.in);
+        System.out.printf("%nCSV Data is invalid or the CSV file does not exist.%nDo you want to load another file?%n%n");
+        System.out.printf("1 - Yes%n0 - No%n");
+         final Scanner sc = new Scanner(System.in);
+
         System.out.printf("%nType your option: ");
-        int check = 0;
+        boolean check = false;
         int option = 0;
         do {
             try {
                 option = sc.nextInt();
                 sc.nextLine();
-                check = 1;
+                check = true;
             } catch (InputMismatchException e) {
                 System.out.println("Insert a valid option.");
                 sc.nextLine();
             }
-        } while (check == 0);
+        } while (!check);
 
         return option == 1;
     }

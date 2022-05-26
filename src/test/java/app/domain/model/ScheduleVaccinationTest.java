@@ -3,7 +3,6 @@ package app.domain.model;
 import app.controller.App;
 import app.controller.ScheduleVaccineController;
 import app.ui.console.utils.Utils;
-import dto.SNSUserDto;
 import dto.ScheduledVaccineDto;
 import mapper.ScheduledVaccineMapper;
 import org.junit.jupiter.api.Test;
@@ -41,7 +40,7 @@ class ScheduleVaccinationTest {
         Vaccine vaccine1 = new Vaccine("Test", 12, "Brand1", administrationProcess1, vaccineType);
 
         TakenVaccine takenVaccine1 = new TakenVaccine(vaccine1, LocalDateTime.of(2022, 5, 23, 10, 30), 1);
-        company.getSNSUserList().get(4).registerVaccine(takenVaccine1);
+        company.getSnsUserList().get(4).registerVaccine(takenVaccine1);
 
         ScheduledVaccineDto scheduledVaccineDto = new ScheduledVaccineDto();
         scheduledVaccineDto.snsNumber = 999999999;

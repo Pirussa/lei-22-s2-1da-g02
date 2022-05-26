@@ -80,8 +80,11 @@ public class ScheduleVaccineController {
      *
      * @return the list
      */
-    public List<SnsUser> getSnsUsersList() {
-        return company.getSNSUserList();
+    public List<Integer> getSnsUsersList() {
+        List<Integer> snsUserNameList = new ArrayList<>();
+        for (int position = 0; position < company.getSnsUserList().size(); position++)
+            snsUserNameList.add(company.getSnsUserList().get(position).getSnsUserNumber());
+        return snsUserNameList;
     }
 
     /**
@@ -90,7 +93,7 @@ public class ScheduleVaccineController {
      * @return the user phone number
      */
     public int getUserPhoneNumber() {
-        for (SnsUser user : company.getSNSUserList()) {
+        for (SnsUser user : company.getSnsUserList()) {
             if (user.getStrEmail().equals(String.valueOf(authFacade.getCurrentUserSession().getUserId())) || authFacade.getCurrentUserSession().isLoggedInWithRole("Receptionist")) {
                 return Integer.parseInt(user.getStrPhoneNumber());
             }
@@ -104,7 +107,7 @@ public class ScheduleVaccineController {
      * @return the sns user number
      */
     public int getSnsUserNumber() {
-        for (SnsUser user : company.getSNSUserList()) {
+        for (SnsUser user : company.getSnsUserList()) {
             if (user.getStrEmail().equals(String.valueOf(authFacade.getCurrentUserSession().getUserId()))) {
                 return user.getSnsUserNumber();
             }
@@ -118,7 +121,7 @@ public class ScheduleVaccineController {
      * @return true if all the arrays have at least one object each
      */
     public boolean companyHasNecessaryInfo() {
-        if (company.getSNSUserList().isEmpty()) return false;
+        if (company.getSnsUserList().isEmpty()) return false;
         if (company.getVaccineTypes().isEmpty()) return false;
         return !company.getVaccinationCenters().isEmpty();
     }
@@ -130,7 +133,7 @@ public class ScheduleVaccineController {
      * @return True if the dto has all the attributes filled
      */
     private boolean dataIsAllFilled(ScheduledVaccineDto scheduledVaccineDto) {
-        if (!Utils.validateSNSUserNumber(scheduledVaccineDto.snsNumber)) return false;
+        if (!Utils.validateSnsUserNumber(scheduledVaccineDto.snsNumber)) return false;
 
         if (scheduledVaccineDto.vaccineType == null) return false;
 
@@ -294,8 +297,8 @@ public class ScheduleVaccineController {
      * @param slotDuration   the slot duration
      * @return the minutes to be added to the opening hour to determine the selected time by the user
      */
-    public int timeSelected(int selectedOption, int slotDuration) {
-        return  (selectedOption - 1) * slotDuration;
+    public int getSelectedTime(int selectedOption, int slotDuration) {
+        return (selectedOption - 1) * slotDuration;
     }
 
     /**
@@ -305,14 +308,13 @@ public class ScheduleVaccineController {
      * @param vaccinationCenter   the vaccination center
      * @throws IOException the io exception
      */
-    public void printAppointmentToFile(ScheduledVaccineDto scheduledVaccineDto, VaccinationCenterDto vaccinationCenter) throws IOException {
-        System.out.printf("-----%n|SMS|%n-----%n%n");
-        int options = Utils.selectFromList(List.of(Constants.OPTIONS), "Do you want to receive an SMS with the appointment information");
+    public boolean printAppointmentToFile(ScheduledVaccineDto scheduledVaccineDto, VaccinationCenterDto vaccinationCenter, int options) throws IOException {
         if (options == 0) {
             PrintWriter printWriter = new PrintWriter(Constants.PATH_SMS_MESSAGE);
-            printWriter.printf("Received at: " + Utils.formatDateToPrint(LocalDate.now()) + "%n%nYou have an appointment to take a %s vaccine, at %s in %s, on %s.", scheduledVaccineDto.vaccineType, scheduledVaccineDto.date.toLocalTime(), Utils.formatDateToPrint(scheduledVaccineDto.date.toLocalDate()), vaccinationCenter.strName);
+            printWriter.printf("Received at: " + Utils.formatDateToPrint(LocalDate.now()) + "%n%nYou have an appointment to take a %s vaccine, at %s in %s, on %s.%n", scheduledVaccineDto.vaccineType, scheduledVaccineDto.date.toLocalTime(), Utils.formatDateToPrint(scheduledVaccineDto.date.toLocalDate()), vaccinationCenter.strName);
             printWriter.close();
-            System.out.printf("%nA message with the information was sent to " + getUserPhoneNumber() + ".");
+            return true;
         }
+        return false;
     }
 }

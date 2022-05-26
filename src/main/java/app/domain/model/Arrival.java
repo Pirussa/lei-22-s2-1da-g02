@@ -8,11 +8,11 @@ import java.time.LocalDateTime;
 
 public class Arrival {
 
-    private int snsNumber;
+    private final int snsNumber;
 
-    private LocalDateTime dateTime;
+    private final LocalDateTime dateTime;
 
-    private VaccineType vaccineType;
+    private final VaccineType vaccineType;
 
     /**
      * Creates and instance of the Arrival class with the following attributes
@@ -67,10 +67,7 @@ public class Arrival {
         if (appointmentDay.getMonth() != dateTime.getMonth())
             return false;
 
-        if (appointmentDay.getYear() != dateTime.getYear())
-            return false;
-
-        return true;
+        return appointmentDay.getYear() == dateTime.getYear();
     }
 
     private boolean validateTime(LocalDateTime appointmentTime, VaccinationCenter vaccinationCenter) {
