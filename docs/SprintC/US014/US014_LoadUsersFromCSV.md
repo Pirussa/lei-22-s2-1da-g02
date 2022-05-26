@@ -68,7 +68,8 @@ US014 has no dependencies.
     - CSV path
 
 * Selected data:
-    - Confirm loading of a new file
+    - Loading CSV File
+    - Confirm loading of a new CSV file
     - List of SNS Users
 
 **Output Data:**
