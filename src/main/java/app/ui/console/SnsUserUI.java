@@ -5,7 +5,11 @@ import app.ui.console.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Shows a list of all SNS Users.
+ *
+ * @author João Castro <1210816@isep.ipp.pt>
+ */
 public class SnsUserUI implements Runnable {
     @Override
     public void run() {

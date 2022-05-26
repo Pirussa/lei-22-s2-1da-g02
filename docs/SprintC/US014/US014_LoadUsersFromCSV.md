@@ -2,37 +2,71 @@
 
 ## 1. Requirements Engineering
 
-*In this section, it is suggested to capture the requirement description and specifications as provided by the 
-client as well as any further clarification on it. It is also suggested to capture the requirements acceptance 
-criteria and existing dependencies to other requirements. At last, identify the involved input and output data 
-and depicted an Actor-System interaction in order to fulfill the requirement.*
-
 ### 1.1. User Story Description
 
 *As an administrator, I want to load a set of users from a CSV file.*
 
 ### 1.2. Customer Specifications and Clarifications
 
-*Question:* "What would be the sequence of parameters to be read on the CSV? For example: "Name | User Number".
+**From the specifications document:**
 
-*Answer:* Name, Sex, Birth Date, Address, Phone Number, E-mail, SNS User Number and Citizen Card Number.
+>[...]The user should introduce his/her SNS user number[...]
+
+**From the client clarifications:**
+
+>*Question:* "What would be the sequence of parameters to be read on the CSV? For example: "Name | User Number".
+>
+>*Answer:* Name, Sex, Birth Date, Address, Phone Number, E-mail, SNS User Number and Citizen Card Number.
+
+>*Question:* "how should the admin receive the login data/passwords for all registered users?"
+>
+>*Answer:* During this sprint, login and password data should be presented in the console application. In US14 the application is used to register a batch of users. For each user, all the data required to register a user should be presented in the console.
+
+>*Question:* "What should the system do if the file to be loaded has information that is repeated? For example, if there are 5 lines that have the same information or that have the same attribute, like the phone number, should the whole file be discarded?"
+>
+>*Answer:* If the file does not have other errors, all records should be used to register users. The business rules will be used to decide if all file records will be used to register a user. For instance, if all users in the CSV file are already registered in system, the file should be processed normally but no user will be added to the system (because the users are already in the system).
+
+>*Question:* This question also regards the attribute sex, is the format "F"/"M"/ "N/A", or "female"/"male"/"N/A" , or a different, or can it be any?
+>
+>*Answer:* From a previous answer we get "Optional attributes may have a NA value".
+
+>*Question:* "is there any specific format that should be validated for the address, or we can assume it is just of string type?"
+>
+>*Answer:* The address contained in the CSV file is a string and should not contain commas or semicolons.
+
+>*Question:* "Should our application detect if the CSV file to be loaded contains the header, or should we ask the user if is submitting a file with a header or not?"
+>
+>*Answer:* The application should automatically detect the CSV file type.
 
 ### 1.3. Acceptance Criteria
 
-*The application must support importing two types of CSV
-files: a) one type must have a header, column separation is done using “;”
-character; b) the other type does not have a header, column separation is done
-using “,” character.*
+* **AC1:** The application must support importing two types of CSV files: a) one type must have a header, column separation is done using “;” character; b) the other type does not have a header, column separation is done using “,” character.
+* **AC2:** Only files with valid information are accepted by the system.
+* **AC3:** Users with duplicated information are ignored by the system.
+* **AC4:** All the data required to register a user should be presented in the console.
 
 ### 1.4. Found out Dependencies
 
-*N/A.*
+US014 has no dependencies.
 
 ### 1.5 Input and Output Data
 
-*Input Data:* Type CSV path file.
+**Input Data:** 
+*Typed Data
+    - CSV path
 
-*Output Data:* Shows if the operation was a success or not.
+* Selected data:
+    - Confirm loading of a new file
+    - List of SNS Users
+
+**Output Data:**
+
+* The number of Users that were created
+* The number of Users saved
+* The number of Users with duplicated information
+* Warning about the file validity/existence
+* A list of all the users saved in the system
+* (In)Success of the operation
 
 ### 1.6. System Sequence Diagram (SSD)
 
