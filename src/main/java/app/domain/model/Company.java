@@ -469,6 +469,7 @@ public class Company {
             }
             if (flag) {
                 snsUsers.add(createSNSUser(dto));
+
                 return "Saved";
             } else {
                 return "Not Saved because the data is duplicated";
@@ -482,8 +483,9 @@ public class Company {
      *
      * @param scheduledVaccine the scheduled vaccine
      */
-    public void addAppointment(ScheduledVaccine scheduledVaccine) {
+    public void addAppointment(ScheduledVaccine scheduledVaccine, VaccinationCenter vaccinationCenter) {
         appointmentsList.add(scheduledVaccine);
+        vaccinationCenter.addAppointment(scheduledVaccine);
     }
 
     /**

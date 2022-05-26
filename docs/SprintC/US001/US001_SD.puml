@@ -7,13 +7,8 @@ actor SNSUser as U
 participant ":ScheduleVaccineUI" as UI
 participant ":ScheduleVaccineController" as CTRL
 participant "company\n:Company" as C
-participant "vaccinationCenterMapper\n:VaccinationCenterMapper" as VCM
 participant "vaccinationCenter\n:VaccinationCenter" as VC
-participant "vaccinationCenterDto\n:VaccinationCenterDto" as VCDTO
 participant "snsUser\n:SnsUser" as SU
-participant "scheduledVaccineDtoMapper\n:ScheduledVaccineMapper" as M
-participant "scheduledVaccineDto\n:ScheduledVaccineDto" as DTO
-participant "scheduledVaccine\n:ScheduledVaccine" as SV
 participant "appointmentsList\nList<ScheduledVaccine>" as L
 
 
@@ -65,18 +60,11 @@ deactivate CTRL
 
 UI -> CTRL : vaccinationCenterDto = getVaccinationCenterInfo()
 activate CTRL
-CTRL -> VCM : vaccinationCenterDto = domainToDto(vaccinationCenter)
-note over VCM,VC
-Several steps to extract data from the Vaccination Center
-end note
-activate VCM
-VCM --> VCDTO ** : vaccinationCenterDto = createVaccinationCenterDto(vaccinationCenter)
-deactivate VCM
-
-
-
-
+ref over CTRL: SD_GetVaccinationCenterInfo.puml
+CTRL --> UI : vaccinationCenterDto
 deactivate CTRL
+
+
 
 UI -> CTRL : vaccineTypesList = getVaccineTypesNameList()
 activate CTRL
@@ -225,15 +213,10 @@ CTRL -> VC : centerHasAvailability(scheduleVaccineDto)
 activate VC
 VC ---> CTRL : result
 deactivate VC
-CTRL -> M : scheduledVaccine = createScheduledVaccine(scheduleVaccineDto)
-activate M
-note over M, DTO
-Several steps to extract data from the DTO
-end note
-M ---> SV ** : createScheduledVaccine(scheduleVaccineDto)
-activate SV
-deactivate SV
-deactivate M
+
+
+ref over CTRL : SD_createScheduledVaccine.puml
+
 
 CTRL -> VC : addAppointment(scheduledVaccine)
 activate VC

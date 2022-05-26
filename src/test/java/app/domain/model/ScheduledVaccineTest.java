@@ -30,7 +30,7 @@ class ScheduledVaccineTest {
         scheduledVaccineDto1.snsNumber = snsUserNumber;
 
         ScheduledVaccine appointment1 = mapper.createScheduledVaccine(scheduledVaccineDto1);
-        company.addAppointment(appointment1);
+        //company.addAppointment(appointment1,);
 
         scheduledVaccineDto2.vaccineType = vaccineType;
         scheduledVaccineDto2.date = LocalDateTime.of(2022, 6, 23, 10, 30);
@@ -101,7 +101,7 @@ class ScheduledVaccineTest {
 
         ScheduledVaccine appointment1 = mapper.createScheduledVaccine(scheduledVaccineDto1);
         assertTrue(controller.scheduleVaccine(scheduledVaccineDto1));
-        company.addAppointment(appointment1);
+        company.addAppointment(appointment1, vaccinationCenter);
 
         scheduledVaccineDto2.vaccineType = vaccineType;
         scheduledVaccineDto2.date = LocalDateTime.of(2022, 6, 22, 10, 30);
@@ -116,7 +116,6 @@ class ScheduledVaccineTest {
         Utils.bootstrap();
 
         ScheduledVaccineDto scheduledVaccineDto1 = new ScheduledVaccineDto();
-        ScheduledVaccineDto scheduledVaccineDto2 = new ScheduledVaccineDto();
         VaccinationCenter vaccinationCenter = new VaccinationCenter("test", "test", "911111111", "test@gmail.com", "911111111", "www.test.com", "9", "16", "420", "1", "test", "4470-111", "test", company.getCentreCoordinatorList().get(0).getId());
         company.getVaccinationCenters().add(vaccinationCenter);
 
@@ -129,7 +128,7 @@ class ScheduledVaccineTest {
 
         ScheduledVaccine appointment1 = mapper.createScheduledVaccine(scheduledVaccineDto1);
         assertTrue(controller.scheduleVaccine(scheduledVaccineDto1));
-         company.addAppointment(appointment1);
+         company.addAppointment(appointment1,vaccinationCenter);
 
         company.cleanAppointments();
     }
@@ -152,7 +151,7 @@ class ScheduledVaccineTest {
 
         ScheduledVaccine appointment1 = mapper.createScheduledVaccine(scheduledVaccineDto1);
         assertTrue(controller.scheduleVaccine(scheduledVaccineDto1));
-        company.addAppointment(appointment1);
+        company.addAppointment(appointment1,vaccinationCenter);
 
         scheduledVaccineDto2.vaccineType = vaccineType;
         scheduledVaccineDto2.date = LocalDateTime.of(2022, 6, 22, 9, 30);
