@@ -110,7 +110,7 @@ Nurse "*" -- "1" UsersWaitingList : checks >
 Nurse "1" - "*" Vaccine : administers >
 SnsUser "1" --  "*" UserInfo : has >
 VaccineAppointment "1" -- "1" Vaccine : is associated to a >
-
+UsersWaitingList "1" --- "*" SnsUser: has >
 
 
 

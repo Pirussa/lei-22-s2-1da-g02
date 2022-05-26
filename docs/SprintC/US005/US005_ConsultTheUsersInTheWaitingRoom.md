@@ -47,6 +47,11 @@
 > **Question:** Regarding US05, the listing is supposed to be for the day itself or for a specific day?
  
 > **Answer:**  The list should show the users in the waiting room of a vaccination center.
+ 
+> **Question:** Is it supposed to remove an SNS user of the wait list when he leaves the waiting room to get the vaccine? If yes, how do we know when  the sns user leaves the waiting room?
+ 
+> **Answer:** US5 is only to list users that are in the waiting room of a vaccination center. In Sprint D we will introduce new user stories.
+
 
 ### 1.3. Acceptance Criteria
 
@@ -57,7 +62,7 @@
 ### 1.4. Found out Dependencies
 
 
->* There is a dependency to "US004 - register the arrival of a SNS user to take the vaccine" since in order to consult the users in a waiting room of a vaccination center, they must arrive at one.
+>* There is a dependency to "US004 - register the arrival of an SNS user to take the vaccine" since in order to consult the users in a waiting room of a vaccination center, they must arrive at one.
 
 
 ### 1.5 Input and Output Data

@@ -16,6 +16,10 @@ public class ConsultUsersInTheWaitingRoomController {
     private VaccinationCenter vaccinationCenter;
     private Company company = App.getInstance().getCompany();
 
+    /**
+     * Constructor of the Controller that intermediates the info to the UI
+     */
+
     public ConsultUsersInTheWaitingRoomController() {
     }
 
