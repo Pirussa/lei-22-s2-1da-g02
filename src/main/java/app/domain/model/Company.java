@@ -454,6 +454,7 @@ public class Company {
         boolean flag = false;
         if (snsUsers.isEmpty()) {
             snsUsers.add(createSNSUser(dto));
+            this.authFacade.addUserWithRole(dto.strName, dto.strEmail, dto.strPassword, Constants.ROLE_SNS_USER);
             return "Saved";
         } else {
             for (int i = 0; i < snsUsers.size(); i++) {
@@ -469,6 +470,7 @@ public class Company {
             }
             if (flag) {
                 snsUsers.add(createSNSUser(dto));
+                this.authFacade.addUserWithRole(dto.strName, dto.strEmail, dto.strPassword, Constants.ROLE_SNS_USER);
                 return "Saved";
             } else {
                 return "Not Saved because the data is duplicated";
