@@ -71,12 +71,33 @@ class Vaccine {
  -snsUserNumber
  -date
  -vaccineType
-
  }
+
+class SnsUser {
+- Name;
+- Sex;
+- BirthDate;
+- Address;
+- PhoneNumber;
+- Email;
+- UserNumber;
+- CitizenCardNumber;
+- Password;
+- takenVaccines;
++ SnsUser(Name, Sex, BirthDate, Address, Number, Email, snsUserNumber, CitizenCardNumber, Password)
++ validateEmail(String strEmail)
++ validateAddress(String strAddress)
++ validateSex(String strSex)
++ validateBirthDate(String strBirthDate)
++ validateSNSUser()
++ registerVaccine(TakenVaccine takenVaccine)
+}
 
 ScheduleVaccineUI ..> ScheduleVaccineController
 ScheduleVaccineController ..> VaccinationCenter
 ScheduleVaccineController -- ScheduledVaccine : creates
 VaccinationCenter ..> Vaccine
-VaccinationCenter --> ScheduledVaccine : has a list of
+VaccinationCenter ..> SnsUser
+SnsUser -- Vaccine
+VaccinationCenter --right> ScheduledVaccine : has a list of
 @enduml
