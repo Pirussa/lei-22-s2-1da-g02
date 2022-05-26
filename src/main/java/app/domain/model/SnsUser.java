@@ -246,7 +246,6 @@ public class SnsUser {
                 Utils.validateCitizenCardNumber(strCitizenCardNumber) && Utils.validatePhoneNumber(strPhoneNumber) && validateBirthDate(strBirthDate);
     }
 
-
     /**
      * To String for an SNS User (contains user´s information)
      *

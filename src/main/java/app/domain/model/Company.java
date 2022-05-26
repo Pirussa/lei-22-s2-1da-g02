@@ -450,32 +450,24 @@ public class Company {
      * @param dto the dto
      * @return a string in order to know if the users was saved or not.
      */
-    public String saveSNSUser(SNSUserDto dto) {
-        boolean flag = false;
+    public boolean saveSNSUser(SNSUserDto dto) {
         if (snsUsers.isEmpty()) {
             snsUsers.add(createSNSUser(dto));
-            return "Saved";
+            this.authFacade.addUserWithRole(dto.strName, dto.strEmail, dto.strPassword, Constants.ROLE_SNS_USER);
+            return true;
         } else {
-            for (int i = 0; i < snsUsers.size(); i++) {
-                if (!(Objects.equals(snsUsers.get(i).getSnsUserNumber(), createSNSUser(dto).getSnsUserNumber())) &&
-                        !(Objects.equals(snsUsers.get(i).getStrEmail(), createSNSUser(dto).getStrEmail())) &&
-                        !(Objects.equals(snsUsers.get(i).getStrPhoneNumber(), createSNSUser(dto).getStrPhoneNumber())) &&
-                        !(Objects.equals(snsUsers.get(i).getStrCitizenCardNumber(), createSNSUser(dto).getStrCitizenCardNumber()))) {
-                    flag = true;
-                } else {
-                    flag = false;
-                    break;
+            for (SnsUser snsUser : snsUsers) {
+                if ((Objects.equals(snsUser.getSnsUserNumber(), createSNSUser(dto).getSnsUserNumber())) ||
+                        (Objects.equals(snsUser.getStrEmail(), createSNSUser(dto).getStrEmail())) ||
+                        (Objects.equals(snsUser.getStrPhoneNumber(), createSNSUser(dto).getStrPhoneNumber())) ||
+                        (Objects.equals(snsUser.getStrCitizenCardNumber(), createSNSUser(dto).getStrCitizenCardNumber()))) {
+                    return false;
                 }
             }
-            if (flag) {
-                snsUsers.add(createSNSUser(dto));
-
-                return "Saved";
-            } else {
-                return "Not Saved because the data is duplicated";
-            }
-
         }
+        snsUsers.add(createSNSUser(dto));
+        this.authFacade.addUserWithRole(dto.strName, dto.strEmail, dto.strPassword, Constants.ROLE_SNS_USER);
+        return true;
     }
 
     /**
@@ -483,9 +475,8 @@ public class Company {
      *
      * @param scheduledVaccine the scheduled vaccine
      */
-    public void addAppointment(ScheduledVaccine scheduledVaccine, VaccinationCenter vaccinationCenter) {
+    public void addAppointment(ScheduledVaccine scheduledVaccine) {
         appointmentsList.add(scheduledVaccine);
-        vaccinationCenter.addAppointment(scheduledVaccine);
     }
 
     /**

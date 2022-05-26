@@ -123,7 +123,7 @@ public class LoadCSVUI implements Runnable {
             dto.strPassword = values[8];
             controller.createSNSUser(dto);
             createCounter++;
-            if (controller.saveSNSUser(dto).equals("Not Saved because the data is duplicated")) {
+            if (!controller.saveSNSUser(dto)) {
                 saveCounter++;
             }
         }

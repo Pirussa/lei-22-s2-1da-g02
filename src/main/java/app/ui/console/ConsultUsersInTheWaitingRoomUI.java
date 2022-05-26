@@ -2,8 +2,6 @@ package app.ui.console;
 
 import app.controller.ConsultUsersInTheWaitingRoomController;
 import app.ui.console.utils.Utils;
-import dto.VaccinationCenterDto;
-
 
 /**
  * US005 - Consult the users in the waiting room of a Vaccination Center.
@@ -33,9 +31,7 @@ public class ConsultUsersInTheWaitingRoomUI implements Runnable {
             for (int listPosition = 0; listPosition < ctrl.listOfUsersInTheWaitingRoom().size(); listPosition++) {
                 System.out.printf("%n" + ctrl.listOfUsersInTheWaitingRoom().get(listPosition));
             }
-
         } else
             System.out.printf("%nNo user has arrived yet.%n");
     }
-
 }

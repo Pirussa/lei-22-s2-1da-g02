@@ -7,15 +7,19 @@
 class ConsultUsersInTheWaitingRoomUI
 
 class ConsultUsersInTheWaitingRoomController{
-+getVaccinationCenter()
++setVaccinationCenter()
++getArrivalsList()
 +listOfUsersInTheWaitingRoom(VaccinationCenter vaccinationCenter)
 }
 
-class Arrivals
 
-class VaccinationCenter
+class VaccinationCenter{
++getArrivalsList()
+}
 
-class Company
+class Company{
++getSnsUsersList()
+}
 
 class SnsUser
 
@@ -23,11 +27,9 @@ class SnsUser
 left to right direction
 
 ConsultUsersInTheWaitingRoomUI .> ConsultUsersInTheWaitingRoomController
-ConsultUsersInTheWaitingRoomController ..> Arrivals
 ConsultUsersInTheWaitingRoomController .r.> Company
 Company -> SnsUser
 ConsultUsersInTheWaitingRoomController ..> VaccinationCenter
-VaccinationCenter->Arrivals
 
 
 @enduml

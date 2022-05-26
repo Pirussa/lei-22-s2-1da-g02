@@ -27,7 +27,7 @@ import java.util.logging.Logger;
  */
 public class Utils {
 
-    private static Company company = App.getInstance().getCompany();
+    private static final Company company = App.getInstance().getCompany();
     private static final int MAXNUMBEROFCHARSSNSUSERNUMBER = 9;
 
     /**
@@ -78,11 +78,11 @@ public class Utils {
 
         RegisterNewEmployeeDto dtoEmp = new RegisterNewEmployeeDto();
         dtoEmp.id = "00001";
-        dtoEmp.name = "João";
+        dtoEmp.name = "Gustavo";
         dtoEmp.password = "AAA22vx";
         dtoEmp.phoneNumber = "915604427";
         dtoEmp.citizenCardNumber = "11960343 8 ZW1";
-        dtoEmp.email = "joao@gmail.com";
+        dtoEmp.email = "gustavo@gmail.com";
         dtoEmp.address = "Via Diagonal / 4475-079 / Porto";
         ctrlEmp.saveCreatedEmployee(dtoEmp, "Center Coordinator");
         //---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -205,10 +205,10 @@ public class Utils {
      * It creates and adds Scheduled Appointments to the Company as soon as the App runs
      */
     private static void bootstrapScheduledAppointments() {
-        ScheduledVaccine scheduledVaccine1 = new ScheduledVaccine(100000000, company.getVaccineTypes().get(1), LocalDateTime.of(2022, 5, 26, 13, 0));
-        ScheduledVaccine scheduledVaccine2 = new ScheduledVaccine(200000000, company.getVaccineTypes().get(0), LocalDateTime.of(2022, 5, 25, 9, 30));
-        ScheduledVaccine scheduledVaccine3 = new ScheduledVaccine(300000000, company.getVaccineTypes().get(2), LocalDateTime.of(2022, 5, 25, 9, 0));
-        ScheduledVaccine scheduledVaccine4 = new ScheduledVaccine(400000000, company.getVaccineTypes().get(0), LocalDateTime.of(2022, 5, 25, 9, 0));
+        ScheduledVaccine scheduledVaccine1 = new ScheduledVaccine(100000000, company.getVaccineTypes().get(1), LocalDateTime.of(2022, 5, 26, 17, 0));
+        ScheduledVaccine scheduledVaccine2 = new ScheduledVaccine(200000000, company.getVaccineTypes().get(0), LocalDateTime.of(2022, 5, 26, 17, 30));
+        ScheduledVaccine scheduledVaccine3 = new ScheduledVaccine(300000000, company.getVaccineTypes().get(2), LocalDateTime.of(2022, 5, 26, 17, 0));
+        ScheduledVaccine scheduledVaccine4 = new ScheduledVaccine(400000000, company.getVaccineTypes().get(0), LocalDateTime.of(2022, 5, 26, 17, 0));
 
         //---------------------------------------------------------------------------------------------------------------------------------------------------
         company.getVaccinationCenters().get(0).addAppointment(scheduledVaccine1);
@@ -218,38 +218,30 @@ public class Utils {
 
     }
 
-    /*private static void bootstrapArrivals() {
+    private static void bootstrapArrivals() {
         RegisterTheArrivalOfAnSnsUserController ctrlArrival = new RegisterTheArrivalOfAnSnsUserController();
 
-        Arrival firstArrival = new Arrival(100000000, company.getVaccineTypes().get(1));
-        ctrlArrival.setVaccinationCenterReceptionist(1);
-        ctrlArrival.setVaccinationCenterSnsUser(1);
-        ctrlArrival.getUserAppointment(100000000);
+        ctrlArrival.setVaccinationCenter(1);
+        ctrlArrival.checkAndSetUserAppointment(100000000);
         ctrlArrival.setArrival(100000000);
         ctrlArrival.registerArrival();
 
-        Arrival secondArrival = new Arrival(200000000, company.getVaccineTypes().get(0));
-        ctrlArrival.setVaccinationCenterReceptionist(1);
-        ctrlArrival.setVaccinationCenterSnsUser(1);
-        ctrlArrival.getUserAppointment(200000000);
+        ctrlArrival.setVaccinationCenter(1);
+        ctrlArrival.checkAndSetUserAppointment(200000000);
         ctrlArrival.setArrival(200000000);
         ctrlArrival.registerArrival();
 
-        Arrival thirdArrival = new Arrival(300000000, company.getVaccineTypes().get(2));
-        ctrlArrival.setVaccinationCenterReceptionist(1);
-        ctrlArrival.setVaccinationCenterSnsUser(1);
-        ctrlArrival.getUserAppointment(300000000);
+        ctrlArrival.setVaccinationCenter(1);
+        ctrlArrival.checkAndSetUserAppointment(300000000);
         ctrlArrival.setArrival(300000000);
         ctrlArrival.registerArrival();
 
-        Arrival fourthArrival = new Arrival(400000000, company.getVaccineTypes().get(0));
-        ctrlArrival.setVaccinationCenterReceptionist(1);
-        ctrlArrival.setVaccinationCenterSnsUser(1);
-        ctrlArrival.getUserAppointment(400000000);
+        ctrlArrival.setVaccinationCenter(1);
+        ctrlArrival.checkAndSetUserAppointment(400000000);
         ctrlArrival.setArrival(400000000);
         ctrlArrival.registerArrival();
 
-    }*/
+    }
 
     /**
      * It creates and adds everything that the App needs as soon as it runs, so it is not needed to create something prior to using one functionality
