@@ -7,7 +7,7 @@ import dto.SNSUserDto;
 import java.util.ArrayList;
 
 /**
- * The type Load csv controller.
+ * US014
  *
  * @author 1210816@isep.ipp.pt
  */

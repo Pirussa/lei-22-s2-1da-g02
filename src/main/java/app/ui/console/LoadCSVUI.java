@@ -13,10 +13,18 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * Asks the User for a csv file, verifies if the path exists and if the file is valid, if so then it saves the Users into the system.
+ *
+ * @author João Castro <1210816@isep.ipp.pt>
+ */
 public class LoadCSVUI implements Runnable {
 
     LoadCSVController controller = new LoadCSVController();
 
+    /**
+     * Asks for the path and fills it's data inside an Array List of Strings.
+     */
     public void run() {
 
             System.out.println("");
@@ -46,7 +54,7 @@ public class LoadCSVUI implements Runnable {
                         csvData.add(values[0] + "_" + values[1] + "_" + values[2] + "_" + values[3] + "_" + values[4] + "_" + values[5] + "_"
                                 + values[6] + "_" + values[7] + "_" + password);
                     } else {
-                        throw new IllegalArgumentException("The CSV data is invalid, .i.e, the Name of the User has non-word character.");
+                        throw new IllegalArgumentException("The CSV data is invalid, e.g., the Name of the User has non-word character.");
                     }
                 }
                 fillSNSUserDto(csvData);
@@ -65,10 +73,23 @@ public class LoadCSVUI implements Runnable {
         }
     }
 
+    /**
+     * Validates file format.
+     *
+     * @param path the path of the file
+     * @return the boolean
+     */
     public boolean validateFileFormat(String path) {
         return path.endsWith(".csv");
     }
 
+    /**
+     * Validate csv data boolean.
+     *
+     * @param values parameters of the CSV file
+     * @return the boolean
+     * @throws IOException the io exception
+     */
     public boolean validateCSVData(String[] values) throws IOException {
 
         int MAXNUMBEROFCHARSSNSUSERNUMBER = 9;
@@ -78,6 +99,11 @@ public class LoadCSVUI implements Runnable {
                 !values[7].isEmpty() && Utils.validateCitizenCardNumber(values[7]);
     }
 
+    /**
+     * Fill sns user dto.
+     *
+     * @param csvData the Array list of Strings with all the information of the CSV
+     */
     public void fillSNSUserDto(ArrayList<String> csvData) {
         LoadCSVController controller = new LoadCSVController();
         String[] values;
@@ -104,6 +130,11 @@ public class LoadCSVUI implements Runnable {
         System.out.printf("Saved %d Users out of %d, because %d had duplicated information.",createCounter - saveCounter, createCounter, saveCounter);
     }
 
+    /**
+     * Asks the User for the loading of another file.
+     *
+     * @return a boolean
+     */
     public static boolean confirmCreationCSV() {
         System.out.println("CSV Data is invalid or the CSV file does not exist.");
         System.out.println();

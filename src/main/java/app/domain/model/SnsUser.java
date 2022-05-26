@@ -1,5 +1,9 @@
 package app.domain.model;
-
+/**
+ * Creates an SNS User
+ *
+ * @author João Castro <1210816@isep.ipp.pt>
+ */
 
 import app.ui.console.utils.Utils;
 
@@ -14,9 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-/**
- * The type Sns user.
- */
 public class SnsUser {
     private String strName;
     private String strSex;
@@ -34,6 +35,19 @@ public class SnsUser {
 
     private static Company company = App.getInstance().getCompany();
 
+    /**
+     * Instantiates a new Sns user.
+     *
+     * @param strName              the str name
+     * @param strSex               the str sex
+     * @param strBirthDate         the str birth date
+     * @param strAddress           the str address
+     * @param strPhoneNumber       the str phone number
+     * @param strEmail             the str email
+     * @param snsUserNumber        the sns user number
+     * @param strCitizenCardNumber the str citizen card number
+     * @param strPassword          the str password
+     */
     public SnsUser(String strName, String strSex, String strBirthDate, String strAddress, String strPhoneNumber,
                    String strEmail, int snsUserNumber, String strCitizenCardNumber, String strPassword) {
 
@@ -56,26 +70,56 @@ public class SnsUser {
         }
     }
 
+    /**
+     * Gets str name.
+     *
+     * @return the str name
+     */
     public String getStrName() {
         return strName;
     }
 
+    /**
+     * Gets str sex.
+     *
+     * @return the str sex
+     */
     public String getStrSex() {
         return strSex;
     }
 
+    /**
+     * Gets str address.
+     *
+     * @return the str address
+     */
     public String getStrAddress() {
         return strAddress;
     }
 
+    /**
+     * Gets str password.
+     *
+     * @return the str password
+     */
     public String getStrPassword() {
         return strPassword;
     }
 
+    /**
+     * Gets auth.
+     *
+     * @return the auth
+     */
     public AuthFacade getAuth() {
         return auth;
     }
 
+    /**
+     * Gets company.
+     *
+     * @return the company
+     */
     public static Company getCompany() {
         return company;
     }
@@ -143,6 +187,12 @@ public class SnsUser {
         this.takenVaccines = takenVaccines;
     }
 
+    /**
+     * Validate email boolean.
+     *
+     * @param strEmail the str email
+     * @return the boolean
+     */
     public boolean validateEmail(String strEmail) {
         if (!strEmail.contains("@") && !strEmail.contains("."))
             return false;
@@ -157,15 +207,33 @@ public class SnsUser {
         return false;
     }
 
+    /**
+     * Validate password boolean.
+     *
+     * @param strPassword the str password
+     * @return the boolean
+     */
     public boolean validatePassword(String strPassword) {
         final int PASSWORDLENGHT = 7;
         return strPassword.length() == PASSWORDLENGHT;
     }
 
+    /**
+     * Validate sns user number boolean.
+     *
+     * @param snsUserNumber the sns user number
+     * @return the boolean
+     */
     public static boolean validateSNSUserNumber(int snsUserNumber) {
         return String.valueOf(snsUserNumber).length() == MAX_NUMBER_OF_CHARS_SNS_USER_NUMBER;
     }
 
+    /**
+     * Validate phone number boolean.
+     *
+     * @param phoneNumber the phone number
+     * @return the boolean
+     */
     public boolean validatePhoneNumber(String phoneNumber) {
         final int NUMBER_OF_PHONE_NUMBER_DIGITS = 9;
         final int STARTING_NUMBER_PORTUGUESE_PHONE = 9;
@@ -188,6 +256,12 @@ public class SnsUser {
         return false;
     }
 
+    /**
+     * Validate citizen card number boolean.
+     *
+     * @param strCitizenCardNumber the str citizen card number
+     * @return the boolean
+     */
     public boolean validateCitizenCardNumber(String strCitizenCardNumber) {
         final int NUMBER_OF_CITIZEN_CARD_DIGITS = 12;
         final int FIRST_SECOND_DIGIT_CC = 10;
@@ -214,6 +288,12 @@ public class SnsUser {
         return (sum % FIRST_SECOND_DIGIT_CC) == 0;
     }
 
+    /**
+     * Gets value from citizen card number digit.
+     *
+     * @param letter the letter
+     * @return the value from citizen card number digit
+     */
     public int getValueFromCitizenCardNumberDigit(String letter) {
         switch (letter) {
             case "0":
@@ -292,6 +372,12 @@ public class SnsUser {
         throw new IllegalArgumentException("Invalid Value in the Document.");
     }
 
+    /**
+     * Validate address boolean.
+     *
+     * @param strAddress the str address
+     * @return the boolean
+     */
     public static boolean validateAddress(String strAddress) {
         String[] splitAddress = strAddress.split("#");
         if (splitAddress.length != 3)
@@ -304,10 +390,22 @@ public class SnsUser {
         return true;
     }
 
+    /**
+     * Validate sex boolean.
+     *
+     * @param strSex the str sex
+     * @return the boolean
+     */
     public boolean validateSex(String strSex) {
         return strSex.equals("Male") || strSex.equals("Female") || strSex.equals("NA") || strSex.isEmpty();
     }
 
+    /**
+     * Validate birth date boolean.
+     *
+     * @param strBirthDate the str birth date
+     * @return the boolean
+     */
     public boolean validateBirthDate(String strBirthDate) {
         String dateFormat = "dd/MM/yyyy";
         DateFormat sdf = new SimpleDateFormat(dateFormat);
@@ -320,6 +418,11 @@ public class SnsUser {
         return true;
     }
 
+    /**
+     * Validate sns user boolean.
+     *
+     * @return the boolean
+     */
     public boolean validateSNSUser() {
         return strName != null && strEmail != null && strPassword != null && strBirthDate != null &&
                 strPhoneNumber != null && strAddress != null && strCitizenCardNumber != null && !strName.isEmpty() && !strEmail.isEmpty() &&
@@ -329,6 +432,12 @@ public class SnsUser {
                 validateCitizenCardNumber(strCitizenCardNumber) && validatePhoneNumber(strPhoneNumber) && validateBirthDate(strBirthDate);
     }
 
+    /**
+     * Gets user index in users list.
+     *
+     * @param snsUserNumber the sns user number
+     * @return the user index in users list
+     */
     public static int getUserIndexInUsersList(int snsUserNumber) {
         for (int position = 0; position < company.getSNSUserList().size(); position++) {
             if (snsUserNumber == (company.getSNSUserList().get(position).getSnsUserNumber())) {
@@ -351,6 +460,11 @@ public class SnsUser {
                 "Password: " + strPassword;
     }
 
+    /**
+     * Restricted users in the waiting room info string.
+     *
+     * @return the string
+     */
     public String restrictedUsersInTheWaitingRoomInfo(){
         return "Name: " + strName + '\n' +
                 "Sex: " + strSex + '\n' +
@@ -359,6 +473,11 @@ public class SnsUser {
                 "Phone Number: " + strPhoneNumber + '\n';
     }
 
+    /**
+     * Register vaccine.
+     *
+     * @param takenVaccine the taken vaccine
+     */
     public void registerVaccine(TakenVaccine takenVaccine) {
         takenVaccines.add(takenVaccine);
     }

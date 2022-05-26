@@ -11,7 +11,6 @@ deactivate System
 
 Administrator -> System: Types the path of the CSV file
 activate System
-Administrator <-- System: Informs if the path is valid
-Administrator <-- System: If the path is valid then informs if the User data contained in the CSV is valid.
+Administrator <-- System: Informs operation success.
 
 @enduml

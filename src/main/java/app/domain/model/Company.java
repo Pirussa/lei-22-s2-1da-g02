@@ -434,10 +434,10 @@ public class Company {
     }
 
     /**
-     * Create sns user.
+     * Create sns user with information from the DTO
      *
      * @param dto the dto
-     * @return the sns user
+     * @return the created SNS User
      */
     public SnsUser createSNSUser(SNSUserDto dto) {
         return new SnsUser(dto.strName, dto.strSex, dto.strBirthDate, dto.strAddress, dto.strPhoneNumber,
@@ -445,10 +445,10 @@ public class Company {
     }
 
     /**
-     * Save sns user string.
+     * Save sns user inside an array of SNS Users
      *
      * @param dto the dto
-     * @return the string
+     * @return a string in order to know if the users was saved or not.
      */
     public String saveSNSUser(SNSUserDto dto) {
         boolean flag = false;
