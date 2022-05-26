@@ -66,6 +66,4 @@ public class RegisterTheArrivalOfAnSnsUserUI implements Runnable {
 
         return true;
     }
-
-
 }
