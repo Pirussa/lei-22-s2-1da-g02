@@ -108,7 +108,7 @@ Selected Data:
 | *Interaction ID* | *Question: Which class is responsible for...* | *Answer*  | *Justification (with patterns)*  |
 |:-------------  |:--------------------- |:------------|:---------------------------- |
 | Step 1  		 |	... interacting with the actor?	 |       ConsultUsersInTheWaitingRoomUI     |    *Pure Fabrication:* The UI class is responsible for the direct interaction with the user through the controller and the different other implemented classes. | Step 2  		 |							 |             |                              |
-| |... coordinating the US? | ConsultUsersInTheWaitingRoomController| *Controller:* Intermediary between the UI and the Domain Model, and as it's name says, controls the information that is transferred between both of them. |
+| |... coordinating the US? | ConsultUsersInTheWaitingRoomController| *Controller:* Intermediary between the UI and the Domain Model, and as its name says, controls the information that is transferred between both of them. |
 | Step 2  		 |		... showing the list containing the created vaccination centers	 |   ConsultUsersInTheWaitingRoomUI         |      *Pure Fabrication:* The _UI_ makes the direct interaction with the application user, which allows in this case, Nurses to select the vaccination center they work at.     |
 | 		 |		... taking the list to the UI	 |  ConsultUsersInTheWaitingRoomController       |     *IE:* The _Controller_ is the intermediary that takes the data to the UI.    |
 | 		 |		... supplying the list to the Controller	 |  Company     |     *IE:* The class _Company_ has the Vaccination Centers and their information.   |
@@ -116,7 +116,7 @@ Selected Data:
 | Step 3  		 |		... creating the list of users in the waiting room					 |   ConsultUsersInTheWaitingRoomController          |      *IE:* The _ConsultUsersInTheWaitingRoomController_ class is responsible for getting the information from the arrivals list, and return the list of SNSUsers that are in the waiting room.     |
 | 		 |		... supplying the list of arrivals	 |  VaccinationCenter    |     *IE:* The class _VaccinationCenter_ has the list of arrivals.   |
 | 		 |		... supplying the list of SNS Users	 |  Company   |     *IE:* The class _Company_ has the list of SNS Users.   |
-| Step 4 		 |		... presenting the list of SNS Users in the waiting room |  ConsultUsersInTheWaitingRoomUI          |         *IE:* The _UI_ class presents the list created in the _Controller_.           |
+| Step 4 		 |		... presenting the list of SNS Users in the waiting room |  ConsultUsersInTheWaitingRoomUI          |         *Pure Fabrication:* The _UI_ class presents the list created in the _Controller_.           |
 ### Systematization ##
 
 According to the taken rationale, the conceptual classes promoted to software classes are: 
