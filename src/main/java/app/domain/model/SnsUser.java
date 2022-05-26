@@ -18,29 +18,30 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * The type Sns user.
+ */
 public class SnsUser {
-    private String strName;
-    private String strSex;
-    private String strBirthDate;
-    private String strAddress;
-    private String strPhoneNumber;
-    private String strEmail;
-    private int snsUserNumber;
-    private String strCitizenCardNumber;
-    private String strPassword;
+    private final String strName;
+    private final String strSex;
+    private final String strBirthDate;
+    private final String strAddress;
+    private final String strPhoneNumber;
+    private final String strEmail;
+    private final int snsUserNumber;
+    private final String strCitizenCardNumber;
+    private final String strPassword;
     private List<TakenVaccine> takenVaccines = new ArrayList<>();
     private static final int MAX_NUMBER_OF_CHARS_SNS_USER_NUMBER = 9;
 
     private AuthFacade auth = new AuthFacade();
-
-    private static Company company = App.getInstance().getCompany();
 
     /**
      * Instantiates a new Sns user.
      *
      * @param strName              the str name
      * @param strSex               the str sex
-     * @param strBirthDate         the str birth date
+     * @param strBirthDate         the str birthdate
      * @param strAddress           the str address
      * @param strPhoneNumber       the str phone number
      * @param strEmail             the str email
@@ -53,13 +54,13 @@ public class SnsUser {
 
         this.strName = strName;
         this.strSex = strSex;
-        this.strBirthDate =strBirthDate;
+        this.strBirthDate = strBirthDate;
         this.strAddress = strAddress;
-        this.strPhoneNumber=strPhoneNumber;
-        this.strEmail=strEmail;
-        this.snsUserNumber=snsUserNumber;
-        this.strCitizenCardNumber=strCitizenCardNumber;
-        this.strPassword=strPassword;
+        this.strPhoneNumber = strPhoneNumber;
+        this.strEmail = strEmail;
+        this.snsUserNumber = snsUserNumber;
+        this.strCitizenCardNumber = strCitizenCardNumber;
+        this.strPassword = strPassword;
 
         try {
             if (!validateSNSUser()) {
@@ -104,24 +105,6 @@ public class SnsUser {
      */
     public String getStrPassword() {
         return strPassword;
-    }
-
-    /**
-     * Gets auth.
-     *
-     * @return the auth
-     */
-    public AuthFacade getAuth() {
-        return auth;
-    }
-
-    /**
-     * Gets company.
-     *
-     * @return the company
-     */
-    public static Company getCompany() {
-        return company;
     }
 
     /**
@@ -187,12 +170,6 @@ public class SnsUser {
         this.takenVaccines = takenVaccines;
     }
 
-    /**
-     * Validate email boolean.
-     *
-     * @param strEmail the str email
-     * @return the boolean
-     */
     public boolean validateEmail(String strEmail) {
         if (!strEmail.contains("@") && !strEmail.contains("."))
             return false;
@@ -207,169 +184,9 @@ public class SnsUser {
         return false;
     }
 
-    /**
-     * Validate password boolean.
-     *
-     * @param strPassword the str password
-     * @return the boolean
-     */
     public boolean validatePassword(String strPassword) {
         final int PASSWORDLENGHT = 7;
         return strPassword.length() == PASSWORDLENGHT;
-    }
-
-    /**
-     * Validate sns user number boolean.
-     *
-     * @param snsUserNumber the sns user number
-     * @return the boolean
-     */
-    public static boolean validateSNSUserNumber(int snsUserNumber) {
-        return String.valueOf(snsUserNumber).length() == MAX_NUMBER_OF_CHARS_SNS_USER_NUMBER;
-    }
-
-    /**
-     * Validate phone number boolean.
-     *
-     * @param phoneNumber the phone number
-     * @return the boolean
-     */
-    public boolean validatePhoneNumber(String phoneNumber) {
-        final int NUMBER_OF_PHONE_NUMBER_DIGITS = 9;
-        final int STARTING_NUMBER_PORTUGUESE_PHONE = 9;
-        final int FIRST_SECOND_NUMBER_PORTUGUESE_PHONE = 1;
-        final int SECOND_SECOND_NUMBER_PORTUGUESE_PHONE = 2;
-        final int THIRD_SECOND_NUMBER_PORTUGUESE_PHONE = 3;
-        final int FOURTH_SECOND_NUMBER_PORTUGUESE_PHONE = 6;
-
-        if (phoneNumber.length() == NUMBER_OF_PHONE_NUMBER_DIGITS && Integer.parseInt(phoneNumber) % 1 == 0) {
-            int ch1 = Integer.parseInt(String.valueOf(phoneNumber.charAt(0)));
-            if (ch1 != STARTING_NUMBER_PORTUGUESE_PHONE)
-                return false;
-
-            int ch2 = Integer.parseInt(String.valueOf(phoneNumber.charAt(1)));
-            if (ch2 != FIRST_SECOND_NUMBER_PORTUGUESE_PHONE && ch2 != SECOND_SECOND_NUMBER_PORTUGUESE_PHONE && ch2 != THIRD_SECOND_NUMBER_PORTUGUESE_PHONE && ch2 != FOURTH_SECOND_NUMBER_PORTUGUESE_PHONE) {
-                return false;
-            }
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Validate citizen card number boolean.
-     *
-     * @param strCitizenCardNumber the str citizen card number
-     * @return the boolean
-     */
-    public boolean validateCitizenCardNumber(String strCitizenCardNumber) {
-        final int NUMBER_OF_CITIZEN_CARD_DIGITS = 12;
-        final int FIRST_SECOND_DIGIT_CC = 10;
-        String noBlankSpotsCitizenCardNumber = strCitizenCardNumber.replaceAll("\\s", "");
-        int sum = 0;
-        if (noBlankSpotsCitizenCardNumber.length() != NUMBER_OF_CITIZEN_CARD_DIGITS)
-            return false;
-
-        boolean secondDigit = true;
-
-        for (int digit = 0; digit < noBlankSpotsCitizenCardNumber.length(); digit++) {
-            String toUpperCase = String.valueOf(noBlankSpotsCitizenCardNumber.charAt(digit)).toUpperCase();
-            int value = getValueFromCitizenCardNumberDigit(toUpperCase);
-
-            if (secondDigit) {
-                value *= 2;
-
-                if (value >= 10)
-                    value -= 9;
-            }
-            sum += value;
-            secondDigit = !secondDigit;
-        }
-        return (sum % FIRST_SECOND_DIGIT_CC) == 0;
-    }
-
-    /**
-     * Gets value from citizen card number digit.
-     *
-     * @param letter the letter
-     * @return the value from citizen card number digit
-     */
-    public int getValueFromCitizenCardNumberDigit(String letter) {
-        switch (letter) {
-            case "0":
-                return 0;
-            case "1":
-                return 1;
-            case "2":
-                return 2;
-            case "3":
-                return 3;
-            case "4":
-                return 4;
-            case "5":
-                return 5;
-            case "6":
-                return 6;
-            case "7":
-                return 7;
-            case "8":
-                return 8;
-            case "9":
-                return 9;
-            case "A":
-                return 10;
-            case "B":
-                return 11;
-            case "C":
-                return 12;
-            case "D":
-                return 13;
-            case "E":
-                return 14;
-            case "F":
-                return 15;
-            case "G":
-                return 16;
-            case "H":
-                return 17;
-            case "I":
-                return 18;
-            case "J":
-                return 19;
-            case "K":
-                return 20;
-            case "L":
-                return 21;
-            case "M":
-                return 22;
-            case "N":
-                return 23;
-            case "O":
-                return 24;
-            case "P":
-                return 25;
-            case "Q":
-                return 26;
-            case "R":
-                return 27;
-            case "S":
-                return 28;
-            case "T":
-                return 29;
-            case "U":
-                return 30;
-            case "V":
-                return 31;
-            case "W":
-                return 32;
-            case "X":
-                return 33;
-            case "Y":
-                return 34;
-            case "Z":
-                return 35;
-        }
-        throw new IllegalArgumentException("Invalid Value in the Document.");
     }
 
     /**
@@ -384,10 +201,7 @@ public class SnsUser {
             return false;
 
         String zipCode = splitAddress[1].trim();
-        if (zipCode.length() != 8 || zipCode.charAt(4) != '-')
-            return false;
-
-        return true;
+        return zipCode.length() == 8 && zipCode.charAt(4) == '-';
     }
 
     /**
@@ -401,9 +215,9 @@ public class SnsUser {
     }
 
     /**
-     * Validate birth date boolean.
+     * Validate birthdate boolean.
      *
-     * @param strBirthDate the str birth date
+     * @param strBirthDate the str birthdate
      * @return the boolean
      */
     public boolean validateBirthDate(String strBirthDate) {
@@ -419,34 +233,25 @@ public class SnsUser {
     }
 
     /**
-     * Validate sns user boolean.
+     * Validate sns user.
      *
-     * @return the boolean
+     * @return true if the SNS User is valid.
      */
     public boolean validateSNSUser() {
         return strName != null && strEmail != null && strPassword != null && strBirthDate != null &&
                 strPhoneNumber != null && strAddress != null && strCitizenCardNumber != null && !strName.isEmpty() && !strEmail.isEmpty() &&
                 !strPassword.isEmpty() && !strBirthDate.isEmpty() && !strPhoneNumber.isEmpty() &&
-                !strAddress.isEmpty() && !strCitizenCardNumber.isEmpty() && validateEmail(strEmail) && validatePassword(strPassword) &&
-                Utils.validateSNSUserNumber(snsUserNumber) && validateSex(strSex) && validateAddress(strAddress) &&
-                validateCitizenCardNumber(strCitizenCardNumber) && validatePhoneNumber(strPhoneNumber) && validateBirthDate(strBirthDate);
+                !strAddress.isEmpty() && !strCitizenCardNumber.isEmpty() && Utils.validateEmail(strEmail) &&
+                Utils.validateSnsUserNumber(snsUserNumber) && validateSex(strSex) && validateAddress(strAddress) &&
+                Utils.validateCitizenCardNumber(strCitizenCardNumber) && Utils.validatePhoneNumber(strPhoneNumber) && validateBirthDate(strBirthDate);
     }
+
 
     /**
-     * Gets user index in users list.
+     * To String for an SNS User (contains user´s information)
      *
-     * @param snsUserNumber the sns user number
-     * @return the user index in users list
+     * @return String that contains all the information about a user
      */
-    public static int getUserIndexInUsersList(int snsUserNumber) {
-        for (int position = 0; position < company.getSNSUserList().size(); position++) {
-            if (snsUserNumber == (company.getSNSUserList().get(position).getSnsUserNumber())) {
-                return position;
-            }
-        }
-        return -1;
-    }
-
     @Override
     public String toString() {
         return "Name: " + strName + '\n' +
@@ -458,19 +263,6 @@ public class SnsUser {
                 "SNS User Number: " + snsUserNumber + '\n' +
                 "Citizen Card Number: " + strCitizenCardNumber + '\n' +
                 "Password: " + strPassword;
-    }
-
-    /**
-     * Restricted users in the waiting room info string.
-     *
-     * @return the string
-     */
-    public String restrictedUsersInTheWaitingRoomInfo(){
-        return "Name: " + strName + '\n' +
-                "Sex: " + strSex + '\n' +
-                "Birth Date: " + strBirthDate + '\n' +
-                "SNS User Number: " + snsUserNumber + '\n' +
-                "Phone Number: " + strPhoneNumber + '\n';
     }
 
     /**

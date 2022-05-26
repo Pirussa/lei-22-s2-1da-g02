@@ -40,6 +40,6 @@ public class LoadCSVController {
      * @return the array list of SNS Users
      */
     public ArrayList<SnsUser> getSNSUserList(){
-        return company.getSNSUserList();
+        return company.getSnsUserList();
     }
 }

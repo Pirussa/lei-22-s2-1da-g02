@@ -1,8 +1,6 @@
 package app.controller;
 
 import app.domain.model.*;
-import dto.VaccinationCenterDto;
-import mapper.VaccinationCenterMapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,13 +50,13 @@ public class ConsultUsersInTheWaitingRoomController {
         ArrayList<String> listOfUsersInTheWaitingRoom = new ArrayList<>();
         String snsUserInfo = "";
         for (int arrivalListPosition = 0; arrivalListPosition < getArrivalsList().size(); arrivalListPosition++) {
-            for (int snsUserListPosition = 0; snsUserListPosition < company.getSNSUserList().size(); snsUserListPosition++) {
-                if (getArrivalsList().get(arrivalListPosition).getSnsNumber() == company.getSNSUserList().get(snsUserListPosition).getSnsUserNumber()) {
-                    snsUserInfo = "Name: " + company.getSNSUserList().get(snsUserListPosition).getStrName() + '\n' +
-                            "Sex: " + company.getSNSUserList().get(snsUserListPosition).getStrSex() + '\n' +
-                            "Birth Date: " + company.getSNSUserList().get(snsUserListPosition).getStrBirthDate() + '\n' +
-                            "SNS User Number: " + company.getSNSUserList().get(snsUserListPosition).getSnsUserNumber() + '\n' +
-                            "Phone Number: " + company.getSNSUserList().get(snsUserListPosition).getStrPhoneNumber() + '\n';
+            for (int snsUserListPosition = 0; snsUserListPosition < company.getSnsUserList().size(); snsUserListPosition++) {
+                if (getArrivalsList().get(arrivalListPosition).getSnsNumber() == company.getSnsUserList().get(snsUserListPosition).getSnsUserNumber()) {
+                    snsUserInfo = "Name: " + company.getSnsUserList().get(snsUserListPosition).getStrName() + '\n' +
+                            "Sex: " + company.getSnsUserList().get(snsUserListPosition).getStrSex() + '\n' +
+                            "Birth Date: " + company.getSnsUserList().get(snsUserListPosition).getStrBirthDate() + '\n' +
+                            "SNS User Number: " + company.getSnsUserList().get(snsUserListPosition).getSnsUserNumber() + '\n' +
+                            "Phone Number: " + company.getSnsUserList().get(snsUserListPosition).getStrPhoneNumber() + '\n';
                     listOfUsersInTheWaitingRoom.add(snsUserInfo);
                 }
 

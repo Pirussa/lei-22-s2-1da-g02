@@ -408,7 +408,7 @@ public class VaccinationCenter {
      * @return true if the appointment is validated according to age group and time since last dose.
      */
     public boolean validateAppointmentAccordingToAgeGroupAndTimeSinceLastDose(ScheduledVaccineDto scheduledVaccineDto, Company company) {
-        SnsUser snsUser = company.getSNSUserList().get(SnsUser.getUserIndexInUsersList(scheduledVaccineDto.snsNumber));
+        SnsUser snsUser = company.getSnsUserList().get(company.getUserIndexInUsersList(scheduledVaccineDto.snsNumber));
 
         if (!snsUser.getTakenVaccines().isEmpty()) {
             for (TakenVaccine takenVaccine : snsUser.getTakenVaccines()) {
@@ -431,7 +431,7 @@ public class VaccinationCenter {
      * @return if the appointment is validated according to the admin process
      */
     public boolean validateAppointmentAccordingToAdminProcess(SnsUser snsUser, ScheduledVaccineDto dto, TakenVaccine takenVaccine) {
-        int days = (int) Duration.between(dto.date, takenVaccine.getDateTime()).toDays();
+        int days = (int) Duration.between(dto.date, takenVaccine.getDateTimeOfLastDose()).toDays();
 
         int doseNumber = takenVaccine.getDose();
         AdministrationProcess administrationProcess = takenVaccine.getVaccine().getAdminProcess();

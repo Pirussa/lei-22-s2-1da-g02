@@ -6,10 +6,9 @@ import java.util.List;
 public class RegisterTheArrivalOfAnSnsUserController {
 
     private VaccinationCenter vaccinationCenter;
-    private List<ScheduledVaccine> vaccineAppointments;
     private ScheduledVaccine appointment;
     private Arrival arrival;
-    private Company company = App.getInstance().getCompany();
+    private final Company company = App.getInstance().getCompany();
 
     public RegisterTheArrivalOfAnSnsUserController() {}
 
@@ -31,7 +30,7 @@ public class RegisterTheArrivalOfAnSnsUserController {
      * @return ScheduleVaccine - return an appointment of a user
      */
     public boolean checkAndSetUserAppointment(int snsNumber) {
-        vaccineAppointments = vaccinationCenter.getScheduledVaccineList();
+        List<ScheduledVaccine> vaccineAppointments = vaccinationCenter.getScheduledVaccineList();
 
         for (ScheduledVaccine vaccineAppointment : vaccineAppointments)
             if (vaccineAppointment.getSnsNumber() == snsNumber) {
@@ -86,5 +85,9 @@ public class RegisterTheArrivalOfAnSnsUserController {
      */
     public void setArrival(int snsNumber) {
         arrival = new Arrival(snsNumber, appointment.getVaccineType());
+    }
+
+    public int getUserIndexInUsersList(int snsNumber) {
+        return company.getUserIndexInUsersList(snsNumber);
     }
 }

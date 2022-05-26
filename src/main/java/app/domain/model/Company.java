@@ -429,7 +429,7 @@ public class Company {
      *
      * @return the sns user list
      */
-    public ArrayList<SnsUser> getSNSUserList() {
+    public ArrayList<SnsUser> getSnsUserList() {
         return snsUsers;
     }
 
@@ -507,4 +507,19 @@ public class Company {
     public void cleanAppointments(){
         appointmentsList.clear();
     }
+
+
+    /**
+     * Gets user index in users list.
+     *
+     * @param snsUserNumber the sns user number
+     * @return the user index in users list
+     */
+    public int getUserIndexInUsersList(int snsUserNumber) {
+        for (int position = 0; position < getSnsUserList().size(); position++) {
+            if (snsUserNumber == (getSnsUserList().get(position).getSnsUserNumber())) return position;
+        }
+        return -1;
+    }
+
 }
