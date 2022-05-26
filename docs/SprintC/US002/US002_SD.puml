@@ -2,55 +2,52 @@
 
 autonumber
 
-actor SNSUser as U
+actor Receptionist as R
 
 participant ":ScheduleVaccineUI" as UI
 participant ":ScheduleVaccineController" as CTRL
 participant "company\n:Company" as C
-participant "vaccinationCenterMapper\n:VaccinationCenterMapper" as VCM
 participant "vaccinationCenter\n:VaccinationCenter" as VC
-participant "vaccinationCenterDto\n:VaccinationCenterDto" as VCDTO
 participant "snsUser\n:SnsUser" as SU
-participant "scheduledVaccineDtoMapper\n:ScheduledVaccineMapper" as M
-participant "scheduledVaccineDto\n:ScheduledVaccineDto" as DTO
-participant "scheduledVaccine\n:ScheduledVaccine" as SV
 participant "appointmentsList\nList<ScheduledVaccine>" as L
 
 
-activate U
-U -> UI : asks to schedule a vaccine
+activate R
+R -> UI : asks to schedule a vaccine
 activate UI
-
 UI -> CTRL : companyHasNecessaryInfo()
 activate CTRL
 
 CTRL -> C : getSNSUserList().isEmpty()
 activate C
-C ---> CTRL : result
+C ---> CTRL : result (user´s list is or not empty)
 deactivate C
 
 CTRL -> C : getVaccineTypes().isEmpty()
 activate C
-C ---> CTRL : result
+C ---> CTRL : result (vaccine type´s list is or not empty)
 deactivate C
 
 CTRL -> C :  getVaccinationCenters().isEmpty()
 activate C
-C ---> CTRL : result
+C ---> CTRL : result (vaccination center´s list is or not empty)
 deactivate C
 CTRL ---> UI : result
 deactivate CTRL
+activate UI
+UI --> R : asks user´s Sns Number
+R -> UI : introduces user´s Sns number
+
 UI -> CTRL : vaccinationCenterList = getVaccinationCentersNameList()
 activate CTRL
 CTRL -> C : vaccinationCenterList = getVaccinationCenters()
 activate C
-deactivate C
 deactivate CTRL
 
-UI --> U : shows a list with the available vaccination centers
+UI --> R : shows a list with the available vaccination centers
 
 deactivate UI
-U -> UI : selects one vaccination center
+R -> UI : selects one vaccination center
 
 
 
@@ -65,18 +62,11 @@ deactivate CTRL
 
 UI -> CTRL : vaccinationCenterDto = getVaccinationCenterInfo()
 activate CTRL
-CTRL -> VCM : vaccinationCenterDto = domainToDto(vaccinationCenter)
-note over VCM,VC
-Several steps to extract data from the Vaccination Center
-end note
-activate VCM
-VCM --> VCDTO ** : vaccinationCenterDto = createVaccinationCenterDto(vaccinationCenter)
-deactivate VCM
-
-
-
-
+ref over CTRL: SD_GetVaccinationCenterInfo.puml
+CTRL --> UI : vaccinationCenterDto
 deactivate CTRL
+
+
 
 UI -> CTRL : vaccineTypesList = getVaccineTypesNameList()
 activate CTRL
@@ -86,9 +76,9 @@ deactivate C
 deactivate CTRL
 
 
- UI --> U : shows a list with the Vaccine Types available
+ UI --> R : shows a list with the Vaccine Types available
 deactivate UI
-U -> UI : selects one Vaccine Type
+R -> UI : selects one Vaccine Type
 
 activate UI
 UI -> CTRL : getAvailableDaysListCurrentMonth(availableDaysCurrentMonth)
@@ -109,10 +99,10 @@ deactivate CTRL
 
 
 
- UI --> U : shows a list with all the available dates for the current month
+ UI --> R : shows a list with all the available dates for the current month
 deactivate UI
 alt asks to see next month dates
-U -> UI :
+R -> UI :
 activate UI
 UI -> CTRL : getAvailableDaysListNextMonth(availableDaysCurrentMonth)
 activate CTRL
@@ -129,12 +119,12 @@ end
 activate CTRL
 deactivate CTRL
 deactivate CTRL
-UI --> U : shows a list with all the available dates for the next month
+UI --> R : shows a list with all the available dates for the next month
 deactivate UI
 
 end
 
-U -> UI : selects one date
+R -> UI : selects one date
 activate UI
 note right
 all the data being passed as a parameter below, comes from the vaccinationCenterDto
@@ -158,9 +148,9 @@ deactivate CTRL
 deactivate CTRL
 
 
-UI --> U : shows a list with all the slots available
+UI --> R : shows a list with all the slots available
 deactivate UI
-U -> UI : selects one slot
+R -> UI : selects one slot
 
 
 
@@ -173,7 +163,7 @@ activate CTRL
 deactivate CTRL
 CTRL -> C : userIsEligibleForTheAppointment(scheduledVaccineDto)
 activate C
-C ---> CTRL : result
+C ---> CTRL : result (if user is or not elegible for the appointment)
 deactivate C
 
 
@@ -190,30 +180,30 @@ activate C
 deactivate C
 VC -> SU : getTakenVaccines().isNotEmpty()
 activate SU
-SU --> VC : result
+SU --> VC : result (if taken vaccine list is or not empty)
 deactivate SU
 VC -> VC : validateAppointmentAccordingToAdminProcess(snsUser, scheduledVaccineDto, takenVaccine)
 activate VC
 deactivate VC
 
 
-VC --> CTRL : result
+VC --> CTRL : result (if appoitment is or not validated)
 deactivate VC
 
 
 CTRL -> VC : centerHasAvailability(scheduledVaccineDto)
 activate VC
-VC ---> CTRL : result
+VC ---> CTRL : result (if center is or not available for an appointment)
 deactivate VC
 
 
 CTRL ---> UI : result
 deactivate CTRL
 
-UI ---> U : shows the data and requests confirmation
+UI ---> R : shows the data and requests confirmation
 deactivate UI
 
-U -> UI : confirms the data
+R -> UI : confirms the data
 activate UI
 
 UI -> CTRL : scheduledVaccine(scheduleVaccineDto, vaccinationCenter)
@@ -225,15 +215,10 @@ CTRL -> VC : centerHasAvailability(scheduleVaccineDto)
 activate VC
 VC ---> CTRL : result
 deactivate VC
-CTRL -> M : scheduledVaccine = createScheduledVaccine(scheduleVaccineDto)
-activate M
-note over M, DTO
-Several steps to extract data from the DTO
-end note
-M ---> SV ** : createScheduledVaccine(scheduleVaccineDto)
-activate SV
-deactivate SV
-deactivate M
+
+
+ref over CTRL : SD_createScheduledVaccine.puml
+
 
 CTRL -> VC : addAppointment(scheduledVaccine)
 activate VC
@@ -241,29 +226,27 @@ activate VC
 
 VC -> L : addAppointment(scheduledVaccine)
 activate L
-L --> VC : result
+L --> VC : result (if appointment was added to appointment´s list)
 
 deactivate L
 
-VC --> CTRL : result
+VC --> CTRL : result (if appointment was added to appointment´s list)
 
 deactivate VC
 
-
-
-CTRL ---> UI : result
+CTRL ---> UI : result (if appointment was added to appointment´s list)
 deactivate CTRL
-UI --> U : informs operation success and shows appointment information
+UI --> R : informs operation success and shows appointment information
 
-UI -> U : asks if the user wants to receive an SMS with the appointment information
+UI -> R : asks if the user wants to receive an SMS with the appointment information
 deactivate UI
 
-U -> UI : authorizes the application to send him an SMS
+R -> UI : authorizes the application to send him an SMS
 activate UI
 UI -> CTRL : printAppointmentToFile(scheduledVaccineDto, vaccinationCenter)
 activate CTRL
 deactivate CTRL
-UI ---> U : informs operation success
+UI ---> R : informs operation success
 deactivate UI
-deactivate U
+deactivate R
 @enduml

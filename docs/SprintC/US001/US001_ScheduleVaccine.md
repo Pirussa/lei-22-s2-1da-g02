@@ -166,7 +166,7 @@ No other relevant remarks.
 | Step 7   |    ... showing all the data to be confirmed | ScheduleVaccineUI   |  **Pure Fabrication:** there is no reason to assign this responsibility to any existing class in the Domain Model.   |
 | Step 8   |    ... schedule a Vaccine | ScheduleVaccineController | **Controller:** act as a mediator between the UI and the Model. Has the responsibility of controlling the data transmission between both. It maps the user action into model updates.   |
 |    |    ... instantiating a Scheduled Vaccine?  | ScheduleVaccineMapper | By applying the **Creator** pattern, the "ScheduleVaccineMapper" is responsible for instantiating a new "ScheduledVaccine", since it is the one who   |
-|          |    ...saving the Appointment? | VaccinationCenter & ScheduledVaccine| **IE:** A Vaccination Center has its own appointments. The Company needs all the appointments so it can validate future appointments  |
+|          |    ...saving the Appointment? | AppointmentsList | **IE:** A list with all the appointments.  |
 | Step 9   |    ... informing the operation success and showing the appointment info | ScheduleVaccineUI | **Pure Fabrication:** there is no reason to assign this responsibility to any existing class in the Domain Model.   |
 | Step 10   |    ... asking the User if he wants to receive an SMS with the appointment info | ScheduleVaccineUI | **Pure Fabrication:** there is no reason to assign this responsibility to any existing class in the Domain Model.   |
 | Step 11   |    ... printing the SMS information to a file | ScheduleVaccineController |  **Controller:** act as a mediator between the UI and the Model. Has the responsibility of controlling the data transmission between both. It maps the user action into model updates.   |
@@ -189,6 +189,10 @@ Other software classes (i.e. Pure Fabrication) identified:
 * ScheduleVaccineController
 * ScheduledVaccineDto
 * ScheduledVaccineMapper
+* SnsUser 
+* Vaccine 
+* Administration Process 
+* Company
 
 ## 3.2. Sequence Diagram (SD)
 

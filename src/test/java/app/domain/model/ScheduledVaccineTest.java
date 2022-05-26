@@ -116,7 +116,6 @@ class ScheduledVaccineTest {
         Utils.bootstrap();
 
         ScheduledVaccineDto scheduledVaccineDto1 = new ScheduledVaccineDto();
-        ScheduledVaccineDto scheduledVaccineDto2 = new ScheduledVaccineDto();
         VaccinationCenter vaccinationCenter = new VaccinationCenter("test", "test", "911111111", "test@gmail.com", "911111111", "www.test.com", "9", "16", "420", "1", "test", "4470-111", "test", company.getCentreCoordinatorList().get(0).getId());
         company.getVaccinationCenters().add(vaccinationCenter);
 

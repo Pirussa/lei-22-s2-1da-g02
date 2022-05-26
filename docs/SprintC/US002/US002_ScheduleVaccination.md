@@ -14,6 +14,9 @@ As a **receptionist**, I want to schedule a **vaccination**.
 
 > The user should select [...] the type of vaccine to be administered (by default, the system suggests the one related to the ongoing outbreak).
 
+> Then, the application should check the vaccination center capacity for that day/time and, if possible, confirm that the vaccination is
+scheduled and inform the user that (s)he should be at the selected vaccination center at the scheduled day and time.
+
 **From the client clarifications:**
 
 > **Question:** Receptionists have the ability to schedule an appointment in different vaccination centres or only on their own?
@@ -34,12 +37,29 @@ In Sprint D we will introduce new USs where the nurse records the administration
 >
 > **Answer** [...] A file named SMS.txt should be used to receive/record the SMS messages. We will not use a real word service to send SMSs.
 
+> **Question:** "For the US1, the acceptance criteria is: A SNS user cannot schedule the same vaccine more than once. For the US2, the acceptance criteria is: The algorithm should check if the SNS User is within the age and time since the last vaccine.
+[1] Are this acceptance criteria exclusive of each US or are implemented in both?
+[2] To make the development of each US more clear, could you clarify the differences between the two US?"
+>
+> **Answer:** 1- The acceptance criteria for US1 and US2 should be merged. The acceptance criteria por US1 and US2 is: A SNS user cannot schedule the same vaccine more than once. The algorithm should check if the SNS User is within the age and time since the last vaccine.
+>
+> 2- In US1 the actor is the SNS user, in US2 the actor is the receptionist. In US1 the SNS user is already logged in the system and information that is required and that exists in the system should be automatically obtained. In US2 the receptionist should ask the SNS user for the information needed to schedule a vaccination. Information describing the SNS user should be automatically obtained by introducing the SNS user number.
+
+> **Question** "The acceptance criteria for US1 and US2 are: a. An SNS user cannot schedule the same vaccine more than once. b. The algorithm should check if the SNS User is within the age and time since the last vaccine."
+>
+> **Answer**
+> 
+>a. At a given moment, the SNS user cannot have more than one vaccine (of a given type) scheduled;
+>
+>b. The algorithm has to check which vaccine the SNS user took before and check if the conditions (age and time since the last vaccine) are met. If the conditions are met the vaccination event should be scheduled and registered in the system. When scheduling the first dose there is no need to check these conditions.
+
 ### 1.3. Acceptance Criteria
 
 * **AC1:** Check if the SNS User is within the age.
 * **AC2:** Time since the last vaccine.
 * **AC3:** All data must be filled.
 * **AC4:** Vaccination Center availability.
+* **AC5:** A SNS user cannot schedule the same vaccine more than once. (Added from one of the client´s clarifications).
 
 ### 1.4. Found out Dependencies
 
@@ -64,6 +84,7 @@ There is also a dependency related to both US003 and US014, because to schedule 
 **Output Data:**
 
 * A list with all the available vaccination centers.
+* A list with all the Vaccine Types available.
 * A list with all the available dates and times.
 * (In)Success of the operation (confirm that the vaccination is scheduled).
 * inform the user that (s)he should be at the vaccination center (the one where (s)he scheduled the vaccine with the receptionist) at the scheduled day and time.
@@ -129,12 +150,9 @@ No other relevant remarks.
 
 According to the taken rationale, the conceptual classes promoted to software classes are:
 
-* VaccineAndAdminProcessDto
-* Vaccine
-* AdministrationProcess
-* Company (already implemented)
-* VaccinationCenter
 * ScheduledVaccine
+* VaccinationCenter
+* Company
 
 Other software classes (i.e. Pure Fabrication) identified:
 
@@ -142,15 +160,14 @@ Other software classes (i.e. Pure Fabrication) identified:
 * ScheduleVaccineController
 * ScheduledVaccineDto
 * ScheduledVaccineMapper
-
+* SnsUser
+* Vaccine
+* Administration Process
 
 ## 3.2. Sequence Diagram (SD)
 
 ![US002-SD](US002_SD.svg)
 
 ## 3.3. Class Diagram (CD)
-
-*In this section, it is suggested to present an UML static view representing the main domain related software classes
-that are involved in fulfilling the requirement as well as and their relations, attributes and methods.*
 
 ![US002_CD](US002_CD.svg)

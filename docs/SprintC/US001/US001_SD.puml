@@ -7,13 +7,8 @@ actor SNSUser as U
 participant ":ScheduleVaccineUI" as UI
 participant ":ScheduleVaccineController" as CTRL
 participant "company\n:Company" as C
-participant "vaccinationCenterMapper\n:VaccinationCenterMapper" as VCM
 participant "vaccinationCenter\n:VaccinationCenter" as VC
-participant "vaccinationCenterDto\n:VaccinationCenterDto" as VCDTO
 participant "snsUser\n:SnsUser" as SU
-participant "scheduledVaccineDtoMapper\n:ScheduledVaccineMapper" as M
-participant "scheduledVaccineDto\n:ScheduledVaccineDto" as DTO
-participant "scheduledVaccine\n:ScheduledVaccine" as SV
 participant "appointmentsList\nList<ScheduledVaccine>" as L
 
 
@@ -26,17 +21,17 @@ activate CTRL
 
 CTRL -> C : getSNSUserList().isEmpty()
 activate C
-C ---> CTRL : result
+C ---> CTRL : result result (user´s list is or not empty)
 deactivate C
 
 CTRL -> C : getVaccineTypes().isEmpty()
 activate C
-C ---> CTRL : result
+C ---> CTRL : result result (vaccine type´s list is or not empty)
 deactivate C
 
 CTRL -> C :  getVaccinationCenters().isEmpty()
 activate C
-C ---> CTRL : result
+C ---> CTRL : result (vaccination center´s list is or not empty)
 deactivate C
 CTRL ---> UI : result
 deactivate CTRL
@@ -65,18 +60,11 @@ deactivate CTRL
 
 UI -> CTRL : vaccinationCenterDto = getVaccinationCenterInfo()
 activate CTRL
-CTRL -> VCM : vaccinationCenterDto = domainToDto(vaccinationCenter)
-note over VCM,VC
-Several steps to extract data from the Vaccination Center
-end note
-activate VCM
-VCM --> VCDTO ** : vaccinationCenterDto = createVaccinationCenterDto(vaccinationCenter)
-deactivate VCM
-
-
-
-
+ref over CTRL: SD_GetVaccinationCenterInfo.puml
+CTRL --> UI : vaccinationCenterDto
 deactivate CTRL
+
+
 
 UI -> CTRL : vaccineTypesList = getVaccineTypesNameList()
 activate CTRL
@@ -173,7 +161,7 @@ activate CTRL
 deactivate CTRL
 CTRL -> C : userIsEligibleForTheAppointment(scheduledVaccineDto)
 activate C
-C ---> CTRL : result
+C ---> CTRL : result (if user is or not elegible for the appointment)
 deactivate C
 
 
@@ -190,20 +178,20 @@ activate C
 deactivate C
 VC -> SU : getTakenVaccines().isNotEmpty()
 activate SU
-SU --> VC : result
+SU --> VC : result (if taken vaccine list is or not empty)
 deactivate SU
 VC -> VC : validateAppointmentAccordingToAdminProcess(snsUser, scheduledVaccineDto, takenVaccine)
 activate VC
 deactivate VC
 
 
-VC --> CTRL : result
+VC --> CTRL : result (if appoitment is or not validated)
 deactivate VC
 
 
 CTRL -> VC : centerHasAvailability(scheduledVaccineDto)
 activate VC
-VC ---> CTRL : result
+VC ---> CTRL : result (if center is or not available for an appointment)
 deactivate VC
 
 
@@ -225,15 +213,10 @@ CTRL -> VC : centerHasAvailability(scheduleVaccineDto)
 activate VC
 VC ---> CTRL : result
 deactivate VC
-CTRL -> M : scheduledVaccine = createScheduledVaccine(scheduleVaccineDto)
-activate M
-note over M, DTO
-Several steps to extract data from the DTO
-end note
-M ---> SV ** : createScheduledVaccine(scheduleVaccineDto)
-activate SV
-deactivate SV
-deactivate M
+
+
+ref over CTRL : SD_createScheduledVaccine.puml
+
 
 CTRL -> VC : addAppointment(scheduledVaccine)
 activate VC
@@ -241,17 +224,15 @@ activate VC
 
 VC -> L : addAppointment(scheduledVaccine)
 activate L
-L --> VC : result
+L --> VC : result (if appointment was added to appointment´s list)
 
 deactivate L
 
-VC --> CTRL : result
+VC --> CTRL : result (if appointment was added to appointment´s list)
 
 deactivate VC
 
-
-
-CTRL ---> UI : result
+CTRL ---> UI : result (if appointment was added to appointment´s list)
 deactivate CTRL
 UI --> U : informs operation success and shows appointment information
 

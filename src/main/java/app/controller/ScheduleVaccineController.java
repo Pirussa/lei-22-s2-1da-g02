@@ -46,8 +46,9 @@ public class ScheduleVaccineController {
      */
     public boolean scheduleVaccine(ScheduledVaccineDto scheduledVaccineDto) {
         if (!validateAppointment(scheduledVaccineDto)) return false;
-        vaccinationCenter.addAppointment(createScheduledVaccine(scheduledVaccineDto));
         company.addAppointment(createScheduledVaccine(scheduledVaccineDto));
+        vaccinationCenter.addAppointment(createScheduledVaccine(scheduledVaccineDto));
+
         return true;
     }
 
