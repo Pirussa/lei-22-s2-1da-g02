@@ -21,17 +21,17 @@ activate CTRL
 
 CTRL -> C : getSNSUserList().isEmpty()
 activate C
-C ---> CTRL : result
+C ---> CTRL : result result (user´s list is or not empty)
 deactivate C
 
 CTRL -> C : getVaccineTypes().isEmpty()
 activate C
-C ---> CTRL : result
+C ---> CTRL : result result (vaccine type´s list is or not empty)
 deactivate C
 
 CTRL -> C :  getVaccinationCenters().isEmpty()
 activate C
-C ---> CTRL : result
+C ---> CTRL : result (vaccination center´s list is or not empty)
 deactivate C
 CTRL ---> UI : result
 deactivate CTRL
@@ -161,7 +161,7 @@ activate CTRL
 deactivate CTRL
 CTRL -> C : userIsEligibleForTheAppointment(scheduledVaccineDto)
 activate C
-C ---> CTRL : result
+C ---> CTRL : result (if user is or not elegible for the appointment)
 deactivate C
 
 
@@ -178,20 +178,20 @@ activate C
 deactivate C
 VC -> SU : getTakenVaccines().isNotEmpty()
 activate SU
-SU --> VC : result
+SU --> VC : result (if taken vaccine list is or not empty)
 deactivate SU
 VC -> VC : validateAppointmentAccordingToAdminProcess(snsUser, scheduledVaccineDto, takenVaccine)
 activate VC
 deactivate VC
 
 
-VC --> CTRL : result
+VC --> CTRL : result (if appoitment is or not validated)
 deactivate VC
 
 
 CTRL -> VC : centerHasAvailability(scheduledVaccineDto)
 activate VC
-VC ---> CTRL : result
+VC ---> CTRL : result (if center is or not available for an appointment)
 deactivate VC
 
 
@@ -224,17 +224,15 @@ activate VC
 
 VC -> L : addAppointment(scheduledVaccine)
 activate L
-L --> VC : result
+L --> VC : result (if appointment was added to appointment´s list)
 
 deactivate L
 
-VC --> CTRL : result
+VC --> CTRL : result (if appointment was added to appointment´s list)
 
 deactivate VC
 
-
-
-CTRL ---> UI : result
+CTRL ---> UI : result (if appointment was added to appointment´s list)
 deactivate CTRL
 UI --> U : informs operation success and shows appointment information
 
