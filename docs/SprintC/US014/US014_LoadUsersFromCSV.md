@@ -40,10 +40,22 @@
 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** The application must support importing two types of CSV files: a) one type must have a header, column separation is done using “;” character; b) the other type does not have a header, column separation is done using “,” character.
-* **AC2:** Only files with valid information are accepted by the system.
-* **AC3:** Users with duplicated information are ignored by the system.
-* **AC4:** All the data required to register a user should be presented in the console.
+* **AC01:** The application must support importing two types of CSV files: a) one type must have a header, column separation is done using “;” character; b) the other type does not have a header, column separation is done using “,” character.
+* **AC02:** Only files with valid information are accepted by the system.
+* **AC03:** Users with duplicated information are ignored by the system.
+* **AC04:** All the data required to register a user should be presented in the console.
+* **AC05:** The SNS User must become a system user. The "auth" component available on the repository must be reused (without modifications).
+* **AC06:** Citizen Card number must follow the Portuguese format.
+* **AC07:** Name can't be empty.
+* **AC08:** SNS user number must have 9 characters.
+* **AC09:** Birth day must have the format: DD/MM/YYYY. 
+* **AC10:** Address has to be valid, zip-code must follow the Portuguese format.
+* **AC11:** Sex options: Male/Female/NA or empty.
+* **AC12:** Phone number must follow the Portuguese format.
+* **AC13:** E-mail must have a valid suffix.
+* **AC14:** All input fields are required except sex.
+* **AC15:** The password should be randomly generated.
+* **AC16:** The following fields must be unique for each SNS user: citizen card number, SNS number, phone number, and e-mail address.
 
 ### 1.4. Found out Dependencies
 
@@ -52,7 +64,7 @@ US014 has no dependencies.
 ### 1.5 Input and Output Data
 
 **Input Data:** 
-*Typed Data
+* Typed Data
     - CSV path
 
 * Selected data:
@@ -70,27 +82,21 @@ US014 has no dependencies.
 
 ### 1.6. System Sequence Diagram (SSD)
 
-*Insert here a SSD depicting the envisioned Actor-System interactions and throughout which data is inputted and outputted to fulfill the requirement. All interactions must be numbered.*
-
-![USXXX-SSD](USXXX-SSD.svg)
+![US014-SSD](C:\Users\Castro\Desktop\CODE\lei-22-s2-1da-g02\docs\SprintC\US014\US014_SSD.svg)
 
 ### 1.7 Other Relevant Remarks
 
-*Use this section to capture other relevant information that is related with this US such as (i) special requirements ; (ii) data and/or technology variations; (iii) how often this US is held.*
-
+* There are some similarities to US 11 regarding the need (i) to generate a password.
 
 ## 2. OO Analysis
 
 ### 2.1. Relevant Domain Model Excerpt
-*In this section, it is suggested to present an excerpt of the domain model that is seen as relevant to fulfill this requirement.*
 
-![USXXX-MD](USXXX-MD.svg)
+![US014-MD](C:\Users\Castro\Desktop\CODE\lei-22-s2-1da-g02\docs\SprintC\US014\US014_DM.svg)
 
 ### 2.2. Other Remarks
 
-*Use this section to capture some aditional notes/remarks that must be taken into consideration into the design activity. In some case, it might be usefull to add other analysis artifacts (e.g. activity or state diagrams).*
-
-
+No remarks.
 
 ## 3. Design - User Story Realization
 
