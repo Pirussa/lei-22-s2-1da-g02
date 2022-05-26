@@ -4,7 +4,7 @@
 autonumber
 
 activate Administrator
-Administrator -> System: Asks to load a CSV file containing User information
+Administrator -> System: Asks to load a CSV file containing SNS User information
 activate System
 Administrator <-- System: Requests the path of the CSV file
 deactivate System
@@ -12,5 +12,11 @@ deactivate System
 Administrator -> System: Types the path of the CSV file
 activate System
 Administrator <-- System: Informs operation success.
+deactivate System
+
+Administrator -> System: Asks for a list with information of all saved SNS Users
+activate System
+Administrator <-- System: Shows the list
+deactivate System
 
 @enduml

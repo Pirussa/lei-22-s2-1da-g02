@@ -22,10 +22,41 @@ public class LoadCSVUI implements Runnable {
 
     LoadCSVController controller = new LoadCSVController();
 
+    public void run() {
+        System.out.println();
+        System.out.println("--------------CHOOSE THE OPTION:--------------");
+        System.out.println();
+        System.out.println("0 - Load a CSV File with SNS User Info");
+        System.out.println();
+        System.out.println("1 - Get a list of all SNS Users");
+        System.out.println();
+        System.out.println("2 - Go Back");
+        System.out.println();
+        System.out.println("Choose the option:");
+        System.out.println();
+        Scanner choice = new Scanner(System.in);
+        try {
+            int option = choice.nextInt();
+            if (option == 0) {
+                runLoadCSV();
+            } else if (option == 1) {
+                getListOfSNSUsers();
+            } else if (option == 2) {
+                return;
+            } else {
+                System.out.println("Option is Invalid.");
+                run();
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("Only Numbers.");
+            run();
+        }
+    }
+
     /**
      * Asks for the path and fills it's data inside an Array List of Strings.
      */
-    public void run() {
+    public void runLoadCSV() {
 
             System.out.println("");
         try {
@@ -59,17 +90,24 @@ public class LoadCSVUI implements Runnable {
                 }
                 fillSNSUserDto(csvData);
 
+                System.out.println();
+                if (confirmAnotherCSV()){
+                    runLoadCSV();
+                } else run();
+
             } else {
                 System.out.println();
-                System.out.println("Only files ending in .csv are allowed.");
+                if (confirmCreationCSV()){
+                    runLoadCSV();
+                } else run();
+
             }
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println();
             if (confirmCreationCSV()){
-                run();
-            }
-            return;
+                runLoadCSV();
+            } else run();
         }
     }
 
@@ -136,7 +174,7 @@ public class LoadCSVUI implements Runnable {
      * @return a boolean
      */
     public static boolean confirmCreationCSV() {
-        System.out.printf("%nCSV Data is invalid or the CSV file does not exist.%nDo you want to load another file?%n%n");
+        System.out.printf("%nData is invalid, the file does not exist or it's not a CSV file.%nDo you want to load another file?%n%n");
         System.out.printf("1 - Yes%n0 - No%n");
          final Scanner sc = new Scanner(System.in);
 
@@ -155,6 +193,42 @@ public class LoadCSVUI implements Runnable {
         } while (!check);
 
         return option == 1;
+    }
+
+    public static boolean confirmAnotherCSV() {
+        System.out.printf("%nDo you want to load another file?%n%n");
+        System.out.printf("1 - Yes%n0 - No%n");
+        final Scanner sc = new Scanner(System.in);
+
+        System.out.printf("%nType your option: ");
+        boolean check = false;
+        int option = 0;
+        do {
+            try {
+                option = sc.nextInt();
+                sc.nextLine();
+                check = true;
+            } catch (InputMismatchException e) {
+                System.out.println("Insert a valid option.");
+                sc.nextLine();
+            }
+        } while (!check);
+
+        return option == 1;
+    }
+
+    public void getListOfSNSUsers() {
+        LoadCSVController controller = new LoadCSVController();
+        if (!controller.getSNSUserList().isEmpty()) {
+            for (int i = 0; i < controller.getSNSUserList().size(); i++) {
+                System.out.println("\nPosition " + i + ": " + "\n" + controller.getSNSUserList().get(i));
+                System.out.println();
+            }
+        } else {
+            System.out.println();
+            System.out.println("There aren't any registered SNS Users.");
+        }
+        run();
     }
 
 }

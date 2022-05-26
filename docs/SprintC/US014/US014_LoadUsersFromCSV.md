@@ -102,20 +102,27 @@ No remarks.
 
 ### 3.1. Rationale
 
-**The rationale grounds on the SSD interactions and the identified input/output data.**
-
 | Interaction ID | Question: Which class is responsible for... | Answer  | Justification (with patterns)  |
 |:-------------  |:--------------------- |:------------|:---------------------------- |
-| Step 1  		 |							 |             |                              |
-| Step 2  		 |							 |             |                              |
-| Step 3  		 |							 |             |                              |
-| Step 4  		 |							 |             |                              |
-| Step 5  		 |							 |             |                              |
-| Step 6  		 |							 |             |                              |              
-| Step 7  		 |							 |             |                              |
-| Step 8  		 |							 |             |                              |
-| Step 9  		 |							 |             |                              |
-| Step 10  		 |							 |             |                              |  
+| Step 1  		 |	Asking to load a CSV file	 |   LoadCSVUI          |   Pure Fabrication: |
+| Step 2  		 |	Requesting the path of the CSV File						 |   LoadCSVUI          |  Pure Fabrication:                            |
+| Step 3  		 |	Typing the path of the CSV File						 |   LoadCSVUI          |  Pure Fabrication:                            |
+| 		 |		... validating the path |  LoadCSVUI       |      |
+| 		 |		... validating the CSV that has SNS User data |  Utils     |        |
+| 		 |		... generating a password for the SNS User	 |  Utils    |        |
+| 		 |		... transferring the SNS User data from the UI to the controller?	 |  SNSUserDTO    | **DTO:** When there is so much data to transfer, it is better to opt by using a DTO in order to reduce coupling between UI and domain       |
+| 		 |		... transfer the SNS User data from the controller to the company? |  LoadCSVController    |        |
+| 		 |		... instantiating a new SNS User?	 |  Company    |        |
+| 		 |		... validating the SNS User	 |  SNSUser    |        |
+| 		 |		... validating SNS User duplication 	 |  Company    |        |
+| 		 |		... saving the SNS User?	 |  Company    |        |
+| 		 |	... registering the SNS User as a system user? | AuthFacade | **IE:** cf. A&A component documentation |
+| Step 4  		 |	Informing about the (in)success of the operation						 |      LoadCSVUI      |                              |
+| Step 5  		 |		Asking for a list with all saved SNS Users					 |    LoadCSVUI         |                              |
+| 		 |    ... disponibilize the previous list to the GetListOfUsersUI  | LoadCSVController| **Controller:** act as a mediator between the UI and the Model. Has the responsibility of controlling the data transmission between both. It maps the user action into model updates.  |
+| 			  		 |    ... disponibilize the previous list to the ScheduleVaccineController  | Company | **IE:** The Company knows all SNS Users  |
+| Step 6  		 |	Showing the list						 |     LoadCSVUI        |      **IE:** is responsible for user interactions                         |              
+
 
 
 ### Systematization ##
@@ -141,37 +148,3 @@ Other software classes (i.e. Pure Fabrication) identified:
 *In this section, it is suggested to present an UML static view representing the main domain related software classes that are involved in fulfilling the requirement as well as and their relations, attributes and methods.*
 
 ![USXXX-CD](USXXX-CD.svg)
-
-# 4. Tests
-*In this section, it is suggested to systematize how the tests were designed to allow a correct measurement of requirements fulfilling.*
-
-**_DO NOT COPY ALL DEVELOPED TESTS HERE_**
-
-**Test 1:** Check that it is not possible to create an instance of the Example class with null values.
-
-	@Test(expected = IllegalArgumentException.class)
-		public void ensureNullIsNotAllowed() {
-		Exemplo instance = new Exemplo(null, null);
-	}
-
-*It is also recommended to organize this content by subsections.*
-
-# 5. Construction (Implementation)
-
-*In this section, it is suggested to provide, if necessary, some evidence that the construction/implementation is in accordance with the previously carried out design. Furthermore, it is recommeded to mention/describe the existence of other relevant (e.g. configuration) files and highlight relevant commits.*
-
-*It is also recommended to organize this content by subsections.*
-
-# 6. Integration and Demo
-
-*In this section, it is suggested to describe the efforts made to integrate this functionality with the other features of the system.*
-
-
-# 7. Observations
-
-*In this section, it is suggested to present a critical perspective on the developed work, pointing, for example, to other alternatives and or future related work.*
-
-
-
-
-
