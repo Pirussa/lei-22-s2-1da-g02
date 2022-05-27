@@ -27,11 +27,30 @@ class VaccineAppointment {
 -date
 }
 
+class VaccinationCenter {
+-id
+-name
+-phoneNumber
+-email
+-fax
+-website
+-openingHour
+-closingHour
+-slotDuration
+-vaccinesPerSlot
+-road
+-zipCode
+-local
+centerCoordinatorID
+-arrivalsList
+}
+
 Receptionist "1" --> "*" VaccineAppointment: schedules >
 
 VaccineAppointment "*" --> "1" VaccineType: has one  >
 
 Company "1" --- "*" VaccineType : storages >
 
+VaccinationCenter "1" --UP- "*" VaccineAppointment : storages >
 
 @enduml
