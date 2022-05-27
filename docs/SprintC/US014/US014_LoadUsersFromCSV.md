@@ -45,17 +45,11 @@
 * **AC03:** Users with duplicated information are ignored by the system.
 * **AC04:** All the data required to register a user should be presented in the console.
 * **AC05:** The SNS User must become a system user. The "auth" component available on the repository must be reused (without modifications).
-* **AC06:** Citizen Card number must follow the Portuguese format.
-* **AC07:** Name can't be empty.
-* **AC08:** SNS user number must have 9 characters.
-* **AC09:** Birth day must have the format: DD/MM/YYYY. 
-* **AC10:** Address has to be valid, zip-code must follow the Portuguese format.
-* **AC11:** Sex options: Male/Female/NA or empty.
-* **AC12:** Phone number must follow the Portuguese format.
-* **AC13:** E-mail must have a valid suffix.
-* **AC14:** All input fields are required except sex.
-* **AC15:** The password should be randomly generated.
-* **AC16:** The following fields must be unique for each SNS user: citizen card number, SNS number, phone number, and e-mail address.
+* **AC06:** Birth day must have the format: DD/MM/YYYY.
+* **AC07:** Sex options: Male/Female/NA or empty.
+* **AC08:** All input fields are required except sex.
+* **AC09:** The password should be randomly generated.
+* **AC10:** The following fields must be unique for each SNS user: citizen card number, SNS number, phone number, and e-mail address.
 
 ### 1.4. Found out Dependencies
 
@@ -69,7 +63,6 @@ US014 has no dependencies.
 
 * Selected data:
     - Loading CSV File
-    - Confirm loading of a new CSV file
     - List of SNS Users
 
 **Output Data:**
@@ -119,7 +112,8 @@ No remarks.
 | 		  |  ... validating the SNS User?                                                                    |  SNSUser           | **IE:** The SNS User class has it's own information so it can validate itself.                                                                                                                                           |
 | 		  |  ... validating SNS User duplication? 	                                                         |  Company           | **IE:** The Company class knows all SNSUsers so it can check for duplicates.                                                                                                                                             | 
 | 		  |  ... saving the SNS User?                                                                        |  Company           | **IE:** The Company class has all needed SNSUser information so it can save them.                                                                                                                                        |
-| 		  |  ... registering the SNS User as a system user?                                                  |  AuthFacade        | **IE:** cf. A&A component documentation.                                                                                                                                                                                 |
+| 		  |  ... authenticating the SNS User as a system user?                                               |  AuthFacade        | **IE:** cf. A&A component documentation.                                                                                                                                                                                 |
+| 		  |  ... checking duplicate email on all authenticated users?                                        |  AuthFacade        | **IE:** Knows all authenticated users email.                                                                                                                                                                                |
 | Step 4  |	Informing about how many users were created, how many were saved and how many were duplicates?   |  LoadCSVUI         | **IE:** is responsible for user interactions.                                                                                                                                                                            |
 | Step 5  |	Asking for a list with all saved SNS Users?					                                     |  LoadCSVUI         | **Pure Fabrication:** there is no reason to assign this responsibility to any existing class in the Domain Model.                                                                                                        |
 | 		  |  ... who makes available the previous list to the LoadCSVUI?                                     |  LoadCSVController | **Controller:** act as a mediator between the UI and the Model. Has the responsibility of controlling the data transmission between both. It maps the user action into model updates.                                    |

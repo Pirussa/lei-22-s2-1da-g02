@@ -17,12 +17,13 @@ class SNSUser{
 }
 
 class User{
-==-strName
-==-strEmail
-==-strPassword
+==-name
+==-email
+==-pwd
+==-roleId
 }
 
 Company "1" -down- "*" SNSUser: knows >
-SNSUser "1" -down- "1" User: becomes >
+SNSUser "0..1" -down- "1" User: becomes >
 
 @enduml

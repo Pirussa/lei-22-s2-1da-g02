@@ -57,11 +57,14 @@ activate COMP
 
 COMP -> COMP: checks for duplicates
 COMP -> COMP: stores SNSUser
-COMP -> AUTH: authenticates SNSUser
+COMP -> AUTH: addUserWithRole(name,email,pwd,roleId)
 activate AUTH
+AUTH -> AUTH: addUserWithRole(name,email,pwd,roleId)
+AUTH -> AUTH: existsUser(email)
 deactivate AUTH
 deactivate COMP
 end loop
+
 UI -> USER: Shows how many SNSUsers were\nsaved and how many were duplicates
 deactivate CTRL
 deactivate UI

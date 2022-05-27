@@ -66,7 +66,7 @@ LoadCSVController ..> Company
 LoadCSVUI ..> Utils
 LoadCSVUI ..> SNSUserDto
 LoadCSVController ..> SNSUserDto
-SNSUserDto ..> SNSUser
-Company "1" -> "*" SNSUser : knows
+Company ..> SNSUserDto
+Company "1" -left-> "*" SNSUser : knows
 Company ..> AuthFacade
 @enduml
