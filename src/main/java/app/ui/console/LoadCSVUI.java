@@ -22,6 +22,10 @@ public class LoadCSVUI implements Runnable {
 
     LoadCSVController controller = new LoadCSVController();
 
+    /**
+     * Gives the Admin the option to get a list of all Users or load a CSV file with SNS User info
+     *
+     */
     public void run() {
         System.out.println();
         System.out.println("--------------CHOOSE THE OPTION:--------------");
@@ -195,6 +199,11 @@ public class LoadCSVUI implements Runnable {
         return option == 1;
     }
 
+    /**
+     * Asks the User for the loading of another file.
+     *
+     * @return a boolean
+     */
     public static boolean confirmAnotherCSV() {
         System.out.printf("%nDo you want to load another file?%n%n");
         System.out.printf("1 - Yes%n0 - No%n");
@@ -217,6 +226,10 @@ public class LoadCSVUI implements Runnable {
         return option == 1;
     }
 
+    /**
+     * Prints a list with all saved SNS Users
+     *
+     */
     public void getListOfSNSUsers() {
         LoadCSVController controller = new LoadCSVController();
         if (!controller.getSNSUserList().isEmpty()) {
