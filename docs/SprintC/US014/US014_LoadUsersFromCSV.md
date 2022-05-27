@@ -83,7 +83,7 @@ US014 has no dependencies.
 
 ### 1.6. System Sequence Diagram (SSD)
 
-![US014-SSD](C:\Users\Castro\Desktop\CODE\lei-22-s2-1da-g02\docs\SprintC\US014\US014_SSD.svg)
+![US014-SSD](US014_SSD.svg)
 
 ### 1.7 Other Relevant Remarks
 
@@ -93,7 +93,7 @@ US014 has no dependencies.
 
 ### 2.1. Relevant Domain Model Excerpt
 
-![US014-MD](C:\Users\Castro\Desktop\CODE\lei-22-s2-1da-g02\docs\SprintC\US014\US014_DM.svg)
+![US014-MD](US014_DM.svg)
 
 ### 2.2. Other Remarks
 
