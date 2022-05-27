@@ -109,7 +109,7 @@ No remarks.
 | Step 2  		 |	Requesting the path of the CSV File						 |   LoadCSVUI          |  Pure Fabrication:                            |
 | Step 3  		 |	Typing the path of the CSV File						 |   LoadCSVUI          |  Pure Fabrication:                            |
 | 		 |		... validating the path |  LoadCSVUI       |      |
-| 		 |		... validating the CSV that has SNS User data |  Utils     |        |
+| 		 |		... validating the CSV that has SNS User data |  LoadCSVUI     |        |
 | 		 |		... generating a password for the SNS User	 |  Utils    |        |
 | 		 |		... transferring the SNS User data from the UI to the controller?	 |  SNSUserDTO    | **DTO:** When there is so much data to transfer, it is better to opt by using a DTO in order to reduce coupling between UI and domain       |
 | 		 |		... transfer the SNS User data from the controller to the company? |  LoadCSVController    |        |
@@ -142,7 +142,7 @@ Other software classes (i.e. Pure Fabrication) identified:
 
 *In this section, it is suggested to present an UML dynamic view stating the sequence of domain related software objects' interactions that allows to fulfill the requirement.*
 
-![USXXX-SD](USXXX-SD.svg)
+![US014-SD](US014_SD.svg)
 
 ## 3.3. Class Diagram (CD)
 
