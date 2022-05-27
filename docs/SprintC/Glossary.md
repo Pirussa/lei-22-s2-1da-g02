@@ -47,8 +47,8 @@
 | Time Complexity | Complexidade Temporal | Time complexity is the amount of time taken by an algorithm to run, as a function of the length of the input. It measures the time taken to execute each statement of code in an algorithm.|
 | Type of Vaccine | Tipo de Vácina | Related to the kind of virus that the vaccine cures |
 | User Info | Informação do Utilzador | Health related information about an user |
-| User Waiting List | Lista de espera de Utilizadores | List of users who're waiting in the vaccination center to be vaccinated |
-| User | Utilizador | A person who uses or operates something. |
+| User Waiting List | Lista de espera de Utilizadores | List of users who are waiting in the vaccination center to be vaccinated |
+| User | Utilizador | A person who uses or operates the application. |
 | Vaccination Center | Centro de Vacinação | In our case, it includes mass vaccination centers and healthcare centers, linking both because they share the vaccination process |
 | Vaccination Process | Processo de Vacinação | The entire process from start to finish that an user has to endure in order to complete their vaccination |
 | Vaccine Appointment | Agendamento de Vacinas | An arrangement for a meeting with the vaccination center in order to be administered a vaccine  |
