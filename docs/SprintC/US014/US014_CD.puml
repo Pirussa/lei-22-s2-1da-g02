@@ -1,27 +1,72 @@
 @startuml
 'https://plantuml.com/class-diagram
 
-abstract class AbstractList
-abstract AbstractCollection
-interface List
-interface Collection
-
-List <|-- AbstractList
-Collection <|-- AbstractCollection
-
-Collection <|- List
-AbstractCollection <|- AbstractList
-AbstractList <|-- ArrayList
-
-class ArrayList {
-Object[] elementData
-size()
+class LoadCSVUI{
++run()
++runLoadCSV()
++getListOfSNSUsers()
++validateFileFormat(path)
++validateCSVData(values)
++fillSNSUserDto(csvData)
 }
 
-enum TimeUnit {
-DAYS
-HOURS
-MINUTES
+class LoadCSVController{
++createSNSUser(SNSUserDto)
++saveSNSUser(SNSUserDto)
++getSNSUserList()
 }
 
+class Company{
++createSNSUser(SNSUserDto)
++saveSNSUser(SNSUserDto)
++getSNSUserList()
+}
+
+class SNSUserDto{
+-strName
+-strSex
+-strBirthDate
+-strAddress
+-strPhoneNumber
+-strEmail
+-snsUserNumber
+-strCitizenCardNumber
+-strPassword
+}
+
+class SNSUser{
+-strName
+-strSex
+-strBirthDate
+-strAddress
+-strPhoneNumber
+-strEmail
+-snsUserNumber
+-strCitizenCardNumber
+-strPassword
++getSnsUserNumber()
++getStrEmail()
++getStrPhoneNumber()
++getStrCitizenCardNumber()
++validateSNSUser()
++toString()
+}
+
+class Utils{
++passwordGenerator()
+}
+
+class AuthFacade{
++existsUser(email)
++addUserWithRole(name,email,pwd,roleId)
+}
+
+LoadCSVUI ..> LoadCSVController
+LoadCSVController ..> Company
+LoadCSVUI ..> Utils
+LoadCSVUI ..> SNSUserDto
+LoadCSVController ..> SNSUserDto
+SNSUserDto ..> SNSUser
+Company "1" -> "*" SNSUser : knows
+Company ..> AuthFacade
 @enduml

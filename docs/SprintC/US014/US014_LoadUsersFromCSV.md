@@ -105,47 +105,49 @@ No remarks.
 
 | Interaction ID | Question: Which class is responsible for... | Answer  | Justification (with patterns)  |
 |:-------------  |:--------------------- |:------------|:---------------------------- |
-| Step 1  		 |	Asking to load a CSV file	 |   LoadCSVUI          |   Pure Fabrication: |
-| Step 2  		 |	Requesting the path of the CSV File						 |   LoadCSVUI          |  Pure Fabrication:                            |
-| Step 3  		 |	Typing the path of the CSV File						 |   LoadCSVUI          |  Pure Fabrication:                            |
-| 		 |		... validating the path |  LoadCSVUI       |      |
-| 		 |		... validating the CSV that has SNS User data |  LoadCSVUI     |        |
-| 		 |		... generating a password for the SNS User	 |  Utils    |        |
-| 		 |		... transferring the SNS User data from the UI to the controller?	 |  SNSUserDTO    | **DTO:** When there is so much data to transfer, it is better to opt by using a DTO in order to reduce coupling between UI and domain       |
-| 		 |		... transfer the SNS User data from the controller to the company? |  LoadCSVController    |        |
-| 		 |		... instantiating a new SNS User?	 |  Company    |        |
-| 		 |		... validating the SNS User	 |  SNSUser    |        |
-| 		 |		... validating SNS User duplication 	 |  Company    |        |
-| 		 |		... saving the SNS User?	 |  Company    |        |
-| 		 |	... registering the SNS User as a system user? | AuthFacade | **IE:** cf. A&A component documentation |
-| Step 4  		 |	Informing about the (in)success of the operation						 |      LoadCSVUI      |                              |
-| Step 5  		 |		Asking for a list with all saved SNS Users					 |    LoadCSVUI         |                              |
-| 		 |    ... disponibilize the previous list to the GetListOfUsersUI  | LoadCSVController| **Controller:** act as a mediator between the UI and the Model. Has the responsibility of controlling the data transmission between both. It maps the user action into model updates.  |
-| 			  		 |    ... disponibilize the previous list to the ScheduleVaccineController  | Company | **IE:** The Company knows all SNS Users  |
-| Step 6  		 |	Showing the list						 |     LoadCSVUI        |      **IE:** is responsible for user interactions                         |              
-
-
+| Step 1  | Asking to load a CSV file?	                                                                     |  LoadCSVUI         | **Pure Fabrication:** there is no reason to assign this responsibility to any existing class in the Domain Model.                                                                                                        |
+| Step 2  |	Requesting the path of the CSV File?	                                                         |  LoadCSVUI         | **IE:** is responsible for user interactions                                                                                                                                                                             |
+| Step 3  |	Typing the path of the CSV File?	                                                             |  LoadCSVUI         | **Pure Fabrication:** there is no reason to assign this responsibility to any existing class in the Domain Model.                                                                                                        |
+| 		  |  ... validating the path?                                                                        |  LoadCSVUI         | **IE:** The UI knows the path, therefore it can validate it easily.                                                                                                                                                      | 
+| 		  |  ... validating the CSV that has SNS User data?                                                  |  LoadCSVUI         | **IE:** The UI knows the data inside the CSV, so it can validate the entire file.                                                                                                                                        |
+| 		  |  ... generating a password for the SNS User?                                                     |  Utils             | **Pure Fabrication:** This password generator was needed for US11, so in order to avoid code duplication we are assigning it to a shared class.                                                                          |
+| 		  |  ... saving the data into an ArrayList?                                                          |  LoadCSVUI         | **IE:** The UI knows the CSV data so it can save that data on an ArrayList.                                                                                                                                              |
+| 		  |  ... filling the SNSUserDTO with SNS User data?                                                  |  LoadCSVUI         | **IE:** The UI knows the data inside the ArrayList so it can fill the DTO with that data.                                                                                                                                |
+| 		  |  ... transferring the SNS User data from the UI to the controller?	                             |  SNSUserDTO        | **DTO:** When there is so much data to transfer, it is better to opt by using a DTO in order to reduce coupling between UI and other classes.                                                                            |
+| 		  |  ... transfer the SNS User data from the controller to the company?                              |  LoadCSVController | **Controller:** act as a mediator between the UI and the Model, in this case the Company class. Has the responsibility of controlling the data transmission between both. It maps the user action into model updates.    |
+| 		  |  ... instantiating a new SNS User?	                                                             |  Company           | By applying the **Creator** pattern instances of Company have the initializing information for instances of SNSUser and pass it on creation.                                                                             |
+| 		  |  ... validating the SNS User?                                                                    |  SNSUser           | **IE:** The SNS User class has it's own information so it can validate itself.                                                                                                                                           |
+| 		  |  ... validating SNS User duplication? 	                                                         |  Company           | **IE:** The Company class knows all SNSUsers so it can check for duplicates.                                                                                                                                             | 
+| 		  |  ... saving the SNS User?                                                                        |  Company           | **IE:** The Company class has all needed SNSUser information so it can save them.                                                                                                                                        |
+| 		  |  ... registering the SNS User as a system user?                                                  |  AuthFacade        | **IE:** cf. A&A component documentation.                                                                                                                                                                                 |
+| Step 4  |	Informing about how many users were created, how many were saved and how many were duplicates?   |  LoadCSVUI         | **IE:** is responsible for user interactions.                                                                                                                                                                            |
+| Step 5  |	Asking for a list with all saved SNS Users?					                                     |  LoadCSVUI         | **Pure Fabrication:** there is no reason to assign this responsibility to any existing class in the Domain Model.                                                                                                        |
+| 		  |  ... who makes available the previous list to the LoadCSVUI?                                     |  LoadCSVController | **Controller:** act as a mediator between the UI and the Model. Has the responsibility of controlling the data transmission between both. It maps the user action into model updates.                                    |
+| 		  |  ... who makes available  the previous list to the LoadCSVController?                            |  Company           | **IE:** The Company knows all saved SNS Users.                                                                                                                                                                           |
+| Step 6  |	Showing the list?						                                                         |  LoadCSVUI         | **IE:** is responsible for user interactions.                                                                                                                                                                            |              
 
 ### Systematization ##
 
 According to the taken rationale, the conceptual classes promoted to software classes are:
 
-* Class1
-* Class2
-* Class3
+* Company
+* SNSUser
 
 Other software classes (i.e. Pure Fabrication) identified:
-* xxxxUI
-* xxxxController
+
+* LoadCSVUI
+* Utils
+* SNSUserDTO
+* LoadCSVController
+
+Other software classes of external systems/components:
+
+* AuthFacade
 
 ## 3.2. Sequence Diagram (SD)
-
-*In this section, it is suggested to present an UML dynamic view stating the sequence of domain related software objects' interactions that allows to fulfill the requirement.*
 
 ![US014-SD](US014_SD.svg)
 
 ## 3.3. Class Diagram (CD)
 
-*In this section, it is suggested to present an UML static view representing the main domain related software classes that are involved in fulfilling the requirement as well as and their relations, attributes and methods.*
-
-![USXXX-CD](USXXX-CD.svg)
+![US014-CD](US014_CD.svg)
