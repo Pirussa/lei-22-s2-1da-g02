@@ -19,26 +19,27 @@ link as suggested below.**
 | UC/US   | Description                                                                               |
 |:--------|:------------------------------------------------------------------------------------------|
 | US 001  | As a SNS user, I intend to use the application to schedule a vaccine.                     |
-| US 0015 | Obtain Digital Certificate                                                                |
+| US 020 | Authorize SMS message                                                           |
+| US 021 | Obtain Vaccination Certificate                                                                |
 
 ## Receptionist
 
 | UC/US  | Description                                                                                                    |
 |:-------|:---------------------------------------------------------------------------------------------------------------|
-| US 002 | As a receptionist at one vaccination center, I want to schedule a vaccination.                                 |
+| US 002 | As a receptionist at one vaccination center, I want to schedule a vaccination for a User.                                 |
 | US 003 | As a receptionist, I want to register a SNS user.                                                              |
-| US 004 | As a receptionist at a vaccination center, I want to register the arrival of a SNS userto take the vaccine.    |
+| US 004 | As a receptionist at a vaccination center, I want to register the arrival of a SNS user to take the vaccine.    |
 
 ## Nurse
 
 | UC/US  | Description                                                                           |
 |:-------|:--------------------------------------------------------------------------------------|
-| US 005 | As a nurse, I intend to consult the users in the waiting room of a vacination center. |
+| US 005 | As a nurse, I intend to consult the users in the waiting room of a vaccination center. |
 | US 006 | Checks Scheduled Vaccine Type                                                         |
-| US 008 | Checks SNS user Vaccination History                                                   |
-| US 021 | Get System Instructions Regarding the Vaccine                                         |
-| US 022 | Record Adverse Reactions                                                              |
-| US 023 | Issue Vaccination Certificate                                                         |
+| US 007 | Checks SNS user Vaccination History                                                   |
+| US 008 | Get System Instructions Regarding the Vaccine                                         |
+| US 015 | Record Adverse Reactions                                                              |
+| US 016 | Issue Vaccination Certificate                                                         |
 
 ## Administrator
 
@@ -55,12 +56,18 @@ link as suggested below.**
 
 | UC/US  | Description                                                     |                   
 |:-------|:----------------------------------------------------------------|
+| US 017 | Generates Reports                                               |
 | US 018 | As a center coordinator, I want to get a list of all vaccines.  |
-| US 019 | Generates Reports                                               |
-| US 020 | Analyse and Comparison                                          |
+| US 019 | Analyse and Comparison                                          |
 
 ## Timer
 
 | UC/US   | Description                                                         |
 |:--------|:--------------------------------------------------------------------|
-| US 002  | Sends an email or SMS Confirming that the Recovery Period has Ended |
+| US 022  | Sends an email or SMS Confirming that the Recovery Period has Ended |
+
+## System
+
+| UC/US   | Description                                                         |
+|:--------|:--------------------------------------------------------------------|
+| US 023  | Sends an SMS message with information about the scheduled appointment |

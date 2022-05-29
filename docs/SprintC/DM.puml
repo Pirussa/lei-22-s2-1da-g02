@@ -45,7 +45,7 @@ class CenterCoordinator
 'Employee <-left Receptionist
 'Employee <- Nurse
 
-class VaccinatonCenter {
+class VaccinationCenter {
 ==-intID
 ==-strName
 ==-strPhoneNumber
@@ -62,41 +62,47 @@ class VaccinatonCenter {
 ==-strCenterCoordinatorID
  }
 
-class MassVaccinationCenter extends VaccinatonCenter {
+class MassVaccinationCenter extends VaccinationCenter {
 
 }
 
-class HealthcareCenter extends VaccinatonCenter {
+class HealthcareCenter extends VaccinationCenter {
 ==-ARE
 ==-AGES
 }
 
 class Vaccine {
 ==-brand
+==-name
+==-id
 }
 
-class DosageScheme {
+class AdministrationProcess {
 ==-numberOfDoses
 ==-dosage
 == -age
 ==-intervalBetweenVaccines
 }
 
-class TypeOfVaccine {
-==-virus
+class VaccineType {
+==-code
+==-description
+==-technology
 }
 
 
-Vaccine "1" -- "1" DosageScheme : has a >
-TypeOfVaccine "*" -- "1" Vaccine :is of <
-Vaccine "*" --- "1" VaccinatonCenter : is administered on >
+Vaccine "1" -- "*" AdministrationProcess : has a >
+VaccineType "*" -- "1" Vaccine :is of <
+Vaccine "*" --- "1" VaccinationCenter : is administered on >
 
 class DigitalCertificate
 
 'Nurse "1" -left "*" DigitalCertificate : delivers >
 SnsUser "1" --- "1" DigitalCertificate : requests >
 
-class VaccineAppointment
+class VaccineAppointment {
+==-date
+}
 
 SnsUser "1" -- "*" VaccineAppointment : schedules >
 'Receptionist "1" - "*" VaccineAppointment : schedules and confirms >
@@ -109,9 +115,9 @@ Receptionist "*" - "1" UsersWaitingList : atualizes >
 Nurse "*" -- "1" UsersWaitingList : checks >
 Nurse "1" - "*" Vaccine : administers >
 SnsUser "1" --  "*" UserInfo : has >
-VaccineAppointment "1" -- "1" Vaccine : is associated to a >
+VaccineAppointment "*" -- "1" VaccineType : is associated to a >
 UsersWaitingList "1" --- "*" SnsUser: has >
-
+VaccinationCenter "1" -- "*" VaccineAppointment : has >
 
 
 class GivenVaccine
@@ -124,13 +130,15 @@ GivenVaccine "*" - "*" AdverseReactions
 class ManageVaccinationProcess
 
 CenterCoordinator "1" -- "1" ManageVaccinationProcess : has to >
-CenterCoordinator "1" -- "1" VaccinatonCenter : is coordinated by <
+CenterCoordinator "1" -- "1" VaccinationCenter : is coordinated by <
 
 class Application
 class EntriesAndExitsList
 
 Application "1" -- "*" SnsUser : requests authorization to send SMS >
 Application "1" -- "*" SnsUser : notify >
-VaccinatonCenter "1" -up- "*" EntriesAndExitsList : has >
+VaccinationCenter "1" -up- "*" EntriesAndExitsList : has >
+Receptionist "1" -- "*" VaccineAppointment : schedules >
+
 
 @enduml
