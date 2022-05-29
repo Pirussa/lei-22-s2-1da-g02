@@ -63,7 +63,9 @@ AUTH -> AUTH: addUserWithRole(name,email,pwd,roleId)
 AUTH -> AUTH: existsUser(email)
 deactivate AUTH
 deactivate COMP
+deactivate CTRL
 end loop
+
 
 UI -> USER: Shows how many SNSUsers were\nsaved and how many were duplicates
 deactivate CTRL
