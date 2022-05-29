@@ -32,12 +32,13 @@ CTRL -> C :  getVaccinationCenters().isEmpty()
 activate C
 C ---> CTRL : result (vaccination center´s list is or not empty)
 deactivate C
-CTRL ---> UI : result
+CTRL ---> UI : result (if the company has the necessary info to schedule a vaccine)
 deactivate CTRL
-activate UI
-UI --> R : asks user´s Sns Number
-R -> UI : introduces user´s Sns number
 
+UI --> R : asks user´s Sns Number
+deactivate UI
+R -> UI : introduces user´s Sns number
+activate UI
 UI -> CTRL : vaccinationCenterList = getVaccinationCentersNameList()
 activate CTRL
 CTRL -> C : vaccinationCenterList = getVaccinationCenters()

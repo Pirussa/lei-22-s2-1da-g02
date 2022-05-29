@@ -21,19 +21,19 @@ activate CTRL
 
 CTRL -> C : getSNSUserList().isEmpty()
 activate C
-C ---> CTRL : result result (user´s list is or not empty)
+C ---> CTRL : result (user´s list is or not empty)
 deactivate C
 
 CTRL -> C : getVaccineTypes().isEmpty()
 activate C
-C ---> CTRL : result result (vaccine type´s list is or not empty)
+C ---> CTRL : result (vaccine type´s list is or not empty)
 deactivate C
 
 CTRL -> C :  getVaccinationCenters().isEmpty()
 activate C
 C ---> CTRL : result (vaccination center´s list is or not empty)
 deactivate C
-CTRL ---> UI : result
+CTRL ---> UI : result (if the company has the necessary info to schedule a vaccine)
 deactivate CTRL
 UI -> CTRL : vaccinationCenterList = getVaccinationCentersNameList()
 activate CTRL
@@ -195,7 +195,7 @@ VC ---> CTRL : result (if center is or not available for an appointment)
 deactivate VC
 
 
-CTRL ---> UI : result
+CTRL ---> UI : result (if the appointment is or not valid)
 deactivate CTRL
 
 UI ---> U : shows the data and requests confirmation
@@ -211,7 +211,7 @@ activate CTRL
 CTRL -> VC : centerHasAvailability(scheduleVaccineDto)
 
 activate VC
-VC ---> CTRL : result
+VC ---> CTRL : result (if the vaccination center has availability or not)
 deactivate VC
 
 

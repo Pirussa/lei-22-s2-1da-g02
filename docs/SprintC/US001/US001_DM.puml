@@ -5,7 +5,7 @@ left to right direction
 skinparam classAttributeIconSize 0
 
 
-class SNSUser {
+class SnsUser {
 -snsUserNumber
 -birthdate
 -phoneNumber
@@ -30,18 +30,40 @@ class ApplicationUser {
     -role
 }
 
-class VaccineAppointment {
+class ScheduledVaccine {
 -snsUserNumber
 -date
 }
 
-SNSUser "1" --> "*" VaccineAppointment: schedules >
+class VaccinationCenter {
+-id
+-name
+-phoneNumber
+-email
+-fax
+-website
+-openingHour
+-closingHour
+-slotDuration
+-vaccinesPerSlot
+-road
+-zipCode
+-local
+-centerCoordinatorID
+-arrivalsList
+}
 
-ApplicationUser  <|-- SNSUser
+SnsUser "1" --> "*" ScheduledVaccine: schedules >
 
-VaccineAppointment "*" --> "1" VaccineType: has one  >
+ApplicationUser  <|-- SnsUser
+
+ScheduledVaccine "*" --> "1" VaccineType: has one  >
 
 Company "1" --- "*" VaccineType : storages >
 
+Company "1" -- "*" SnsUser : has >
 
+Company "1" -- "*" VaccinationCenter : has >
+
+VaccinationCenter "1" -- "*" ScheduledVaccine : has >
 @enduml

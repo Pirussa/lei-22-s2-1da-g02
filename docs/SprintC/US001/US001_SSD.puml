@@ -1,51 +1,51 @@
 @startuml
 
 autonumber
-actor "Receptionist" as R
+actor "SnsUser" as U
 
-activate R
-R -> ":System" : asks to schedule a vaccine
+activate U
+U -> ":System" : asks to schedule a vaccine
 
 activate ":System"
-":System" --> R : shows a list with the available vaccination centers
+":System" --> U : shows a list with the available vaccination centers
 deactivate ":System"
-R -> ":System" : selects one vaccination center
+U -> ":System" : selects one vaccination center
 
 activate ":System"
 
- ":System" --> R : shows a list with the Vaccine Types available
+ ":System" --> U : shows a list with the Vaccine Types available
 
-deactivate ":System"
-
-R -> ":System" : selects one Vaccine Type
-activate ":System"
-
-":System" --> R : shows a list with all the dates available
 deactivate ":System"
 
-R -> ":System" : selects one date
-
+U -> ":System" : selects one Vaccine Type
 activate ":System"
-":System" --> R : shows a list with all the available slots (times)
+
+":System" --> U : shows a list with all the dates available
 deactivate ":System"
 
-R -> ":System" : selects one slot
-
+U -> ":System" : selects one date
 
 activate ":System"
-
-":System" --> R : shows all the data and asks for confirmation
+":System" --> U : shows a list with all the available slots (times)
 deactivate ":System"
 
-R -> ":System" : confirms the data
+U -> ":System" : selects one slot
+
 
 activate ":System"
-":System" --> R : informs operation success and asks if the user\nwants to receive an SMS with the appointment info
+
+":System" --> U : shows all the data and asks for confirmation
 deactivate ":System"
-R -> ":System" : confirms that he wants the SMS
-activate ":System"
-":System" ---> R : confirms operation success
 
-deactivate R
+U -> ":System" : confirms the data
+
+activate ":System"
+":System" --> U : informs operation success and asks if the user\nwants to receive an SMS with the appointment info
+deactivate ":System"
+U -> ":System" : confirms that he wants the SMS
+activate ":System"
+":System" ---> U : confirms operation success
+
+deactivate U
 
 @enduml

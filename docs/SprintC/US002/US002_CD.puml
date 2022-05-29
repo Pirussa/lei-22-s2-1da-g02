@@ -24,6 +24,27 @@ class ScheduleVaccineController {
 -dataIsAllFilled(scheduledVaccineDto)
 }
 
+class ScheduleVaccineDto {
++snsNumber
++date
+}
+
+class ScheduledVaccineMapper {
++createScheduledVaccine(scheduledVaccineDto)
+}
+
+class VaccinationCenterDto
+note left: Same data as the VaccinationCenter class (omitted)
+
+
+
+class VaccinationCenterMapper {
+domainToDto(vaccinationCenter)
+}
+
+class Company{
+
+}
 
 class VaccinationCenter {
 -id
@@ -39,19 +60,9 @@ class VaccinationCenter {
 -road
 -zipCode
 -local
-centerCoordinatorID
+-centerCoordinatorID
 -arrivalsList
 +VaccinationCenter(id, name, phoneNumber, email, fax, website, openingHour, closingHour, slotDuration, vaccinesPerSlot, road, zipCode, local, centerCoordinatorID)
-+toString()
-+validateVaccinationCenterHours(openingHour, closingHour)
-+validateWebsite(website, topLevelDomain, worldWideWeb)
-+validateEmail(email)
-+validatePhoneNumberAndFax(strPhoneNumberOrFaxNumber)
-+validateZipCode(strZipCode)
-+validateSlotDuration(strSlotDuration)
-+validateVaccinesPerSlot(strVaccinesPerSlot)
-+validateVaccinationCenters()
-+fullInfo()
 +addAppointment(newAppointment)
 +validateAppointment(scheduledVaccineDto)
 -centerHasAvailability(appointmentsList, scheduledVaccineDto, center)
@@ -61,22 +72,64 @@ centerCoordinatorID
 -validateAgeGroup(snsUser, administrationProcess)
 }
 
-class Vaccine {
--id;
--brand;
--vaccine type;
+class VaccineType {
+-code
+-description
+-technology
 }
 
  class ScheduledVaccine {
  -snsUserNumber
  -date
- -vaccineType
-
  }
 
+class SnsUser {
+- name;
+- sex;
+- birthDate;
+- address;
+- phoneNumber;
+- email;
+- userNumber;
+- citizenCardNumber;
+- password;
+- takenVaccines;
++ snsUser(Name, Sex, BirthDate, Address, Number, Email, snsUserNumber, CitizenCardNumber, Password)
++ registerVaccine(TakenVaccine takenVaccine)
+}
+'UI
 ScheduleVaccineUI ..> ScheduleVaccineController
+ScheduleVaccineUI ..> VaccinationCenterDto
+ScheduleVaccineUI ..> ScheduleVaccineDto
+'CONTROLLER
 ScheduleVaccineController ..> VaccinationCenter
-ScheduleVaccineController -- ScheduledVaccine : creates
-VaccinationCenter ..> Vaccine
-VaccinationCenter --> ScheduledVaccine : has a list of
+ScheduleVaccineController ..> Company
+ScheduleVaccineController ..> ScheduledVaccineMapper
+ScheduleVaccineController ..> ScheduleVaccineDto
+ScheduleVaccineController ..> VaccinationCenterMapper
+ScheduleVaccineController ..> VaccinationCenterDto
+ScheduleVaccineController ..> ScheduledVaccine
+
+
+'CONTROLLER TO DOMAIN
+ScheduledVaccineMapper ..> ScheduledVaccine
+VaccinationCenterMapper ..> VaccinationCenterDto
+ScheduledVaccineMapper ..> ScheduleVaccineDto
+VaccinationCenterMapper ..> VaccinationCenter
+ScheduleVaccineDto "*" --> "1" VaccineType : is associated to >
+
+
+'TP08 - page 9
+
+
+'DOMAIN
+ScheduledVaccine "*" --> "1" VaccineType : is associated to >
+VaccinationCenter "1" --> "*" ScheduledVaccine : has >
+SnsUser "1" -- "1" ScheduledVaccine : schedules >
+
+Company "1" -- "*" VaccinationCenter : has >
+Company "1" -- "*" SnsUser : has >
+Company "1" -- "*" VaccineType : has >
+
+
 @enduml
