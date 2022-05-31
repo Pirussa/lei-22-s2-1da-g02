@@ -24,8 +24,6 @@ class ConsultUsersInTheWaitingRoomTest {
     private RegisterTheArrivalOfAnSnsUserController ctrl2 = new RegisterTheArrivalOfAnSnsUserController();
 
 
-
-
     private void setup() {
         VaccinationCenter vc = new VaccinationCenter("1234", "CVC Matosinhos", "915607321", "cvcmatosinhos@gmail.com", "915607321", "www.cvcmatosinhos.com", "1", "9", "30", "16", "Rua do Amial", "4460-098", "Matosinhos", "CC-95634");
         company.getVaccinationCenters().add(vc);
@@ -46,8 +44,8 @@ class ConsultUsersInTheWaitingRoomTest {
         ctrl2.checkAndSetUserAppointment(200000000);
         ctrl2.setArrival(200000000);
 
-        Arrival arrival1 = new Arrival(100000000,vt1);
-        Arrival arrival2 = new Arrival(200000000,vt1);
+        Arrival arrival1 = new Arrival(100000000, vt1);
+        Arrival arrival2 = new Arrival(200000000, vt1);
 
         vc.getArrivalsList().add(arrival1);
         vc.getArrivalsList().add(arrival2);
@@ -84,7 +82,7 @@ class ConsultUsersInTheWaitingRoomTest {
                         "SNS User Number: " + "200000000" + '\n' +
                         "Phone Number: " + "915604429" + '\n');
 
-        assertEquals(checkList,ctrl.listOfUsersInTheWaitingRoom());
+        assertEquals(checkList, ctrl.listOfUsersInTheWaitingRoom());
     }
 
     /**
@@ -94,24 +92,9 @@ class ConsultUsersInTheWaitingRoomTest {
     @Test
     void listOfUsersInTheWaitingRoomFalse() {
         setup();
-
         ArrayList<String> checkList = new ArrayList<>();
 
-        checkList.add(
-                "Name: " + "User Default" + '\n' +
-                        "Sex: " + "Male" + '\n' +
-                        "Birth Date: " + "01/01/1998" + '\n' +
-                        "SNS User Number: " + "100000000" + '\n' +
-                        "Phone Number: " + "915604428" + '\n');
-        checkList.add(
-                "Name: " + "User Default1" + '\n' +
-                        "Sex: " + "Male" + '\n' +
-                        "Birth Date: " + "01/01/2003" + '\n' +
-                        "SNS User Number: " + "200000000" + '\n' +
-                        "Phone Number: " + "915604429" + '\n');
-
-
-        assertNotEquals(checkList,ctrl.listOfUsersInTheWaitingRoom());
+        assertNotEquals(checkList, ctrl.listOfUsersInTheWaitingRoom());
 
     }
 }

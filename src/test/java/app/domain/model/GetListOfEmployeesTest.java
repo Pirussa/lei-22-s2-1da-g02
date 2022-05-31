@@ -43,14 +43,10 @@ class GetListOfEmployeesTest {
      */
 
     public void fillListOfNursesFalse() {
-        Employee nurse = new Nurse("NR-12345", "Nurse", "Rua / 1111-111 / Portugal", "912345678", "nurse@gmail.com", "11960343 8 ZW1", "AAA11aa");
-
-        Company.getEmployees().add(nurse);
 
         company.fillListOfEmployeesWithAGivenRole();
 
         assertTrue(company.getNurseList().isEmpty());
-
     }
 
 
@@ -66,7 +62,7 @@ class GetListOfEmployeesTest {
 
         company.fillListOfEmployeesWithAGivenRole();
 
-        assertFalse(company.getReceptionistList().isEmpty());
+        assertTrue(company.getReceptionistList().isEmpty());
 
     }
 
@@ -76,14 +72,10 @@ class GetListOfEmployeesTest {
      */
 
     public void fillListOfReceptionistsFalse() {
-        Employee receptionist = new Receptionist("RC-12345", "Receptionist", "Rua / 2222-222 / Portugal", "913456789", "receptionist@gmail.com", "14268862 2 ZX8", "BBB22bb");
-
-        Company.getEmployees().add(receptionist);
 
         company.fillListOfEmployeesWithAGivenRole();
 
         assertTrue(company.getReceptionistList().isEmpty());
-
     }
 
     @Test
@@ -107,14 +99,10 @@ class GetListOfEmployeesTest {
      * Verifies if the list of centre coordinators is empty.
      */
     public void fillListOfCentreCoordinatorsFalse() {
-        Employee centreCoordinator = new CenterCoordinator("CC-12345", "Centre Coordinator", "Rua / 3333-333 / Portugal", "914567894", "centrecoordinator@gmail.com", "35619927 4 ZX6", "CCC33cc");
-
-        Company.getEmployees().add(centreCoordinator);
 
         company.fillListOfEmployeesWithAGivenRole();
 
         assertTrue(company.getCentreCoordinatorList().isEmpty());
-
     }
 
 }
