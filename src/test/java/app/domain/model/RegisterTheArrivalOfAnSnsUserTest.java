@@ -61,21 +61,6 @@ class RegisterTheArrivalOfAnSnsUserTest {
         assertFalse(ctrl.checkAndSetUserAppointment(200000000) && ctrl.checkIfAlreadyRegistered(200000000) && ctrl.validateDateAndTime());
     }
 
-    @Test
-    /**
-     * Verifies if an Arrival on the wrong vaccination center meets the requirements to be registered
-     */
-    public void registerArrivalWithWrongVaccinationCenters() {
-
-        setUp();
-
-        ctrl.setVaccinationCenter(0);
-        ctrl.checkAndSetUserAppointment(100000000);
-        ctrl.setArrival(100000000);
-
-        assertFalse(ctrl.checkAndSetUserAppointment(100000000) && ctrl.checkIfAlreadyRegistered(100000000) && ctrl.validateDateAndTime());
-    }
-
 
     @Test
     /**
@@ -107,8 +92,8 @@ class RegisterTheArrivalOfAnSnsUserTest {
 
         VaccineType vt1 = new VaccineType("12345" ,"Covid", VaccineType.vaccineTechnologies[0]);
 
-        ScheduledVaccine appointment1 = new ScheduledVaccine(100000000, vt1, LocalDateTime.of(2022, 5, 24, 21, 30));
-        ScheduledVaccine appointment2 = new ScheduledVaccine(200000000, vt1, LocalDateTime.of(2022, 5, 24, 22, 30));
+        ScheduledVaccine appointment1 = new ScheduledVaccine(100000000, vt1, LocalDateTime.of(2022, 5, 31, 11, 30));
+        ScheduledVaccine appointment2 = new ScheduledVaccine(200000000, vt1, LocalDateTime.of(2022, 5, 31, 22, 30));
 
         vcR.getScheduledVaccineList().add(appointment1);
         vcR.getScheduledVaccineList().add(appointment2);
