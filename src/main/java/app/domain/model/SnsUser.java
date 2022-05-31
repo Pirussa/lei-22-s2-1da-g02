@@ -32,6 +32,7 @@ public class SnsUser {
     private final String strCitizenCardNumber;
     private final String strPassword;
     private List<TakenVaccine> takenVaccines = new ArrayList<>();
+
     private static final int MAX_NUMBER_OF_CHARS_SNS_USER_NUMBER = 9;
 
     private AuthFacade auth = new AuthFacade();

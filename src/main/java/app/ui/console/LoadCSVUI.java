@@ -3,12 +3,11 @@ package app.ui.console;
 import app.controller.LoadCSVController;
 import app.domain.model.SnsUser;
 import app.ui.console.utils.Utils;
-import dto.SNSUserDto;
+import dto.SnsUserDto;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -152,7 +151,7 @@ public class LoadCSVUI implements Runnable {
         int createCounter = 0;
         int saveCounter = 0;
         for (int i = 0; i < csvData.size(); i++) {
-            SNSUserDto dto = new SNSUserDto();
+            SnsUserDto dto = new SnsUserDto();
             values = csvData.get(i).split("_");
             dto.strName = values[0];
             dto.strSex = values[1];

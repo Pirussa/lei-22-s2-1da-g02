@@ -50,6 +50,10 @@ public class Constants {
 
     public static final int OPENING_CLOSING_HOURS = 2;
 
+    public static final int FIRST_USER_WAITING_ROOM = 0;
+
+    public static final int FIRST_DOSE = 0;
+
     public static final int INVALID_VALUE = -1;
 
     public static final int NEW_EMPLOYEE = 1;
