@@ -2,6 +2,8 @@ package app.domain.model;
 
 import app.controller.App;
 import app.controller.RegisterTheArrivalOfAnSnsUserController;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -14,6 +16,27 @@ class RegisterTheArrivalOfAnSnsUserTest {
     private Company c = App.getInstance().getCompany();
     private RegisterTheArrivalOfAnSnsUserController ctrl = new RegisterTheArrivalOfAnSnsUserController();
 
+
+    /**
+     * Creations instances of what is necessary in order to test the User Story correctly
+     */
+    @BeforeEach
+    private void setUp() {
+        VaccinationCenter vcR = new VaccinationCenter("1234", "CVC Matosinhos", "915607321", "cvcmatosinhos@gmail.com", "915607321", "www.cvcmatosinhos.com", "9",
+                "16", "30", "1", "Rua do Amial", "4460-098", "Matosinhos", "CC-95634");
+        VaccinationCenter vcU = new VaccinationCenter("1234", "Isep", "915607321", "cvcmatosinhos@gmail.com", "915607321", "www.cvcmatosinhos.com", "9",
+                "16", "30", "1", "Rua do Amial", "4460-098", "Matosinhos", "CC-95634");
+        c.getVaccinationCenters().add(vcR);
+        c.getVaccinationCenters().add(vcU);
+
+        VaccineType vt1 = new VaccineType("12345" ,"Covid", VaccineType.vaccineTechnologies[0]);
+
+        ScheduledVaccine appointment1 = new ScheduledVaccine(100000000, vt1, LocalDateTime.of(2022, 5, 31, 12, 30));
+        ScheduledVaccine appointment2 = new ScheduledVaccine(200000000, vt1, LocalDateTime.of(2022, 5, 24, 22, 30));
+
+        vcR.getScheduledVaccineList().add(appointment1);
+        vcR.getScheduledVaccineList().add(appointment2);
+    }
     @Test
     /**
      * Verifies if a valid arrival meets the requirements to be registered
@@ -22,7 +45,7 @@ class RegisterTheArrivalOfAnSnsUserTest {
      */
     public void registerValidArrival() {
 
-        setUp();
+
 
         ctrl.setVaccinationCenter(0);
         ctrl.checkAndSetUserAppointment(100000000);
@@ -38,7 +61,7 @@ class RegisterTheArrivalOfAnSnsUserTest {
      */
     public void registerArrivalWithNoAppointment() {
 
-        setUp();
+
 
         ctrl.setVaccinationCenter(0);
         ctrl.checkAndSetUserAppointment(300000000);
@@ -52,7 +75,7 @@ class RegisterTheArrivalOfAnSnsUserTest {
      */
     public void registerArrivalWithWrongDate() {
 
-        setUp();
+
 
         ctrl.setVaccinationCenter(0);
         ctrl.checkAndSetUserAppointment(200000000);
@@ -61,6 +84,21 @@ class RegisterTheArrivalOfAnSnsUserTest {
         assertFalse(ctrl.checkAndSetUserAppointment(200000000) && ctrl.checkIfAlreadyRegistered(200000000) && ctrl.validateDateAndTime());
     }
 
+//    @Test
+//    /**
+//     * Verifies if an Arrival on the wrong vaccination center meets the requirements to be registered
+//     */
+//    public void registerArrivalWithWrongVaccinationCenters() {
+//
+//        setUp();
+//
+//        ctrl.setVaccinationCenter(0);
+//        ctrl.checkAndSetUserAppointment(100000000);
+//        ctrl.setArrival(100000000);
+//
+//        assertFalse(ctrl.checkAndSetUserAppointment(100000000) && ctrl.checkIfAlreadyRegistered(100000000) && ctrl.validateDateAndTime());
+//    }
+
 
     @Test
     /**
@@ -68,7 +106,7 @@ class RegisterTheArrivalOfAnSnsUserTest {
      */
     public void registerArrivalWithAnAlreadyRegisteredArrival() {
 
-        setUp();
+
 
         ctrl.setVaccinationCenter(0);
         ctrl.checkAndSetUserAppointment(100000000);
@@ -79,24 +117,6 @@ class RegisterTheArrivalOfAnSnsUserTest {
     }
 
 
-    /**
-     * Creations instances of what is necessary in order to test the User Story correctly
-     */
-    private void setUp() {
-        VaccinationCenter vcR = new VaccinationCenter("1234", "CVC Matosinhos", "915607321", "cvcmatosinhos@gmail.com", "915607321", "www.cvcmatosinhos.com", "9",
-                "16", "30", "1", "Rua do Amial", "4460-098", "Matosinhos", "CC-95634");
-        VaccinationCenter vcU = new VaccinationCenter("1234", "Isep", "915607321", "cvcmatosinhos@gmail.com", "915607321", "www.cvcmatosinhos.com", "9",
-                "16", "30", "1", "Rua do Amial", "4460-098", "Matosinhos", "CC-95634");
-        c.getVaccinationCenters().add(vcR);
-        c.getVaccinationCenters().add(vcU);
 
-        VaccineType vt1 = new VaccineType("12345" ,"Covid", VaccineType.vaccineTechnologies[0]);
-
-        ScheduledVaccine appointment1 = new ScheduledVaccine(100000000, vt1, LocalDateTime.of(2022, 5, 31, 11, 30));
-        ScheduledVaccine appointment2 = new ScheduledVaccine(200000000, vt1, LocalDateTime.of(2022, 5, 31, 22, 30));
-
-        vcR.getScheduledVaccineList().add(appointment1);
-        vcR.getScheduledVaccineList().add(appointment2);
-    }
 
 }
