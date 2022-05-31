@@ -25,7 +25,7 @@ public class Constants {
 
     public static final String SUGGESTED_VACCINE_TYPE_ONGOING_OUTBREAK = "COVID";
 
-    public static final String PATH_SMS_MESSAGE = "C:\\Users\\GAMING\\Desktop\\Pedro\\University\\PROJETO\\SMS.txt";
+    public static final String PATH_SMS_MESSAGE = "SMS.txt";
     public static final int PASSWORD_LENGTH = 7;
 
     public static final int ID_LENGTH = 5;
