@@ -2,7 +2,7 @@ package app.controller;
 
 import app.domain.model.Company;
 import app.domain.model.SnsUser;
-import dto.SNSUserDto;
+import dto.SnsUserDto;
 
 import java.util.ArrayList;
 
@@ -20,7 +20,7 @@ public class LoadCSVController {
      * @param dto the dto
      * @return the sns user
      */
-    public SnsUser createSNSUser(SNSUserDto dto) {
+    public SnsUser createSNSUser(SnsUserDto dto) {
         return company.createSNSUser(dto);
     }
 
@@ -30,7 +30,7 @@ public class LoadCSVController {
      * @param dto the dto
      * @return a string that confirms if the User was saved or not
      */
-    public boolean saveSNSUser(SNSUserDto dto){
+    public boolean saveSNSUser(SnsUserDto dto){
         return company.saveSNSUser(dto);
     }
 

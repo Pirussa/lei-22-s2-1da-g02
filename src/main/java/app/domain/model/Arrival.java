@@ -35,6 +35,10 @@ public class Arrival {
         return snsNumber;
     }
 
+    public VaccineType getVaccineType() {
+        return vaccineType;
+    }
+
     /**
      * Information about the arrival of a user
      *

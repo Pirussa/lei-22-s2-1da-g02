@@ -439,7 +439,7 @@ public class Company {
      * @param dto the dto
      * @return the created SNS User
      */
-    public SnsUser createSNSUser(SNSUserDto dto) {
+    public SnsUser createSNSUser(SnsUserDto dto) {
         return new SnsUser(dto.strName, dto.strSex, dto.strBirthDate, dto.strAddress, dto.strPhoneNumber,
                 dto.strEmail, dto.snsUserNumber, dto.strCitizenCardNumber, dto.strPassword);
     }
@@ -450,7 +450,7 @@ public class Company {
      * @param dto the dto
      * @return a string in order to know if the users was saved or not.
      */
-    public boolean saveSNSUser(SNSUserDto dto) {
+    public boolean saveSNSUser(SnsUserDto dto) {
         if (snsUsers.isEmpty()) {
             snsUsers.add(createSNSUser(dto));
             this.authFacade.addUserWithRole(dto.strName, dto.strEmail, dto.strPassword, Constants.ROLE_SNS_USER);

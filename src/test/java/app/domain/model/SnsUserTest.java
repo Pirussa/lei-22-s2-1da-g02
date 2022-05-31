@@ -1,6 +1,5 @@
 package app.domain.model;
 
-import dto.SNSUserDto;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
