@@ -20,6 +20,7 @@ public class Constants {
     public static final String ROLE_CENTRE_COORDINATOR = "CENTRE_COORDINATOR";
     public static final String PARAMS_FILENAME = "config.properties";
     public static final String PARAMS_COMPANY_DESIGNATION = "Company.Designation";
+    public static final String PARAMS_TIME = "Time";
 
     public static final String ID_FIRST_EMPLOYEE = "Company.Designation";
 

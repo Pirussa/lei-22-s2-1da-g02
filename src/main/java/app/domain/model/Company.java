@@ -6,6 +6,9 @@ import mapper.ScheduledVaccineMapper;
 import pt.isep.lei.esoft.auth.AuthFacade;
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -131,7 +134,7 @@ public class Company {
         return massVaccinationCenters;
     }
 
-    private  List<ScheduledVaccine> appointmentsList = new ArrayList<>();
+    private List<ScheduledVaccine> appointmentsList = new ArrayList<>();
 
 
     /**
@@ -366,7 +369,7 @@ public class Company {
     public void fillListOfEmployeesWithAGivenRole() {
         ArrayList<Employee> emp = getEmployees();
         for (int positionArrayListEmployees = 0; positionArrayListEmployees < emp.size(); positionArrayListEmployees++) {
-       boolean check= false;
+            boolean check = false;
             if (emp.get(positionArrayListEmployees) instanceof Nurse) {
                 fillListOfEmployeesChecker(emp, positionArrayListEmployees, check, nurseList);
 
@@ -381,11 +384,11 @@ public class Company {
 
     private void fillListOfEmployeesChecker(ArrayList<Employee> emp, int positionArrayListEmployees, boolean check, ArrayList<Employee> listToBeFilled) {
         for (int listToBeFilledPosition = 0; listToBeFilledPosition < listToBeFilled.size(); listToBeFilledPosition++) {
-            if(emp.get(positionArrayListEmployees).getEmail().equals(listToBeFilled.get(listToBeFilledPosition).getEmail()) && emp.get(positionArrayListEmployees).getCitizenCardNumber().equals(listToBeFilled.get(listToBeFilledPosition).getCitizenCardNumber())){
+            if (emp.get(positionArrayListEmployees).getEmail().equals(listToBeFilled.get(listToBeFilledPosition).getEmail()) && emp.get(positionArrayListEmployees).getCitizenCardNumber().equals(listToBeFilled.get(listToBeFilledPosition).getCitizenCardNumber())) {
                 check = true;
             }
         }
-        if(!check){
+        if (!check) {
             listToBeFilled.add(emp.get(positionArrayListEmployees));
         }
     }
@@ -495,7 +498,7 @@ public class Company {
         return true;
     }
 
-    public void cleanAppointments(){
+    public void cleanAppointments() {
         appointmentsList.clear();
     }
 
@@ -511,6 +514,19 @@ public class Company {
             if (snsUserNumber == (getSnsUserList().get(position).getSnsUserNumber())) return position;
         }
         return -1;
+    }
+
+    public void registerDailyTotalOfPeopleVaccinated() throws FileNotFoundException {
+        PrintWriter file = new PrintWriter("DailyRecordOfVaccinatedPeople.txt");
+
+        if (String.valueOf(LocalDateTime.now().getHour()).equals(Constants.PARAMS_TIME) && String.valueOf(LocalDateTime.now().getMinute()).equals(Constants.PARAMS_TIME)){
+            file.printf(LocalDateTime.now().getDayOfMonth() + "/" + LocalDateTime.now().getMonthValue() + "/" + LocalDateTime.now().getYear() + "%n");
+            for (int vaccinationCenterListPosition = 0; vaccinationCenterListPosition < getVaccinationCenters().size(); vaccinationCenterListPosition++) {
+                file.printf("%n" + getVaccinationCenters().get(vaccinationCenterListPosition));
+                file.printf("Total number of vaccinated people today: "+getVaccinationCenters().get(vaccinationCenterListPosition).getArrivalsList().size());
+            }
+        }
+        file.close();
     }
 
 }
