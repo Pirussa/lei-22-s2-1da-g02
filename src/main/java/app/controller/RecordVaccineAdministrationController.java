@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * @author Guilherme Sousa <1211073@isep.ipp.pt>
@@ -117,5 +118,21 @@ public class RecordVaccineAdministrationController {
         String[] birthdateSplit = snsUser.getStrBirthDate().split("/");
         LocalDate birthdate = LocalDate.of(Integer.parseInt(birthdateSplit[2]), Integer.parseInt(birthdateSplit[1]), Integer.parseInt(birthdateSplit[0]));
         return Period.between(birthdate, LocalDate.now()).getYears();
+    }
+
+    private String lotNumberStructure() {
+        final String alphabetLetters = "abcdefghijklmnopqrstuvwyxzABCDEFGHIJKLMNOPQRSTUVWYXZ0123456789";
+        StringBuilder lotNumber = new StringBuilder();
+        Random generate = new Random();
+
+        for (int index = 0; index < Constants.LOT_NUMBER_LENGHT; index++) {
+            if (index <= 4)
+                lotNumber.append(alphabetLetters.charAt(generate.nextInt(alphabetLetters.length())));
+            else if (index == 5)
+                lotNumber.append("-");
+            else
+                lotNumber.append(alphabetLetters.charAt(generate.nextInt(52, 62)));
+        }
+        return String.valueOf(lotNumber);
     }
 }
