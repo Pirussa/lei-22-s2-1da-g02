@@ -6,6 +6,7 @@ import app.domain.shared.Constants;
 import dto.*;
 import pt.isep.lei.esoft.auth.AuthFacade;
 
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.text.DateFormat;
@@ -150,27 +151,27 @@ public class Utils {
     private static void bootstrapSnsUsers() {
         AuthFacade aF = company.getAuthFacade();
 
-        SNSUserDto dto = new SNSUserDto("User Default", 100000000, "u@gmail.com", "01/01/1998", "915604428", "Male", "Default # 4000-000 # Default", "14698413 7 ZY7", "AAA00aa");
+        SnsUserDto dto = new SnsUserDto("User Default", 100000000, "u@gmail.com", "01/01/1998", "915604428", "Male", "Default # 4000-000 # Default", "14698413 7 ZY7", "AAA00aa");
         company.saveSNSUser(dto);
         company.getAuthFacade().addUserWithRole("UserDefault", "u@gmail.com", "123", Constants.ROLE_SNS_USER);
         //---------------------------------------------------------------------------------------------------------------------------------------------------
-        SNSUserDto dto1 = new SNSUserDto("User Default1", 200000000, "u1@gmail.com", "01/01/2003", "915604429", "Male", "Default # 4000-001 # Default", "16068893 0 ZX7", "AAA11aa");
+        SnsUserDto dto1 = new SnsUserDto("User Default1", 200000000, "u1@gmail.com", "01/01/2003", "915604429", "Male", "Default # 4000-001 # Default", "16068893 0 ZX7", "AAA11aa");
         company.saveSNSUser(dto1);
         company.getAuthFacade().addUserWithRole("UserDefault1", "u1@gmail.com", "123", Constants.ROLE_SNS_USER);
         //---------------------------------------------------------------------------------------------------------------------------------------------------
-        SNSUserDto dto2 = new SNSUserDto("User Default2", 300000000, "u2@gmail.com", "02/02/2000", "915604430", "Male", "Default # 4000-002 # Default", "35906158 3 ZZ5", "AAA22aa");
+        SnsUserDto dto2 = new SnsUserDto("User Default2", 300000000, "u2@gmail.com", "02/02/2000", "915604430", "Male", "Default # 4000-002 # Default", "35906158 3 ZZ5", "AAA22aa");
         company.saveSNSUser(dto2);
         aF.addUserWithRole("User Default2", "u2@gmail.com", "123", Constants.ROLE_SNS_USER);
         //---------------------------------------------------------------------------------------------------------------------------------------------------
-        SNSUserDto dto3 = new SNSUserDto("User Default3", 400000000, "u3@gmail.com", "03/03/2000", "915604431", "Male", "Default # 4000-003 # Default", "35419916 1 ZZ6", "AAA33aa");
+        SnsUserDto dto3 = new SnsUserDto("User Default3", 400000000, "u3@gmail.com", "03/03/2000", "915604431", "Male", "Default # 4000-003 # Default", "35419916 1 ZZ6", "AAA33aa");
         company.saveSNSUser(dto3);
         aF.addUserWithRole("User Default3", "u3@gmail.com", "123", Constants.ROLE_SNS_USER);
         //---------------------------------------------------------------------------------------------------------------------------------------------------
-        SNSUserDto test = new SNSUserDto("UserTest", 999999999, "testUser@gmail.com", "03/03/2010", "915604432", "Male", "Default # 4000-004 # Default", "32006024 1 ZW9", "AAA33aa");
+        SnsUserDto test = new SnsUserDto("UserTest", 999999999, "testUser@gmail.com", "03/03/2010", "915604432", "Male", "Default # 4000-004 # Default", "32006024 1 ZW9", "AAA33aa");
         company.saveSNSUser(test);
         aF.addUserWithRole("UserTest", "testUser@gmail.com", "123", Constants.ROLE_SNS_USER);
         //---------------------------------------------------------------------------------------------------------------------------------------------------
-        SNSUserDto test2 = new SNSUserDto("UserTest2", 888888888, "testUser2@gmail.com", "03/03/2000", "915604433", "Male", "Default # 4000-005 # Default", "35841509 8 ZZ9", "AAA33aa");
+        SnsUserDto test2 = new SnsUserDto("UserTest2", 888888888, "testUser2@gmail.com", "03/03/2000", "915604433", "Male", "Default # 4000-005 # Default", "35841509 8 ZZ9", "AAA33aa");
         company.saveSNSUser(test2);
         aF.addUserWithRole("UserTest2", "testUser2@gmail.com", "123", Constants.ROLE_SNS_USER);
     }
@@ -205,7 +206,7 @@ public class Utils {
      * It creates and adds Scheduled Appointments to the Company as soon as the App runs
      */
     private static void bootstrapScheduledAppointments() {
-        ScheduledVaccine scheduledVaccine1 = new ScheduledVaccine(100000000, company.getVaccineTypes().get(1), LocalDateTime.of(2022, 5, 26, 19, 30));
+        ScheduledVaccine scheduledVaccine1 = new ScheduledVaccine(100000000, company.getVaccineTypes().get(1), LocalDateTime.of(2022, 5, 31, 17, 10));
         ScheduledVaccine scheduledVaccine2 = new ScheduledVaccine(200000000, company.getVaccineTypes().get(0), LocalDateTime.of(2022, 5, 26, 19, 30));
         ScheduledVaccine scheduledVaccine3 = new ScheduledVaccine(300000000, company.getVaccineTypes().get(2), LocalDateTime.of(2022, 5, 26, 19, 30));
         ScheduledVaccine scheduledVaccine4 = new ScheduledVaccine(400000000, company.getVaccineTypes().get(0), LocalDateTime.of(2022, 5, 26, 19, 30));
@@ -609,6 +610,12 @@ public class Utils {
         return false;
     }
 
+    public static boolean validatePhoneNumberSimple(String phoneNumber){
+        if (phoneNumber.matches("^[0-9]{9}$")){
+            return true;
+        } else return false;
+    }
+
     /**
      * Validates citizen card number
      *
@@ -641,6 +648,13 @@ public class Utils {
         return (sum % FIRST_SECOND_DIGIT_CC) == 0;
     }
 
+    public static boolean validateCitizenCardNumberSimple(String citizenCardNumber){
+        if (citizenCardNumber.matches("^[0-9]{8}")){
+            return true;
+        }
+        else return false;
+    }
+
     /**
      * Validates an Address
      *
@@ -666,7 +680,8 @@ public class Utils {
      * @return true if the sex is valid
      */
     static public boolean validateSex(String strSex) {
-        return strSex.equals("Male") || strSex.equals("Female") || strSex.equals("NA") || strSex.isEmpty();
+        return strSex.equals("Male") || strSex.equals("Female") || strSex.equals("NA") || strSex.isEmpty()
+                || strSex.equals("Feminino") || strSex.equals("Masculino");
     }
 
     /**
@@ -821,6 +836,6 @@ public class Utils {
      */
     public static int selectVaccinationCenterIndex() {
         Company company = App.getInstance().getCompany();
-        return Utils.selectFromList(company.getVaccinationCenters(), "\nSelect one Vaccination Center");
+        return Utils.selectFromList(company.getVaccinationCenters(), "\nSelect a Vaccination Center");
     }
 }

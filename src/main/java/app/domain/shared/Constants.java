@@ -26,7 +26,7 @@ public class Constants {
 
     public static final String SUGGESTED_VACCINE_TYPE_ONGOING_OUTBREAK = "COVID";
 
-    public static final String PATH_SMS_MESSAGE = "C:\\Users\\GAMING\\Desktop\\Pedro\\University\\PROJETO\\SMS.txt";
+    public static final String PATH_SMS_MESSAGE = "SMS.txt";
     public static final int PASSWORD_LENGTH = 7;
 
     public static final int ID_LENGTH = 5;
@@ -50,6 +50,10 @@ public class Constants {
     public static final int NUMBER_OF_DAYS_FOR_VACCINATION_SCHEDULE = 365;
 
     public static final int OPENING_CLOSING_HOURS = 2;
+
+    public static final int FIRST_USER_WAITING_ROOM = 0;
+
+    public static final int FIRST_DOSE = 0;
 
     public static final int INVALID_VALUE = -1;
 

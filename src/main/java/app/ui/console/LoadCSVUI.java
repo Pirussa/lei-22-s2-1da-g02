@@ -3,12 +3,11 @@ package app.ui.console;
 import app.controller.LoadCSVController;
 import app.domain.model.SnsUser;
 import app.ui.console.utils.Utils;
-import dto.SNSUserDto;
+import dto.SnsUserDto;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -80,11 +79,13 @@ public class LoadCSVUI implements Runnable {
                     delimiter = ",";
                     br.reset();
                 }
-
+                int counter = 0;
                 while ((line = br.readLine()) != null) {
                     String password = Utils.passwordGenerator();
                     line = line.replaceAll("\"", "");
                     String[] values = line.split(delimiter);
+                    counter++;
+                    System.out.println(counter);
                     if (validateCSVData(values)) {
                         csvData.add(values[0] + "_" + values[1] + "_" + values[2] + "_" + values[3] + "_" + values[4] + "_" + values[5] + "_"
                                 + values[6] + "_" + values[7] + "_" + password);
@@ -92,6 +93,7 @@ public class LoadCSVUI implements Runnable {
                         throw new IllegalArgumentException("The CSV data is invalid, e.g., the Name of the User has non-word character.");
                     }
                 }
+                br.close();
                 fillSNSUserDto(csvData);
 
                 System.out.println();
@@ -136,9 +138,9 @@ public class LoadCSVUI implements Runnable {
 
         int MAXNUMBEROFCHARSSNSUSERNUMBER = 9;
         return !values[0].isEmpty() && Utils.validateSex(values[1]) && !values[2].isEmpty() && Utils.validateBirthDate(values[2]) &&
-                !values[3].isEmpty() && SnsUser.validateAddress(values[3]) && !values[4].isEmpty() && Utils.validatePhoneNumber(values[4]) &&
+                !values[3].isEmpty() && (SnsUser.validateAddress(values[3]) || SnsUser.validateAddressSimple(values[3])) && !values[4].isEmpty() && (Utils.validatePhoneNumber(values[4]) || Utils.validatePhoneNumberSimple(values[4])) &&
                 !values[5].isEmpty() && Utils.validateEmail(values[5]) && values[6].trim().matches("^[0-9]*$") && values[6].length() == MAXNUMBEROFCHARSSNSUSERNUMBER &&
-                !values[7].isEmpty() && Utils.validateCitizenCardNumber(values[7]);
+                !values[7].isEmpty() && (Utils.validateCitizenCardNumber(values[7]) || Utils.validateCitizenCardNumberSimple(values[7]));
     }
 
     /**
@@ -151,8 +153,11 @@ public class LoadCSVUI implements Runnable {
         String[] values;
         int createCounter = 0;
         int saveCounter = 0;
+        int counter = 0;
         for (int i = 0; i < csvData.size(); i++) {
-            SNSUserDto dto = new SNSUserDto();
+            counter++;
+            System.out.println(counter);
+            SnsUserDto dto = new SnsUserDto();
             values = csvData.get(i).split("_");
             dto.strName = values[0];
             dto.strSex = values[1];

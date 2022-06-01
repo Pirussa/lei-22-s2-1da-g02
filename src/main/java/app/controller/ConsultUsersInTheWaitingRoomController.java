@@ -52,18 +52,17 @@ public class ConsultUsersInTheWaitingRoomController {
 
     public ArrayList<String> listOfUsersInTheWaitingRoom() {
         ArrayList<String> listOfUsersInTheWaitingRoom = new ArrayList<>();
-        String snsUserInfo = "";
+        StringBuilder snsUserInfo = new StringBuilder();
         for (int arrivalListPosition = 0; arrivalListPosition < getArrivalsList().size(); arrivalListPosition++) {
             for (int snsUserListPosition = 0; snsUserListPosition < company.getSnsUserList().size(); snsUserListPosition++) {
                 if (getArrivalsList().get(arrivalListPosition).getSnsNumber() == company.getSnsUserList().get(snsUserListPosition).getSnsUserNumber()) {
-                    snsUserInfo = "Name: " + company.getSnsUserList().get(snsUserListPosition).getStrName() + '\n' +
-                            "Sex: " + company.getSnsUserList().get(snsUserListPosition).getStrSex() + '\n' +
-                            "Birth Date: " + company.getSnsUserList().get(snsUserListPosition).getStrBirthDate() + '\n' +
-                            "SNS User Number: " + company.getSnsUserList().get(snsUserListPosition).getSnsUserNumber() + '\n' +
-                            "Phone Number: " + company.getSnsUserList().get(snsUserListPosition).getStrPhoneNumber() + '\n';
-                    listOfUsersInTheWaitingRoom.add(snsUserInfo);
+                    snsUserInfo.append("Name: ").append(company.getSnsUserList().get(snsUserListPosition).getStrName()).append('\n');
+                    snsUserInfo.append("Sex: ").append(company.getSnsUserList().get(snsUserListPosition).getStrSex()).append('\n');
+                    snsUserInfo.append("Birth Date: ").append(company.getSnsUserList().get(snsUserListPosition).getStrBirthDate()).append('\n');
+                    snsUserInfo.append("SNS User Number: ").append(company.getSnsUserList().get(snsUserListPosition).getSnsUserNumber()).append('\n');
+                    snsUserInfo.append("Phone Number: ").append(company.getSnsUserList().get(snsUserListPosition).getStrPhoneNumber()).append('\n');
+                    listOfUsersInTheWaitingRoom.add(snsUserInfo.toString());
                 }
-
             }
         }
         return listOfUsersInTheWaitingRoom;

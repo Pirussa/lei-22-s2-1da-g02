@@ -88,4 +88,8 @@ public class AdministrationProcess {
     public ArrayList<Integer> getNumberOfDoses() {
         return numberOfDoses;
     }
+
+    public ArrayList<Double> getDosage() {
+        return dosage;
+    }
 }

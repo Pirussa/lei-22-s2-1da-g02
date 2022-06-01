@@ -34,6 +34,14 @@ public class Vaccine {
         return id;
     }
 
+    public Vaccine(VaccineType vt) {
+        this.vt = vt;
+    }
+
+    public String getName() {
+        return name;
+    }
+
     public AdministrationProcess getAdminProcess() {
         return adminProcess;
     }
