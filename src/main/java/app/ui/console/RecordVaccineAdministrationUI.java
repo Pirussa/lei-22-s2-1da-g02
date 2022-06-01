@@ -1,6 +1,7 @@
 package app.ui.console;
 
 import app.controller.RecordVaccineAdministrationController;
+import app.domain.shared.Constants;
 import app.ui.console.utils.Utils;
 import dto.SnsUserDto;
 
@@ -20,11 +21,18 @@ public class RecordVaccineAdministrationUI implements Runnable {
 
         // Get all User information using Dto
         SnsUserDto snsUserDto = controller.getSnsUserInformation();
+        controller.setSnsUser(snsUserDto);
 
         // Select a Vaccine (Verifies if it matches the Vaccine Type)
-        int vaccineIndexInList = Utils.showAndSelectIndex(controller.vaccineTypeAvailableVaccines(), "Select a Vaccine: ");
+        controller.setUserScheduledVaccineType();
+        do {
+            int vaccineIndexInList = Utils.showAndSelectIndex(controller.vaccineTypeAvailableVaccines(), "Select a Vaccine: ");
+        } while (controller.userSuitsAgeGroup(controller.findLastDoseOfVaccineType()) == Constants.INVALID_VALUE);
 
-        controller.getUserNumberOfDoses();
+        int numberOfDoses = controller.getUserNumberOfDoses();
+        int currentAppointment = controller.findLastDoseOfVaccineType();
+        System.out.println(controller.vaccineAdministrationProcess(numberOfDoses, currentAppointment));
+
     }
 
     private void printVaccineAdministrationProcess() {

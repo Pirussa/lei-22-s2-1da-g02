@@ -38,6 +38,10 @@ public class Vaccine {
         this.vt = vt;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public AdministrationProcess getAdminProcess() {
         return adminProcess;
     }

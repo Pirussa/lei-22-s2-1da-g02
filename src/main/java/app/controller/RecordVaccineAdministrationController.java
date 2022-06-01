@@ -2,9 +2,12 @@ package app.controller;
 
 import app.domain.model.*;
 import app.domain.shared.Constants;
+import app.ui.console.utils.Utils;
 import dto.SnsUserDto;
 import mapper.SnsUserMapper;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,10 +37,9 @@ public class RecordVaccineAdministrationController {
         snsUser = snsUserMapper.SNSUserDtoToDomain(snsUserDto);
     }
 
-    private void setUserScheduledVaccineType() {
+    public void setUserScheduledVaccineType() {
         vaccineType = getArrivalList().get(0).getVaccineType();
     }
-
 
     private List<Arrival> getArrivalList() {
         return new ArrayList<>(vaccinationCenter.getArrivalsList());
@@ -57,11 +59,11 @@ public class RecordVaccineAdministrationController {
         return snsUserMapper.domainToSNSUserDto(company.getSnsUserList().get(snsUserIndexInList()));
     }
 
-    public List<Vaccine> vaccineTypeAvailableVaccines() {
-        ArrayList<Vaccine> vaccinesAvailable = new ArrayList<>();
+    public List<String> vaccineTypeAvailableVaccines() {
+        ArrayList<String> vaccinesAvailable = new ArrayList<>();
         for (int index = 0; index < company.getVaccines().size(); index++) {
             if (vaccineType.equals(company.getVaccines().get(index).getVaccineType()))
-                vaccinesAvailable.add(company.getVaccines().get(index));
+                vaccinesAvailable.add(company.getVaccines().get(index).getName());
         }
         return vaccinesAvailable;
     }
@@ -82,20 +84,38 @@ public class RecordVaccineAdministrationController {
         return Constants.FIRST_DOSE;
     }
 
-    private int findLastDoseOfVaccineType() {
-        for (int index = snsUser.getTakenVaccines().size(); index > 0; index--) {
+    public int findLastDoseOfVaccineType() {
+        for (int index = snsUser.getTakenVaccines().size() - 1; index >= 0; index--) {
             if (vaccineType.equals(snsUser.getTakenVaccines().get(index).getVaccine().getVaccineType()))
                 return index;
         }
         return Constants.FIRST_DOSE;
     }
 
-   /* public StringBuilder vaccineAdministrationProcess(int numberOfDoses, int indexVaccine) {
+    public StringBuilder vaccineAdministrationProcess(int numberOfDoses, int indexVaccine) {
         StringBuilder vaccineAdministrationProcess = new StringBuilder();
-        vaccineAdministrationProcess.append("Dosage: ").append(dosageForDose(numberOfDoses, indexVaccine));
-    }*/
+        return vaccineAdministrationProcess.append("Dosage: ").append(dosageForDose(numberOfDoses, indexVaccine)).append("ml");
+    }
 
     private Double dosageForDose(int numberOfDoses, int indexVaccine) {
-        return snsUser.getTakenVaccines().get(indexVaccine).getVaccine().getAdminProcess().getDosage().get(numberOfDoses - 1);
+        return snsUser.getTakenVaccines().get(indexVaccine).getVaccine().getAdminProcess().getDosage().get(numberOfDoses);
+    }
+
+    public int userSuitsAgeGroup(int indexVaccine) {
+        int userAge = getUserAge();
+        for (int columns = 0; columns < snsUser.getTakenVaccines().get(indexVaccine).getVaccine().getAdminProcess().getAgeGroups().get(0).size(); columns++) {
+            for (int rows = 0; rows < snsUser.getTakenVaccines().get(indexVaccine).getVaccine().getAdminProcess().getAgeGroups().size() - 1; rows++) {
+                if ((userAge > snsUser.getTakenVaccines().get(indexVaccine).getVaccine().getAdminProcess().getAgeGroups().get(columns).get(rows)) && userAge < snsUser.getTakenVaccines().get(indexVaccine).getVaccine().getAdminProcess().getAgeGroups().get(columns).get(rows + 1)) {
+                    return columns;
+                }
+            }
+        }
+        return -1;
+    }
+
+    private int getUserAge() {
+        String[] birthdateSplit = snsUser.getStrBirthDate().split("/");
+        LocalDate birthdate = LocalDate.of(Integer.parseInt(birthdateSplit[2]), Integer.parseInt(birthdateSplit[1]), Integer.parseInt(birthdateSplit[0]));
+        return Period.between(birthdate, LocalDate.now()).getYears();
     }
 }
