@@ -205,6 +205,12 @@ public class SnsUser {
         return zipCode.length() == 8 && zipCode.charAt(4) == '-';
     }
 
+    public static boolean validateAddressSimple(String strAddress) {
+        if (!strAddress.isEmpty()){
+            return true;
+        } else return false;
+    }
+
     /**
      * Validate sex boolean.
      *
@@ -212,7 +218,8 @@ public class SnsUser {
      * @return the boolean
      */
     public boolean validateSex(String strSex) {
-        return strSex.equals("Male") || strSex.equals("Female") || strSex.equals("NA") || strSex.isEmpty();
+        return strSex.equals("Male") || strSex.equals("Female") || strSex.equals("NA") || strSex.isEmpty()
+                || strSex.equals("Feminino") || strSex.equals("Masculino");
     }
 
     /**
@@ -243,8 +250,9 @@ public class SnsUser {
                 strPhoneNumber != null && strAddress != null && strCitizenCardNumber != null && !strName.isEmpty() && !strEmail.isEmpty() &&
                 !strPassword.isEmpty() && !strBirthDate.isEmpty() && !strPhoneNumber.isEmpty() &&
                 !strAddress.isEmpty() && !strCitizenCardNumber.isEmpty() && Utils.validateEmail(strEmail) &&
-                Utils.validateSnsUserNumber(snsUserNumber) && validateSex(strSex) && validateAddress(strAddress) &&
-                Utils.validateCitizenCardNumber(strCitizenCardNumber) && Utils.validatePhoneNumber(strPhoneNumber) && validateBirthDate(strBirthDate);
+                Utils.validateSnsUserNumber(snsUserNumber) && validateSex(strSex) && (validateAddress(strAddress) || validateAddressSimple(strAddress)) &&
+                (Utils.validateCitizenCardNumber(strCitizenCardNumber) || Utils.validateCitizenCardNumberSimple(strCitizenCardNumber))
+                && (Utils.validatePhoneNumber(strPhoneNumber) || Utils.validatePhoneNumberSimple(strPhoneNumber)) && validateBirthDate(strBirthDate);
     }
 
     /**

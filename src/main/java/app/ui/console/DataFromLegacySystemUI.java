@@ -45,11 +45,10 @@ public class DataFromLegacySystemUI implements Runnable{
 
 
   public void sortByArrivalTime(List<String> csvLegacyData){
-
+    //Comparator<String> compareByArrivalTime = Comparator.comparing(String::)
     }
 
   public void sortByLeavingTime(List<String> csvLegacyData){
-    Collections.sort(csvLegacyData.get(5));
     System.out.println(csvLegacyData);
   }
 

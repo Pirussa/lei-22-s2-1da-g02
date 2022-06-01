@@ -29,6 +29,6 @@ public class RecordVaccineAdministrationUI implements Runnable {
 
     private void printVaccineAdministrationProcess() {
         System.out.printf("%n----------------------------%n|Administration Information|%n----------------------------%n%n");
-        System.out.printf();
+        //System.out.printf();
     }
 }

@@ -6,6 +6,7 @@ import app.domain.shared.Constants;
 import dto.*;
 import pt.isep.lei.esoft.auth.AuthFacade;
 
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.text.DateFormat;
@@ -609,6 +610,12 @@ public class Utils {
         return false;
     }
 
+    public static boolean validatePhoneNumberSimple(String phoneNumber){
+        if (phoneNumber.matches("^[0-9]{9}$")){
+            return true;
+        } else return false;
+    }
+
     /**
      * Validates citizen card number
      *
@@ -641,6 +648,13 @@ public class Utils {
         return (sum % FIRST_SECOND_DIGIT_CC) == 0;
     }
 
+    public static boolean validateCitizenCardNumberSimple(String citizenCardNumber){
+        if (citizenCardNumber.matches("^[0-9]{8}")){
+            return true;
+        }
+        else return false;
+    }
+
     /**
      * Validates an Address
      *
@@ -666,7 +680,8 @@ public class Utils {
      * @return true if the sex is valid
      */
     static public boolean validateSex(String strSex) {
-        return strSex.equals("Male") || strSex.equals("Female") || strSex.equals("NA") || strSex.isEmpty();
+        return strSex.equals("Male") || strSex.equals("Female") || strSex.equals("NA") || strSex.isEmpty()
+                || strSex.equals("Feminino") || strSex.equals("Masculino");
     }
 
     /**
