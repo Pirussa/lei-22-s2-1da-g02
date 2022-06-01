@@ -39,6 +39,7 @@ public class Arrival {
         return vaccineType;
     }
 
+
     /**
      * Information about the arrival of a user
      *

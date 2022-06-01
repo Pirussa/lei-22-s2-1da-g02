@@ -2,7 +2,6 @@ package app.controller;
 
 import app.domain.model.*;
 import app.domain.shared.Constants;
-import app.ui.console.utils.Utils;
 import dto.SnsUserDto;
 import mapper.SnsUserMapper;
 
@@ -93,9 +92,8 @@ public class RecordVaccineAdministrationController {
         return Constants.FIRST_DOSE;
     }
 
-    public StringBuilder vaccineAdministrationProcess(int numberOfDoses, int indexVaccine) {
-        StringBuilder vaccineAdministrationProcess = new StringBuilder();
-        return vaccineAdministrationProcess.append("Dosage: ").append(dosageForDose(numberOfDoses, indexVaccine)).append("ml");
+    public String vaccineAdministrationProcess(int numberOfDoses, int indexVaccine) {
+        return "Dosage: " + dosageForDose(numberOfDoses, indexVaccine) + "ml";
     }
 
     private Double dosageForDose(int numberOfDoses, int indexVaccine) {
@@ -121,18 +119,27 @@ public class RecordVaccineAdministrationController {
     }
 
     private String lotNumberStructure() {
-        final String alphabetLetters = "abcdefghijklmnopqrstuvwyxzABCDEFGHIJKLMNOPQRSTUVWYXZ0123456789";
+        final String alphabetLetters = "abcdefghijklmnopqrstuvwyxzABCDEFGHIJKLMNOPQRSTUVWYXZ";
+        final String numbers = "0123456789";
+        final String alphabetNumbers = numbers + alphabetLetters;
         StringBuilder lotNumber = new StringBuilder();
         Random generate = new Random();
 
         for (int index = 0; index < Constants.LOT_NUMBER_LENGHT; index++) {
             if (index <= 4)
-                lotNumber.append(alphabetLetters.charAt(generate.nextInt(alphabetLetters.length())));
+                lotNumber.append(alphabetNumbers.charAt(generate.nextInt(alphabetNumbers.length())));
             else if (index == 5)
                 lotNumber.append("-");
             else
-                lotNumber.append(alphabetLetters.charAt(generate.nextInt(52, 62)));
+                lotNumber.append(numbers.charAt(generate.nextInt(10)));
         }
         return String.valueOf(lotNumber);
+    }
+
+    public List<String> fillListWithUserSnsNumber() {
+        ArrayList<String> userSnsNumber = new ArrayList<>();
+        for (int index = 0; index < getArrivalList().size(); index++)
+            userSnsNumber.add("SNS Number: " + getArrivalList().get(index).getSnsNumber());
+        return userSnsNumber;
     }
 }
