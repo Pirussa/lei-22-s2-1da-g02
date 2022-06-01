@@ -79,13 +79,10 @@ public class LoadCSVUI implements Runnable {
                     delimiter = ",";
                     br.reset();
                 }
-                int counter = 0;
                 while ((line = br.readLine()) != null) {
                     String password = Utils.passwordGenerator();
                     line = line.replaceAll("\"", "");
                     String[] values = line.split(delimiter);
-                    counter++;
-                    System.out.println(counter);
                     if (validateCSVData(values)) {
                         csvData.add(values[0] + "_" + values[1] + "_" + values[2] + "_" + values[3] + "_" + values[4] + "_" + values[5] + "_"
                                 + values[6] + "_" + values[7] + "_" + password);
@@ -156,7 +153,8 @@ public class LoadCSVUI implements Runnable {
         int counter = 0;
         for (int i = 0; i < csvData.size(); i++) {
             counter++;
-            System.out.println(counter);
+            float percentage = (float)counter*100/csvData.size();
+            System.out.printf("\n%.1f%% complete...", percentage);
             SnsUserDto dto = new SnsUserDto();
             values = csvData.get(i).split("_");
             dto.strName = values[0];
