@@ -39,8 +39,8 @@ class ScheduleVaccinationTest {
         AdministrationProcess administrationProcess1 = new AdministrationProcess(new ArrayList<>(Arrays.asList(minAge1, maxAge1)), new ArrayList<>(List.of(2, 3)), new ArrayList<>(List.of(20.0, 30.0)), new ArrayList<>(Arrays.asList(timeBetween1stAnd2ndDose1, timeBetween2ndAnd3rdDose1)));
         Vaccine vaccine1 = new Vaccine("Test", 12, "Brand1", administrationProcess1, vaccineType);
 
-        TakenVaccine takenVaccine1 = new TakenVaccine(vaccine1, LocalDateTime.of(2022, 5, 23, 10, 30), 1);
-        company.getSnsUserList().get(4).registerVaccine(takenVaccine1);
+        VaccineBulletin vaccineBulletin1 = new VaccineBulletin(vaccine1, LocalDateTime.of(2022, 5, 23, 10, 30), 1);
+        company.getSnsUserList().get(4).registerVaccine(vaccineBulletin1);
 
         ScheduledVaccineDto scheduledVaccineDto = new ScheduledVaccineDto();
         scheduledVaccineDto.snsNumber = 999999999;

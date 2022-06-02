@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 /**
  * The type Taken vaccine.
  */
-public class TakenVaccine {
+public class VaccineBulletin {
 
     /**
      * Vaccine taken by the user in previous appointment
@@ -29,9 +29,12 @@ public class TakenVaccine {
      */
     private int doseNumber;
 
-    public TakenVaccine(Vaccine vaccine, LocalDateTime dateTime, int doses) {
+    private String lotNumber;
+
+    public VaccineBulletin(Vaccine vaccine, LocalDateTime dateTime, int doses, String lotNumber) {
         this.vaccine = vaccine;
         this.dateTimeOfLastDose = dateTime;
+        this.lotNumber = lotNumber;
     }
 
 
