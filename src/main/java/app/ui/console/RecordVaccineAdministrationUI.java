@@ -24,22 +24,23 @@ public class RecordVaccineAdministrationUI implements Runnable {
         controller.setVaccinationCenter(vaccinationCenterIndexInList);
 
         // Get all User information using Dto
-        //System.out.printf("%n" + controller.fillListWithUserSnsNumber().get(Constants.FIRST_USER_WAITING_ROOM) + "%n%n");
+        System.out.printf("%n" + controller.fillListWithUserSnsNumber().get(Constants.FIRST_USER_WAITING_ROOM) + "%n%n");
+        // Select User from Waiting Room List
         int options = Utils.selectFromList(List.of(Constants.OPTIONS), "Consult Waiting Room List");
         fullListOfSnsUsers(options);
-        SnsUserDto snsUserDto = controller.getSnsUserInformation(0);
-        controller.setSnsUser(snsUserDto);
 
         // Select a Vaccine (Verifies if it matches the Vaccine Type)
         controller.setUserScheduledVaccineType();
-        do {
-            int vaccineIndexInList = Utils.showAndSelectIndex(controller.vaccineTypeAvailableVaccines(), "Select a Vaccine: ");
-        } while (controller.userSuitsAgeGroup(controller.findLastDoseOfVaccineType()) == Constants.INVALID_VALUE);
+        int foundVaccine = userFirstDose();
 
-        int numberOfDoses = controller.getUserNumberOfDoses();
-        int currentAppointment = controller.findLastDoseOfVaccineType();
-        System.out.println(controller.vaccineAdministrationProcess(numberOfDoses, currentAppointment));
+        // If user fits any of the age groups
+        if (foundVaccine != Constants.FIRST_DOSE) {
 
+
+            int numberOfDoses = controller.getUserNumberOfDoses();
+            int currentAppointment = controller.findLastDoseOfVaccineType();
+            System.out.println(controller.vaccineAdministrationProcess(numberOfDoses, currentAppointment));
+        }
     }
 
     private void fullListOfSnsUsers(int options) {
@@ -47,6 +48,22 @@ public class RecordVaccineAdministrationUI implements Runnable {
             int selectedUser = Utils.selectFromList(controller.fillListWithUserSnsNumber(), "Users");
             SnsUserDto snsUserDto = controller.getSnsUserInformation(selectedUser);
             controller.setSnsUser(snsUserDto);
+        } else {
+            SnsUserDto snsUserDto = controller.getSnsUserInformation(Constants.FIRST_USER_WAITING_ROOM);
+            controller.setSnsUser(snsUserDto);
         }
     }
+
+    private int userFirstDose() {
+        if (controller.findLastDoseOfVaccineType() != Constants.FIRST_DOSE) {
+            int vaccineIndexInList;
+            do {
+                vaccineIndexInList = Utils.showAndSelectIndex(controller.vaccineTypeAvailableVaccines(), "Select a Vaccine: ");
+            } while (controller.userSuitsAgeGroup(controller.findLastDoseOfVaccineType()) == Constants.INVALID_VALUE);
+            return vaccineIndexInList;
+        }
+        //If the user doesn´t fit in any of the age groups.
+        return Constants.FIRST_DOSE;
+    }
 }
+

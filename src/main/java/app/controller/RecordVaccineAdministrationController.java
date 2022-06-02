@@ -139,7 +139,7 @@ public class RecordVaccineAdministrationController {
     public List<String> fillListWithUserSnsNumber() {
         ArrayList<String> userSnsNumber = new ArrayList<>();
         for (int index = 1; index < getArrivalList().size(); index++)
-            userSnsNumber.add("SNS Number: " + getArrivalList().get(index).getSnsNumber());
+            userSnsNumber.add("SNS Number - " + getArrivalList().get(index).getSnsNumber());
         return userSnsNumber;
     }
 }
