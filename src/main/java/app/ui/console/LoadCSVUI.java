@@ -95,6 +95,8 @@ public class LoadCSVUI implements Runnable {
                 FileOutputStream fileOut = new FileOutputStream("SNSUserInfo.txt");
                 ObjectOutputStream out = new ObjectOutputStream(fileOut);
                 out.writeObject(controller.getSNSUserList());
+                out.flush();
+                out.close();
 
                 if (confirmAnotherCSV()){
                     runLoadCSV();
@@ -247,29 +249,8 @@ public class LoadCSVUI implements Runnable {
             System.out.println("There aren't any registered SNS Users.");
         }
     }
-
-    public void serializeListOfSNSUsers() throws IOException {
-    LoadCSVController controller = new LoadCSVController();
-    FileOutputStream fileOut = new FileOutputStream("SNSUserInfo.txt");
-    if (!controller.getSNSUserList().isEmpty()) {
-      for (int i = 0; i < controller.getSNSUserList().size(); i++) {
-        ObjectOutputStream out = new ObjectOutputStream(fileOut);
-        out.writeObject(controller.getSNSUserList().get(i));
-
-      }
-      System.out.println("\nSerialization Successful.");
-   }
-    /*
-    public void deserializeSNSUser(){
-        FileInputStream fileIn = new FileInputStream("SNSUserInfo.txt");
-        ObjectInputStream in = new ObjectInputStream(fileIn);
-        System.out.println("Deserialized Data: \n" + in.readObject().toString());
-        in.close();
-        fileIn.close();
-    }*/
-
 }
-}
+
 
 
 
