@@ -23,6 +23,8 @@ public class RecordVaccineAdministrationController {
 
     private VaccineType vaccineType;
 
+    private Vaccine vaccine;
+
     private SnsUser snsUser;
 
     public RecordVaccineAdministrationController() {
@@ -37,8 +39,8 @@ public class RecordVaccineAdministrationController {
         snsUser = snsUserMapper.SNSUserDtoToDomain(snsUserDto);
     }
 
-    public void setUserScheduledVaccineType() {
-        vaccineType = getArrivalList().get(0).getVaccineType();
+    public void setUserScheduledVaccineType(int userIndexInList) {
+        vaccineType = getArrivalList().get(userIndexInList).getVaccineType();
     }
 
     private List<Arrival> getArrivalList() {
@@ -103,7 +105,7 @@ public class RecordVaccineAdministrationController {
     public int userSuitsAgeGroup(int indexVaccine) {
         int userAge = getUserAge();
         for (int columns = 0; columns < snsUser.getTakenVaccines().get(indexVaccine).getVaccine().getAdminProcess().getAgeGroups().get(0).size(); columns++) {
-            for (int rows = 0; rows < snsUser.getTakenVaccines().get(indexVaccine).getVaccine().getAdminProcess().getAgeGroups().size() - 1; rows++) {
+            for (int rows = 0; rows < snsUser.getTakenVaccines().get(indexVaccine).getVaccine().getAdminProcess().getAgeGroups().size(); rows++) {
                 if ((userAge > snsUser.getTakenVaccines().get(indexVaccine).getVaccine().getAdminProcess().getAgeGroups().get(columns).get(rows)) && userAge < snsUser.getTakenVaccines().get(indexVaccine).getVaccine().getAdminProcess().getAgeGroups().get(columns).get(rows + 1)) {
                     return columns;
                 }
@@ -141,5 +143,9 @@ public class RecordVaccineAdministrationController {
         for (int index = 1; index < getArrivalList().size(); index++)
             userSnsNumber.add("SNS Number - " + getArrivalList().get(index).getSnsNumber());
         return userSnsNumber;
+    }
+
+    public void setVaccine(int currentAppointment) {
+        vaccine = snsUser.getTakenVaccines().get(currentAppointment).getVaccine();
     }
 }
