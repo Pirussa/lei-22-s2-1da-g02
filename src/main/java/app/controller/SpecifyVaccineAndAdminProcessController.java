@@ -5,6 +5,7 @@ import app.domain.model.VaccineType;
 import dto.VaccineAndAdminProcessDto;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * US013 - Specify Vaccine and its Administration Process Controller
@@ -43,7 +44,7 @@ public class SpecifyVaccineAndAdminProcessController {
      *
      * @return an ArrayList with all the Vaccine Types that are available to choose.
      */
-    public ArrayList<VaccineType> getVaccineTypesList() {
+    public List<VaccineType> getVaccineTypesList() {
         return company.getVaccineTypes();
     }
 

@@ -101,7 +101,8 @@ public class Company {
      *
      * @return An ArrayList of Vaccine Types.
      */
-    public ArrayList<VaccineType> getVaccineTypes() {
+    public List<VaccineType> getVaccineTypes() {
+
         return vaccineTypes;
     }
 

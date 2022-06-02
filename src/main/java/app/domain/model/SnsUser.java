@@ -252,7 +252,7 @@ public class SnsUser {
                 !strAddress.isEmpty() && !strCitizenCardNumber.isEmpty() && Utils.validateEmail(strEmail) &&
                 Utils.validateSnsUserNumber(snsUserNumber) && validateSex(strSex) && (validateAddress(strAddress) || validateAddressSimple(strAddress)) &&
                 (Utils.validateCitizenCardNumber(strCitizenCardNumber) || Utils.validateCitizenCardNumberSimple(strCitizenCardNumber))
-                && (Utils.validatePhoneNumber(strPhoneNumber) || Utils.validatePhoneNumberSimple(strPhoneNumber)) && validateBirthDate(strBirthDate);
+                && (Utils.validatePhoneNumber(strPhoneNumber) || Utils.validatePhoneNumber(strPhoneNumber)) && validateBirthDate(strBirthDate);
     }
 
     /**

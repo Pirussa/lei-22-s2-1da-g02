@@ -2,7 +2,6 @@ package app.controller;
 
 import app.domain.model.*;
 import app.domain.shared.Constants;
-import app.ui.console.utils.Utils;
 import dto.SnsUserDto;
 import mapper.SnsUserMapper;
 
@@ -10,6 +9,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * @author Guilherme Sousa <1211073@isep.ipp.pt>
@@ -22,6 +22,8 @@ public class RecordVaccineAdministrationController {
     private VaccinationCenter vaccinationCenter;
 
     private VaccineType vaccineType;
+
+    private Vaccine vaccine;
 
     private SnsUser snsUser;
 
@@ -37,26 +39,26 @@ public class RecordVaccineAdministrationController {
         snsUser = snsUserMapper.SNSUserDtoToDomain(snsUserDto);
     }
 
-    public void setUserScheduledVaccineType() {
-        vaccineType = getArrivalList().get(0).getVaccineType();
+    public void setUserScheduledVaccineType(int userIndexInList) {
+        vaccineType = getArrivalList().get(userIndexInList).getVaccineType();
     }
 
     private List<Arrival> getArrivalList() {
         return new ArrayList<>(vaccinationCenter.getArrivalsList());
     }
 
-    private int snsUserIndexInList() {
+    private int snsUserIndexInList(int selectedUser) {
         for (int index = 0; index < company.getSnsUserList().size(); index++) {
-            if (getArrivalList().get(0).getSnsNumber() == company.getSnsUserList().get(index).getSnsUserNumber()) {
+            if (getArrivalList().get(selectedUser).getSnsNumber() == company.getSnsUserList().get(index).getSnsUserNumber()) {
                 return index;
             }
         }
         return Constants.INVALID_VALUE;
     }
 
-    public SnsUserDto getSnsUserInformation() {
+    public SnsUserDto getSnsUserInformation(int selectedUser) {
         SnsUserMapper snsUserMapper = new SnsUserMapper();
-        return snsUserMapper.domainToSNSUserDto(company.getSnsUserList().get(snsUserIndexInList()));
+        return snsUserMapper.domainToSNSUserDto(company.getSnsUserList().get(snsUserIndexInList(selectedUser)));
     }
 
     public List<String> vaccineTypeAvailableVaccines() {
@@ -92,9 +94,8 @@ public class RecordVaccineAdministrationController {
         return Constants.FIRST_DOSE;
     }
 
-    public StringBuilder vaccineAdministrationProcess(int numberOfDoses, int indexVaccine) {
-        StringBuilder vaccineAdministrationProcess = new StringBuilder();
-        return vaccineAdministrationProcess.append("Dosage: ").append(dosageForDose(numberOfDoses, indexVaccine)).append("ml");
+    public String vaccineAdministrationProcess(int numberOfDoses, int indexVaccine) {
+        return "Dosage: " + dosageForDose(numberOfDoses, indexVaccine) + "ml";
     }
 
     private Double dosageForDose(int numberOfDoses, int indexVaccine) {
@@ -104,7 +105,7 @@ public class RecordVaccineAdministrationController {
     public int userSuitsAgeGroup(int indexVaccine) {
         int userAge = getUserAge();
         for (int columns = 0; columns < snsUser.getTakenVaccines().get(indexVaccine).getVaccine().getAdminProcess().getAgeGroups().get(0).size(); columns++) {
-            for (int rows = 0; rows < snsUser.getTakenVaccines().get(indexVaccine).getVaccine().getAdminProcess().getAgeGroups().size() - 1; rows++) {
+            for (int rows = 0; rows < snsUser.getTakenVaccines().get(indexVaccine).getVaccine().getAdminProcess().getAgeGroups().size(); rows++) {
                 if ((userAge > snsUser.getTakenVaccines().get(indexVaccine).getVaccine().getAdminProcess().getAgeGroups().get(columns).get(rows)) && userAge < snsUser.getTakenVaccines().get(indexVaccine).getVaccine().getAdminProcess().getAgeGroups().get(columns).get(rows + 1)) {
                     return columns;
                 }
@@ -117,5 +118,34 @@ public class RecordVaccineAdministrationController {
         String[] birthdateSplit = snsUser.getStrBirthDate().split("/");
         LocalDate birthdate = LocalDate.of(Integer.parseInt(birthdateSplit[2]), Integer.parseInt(birthdateSplit[1]), Integer.parseInt(birthdateSplit[0]));
         return Period.between(birthdate, LocalDate.now()).getYears();
+    }
+
+    private String lotNumberStructure() {
+        final String alphabetLetters = "abcdefghijklmnopqrstuvwyxzABCDEFGHIJKLMNOPQRSTUVWYXZ";
+        final String numbers = "0123456789";
+        final String alphabetNumbers = numbers + alphabetLetters;
+        StringBuilder lotNumber = new StringBuilder();
+        Random generate = new Random();
+
+        for (int index = 0; index < Constants.LOT_NUMBER_LENGHT; index++) {
+            if (index <= 4)
+                lotNumber.append(alphabetNumbers.charAt(generate.nextInt(alphabetNumbers.length())));
+            else if (index == 5)
+                lotNumber.append("-");
+            else
+                lotNumber.append(numbers.charAt(generate.nextInt(10)));
+        }
+        return String.valueOf(lotNumber);
+    }
+
+    public List<String> fillListWithUserSnsNumber() {
+        ArrayList<String> userSnsNumber = new ArrayList<>();
+        for (int index = 1; index < getArrivalList().size(); index++)
+            userSnsNumber.add("SNS Number - " + getArrivalList().get(index).getSnsNumber());
+        return userSnsNumber;
+    }
+
+    public void setVaccine(int currentAppointment) {
+        vaccine = snsUser.getTakenVaccines().get(currentAppointment).getVaccine();
     }
 }

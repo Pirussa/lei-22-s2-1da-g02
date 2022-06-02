@@ -3,9 +3,6 @@ package app.domain.shared;
 
 import app.domain.model.Company;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  *
  * @author Paulo Maio <pam@isep.ipp.pt>
@@ -53,13 +50,21 @@ public class Constants {
 
     public static final int FIRST_USER_WAITING_ROOM = 0;
 
-    public static final int FIRST_DOSE = 0;
+    public static final int FIRST_DOSE = -1;
 
     public static final int INVALID_VALUE = -1;
 
     public static final int NEW_EMPLOYEE = 1;
 
     public static final int SEPTEMBER = 10;
+
+    public static final int LOT_NUMBER_LENGHT = 8;
+
+    public static final int FIT_AGE_GROUP = -1;
+
+    public static final int DOSAGE_FIRST_DOSE = 35;
+
+    public static final String VACCINE_TYPE_FILE_NAME="vaccinetype.bin";
 
     public static final String[] OPTIONS = {"Yes", "No"};
 

@@ -5,6 +5,7 @@ import dto.HealthcareCenterDto;
 import dto.MassVaccinationCenterDto;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Coordinates the passage of information between the UI and the model
@@ -89,7 +90,7 @@ public class CreateVaccinationCenterController {
      *
      * @return a List of all Vaccine Types.
      */
-    public ArrayList<VaccineType> getVaccineTypeList(){
+    public List<VaccineType> getVaccineTypeList(){
         return company.getVaccineTypes();
     }
 
