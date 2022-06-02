@@ -90,8 +90,12 @@ public class LoadCSVUI implements Runnable {
                 }
                 br.close();
                 fillSNSUserDto(csvData);
-
                 System.out.println();
+
+                FileOutputStream fileOut = new FileOutputStream("SNSUserInfo.txt");
+                ObjectOutputStream out = new ObjectOutputStream(fileOut);
+                out.writeObject(controller.getSNSUserList());
+
                 if (confirmAnotherCSV()){
                     runLoadCSV();
                 } else run();
@@ -171,14 +175,6 @@ public class LoadCSVUI implements Runnable {
             }
         }
         System.out.printf("Saved %d Users out of %d, because %d had duplicated information.",createCounter - saveCounter, createCounter, saveCounter);
-
-        FileOutputStream fileOut = new FileOutputStream("SNSUserInfo.txt");
-        ObjectOutputStream out = new ObjectOutputStream(fileOut);
-        out.writeObject(controller.getSNSUserList());
-        out.close();
-        fileOut.close();
-        System.out.println("\nSerialization Successful.");
-
     }
 
     /**
@@ -250,8 +246,19 @@ public class LoadCSVUI implements Runnable {
             System.out.println();
             System.out.println("There aren't any registered SNS Users.");
         }
-        run();
     }
+
+    public void serializeListOfSNSUsers() throws IOException {
+    LoadCSVController controller = new LoadCSVController();
+    FileOutputStream fileOut = new FileOutputStream("SNSUserInfo.txt");
+    if (!controller.getSNSUserList().isEmpty()) {
+      for (int i = 0; i < controller.getSNSUserList().size(); i++) {
+        ObjectOutputStream out = new ObjectOutputStream(fileOut);
+        out.writeObject(controller.getSNSUserList().get(i));
+
+      }
+      System.out.println("\nSerialization Successful.");
+   }
     /*
     public void deserializeSNSUser(){
         FileInputStream fileIn = new FileInputStream("SNSUserInfo.txt");
@@ -261,6 +268,7 @@ public class LoadCSVUI implements Runnable {
         fileIn.close();
     }*/
 
+}
 }
 
 

@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,11 +23,11 @@ import java.util.Objects;
  * @author Pedro Monteiro <1211076@isep.ipp.pt>
  */
 
-public class Company {
+public class Company implements Serializable {
 
     private static final int ID_LENGTH = 5;
     private String designation;
-    private AuthFacade authFacade;
+    private transient AuthFacade authFacade;
 
     /**
      * List with all the appointments

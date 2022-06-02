@@ -10,6 +10,7 @@ import app.ui.console.utils.Utils;
 import pt.isep.lei.esoft.auth.AuthFacade;
 
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,7 +21,7 @@ import java.util.Objects;
 /**
  * The type Sns user.
  */
-public class SnsUser {
+public class SnsUser implements Serializable {
     private final String strName;
     private final String strSex;
     private final String strBirthDate;
@@ -30,11 +31,11 @@ public class SnsUser {
     private final int snsUserNumber;
     private final String strCitizenCardNumber;
     private final String strPassword;
-    private List<VaccineBulletin> vaccineBulletins = new ArrayList<>();
+    transient private List<VaccineBulletin> vaccineBulletins = new ArrayList<>();
 
     private static final int MAX_NUMBER_OF_CHARS_SNS_USER_NUMBER = 9;
 
-    private AuthFacade auth = new AuthFacade();
+    private transient AuthFacade auth = new AuthFacade();
 
     /**
      * Instantiates a new Sns user.

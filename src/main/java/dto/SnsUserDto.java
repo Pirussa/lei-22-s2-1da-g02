@@ -2,6 +2,7 @@ package dto;
 
 import app.domain.model.VaccineBulletin;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
  *
  * @author João Castro <1210816@isep.ipp.pt>
  */
-public class SnsUserDto {
+public class SnsUserDto implements Serializable {
 
     public String strName;
 

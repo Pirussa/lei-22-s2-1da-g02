@@ -16,7 +16,7 @@ import java.util.Properties;
 public class App {
 
     private Company company;
-    private AuthFacade authFacade;
+    private transient AuthFacade authFacade;
 
 
     private App() {
