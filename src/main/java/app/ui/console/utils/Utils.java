@@ -611,6 +611,15 @@ public class Utils {
         return false;
     }
 
+    public static boolean validatePhoneNumberSimple(String phoneNumber) {
+
+        if (phoneNumber.matches("^[0-9]{9}$")) {
+
+            return true;
+        } else return false;
+
+    }
+
     /**
      * Validates citizen card number
      *
