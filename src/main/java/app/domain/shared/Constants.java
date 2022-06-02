@@ -64,6 +64,11 @@ public class Constants {
 
     public static final int DOSAGE_FIRST_DOSE = 35;
 
+    public static final String VACCINE_TYPE_FILE_NAME="vaccinetype";
+    public static final int VACCINE_ADMINISTRATION = 0;
+
+    public static final int VACCINATION = 1;
+
     public static final String VACCINE_TYPE_FILE_NAME="vaccinetype.bin";
 
     public static final String[] OPTIONS = {"Yes", "No"};

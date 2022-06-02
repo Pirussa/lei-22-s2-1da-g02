@@ -6,7 +6,6 @@ import app.domain.shared.Constants;
 import dto.*;
 import pt.isep.lei.esoft.auth.AuthFacade;
 
-import javax.swing.*;
 import java.io.*;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -52,7 +51,7 @@ public class Utils {
         mvcDto.strPhoneNumber = "915607321";
         mvcDto.strFax = "915607321";
         mvcDto.strEmail = "cvcmatosinhos@gmail.com";
-        mvcDto.strClosingHour = "16";
+        mvcDto.strClosingHour = "21";
         mvcDto.strOpeningHour = "9";
         mvcDto.strVaccinesPerSlot = "1";
         mvcDto.strSlotDuration = "30";
@@ -158,7 +157,7 @@ public class Utils {
         company.saveSNSUser(dto1);
         company.getAuthFacade().addUserWithRole("UserDefault1", "u1@gmail.com", "123", Constants.ROLE_SNS_USER);
         //---------------------------------------------------------------------------------------------------------------------------------------------------
-        SnsUserDto dto2 = new SnsUserDto("User Default2", 300000000, "u2@gmail.com", "02/02/2000", "915604430", "Male", "Default # 4000-002 # Default", "35906158 3 ZZ5", "AAA22aa");
+        SnsUserDto dto2 = new SnsUserDto("User Default2", 300000000, "u2@gmail.com", "02/02/1900", "915604430", "Male", "Default # 4000-002 # Default", "35906158 3 ZZ5", "AAA22aa");
         company.saveSNSUser(dto2);
         aF.addUserWithRole("User Default2", "u2@gmail.com", "123", Constants.ROLE_SNS_USER);
         //---------------------------------------------------------------------------------------------------------------------------------------------------
@@ -186,8 +185,8 @@ public class Utils {
         ArrayList<Integer> timeBetween2ndAnd3rdDose1 = new ArrayList<>(List.of(0, 150));
         AdministrationProcess administrationProcess1 = new AdministrationProcess(new ArrayList<>(Arrays.asList(minAge1, maxAge1)), new ArrayList<>(List.of(2, 3)), new ArrayList<>(List.of(20.0, 30.0)), new ArrayList<>(Arrays.asList(timeBetween1stAnd2ndDose1, timeBetween2ndAnd3rdDose1)));
         Vaccine vaccine1 = new Vaccine("Test", 12, "Brand1", administrationProcess1, company.getVaccineTypes().get(0));
-        TakenVaccine takenVaccine1 = new TakenVaccine(vaccine1, LocalDateTime.of(2022, 12, 30, 10, 30), 1);
-        company.getSnsUserList().get(0).registerVaccine(takenVaccine1);
+        VaccineBulletin vaccineBulletin1 = new VaccineBulletin(vaccine1, LocalDateTime.of(2022, 12, 30, 10, 30), 1, "54321-21");
+        company.getSnsUserList().get(0).registerVaccine(vaccineBulletin1);
         company.getVaccines().add(vaccine1);
         //---------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -198,8 +197,8 @@ public class Utils {
         ArrayList<Integer> timeBetween2ndAnd3rdDose2 = new ArrayList<>(List.of(2, 150));
         AdministrationProcess administrationProcess2 = new AdministrationProcess(new ArrayList<>(Arrays.asList(minAge2, maxAge2)), new ArrayList<>(List.of(1, 3)), new ArrayList<>(List.of(25.0, 35.0)), new ArrayList<>(Arrays.asList(timeBetween1stAnd2ndDose2, timeBetween2ndAnd3rdDose2)));
         Vaccine vaccine2 = new Vaccine("Test", 15, "Brand1", administrationProcess2, company.getVaccineTypes().get(0));
-        TakenVaccine takenVaccine2 = new TakenVaccine(vaccine2, LocalDateTime.of(2022, 5, 3, 15, 30), 5);
-        company.getSnsUserList().get(1).registerVaccine(takenVaccine2);
+        VaccineBulletin vaccineBulletin2 = new VaccineBulletin(vaccine2, LocalDateTime.of(2022, 5, 3, 15, 30), 5, "12345-12");
+        company.getSnsUserList().get(1).registerVaccine(vaccineBulletin2);
         company.getVaccines().add(vaccine2);
     }
 
@@ -207,10 +206,10 @@ public class Utils {
      * It creates and adds Scheduled Appointments to the Company as soon as the App runs
      */
     private static void bootstrapScheduledAppointments() {
-        ScheduledVaccine scheduledVaccine1 = new ScheduledVaccine(100000000, company.getVaccineTypes().get(0), LocalDateTime.of(2022, 6, 2, 12, 30));
-        ScheduledVaccine scheduledVaccine2 = new ScheduledVaccine(200000000, company.getVaccineTypes().get(0), LocalDateTime.of(2022, 6, 2, 12, 30));
-        ScheduledVaccine scheduledVaccine3 = new ScheduledVaccine(300000000, company.getVaccineTypes().get(0), LocalDateTime.of(2022, 6, 2, 12, 30));
-        ScheduledVaccine scheduledVaccine4 = new ScheduledVaccine(400000000, company.getVaccineTypes().get(0), LocalDateTime.of(2022, 6, 2, 12, 30));
+        ScheduledVaccine scheduledVaccine1 = new ScheduledVaccine(100000000, company.getVaccineTypes().get(0), LocalDateTime.of(2022, 6, 2, 19, 0));
+        ScheduledVaccine scheduledVaccine2 = new ScheduledVaccine(200000000, company.getVaccineTypes().get(0), LocalDateTime.of(2022, 6, 2, 19, 0));
+        ScheduledVaccine scheduledVaccine3 = new ScheduledVaccine(300000000, company.getVaccineTypes().get(0), LocalDateTime.of(2022, 6, 2, 19, 0));
+        ScheduledVaccine scheduledVaccine4 = new ScheduledVaccine(400000000, company.getVaccineTypes().get(0), LocalDateTime.of(2022, 6, 2, 19, 0));
 
         //---------------------------------------------------------------------------------------------------------------------------------------------------
         company.getVaccinationCenters().get(0).addAppointment(scheduledVaccine1);

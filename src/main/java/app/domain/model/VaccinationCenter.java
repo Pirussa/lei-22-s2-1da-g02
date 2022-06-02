@@ -410,10 +410,10 @@ public class VaccinationCenter {
     public boolean validateAppointmentAccordingToAgeGroupAndTimeSinceLastDose(ScheduledVaccineDto scheduledVaccineDto, Company company) {
         SnsUser snsUser = company.getSnsUserList().get(company.getUserIndexInUsersList(scheduledVaccineDto.snsNumber));
 
-        if (!snsUser.getTakenVaccines().isEmpty()) {
-            for (TakenVaccine takenVaccine : snsUser.getTakenVaccines()) {
-                if (scheduledVaccineDto.vaccineType.equals(takenVaccine.getVaccine().getVaccineType())) {
-                    if (!validateAppointmentAccordingToAdminProcess(snsUser, scheduledVaccineDto, takenVaccine)) {
+        if (!snsUser.administratedVaccines().isEmpty()) {
+            for (VaccineBulletin vaccineBulletin : snsUser.administratedVaccines()) {
+                if (scheduledVaccineDto.vaccineType.equals(vaccineBulletin.getVaccine().getVaccineType())) {
+                    if (!validateAppointmentAccordingToAdminProcess(snsUser, scheduledVaccineDto, vaccineBulletin)) {
                         return false;
                     }
                 }
@@ -427,14 +427,14 @@ public class VaccinationCenter {
      *
      * @param snsUser      the sns user
      * @param dto          the dto
-     * @param takenVaccine the taken vaccine
+     * @param vaccineBulletin the taken vaccine
      * @return if the appointment is validated according to the admin process
      */
-    public boolean validateAppointmentAccordingToAdminProcess(SnsUser snsUser, ScheduledVaccineDto dto, TakenVaccine takenVaccine) {
-        int days = (int) Duration.between(dto.date, takenVaccine.getDateTimeOfLastDose()).toDays();
+    public boolean validateAppointmentAccordingToAdminProcess(SnsUser snsUser, ScheduledVaccineDto dto, VaccineBulletin vaccineBulletin) {
+        int days = (int) Duration.between(dto.date, vaccineBulletin.getDateTimeOfLastDose()).toDays();
 
-        int doseNumber = takenVaccine.getDose();
-        AdministrationProcess administrationProcess = takenVaccine.getVaccine().getAdminProcess();
+        int doseNumber = vaccineBulletin.getDose();
+        AdministrationProcess administrationProcess = vaccineBulletin.getVaccine().getAdminProcess();
         ArrayList<ArrayList<Integer>> timeIntervalBetweenDoses = administrationProcess.getTimeIntervalBetweenVaccines();
         if (!validateAgeGroup(snsUser, administrationProcess)) {
             return false;

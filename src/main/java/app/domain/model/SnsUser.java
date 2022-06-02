@@ -7,7 +7,6 @@ package app.domain.model;
 
 import app.ui.console.utils.Utils;
 
-import app.controller.App;
 import pt.isep.lei.esoft.auth.AuthFacade;
 
 
@@ -31,7 +30,7 @@ public class SnsUser {
     private final int snsUserNumber;
     private final String strCitizenCardNumber;
     private final String strPassword;
-    private List<TakenVaccine> takenVaccines = new ArrayList<>();
+    private List<VaccineBulletin> vaccineBulletins = new ArrayList<>();
 
     private static final int MAX_NUMBER_OF_CHARS_SNS_USER_NUMBER = 9;
 
@@ -158,17 +157,17 @@ public class SnsUser {
      *
      * @return the taken vaccines list
      */
-    public List<TakenVaccine> getTakenVaccines() {
-        return takenVaccines;
+    public List<VaccineBulletin> administratedVaccines() {
+        return vaccineBulletins;
     }
 
     /**
      * Sets taken vaccines list.
      *
-     * @param takenVaccines the taken vaccines
+     * @param vaccineBulletins the taken vaccines
      */
-    public void setTakenVaccines(List<TakenVaccine> takenVaccines) {
-        this.takenVaccines = takenVaccines;
+    public void setTakenVaccines(List<VaccineBulletin> vaccineBulletins) {
+        this.vaccineBulletins = vaccineBulletins;
     }
 
     public boolean validateEmail(String strEmail) {
@@ -276,9 +275,9 @@ public class SnsUser {
     /**
      * Register vaccine.
      *
-     * @param takenVaccine the taken vaccine
+     * @param vaccineBulletin the taken vaccine
      */
-    public void registerVaccine(TakenVaccine takenVaccine) {
-        takenVaccines.add(takenVaccine);
+    public void registerVaccine(VaccineBulletin vaccineBulletin) {
+        vaccineBulletins.add(vaccineBulletin);
     }
 }

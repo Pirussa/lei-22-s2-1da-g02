@@ -9,7 +9,7 @@ public class SnsUserMapper {
         if (snsUser == null) return null;
 
         SnsUserDto snsUserDtodto = new SnsUserDto(snsUser.getStrName(), snsUser.getSnsUserNumber(), snsUser.getStrEmail(), snsUser.getStrBirthDate(), snsUser.getStrPhoneNumber(), snsUser.getStrSex(), snsUser.getStrAddress(), snsUser.getStrCitizenCardNumber(), snsUser.getStrPassword());
-        snsUserDtodto.takenVaccines = snsUser.getTakenVaccines();
+        snsUserDtodto.vaccineBulletins = snsUser.administratedVaccines();
         return snsUserDtodto;
     }
 
@@ -17,7 +17,7 @@ public class SnsUserMapper {
         if (snsUserDto == null) return null;
 
         SnsUser snsUser = new SnsUser(snsUserDto.strName, snsUserDto.strSex, snsUserDto.strBirthDate, snsUserDto.strAddress, snsUserDto.strPhoneNumber, snsUserDto.strEmail, snsUserDto.snsUserNumber, snsUserDto.strCitizenCardNumber, snsUserDto.strPassword);
-        snsUser.setTakenVaccines(snsUserDto.takenVaccines);
+        snsUser.setTakenVaccines(snsUserDto.vaccineBulletins);
         return snsUser;
     }
 }

@@ -1,6 +1,6 @@
 package dto;
 
-import app.domain.model.TakenVaccine;
+import app.domain.model.VaccineBulletin;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +26,7 @@ public class SnsUserDto {
     public String strCitizenCardNumber;
     public String strPassword;
 
-    public List<TakenVaccine> takenVaccines = new ArrayList<>();
+    public List<VaccineBulletin> vaccineBulletins = new ArrayList<>();
 
     public SnsUserDto(String strName, int snsUserNumber, String strEmail, String strBirthDate, String strPhoneNumber, String strSex, String strAddress, String strCitizenCardNumber, String strPassword) {
         this.strName = strName;
