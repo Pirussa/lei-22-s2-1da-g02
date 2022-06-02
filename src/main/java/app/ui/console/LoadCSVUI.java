@@ -5,9 +5,7 @@ import app.domain.model.SnsUser;
 import app.ui.console.utils.Utils;
 import dto.SnsUserDto;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -145,7 +143,7 @@ public class LoadCSVUI implements Runnable {
      *
      * @param csvData the Array list of Strings with all the information of the CSV
      */
-    public void fillSNSUserDto(ArrayList<String> csvData) {
+    public void fillSNSUserDto(ArrayList<String> csvData) throws IOException {
         LoadCSVController controller = new LoadCSVController();
         String[] values;
         int createCounter = 0;
@@ -173,6 +171,14 @@ public class LoadCSVUI implements Runnable {
             }
         }
         System.out.printf("Saved %d Users out of %d, because %d had duplicated information.",createCounter - saveCounter, createCounter, saveCounter);
+
+        FileOutputStream fileOut = new FileOutputStream("SNSUserInfo.txt");
+        ObjectOutputStream out = new ObjectOutputStream(fileOut);
+        out.writeObject(controller.getSNSUserList());
+        out.close();
+        fileOut.close();
+        System.out.println("\nSerialization Successful.");
+
     }
 
     /**
@@ -246,6 +252,14 @@ public class LoadCSVUI implements Runnable {
         }
         run();
     }
+    /*
+    public void deserializeSNSUser(){
+        FileInputStream fileIn = new FileInputStream("SNSUserInfo.txt");
+        ObjectInputStream in = new ObjectInputStream(fileIn);
+        System.out.println("Deserialized Data: \n" + in.readObject().toString());
+        in.close();
+        fileIn.close();
+    }*/
 
 }
 
