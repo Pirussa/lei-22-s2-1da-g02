@@ -1,11 +1,13 @@
 package app.controller;
 
 
-import app.domain.model.Company;
-import app.domain.model.VaccineType;
+import app.domain.model.*;
 import app.domain.shared.Constants;
 import app.ui.console.utils.Utils;
 
+import java.io.NotSerializableException;
+import java.io.Serializable;
+import java.io.WriteAbortedException;
 import java.util.List;
 import java.util.Objects;
 
@@ -16,11 +18,11 @@ import java.util.Objects;
  * @author Pedro Monteiro <1211076@isep.ipp.pt>
  */
 
-public class SpecifyNewVaccineTypeController {
+public class SpecifyNewVaccineTypeController implements Serializable {
 
     private  Company company = App.getInstance().getCompany();
 
-    private VaccineType vaccineType;
+    private static VaccineType vt;
     /**
      * Specifies a new Vaccine Type:
      * <p>
@@ -36,16 +38,26 @@ public class SpecifyNewVaccineTypeController {
         return company.specifyNewVaccineType(code, description, technology);
     }
 
+    public List<VaccineType> getVaccineTypes(){
+        return company.getVaccineTypes();
+    }
+
     /**
      * Saves a Vaccine Type into the Company storage.
      * Company Vaccines Storage: vaccineTypes
      */
     public void saveVaccineType(String code, String description, String technology) {
-        vaccineType = new VaccineType(code, description, technology);
+        vt = new VaccineType(code, description, technology);
         company.saveVaccineType(code, description, technology);
     }
+    GenericClass<VaccineType> vaccineType = new GenericClass<>(vt);
 
-    public void vaccineTypeExport(){
-       // Utils.binaryFileWrite(Constants.VACCINE_TYPE_FILE_NAME, company.getVaccineTypes());
+    public void vaccineTypeExport() throws NotSerializableException {
+        vaccineType.binaryFileWrite(Constants.VACCINE_TYPE_FILE_NAME,company.getVaccineTypes());
     }
+
+    public void vaccineTypeImport()throws WriteAbortedException {
+        vaccineType.binaryFileRead(Constants.VACCINE_TYPE_FILE_NAME);
+    }
+
 }

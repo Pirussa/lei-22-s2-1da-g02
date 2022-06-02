@@ -2,6 +2,7 @@ package app.domain.model;
 
 import app.controller.App;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -10,7 +11,7 @@ import java.util.Objects;
  * @author Pedro Monteiro <1211076@isep.ipp.pt>
  */
 
-public class VaccineType {
+public class VaccineType implements Serializable {
 
 
     private final String description;
