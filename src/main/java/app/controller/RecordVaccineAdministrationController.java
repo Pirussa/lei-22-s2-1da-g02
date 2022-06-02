@@ -45,18 +45,18 @@ public class RecordVaccineAdministrationController {
         return new ArrayList<>(vaccinationCenter.getArrivalsList());
     }
 
-    private int snsUserIndexInList() {
+    private int snsUserIndexInList(int selectedUser) {
         for (int index = 0; index < company.getSnsUserList().size(); index++) {
-            if (getArrivalList().get(0).getSnsNumber() == company.getSnsUserList().get(index).getSnsUserNumber()) {
+            if (getArrivalList().get(selectedUser).getSnsNumber() == company.getSnsUserList().get(index).getSnsUserNumber()) {
                 return index;
             }
         }
         return Constants.INVALID_VALUE;
     }
 
-    public SnsUserDto getSnsUserInformation() {
+    public SnsUserDto getSnsUserInformation(int selectedUser) {
         SnsUserMapper snsUserMapper = new SnsUserMapper();
-        return snsUserMapper.domainToSNSUserDto(company.getSnsUserList().get(snsUserIndexInList()));
+        return snsUserMapper.domainToSNSUserDto(company.getSnsUserList().get(snsUserIndexInList(selectedUser)));
     }
 
     public List<String> vaccineTypeAvailableVaccines() {
@@ -138,7 +138,7 @@ public class RecordVaccineAdministrationController {
 
     public List<String> fillListWithUserSnsNumber() {
         ArrayList<String> userSnsNumber = new ArrayList<>();
-        for (int index = 0; index < getArrivalList().size(); index++)
+        for (int index = 1; index < getArrivalList().size(); index++)
             userSnsNumber.add("SNS Number: " + getArrivalList().get(index).getSnsNumber());
         return userSnsNumber;
     }
