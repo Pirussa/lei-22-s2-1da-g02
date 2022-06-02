@@ -24,10 +24,10 @@ public class RecordVaccineAdministrationUI implements Runnable {
         controller.setVaccinationCenter(vaccinationCenterIndexInList);
 
         // Get all User information using Dto
-        System.out.printf("%n" + controller.fillListWithUserSnsNumber().get(Constants.FIRST_USER_WAITING_ROOM) + "%n%n");
+        //System.out.printf("%n" + controller.fillListWithUserSnsNumber().get(Constants.FIRST_USER_WAITING_ROOM) + "%n%n");
         int options = Utils.selectFromList(List.of(Constants.OPTIONS), "Consult Waiting Room List");
-        if (options == Constants.FIRST_USER_WAITING_ROOM) Utils.selectFromList(controller.fillListWithUserSnsNumber(), "Users");
-        SnsUserDto snsUserDto = controller.getSnsUserInformation();
+        fullListOfSnsUsers(options);
+        SnsUserDto snsUserDto = controller.getSnsUserInformation(0);
         controller.setSnsUser(snsUserDto);
 
         // Select a Vaccine (Verifies if it matches the Vaccine Type)
@@ -42,7 +42,11 @@ public class RecordVaccineAdministrationUI implements Runnable {
 
     }
 
-    private void printUserNameAndSnsNumber() {
-
+    private void fullListOfSnsUsers(int options) {
+        if (options == Constants.FIRST_USER_WAITING_ROOM) {
+            int selectedUser = Utils.selectFromList(controller.fillListWithUserSnsNumber(), "Users");
+            SnsUserDto snsUserDto = controller.getSnsUserInformation(selectedUser);
+            controller.setSnsUser(snsUserDto);
+        }
     }
 }
