@@ -2,6 +2,12 @@ package app.controller;
 
 
 import app.domain.model.Company;
+import app.domain.model.VaccineType;
+import app.domain.shared.Constants;
+import app.ui.console.utils.Utils;
+
+import java.util.List;
+import java.util.Objects;
 
 
 /**
@@ -14,7 +20,7 @@ public class SpecifyNewVaccineTypeController {
 
     private  Company company = App.getInstance().getCompany();
 
-
+    private VaccineType vaccineType;
     /**
      * Specifies a new Vaccine Type:
      * <p>
@@ -34,9 +40,12 @@ public class SpecifyNewVaccineTypeController {
      * Saves a Vaccine Type into the Company storage.
      * Company Vaccines Storage: vaccineTypes
      */
-    public void saveVaccineType(String code, String description, String technolgy) {
-        company.saveVaccineType(code, description, technolgy);
+    public void saveVaccineType(String code, String description, String technology) {
+        vaccineType = new VaccineType(code, description, technology);
+        company.saveVaccineType(code, description, technology);
     }
 
-
+    public void vaccineTypeExport(){
+       // Utils.binaryFileWrite(Constants.VACCINE_TYPE_FILE_NAME, company.getVaccineTypes());
+    }
 }

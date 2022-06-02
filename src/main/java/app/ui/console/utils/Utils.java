@@ -7,8 +7,7 @@ import dto.*;
 import pt.isep.lei.esoft.auth.AuthFacade;
 
 import javax.swing.*;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -642,11 +641,10 @@ public class Utils {
         return (sum % FIRST_SECOND_DIGIT_CC) == 0;
     }
 
-    public static boolean validateCitizenCardNumberSimple(String citizenCardNumber){
-        if (citizenCardNumber.matches("^[0-9]{8}")){
+    public static boolean validateCitizenCardNumberSimple(String citizenCardNumber) {
+        if (citizenCardNumber.matches("^[0-9]{8}")) {
             return true;
-        }
-        else return false;
+        } else return false;
     }
 
     /**
@@ -831,5 +829,33 @@ public class Utils {
     public static int selectVaccinationCenterIndex() {
         Company company = App.getInstance().getCompany();
         return Utils.selectFromList(company.getVaccinationCenters(), "\nSelect a Vaccination Center");
+    }
+
+
+    public static void binaryFileWrite(String fileName, List<Object> list) {
+        String filename = fileName;
+        try {
+            FileOutputStream fileOs = new FileOutputStream(filename);
+            ObjectOutputStream os = new ObjectOutputStream(fileOs);
+            os.writeObject(list);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void binaryFileRead(String fileName, List<Object> list) {
+        String filename = fileName;
+        try {
+                ObjectInputStream is = new ObjectInputStream(new FileInputStream(filename));
+                list = (List<Object>) is.readObject();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }

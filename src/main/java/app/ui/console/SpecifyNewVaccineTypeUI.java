@@ -16,7 +16,7 @@ import java.util.Scanner;
 
 public class SpecifyNewVaccineTypeUI implements Runnable {
 
-    private SpecifyNewVaccineTypeController ctrl = new SpecifyNewVaccineTypeController();
+    private SpecifyNewVaccineTypeController controller = new SpecifyNewVaccineTypeController();
 
     public SpecifyNewVaccineTypeUI() {
     }
@@ -64,10 +64,11 @@ public class SpecifyNewVaccineTypeUI implements Runnable {
             }
         }
 
-        if (ctrl.specifyNewVaccineType(code, description, technology)) {
+        if (controller.specifyNewVaccineType(code, description, technology)) {
             showVaccineTypeData(code, description, technology);
             if (Utils.confirmCreation()) {
-                ctrl.saveVaccineType(code, description, technology);
+                controller.saveVaccineType(code, description, technology);
+                controller.vaccineTypeExport();
                 System.out.println();
                 System.out.println("New Vaccine Type added");
             } else {

@@ -36,7 +36,7 @@ public class SpecifyVaccineAndAdminProcessUI implements Runnable {
 
 
             System.out.println("--What's the Vaccine Type?");
-            ArrayList<VaccineType> vTs = ctrl.getVaccineTypesList();
+            ArrayList<VaccineType> vTs = new ArrayList<>( ctrl.getVaccineTypesList());
             int options = 1;
             for (VaccineType vt : vTs) {
                 System.out.printf("%d- %s %n", options, vt);

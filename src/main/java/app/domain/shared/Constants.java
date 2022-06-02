@@ -63,6 +63,8 @@ public class Constants {
 
     public static final int LOT_NUMBER_LENGHT = 8;
 
+    public static final String VACCINE_TYPE_FILE_NAME="vaccinetype.bin";
+
     public static final String[] OPTIONS = {"Yes", "No"};
 
     }
