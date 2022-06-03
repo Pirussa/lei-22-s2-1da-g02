@@ -9,7 +9,6 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * @author Guilherme Sousa <1211073@isep.ipp.pt>
@@ -26,6 +25,8 @@ public class RecordVaccineAdministrationController {
     private Vaccine vaccine;
 
     private SnsUser snsUser;
+
+    private LocalDate localDate;
 
     public RecordVaccineAdministrationController() {
     }
@@ -130,8 +131,8 @@ public class RecordVaccineAdministrationController {
         return -1;
     }
 
-    public void removeUserFromList(List<Arrival> arrivalsList) {
-        arrivalsList.remove(0);
+    public void removeUserFromList(int index) {
+        getArrivalList().remove(index);
     }
     // Vaccine/Vaccine Type related
 
@@ -174,8 +175,8 @@ public class RecordVaccineAdministrationController {
     }
 
     public boolean validateLotNumber(String lotNumber) {
-        final String alphanumeric = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWYXZ";
-        final String numeric = "0123456789";
+        String alphanumeric = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWYXZ";
+        String numeric = "0123456789";
         int counter = 0;
         for (int indexLotNumber = 0; indexLotNumber < lotNumber.length(); indexLotNumber++) {
             for (int index = 0; index < alphanumeric.length(); index++) {
@@ -183,8 +184,12 @@ public class RecordVaccineAdministrationController {
                     counter++;
                 else if (indexLotNumber == 5 && lotNumber.charAt(indexLotNumber) == '-')
                     counter++;
-                else if (lotNumber.charAt(indexLotNumber) == numeric.charAt(index))
-                    counter++;
+                else if (indexLotNumber >= 6) {
+                    for (int indexNumeric = 0; indexNumeric < numeric.length(); indexNumeric++) {
+                        if (lotNumber.charAt(indexLotNumber) == numeric.charAt(index))
+                            counter++;
+                    }
+                }
             }
         }
         return counter == Constants.LOT_NUMBER_LENGHT;

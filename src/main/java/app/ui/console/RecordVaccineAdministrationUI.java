@@ -4,8 +4,8 @@ import app.controller.RecordVaccineAdministrationController;
 import app.domain.shared.Constants;
 import app.ui.console.utils.Utils;
 import dto.SnsUserDto;
+import dto.VaccineBulletinDto;
 
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -21,6 +21,7 @@ public class RecordVaccineAdministrationUI implements Runnable {
     public void run() {
         // Start User Storie
         vaccineAdministrationPrompt(Constants.VACCINE_ADMINISTRATION);
+        VaccineBulletinDto vaccineBulletinDto = new VaccineBulletinDto();
 
         // Select Vaccination Center
         int vaccinationCenterIndexInList = Utils.selectVaccinationCenterIndex();
@@ -33,6 +34,12 @@ public class RecordVaccineAdministrationUI implements Runnable {
         controller.setVaccineType(selectUser);
         int vaccineHistory = controller.findLastDoseOfVaccineType();
         setDosageAndVaccine(vaccineHistory);
+
+        // Allows Nurse to introduce the vaccine lot number
+        lotNumber();
+
+        // Clean User from Waiting Room List
+        controller.removeUserFromList(selectUser);
     }
 
     private int waitingRoomList() {
@@ -85,9 +92,11 @@ public class RecordVaccineAdministrationUI implements Runnable {
             System.out.printf("%n-------------%n|Vaccination|%n-------------%n");
     }
 
-   /* private void lotNumber() {
+    private void lotNumber() {
+        String lotNumber;
         do {
-            System.out.printf("%nIntroduce Lot Number: %n");
-        } while (controller.validateLotNumber());
-    }*/
+            System.out.printf("%nIntroduce Lot Number (i.e. AbC13-91): %n");
+            lotNumber = read.nextLine();
+        } while (controller.validateLotNumber(lotNumber));
+    }
 }

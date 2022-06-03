@@ -66,6 +66,10 @@ public class VaccineBulletin {
         return doseNumber;
     }
 
+    public String getLotNumber() {
+        return lotNumber;
+    }
+
     /**
      * Sets number of doses taken by the user.
      *
