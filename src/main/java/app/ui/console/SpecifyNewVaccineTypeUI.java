@@ -19,19 +19,15 @@ import java.util.Scanner;
 
 public class SpecifyNewVaccineTypeUI implements Runnable {
 
-    private SpecifyNewVaccineTypeController controller = new SpecifyNewVaccineTypeController();
+    private final SpecifyNewVaccineTypeController controller = new SpecifyNewVaccineTypeController();
 
     public SpecifyNewVaccineTypeUI() {
     }
 
 
     public void run() {
-        {
-            try {
-                controller.vaccineTypeImport();
-            } catch (WriteAbortedException | EOFException e) {
-                e.printStackTrace();
-            }
+
+
             Scanner sc = new Scanner(System.in);
             System.out.println();
             System.out.println("------Specify Vaccine Type------");
@@ -56,14 +52,14 @@ public class SpecifyNewVaccineTypeUI implements Runnable {
             }
             System.out.println();
             System.out.println("Type your option:");
-            int option = sc.nextInt();
-            sc.nextLine();
+            int option = Utils.insertInt("Insert a valid option: ");
+
 
             boolean check = false;
 
             while (!check) {
                 try {
-                    technology = VaccineType.vaccineTechnologies[option - 1];
+                    technology =  VaccineType.vaccineTechnologies[option - 1];
                     check = true;
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("Insert a valid option");
@@ -95,7 +91,7 @@ public class SpecifyNewVaccineTypeUI implements Runnable {
             }
 
 
-        }
+
 
 
     }

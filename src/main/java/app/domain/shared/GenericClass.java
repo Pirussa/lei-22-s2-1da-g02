@@ -27,16 +27,18 @@ public class GenericClass<E> {
     }
 
 List <E> list = new ArrayList<>();
-    public void binaryFileRead(String fileName) throws EOFException {
+    public void binaryFileRead(String fileName, List <E> listToBeFilled) throws EOFException {
         File file = new File(fileName);
         try {
             ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
             list = (List<E>) in.readObject();
-            for (int listPosition = 0; listPosition < list.size(); listPosition++) {
-                System.out.println(list.get(listPosition));
+            for (E e : list) {
+                System.out.println(e);
             }
-
             in.close();
+
+            listToBeFilled.addAll(list);
+
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }

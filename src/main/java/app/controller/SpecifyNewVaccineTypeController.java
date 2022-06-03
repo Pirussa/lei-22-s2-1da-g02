@@ -30,8 +30,8 @@ public class SpecifyNewVaccineTypeController implements Serializable {
      * The method should create a vaccine type that should be validated.
      *
      * @param description a String to validate
-     * @param
-     * @param
+     * @param code       a String to validate
+     * @param technology a String to validate
      * @return true if the type is valid
      */
     public boolean specifyNewVaccineType(String code, String description, String technology) {
@@ -39,7 +39,6 @@ public class SpecifyNewVaccineTypeController implements Serializable {
     }
 
     public List<VaccineType> getVaccineTypes() {
-        Utils.fillListsUsingBinaryFileInformation(company.getVaccineTypes(), generics.getList());
         return company.getVaccineTypes();
     }
 
@@ -55,11 +54,8 @@ public class SpecifyNewVaccineTypeController implements Serializable {
     GenericClass<VaccineType> generics = new GenericClass<>();
 
     public void vaccineTypeExport() throws NotSerializableException {
-        generics.binaryFileWrite(Constants.FILE_PATH_VACCINE_TYPES, company.getVaccineTypes());
+        generics.binaryFileWrite(Constants.FILE_PATH_VACCINE_TYPES, getVaccineTypes());
     }
 
-    public void vaccineTypeImport() throws WriteAbortedException, EOFException {
-        generics.binaryFileRead(Constants.FILE_PATH_VACCINE_TYPES);
-    }
 
 }

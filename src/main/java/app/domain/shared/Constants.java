@@ -67,7 +67,7 @@ public class Constants {
     /**
      * Names for the binary files.
      */
-    public static final String FILE_PATH_VACCINE_TYPES ="vaccinetype";
+    public static final String FILE_PATH_VACCINE_TYPES ="vaccinetypes";
 
     public static final String FILE_PATH_SNS_USERS ="snsusers";
 
@@ -76,7 +76,6 @@ public class Constants {
     public static final String FILE_PATH_VACCINATION_CENTERS ="vaccinationcenters";
 
     public static final String FILE_PATH_ARRIVALS ="arrivals";
-
 
     public static final int VACCINE_ADMINISTRATION = 0;
 

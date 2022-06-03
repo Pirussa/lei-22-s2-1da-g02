@@ -260,7 +260,7 @@ public class Utils {
 
         GenericClass<VaccineType> genericsClass = new GenericClass<>();
         try {
-            genericsClass.binaryFileRead(Constants.FILE_PATH_VACCINE_TYPES);
+            genericsClass.binaryFileRead(Constants.FILE_PATH_VACCINE_TYPES,company.getVaccineTypes());
         } catch (EOFException e) {
             e.printStackTrace();
         }
