@@ -37,23 +37,24 @@ public class CheckAndExportVaccinationStatsController {
         return true;
     }
 
-    public boolean checkIfDatesAreValid(LocalDate firstDate, LocalDate lastDate) {
-
+    public int checkIfDatesAreValid(LocalDate firstDate, LocalDate lastDate) {
+        int errorCode = 0;
         if (firstDate == null || lastDate == null) {
-            return false;
+             errorCode = 1;
         }
         if (firstDate.isAfter(lastDate)) {
-            return false;
+             errorCode = 2;
         }
 
-        if (firstDate.isEqual(lastDate)) {
-            return false;
+        if (firstDate.isBefore(LocalDate.of(2021, 1, 1))) {
+             errorCode = 3;
         }
-        if (firstDate.isBefore(LocalDate.of(2020, 1, 1))) {
-            return false;
-            //Falar com o prof de PPROG -> deveria lançar exceção?
+
+        if (lastDate.isAfter(LocalDate.now()) ) {
+             errorCode = 4;
+
         }
-        return !lastDate.isAfter(LocalDate.now());
+        return errorCode;
     }
 
 }

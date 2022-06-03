@@ -45,13 +45,11 @@ public class CenterCoordinatorGUI {
 
 
     public void checkAndExportStats(ActionEvent event) throws IOException {
-        showNotCompletedAlert();
         toCheckAndExportStatsGUI(event);
 
     }
 
     private void toCheckAndExportStatsGUI(ActionEvent event) throws IOException {
-
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/check-export-vac-stats-ui.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
@@ -60,12 +58,6 @@ public class CenterCoordinatorGUI {
 
     }
 
-    private void showNotCompletedAlert(){
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Not completed yet");
-        alert.setContentText("This feature is not completed yet");
-        alert.showAndWait();
-    }
 
 
 }
