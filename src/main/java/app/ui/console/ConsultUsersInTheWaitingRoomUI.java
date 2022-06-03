@@ -12,7 +12,7 @@ import app.ui.console.utils.Utils;
 public class ConsultUsersInTheWaitingRoomUI implements Runnable {
 
 
-    private ConsultUsersInTheWaitingRoomController ctrl = new ConsultUsersInTheWaitingRoomController();
+    private ConsultUsersInTheWaitingRoomController controller = new ConsultUsersInTheWaitingRoomController();
 
 
     /**
@@ -24,12 +24,12 @@ public class ConsultUsersInTheWaitingRoomUI implements Runnable {
         System.out.printf("%n------ Consult the sns users in the waiting room of a vaccination center ------%n");
 
         int index = Utils.selectVaccinationCenterIndex();
-        ctrl.setVaccinationCenter(index);
+        controller.setVaccinationCenter(index);
 
-        if (!ctrl.listOfUsersInTheWaitingRoom().isEmpty()) {
+        if (!controller.listOfUsersInTheWaitingRoom().isEmpty()) {
             System.out.printf("%n------You've chosen to get the list of SNS Users in the waiting room:------%n");
-            for (int listPosition = 0; listPosition < ctrl.listOfUsersInTheWaitingRoom().size(); listPosition++) {
-                System.out.printf("%n" + ctrl.listOfUsersInTheWaitingRoom().get(listPosition));
+            for (int listPosition = 0; listPosition < controller.listOfUsersInTheWaitingRoom().size(); listPosition++) {
+                System.out.printf("%n" + controller.listOfUsersInTheWaitingRoom().get(listPosition));
             }
         } else
             System.out.printf("%nNo user has arrived yet.%n");

@@ -2,6 +2,7 @@ package app.controller;
 
 import app.domain.model.*;
 import app.domain.shared.Constants;
+import app.domain.shared.GenericClass;
 import app.ui.console.utils.Utils;
 import dto.ScheduledVaccineDto;
 import dto.VaccinationCenterDto;
@@ -10,6 +11,7 @@ import mapper.VaccinationCenterMapper;
 import pt.isep.lei.esoft.auth.AuthFacade;
 
 import java.io.IOException;
+import java.io.NotSerializableException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -30,6 +32,7 @@ public class ScheduleVaccineController {
     private final Company company = App.getInstance().getCompany();
     private final transient AuthFacade authFacade = company.getAuthFacade();
     private VaccinationCenter vaccinationCenter;
+    GenericClass<ScheduledVaccine> generics = new GenericClass<>();
 
 
     /**
@@ -317,5 +320,13 @@ public class ScheduleVaccineController {
             return true;
         }
         return false;
+    }
+
+    /**
+     * Exports the list of appointments to a binary file.
+     * @throws NotSerializableException
+     */
+    public void exportDataToFile() throws NotSerializableException {
+        generics.binaryFileWrite(Constants.FILE_PATH_APPOINTMENTS, company.getAppointments());
     }
 }

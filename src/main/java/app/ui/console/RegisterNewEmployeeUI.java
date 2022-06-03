@@ -7,6 +7,7 @@ import app.domain.model.Employee;
 import app.ui.console.utils.Utils;
 import dto.RegisterNewEmployeeDto;
 
+import java.io.NotSerializableException;
 import java.util.ArrayList;
 
 /**
@@ -23,7 +24,7 @@ public class RegisterNewEmployeeUI implements Runnable {
     }
 
     public void run() {
-        RegisterNewEmployeeController ctrl = new RegisterNewEmployeeController();
+        RegisterNewEmployeeController controller = new RegisterNewEmployeeController();
         RegisterNewEmployeeDto dto = new RegisterNewEmployeeDto();
         System.out.printf("%n-----------------------%n|Employee Registration|%n-----------------------%n%n");
 
@@ -44,10 +45,16 @@ public class RegisterNewEmployeeUI implements Runnable {
             dto.email = Utils.readLineFromConsole("- Insert Email (@ and . are required): ").trim();
             dto.citizenCardNumber = Utils.readLineFromConsole("- Insert Citizen Card Number (Format - XXXXXXXX X LLX): ");
 
-            if (ctrl.registerNewEmployee(dto)) {
+
+            if (controller.registerNewEmployee(dto) && controller.duplicatedEmployee(dto)) {
                 showNewEmployeeData(dto, selectedRole);
                 if (Utils.confirmCreation()) {
-                    ctrl.saveCreatedEmployee(dto, selectedRole);
+                    controller.saveCreatedEmployee(dto, selectedRole);
+                    try {
+                        controller.exportDataToFile();
+                    } catch (NotSerializableException e) {
+                        e.printStackTrace();
+                    }
                     System.out.printf("%n-----------------------------%n|The Employee was registered|%n-----------------------------%n");
                 } else
                     System.out.printf("%n---------------------------------%n|The Employee was not registered|%n---------------------------------%n");

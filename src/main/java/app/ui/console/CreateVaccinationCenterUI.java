@@ -6,6 +6,7 @@ import app.ui.console.utils.Utils;
 import dto.HealthcareCenterDto;
 import dto.MassVaccinationCenterDto;
 
+import java.io.NotSerializableException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Random;
@@ -21,6 +22,8 @@ public class CreateVaccinationCenterUI implements Runnable {
 
     public CreateVaccinationCenterUI() {
     }
+
+    CreateVaccinationCenterController controller = new CreateVaccinationCenterController();
 
     /**
      * Runs the main menu that allows the user to choose what option he wants to follow
@@ -40,10 +43,25 @@ public class CreateVaccinationCenterUI implements Runnable {
             int typeOfCenter = choice.nextInt();
             if (typeOfCenter == 0) {
                 massVaccinationCenterUI(typeOfCenter);
+                try {
+                    controller.exportDataToFile();
+                } catch (NotSerializableException e) {
+                    e.printStackTrace();
+                }
             } else if (typeOfCenter == 1) {
                 healthcareCenterUI(typeOfCenter);
+                try {
+                    controller.exportDataToFile();
+                } catch (NotSerializableException e) {
+                    e.printStackTrace();
+                }
             } else if (typeOfCenter == 2) {
                 getListOfVaccinationCentersUI();
+                try {
+                    controller.exportDataToFile();
+                } catch (NotSerializableException e) {
+                    e.printStackTrace();
+                }
             } else if (typeOfCenter == 3) {
                 return;
             } else {
@@ -52,6 +70,7 @@ public class CreateVaccinationCenterUI implements Runnable {
         } catch (InputMismatchException e) {
             System.out.println("Only Numbers.");
         }
+
     }
 
     /**

@@ -4,15 +4,12 @@ import app.controller.*;
 import app.domain.model.*;
 import app.domain.shared.Constants;
 import app.domain.shared.GenericClass;
-import dto.*;
-import pt.isep.lei.esoft.auth.AuthFacade;
 
 import java.io.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,215 +31,86 @@ public class Utils {
      * It creates and adds VaccineTypes to the Company as soon as the App runs
      */
     private static void bootstrapVaccineTypes() {
-        SpecifyNewVaccineTypeController ctrlVt = new SpecifyNewVaccineTypeController();
-
-        ctrlVt.saveVaccineType("COVID", "A vaccine to prevent serious infections of the Covid-19 Virus", VaccineType.vaccineTechnologies[5]);
-        ctrlVt.saveVaccineType("FLU22", "A vaccine to prevent serious infections of the Flu virus related to 2022 variant", VaccineType.vaccineTechnologies[1]);
-        ctrlVt.saveVaccineType("CCCCC", "Vaccine Type 3", VaccineType.vaccineTechnologies[2]);
+        GenericClass<VaccineType> genericsClass = new GenericClass<>();
+        try {
+            genericsClass.binaryFileRead(Constants.FILE_PATH_VACCINE_TYPES, company.getVaccineTypes());
+        } catch (EOFException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
      * It creates and adds Vaccination Centers to the Company as soon as the App runs
      */
     private static void bootstrapVaccinationCenters() {
-        CreateVaccinationCenterController ctrlVc = new CreateVaccinationCenterController();
-        MassVaccinationCenterDto mvcDto = new MassVaccinationCenterDto();
-        mvcDto.strID = "1234";
-        mvcDto.strName = "CVC Matosinhos";
-        mvcDto.strPhoneNumber = "915607321";
-        mvcDto.strFax = "915607321";
-        mvcDto.strEmail = "cvcmatosinhos@gmail.com";
-        mvcDto.strClosingHour = "21";
-        mvcDto.strOpeningHour = "9";
-        mvcDto.strVaccinesPerSlot = "1";
-        mvcDto.strSlotDuration = "30";
-        mvcDto.strWebsite = "www.cvcmatosinhos.com";
-        mvcDto.strRoad = "Rua do Amial";
-        mvcDto.strZipCode = "4460-098";
-        mvcDto.strLocal = "Matosinhos";
-        mvcDto.strCenterCoordinatorID = "CC-95634";
-        mvcDto.vaccineType = new VaccineType("COVID", "To prevent serious COVID-19 infections", VaccineType.vaccineTechnologies[5]);
-        //MassVaccinationCenter massVaccinationCenter1 = new MassVaccinationCenter(mvcDto.strID, mvcDto.strName, mvcDto.strPhoneNumber, mvcDto.strEmail, mvcDto.strFax, mvcDto.strWebsite, mvcDto.strOpeningHour, mvcDto.strClosingHour, mvcDto.strSlotDuration, mvcDto.strVaccinesPerSlot, mvcDto.strRoad, mvcDto.strZipCode, mvcDto.strLocal, mvcDto.strCenterCoordinatorID, mvcDto.vaccineType);
-        ctrlVc.saveMassVaccinationCenter(mvcDto);
-        //---------------------------------------------------------------------------------------------------------------------------------------------------
-
-        HealthcareCenterDto hCcDto = new HealthcareCenterDto("1236", "Centro de Saude da Maia", "915372312", "csmaia@gmail.com", "915372312", "www.csmaia.com", "9", "17", "15", "3", "Rua da Escola", "4470-073", "Maia", "CC-92634", "Norte", "SNS", new ArrayList<>(List.of(new VaccineType("COVID", "To prevent serious COVID-19 infections", VaccineType.vaccineTechnologies[5]), new VaccineType("FLU22", "To prevent serious Flu infections", VaccineType.vaccineTechnologies[5]))));
-        company.saveHealthcareCenter(hCcDto);
+        GenericClass<VaccinationCenter> genericsClass = new GenericClass<>();
+        try {
+            genericsClass.binaryFileRead(Constants.FILE_PATH_VACCINATION_CENTERS, company.getVaccinationCenters());
+        } catch (EOFException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
      * It creates and adds Employees to the Company as soon as the App runs
      */
     private static void bootstrapEmployees() {
-        RegisterNewEmployeeController ctrlEmp = new RegisterNewEmployeeController();
-
-        RegisterNewEmployeeDto dtoEmp = new RegisterNewEmployeeDto();
-        dtoEmp.id = "00001";
-        dtoEmp.name = "Gustavo";
-        dtoEmp.password = "AAA22vx";
-        dtoEmp.phoneNumber = "915604427";
-        dtoEmp.citizenCardNumber = "11960343 8 ZW1";
-        dtoEmp.email = "gustavo@gmail.com";
-        dtoEmp.address = "Via Diagonal / 4475-079 / Porto";
-        ctrlEmp.saveCreatedEmployee(dtoEmp, "Center Coordinator");
-        //---------------------------------------------------------------------------------------------------------------------------------------------------
-
-        RegisterNewEmployeeDto dtoEmp1 = new RegisterNewEmployeeDto();
-        dtoEmp1.id = "00002";
-        dtoEmp1.name = "Francisca";
-        dtoEmp1.password = "ah56BCC";
-        dtoEmp1.phoneNumber = "919700873";
-        dtoEmp1.citizenCardNumber = "14268862 2 ZX8";
-        dtoEmp1.email = "francisca@gmail.com";
-        dtoEmp1.address = "Rua de São Tomé / 4200-489 / Porto";
-        ctrlEmp.saveCreatedEmployee(dtoEmp1, "Center Coordinator");
-        //---------------------------------------------------------------------------------------------------------------------------------------------------
-
-        RegisterNewEmployeeDto dtoEmp2 = new RegisterNewEmployeeDto();
-        dtoEmp2.id = "00003";
-        dtoEmp2.name = "Joana";
-        dtoEmp2.password = "aa12AAA";
-        dtoEmp2.phoneNumber = "919880654";
-        dtoEmp2.citizenCardNumber = "38002291 5 ZY5";
-        dtoEmp2.email = "joana@gmail.com";
-        dtoEmp2.address = "Rua De Azevedo De Albuquerque / 4050-076 / Porto";
-        ctrlEmp.saveCreatedEmployee(dtoEmp2, "Nurse");
-        //---------------------------------------------------------------------------------------------------------------------------------------------------
-
-        RegisterNewEmployeeDto dtoEmp3 = new RegisterNewEmployeeDto();
-        dtoEmp3.id = "00004";
-        dtoEmp3.name = "Carla";
-        dtoEmp3.password = "AAA12aa";
-        dtoEmp3.phoneNumber = "912345678";
-        dtoEmp3.citizenCardNumber = "15925823 5 ZX3";
-        dtoEmp3.email = "carla@gmail.com";
-        dtoEmp3.address = "Rua Carlos Kimbo Slice / 4440-123 / Porto";
-        ctrlEmp.saveCreatedEmployee(dtoEmp3, "Receptionist");
-
-        //---------------------------------------------------------------------------------------------------------------------------------------------------
-
-        RegisterNewEmployeeDto dtoEmp4 = new RegisterNewEmployeeDto();
-        dtoEmp4.id = "00005";
-        dtoEmp4.name = "Carla";
-        dtoEmp4.password = "AAA11aa";
-        dtoEmp4.phoneNumber = "912345679";
-        dtoEmp4.citizenCardNumber = "19112459 1 ZY2";
-        dtoEmp4.email = "r@gmail.com";
-        dtoEmp4.address = "Rua rua / 4440-124 / Porto";
-        ctrlEmp.saveCreatedEmployee(dtoEmp4, "Receptionist");
-
-        //---------------------------------------------------------------------------------------------------------------------------------------------------
-
-        RegisterNewEmployeeDto dtoEmp5 = new RegisterNewEmployeeDto();
-        dtoEmp5.id = "00006";
-        dtoEmp5.name = "Xico";
-        dtoEmp5.password = "AAA45aa";
-        dtoEmp5.phoneNumber = "912652345";
-        dtoEmp5.citizenCardNumber = "15261880 5 ZW5";
-        dtoEmp5.email = "xico@gmail.com";
-        dtoEmp5.address = "Rua de São Tomé / 4200-489 / Porto";
-        ctrlEmp.saveCreatedEmployee(dtoEmp5, "Center Coordinator");
+        GenericClass<Employee> genericsClass = new GenericClass<>();
+        try {
+            genericsClass.binaryFileRead(Constants.FILE_PATH_EMPLOYEES, Company.getEmployees());
+        } catch (EOFException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
      * It creates and adds Sns Users to the Company as soon as the App runs
      */
     private static void bootstrapSnsUsers() {
-        AuthFacade aF = company.getAuthFacade();
-
-        SnsUserDto dto = new SnsUserDto("User Default", 100000000, "u@gmail.com", "01/01/1998", "915604428", "Male", "Default # 4000-000 # Default", "14698413 7 ZY7", "AAA00aa");
-        company.saveSNSUser(dto);
-        company.getAuthFacade().addUserWithRole("UserDefault", "u@gmail.com", "123", Constants.ROLE_SNS_USER);
-        //---------------------------------------------------------------------------------------------------------------------------------------------------
-        SnsUserDto dto1 = new SnsUserDto("User Default1", 200000000, "u1@gmail.com", "01/01/2003", "915604429", "Male", "Default # 4000-001 # Default", "16068893 0 ZX7", "AAA11aa");
-        company.saveSNSUser(dto1);
-        company.getAuthFacade().addUserWithRole("UserDefault1", "u1@gmail.com", "123", Constants.ROLE_SNS_USER);
-        //---------------------------------------------------------------------------------------------------------------------------------------------------
-        SnsUserDto dto2 = new SnsUserDto("User Default2", 300000000, "u2@gmail.com", "02/02/1900", "915604430", "Male", "Default # 4000-002 # Default", "35906158 3 ZZ5", "AAA22aa");
-        company.saveSNSUser(dto2);
-        aF.addUserWithRole("User Default2", "u2@gmail.com", "123", Constants.ROLE_SNS_USER);
-        //---------------------------------------------------------------------------------------------------------------------------------------------------
-        SnsUserDto dto3 = new SnsUserDto("User Default3", 400000000, "u3@gmail.com", "03/03/2000", "915604431", "Male", "Default # 4000-003 # Default", "35419916 1 ZZ6", "AAA33aa");
-        company.saveSNSUser(dto3);
-        aF.addUserWithRole("User Default3", "u3@gmail.com", "123", Constants.ROLE_SNS_USER);
-        //---------------------------------------------------------------------------------------------------------------------------------------------------
-        SnsUserDto test = new SnsUserDto("UserTest", 999999999, "testUser@gmail.com", "03/03/2010", "915604432", "Male", "Default # 4000-004 # Default", "32006024 1 ZW9", "AAA33aa");
-        company.saveSNSUser(test);
-        aF.addUserWithRole("UserTest", "testUser@gmail.com", "123", Constants.ROLE_SNS_USER);
-        //---------------------------------------------------------------------------------------------------------------------------------------------------
-        SnsUserDto test2 = new SnsUserDto("UserTest2", 888888888, "testUser2@gmail.com", "03/03/2000", "915604433", "Male", "Default # 4000-005 # Default", "35841509 8 ZZ9", "AAA33aa");
-        company.saveSNSUser(test2);
-        aF.addUserWithRole("UserTest2", "testUser2@gmail.com", "123", Constants.ROLE_SNS_USER);
+        GenericClass<SnsUser> genericsClass = new GenericClass<>();
+        try {
+            genericsClass.binaryFileRead(Constants.FILE_PATH_SNS_USERS, company.getSnsUserList());
+        } catch (EOFException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
      * It creates and adds Vaccines to the Company as soon as the App runs
      */
     private static void bootstrapVaccines() {
-        ArrayList<Integer> minAge1 = new ArrayList<>(List.of(1, 19));
-        ArrayList<Integer> maxAge1 = new ArrayList<>(List.of(18, 30));
-
-        ArrayList<Integer> timeBetween1stAnd2ndDose1 = new ArrayList<>(List.of(15, 15));
-        ArrayList<Integer> timeBetween2ndAnd3rdDose1 = new ArrayList<>(List.of(0, 150));
-        AdministrationProcess administrationProcess1 = new AdministrationProcess(new ArrayList<>(Arrays.asList(minAge1, maxAge1)), new ArrayList<>(List.of(2, 3)), new ArrayList<>(List.of(20.0, 30.0)), new ArrayList<>(Arrays.asList(timeBetween1stAnd2ndDose1, timeBetween2ndAnd3rdDose1)));
-        Vaccine vaccine1 = new Vaccine("Test", 12, "Brand1", administrationProcess1, company.getVaccineTypes().get(0));
-        VaccineBulletin vaccineBulletin1 = new VaccineBulletin(vaccine1, LocalDateTime.of(2022, 12, 30, 10, 30), 1, "54321-21");
-        company.getSnsUserList().get(0).registerVaccine(vaccineBulletin1);
-        company.getVaccines().add(vaccine1);
-        //---------------------------------------------------------------------------------------------------------------------------------------------------
-
-        ArrayList<Integer> minAge2 = new ArrayList<>(List.of(8, 22));
-        ArrayList<Integer> maxAge2 = new ArrayList<>(List.of(20, 30));
-
-        ArrayList<Integer> timeBetween1stAnd2ndDose2 = new ArrayList<>(List.of(150, 15));
-        ArrayList<Integer> timeBetween2ndAnd3rdDose2 = new ArrayList<>(List.of(2, 150));
-        AdministrationProcess administrationProcess2 = new AdministrationProcess(new ArrayList<>(Arrays.asList(minAge2, maxAge2)), new ArrayList<>(List.of(1, 3)), new ArrayList<>(List.of(25.0, 35.0)), new ArrayList<>(Arrays.asList(timeBetween1stAnd2ndDose2, timeBetween2ndAnd3rdDose2)));
-        Vaccine vaccine2 = new Vaccine("Test", 15, "Brand1", administrationProcess2, company.getVaccineTypes().get(0));
-        VaccineBulletin vaccineBulletin2 = new VaccineBulletin(vaccine2, LocalDateTime.of(2022, 5, 3, 15, 30), 5, "12345-12");
-        company.getSnsUserList().get(1).registerVaccine(vaccineBulletin2);
-        company.getVaccines().add(vaccine2);
+        GenericClass<Vaccine> genericsClass = new GenericClass<>();
+        try {
+            genericsClass.binaryFileRead(Constants.FILE_PATH_VACCINES, company.getVaccines());
+        } catch (EOFException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
      * It creates and adds Scheduled Appointments to the Company as soon as the App runs
      */
     private static void bootstrapScheduledAppointments() {
-        ScheduledVaccine scheduledVaccine1 = new ScheduledVaccine(100000000, company.getVaccineTypes().get(0), LocalDateTime.of(2022, 6, 3, 12, 30));
-        ScheduledVaccine scheduledVaccine2 = new ScheduledVaccine(200000000, company.getVaccineTypes().get(0), LocalDateTime.of(2022, 6, 3, 12, 30));
-        ScheduledVaccine scheduledVaccine3 = new ScheduledVaccine(300000000, company.getVaccineTypes().get(0), LocalDateTime.of(2022, 6, 3, 12, 30));
-        ScheduledVaccine scheduledVaccine4 = new ScheduledVaccine(400000000, company.getVaccineTypes().get(0), LocalDateTime.of(2022, 6, 3, 12, 30));
-
-        //---------------------------------------------------------------------------------------------------------------------------------------------------
-        company.getVaccinationCenters().get(0).addAppointment(scheduledVaccine1);
-        company.getVaccinationCenters().get(0).addAppointment(scheduledVaccine2);
-        company.getVaccinationCenters().get(0).addAppointment(scheduledVaccine3);
-        company.getVaccinationCenters().get(0).addAppointment(scheduledVaccine4);
-
+        GenericClass<ScheduledVaccine> genericsClass = new GenericClass<>();
+        try {
+            genericsClass.binaryFileRead(Constants.FILE_PATH_APPOINTMENTS, company.getAppointments());
+        } catch (EOFException e) {
+            e.printStackTrace();
+        }
     }
 
     private static void bootstrapArrivals() {
-        RegisterTheArrivalOfAnSnsUserController ctrlArrival = new RegisterTheArrivalOfAnSnsUserController();
-
-        ctrlArrival.setVaccinationCenter(0);
-        ctrlArrival.checkAndSetUserAppointment(100000000);
-        ctrlArrival.setArrival(100000000);
-        ctrlArrival.registerArrival();
-
-        ctrlArrival.setVaccinationCenter(0);
-        ctrlArrival.checkAndSetUserAppointment(200000000);
-        ctrlArrival.setArrival(200000000);
-        ctrlArrival.registerArrival();
-
-        ctrlArrival.setVaccinationCenter(0);
-        ctrlArrival.checkAndSetUserAppointment(300000000);
-        ctrlArrival.setArrival(300000000);
-        ctrlArrival.registerArrival();
-
-        ctrlArrival.setVaccinationCenter(0);
-        ctrlArrival.checkAndSetUserAppointment(400000000);
-        ctrlArrival.setArrival(400000000);
-        ctrlArrival.registerArrival();
-
+        GenericClass<Arrival> genericsClass = new GenericClass<>();
+        try {
+            for (VaccinationCenter vaccinationCenter : company.getVaccinationCenters()) {
+                genericsClass.binaryFileRead(Constants.FILE_PATH_ARRIVALS, vaccinationCenter.getArrivalsList());
+                for (Arrival arrival : vaccinationCenter.getArrivalsList()) {
+                    System.out.println(arrival);
+                }
+            }
+        } catch (EOFException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -250,20 +118,15 @@ public class Utils {
      */
     public static void bootstrap() {
 
-        bootstrapVaccineTypes();
         bootstrapEmployees();
-        bootstrapSnsUsers();
-        bootstrapVaccinationCenters();
+        bootstrapVaccineTypes();
         bootstrapVaccines();
+        bootstrapVaccinationCenters();
+        bootstrapSnsUsers();
         bootstrapScheduledAppointments();
         bootstrapArrivals();
 
-        GenericClass<VaccineType> genericsClass = new GenericClass<>();
-        try {
-            genericsClass.binaryFileRead(Constants.FILE_PATH_VACCINE_TYPES,company.getVaccineTypes());
-        } catch (EOFException e) {
-            e.printStackTrace();
-        }
+
     }
 
     /**

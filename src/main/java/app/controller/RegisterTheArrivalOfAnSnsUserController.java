@@ -1,6 +1,10 @@
 package app.controller;
 
 import app.domain.model.*;
+import app.domain.shared.Constants;
+import app.domain.shared.GenericClass;
+
+import java.io.NotSerializableException;
 import java.util.List;
 
 public class RegisterTheArrivalOfAnSnsUserController {
@@ -9,6 +13,7 @@ public class RegisterTheArrivalOfAnSnsUserController {
     private ScheduledVaccine appointment;
     private Arrival arrival;
     private final Company company = App.getInstance().getCompany();
+    GenericClass<Arrival> generics = new GenericClass<>();
 
     public RegisterTheArrivalOfAnSnsUserController() {}
 
@@ -89,5 +94,15 @@ public class RegisterTheArrivalOfAnSnsUserController {
 
     public int getUserIndexInUsersList(int snsNumber) {
         return company.getUserIndexInUsersList(snsNumber);
+    }
+
+    /**
+     * Exports the list of Users that arrived at a vaccination center to a binary file.
+     * @throws NotSerializableException
+     */
+    public void exportDataToFile() throws NotSerializableException {
+        for (VaccinationCenter vaccinationCenter : company.getVaccinationCenters()) {
+            generics.binaryFileWrite(Constants.FILE_PATH_SNS_USERS, vaccinationCenter.getArrivalsList());
+        }
     }
 }

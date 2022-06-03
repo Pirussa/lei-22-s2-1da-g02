@@ -4,11 +4,12 @@ import app.controller.RegisterNewEmployeeController;
 import app.domain.shared.Constants;
 import app.ui.console.utils.Utils;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Random;
 
-public class Employee {
+public class Employee implements Serializable {
 
     /**
      * Represents a new Employee of the vaccination process.

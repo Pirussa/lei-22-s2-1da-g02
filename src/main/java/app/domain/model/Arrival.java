@@ -1,12 +1,13 @@
 package app.domain.model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
  * @author Pedro Monteiro <1211076@isep.ipp.pt>
  */
 
-public class Arrival {
+public class Arrival implements Serializable {
 
     private final int snsNumber;
 

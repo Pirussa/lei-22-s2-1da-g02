@@ -113,7 +113,7 @@ public class Company implements Serializable {
      *
      * @return An ArrayList of Vaccines.
      */
-    public ArrayList<Vaccine> getVaccines() {
+    public List<Vaccine> getVaccines() {
         return vaccines;
     }
 
@@ -484,6 +484,10 @@ public class Company implements Serializable {
         appointmentsList.add(scheduledVaccine);
     }
 
+    public List<ScheduledVaccine> getAppointments(){
+        return appointmentsList;
+    }
+
     /**
      * User is eligible for the appointment.
      *
@@ -518,6 +522,10 @@ public class Company implements Serializable {
         return -1;
     }
 
+    /**
+     * Registers the daily total of people vaccinated in each vaccination center, and exports it to a file.
+     * @throws FileNotFoundException
+     */
     public void registerDailyTotalOfPeopleVaccinated() throws FileNotFoundException {
         PrintWriter file = new PrintWriter("DailyRecordOfVaccinatedPeople.txt");
 

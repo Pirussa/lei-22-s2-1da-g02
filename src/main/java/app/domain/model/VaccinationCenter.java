@@ -2,6 +2,7 @@ package app.domain.model;
 
 import dto.ScheduledVaccineDto;
 
+import java.io.Serializable;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -15,7 +16,7 @@ import java.util.Objects;
  *
  * @author João Castro <1210816@isep.ipp.pt>
  */
-public class VaccinationCenter {
+public class VaccinationCenter implements Serializable {
 
 
     private String strID;
