@@ -35,7 +35,6 @@ public class RecordVaccineAdministrationUI implements Runnable {
         controller.setVaccineType(selectUser);
         int vaccineHistory = controller.findLastDoseOfVaccineType();
         setDosageAndVaccine(vaccineHistory);
-
     }
 
     private int waitingRoomList(int options) {
@@ -55,13 +54,13 @@ public class RecordVaccineAdministrationUI implements Runnable {
         int vaccineIndexInList;
         if (controller.findLastDoseOfVaccineType() == Constants.FIRST_DOSE) {
             do {
-                vaccineIndexInList = Utils.showAndSelectIndex(controller.vaccineTypeAvailableVaccines(), "Select a Vaccine: ");
+                vaccineIndexInList = Utils.selectFromList(controller.vaccineTypeAvailableVaccines(), "Select a Vaccine: ");
             } while (controller.userFirstDoseAgeGroup(vaccineIndexInList) == Constants.INVALID_VALUE);
             //If the user doesn´t fit in any of the age groups.
             return Constants.FIT_AGE_GROUP;
         } else {
             do {
-                vaccineIndexInList = Utils.showAndSelectIndex(controller.vaccineTypeAvailableVaccines(), "Select a Vaccine: ");
+                vaccineIndexInList = Utils.selectFromList(controller.vaccineTypeAvailableVaccines(), "Select a Vaccine: ");
             } while (controller.userSuitsAgeGroup(controller.findLastDoseOfVaccineType()) == Constants.INVALID_VALUE);
             return vaccineIndexInList;
         }

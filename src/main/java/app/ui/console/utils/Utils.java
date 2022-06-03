@@ -206,10 +206,10 @@ public class Utils {
      * It creates and adds Scheduled Appointments to the Company as soon as the App runs
      */
     private static void bootstrapScheduledAppointments() {
-        ScheduledVaccine scheduledVaccine1 = new ScheduledVaccine(100000000, company.getVaccineTypes().get(0), LocalDateTime.of(2022, 6, 2, 19, 0));
-        ScheduledVaccine scheduledVaccine2 = new ScheduledVaccine(200000000, company.getVaccineTypes().get(0), LocalDateTime.of(2022, 6, 2, 19, 0));
-        ScheduledVaccine scheduledVaccine3 = new ScheduledVaccine(300000000, company.getVaccineTypes().get(0), LocalDateTime.of(2022, 6, 2, 19, 0));
-        ScheduledVaccine scheduledVaccine4 = new ScheduledVaccine(400000000, company.getVaccineTypes().get(0), LocalDateTime.of(2022, 6, 2, 19, 0));
+        ScheduledVaccine scheduledVaccine1 = new ScheduledVaccine(100000000, company.getVaccineTypes().get(0), LocalDateTime.of(2022, 6, 3, 12, 30));
+        ScheduledVaccine scheduledVaccine2 = new ScheduledVaccine(200000000, company.getVaccineTypes().get(0), LocalDateTime.of(2022, 6, 3, 12, 30));
+        ScheduledVaccine scheduledVaccine3 = new ScheduledVaccine(300000000, company.getVaccineTypes().get(0), LocalDateTime.of(2022, 6, 3, 12, 30));
+        ScheduledVaccine scheduledVaccine4 = new ScheduledVaccine(400000000, company.getVaccineTypes().get(0), LocalDateTime.of(2022, 6, 3, 12, 30));
 
         //---------------------------------------------------------------------------------------------------------------------------------------------------
         company.getVaccinationCenters().get(0).addAppointment(scheduledVaccine1);
