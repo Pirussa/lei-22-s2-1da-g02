@@ -4,6 +4,8 @@ import app.controller.*;
 import app.domain.model.*;
 import app.domain.shared.Constants;
 import app.domain.shared.GenericClass;
+import dto.MassVaccinationCenterDto;
+import dto.RegisterNewEmployeeDto;
 
 import java.io.*;
 import java.text.DateFormat;
@@ -31,11 +33,15 @@ public class Utils {
      * It creates and adds VaccineTypes to the Company as soon as the App runs
      */
     private static void bootstrapVaccineTypes() {
+
         GenericClass<VaccineType> genericsClass = new GenericClass<>();
         try {
             genericsClass.binaryFileRead(Constants.FILE_PATH_VACCINE_TYPES, company.getVaccineTypes());
         } catch (EOFException e) {
+            e.printStackTrace();
         }
+        SpecifyNewVaccineTypeController ctrlVt = new SpecifyNewVaccineTypeController();
+        ctrlVt.saveVaccineType("COVID", "A vaccine to prevent serious infections of the Covid-19 Virus", VaccineType.vaccineTechnologies[5]);
     }
 
     /**
@@ -46,7 +52,26 @@ public class Utils {
         try {
             genericsClass.binaryFileRead(Constants.FILE_PATH_VACCINATION_CENTERS, company.getVaccinationCenters());
         } catch (EOFException e) {
+            e.printStackTrace();
         }
+        CreateVaccinationCenterController ctrlVc = new CreateVaccinationCenterController();
+        MassVaccinationCenterDto mvcDto = new MassVaccinationCenterDto();
+        mvcDto.strID = "1234";
+        mvcDto.strName = "CVC Matosinhos";
+        mvcDto.strPhoneNumber = "915607321";
+        mvcDto.strFax = "915607321";
+        mvcDto.strEmail = "cvcmatosinhos@gmail.com";
+        mvcDto.strClosingHour = "16";
+        mvcDto.strOpeningHour = "9";
+        mvcDto.strVaccinesPerSlot = "1";
+        mvcDto.strSlotDuration = "30";
+        mvcDto.strWebsite = "www.cvcmatosinhos.com";
+        mvcDto.strRoad = "Rua do Amial";
+        mvcDto.strZipCode = "4460-098";
+        mvcDto.strLocal = "Matosinhos";
+        mvcDto.strCenterCoordinatorID = "CC-95634";
+        mvcDto.vaccineType = new VaccineType("COVID", "To prevent serious COVID-19 infections", VaccineType.vaccineTechnologies[5]);
+        ctrlVc.saveMassVaccinationCenter(mvcDto);
     }
 
     /**
@@ -57,8 +82,39 @@ public class Utils {
         try {
             genericsClass.binaryFileRead(Constants.FILE_PATH_EMPLOYEES, Company.getEmployees());
         } catch (EOFException e) {
-            System.out.println("ERRO");
+            e.printStackTrace();
         }
+        RegisterNewEmployeeController ctrlEmp = new RegisterNewEmployeeController();
+
+        RegisterNewEmployeeDto dtoEmp = new RegisterNewEmployeeDto();
+        dtoEmp.id = "00001";
+        dtoEmp.name = "Ana";
+        dtoEmp.password = "AAA11aa";
+        dtoEmp.phoneNumber = "915604427";
+        dtoEmp.citizenCardNumber = "11960343 8 ZW1";
+        dtoEmp.email = "ana@gmail.com";
+        dtoEmp.address = "Via Diagonal / 4475-079 / Porto";
+        ctrlEmp.saveCreatedEmployee(dtoEmp, "Center Coordinator");
+
+        RegisterNewEmployeeDto dtoEmp2 = new RegisterNewEmployeeDto();
+        dtoEmp2.id = "00003";
+        dtoEmp2.name = "Joana";
+        dtoEmp2.password = "AAA11aa";
+        dtoEmp2.phoneNumber = "919880654";
+        dtoEmp2.citizenCardNumber = "38002291 5 ZY5";
+        dtoEmp2.email = "joana@gmail.com";
+        dtoEmp2.address = "Rua De Azevedo De Albuquerque / 4050-076 / Porto";
+        ctrlEmp.saveCreatedEmployee(dtoEmp2, "Nurse");
+
+        RegisterNewEmployeeDto dtoEmp4 = new RegisterNewEmployeeDto();
+        dtoEmp4.id = "00005";
+        dtoEmp4.name = "Carla";
+        dtoEmp4.password = "AAA11aa";
+        dtoEmp4.phoneNumber = "912345679";
+        dtoEmp4.citizenCardNumber = "19112459 1 ZY2";
+        dtoEmp4.email = "carla@gmail.com";
+        dtoEmp4.address = "Rua rua / 4440-124 / Porto";
+        ctrlEmp.saveCreatedEmployee(dtoEmp4, "Receptionist");
     }
 
     /**
@@ -69,6 +125,7 @@ public class Utils {
         try {
             genericsClass.binaryFileRead(Constants.FILE_PATH_SNS_USERS, company.getSnsUserList());
         } catch (EOFException e) {
+            e.printStackTrace();
         }
     }
 
@@ -80,7 +137,9 @@ public class Utils {
         try {
             genericsClass.binaryFileRead(Constants.FILE_PATH_VACCINES, company.getVaccines());
         } catch (EOFException e) {
+            e.printStackTrace();
         }
+
     }
 
     /**
@@ -91,6 +150,7 @@ public class Utils {
         try {
             genericsClass.binaryFileRead(Constants.FILE_PATH_APPOINTMENTS, company.getAppointments());
         } catch (EOFException e) {
+            e.printStackTrace();
         }
     }
 
@@ -104,6 +164,7 @@ public class Utils {
                 }
             }
         } catch (EOFException e) {
+            e.printStackTrace();
         }
     }
 

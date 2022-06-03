@@ -157,10 +157,10 @@ public class Company implements Serializable {
                 for (Vaccine vaccine : vaccines) {
                     return dto.id != vaccine.getId();
                 }
-
+                return true;
 
             }
-            ;
+
         }
         return false;
     }

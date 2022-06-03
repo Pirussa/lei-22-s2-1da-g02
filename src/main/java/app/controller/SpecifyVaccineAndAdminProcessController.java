@@ -61,7 +61,7 @@ public class SpecifyVaccineAndAdminProcessController {
     }
 
     /**
-     * Exports the list of Vaccine Types to a binary file.
+     * Exports the list of Vaccine to a binary file.
      * @throws NotSerializableException
      */
     public void exportDataToFile() throws NotSerializableException {
