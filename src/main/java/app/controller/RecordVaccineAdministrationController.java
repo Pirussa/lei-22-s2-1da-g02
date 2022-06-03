@@ -129,17 +129,17 @@ public class RecordVaccineAdministrationController {
                 vaccines.add(company.getVaccines().get(index));
         }
         for (int columns = 0; columns < vaccines.get(indexVaccine).getAdminProcess().getAgeGroups().get(0).size(); columns++) {
-            for (int rows = 0; rows < vaccines.get(indexVaccine).getAdminProcess().getAgeGroups().size(); rows++) {
+            for (int rows = 0; rows < vaccines.get(indexVaccine).getAdminProcess().getAgeGroups().size() - 1; rows++) {
                 if ((userAge > vaccines.get(indexVaccine).getAdminProcess().getAgeGroups().get(columns).get(rows)) && userAge < vaccines.get(indexVaccine).getAdminProcess().getAgeGroups().get(columns).get(rows + 1) && rows == 0) {
-                    return columns;
-                } else if ((userAge > vaccines.get(indexVaccine).getAdminProcess().getAgeGroups().get(columns).get(rows)) && userAge < vaccines.get(indexVaccine).getAdminProcess().getAgeGroups().get(columns).get(rows)) {
                     return columns;
                 }
             }
+
         }
         return -1;
     }
-    public void removeUserFromList (List < Arrival > arrivalsList) {
+
+    public void removeUserFromList(List<Arrival> arrivalsList) {
         arrivalsList.remove(0);
     }
     // Vaccine/Vaccine Type related
