@@ -2,6 +2,7 @@ package app.controller;
 
 import java.io.File;
 import java.io.PrintWriter;
+import java.time.LocalDate;
 import java.util.List;
 
 public class CheckAndExportVaccinationStatsController {
@@ -12,7 +13,6 @@ public class CheckAndExportVaccinationStatsController {
     public List<String> getVaccinationStats() {
         return null;
     }
-
 
     //Duas abordagens diferentes possíveis de seguir:
     //dar return a void e lançar exceção caso dê errado para depois na UI ser apenas printar que foi sucedido (se for) e tratar a exceção
@@ -27,8 +27,6 @@ public class CheckAndExportVaccinationStatsController {
             //Printar tudo para aqui
 
 
-
-
         } catch (Exception FileNotFoundException) {
             return false;
         } finally {
@@ -39,5 +37,27 @@ public class CheckAndExportVaccinationStatsController {
         return true;
     }
 
+    public boolean checkIfDatesAreValid(LocalDate firstDate, LocalDate lastDate) {
+
+        if (firstDate == null || lastDate == null) {
+            return false;
+        }
+        if (firstDate.isAfter(lastDate)) {
+            return false;
+        }
+
+        if (firstDate.isEqual(lastDate)) {
+            return false;
+        }
+        if (firstDate.isBefore(LocalDate.of(2020, 1, 1))) {
+            return false;
+            //Falar com o prof de PPROG -> deveria lançar exceção?
+        }
+        return !lastDate.isAfter(LocalDate.now());
+    }
 
 }
+
+
+
+

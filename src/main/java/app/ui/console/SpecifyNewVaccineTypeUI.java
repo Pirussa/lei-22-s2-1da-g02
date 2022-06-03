@@ -1,13 +1,11 @@
 package app.ui.console;
 
 import app.controller.SpecifyNewVaccineTypeController;
-import app.domain.model.GenericClass;
 import app.domain.model.VaccineType;
 import app.ui.console.utils.Utils;
 
 import java.io.NotSerializableException;
 import java.io.WriteAbortedException;
-import java.util.List;
 import java.util.Scanner;
 
 

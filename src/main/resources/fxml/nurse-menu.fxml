@@ -42,7 +42,7 @@
          <children>
             <Pane>
                <children>
-                  <Label alignment="CENTER" text="CENTER COORDINATOR MENU" textAlignment="CENTER">
+                  <Label alignment="CENTER" text="NURSE MENU" textAlignment="CENTER">
                      <font>
                         <Font name="System Bold" size="59.0" />
                      </font>

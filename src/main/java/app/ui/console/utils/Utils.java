@@ -3,6 +3,7 @@ package app.ui.console.utils;
 import app.controller.*;
 import app.domain.model.*;
 import app.domain.shared.Constants;
+import app.domain.shared.GenericClass;
 import dto.*;
 import pt.isep.lei.esoft.auth.AuthFacade;
 
@@ -222,22 +223,22 @@ public class Utils {
     private static void bootstrapArrivals() {
         RegisterTheArrivalOfAnSnsUserController ctrlArrival = new RegisterTheArrivalOfAnSnsUserController();
 
-        ctrlArrival.setVaccinationCenter(1);
+        ctrlArrival.setVaccinationCenter(0);
         ctrlArrival.checkAndSetUserAppointment(100000000);
         ctrlArrival.setArrival(100000000);
         ctrlArrival.registerArrival();
 
-        ctrlArrival.setVaccinationCenter(1);
+        ctrlArrival.setVaccinationCenter(0);
         ctrlArrival.checkAndSetUserAppointment(200000000);
         ctrlArrival.setArrival(200000000);
         ctrlArrival.registerArrival();
 
-        ctrlArrival.setVaccinationCenter(1);
+        ctrlArrival.setVaccinationCenter(0);
         ctrlArrival.checkAndSetUserAppointment(300000000);
         ctrlArrival.setArrival(300000000);
         ctrlArrival.registerArrival();
 
-        ctrlArrival.setVaccinationCenter(1);
+        ctrlArrival.setVaccinationCenter(0);
         ctrlArrival.checkAndSetUserAppointment(400000000);
         ctrlArrival.setArrival(400000000);
         ctrlArrival.registerArrival();
@@ -249,13 +250,13 @@ public class Utils {
      */
     public static void bootstrap() {
 
-        //     bootstrapVaccineTypes();
-        //     bootstrapEmployees();
-        //     bootstrapSnsUsers();
-        //     bootstrapVaccinationCenters();
-        //     bootstrapVaccines();
-        //     bootstrapScheduledAppointments();
-        //bootstrapArrivals();
+        bootstrapVaccineTypes();
+        bootstrapEmployees();
+        bootstrapSnsUsers();
+        bootstrapVaccinationCenters();
+        bootstrapVaccines();
+        bootstrapScheduledAppointments();
+        bootstrapArrivals();
 
         GenericClass<VaccineType> genericsClass = new GenericClass<>();
         genericsClass.binaryFileRead(Constants.FILE_PATH_VACCINE_TYPES);

@@ -5,41 +5,54 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.Bloom?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="362.0" prefWidth="600.0" style="-fx-ground-color: ANTIQUEWHITE;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.ui.gui.LoginMenuGUI">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="821.0" prefWidth="1356.0" style="-fx-ground-color: ANTIQUEWHITE;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.ui.gui.LoginMenuGUI">
    <top>
-      <Pane fx:id="tittlePane" prefHeight="87.0" prefWidth="600.0" style="-fx-background-color: LIGHTSTEELBLUE;" BorderPane.alignment="CENTER">
+      <FlowPane alignment="CENTER" columnHalignment="CENTER" prefHeight="115.0" prefWidth="1356.0" style="-fx-background-color: LIGHTSTEELBLUE;" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="194.0" layoutY="22.0" text="LOGIN MENU" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="35.0" />
-               </font>
-               <effect>
-                  <Bloom />
-               </effect>
-            </Label>
-         </children></Pane>
+            <Pane>
+               <children>
+                  <Label alignment="CENTER" text="LOGIN MENU" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="39.0" />
+                     </font>
+                     <effect>
+                        <Bloom />
+                     </effect>
+                  </Label>
+               </children>
+            </Pane>
+         </children>
+      </FlowPane>
    </top>
    <center>
-      <Pane prefHeight="275.0" prefWidth="420.0" BorderPane.alignment="CENTER">
+      <FlowPane alignment="CENTER" prefHeight="290.0" prefWidth="604.0" style="-fx-background-color: ANTIQUEWHITE;" BorderPane.alignment="CENTER">
          <children>
-            <TextField fx:id="emailTxtField" layoutX="217.0" layoutY="51.0" prefHeight="28.0" prefWidth="167.0" promptText="email" />
-            <TextField fx:id="pwdTxtField" layoutX="217.0" layoutY="110.0" prefHeight="28.0" prefWidth="167.0" promptText="password">
-               <effect>
-                  <Bloom threshold="1.0" />
-               </effect>
-            </TextField>
-            <Button fx:id="loginBtn" graphicTextGap="2.0" layoutX="246.0" layoutY="166.0" mnemonicParsing="false" onAction="#doLogin" prefHeight="41.0" prefWidth="108.0" style="-fx-background-color: LIGHTGREEN;" text="LOGIN">
-               <font>
-                  <Font name="System Bold" size="21.0" />
-               </font>
-            </Button>
+            <Pane prefHeight="710.0" prefWidth="1359.0" style="-fx-background-color: ANTIQUEWHITE;">
+               <children>
+                  <TextField fx:id="emailTxtField" alignment="CENTER" layoutX="416.0" layoutY="142.0" prefHeight="73.0" prefWidth="528.0" promptText="email">
+                     <font>
+                        <Font size="37.0" />
+                     </font></TextField>
+                  <TextField fx:id="pwdTxtField" alignment="CENTER" layoutX="416.0" layoutY="300.0" prefHeight="70.0" prefWidth="528.0" promptText="password">
+                     <effect>
+                        <Bloom threshold="1.0" />
+                     </effect>
+                     <font>
+                        <Font size="37.0" />
+                     </font>
+                  </TextField>
+                  <Button fx:id="loginBtn" graphicTextGap="2.0" layoutX="567.0" layoutY="459.0" mnemonicParsing="false" onAction="#doLogin" prefHeight="69.0" prefWidth="226.0" style="-fx-background-color: LIGHTGREEN;" text="LOGIN">
+                     <font>
+                        <Font name="System Bold" size="21.0" />
+                     </font>
+                  </Button>
+               </children>
+            </Pane>
          </children>
-         <effect>
-            <Bloom threshold="1.0" />
-         </effect>
-      </Pane>
+      </FlowPane>
    </center>
 </BorderPane>

@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.List;
 
 public class CheckAndExportVacStatsGUI {
 
@@ -23,7 +24,6 @@ public class CheckAndExportVacStatsGUI {
     private LocalDate firstDate;
 
     private LocalDate lastDate;
-
 
 
     @FXML
@@ -36,7 +36,7 @@ public class CheckAndExportVacStatsGUI {
     private Label selectLbl;
 
     @FXML
-    private Pane tittlePane;
+    private Pane mainMenuPane;
 
     @FXML
     void getFirstDate(ActionEvent event) {
@@ -63,23 +63,65 @@ public class CheckAndExportVacStatsGUI {
     }
 
     @FXML
-    public void back(ActionEvent event)  {
-        notImplementedYet(event);
+    public void back(ActionEvent event) throws IOException {
+        if (mainMenuPane.isVisible()) {
+            //TODO: Fazer o back, maybe só chamando a cena anterior de novo
+            toCenterCoordinatorMenu(event);
+        } else {
+            mainMenuPane.setVisible(true);
+        }
+
 
     }
 
     public void checkStatistics(ActionEvent event) {
+        if (hasBothDates()) {
+            if (controller.checkIfDatesAreValid(firstDate, lastDate)) {
+                List<String> vaccinationStatsList = controller.getVaccinationStats();
 
+                //Descobrir como imprimir esta lista em condições
+                printVaccinationStats(vaccinationStatsList);
+
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setContentText("Invalid dates. Please try again.");
+                alert.showAndWait();
+            }
+
+
+            setMainMenuVisibility(false);
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setContentText("Please select both dates");
+            alert.showAndWait();
+        }
     }
+
+    private void printVaccinationStats(List<String> vaccinationStatsList) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Vaccination Statistics not ready yet");
+        alert.setContentText(vaccinationStatsList.toString());
+        alert.showAndWait();
+    }
+    
 
     public void exportStatistics(ActionEvent event) {
 
     }
 
-    private void setVisibility(boolean visible) {
-        selectLbl.setVisible(visible);
-        firstDatePicker.setVisible(visible);
-        lastDatePicker.setVisible(visible);
+    private void setMainMenuVisibility(boolean visible) {
+        mainMenuPane.setVisible(visible);
+
+    }
+
+    private void toCenterCoordinatorMenu(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/center-coordinator-menu.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
 
     }
 

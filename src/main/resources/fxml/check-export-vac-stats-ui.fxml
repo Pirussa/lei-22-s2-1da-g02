@@ -5,52 +5,72 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.Bloom?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="362.0" prefWidth="600.0" style="-fx-background-color: ANTIQUEWHITE;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.ui.gui.CheckAndExportVacStatsGUI">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="821.0" prefWidth="1356.0" style="-fx-background-color: ANTIQUEWHITE;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.ui.gui.CheckAndExportVacStatsGUI">
    <top>
-      <Pane fx:id="tittlePane" prefHeight="59.0" prefWidth="600.0" style="-fx-background-color: LIGHTSTEELBLUE;" BorderPane.alignment="CENTER">
+      <FlowPane alignment="CENTER" prefHeight="115.0" prefWidth="1356.0" style="-fx-background-color: LIGHTSTEELBLUE;" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="157.0" layoutY="4.0" prefHeight="51.0" prefWidth="301.0" text="Vaccination Statistics" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="30.0" />
-               </font>
-               <effect>
-                  <Bloom />
-               </effect>
-            </Label>
-         </children></Pane>
-   </top>
-   <center>
-      <Pane prefHeight="275.0" prefWidth="420.0" BorderPane.alignment="CENTER">
-         <effect>
-            <Bloom threshold="1.0" />
-         </effect>
-         <children>
-            <Button layoutX="14.0" layoutY="259.0" mnemonicParsing="false" onAction="#back" style="-fx-background-color: INDIANRED;" text="BACK" textFill="ANTIQUEWHITE">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Button>
-            <DatePicker fx:id="firstDatePicker" layoutX="106.0" layoutY="55.0" prefHeight="25.0" prefWidth="142.0" promptText="first date" />
-            <DatePicker fx:id="lastDatePicker" layoutX="361.0" layoutY="55.0" prefHeight="25.0" prefWidth="142.0" promptText="last date" />
-            <Label fx:id="selectLbl" layoutX="99.0" layoutY="14.0" prefHeight="27.0" prefWidth="421.0" text="Select the period you want to get the statistics from">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Button fx:id="checkStatsBtn" layoutX="206.0" layoutY="119.0" mnemonicParsing="false" onAction="#checkStatistics" prefHeight="38.0" prefWidth="188.0" text="Check Statistics">
-               <font>
-                  <Font size="21.0" />
-               </font>
-            </Button>
-            <Button fx:id="exportStatsButton" layoutX="206.0" layoutY="191.0" mnemonicParsing="false" onAction="#exportStatistics" prefHeight="38.0" prefWidth="188.0" text="Export Statistics">
-               <font>
-                  <Font size="21.0" />
-               </font>
-            </Button>
+            <Pane>
+               <children>
+                  <Label alignment="CENTER" text="Vaccination Statistics" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="59.0" />
+                     </font>
+                     <effect>
+                        <Bloom />
+                     </effect>
+                  </Label>
+               </children>
+            </Pane>
          </children>
-      </Pane>
+      </FlowPane>
+   </top>
+   <bottom>
+      <FlowPane prefHeight="94.0" prefWidth="1356.0" BorderPane.alignment="CENTER">
+         <children>
+            <Pane prefHeight="117.0" prefWidth="200.0" style="-fx-background-color: ANTIQUEWHITE;">
+               <children>
+                  <Button layoutX="22.0" layoutY="29.0" mnemonicParsing="false" onAction="#back" prefHeight="70.0" prefWidth="165.0" style="-fx-background-color: INDIANRED;" text="Back" textFill="ANTIQUEWHITE">
+                     <font>
+                        <Font name="System Bold" size="33.0" />
+                     </font>
+                  </Button>
+               </children>
+            </Pane>
+         </children>
+      </FlowPane>
+   </bottom>
+   <center>
+      <FlowPane alignment="CENTER" BorderPane.alignment="CENTER">
+         <children>
+            <Pane fx:id="mainMenuPane" prefHeight="427.0" prefWidth="898.0">
+               <effect>
+                  <Bloom threshold="1.0" />
+               </effect>
+               <children>
+                  <DatePicker fx:id="firstDatePicker" layoutX="140.0" layoutY="99.0" onAction="#getFirstDate" prefHeight="64.0" prefWidth="277.0" promptText="first date" />
+                  <DatePicker fx:id="lastDatePicker" layoutX="483.0" layoutY="99.0" onAction="#getLastDate" prefHeight="65.0" prefWidth="277.0" promptText="last date" />
+                  <Label fx:id="selectLbl" layoutX="90.0" layoutY="14.0" text="Select the period you want to get the statistics from">
+                     <font>
+                        <Font size="32.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="checkStatsBtn" layoutX="310.0" layoutY="231.0" mnemonicParsing="false" onAction="#checkStatistics" text="Check Statistics">
+                     <font>
+                        <Font name="System Bold" size="32.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="exportStatsButton" layoutX="305.0" layoutY="358.0" mnemonicParsing="false" onAction="#exportStatistics" text="Export Statistics">
+                     <font>
+                        <Font name="System Bold" size="32.0" />
+                     </font>
+                  </Button>
+               </children>
+            </Pane>
+         </children>
+      </FlowPane>
    </center>
 </BorderPane>

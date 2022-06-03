@@ -66,4 +66,6 @@ public class CenterCoordinatorGUI {
         alert.setContentText("This feature is not completed yet");
         alert.showAndWait();
     }
+
+
 }

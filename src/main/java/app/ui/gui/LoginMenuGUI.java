@@ -48,15 +48,11 @@ public class LoginMenuGUI {
 
             List<UserRoleDTO> roles = controller.getUserRoles();
             if ((roles != null) && (!roles.isEmpty())) {
-                Alert alertLoginSuccess = new Alert(Alert.AlertType.INFORMATION);
-                alertLoginSuccess.setTitle("Login Successful");
-                alertLoginSuccess.setContentText("Welcome");
-
-                alertLoginSuccess.show();
                 UserRoleDTO role = roles.get(0);
                 redirectToRoleUI(role, event);
-
             } else {
+
+
                 Alert alertNoRoles = new Alert(Alert.AlertType.ERROR);
                 alertNoRoles.setTitle("Login Failed");
                 alertNoRoles.setContentText("User has no roles");
@@ -83,7 +79,7 @@ public class LoginMenuGUI {
                 toCenterCoordinatorScene(event);
                 break;
             case Constants.ROLE_NURSE:
-                new NurseGUI();
+                toNurseScene(event);
                 break;
 
         }
@@ -97,6 +93,16 @@ public class LoginMenuGUI {
         stage.show();
 
     }
+
+    private void toNurseScene(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("/fxml/nurse-menu.fxml"));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+
+    }
+
 
     public void logout(ActionEvent event) {
         controller.doLogout();
