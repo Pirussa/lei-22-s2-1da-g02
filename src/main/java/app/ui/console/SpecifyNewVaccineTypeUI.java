@@ -28,6 +28,11 @@ public class SpecifyNewVaccineTypeUI implements Runnable {
 
     public void run() {
         {
+            try {
+                controller.vaccineTypeImport();
+            } catch (WriteAbortedException e) {
+                e.printStackTrace();
+            }
             Scanner sc = new Scanner(System.in);
             System.out.println();
             System.out.println("------Specify Vaccine Type------");
@@ -72,11 +77,6 @@ public class SpecifyNewVaccineTypeUI implements Runnable {
                 showVaccineTypeData(code, description, technology);
                 if (Utils.confirmCreation()) {
                     controller.saveVaccineType(code, description, technology);
-                    try {
-                        controller.vaccineTypeImport();
-                    } catch (WriteAbortedException e) {
-                        e.printStackTrace();
-                    }
 
                     try {
                         controller.vaccineTypeExport();

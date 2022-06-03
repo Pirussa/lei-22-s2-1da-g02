@@ -20,9 +20,10 @@ import java.util.Objects;
 
 public class SpecifyNewVaccineTypeController implements Serializable {
 
-    private  Company company = App.getInstance().getCompany();
+    private Company company = App.getInstance().getCompany();
 
     private static VaccineType vt;
+
     /**
      * Specifies a new Vaccine Type:
      * <p>
@@ -38,9 +39,11 @@ public class SpecifyNewVaccineTypeController implements Serializable {
         return company.specifyNewVaccineType(code, description, technology);
     }
 
-    public List<VaccineType> getVaccineTypes(){
+    public List<VaccineType> getVaccineTypes() {
+        Utils.fillListsUsingBinaryFileInformation(company.getVaccineTypes(),vaccineType.getList());
         return company.getVaccineTypes();
     }
+
 
     /**
      * Saves a Vaccine Type into the Company storage.
@@ -50,13 +53,14 @@ public class SpecifyNewVaccineTypeController implements Serializable {
         vt = new VaccineType(code, description, technology);
         company.saveVaccineType(code, description, technology);
     }
-    GenericClass<VaccineType> vaccineType = new GenericClass<>(vt);
+
+    GenericClass<VaccineType> vaccineType = new GenericClass<>();
 
     public void vaccineTypeExport() throws NotSerializableException {
-        vaccineType.binaryFileWrite(Constants.VACCINE_TYPE_FILE_NAME,company.getVaccineTypes());
+        vaccineType.binaryFileWrite(Constants.VACCINE_TYPE_FILE_NAME, company.getVaccineTypes());
     }
 
-    public void vaccineTypeImport()throws WriteAbortedException {
+    public void vaccineTypeImport() throws WriteAbortedException {
         vaccineType.binaryFileRead(Constants.VACCINE_TYPE_FILE_NAME);
     }
 

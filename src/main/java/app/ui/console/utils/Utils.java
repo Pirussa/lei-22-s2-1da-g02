@@ -7,6 +7,7 @@ import dto.*;
 import pt.isep.lei.esoft.auth.AuthFacade;
 
 import java.io.*;
+import java.lang.reflect.GenericSignatureFormatError;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -249,14 +250,16 @@ public class Utils {
      */
     public static void bootstrap() {
 
-        bootstrapVaccineTypes();
-        bootstrapEmployees();
-        bootstrapSnsUsers();
-        bootstrapVaccinationCenters();
-        bootstrapVaccines();
-        bootstrapScheduledAppointments();
+        //     bootstrapVaccineTypes();
+        //     bootstrapEmployees();
+        //     bootstrapSnsUsers();
+        //     bootstrapVaccinationCenters();
+        //     bootstrapVaccines();
+        //     bootstrapScheduledAppointments();
         //bootstrapArrivals();
 
+        GenericClass<VaccineType> genericsClass = new GenericClass<>();
+        genericsClass.binaryFileRead(Constants.VACCINE_TYPE_FILE_NAME);
     }
 
     /**
@@ -842,30 +845,9 @@ public class Utils {
     }
 
 
-    public static void binaryFileWrite(String fileName, List<Object> list) {
-        String filename = fileName;
-        try {
-            FileOutputStream fileOs = new FileOutputStream(filename);
-            ObjectOutputStream os = new ObjectOutputStream(fileOs);
-            os.writeObject(list);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void binaryFileRead(String fileName, List<Object> list) {
-        String filename = fileName;
-        try {
-                ObjectInputStream is = new ObjectInputStream(new FileInputStream(filename));
-                list = (List<Object>) is.readObject();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+    public static void fillListsUsingBinaryFileInformation(List listToBeFilled, List listFromFile) {
+        for (int listPosition = 0; listPosition < listFromFile.size(); listPosition++) {
+            listToBeFilled.add(listFromFile.get(listPosition));
         }
     }
 }
