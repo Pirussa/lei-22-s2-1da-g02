@@ -45,28 +45,13 @@ public class RecordVaccineAdministrationController {
     }
 
     public void setVaccine(int currentAppointment) {
-        vaccine = snsUser.administratedVaccines().get(currentAppointment).getVaccine();
+        if (!snsUser.administratedVaccines().isEmpty())
+            vaccine = snsUser.administratedVaccines().get(currentAppointment).getVaccine();
+        else
+            vaccine = vaccineTypeAvailableVaccines().get(currentAppointment);
     }
 
     // Functionalities
-    private String lotNumberStructure() {
-        final String alphabetLetters = "abcdefghijklmnopqrstuvwyxzABCDEFGHIJKLMNOPQRSTUVWYXZ";
-        final String numbers = "0123456789";
-        final String alphabetNumbers = numbers + alphabetLetters;
-        StringBuilder lotNumber = new StringBuilder();
-        Random generate = new Random();
-
-        for (int index = 0; index < Constants.LOT_NUMBER_LENGHT; index++) {
-            if (index <= 4)
-                lotNumber.append(alphabetNumbers.charAt(generate.nextInt(alphabetNumbers.length())));
-            else if (index == 5)
-                lotNumber.append("-");
-            else
-                lotNumber.append(numbers.charAt(generate.nextInt(10)));
-        }
-        return String.valueOf(lotNumber);
-    }
-
     private int getUserAge() {
         String[] birthdateSplit = snsUser.getStrBirthDate().split("/");
         LocalDate birthdate = LocalDate.of(Integer.parseInt(birthdateSplit[2]), Integer.parseInt(birthdateSplit[1]), Integer.parseInt(birthdateSplit[0]));
@@ -78,11 +63,22 @@ public class RecordVaccineAdministrationController {
         return new ArrayList<>(vaccinationCenter.getArrivalsList());
     }
 
-    public List<String> vaccineTypeAvailableVaccines() {
+    public List<Vaccine> vaccineTypeAvailableVaccines() {
+        ArrayList<Vaccine> vaccinesAvailable = new ArrayList<>();
+        for (int index = 0; index < company.getVaccines().size(); index++) {
+            if (vaccineType.equals(company.getVaccines().get(index).getVaccineType())) {
+                vaccinesAvailable.add(company.getVaccines().get(index));
+            }
+        }
+        return vaccinesAvailable;
+    }
+
+    public List<String> vaccineAvailableName() {
         ArrayList<String> vaccinesAvailable = new ArrayList<>();
         for (int index = 0; index < company.getVaccines().size(); index++) {
-            if (vaccineType.equals(company.getVaccines().get(index).getVaccineType()))
+            if (vaccineType.equals(company.getVaccines().get(index).getVaccineType())) {
                 vaccinesAvailable.add(company.getVaccines().get(index).getName());
+            }
         }
         return vaccinesAvailable;
     }
@@ -109,11 +105,12 @@ public class RecordVaccineAdministrationController {
         return Constants.INVALID_VALUE;
     }
 
-    public int userSuitsAgeGroup(int indexVaccine) {
+    public int userFirstDoseAgeGroup(int indexVaccine) {
         int userAge = getUserAge();
-        for (int columns = 0; columns < snsUser.administratedVaccines().get(indexVaccine).getVaccine().getAdminProcess().getAgeGroups().get(0).size(); columns++) {
-            for (int rows = 0; rows < snsUser.administratedVaccines().get(indexVaccine).getVaccine().getAdminProcess().getAgeGroups().size(); rows++) {
-                if ((userAge > snsUser.administratedVaccines().get(indexVaccine).getVaccine().getAdminProcess().getAgeGroups().get(columns).get(rows)) && userAge < snsUser.administratedVaccines().get(indexVaccine).getVaccine().getAdminProcess().getAgeGroups().get(columns).get(rows + 1)) {
+        ArrayList<Vaccine> vaccines = (ArrayList<Vaccine>) vaccineTypeAvailableVaccines();
+        for (int columns = 0; columns < vaccines.get(indexVaccine).getAdminProcess().getAgeGroups().get(0).size(); columns++) {
+            for (int rows = 0; rows < vaccines.get(indexVaccine).getAdminProcess().getAgeGroups().size() - 1; rows++) {
+                if ((userAge > vaccines.get(indexVaccine).getAdminProcess().getAgeGroups().get(columns).get(rows)) && userAge < vaccines.get(indexVaccine).getAdminProcess().getAgeGroups().get(columns).get(rows + 1) && rows == 0) {
                     return columns;
                 }
             }
@@ -121,20 +118,14 @@ public class RecordVaccineAdministrationController {
         return -1;
     }
 
-    public int userFirstDoseAgeGroup(int indexVaccine) {
+    public int userSuitsAgeGroup(int indexVaccine) {
         int userAge = getUserAge();
-        ArrayList<Vaccine> vaccines = new ArrayList<>();
-        for (int index = 0; index < company.getVaccines().size(); index++) {
-            if (vaccineType.equals(company.getVaccines().get(index).getVaccineType()))
-                vaccines.add(company.getVaccines().get(index));
-        }
-        for (int columns = 0; columns < vaccines.get(indexVaccine).getAdminProcess().getAgeGroups().get(0).size(); columns++) {
-            for (int rows = 0; rows < vaccines.get(indexVaccine).getAdminProcess().getAgeGroups().size() - 1; rows++) {
-                if ((userAge > vaccines.get(indexVaccine).getAdminProcess().getAgeGroups().get(columns).get(rows)) && userAge < vaccines.get(indexVaccine).getAdminProcess().getAgeGroups().get(columns).get(rows + 1) && rows == 0) {
+        for (int columns = 0; columns < snsUser.administratedVaccines().get(indexVaccine).getVaccine().getAdminProcess().getAgeGroups().get(0).size(); columns++) {
+            for (int rows = 0; rows < snsUser.administratedVaccines().get(indexVaccine).getVaccine().getAdminProcess().getAgeGroups().size() - 1; rows++) {
+                if ((userAge > snsUser.administratedVaccines().get(indexVaccine).getVaccine().getAdminProcess().getAgeGroups().get(columns).get(rows)) && userAge < snsUser.administratedVaccines().get(indexVaccine).getVaccine().getAdminProcess().getAgeGroups().get(columns).get(rows + 1)) {
                     return columns;
                 }
             }
-
         }
         return -1;
     }
@@ -151,7 +142,7 @@ public class RecordVaccineAdministrationController {
      */
     public int getUserNumberOfDoses() {
         if (!snsUser.administratedVaccines().isEmpty())
-            return findLastDoseOfVaccineType();
+            return (snsUser.administratedVaccines().get(findLastDoseOfVaccineType()).getDose());
         return Constants.FIRST_DOSE;
     }
 
@@ -164,7 +155,10 @@ public class RecordVaccineAdministrationController {
     }
 
     private Double dosageForDose(int numberOfDoses, int indexVaccine) {
-        return snsUser.administratedVaccines().get(indexVaccine).getVaccine().getAdminProcess().getDosage().get(numberOfDoses);
+        if (numberOfDoses == Constants.FIRST_DOSE)
+            return vaccineTypeAvailableVaccines().get(indexVaccine).getAdminProcess().getDosage().get(Constants.FIRST_DOSE + 1);
+        else
+            return snsUser.administratedVaccines().get(indexVaccine).getVaccine().getAdminProcess().getDosage().get(userSuitsAgeGroup(indexVaccine));
     }
 
     public String vaccineAdministrationProcess(int numberOfDoses, int indexVaccine) {
@@ -177,5 +171,22 @@ public class RecordVaccineAdministrationController {
 
     public String vaccineInfo() {
         return "Vaccine: " + vaccine.getName();
+    }
+
+    public boolean validateLotNumber(String lotNumber) {
+        final String alphanumeric = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWYXZ";
+        final String numeric = "0123456789";
+        int counter = 0;
+        for (int indexLotNumber = 0; indexLotNumber < lotNumber.length(); indexLotNumber++) {
+            for (int index = 0; index < alphanumeric.length(); index++) {
+                if (lotNumber.charAt(indexLotNumber) == alphanumeric.charAt(index) && indexLotNumber <= 4)
+                    counter++;
+                else if (indexLotNumber == 5 && lotNumber.charAt(indexLotNumber) == '-')
+                    counter++;
+                else if (lotNumber.charAt(indexLotNumber) == numeric.charAt(index))
+                    counter++;
+            }
+        }
+        return counter == Constants.LOT_NUMBER_LENGHT;
     }
 }
