@@ -9,7 +9,6 @@ import java.io.NotSerializableException;
 import java.io.Serializable;
 import java.io.WriteAbortedException;
 import java.util.List;
-import java.util.Objects;
 
 
 /**
@@ -57,11 +56,11 @@ public class SpecifyNewVaccineTypeController implements Serializable {
     GenericClass<VaccineType> vaccineType = new GenericClass<>();
 
     public void vaccineTypeExport() throws NotSerializableException {
-        vaccineType.binaryFileWrite(Constants.VACCINE_TYPE_FILE_NAME, company.getVaccineTypes());
+        vaccineType.binaryFileWrite(Constants.FILE_PATH_VACCINE_TYPES, company.getVaccineTypes());
     }
 
     public void vaccineTypeImport() throws WriteAbortedException {
-        vaccineType.binaryFileRead(Constants.VACCINE_TYPE_FILE_NAME);
+        vaccineType.binaryFileRead(Constants.FILE_PATH_VACCINE_TYPES);
     }
 
 }

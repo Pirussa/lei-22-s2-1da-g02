@@ -64,12 +64,23 @@ public class Constants {
 
     public static final int DOSAGE_FIRST_DOSE = 35;
 
-    //public static final String VACCINE_TYPE_FILE_NAME="vaccinetype";
+    /**
+     * Names for the binary files.
+     */
+    public static final String FILE_PATH_VACCINE_TYPES ="vaccinetype";
+
+    public static final String FILE_PATH_SNS_USERS ="snsusers";
+
+    public static final String FILE_PATH_EMPLOYEES = "employees";
+
+    public static final String FILE_PATH_VACCINATION_CENTERS ="vaccinationcenters";
+
+    public static final String FILE_PATH_ARRIVALS ="arrivals";
+
+
     public static final int VACCINE_ADMINISTRATION = 0;
 
     public static final int VACCINATION = 1;
-
-    public static final String VACCINE_TYPE_FILE_NAME="vaccinetype.bin";
 
     public static final String[] OPTIONS = {"Yes", "No"};
 

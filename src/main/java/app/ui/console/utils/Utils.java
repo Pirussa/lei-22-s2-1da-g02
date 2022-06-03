@@ -7,7 +7,6 @@ import dto.*;
 import pt.isep.lei.esoft.auth.AuthFacade;
 
 import java.io.*;
-import java.lang.reflect.GenericSignatureFormatError;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -259,7 +258,7 @@ public class Utils {
         //bootstrapArrivals();
 
         GenericClass<VaccineType> genericsClass = new GenericClass<>();
-        genericsClass.binaryFileRead(Constants.VACCINE_TYPE_FILE_NAME);
+        genericsClass.binaryFileRead(Constants.FILE_PATH_VACCINE_TYPES);
     }
 
     /**
