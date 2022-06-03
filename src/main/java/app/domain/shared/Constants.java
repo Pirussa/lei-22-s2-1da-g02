@@ -4,7 +4,6 @@ package app.domain.shared;
 import app.domain.model.Company;
 
 /**
- *
  * @author Paulo Maio <pam@isep.ipp.pt>
  */
 public class Constants {
@@ -67,15 +66,19 @@ public class Constants {
     /**
      * Names for the binary files.
      */
-    public static final String FILE_PATH_VACCINE_TYPES ="vaccinetypes";
+    public static final String FILE_PATH_VACCINE_TYPES = "vaccinetypes";
 
-    public static final String FILE_PATH_SNS_USERS ="snsusers";
+    public static final String FILE_PATH_SNS_USERS = "snsusers";
 
     public static final String FILE_PATH_EMPLOYEES = "employees";
 
-    public static final String FILE_PATH_VACCINATION_CENTERS ="vaccinationcenters";
+    public static final String FILE_PATH_VACCINATION_CENTERS = "vaccinationcenters";
 
-    public static final String FILE_PATH_ARRIVALS ="arrivals";
+    public static final String FILE_PATH_ARRIVALS = "arrivals";
+
+    public static final String FILE_PATH_VACCINES = "vaccine";
+
+    public static final String FILE_PATH_APPOINTMENTS = "appointments";
 
     public static final int VACCINE_ADMINISTRATION = 0;
 
@@ -83,4 +86,4 @@ public class Constants {
 
     public static final String[] OPTIONS = {"Yes", "No"};
 
-    }
+}

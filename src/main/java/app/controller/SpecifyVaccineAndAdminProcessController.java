@@ -1,9 +1,13 @@
 package app.controller;
 
 import app.domain.model.Company;
+import app.domain.model.Vaccine;
 import app.domain.model.VaccineType;
+import app.domain.shared.Constants;
+import app.domain.shared.GenericClass;
 import dto.VaccineAndAdminProcessDto;
 
+import java.io.NotSerializableException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +20,7 @@ import java.util.List;
 public class SpecifyVaccineAndAdminProcessController {
 
     private Company company = App.getInstance().getCompany();
+    GenericClass<Vaccine> generics = new GenericClass<>();
 
     public SpecifyVaccineAndAdminProcessController() {
     }
@@ -53,5 +58,13 @@ public class SpecifyVaccineAndAdminProcessController {
      */
     public void saveVaccine(VaccineAndAdminProcessDto dto) {
         company.saveVaccine(dto);
+    }
+
+    /**
+     * Exports the list of Vaccine Types to a binary file.
+     * @throws NotSerializableException
+     */
+    public void exportDataToFile() throws NotSerializableException {
+        generics.binaryFileWrite(Constants.FILE_PATH_VACCINES, company.getVaccines());
     }
 }

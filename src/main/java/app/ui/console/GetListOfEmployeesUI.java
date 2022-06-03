@@ -15,7 +15,7 @@ public class GetListOfEmployeesUI implements Runnable {
     public GetListOfEmployeesUI() {
     }
 
-    private GetListOfEmployeesController ctrl = new GetListOfEmployeesController();
+    private GetListOfEmployeesController controller = new GetListOfEmployeesController();
 
         
     public void run() {
@@ -32,17 +32,17 @@ public class GetListOfEmployeesUI implements Runnable {
             System.out.println("");
             System.out.println("0- Return.");
             System.out.println("");
-            ctrl.fillListOfEmployeesWithAGivenRole();
+            controller.fillListOfEmployeesWithAGivenRole();
             System.out.print("Type your option: ");
             option = read.nextInt();
             System.out.println("");
 
             switch (option) {
                 case 1:
-                    if (!ctrl.getNurseList().isEmpty()) {
+                    if (!controller.getNurseList().isEmpty()) {
                         System.out.println("**These are the Nurses registered in the system:**");
-                        for (int listPosition = 0; listPosition < ctrl.getNurseList().size(); listPosition++) {
-                            System.out.println(ctrl.getNurseList().get(listPosition));
+                        for (int listPosition = 0; listPosition < controller.getNurseList().size(); listPosition++) {
+                            System.out.println(controller.getNurseList().get(listPosition));
                         }
                     } else {
                         System.out.println("**There aren't any Nurses registered in the system.**");
@@ -50,10 +50,10 @@ public class GetListOfEmployeesUI implements Runnable {
                     }
                     break;
                 case 2:
-                    if (!ctrl.getReceptionistList().isEmpty()) {
+                    if (!controller.getReceptionistList().isEmpty()) {
                         System.out.println("**These are the Receptionists registered in the system:**");
-                        for (int listPosition = 0; listPosition < ctrl.getReceptionistList().size(); listPosition++) {
-                            System.out.println(ctrl.getReceptionistList().get(listPosition));
+                        for (int listPosition = 0; listPosition < controller.getReceptionistList().size(); listPosition++) {
+                            System.out.println(controller.getReceptionistList().get(listPosition));
                         }
                     } else {
                         System.out.println("**There aren't any Receptionists registered in the system.**");
@@ -61,10 +61,10 @@ public class GetListOfEmployeesUI implements Runnable {
                     }
                     break;
                 case 3:
-                    if (!ctrl.getCentreCoordinatorList().isEmpty()) {
+                    if (!controller.getCentreCoordinatorList().isEmpty()) {
                         System.out.println("**These are the Centre Coordinators registered in the system:**");
-                        for (int listPosition = 0; listPosition < ctrl.getCentreCoordinatorList().size(); listPosition++) {
-                            System.out.println(ctrl.getCentreCoordinatorList().get(listPosition));
+                        for (int listPosition = 0; listPosition < controller.getCentreCoordinatorList().size(); listPosition++) {
+                            System.out.println(controller.getCentreCoordinatorList().get(listPosition));
                         }
                     } else {
                         System.out.println("**There aren't any Centre Coordinators registered in the system.**");

@@ -27,9 +27,7 @@ public class RecordVaccineAdministrationUI implements Runnable {
         controller.setVaccinationCenter(vaccinationCenterIndexInList);
 
         // Select User from Waiting Room List
-        firstUserWaitingRoom();
-        int options = Utils.selectFromList(List.of(Constants.OPTIONS), "Consult Waiting Room List");
-        int selectUser = waitingRoomList(options);
+        int selectUser = waitingRoomList();
 
         // Select a Vaccine (Verifies if it matches the Vaccine Type)
         controller.setVaccineType(selectUser);
@@ -37,33 +35,23 @@ public class RecordVaccineAdministrationUI implements Runnable {
         setDosageAndVaccine(vaccineHistory);
     }
 
-    private int waitingRoomList(int options) {
-        if (options == Constants.FIRST_USER_WAITING_ROOM) {
-            int selectedUser = (Utils.selectFromList(controller.fillListWithUserSnsNumber().subList(1, controller.fillListWithUserSnsNumber().size()), "\nUsers") + 1);
-            SnsUserDto snsUserDto = controller.getSnsUserInformation(selectedUser);
-            controller.setSnsUser(snsUserDto);
-            return selectedUser;
-        } else {
-            SnsUserDto snsUserDto = controller.getSnsUserInformation(Constants.FIRST_USER_WAITING_ROOM);
-            controller.setSnsUser(snsUserDto);
-            return Constants.FIRST_USER_WAITING_ROOM;
-        }
+    private int waitingRoomList() {
+        int selectedUser = (Utils.selectFromList(controller.fillListWithUserSnsNumber(), "\nWaiting Room List (Select One User)"));
+        SnsUserDto snsUserDto = controller.getSnsUserInformation(selectedUser);
+        controller.setSnsUser(snsUserDto);
+        return selectedUser;
     }
 
     private int userFirstDose() {
         int vaccineIndexInList;
         if (controller.findLastDoseOfVaccineType() == Constants.FIRST_DOSE) {
             do {
-                vaccineIndexInList = Utils.selectFromList(controller.vaccineTypeAvailableVaccines(), "Select a Vaccine: ");
+                vaccineIndexInList = Utils.selectFromList(controller.vaccineAvailableName(), "\nSelect a Vaccine: ");
             } while (controller.userFirstDoseAgeGroup(vaccineIndexInList) == Constants.INVALID_VALUE);
             //If the user doesn´t fit in any of the age groups.
-            return Constants.FIT_AGE_GROUP;
-        } else {
-            do {
-                vaccineIndexInList = Utils.selectFromList(controller.vaccineTypeAvailableVaccines(), "Select a Vaccine: ");
-            } while (controller.userSuitsAgeGroup(controller.findLastDoseOfVaccineType()) == Constants.INVALID_VALUE);
             return vaccineIndexInList;
         }
+        return Constants.FIT_AGE_GROUP;
     }
 
     private void setDosageAndVaccine(int vaccineHistory) {
@@ -80,18 +68,14 @@ public class RecordVaccineAdministrationUI implements Runnable {
                 controller.setVaccine(vaccineIndex);
                 vaccineAdministrationPrompt(Constants.VACCINATION);
                 vaccineAndVaccineTypeInfo();
-                System.out.printf("Dosage: " + Constants.DOSAGE_FIRST_DOSE + "ml%n");
+                System.out.println(controller.vaccineAdministrationProcess(Constants.INVALID_VALUE, vaccineIndex));
             }
         }
     }
 
     private void vaccineAndVaccineTypeInfo() {
         System.out.printf("%n" + controller.vaccineTypeInfo());
-        System.out.println(controller.vaccineInfo());
-    }
-
-    private void firstUserWaitingRoom() {
-        System.out.printf("%nUser Information: %n%n" + controller.fillListWithUserSnsNumber().get(Constants.FIRST_USER_WAITING_ROOM) + "%n%n");
+        System.out.printf("%n" + controller.vaccineInfo() + "%n");
     }
 
     private void vaccineAdministrationPrompt(int prompt) {
@@ -100,4 +84,10 @@ public class RecordVaccineAdministrationUI implements Runnable {
         else
             System.out.printf("%n-------------%n|Vaccination|%n-------------%n");
     }
+
+   /* private void lotNumber() {
+        do {
+            System.out.printf("%nIntroduce Lot Number: %n");
+        } while (controller.validateLotNumber());
+    }*/
 }

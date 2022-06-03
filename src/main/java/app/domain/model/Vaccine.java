@@ -1,12 +1,14 @@
 package app.domain.model;
 
+import java.io.Serializable;
+
 /**
  * Represents a Vaccine for a virus.
  *
  * @author Gustavo Jorge <1211061@isep.ipp.pt>
  */
 
-public class Vaccine {
+public class Vaccine implements Serializable {
     private String name;
     private int id;
     private String brand;

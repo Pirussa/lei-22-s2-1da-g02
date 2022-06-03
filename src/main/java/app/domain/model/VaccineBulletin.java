@@ -34,6 +34,7 @@ public class VaccineBulletin {
     public VaccineBulletin(Vaccine vaccine, LocalDateTime dateTime, int doses, String lotNumber) {
         this.vaccine = vaccine;
         this.dateTimeOfLastDose = dateTime;
+        this.doseNumber = doses;
         this.lotNumber = lotNumber;
     }
 

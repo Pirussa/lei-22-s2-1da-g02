@@ -5,6 +5,7 @@ import app.domain.model.VaccineType;
 import app.ui.console.utils.Utils;
 import dto.VaccineAndAdminProcessDto;
 
+import java.io.NotSerializableException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -36,7 +37,7 @@ public class SpecifyVaccineAndAdminProcessUI implements Runnable {
 
 
             System.out.println("--What's the Vaccine Type?");
-            ArrayList<VaccineType> vTs = new ArrayList<>( ctrl.getVaccineTypesList());
+            ArrayList<VaccineType> vTs = new ArrayList<>(ctrl.getVaccineTypesList());
             int options = 1;
             for (VaccineType vt : vTs) {
                 System.out.printf("%d- %s %n", options, vt);
@@ -50,7 +51,7 @@ public class SpecifyVaccineAndAdminProcessUI implements Runnable {
                 try {
                     option = sc.nextInt();
                     sc.nextLine();
-                    if (option >= 1 && option <= options-1) {
+                    if (option >= 1 && option <= options - 1) {
                         dto.vt = vTs.get(option - 1);
                         check = 1;
                     } else {
@@ -231,6 +232,11 @@ public class SpecifyVaccineAndAdminProcessUI implements Runnable {
                 showVaccineAndAdminProcessData(dto);
                 if (Utils.confirmCreation()) {
                     ctrl.saveVaccine(dto);
+                    try {
+                        ctrl.exportDataToFile();
+                    } catch (NotSerializableException e) {
+                        e.printStackTrace();
+                    }
                     System.out.println();
                     System.out.println("The new Vaccine with its administration process was added to the Company Vaccines with success.");
                 } else {

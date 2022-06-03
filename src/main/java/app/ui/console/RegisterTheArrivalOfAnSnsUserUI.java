@@ -3,6 +3,8 @@ package app.ui.console;
 import app.controller.RegisterTheArrivalOfAnSnsUserController;
 import app.ui.console.utils.Utils;
 
+import java.io.NotSerializableException;
+
 public class RegisterTheArrivalOfAnSnsUserUI implements Runnable {
 
 
@@ -29,6 +31,11 @@ public class RegisterTheArrivalOfAnSnsUserUI implements Runnable {
                 int option = Utils.readIntegerFromConsole("Insert your option: ");
                 if (option == 1) {
                     controller.registerArrival();
+                    try {
+                        controller.exportDataToFile();
+                    } catch (NotSerializableException e) {
+                        e.printStackTrace();
+                    }
                     System.out.printf("%n------------------------------%n|The user has been registered|%n------------------------------%n");
                     flag = true;
                 } else if (option == 0) {
