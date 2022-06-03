@@ -6,6 +6,7 @@ import app.domain.shared.Constants;
 import app.domain.shared.GenericClass;
 import app.ui.console.utils.Utils;
 
+import java.io.EOFException;
 import java.io.NotSerializableException;
 import java.io.Serializable;
 import java.io.WriteAbortedException;
@@ -21,8 +22,6 @@ import java.util.List;
 public class SpecifyNewVaccineTypeController implements Serializable {
 
     private Company company = App.getInstance().getCompany();
-
-    private static VaccineType vt;
 
     /**
      * Specifies a new Vaccine Type:
@@ -40,7 +39,7 @@ public class SpecifyNewVaccineTypeController implements Serializable {
     }
 
     public List<VaccineType> getVaccineTypes() {
-        Utils.fillListsUsingBinaryFileInformation(company.getVaccineTypes(),vaccineType.getList());
+        Utils.fillListsUsingBinaryFileInformation(company.getVaccineTypes(), generics.getList());
         return company.getVaccineTypes();
     }
 
@@ -50,18 +49,17 @@ public class SpecifyNewVaccineTypeController implements Serializable {
      * Company Vaccines Storage: vaccineTypes
      */
     public void saveVaccineType(String code, String description, String technology) {
-        vt = new VaccineType(code, description, technology);
         company.saveVaccineType(code, description, technology);
     }
 
-    GenericClass<VaccineType> vaccineType = new GenericClass<>();
+    GenericClass<VaccineType> generics = new GenericClass<>();
 
     public void vaccineTypeExport() throws NotSerializableException {
-        vaccineType.binaryFileWrite(Constants.FILE_PATH_VACCINE_TYPES, company.getVaccineTypes());
+        generics.binaryFileWrite(Constants.FILE_PATH_VACCINE_TYPES, company.getVaccineTypes());
     }
 
-    public void vaccineTypeImport() throws WriteAbortedException {
-        vaccineType.binaryFileRead(Constants.FILE_PATH_VACCINE_TYPES);
+    public void vaccineTypeImport() throws WriteAbortedException, EOFException {
+        generics.binaryFileRead(Constants.FILE_PATH_VACCINE_TYPES);
     }
 
 }

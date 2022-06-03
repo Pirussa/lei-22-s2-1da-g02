@@ -4,6 +4,7 @@ import app.controller.SpecifyNewVaccineTypeController;
 import app.domain.model.VaccineType;
 import app.ui.console.utils.Utils;
 
+import java.io.EOFException;
 import java.io.NotSerializableException;
 import java.io.WriteAbortedException;
 import java.util.Scanner;
@@ -28,7 +29,7 @@ public class SpecifyNewVaccineTypeUI implements Runnable {
         {
             try {
                 controller.vaccineTypeImport();
-            } catch (WriteAbortedException e) {
+            } catch (WriteAbortedException | EOFException e) {
                 e.printStackTrace();
             }
             Scanner sc = new Scanner(System.in);

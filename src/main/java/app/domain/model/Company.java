@@ -1,6 +1,7 @@
 package app.domain.model;
 
 import app.domain.shared.Constants;
+import app.ui.console.utils.Utils;
 import dto.*;
 import mapper.ScheduledVaccineMapper;
 import pt.isep.lei.esoft.auth.AuthFacade;
@@ -103,7 +104,6 @@ public class Company implements Serializable {
      * @return An ArrayList of Vaccine Types.
      */
     public List<VaccineType> getVaccineTypes() {
-
         return vaccineTypes;
     }
 
@@ -530,5 +530,6 @@ public class Company implements Serializable {
         }
         file.close();
     }
+
 
 }

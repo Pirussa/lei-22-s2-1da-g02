@@ -27,7 +27,7 @@ public class GenericClass<E> {
     }
 
 List <E> list = new ArrayList<>();
-    public void binaryFileRead(String fileName) {
+    public void binaryFileRead(String fileName) throws EOFException {
         File file = new File(fileName);
         try {
             ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
