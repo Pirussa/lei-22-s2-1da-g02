@@ -51,18 +51,20 @@ public class GenericClass<E> implements Serializable {
      */
     public void binaryFileRead(String fileName, List<E> listToBeFilled) throws EOFException {
         File file = new File(fileName);
-        try {
-            if (!file.exists()) {
-                file.createNewFile();
+        if(file.exists()) {
+            try {
+
+                ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
+
+
+                list = (List<E>) in.readObject();
+                in.close();
+                listToBeFilled.addAll(list);
+
+
+            } catch (IOException | ClassNotFoundException e) {
+                e.printStackTrace();
             }
-
-            ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
-            list = (List<E>) in.readObject();
-
-            in.close();
-            listToBeFilled.addAll(list);
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
         }
     }
 

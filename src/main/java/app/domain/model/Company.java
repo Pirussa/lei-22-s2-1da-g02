@@ -484,7 +484,7 @@ public class Company implements Serializable {
         appointmentsList.add(scheduledVaccine);
     }
 
-    public List<ScheduledVaccine> getAppointments(){
+    public List<ScheduledVaccine> getAppointments() {
         return appointmentsList;
     }
 
@@ -524,16 +524,17 @@ public class Company implements Serializable {
 
     /**
      * Registers the daily total of people vaccinated in each vaccination center, and exports it to a file.
+     *
      * @throws FileNotFoundException
      */
     public void registerDailyTotalOfPeopleVaccinated() throws FileNotFoundException {
-        PrintWriter file = new PrintWriter("DailyRecordOfVaccinatedPeople.txt");
+        PrintWriter file = new PrintWriter("DailyRecordOfVaccinatedPeople.csv");
 
-        if (String.valueOf(LocalDateTime.now().getHour()).equals(Constants.PARAMS_TIME) && String.valueOf(LocalDateTime.now().getMinute()).equals(Constants.PARAMS_TIME)){
+        if (String.valueOf(LocalDateTime.now().getHour()).equals(Constants.PARAMS_TIME) && String.valueOf(LocalDateTime.now().getMinute()).equals(Constants.PARAMS_TIME)) {
             file.printf(LocalDateTime.now().getDayOfMonth() + "/" + LocalDateTime.now().getMonthValue() + "/" + LocalDateTime.now().getYear() + "%n");
             for (int vaccinationCenterListPosition = 0; vaccinationCenterListPosition < getVaccinationCenters().size(); vaccinationCenterListPosition++) {
                 file.printf("%n" + getVaccinationCenters().get(vaccinationCenterListPosition));
-                file.printf("Total number of vaccinated people today: "+getVaccinationCenters().get(vaccinationCenterListPosition).getArrivalsList().size());
+                file.printf("Total number of vaccinated people today: " + getVaccinationCenters().get(vaccinationCenterListPosition).getArrivalsList().size());
             }
         }
         file.close();

@@ -2,8 +2,11 @@ package app.controller;
 
 import app.domain.model.Company;
 import app.domain.model.SnsUser;
+import app.domain.shared.Constants;
+import app.domain.shared.GenericClass;
 import dto.SnsUserDto;
 
+import java.io.NotSerializableException;
 import java.util.ArrayList;
 
 /**
@@ -13,6 +16,7 @@ import java.util.ArrayList;
  */
 public class LoadCSVController {
     private Company company = App.getInstance().getCompany();
+    GenericClass<SnsUser> generics = new GenericClass<>();
 
     /**
      * Create a sns user
@@ -41,5 +45,13 @@ public class LoadCSVController {
      */
     public ArrayList<SnsUser> getSNSUserList(){
         return company.getSnsUserList();
+    }
+
+    /**
+     * Exports the list of SNS Users to a binary file.
+     * @throws NotSerializableException
+     */
+    public void exportDataToFile() throws NotSerializableException {
+        generics.binaryFileWrite(Constants.FILE_PATH_SNS_USERS, getSNSUserList());
     }
 }

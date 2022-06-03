@@ -60,7 +60,7 @@ public class RegisterNewEmployeeUI implements Runnable {
                     System.out.printf("%n---------------------------------%n|The Employee was not registered|%n---------------------------------%n");
             } else {
                 System.out.printf("%n-------------------------------%n|Invalid Data for the Employee|%n-------------------------------");
-                System.out.printf("%n---------------------------------%n|The Employee was not registered|%n---------------------------------%n");
+                System.out.printf("%n----------------------------------%n|The Employee was not registered|%n---------------------------------%n");
                 showNewEmployeeData(dto, selectedRole);
             }
         }

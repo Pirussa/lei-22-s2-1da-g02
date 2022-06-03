@@ -40,6 +40,11 @@ public class LoadCSVUI implements Runnable {
             int option = choice.nextInt();
             if (option == 0) {
                 runLoadCSV();
+                try {
+                    controller.exportDataToFile();
+                } catch (NotSerializableException e) {
+                    e.printStackTrace();
+                }
             } else if (option == 1) {
                 getListOfSNSUsers();
             } else if (option == 2) {
@@ -92,11 +97,6 @@ public class LoadCSVUI implements Runnable {
                 fillSNSUserDto(csvData);
                 System.out.println();
 
-                FileOutputStream fileOut = new FileOutputStream("SNSUserInfo.txt");
-                ObjectOutputStream out = new ObjectOutputStream(fileOut);
-                out.writeObject(controller.getSNSUserList());
-                out.flush();
-                out.close();
 
                 if (confirmAnotherCSV()){
                     runLoadCSV();

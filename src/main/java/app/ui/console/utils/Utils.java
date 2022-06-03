@@ -35,7 +35,6 @@ public class Utils {
         try {
             genericsClass.binaryFileRead(Constants.FILE_PATH_VACCINE_TYPES, company.getVaccineTypes());
         } catch (EOFException e) {
-            e.printStackTrace();
         }
     }
 
@@ -47,7 +46,6 @@ public class Utils {
         try {
             genericsClass.binaryFileRead(Constants.FILE_PATH_VACCINATION_CENTERS, company.getVaccinationCenters());
         } catch (EOFException e) {
-            e.printStackTrace();
         }
     }
 
@@ -59,7 +57,7 @@ public class Utils {
         try {
             genericsClass.binaryFileRead(Constants.FILE_PATH_EMPLOYEES, Company.getEmployees());
         } catch (EOFException e) {
-            e.printStackTrace();
+            System.out.println("ERRO");
         }
     }
 
@@ -71,7 +69,6 @@ public class Utils {
         try {
             genericsClass.binaryFileRead(Constants.FILE_PATH_SNS_USERS, company.getSnsUserList());
         } catch (EOFException e) {
-            e.printStackTrace();
         }
     }
 
@@ -83,7 +80,6 @@ public class Utils {
         try {
             genericsClass.binaryFileRead(Constants.FILE_PATH_VACCINES, company.getVaccines());
         } catch (EOFException e) {
-            e.printStackTrace();
         }
     }
 
@@ -95,7 +91,6 @@ public class Utils {
         try {
             genericsClass.binaryFileRead(Constants.FILE_PATH_APPOINTMENTS, company.getAppointments());
         } catch (EOFException e) {
-            e.printStackTrace();
         }
     }
 
@@ -109,7 +104,6 @@ public class Utils {
                 }
             }
         } catch (EOFException e) {
-            e.printStackTrace();
         }
     }
 
