@@ -9,6 +9,7 @@ import dto.RegisterNewEmployeeDto;
 
 import java.io.NotSerializableException;
 import java.io.Serializable;
+import java.util.List;
 
 
 /**
@@ -70,4 +71,5 @@ public class RegisterNewEmployeeController implements Serializable {
         }
         return true;
     }
+
 }

@@ -1,7 +1,9 @@
 package app.ui.console;
 
+import app.controller.App;
 import app.controller.AuthController;
 import app.domain.model.CenterCoordinator;
+import app.domain.model.Company;
 import app.domain.model.Receptionist;
 import app.domain.shared.Constants;
 import app.ui.console.utils.Utils;
@@ -24,6 +26,7 @@ public class AuthUI implements Runnable {
     }
 
     public void run() {
+
         boolean success = doLogin();
 
         if (success) {
@@ -54,6 +57,7 @@ public class AuthUI implements Runnable {
     }
 
     private boolean doLogin() {
+
         System.out.println("\nLogin UI:");
 
         int maxAttempts = 3;

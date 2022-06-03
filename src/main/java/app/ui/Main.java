@@ -14,6 +14,8 @@ public class Main {
     public static void main(String[] args) {
         Company company = App.getInstance().getCompany();
         Utils.bootstrap();
+        company.authenticateSNSUser();
+        //company.authenticateEmployees();
         try {
 
             company.registerDailyTotalOfPeopleVaccinated();

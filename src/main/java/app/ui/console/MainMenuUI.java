@@ -18,7 +18,7 @@ public class MainMenuUI implements Runnable {
     public MainMenuUI() {
     }
 
-    transient AuthFacade aF = App.getInstance().getCompany().getAuthFacade();
+ AuthFacade aF = App.getInstance().getCompany().getAuthFacade();
 
     @Override
     public void run() {

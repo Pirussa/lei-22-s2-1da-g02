@@ -54,4 +54,5 @@ public class LoadCSVController {
     public void exportDataToFile() throws NotSerializableException {
         generics.binaryFileWrite(Constants.FILE_PATH_SNS_USERS, getSNSUserList());
     }
+
 }

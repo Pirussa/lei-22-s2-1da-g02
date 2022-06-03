@@ -28,7 +28,8 @@ public class Company implements Serializable {
 
     private static final int ID_LENGTH = 5;
     private String designation;
-    private transient AuthFacade authFacade;
+    private AuthFacade authFacade;
+
 
     /**
      * List with all the appointments
@@ -355,6 +356,25 @@ public class Company implements Serializable {
         }
     }
 
+//    public boolean authenticateEmployees() {
+//        if (!employees.isEmpty()) {
+//            for (Employee emp : employees) {
+//                if (emp instanceof Nurse) {
+//                    this.authFacade.addUserWithRole(emp.getName(), emp.getEmail(), emp.getPassword(), Constants.ROLE_NURSE);
+//                } else if (emp instanceof Receptionist) {
+//                    this.authFacade.addUserWithRole(emp.getName(), emp.getEmail(), emp.getPassword(), Constants.ROLE_RECEPTIONIST);
+//                } else if (emp instanceof CenterCoordinator) {
+//                    this.authFacade.addUserWithRole(emp.getName(), emp.getEmail(), emp.getPassword(), Constants.ROLE_CENTRE_COORDINATOR);
+//                } else {
+//                    return false;
+//                }
+//            }
+//            return true;
+//        }
+//        return false;
+//    }
+
+
     /**
      * Gets the Employees registered in the Company.
      *
@@ -473,6 +493,17 @@ public class Company implements Serializable {
         snsUsers.add(createSNSUser(dto));
         this.authFacade.addUserWithRole(dto.strName, dto.strEmail, dto.strPassword, Constants.ROLE_SNS_USER);
         return true;
+    }
+
+
+    public boolean authenticateSNSUser() {
+        if (!snsUsers.isEmpty()) {
+            for (SnsUser snsUser : snsUsers) {
+                this.authFacade.addUserWithRole(snsUser.getStrName(), snsUser.getStrEmail(), snsUser.getStrPassword(), Constants.ROLE_SNS_USER);
+            }
+            return true;
+        }
+        return false;
     }
 
     /**
