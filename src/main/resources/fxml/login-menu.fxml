@@ -8,11 +8,11 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="362.0" prefWidth="600.0" style="-fx-background-color: ANTIQUEWHITE;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.ui.gui.MainMenuGUI">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="362.0" prefWidth="600.0" style="-fx-ground-color: ANTIQUEWHITE;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.ui.gui.LoginMenuGUI">
    <top>
       <Pane fx:id="tittlePane" prefHeight="87.0" prefWidth="600.0" style="-fx-background-color: LIGHTSTEELBLUE;" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="194.0" layoutY="22.0" text="MAIN MENU" textAlignment="CENTER">
+            <Label layoutX="194.0" layoutY="22.0" text="LOGIN MENU" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="35.0" />
                </font>

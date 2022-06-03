@@ -1,6 +1,9 @@
 package app.ui;
 
 
+import app.controller.App;
+import app.domain.model.Company;
+import app.ui.console.utils.Utils;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 
@@ -15,10 +18,12 @@ public class MainGUI extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
 
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/main-menu.fxml"));
+        Utils.bootstrap();
+
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/login-menu.fxml"));
 
         Scene scene = new Scene(root);
-        primaryStage.setTitle("Main Menu");
+        primaryStage.setTitle("DGS - Vaccination Management System");
         primaryStage.setScene(scene);
         primaryStage.show();
 

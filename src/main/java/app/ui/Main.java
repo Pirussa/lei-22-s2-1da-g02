@@ -13,8 +13,9 @@ public class Main {
 
     public static void main(String[] args) {
         Company company = App.getInstance().getCompany();
+        Utils.bootstrap();
         try {
-            Utils.bootstrap();
+
             company.registerDailyTotalOfPeopleVaccinated();
 
             MainMenuUI menu = new MainMenuUI();

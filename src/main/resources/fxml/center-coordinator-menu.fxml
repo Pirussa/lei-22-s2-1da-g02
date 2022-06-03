@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="362.0" prefWidth="600.0" style="-fx-background-color: ANTIQUEWHITE;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.ui.gui.CenterCoordinatorGUI">
+   <top>
+      <Pane fx:id="tittlePane" prefHeight="87.0" prefWidth="600.0" style="-fx-background-color: LIGHTSTEELBLUE;" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="46.0" layoutY="22.0" prefHeight="51.0" prefWidth="540.0" text="CENTER COORDINATOR MENU">
+               <font>
+                  <Font name="System Bold" size="35.0" />
+               </font>
+               <effect>
+                  <Bloom />
+               </effect>
+            </Label>
+         </children></Pane>
+   </top>
+   <center>
+      <Pane prefHeight="275.0" prefWidth="420.0" BorderPane.alignment="CENTER">
+         <effect>
+            <Bloom threshold="1.0" />
+         </effect>
+         <children>
+            <Button layoutX="150.0" layoutY="29.0" mnemonicParsing="false" onAction="#checkAndExportStats" prefHeight="45.0" prefWidth="312.0" text="Check and export Vaccination Statistics">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font></Button>
+            <Button layoutX="150.0" layoutY="106.0" mnemonicParsing="false" onAction="#notImplementedYet" prefHeight="45.0" prefWidth="312.0" text="Analyze the performance">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Button>
+            <Button layoutX="150.0" layoutY="187.0" mnemonicParsing="false" onAction="#notImplementedYet" prefHeight="45.0" prefWidth="312.0" text="Import data from legacy system">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Button>
+            <Button layoutX="14.0" layoutY="232.0" mnemonicParsing="false" onAction="#logout" style="-fx-background-color: INDIANRED;" text="LOGOUT" textFill="ANTIQUEWHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+   </center>
+</BorderPane>
