@@ -36,6 +36,8 @@ public class VaccinationCenter implements Serializable {
     private List<ScheduledVaccine> scheduledVaccineList = new ArrayList<>();
     private List<Arrival> arrivalsList = new ArrayList<>();
 
+    private List<VaccineBulletin> vaccineBulletinsAllUsers = new ArrayList<>();
+
     private static final int NUMBER_OF_PHONE_NUMBER_DIGITS = 9;
     private static final int STARTING_NUMBER_PORTUGUESE_PHONE = 9;
     private static final int FIRST_SECOND_NUMBER_PORTUGUESE_PHONE = 1;
@@ -154,6 +156,9 @@ public class VaccinationCenter implements Serializable {
         return arrivalsList;
     }
 
+    public List<VaccineBulletin> getVaccineBulletinsAllUsers() {
+        return vaccineBulletinsAllUsers;
+    }
 
     /**
      * Gets opening hour.

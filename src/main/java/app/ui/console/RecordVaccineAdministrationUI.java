@@ -21,34 +21,41 @@ public class RecordVaccineAdministrationUI implements Runnable {
     public void run() {
         // Start User Storie
         vaccineAdministrationPrompt(Constants.VACCINE_ADMINISTRATION);
-        VaccineBulletinDto vaccineBulletinDto = new VaccineBulletinDto();
 
         // Select Vaccination Center
         int vaccinationCenterIndexInList = Utils.selectVaccinationCenterIndex();
         controller.setVaccinationCenter(vaccinationCenterIndexInList);
 
         // Select User from Waiting Room List
+        controller.setArrivalList();
         int selectUser = waitingRoomList();
 
         // Select a Vaccine (Verifies if it matches the Vaccine Type)
-        controller.setVaccineType(selectUser);
-        int vaccineHistory = controller.findLastDoseOfVaccineType();
-        setDosageAndVaccine(vaccineHistory);
+        if (selectUser != Constants.INVALID_VALUE) {
+            controller.setVaccineType(selectUser);
+            int vaccineHistory = controller.findLastDoseOfVaccineType();
+            setDosageAndVaccine(vaccineHistory);
+            controller.setLocalDateTime();
 
-        // Allows Nurse to introduce the vaccine lot number
-        lotNumber();
+            // Allows Nurse to introduce the vaccine lot number
+            lotNumber();
 
-
-
-        // Clean User from Waiting Room List
-        controller.removeUserFromList(selectUser);
+            // Clean User from Waiting Room List
+            controller.removeUserFromList(selectUser);
+            controller.registerVaccineInVaccineBulletin();
+            vaccineAdministrationPrompt(Constants.END_VACCINATION);
+        }
     }
 
     private int waitingRoomList() {
-        int selectedUser = (Utils.selectFromList(controller.fillListWithUserSnsNumber(), "\nWaiting Room List (Select One User)"));
-        SnsUserDto snsUserDto = controller.getSnsUserInformation(selectedUser);
-        controller.setSnsUser(snsUserDto);
-        return selectedUser;
+        if (controller.checkIfArrivalsListEmpty()) {
+            int selectedUser = (Utils.selectFromList(controller.fillListWithUserSnsNumber(), "\nWaiting Room List (Select One User)"));
+            SnsUserDto snsUserDto = controller.getSnsUserInformation(selectedUser);
+            controller.setSnsUser(snsUserDto);
+            return selectedUser;
+        } else
+            System.out.printf("%n|Waiting Room Is Currently Empty|%n");
+        return Constants.INVALID_VALUE;
     }
 
     private int userFirstDose() {
@@ -70,35 +77,38 @@ public class RecordVaccineAdministrationUI implements Runnable {
             controller.setVaccine(currentAppointment);
             vaccineAdministrationPrompt(Constants.VACCINATION);
             vaccineAndVaccineTypeInfo();
-            System.out.println(controller.vaccineAdministrationProcess(numberOfDoses, currentAppointment));
+            System.out.printf("- " + controller.vaccineAdministrationProcess(numberOfDoses, currentAppointment) + "%n");
         } else {
             int vaccineIndex = userFirstDose();
             if (vaccineIndex != Constants.FIT_AGE_GROUP) {
                 controller.setVaccine(vaccineIndex);
                 vaccineAdministrationPrompt(Constants.VACCINATION);
                 vaccineAndVaccineTypeInfo();
-                System.out.println(controller.vaccineAdministrationProcess(Constants.INVALID_VALUE, vaccineIndex));
+                System.out.printf("- " + controller.vaccineAdministrationProcess(Constants.INVALID_VALUE, vaccineIndex) + "%n");
             }
         }
     }
 
     private void vaccineAndVaccineTypeInfo() {
-        System.out.printf("%n" + controller.vaccineTypeInfo());
-        System.out.printf("%n" + controller.vaccineInfo() + "%n");
+        System.out.printf("%n- " + controller.vaccineTypeInfo());
+        System.out.printf("%n- " + controller.vaccineInfo() + "%n");
     }
 
     private void vaccineAdministrationPrompt(int prompt) {
         if (prompt == Constants.VACCINE_ADMINISTRATION)
             System.out.printf("%n------------------------%n|Vaccine Administration|%n------------------------%n");
+        else if (prompt == Constants.VACCINATION)
+            System.out.printf("%n|Vaccination|%n");
         else
-            System.out.printf("%n-------------%n|Vaccination|%n-------------%n");
+            System.out.printf("%n|Vaccine Administration Complete|%n");
     }
 
     private void lotNumber() {
         String lotNumber;
         do {
-            System.out.printf("%nIntroduce Lot Number (i.e. AbC13-91): %n");
+            System.out.printf("%nIntroduce Lot Number: ");
             lotNumber = read.nextLine();
-        } while (controller.validateLotNumber(lotNumber));
+        } while (!controller.validateLotNumber(lotNumber));
+        controller.setLotnumber(lotNumber);
     }
 }

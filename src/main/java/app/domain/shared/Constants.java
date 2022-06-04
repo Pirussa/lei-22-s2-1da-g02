@@ -9,6 +9,8 @@ import app.domain.model.Company;
 public class Constants {
 
     public static final String DAILY_REGISTERS_FILE_NAME = "DailyTotalOfPeopleVaccinated.csv";
+    public static final int LOT_NUMBER_LENGTH = 8;
+
     private Company company;
     public static final String ROLE_ADMIN = "ADMINISTRATOR";
     public static final String ROLE_RECEPTIONIST = "RECEPTIONIST";
@@ -86,6 +88,9 @@ public class Constants {
 
     public static final int VACCINATION = 1;
 
+    public static final int END_VACCINATION = 2;
+
+    public static final int ADD_DOSE = 1;
     public static final String[] OPTIONS = {"Yes", "No"};
 
 }
