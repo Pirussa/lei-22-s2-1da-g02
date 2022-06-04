@@ -559,7 +559,7 @@ public class Company implements Serializable {
         try {
             FileWriter out = new FileWriter(file, true);
             for (int vaccinationCenterListPosition = 0; vaccinationCenterListPosition < getVaccinationCenters().size(); vaccinationCenterListPosition++) {
-                out.write(LocalDate.now() + "," + getVaccinationCenters().get(vaccinationCenterListPosition) + "," + getVaccinationCenters().get(vaccinationCenterListPosition).getArrivalsList().size() + "\n");
+                out.write(LocalDate.now() + "," + getVaccinationCenters().get(vaccinationCenterListPosition) + "," + getVaccinationCenters().get(vaccinationCenterListPosition).getVaccineBulletinsAllUsers().size() + "\n");
             }
             out.close();
         } catch (IOException e) {

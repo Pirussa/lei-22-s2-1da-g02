@@ -45,7 +45,7 @@ public class Utils {
     }
 
     /**
-     * It creates and adds VaccineTypes to the Company as soon as the App runs
+     * It creates and adds VaccineBulletins to the Company as soon as the App runs
      */
     private static void bootstrapVaccineBulletin() {
 
