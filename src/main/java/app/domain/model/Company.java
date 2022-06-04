@@ -31,10 +31,16 @@ public class Company implements Serializable {
     private transient AuthFacade authFacade;
 
 
-    /**
-     * List with all the appointments
-     */
+    public List<FullyVaccinatedTotalDay> getTotalFullyVaccinatedPerDay() {
+        return totalFullyVaccinatedPerDay;
+    }
 
+    private List<FullyVaccinatedTotalDay> totalFullyVaccinatedPerDay = new ArrayList<>();
+
+    public void addOneDayTotal(FullyVaccinatedTotalDay totalDay) {
+        totalFullyVaccinatedPerDay.add(totalDay);
+
+    }
 
     /**
      * List that stores the Vaccine Types

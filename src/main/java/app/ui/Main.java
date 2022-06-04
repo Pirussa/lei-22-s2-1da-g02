@@ -18,8 +18,6 @@ public class Main {
         company.authenticateEmployees();
         try {
 
-            company.registerDailyTotalOfPeopleVaccinated();
-
             MainMenuUI menu = new MainMenuUI();
 
             menu.run();

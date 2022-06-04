@@ -7,8 +7,9 @@ import mapper.SnsUserMapper;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+
+import static java.lang.System.getProperties;
 
 /**
  * @author Guilherme Sousa <1211073@isep.ipp.pt>
@@ -27,6 +28,8 @@ public class RecordVaccineAdministrationController {
     private SnsUser snsUser;
 
     private LocalDate localDate;
+
+    private FullyVaccinatedTotalDay fullyVaccinatedTotalDay;
 
     public RecordVaccineAdministrationController() {
     }
@@ -193,5 +196,58 @@ public class RecordVaccineAdministrationController {
             }
         }
         return counter == Constants.LOT_NUMBER_LENGHT;
+    }
+
+    private void addFullyVaccinatedTotalDayNewDay() {
+
+
+        if (company.getTotalFullyVaccinatedPerDay().isEmpty()) {
+            fullyVaccinatedTotalDay = new FullyVaccinatedTotalDay(0);
+        } else {
+            int previousTotal = company.getTotalFullyVaccinatedPerDay().get(company.getTotalFullyVaccinatedPerDay().size() - 1).getTotal();
+            fullyVaccinatedTotalDay = new FullyVaccinatedTotalDay(previousTotal);
+        }
+        fullyVaccinatedTotalDay.addFullyVaccinatedUser();
+
+    }
+
+    private void addFullyVaccinatedTotalDay() {
+        company.getTotalFullyVaccinatedPerDay().get(company.getTotalFullyVaccinatedPerDay().size() - 1).addFullyVaccinatedUser();
+    }
+
+    public void addFullyVaccinatedUser() {
+        if (company.getTotalFullyVaccinatedPerDay().get(company.getTotalFullyVaccinatedPerDay().size() - 1).getDate().equals(LocalDate.now())) {
+            addFullyVaccinatedTotalDay();
+
+            Timer timer = new Timer();
+            TimerTask timerTask = new TimerTask() {
+                @Override
+                public void run() {
+                    System.out.println("Timer is running");
+
+                }
+
+            };
+
+            Properties props = getProperties();
+            int hour = Integer.parseInt(props.getProperty("Timer.Hour"));
+            int minutes = Integer.parseInt(props.getProperty("Timer.Minutes"));
+
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(LocalDate.now().getYear(), LocalDate.now().getMonthValue() - 1, LocalDate.now().getDayOfMonth(), hour, minutes, 0);
+
+            Date date = Date.from(calendar.toInstant());
+            timer.schedule(timerTask, date);
+        } else {
+            addFullyVaccinatedTotalDayNewDay();
+        }
+
+
+
+    }
+
+    public void addOneDayTotal() {
+        company.addOneDayTotal(fullyVaccinatedTotalDay);
     }
 }

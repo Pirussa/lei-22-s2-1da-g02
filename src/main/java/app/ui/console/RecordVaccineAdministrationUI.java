@@ -38,6 +38,10 @@ public class RecordVaccineAdministrationUI implements Runnable {
         // Allows Nurse to introduce the vaccine lot number
         lotNumber();
 
+
+        controller.addFullyVaccinatedUser();
+
+
         // Clean User from Waiting Room List
         controller.removeUserFromList(selectUser);
     }

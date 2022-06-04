@@ -48,8 +48,8 @@ public class App {
 
         // Add default properties and values
         props.setProperty(Constants.PARAMS_COMPANY_DESIGNATION, "DGS/SNS");
-
-
+        props.setProperty("Timer.Hour", "23");
+        props.setProperty("Timer.Minutes", "59");
         // Read configured values
         try {
             InputStream in = new FileInputStream(Constants.PARAMS_FILENAME);
