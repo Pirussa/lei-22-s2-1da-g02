@@ -2,14 +2,17 @@ package app.controller;
 
 import app.domain.model.*;
 import app.domain.shared.Constants;
+import app.domain.shared.GenericClass;
 import dto.SnsUserDto;
+import dto.VaccineBulletinDto;
 import mapper.SnsUserMapper;
+import mapper.VaccineBulletinMapper;
 
+import java.io.NotSerializableException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Period;
 import java.util.*;
-
-import static java.lang.System.getProperties;
 
 /**
  * @author Guilherme Sousa <1211073@isep.ipp.pt>
@@ -17,6 +20,7 @@ import static java.lang.System.getProperties;
 
 public class RecordVaccineAdministrationController {
 
+    GenericClass<VaccineBulletin> genericClass = new GenericClass<>();
     private final Company company = App.getInstance().getCompany();
 
     private VaccinationCenter vaccinationCenter;
@@ -27,7 +31,11 @@ public class RecordVaccineAdministrationController {
 
     private SnsUser snsUser;
 
-    private LocalDate localDate;
+    private LocalDateTime localDateTime;
+
+    private ArrayList<Arrival> arrivalsVaccination;
+
+    private String lotnumber;
 
     public RecordVaccineAdministrationController() {
     }
@@ -43,7 +51,7 @@ public class RecordVaccineAdministrationController {
     }
 
     public void setVaccineType(int userIndexInList) {
-        vaccineType = getArrivalList().get(userIndexInList).getVaccineType();
+        vaccineType = arrivalsVaccination.get(userIndexInList).getVaccineType();
     }
 
     public void setVaccine(int currentAppointment) {
@@ -51,6 +59,14 @@ public class RecordVaccineAdministrationController {
             vaccine = snsUser.administratedVaccines().get(currentAppointment).getVaccine();
         else
             vaccine = vaccineTypeAvailableVaccines().get(currentAppointment);
+    }
+
+    public void setLotnumber(String setLotnumber) {
+        lotnumber = setLotnumber;
+    }
+
+    public void setLocalDateTime() {
+        localDateTime = LocalDateTime.now();
     }
 
     // Functionalities
@@ -61,8 +77,8 @@ public class RecordVaccineAdministrationController {
     }
 
     // Get lists of some sort
-    private List<Arrival> getArrivalList() {
-        return new ArrayList<>(vaccinationCenter.getArrivalsList());
+    public void setArrivalList() {
+        arrivalsVaccination = new ArrayList<>(vaccinationCenter.getArrivalsList());
     }
 
     public List<Vaccine> vaccineTypeAvailableVaccines() {
@@ -87,8 +103,7 @@ public class RecordVaccineAdministrationController {
 
     public List<String> fillListWithUserSnsNumber() {
         ArrayList<String> userSnsNumber = new ArrayList<>();
-        for (int index = 0; index < getArrivalList().size(); index++)
-            userSnsNumber.add("SNS Number - " + getArrivalList().get(index).getSnsNumber());
+        for (Arrival arrival : arrivalsVaccination) userSnsNumber.add("SNS Number - " + arrival.getSnsNumber());
         return userSnsNumber;
     }
 
@@ -100,7 +115,7 @@ public class RecordVaccineAdministrationController {
 
     private int snsUserIndexInList(int selectedUser) {
         for (int index = 0; index < company.getSnsUserList().size(); index++) {
-            if (getArrivalList().get(selectedUser).getSnsNumber() == company.getSnsUserList().get(index).getSnsUserNumber()) {
+            if (arrivalsVaccination.get(selectedUser).getSnsNumber() == company.getSnsUserList().get(index).getSnsUserNumber()) {
                 return index;
             }
         }
@@ -133,7 +148,7 @@ public class RecordVaccineAdministrationController {
     }
 
     public void removeUserFromList(int index) {
-        getArrivalList().remove(index);
+        vaccinationCenter.getArrivalsList().remove(index);
     }
     // Vaccine/Vaccine Type related
 
@@ -176,25 +191,47 @@ public class RecordVaccineAdministrationController {
     }
 
     public boolean validateLotNumber(String lotNumber) {
-        String alphanumeric = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWYXZ";
-        String numeric = "0123456789";
+        String numbers = "(.*\\d.*)";
+        String upperCaseChars = "(.*[A-Z].*)";
+        String lowerCaseChars = "(.*[a-z].*)";
         int counter = 0;
-        for (int indexLotNumber = 0; indexLotNumber < lotNumber.length(); indexLotNumber++) {
-            for (int index = 0; index < alphanumeric.length(); index++) {
-                if (lotNumber.charAt(indexLotNumber) == alphanumeric.charAt(index) && indexLotNumber <= 4)
+        if (lotNumber.length() == Constants.LOT_NUMBER_LENGTH) {
+            for (int index = 0; index < lotNumber.length(); index++) {
+                if (index <= 4 && (lotNumber.matches(numbers) || lotNumber.matches(upperCaseChars) || lotNumber.matches(lowerCaseChars)))
                     counter++;
-                else if (indexLotNumber == 5 && lotNumber.charAt(indexLotNumber) == '-')
+                else if (index == 5 && lotNumber.charAt(index) == '-')
                     counter++;
-                else if (indexLotNumber >= 6) {
-                    for (int indexNumeric = 0; indexNumeric < numeric.length(); indexNumeric++) {
-                        if (lotNumber.charAt(indexLotNumber) == numeric.charAt(index))
-                            counter++;
-                    }
-                }
+                else if (index >= 6 && (lotNumber.matches(numbers)))
+                    counter++;
             }
         }
         return counter == Constants.LOT_NUMBER_LENGHT;
     }
 
+    private VaccineBulletinDto snsUserAddVaccineBulletin() {
+        VaccineBulletinDto vaccineBulletinDto = new VaccineBulletinDto();
+        vaccineBulletinDto.vaccine = vaccine;
+        vaccineBulletinDto.doseNumber = getUserNumberOfDoses() + Constants.ADD_DOSE;
+        vaccineBulletinDto.dateTimeOfLastDose = localDateTime;
+        vaccineBulletinDto.lotNumber = lotnumber;
+        return vaccineBulletinDto;
+    }
 
+    public void registerVaccineInVaccineBulletin() {
+        VaccineBulletinMapper vaccineBulletinMapper = new VaccineBulletinMapper();
+        vaccinationCenter.getVaccineBulletinsAllUsers().add(vaccineBulletinMapper.VaccineBulletinDtoToDomain(snsUserAddVaccineBulletin()));
+        snsUser.registerVaccine(vaccineBulletinMapper.VaccineBulletinDtoToDomain(snsUserAddVaccineBulletin()));
+    }
+
+    public boolean checkIfArrivalsListEmpty() {
+        return !vaccinationCenter.getArrivalsList().isEmpty();
+    }
+
+    /**
+     * Exports the list of Vaccine Bulletins to a binary file.
+     * @throws NotSerializableException
+     */
+    public void exportDataToFile() throws NotSerializableException {
+        genericClass.binaryFileWrite(Constants.FILE_PATH_VACCINE_BULLETIN, snsUser.administratedVaccines());
+    }
 }

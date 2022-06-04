@@ -16,6 +16,8 @@ public class Main {
         Utils.bootstrap();
         company.authenticateSNSUser();
         company.authenticateEmployees();
+
+        App.getInstance().runDailyTasks();
         try {
 
             MainMenuUI menu = new MainMenuUI();

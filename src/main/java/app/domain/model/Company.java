@@ -1,16 +1,13 @@
 package app.domain.model;
 
 import app.domain.shared.Constants;
-import app.ui.console.utils.Utils;
 import dto.*;
 import mapper.ScheduledVaccineMapper;
 import pt.isep.lei.esoft.auth.AuthFacade;
 import org.apache.commons.lang3.StringUtils;
 
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.io.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -551,21 +548,23 @@ public class Company implements Serializable {
 
     /**
      * Registers the daily total of people vaccinated in each vaccination center, and exports it to a file.
-     *
-     * @throws FileNotFoundException
      */
-    public void registerDailyTotalOfPeopleVaccinated() throws FileNotFoundException {
-        PrintWriter file = new PrintWriter("DailyRecordOfVaccinatedPeople.csv");
-
-        if (String.valueOf(LocalDateTime.now().getHour()).equals(Constants.PARAMS_TIME) && String.valueOf(LocalDateTime.now().getMinute()).equals(Constants.PARAMS_TIME)) {
-            file.printf(LocalDateTime.now().getDayOfMonth() + "/" + LocalDateTime.now().getMonthValue() + "/" + LocalDateTime.now().getYear() + "%n");
-            for (int vaccinationCenterListPosition = 0; vaccinationCenterListPosition < getVaccinationCenters().size(); vaccinationCenterListPosition++) {
-                file.printf("%n" + getVaccinationCenters().get(vaccinationCenterListPosition));
-                file.printf("Total number of vaccinated people today: " + getVaccinationCenters().get(vaccinationCenterListPosition).getArrivalsList().size());
-            }
+    public void registerDailyTotalOfPeopleVaccinated() throws IOException {
+        File file = new File(Constants.DAILY_REGISTERS_FILE_NAME);
+        if (!file.exists()) {
+            file.createNewFile();
+            FileWriter out = new FileWriter(file);
+            out.write("Date,Vaccination Center,Total Vaccinated People" + "\n");
+            out.close();
         }
-        file.close();
+        try {
+            FileWriter out = new FileWriter(file, true);
+            for (int vaccinationCenterListPosition = 0; vaccinationCenterListPosition < getVaccinationCenters().size(); vaccinationCenterListPosition++) {
+                out.write(LocalDate.now() + "," + getVaccinationCenters().get(vaccinationCenterListPosition) + "," + getVaccinationCenters().get(vaccinationCenterListPosition).getVaccineBulletinsAllUsers().size() + "\n");
+            }
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-
-
 }

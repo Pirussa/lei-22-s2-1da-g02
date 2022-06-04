@@ -45,6 +45,24 @@ public class Utils {
     }
 
     /**
+     * It creates and adds VaccineBulletins to the Company as soon as the App runs
+     */
+    private static void bootstrapVaccineBulletin() {
+
+        GenericClass<VaccineBulletin> genericsClass = new GenericClass<>();
+        try {
+            for (VaccinationCenter vaccinationCenter : company.getVaccinationCenters()) {
+                genericsClass.binaryFileRead(Constants.FILE_PATH_ARRIVALS, vaccinationCenter.getVaccineBulletinsAllUsers());
+                for (VaccineBulletin vaccineBulletin : vaccinationCenter.getVaccineBulletinsAllUsers()) {
+                    System.out.println(vaccineBulletin);
+                }
+            }
+        } catch (EOFException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * It creates and adds Vaccination Centers to the Company as soon as the App runs
      */
     private static void bootstrapVaccinationCenters() {
@@ -172,7 +190,6 @@ public class Utils {
      * It creates and adds everything that the App needs as soon as it runs, so it is not needed to create something prior to using one functionality
      */
     public static void bootstrap() {
-
         bootstrapEmployees();
         bootstrapVaccineTypes();
         bootstrapVaccines();
@@ -180,8 +197,7 @@ public class Utils {
         bootstrapSnsUsers();
         bootstrapScheduledAppointments();
         bootstrapArrivals();
-
-
+        bootstrapVaccineBulletin();
     }
 
     /**

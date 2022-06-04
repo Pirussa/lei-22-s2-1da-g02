@@ -8,6 +8,9 @@ import app.domain.model.Company;
  */
 public class Constants {
 
+    public static final String DAILY_REGISTERS_FILE_NAME = "DailyTotalOfPeopleVaccinated.csv";
+    public static final int LOT_NUMBER_LENGTH = 8;
+
     private Company company;
     public static final String ROLE_ADMIN = "ADMINISTRATOR";
     public static final String ROLE_RECEPTIONIST = "RECEPTIONIST";
@@ -16,7 +19,7 @@ public class Constants {
     public static final String ROLE_CENTRE_COORDINATOR = "CENTRE_COORDINATOR";
     public static final String PARAMS_FILENAME = "config.properties";
     public static final String PARAMS_COMPANY_DESIGNATION = "Company.Designation";
-    public static final String PARAMS_TIME = "Time";
+
 
     public static final String ID_FIRST_EMPLOYEE = "Company.Designation";
 
@@ -24,6 +27,7 @@ public class Constants {
 
     public static final String PATH_SMS_MESSAGE = "SMS.txt";
     public static final int PASSWORD_LENGTH = 7;
+    public static final int PARAMS_MILLISECONDS_IN_DAY = 1000 * 60 * 60 * 24;
 
     public static final int ID_LENGTH = 5;
 
@@ -80,12 +84,19 @@ public class Constants {
 
     public static final String FILE_PATH_APPOINTMENTS = "appointments";
 
+<<<<<<< HEAD
     public static final String FILE_PATH_UPDATEDLEGACY = "updatedlegacy";
+=======
+    public static final String FILE_PATH_VACCINE_BULLETIN = "vaccinebulletin";
+>>>>>>> 0b7595d97c3dd726b3afd42ba75345b360aea348
 
     public static final int VACCINE_ADMINISTRATION = 0;
 
     public static final int VACCINATION = 1;
 
+    public static final int END_VACCINATION = 2;
+
+    public static final int ADD_DOSE = 1;
     public static final String[] OPTIONS = {"Yes", "No"};
 
 }
