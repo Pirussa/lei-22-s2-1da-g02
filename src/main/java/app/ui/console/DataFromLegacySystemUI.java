@@ -1,14 +1,21 @@
 package app.ui.console;
 
+import app.controller.DataFromLegacySystemController;
+import app.domain.model.SnsUser;
+
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.*;
 
 public class DataFromLegacySystemUI implements Runnable{
+  private final DataFromLegacySystemController controller = new DataFromLegacySystemController();
 
   public void run(){
     try {
     Scanner readPath = new Scanner(System.in);
+    System.out.println();
     System.out.println("File Location: ");
     System.out.println();
     String path = readPath.nextLine();
@@ -21,35 +28,44 @@ public class DataFromLegacySystemUI implements Runnable{
       csvLegacyData.add(values[0] + "_" + values[1] + "_" + values[2] + "_" + values[3] + "_" + values[4] + "_" + values[5] + "_"
           + values[6] +  "_" + values[7]);
     }
-      System.out.println("Choose the sorting algorithm.");
-      System.out.println();
-      System.out.println("1 - Sort by arrival time.");
-      System.out.println();
-      System.out.println("2 - Sort by center leaving time.");
-      System.out.println();
-      System.out.println("Choose the option:");
-      Scanner choice = new Scanner(System.in);
-        int option = choice.nextInt();
-        if (option == 1) {
-          sortByArrivalTime(csvLegacyData);
-        } else if (option == 2) {
-          sortByLeavingTime(csvLegacyData);
-        } else {
-          System.out.println("Option is Invalid.");
-          run();
+
+      if (!controller.getSNSUserList().isEmpty()){
+        for (int i = 1; i < csvLegacyData.size(); i++) {
+          String[] values;
+          float percentage = (float)i*100/csvLegacyData.size();
+          boolean flag = false;
+          int j;
+
+          System.out.printf("\n%.1f%% complete...", percentage);
+          values = csvLegacyData.get(i).split("_");
+
+          for (j=0; j< controller.getSNSUserList().size(); j++) {
+            if (controller.getSNSUserList().get(j).getSnsUserNumber()==Integer.parseInt(values[0])){
+              flag = true;
+            } else flag =false;
+            if (flag){
+              break;
+            }
+          }
+            csvLegacyData.set(i, controller.getSNSUserList().get(j).getStrName() +"_"+ csvLegacyData.get(i));
         }
+        System.out.println();
+        for (int t = 0; t < csvLegacyData.size(); t++) {
+          System.out.println(csvLegacyData.get(t));
+        }
+      }
+
 } catch (Exception e){
       e.printStackTrace();
     }
   }
 
-
-  public void sortByArrivalTime(List<String> csvLegacyData){
-    //Comparator<String> compareByArrivalTime = Comparator.comparing(String::)
+    public void sortByArrivalTime(List<String> csvLegacyData){
+    System.out.println("TODO");
     }
 
   public void sortByLeavingTime(List<String> csvLegacyData){
-    System.out.println(csvLegacyData);
+    System.out.println("TODO");
   }
 
 }
