@@ -5,10 +5,15 @@ import app.domain.shared.Constants;
 import pt.isep.lei.esoft.auth.AuthFacade;
 import pt.isep.lei.esoft.auth.UserSession;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+import java.sql.Date;
+import java.time.LocalDateTime;
+import java.util.Calendar;
 import java.util.Properties;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import static java.lang.System.getProperties;
 
 /**
  * @author Paulo Maio <pam@isep.ipp.pt>
@@ -61,12 +66,11 @@ public class App {
         return props;
     }
 
-
     private void bootstrap() {
         this.authFacade.addUserRole(Constants.ROLE_ADMIN, Constants.ROLE_ADMIN);
-        this.authFacade.addUserRole(Constants.ROLE_CENTRE_COORDINATOR,Constants.ROLE_CENTRE_COORDINATOR);
-        this.authFacade.addUserRole(Constants.ROLE_NURSE,Constants.ROLE_NURSE);
-        this.authFacade.addUserRole(Constants.ROLE_RECEPTIONIST,Constants.ROLE_RECEPTIONIST);
+        this.authFacade.addUserRole(Constants.ROLE_CENTRE_COORDINATOR, Constants.ROLE_CENTRE_COORDINATOR);
+        this.authFacade.addUserRole(Constants.ROLE_NURSE, Constants.ROLE_NURSE);
+        this.authFacade.addUserRole(Constants.ROLE_RECEPTIONIST, Constants.ROLE_RECEPTIONIST);
         this.authFacade.addUserRole(Constants.ROLE_SNS_USER, Constants.ROLE_SNS_USER);
 
         this.authFacade.addUserWithRole("Main Administrator", "admin@lei.sem2.pt", "123456", Constants.ROLE_ADMIN);
@@ -84,5 +88,32 @@ public class App {
             }
         }
         return singleton;
+    }
+
+    public void runDailyTasks() {
+        Properties properties = getProperties();
+        Calendar calendar = Calendar.getInstance();
+        int hour = Integer.parseInt(properties.getProperty("Timer.Hour"));
+        int minutes = Integer.parseInt(properties.getProperty("Timer.Minutes"));
+
+        Timer timer = new Timer();
+
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                System.out.println("Task is on");
+
+                try {
+                    company.registerDailyTotalOfPeopleVaccinated();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+
+        calendar.set(LocalDateTime.now().getYear(), LocalDateTime.now().getMonthValue() - 1, LocalDateTime.now().getDayOfMonth(), hour, minutes);
+
+        timer.scheduleAtFixedRate(timerTask, Date.from(calendar.toInstant()) ,1000 *5); //MUDAR PARA CONSTANTE DE TIMER
+
     }
 }

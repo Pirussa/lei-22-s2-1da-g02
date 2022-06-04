@@ -8,6 +8,7 @@ import app.domain.model.Company;
  */
 public class Constants {
 
+    public static final String DAILY_REGISTERS_FILE_NAME = "DailyTotalOfPeopleVaccinated.csv";
     private Company company;
     public static final String ROLE_ADMIN = "ADMINISTRATOR";
     public static final String ROLE_RECEPTIONIST = "RECEPTIONIST";
@@ -16,7 +17,7 @@ public class Constants {
     public static final String ROLE_CENTRE_COORDINATOR = "CENTRE_COORDINATOR";
     public static final String PARAMS_FILENAME = "config.properties";
     public static final String PARAMS_COMPANY_DESIGNATION = "Company.Designation";
-    public static final String PARAMS_TIME = "Time";
+
 
     public static final String ID_FIRST_EMPLOYEE = "Company.Designation";
 
@@ -24,6 +25,7 @@ public class Constants {
 
     public static final String PATH_SMS_MESSAGE = "SMS.txt";
     public static final int PASSWORD_LENGTH = 7;
+    public static final int PARAMS_MILLISECONDS_IN_DAY = 1000* 60 * 60 * 24;
 
     public static final int ID_LENGTH = 5;
 
