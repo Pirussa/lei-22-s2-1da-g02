@@ -30,7 +30,7 @@ public class ScheduleVaccineController {
 
 
     private final Company company = App.getInstance().getCompany();
-    private final AuthFacade authFacade = company.getAuthFacade();
+    private final transient AuthFacade authFacade = company.getAuthFacade();
     private VaccinationCenter vaccinationCenter;
     GenericClass<ScheduledVaccine> generics = new GenericClass<>();
 

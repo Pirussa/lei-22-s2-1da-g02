@@ -28,7 +28,7 @@ public class Company implements Serializable {
 
     private static final int ID_LENGTH = 5;
     private String designation;
-    private AuthFacade authFacade;
+    private transient AuthFacade authFacade;
 
 
     /**
@@ -356,23 +356,23 @@ public class Company implements Serializable {
         }
     }
 
-//    public boolean authenticateEmployees() {
-//        if (!employees.isEmpty()) {
-//            for (Employee emp : employees) {
-//                if (emp instanceof Nurse) {
-//                    this.authFacade.addUserWithRole(emp.getName(), emp.getEmail(), emp.getPassword(), Constants.ROLE_NURSE);
-//                } else if (emp instanceof Receptionist) {
-//                    this.authFacade.addUserWithRole(emp.getName(), emp.getEmail(), emp.getPassword(), Constants.ROLE_RECEPTIONIST);
-//                } else if (emp instanceof CenterCoordinator) {
-//                    this.authFacade.addUserWithRole(emp.getName(), emp.getEmail(), emp.getPassword(), Constants.ROLE_CENTRE_COORDINATOR);
-//                } else {
-//                    return false;
-//                }
-//            }
-//            return true;
-//        }
-//        return false;
-//    }
+    public boolean authenticateEmployees() {
+        if (!employees.isEmpty()) {
+            for (Employee emp : employees) {
+                if (emp instanceof Nurse) {
+                    this.authFacade.addUserWithRole(emp.getName(), emp.getEmail(), emp.getPassword(), Constants.ROLE_NURSE);
+                } else if (emp instanceof Receptionist) {
+                    this.authFacade.addUserWithRole(emp.getName(), emp.getEmail(), emp.getPassword(), Constants.ROLE_RECEPTIONIST);
+                } else if (emp instanceof CenterCoordinator) {
+                    this.authFacade.addUserWithRole(emp.getName(), emp.getEmail(), emp.getPassword(), Constants.ROLE_CENTRE_COORDINATOR);
+                } else {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
 
 
     /**

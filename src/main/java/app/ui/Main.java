@@ -15,7 +15,7 @@ public class Main {
         Company company = App.getInstance().getCompany();
         Utils.bootstrap();
         company.authenticateSNSUser();
-        //company.authenticateEmployees();
+        company.authenticateEmployees();
         try {
 
             company.registerDailyTotalOfPeopleVaccinated();
