@@ -501,6 +501,7 @@ public class Company implements Serializable {
         return false;
     }
 
+
     /**
      * Adds appointment.
      *

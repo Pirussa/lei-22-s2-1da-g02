@@ -73,6 +73,10 @@ public class VaccineType implements Serializable {
         return true;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     /**
      * Gets code.
      *

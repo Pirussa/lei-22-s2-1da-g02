@@ -2,11 +2,10 @@ package app.ui.console;
 
 import app.controller.DataFromLegacySystemController;
 import app.domain.model.SnsUser;
+import app.domain.shared.Constants;
+import app.domain.shared.GenericClass;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 public class DataFromLegacySystemUI implements Runnable{
@@ -22,6 +21,7 @@ public class DataFromLegacySystemUI implements Runnable{
     List<String> csvLegacyData = new ArrayList<>();
     String line = null;
     BufferedReader br = new BufferedReader(new FileReader(path));
+    br.readLine();
     while ((line = br.readLine()) != null) {
       line = line.replaceAll("\"", "");
       String[] values = line.split(";");
@@ -30,11 +30,12 @@ public class DataFromLegacySystemUI implements Runnable{
     }
 
       if (!controller.getSNSUserList().isEmpty()){
-        for (int i = 1; i < csvLegacyData.size(); i++) {
+        for (int i = 0; i < csvLegacyData.size(); i++) {
           String[] values;
           float percentage = (float)i*100/csvLegacyData.size();
-          boolean flag = false;
+          boolean flag;
           int j;
+          int k;
 
           System.out.printf("\n%.1f%% complete...", percentage);
           values = csvLegacyData.get(i).split("_");
@@ -47,12 +48,19 @@ public class DataFromLegacySystemUI implements Runnable{
               break;
             }
           }
-            csvLegacyData.set(i, controller.getSNSUserList().get(j).getStrName() +"_"+ csvLegacyData.get(i));
+
+          for (k = 0; k < controller.getVaccines().size(); k++) {
+            if (controller.getVaccines().get(k).getName().equals(values[1])){
+              flag = true;
+            } else flag = false;
+            if (flag){
+              break;
+            }
+          }
+            csvLegacyData.set(i, controller.getSNSUserList().get(j).getStrName() +"_"+ csvLegacyData.get(i)+"_"+controller.getVaccines().get(k).getVaccineType().getDescription());
         }
         System.out.println();
-        for (int t = 0; t < csvLegacyData.size(); t++) {
-          System.out.println(csvLegacyData.get(t));
-        }
+        exportDataToFile(csvLegacyData);
       }
 
 } catch (Exception e){
@@ -60,7 +68,8 @@ public class DataFromLegacySystemUI implements Runnable{
     }
   }
 
-    public void sortByArrivalTime(List<String> csvLegacyData){
+
+  public void sortByArrivalTime(List<String> csvLegacyData){
     System.out.println("TODO");
     }
 
@@ -68,4 +77,8 @@ public class DataFromLegacySystemUI implements Runnable{
     System.out.println("TODO");
   }
 
+  public void exportDataToFile(List<String> csvLegacyData) throws NotSerializableException {
+    GenericClass<String> generics=new GenericClass<>();
+    generics.binaryFileWrite(Constants.FILE_PATH_UPDATEDLEGACY, csvLegacyData);
+  }
 }

@@ -1,5 +1,6 @@
 package app.domain.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -7,7 +8,7 @@ import java.util.ArrayList;
  *
  * @author Gustavo Jorge <1211061@isep.ipp.pt>
  */
-public class AdministrationProcess {
+public class AdministrationProcess implements Serializable {
 
     private ArrayList<ArrayList<Integer>> ageGroups;
 

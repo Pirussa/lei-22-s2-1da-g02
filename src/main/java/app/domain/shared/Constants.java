@@ -80,6 +80,8 @@ public class Constants {
 
     public static final String FILE_PATH_APPOINTMENTS = "appointments";
 
+    public static final String FILE_PATH_UPDATEDLEGACY = "updatedlegacy";
+
     public static final int VACCINE_ADMINISTRATION = 0;
 
     public static final int VACCINATION = 1;
