@@ -2,11 +2,13 @@ package app.controller;
 
 import app.domain.model.*;
 import app.domain.shared.Constants;
+import app.domain.shared.GenericClass;
 import dto.SnsUserDto;
 import dto.VaccineBulletinDto;
 import mapper.SnsUserMapper;
 import mapper.VaccineBulletinMapper;
 
+import java.io.NotSerializableException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
@@ -18,6 +20,7 @@ import java.util.*;
 
 public class RecordVaccineAdministrationController {
 
+    GenericClass<VaccineBulletin> genericClass = new GenericClass<>();
     private final Company company = App.getInstance().getCompany();
 
     private VaccinationCenter vaccinationCenter;
@@ -222,5 +225,13 @@ public class RecordVaccineAdministrationController {
 
     public boolean checkIfArrivalsListEmpty() {
         return !vaccinationCenter.getArrivalsList().isEmpty();
+    }
+
+    /**
+     * Exports the list of Vaccine Bulletins to a binary file.
+     * @throws NotSerializableException
+     */
+    public void exportDataToFile() throws NotSerializableException {
+        genericClass.binaryFileWrite(Constants.FILE_PATH_EMPLOYEES, snsUser.administratedVaccines());
     }
 }

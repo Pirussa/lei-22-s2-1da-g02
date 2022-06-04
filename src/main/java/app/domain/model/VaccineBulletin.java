@@ -1,5 +1,6 @@
 package app.domain.model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -12,7 +13,7 @@ import java.time.LocalDateTime;
 /**
  * The type Taken vaccine.
  */
-public class VaccineBulletin {
+public class VaccineBulletin implements Serializable {
 
     /**
      * Vaccine taken by the user in previous appointment
