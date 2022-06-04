@@ -42,24 +42,20 @@ public class DataFromLegacySystemUI implements Runnable{
 
           for (j=0; j< controller.getSNSUserList().size(); j++) {
             if (controller.getSNSUserList().get(j).getSnsUserNumber()==Integer.parseInt(values[0])){
-              flag = true;
-            } else flag =false;
-            if (flag){
               break;
             }
           }
+          csvLegacyData.set(i, controller.getSNSUserList().get(j).getStrName() +"_"+ csvLegacyData.get(i));
 
           for (k = 0; k < controller.getVaccines().size(); k++) {
             if (controller.getVaccines().get(k).getName().equals(values[1])){
-              flag = true;
-            } else flag = false;
-            if (flag){
               break;
             }
           }
-            csvLegacyData.set(i, controller.getSNSUserList().get(j).getStrName() +"_"+ csvLegacyData.get(i)+"_"+controller.getVaccines().get(k).getVaccineType().getDescription());
+          csvLegacyData.set(i, csvLegacyData.get(i)+"_"+controller.getVaccines().get(k).getVaccineType().getDescription());
         }
         System.out.println();
+        printUpdatedLegacy(csvLegacyData);
         exportDataToFile(csvLegacyData);
       }
 
@@ -80,5 +76,11 @@ public class DataFromLegacySystemUI implements Runnable{
   public void exportDataToFile(List<String> csvLegacyData) throws NotSerializableException {
     GenericClass<String> generics=new GenericClass<>();
     generics.binaryFileWrite(Constants.FILE_PATH_UPDATEDLEGACY, csvLegacyData);
+  }
+
+  public void printUpdatedLegacy(List<String> list){
+    for (int i = 0; i < list.size(); i++) {
+      System.out.println(list.get(i));
+    }
   }
 }

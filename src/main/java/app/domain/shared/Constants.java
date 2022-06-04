@@ -84,11 +84,11 @@ public class Constants {
 
     public static final String FILE_PATH_APPOINTMENTS = "appointments";
 
-<<<<<<< HEAD
+
     public static final String FILE_PATH_UPDATEDLEGACY = "updatedlegacy";
-=======
+
     public static final String FILE_PATH_VACCINE_BULLETIN = "vaccinebulletin";
->>>>>>> 0b7595d97c3dd726b3afd42ba75345b360aea348
+
 
     public static final int VACCINE_ADMINISTRATION = 0;
 
