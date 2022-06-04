@@ -45,7 +45,7 @@
                         <Font size="37.0" />
                      </font>
                   </TextField>
-                  <Button fx:id="loginBtn" graphicTextGap="2.0" layoutX="567.0" layoutY="459.0" mnemonicParsing="false" onAction="#doLogin" prefHeight="69.0" prefWidth="226.0" style="-fx-background-color: LIGHTGREEN;" text="LOGIN">
+                  <Button fx:id="loginBtn" graphicTextGap="2.0" layoutX="567.0" layoutY="459.0" mnemonicParsing="false" onAction="#doLogin" prefHeight="69.0" prefWidth="226.0" style="-fx-background-color: LIGHTGREEN;" styleClass="login-button" stylesheets="@../styles/styleSheet.css" text="LOGIN">
                      <font>
                         <Font name="System Bold" size="21.0" />
                      </font>
