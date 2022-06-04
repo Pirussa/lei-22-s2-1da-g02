@@ -27,7 +27,7 @@ public class Constants {
 
     public static final String PATH_SMS_MESSAGE = "SMS.txt";
     public static final int PASSWORD_LENGTH = 7;
-    public static final int PARAMS_MILLISECONDS_IN_DAY = 1000* 60 * 60 * 24;
+    public static final int PARAMS_MILLISECONDS_IN_DAY = 1000 * 60 * 60 * 24;
 
     public static final int ID_LENGTH = 5;
 
@@ -83,6 +83,8 @@ public class Constants {
     public static final String FILE_PATH_VACCINES = "vaccine";
 
     public static final String FILE_PATH_APPOINTMENTS = "appointments";
+
+    public static final String FILE_PATH_VACCINE_BULLETIN = "vaccinebulletin";
 
     public static final int VACCINE_ADMINISTRATION = 0;
 

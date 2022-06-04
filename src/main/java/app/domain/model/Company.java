@@ -552,20 +552,18 @@ public class Company implements Serializable {
         File file = new File(Constants.DAILY_REGISTERS_FILE_NAME);
         if (!file.exists()) {
             file.createNewFile();
+            FileWriter out = new FileWriter(file);
+            out.write("Date,Vaccination Center,Total Vaccinated People" + "\n");
+            out.close();
         }
-
-        try (FileWriter out = new FileWriter(file, true)) {
-            out.write("Vaccination Center,Total of People Vaccinated");
+        try {
+            FileWriter out = new FileWriter(file, true);
             for (int vaccinationCenterListPosition = 0; vaccinationCenterListPosition < getVaccinationCenters().size(); vaccinationCenterListPosition++) {
-                out.write(LocalDate.now() + "," + getVaccinationCenters().get(vaccinationCenterListPosition) + "," + getVaccinationCenters().get(vaccinationCenterListPosition).getArrivalsList().size() + "%n");
+                out.write(LocalDate.now() + "," + getVaccinationCenters().get(vaccinationCenterListPosition) + "," + getVaccinationCenters().get(vaccinationCenterListPosition).getArrivalsList().size() + "\n");
             }
-
+            out.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
-
-
 }

@@ -101,8 +101,6 @@ public class App {
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
-                System.out.println("Task is on");
-
                 try {
                     company.registerDailyTotalOfPeopleVaccinated();
                 } catch (IOException e) {
@@ -113,7 +111,7 @@ public class App {
 
         calendar.set(LocalDateTime.now().getYear(), LocalDateTime.now().getMonthValue() - 1, LocalDateTime.now().getDayOfMonth(), hour, minutes);
 
-        timer.scheduleAtFixedRate(timerTask, Date.from(calendar.toInstant()) ,1000 *5); //MUDAR PARA CONSTANTE DE TIMER
+        timer.scheduleAtFixedRate(timerTask, Date.from(calendar.toInstant()), Constants.PARAMS_MILLISECONDS_IN_DAY);
 
     }
 }

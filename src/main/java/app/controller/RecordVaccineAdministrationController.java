@@ -232,6 +232,6 @@ public class RecordVaccineAdministrationController {
      * @throws NotSerializableException
      */
     public void exportDataToFile() throws NotSerializableException {
-        genericClass.binaryFileWrite(Constants.FILE_PATH_EMPLOYEES, snsUser.administratedVaccines());
+        genericClass.binaryFileWrite(Constants.FILE_PATH_VACCINE_BULLETIN, snsUser.administratedVaccines());
     }
 }
