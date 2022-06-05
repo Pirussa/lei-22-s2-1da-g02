@@ -3,8 +3,6 @@ package app.domain.model;
 import app.controller.App;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -90,7 +88,7 @@ class GetListOfEmployeesTest {
 
         company.fillListOfEmployeesWithAGivenRole();
 
-        assertFalse(company.getCentreCoordinatorList().isEmpty());
+        assertFalse(company.getCenterCoordinatorList().isEmpty());
 
     }
 
@@ -102,7 +100,7 @@ class GetListOfEmployeesTest {
 
         company.fillListOfEmployeesWithAGivenRole();
 
-        assertTrue(company.getCentreCoordinatorList().isEmpty());
+        assertTrue(company.getCenterCoordinatorList().isEmpty());
     }
 
 }

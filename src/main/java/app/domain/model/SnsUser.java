@@ -14,6 +14,8 @@ import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -33,9 +35,7 @@ public class SnsUser implements Serializable {
     private final String strPassword;
     transient private List<VaccineBulletin> vaccineBulletins = new ArrayList<>();
 
-    private static final int MAX_NUMBER_OF_CHARS_SNS_USER_NUMBER = 9;
 
-    private transient AuthFacade auth = new AuthFacade();
 
     /**
      * Instantiates a new Sns user.
@@ -171,25 +171,6 @@ public class SnsUser implements Serializable {
         this.vaccineBulletins = vaccineBulletins;
     }
 
-    public boolean validateEmail(String strEmail) {
-        if (!strEmail.contains("@") && !strEmail.contains("."))
-            return false;
-
-        String[] emailSplitter = strEmail.split("@");
-        String[] validEmailDomain = {"gmail.com", "hotmail.com", "isep.ipp.pt", "sapo.pt", "outlook.com"};
-
-        for (String s : validEmailDomain) {
-            if (Objects.equals(emailSplitter[1], s))
-                return true;
-        }
-        return false;
-    }
-
-    public boolean validatePassword(String strPassword) {
-        final int PASSWORDLENGHT = 7;
-        return strPassword.length() == PASSWORDLENGHT;
-    }
-
     /**
      * Validate address boolean.
      *
@@ -280,5 +261,25 @@ public class SnsUser implements Serializable {
      */
     public void registerVaccine(VaccineBulletin vaccineBulletin) {
         vaccineBulletins.add(vaccineBulletin);
+    }
+
+    /**
+     * Gets user age.
+     *
+     * @return the user age
+     */
+    public int getUserAge() {
+        String[] birthdateSplit = strBirthDate.split("/");
+        LocalDate birthdate = LocalDate.of(Integer.parseInt(birthdateSplit[2]), Integer.parseInt(birthdateSplit[1]), Integer.parseInt(birthdateSplit[0]));
+        return Period.between(birthdate, LocalDate.now()).getYears();
+    }
+
+    /**
+     * Gets vaccine bulletins.
+     *
+     * @return the vaccine bulletins
+     */
+    public List<VaccineBulletin> getVaccineBulletins() {
+        return vaccineBulletins;
     }
 }

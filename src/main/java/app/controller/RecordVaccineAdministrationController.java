@@ -9,9 +9,7 @@ import mapper.SnsUserMapper;
 import mapper.VaccineBulletinMapper;
 
 import java.io.NotSerializableException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Period;
 import java.util.*;
 
 /**
@@ -35,7 +33,7 @@ public class RecordVaccineAdministrationController {
 
     private ArrayList<Arrival> arrivalsVaccination;
 
-    private String lotnumber;
+    private String lotNumber;
 
     public RecordVaccineAdministrationController() {
     }
@@ -61,8 +59,8 @@ public class RecordVaccineAdministrationController {
             vaccine = vaccineTypeAvailableVaccines().get(currentAppointment);
     }
 
-    public void setLotnumber(String setLotnumber) {
-        lotnumber = setLotnumber;
+    public void setLotNumber(String setLotNumber) {
+        lotNumber = setLotNumber;
     }
 
     public void setLocalDateTime() {
@@ -70,11 +68,7 @@ public class RecordVaccineAdministrationController {
     }
 
     // Functionalities
-    private int getUserAge() {
-        String[] birthdateSplit = snsUser.getStrBirthDate().split("/");
-        LocalDate birthdate = LocalDate.of(Integer.parseInt(birthdateSplit[2]), Integer.parseInt(birthdateSplit[1]), Integer.parseInt(birthdateSplit[0]));
-        return Period.between(birthdate, LocalDate.now()).getYears();
-    }
+
 
     // Get lists of some sort
     public void setArrivalList() {
@@ -123,7 +117,7 @@ public class RecordVaccineAdministrationController {
     }
 
     public int userFirstDoseAgeGroup(int indexVaccine) {
-        int userAge = getUserAge();
+        int userAge = snsUser.getUserAge();
         ArrayList<Vaccine> vaccines = (ArrayList<Vaccine>) vaccineTypeAvailableVaccines();
         for (int columns = 0; columns < vaccines.get(indexVaccine).getAdminProcess().getAgeGroups().get(0).size(); columns++) {
             for (int rows = 0; rows < vaccines.get(indexVaccine).getAdminProcess().getAgeGroups().size() - 1; rows++) {
@@ -135,17 +129,7 @@ public class RecordVaccineAdministrationController {
         return -1;
     }
 
-    public int userSuitsAgeGroup(int indexVaccine) {
-        int userAge = getUserAge();
-        for (int columns = 0; columns < snsUser.administratedVaccines().get(indexVaccine).getVaccine().getAdminProcess().getAgeGroups().get(0).size(); columns++) {
-            for (int rows = 0; rows < snsUser.administratedVaccines().get(indexVaccine).getVaccine().getAdminProcess().getAgeGroups().size() - 1; rows++) {
-                if ((userAge > snsUser.administratedVaccines().get(indexVaccine).getVaccine().getAdminProcess().getAgeGroups().get(columns).get(rows)) && userAge < snsUser.administratedVaccines().get(indexVaccine).getVaccine().getAdminProcess().getAgeGroups().get(columns).get(rows + 1)) {
-                    return columns;
-                }
-            }
-        }
-        return -1;
-    }
+
 
     public void removeUserFromList(int index) {
         vaccinationCenter.getArrivalsList().remove(index);
@@ -172,10 +156,14 @@ public class RecordVaccineAdministrationController {
     }
 
     private Double dosageForDose(int numberOfDoses, int indexVaccine) {
-        if (numberOfDoses == Constants.FIRST_DOSE)
+        if (numberOfDoses == Constants.FIRST_DOSE) {
             return vaccineTypeAvailableVaccines().get(indexVaccine).getAdminProcess().getDosage().get(Constants.FIRST_DOSE + 1);
-        else
-            return snsUser.administratedVaccines().get(indexVaccine).getVaccine().getAdminProcess().getDosage().get(userSuitsAgeGroup(indexVaccine));
+        }else{
+            int userAge = snsUser.getUserAge();
+            int userAgeGroupIndex = snsUser.administratedVaccines().get(indexVaccine).getVaccine().getUserAgeGroupIndex(userAge);
+            return snsUser.administratedVaccines().get(indexVaccine).getVaccine().getAdminProcess().getDosage().get(userAgeGroupIndex);
+        }
+
     }
 
     public String vaccineAdministrationProcess(int numberOfDoses, int indexVaccine) {
@@ -213,13 +201,16 @@ public class RecordVaccineAdministrationController {
         vaccineBulletinDto.vaccine = vaccine;
         vaccineBulletinDto.doseNumber = getUserNumberOfDoses() + Constants.ADD_DOSE;
         vaccineBulletinDto.dateTimeOfLastDose = localDateTime;
-        vaccineBulletinDto.lotNumber = lotnumber;
+        vaccineBulletinDto.lotNumber = lotNumber;
         return vaccineBulletinDto;
     }
 
     public void registerVaccineInVaccineBulletin() {
         VaccineBulletinMapper vaccineBulletinMapper = new VaccineBulletinMapper();
-        vaccinationCenter.getVaccineBulletinsAllUsers().add(vaccineBulletinMapper.VaccineBulletinDtoToDomain(snsUserAddVaccineBulletin()));
+        if (vaccineBulletinMapper.VaccineBulletinDtoToDomain(snsUserAddVaccineBulletin()).isLastDose(snsUser.getUserAge())){
+            vaccinationCenter.getFullyVaccinatedList().add(vaccineBulletinMapper.VaccineBulletinDtoToDomain(snsUserAddVaccineBulletin()));
+        }
+        vaccinationCenter.getVaccinesAdministered().add(vaccineBulletinMapper.VaccineBulletinDtoToDomain(snsUserAddVaccineBulletin()));
         snsUser.registerVaccine(vaccineBulletinMapper.VaccineBulletinDtoToDomain(snsUserAddVaccineBulletin()));
     }
 

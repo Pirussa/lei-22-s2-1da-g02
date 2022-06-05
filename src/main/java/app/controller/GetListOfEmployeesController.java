@@ -64,7 +64,7 @@ public class GetListOfEmployeesController {
      */
 
     public ArrayList<Employee> getCentreCoordinatorList() {
-        return company.getCentreCoordinatorList();
+        return company.getCenterCoordinatorList();
     }
 
 

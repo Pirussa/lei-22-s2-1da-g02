@@ -52,8 +52,8 @@ public class Utils {
         GenericClass<VaccineBulletin> genericsClass = new GenericClass<>();
         try {
             for (VaccinationCenter vaccinationCenter : company.getVaccinationCenters()) {
-                genericsClass.binaryFileRead(Constants.FILE_PATH_ARRIVALS, vaccinationCenter.getVaccineBulletinsAllUsers());
-                for (VaccineBulletin vaccineBulletin : vaccinationCenter.getVaccineBulletinsAllUsers()) {
+                genericsClass.binaryFileRead(Constants.FILE_PATH_ARRIVALS, vaccinationCenter.getVaccinesAdministered());
+                for (VaccineBulletin vaccineBulletin : vaccinationCenter.getVaccinesAdministered()) {
                     System.out.println(vaccineBulletin);
                 }
             }
@@ -87,7 +87,7 @@ public class Utils {
         mvcDto.strRoad = "Rua do Amial";
         mvcDto.strZipCode = "4460-098";
         mvcDto.strLocal = "Matosinhos";
-        mvcDto.strCenterCoordinatorID = "CC-95634";
+        mvcDto.strCenterCoordinatorID = company.getEmployees().get(0).getId();
         mvcDto.vaccineType = new VaccineType("COVID", "To prevent serious COVID-19 infections", VaccineType.vaccineTechnologies[5]);
         ctrlVc.saveMassVaccinationCenter(mvcDto);
     }
