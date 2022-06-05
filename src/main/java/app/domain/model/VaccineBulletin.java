@@ -1,5 +1,7 @@
 package app.domain.model;
 
+import app.domain.shared.Constants;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.IllegalFormatCodePointException;
@@ -47,7 +49,6 @@ public class VaccineBulletin implements Serializable {
         this.doseNumber = doses;
         this.lotNumber = lotNumber;
     }
-
 
     /**
      * Gets vaccine the user took.
@@ -104,6 +105,4 @@ public class VaccineBulletin implements Serializable {
        int totalDoses = vaccine.getAdminProcess().getNumberOfDoses().get(ageGroupIndex);
         return doseNumber == totalDoses;
     }
-
-
 }

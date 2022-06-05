@@ -5,6 +5,7 @@ import app.domain.shared.Constants;
 import app.ui.console.utils.Utils;
 import dto.SnsUserDto;
 
+import java.io.IOException;
 import java.io.NotSerializableException;
 import java.util.Scanner;
 
@@ -46,6 +47,11 @@ public class RecordVaccineAdministrationUI implements Runnable {
             try {
                 controller.exportDataToFile();
             } catch (NotSerializableException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                controller.printRecoveryTime();
+            } catch (IOException e) {
                 throw new RuntimeException(e);
             }
             vaccineAdministrationPrompt(Constants.END_VACCINATION);

@@ -26,6 +26,8 @@ public class Constants {
     public static final String SUGGESTED_VACCINE_TYPE_ONGOING_OUTBREAK = "COVID";
 
     public static final String PATH_SMS_MESSAGE = "SMS.txt";
+
+    public static final String PATH_RECOVERY_TIME_MESSAGE = "RecoveryTime.txt";
     public static final int PASSWORD_LENGTH = 7;
     public static final int PARAMS_MILLISECONDS_IN_DAY = 1000 * 60 * 60 * 24;
 
