@@ -1,7 +1,8 @@
 package app.domain.model;
 
+import app.domain.shared.Constants;
+import app.ui.console.utils.Utils;
 import dto.ScheduledVaccineDto;
-import dto.VaccineBulletinDto;
 
 import java.io.Serializable;
 import java.time.Duration;
@@ -10,8 +11,8 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
-import java.util.Objects;
+
+
 
 /**
  * Creates a Vaccination Center
@@ -37,18 +38,12 @@ public class VaccinationCenter implements Serializable {
     private final String strCenterCoordinatorID;
     private List<ScheduledVaccine> scheduledVaccineList = new ArrayList<>();
     private List<Arrival> arrivalsList = new ArrayList<>();
+    private final List<VaccineBulletin> vaccinesAdministeredList = new ArrayList<>();
 
-    private final List<VaccineBulletin> vaccinesAdministered = new ArrayList<>();
 
-    private static final int NUMBER_OF_PHONE_NUMBER_DIGITS = 9;
-    private static final int STARTING_NUMBER_PORTUGUESE_PHONE = 9;
-    private static final int FIRST_SECOND_NUMBER_PORTUGUESE_PHONE = 1;
-    private static final int SECOND_SECOND_NUMBER_PORTUGUESE_PHONE = 2;
-    private static final int THIRD_SECOND_NUMBER_PORTUGUESE_PHONE = 3;
-    private static final int FOURTH_SECOND_NUMBER_PORTUGUESE_PHONE = 6;
     private static final String[] strTopLevelDomain = {".com", ".pt", ".co.uk"};
     private static final String strWorldWideWeb = "www.";
-    private List<VaccineBulletin> fullyVaccinatedList;
+
 
     /**
      * Creates a vaccination center with the following attributes, also verifies inside the constructors the those attributes are valid.
@@ -87,7 +82,7 @@ public class VaccinationCenter implements Serializable {
             throw new IllegalArgumentException("Only supports the Portuguese format, .e.i, 933398881.");
         }
 
-        if (!validateEmail(strEmail)) {
+        if (!Utils.validateEmail(strEmail)) {
             throw new IllegalArgumentException("Needs an @, a . and a valid domain,");
         }
 
@@ -164,8 +159,8 @@ public class VaccinationCenter implements Serializable {
      *
      * @return the vaccines administered
      */
-    public List<VaccineBulletin> getVaccinesAdministered() {
-        return vaccinesAdministered;
+    public List<VaccineBulletin> getVaccinesAdministeredList() {
+        return vaccinesAdministeredList;
     }
 
     /**
@@ -241,26 +236,6 @@ public class VaccinationCenter implements Serializable {
     }
 
     /**
-     * Validates the email, it needs to have an "@" and a ".", and one valid domain.
-     *
-     * @param email is the email of the centre
-     * @return a true or a false
-     */
-    public boolean validateEmail(String email) {
-        if (!email.contains("@") && !email.contains("."))
-            return false;
-
-        String[] emailSplitter = email.split("@");
-        String[] validEmailDomain = {"gmail.com", "hotmail.com", "isep.ipp.pt", "sapo.pt", "outlook.com"};
-
-        for (String s : validEmailDomain) {
-            if (Objects.equals(emailSplitter[1], s))
-                return true;
-        }
-        return false;
-    }
-
-    /**
      * Validates the Phone and Fax Number of the centre, basically checks if it's in the Portuguese format
      *
      * @param strPhoneNumberOrFaxNumber is the Phone or the Fax Number of the centre since both follow the same rules.
@@ -268,14 +243,14 @@ public class VaccinationCenter implements Serializable {
      */
     public boolean validatePhoneNumberAndFax(String strPhoneNumberOrFaxNumber) {
 
-        if (strPhoneNumberOrFaxNumber.length() == NUMBER_OF_PHONE_NUMBER_DIGITS && Integer.parseInt(strPhoneNumberOrFaxNumber) % 1 == 0) {
+        if (strPhoneNumberOrFaxNumber.length() == Constants.NUMBER_OF_PHONE_NUMBER_DIGITS && Integer.parseInt(strPhoneNumberOrFaxNumber) % 1 == 0) {
             int ch1 = Integer.parseInt(String.valueOf(strPhoneNumberOrFaxNumber.charAt(0)));
-            if (ch1 != STARTING_NUMBER_PORTUGUESE_PHONE)
+            if (ch1 != Constants.STARTING_NUMBER_PORTUGUESE_PHONE)
                 return false;
 
             int ch2 = Integer.parseInt(String.valueOf(strPhoneNumberOrFaxNumber.charAt(1)));
-            return ch2 == FIRST_SECOND_NUMBER_PORTUGUESE_PHONE || ch2 == SECOND_SECOND_NUMBER_PORTUGUESE_PHONE ||
-                    ch2 == THIRD_SECOND_NUMBER_PORTUGUESE_PHONE || ch2 == FOURTH_SECOND_NUMBER_PORTUGUESE_PHONE;
+            return ch2 == Constants.FIRST_SECOND_NUMBER_PORTUGUESE_PHONE || ch2 == Constants.SECOND_SECOND_NUMBER_PORTUGUESE_PHONE ||
+                    ch2 == Constants.THIRD_SECOND_NUMBER_PORTUGUESE_PHONE || ch2 == Constants.FOURTH_SECOND_NUMBER_PORTUGUESE_PHONE;
         }
         return false;
     }
@@ -322,7 +297,7 @@ public class VaccinationCenter implements Serializable {
                 !strName.isEmpty() && !strID.isEmpty() && !strPhoneNumber.isEmpty() && !strEmail.isEmpty() && !strFax.isEmpty() &&
                 !strWebsite.isEmpty() && !strOpeningHour.isEmpty() && !strClosingHour.isEmpty() && !strSlotDuration.isEmpty() && !strVaccinesPerSlot.isEmpty() &&
                 !strRoad.isEmpty() && !strZipCode.isEmpty() && !strLocal.isEmpty() && !strCenterCoordinatorID.isEmpty() && validatePhoneNumberAndFax(strPhoneNumber)
-                && validatePhoneNumberAndFax(strFax) && validateEmail(strEmail) && validateWebsite(strWebsite, strTopLevelDomain, strWorldWideWeb) &&
+                && validatePhoneNumberAndFax(strFax) && Utils.validateEmail(strEmail) && validateWebsite(strWebsite, strTopLevelDomain, strWorldWideWeb) &&
                 validateVaccinationCenterHours(strOpeningHour, strClosingHour) && validateZipCode(strZipCode) && validateSlotDuration(strSlotDuration) &&
                 validateVaccinesPerSlot(strVaccinesPerSlot);
     }
@@ -618,12 +593,5 @@ public class VaccinationCenter implements Serializable {
         this.arrivalsList = arrivalsList;
     }
 
-    /**
-     * Gets fully vaccinated list.
-     *
-     * @return the fully vaccinated list
-     */
-    public List<VaccineBulletin> getFullyVaccinatedList() {
-        return fullyVaccinatedList;
-    }
+
 }

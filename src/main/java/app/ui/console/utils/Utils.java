@@ -52,8 +52,8 @@ public class Utils {
         GenericClass<VaccineBulletin> genericsClass = new GenericClass<>();
         try {
             for (VaccinationCenter vaccinationCenter : company.getVaccinationCenters()) {
-                genericsClass.binaryFileRead(Constants.FILE_PATH_ARRIVALS, vaccinationCenter.getVaccinesAdministered());
-                for (VaccineBulletin vaccineBulletin : vaccinationCenter.getVaccinesAdministered()) {
+                genericsClass.binaryFileRead(Constants.FILE_PATH_ARRIVALS, vaccinationCenter.getVaccinesAdministeredList());
+                for (VaccineBulletin vaccineBulletin : vaccinationCenter.getVaccinesAdministeredList()) {
                     System.out.println(vaccineBulletin);
                 }
             }

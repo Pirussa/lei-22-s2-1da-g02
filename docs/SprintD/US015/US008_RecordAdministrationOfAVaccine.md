@@ -10,18 +10,59 @@ As a **Center Coordinator**, I intend to **check** and **export** vaccination st
 I want to export, to a csv file, the total number of fully vaccinated users per day.
 
 
-### 1.2. Customer Specifications and Clarifications 
+### 1.2. Customer Specifications and Clarifications
 
-
-**From the specifications document:**
+### **From the specifications document:**
 
 > Each vaccination center has a Center Coordinator that has the responsibility to manage the Covid19 vaccination process. The Center Coordinator wants to monitor the vaccination process, to see
 statistics and charts, to evaluate the performance of the vaccination process, generate reports
 
+### **From the client clarifications:**
+
+**-From the requirements document:**
 >The goal of this US is to explore this data jointly with data obtained from external sources to estimate the number of new cases and the number of deaths using information about the Reproduction Rate, Number of ICU Patients, Number of In-Hospital Patients, Number of New Cases, Positive Rate and Number of People Fully Vaccinated. In this study, simple linear and a multi-linear regression models should be developed to find the linear relationship between: 1- each independent variable and each dependent variable; 2- all six independent variables and each dependent variable; 3- three selected variables and each dependent variable. As the application is under development it is not possible to generate all data required for the analysis. Therefore, and to simulate a production system, we made available in moodle a file containing all the information required for this study. The regression analysis should be made outside the application and should be performed using Microsoft Excel spreadsheet program. The regression analysis should be documented in the application user manual (in the annexes) that must be delivered with the application. The report should include day and week (observed and estimated) values, the regression model used to estimate each value, R(SLR), R2 and R2 adjusted for SLR and MLR, confidence intervals and hypothesis tests for regression coefficients and significance model with Anova.
 
+**-From the client forum:**
 
-**From the client clarifications:**
+>**Questions:** 
+> 
+>1- When exporting vaccination statistics,do we export the data from all days available in the system or does the center coordinator chooses the time interval? 
+>
+>2-Is there any kind of format our exported data should follow?
+> 
+>**Answers:**
+> 
+>1- The user should define a time interval (two dates).
+> 
+>2- Data format: date; number of fully vaccinated user.
+
+>**Question:**
+>
+>Is the exportation of the CSV file that contains the total number of fully vaccinated users per day, the only feature that needs to be implemented in code, for US15?
+>
+>**Answer:**
+>
+>Yes.
+
+>**Questions:**
+>
+>1-Should the user introduce the name of the file intended to export the vaccination statistics ?
+> 
+> 2-Are the vaccination statistics referring only to the fully vaccinated users or referring to something more ?
+>
+>**Answer:**
+>
+>The user should introduce the name of the file.
+> 
+>Only to fully vaccinated users.
+
+>**Question:**
+>
+>In this US should the Center Coordinator check and export the Vaccination Statistics of the Center where he/she works at or should just check and export the Vaccination Statistics of all centers?
+>
+>**Answer:**
+>
+>The center coordinator can only export statistics from the vaccination center that he coordinates.
 
 
 ### 1.3. Acceptance Criteria
@@ -32,10 +73,18 @@ statistics and charts, to evaluate the performance of the vaccination process, g
 
 ### 1.4. Found out Dependencies
 
-There is a dependency with US006, as it is required to have the necessary information that that US provides in order to create a file with the vaccination statistics.
+There is a dependency with US008, as it is required to have the necessary information that that US provides in order to create a file with the vaccination statistics.
 
 ### 1.5 Input and Output Data
 
+**Input Data:**
+
+* Typed data:
+    - The name of the file intended to export the vaccination statistics.
+
+* Selected data:
+    - The time interval.
+    - Between the options of checking or exporting the vaccination statistics.
 
 **Output Data:**
 
@@ -45,20 +94,17 @@ There is a dependency with US006, as it is required to have the necessary inform
 
 ### 1.6. System Sequence Diagram (SSD)
 
-
-
-![US008_SSD](US008_SSD.svg)
+![US015_SSD](US015_SSD.svg)
 
 ### 1.7 Other Relevant Remarks
 
-> 
-
+>No other relevant remarks.
 
 ## 2. OO Analysis
 
 ### 2.1. Relevant Domain Model Excerpt 
 
-![US008_MD](US008_MD.svg)
+![US015_MD](US015_MD.svg)
 
 ### 2.2. Other Remarks
 
