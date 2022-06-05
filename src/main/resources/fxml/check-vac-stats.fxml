@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="821.0" prefWidth="1356.0" style="-fx-background-color: ANTIQUEWHITE;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.ui.gui.CheckAndExportVacStatsGUI">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="821.0" prefWidth="1356.0" style="-fx-background-color: ANTIQUEWHITE;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.ui.gui.CheckListVacStatsGUI">
    <top>
       <FlowPane alignment="CENTER" prefHeight="115.0" prefWidth="1356.0" style="-fx-background-color: LIGHTSTEELBLUE;" BorderPane.alignment="CENTER">
          <children>
@@ -46,7 +46,7 @@
    <center>
       <FlowPane alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
-            <ListView fx:id="statsListView" mouseTransparent="true" prefHeight="491.0" prefWidth="439.0" style="-fx-background-color: ANTIQUEWHITE;" />
+            <ListView fx:id="statsListView" prefHeight="536.0" prefWidth="321.0" />
          </children>
       </FlowPane>
    </center>
