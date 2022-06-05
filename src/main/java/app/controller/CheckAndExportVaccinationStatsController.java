@@ -44,7 +44,7 @@ public class CheckAndExportVaccinationStatsController {
         for (VaccineBulletin vaccineBulletin: listFullyVaccinated) {
             if (!vaccineBulletin.getDateTimeOfLastDose().toLocalDate().equals(lastDay)) {
                 StringBuilder stringBuilder = new StringBuilder();
-                stringBuilder.append(lastDay).append(",").append(total);
+                stringBuilder.append(lastDay).append(";").append(total);
                 String statsOfOneDay = stringBuilder.toString();
                 vaccinationStats.add(statsOfOneDay);
                 lastDay = vaccineBulletin.getDateTimeOfLastDose().toLocalDate();
@@ -87,9 +87,11 @@ public class CheckAndExportVaccinationStatsController {
 
         try {
             writer = new PrintWriter(file);
-            writer.format("%s,%s\n", "Date", "Total");
+            writer.format("%s;%s\n", "Date", "Total");
+            for (String stat: getVaccinationStatsListBetweenDates(firstDate,lastDate)) {
+                writer.format("%s\n", stat);
+            }
 
-            writer.format("teste123");
         } catch (Exception FileNotFoundException) {
             return false;
         } finally {
