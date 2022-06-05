@@ -3,10 +3,10 @@ package app.domain.model;
 import app.controller.RegisterNewEmployeeController;
 import app.domain.shared.Constants;
 import app.ui.console.utils.Utils;
+import pt.isep.lei.esoft.auth.domain.model.Email;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Random;
 
 public class Employee implements Serializable {
@@ -21,7 +21,7 @@ public class Employee implements Serializable {
     private String name;
     private String address;
     private String phoneNumber;
-    private String email;
+    private Email email;
     private String citizenCardNumber;
     private String password;
 
@@ -37,7 +37,7 @@ public class Employee implements Serializable {
      * @param password          The Employee´s password.
      */
 
-    public Employee(String id, String name, String address, String phoneNumber, String email, String citizenCardNumber, String password) {
+    public Employee(String id, String name, String address, String phoneNumber, Email email, String citizenCardNumber, String password) {
 
         this.id = id;
         this.name = name;
@@ -68,7 +68,7 @@ public class Employee implements Serializable {
         return phoneNumber;
     }
 
-    public String getEmail() {
+    public Email getEmail() {
         return email;
     }
 
@@ -120,6 +120,6 @@ public class Employee implements Serializable {
      */
 
     public boolean validateEmployee() {
-        return name != null && address != null && email != null && phoneNumber != null && citizenCardNumber != null && !name.isEmpty() && !address.isEmpty() && !email.isEmpty() && !phoneNumber.isEmpty() && !citizenCardNumber.isEmpty() && Utils.validateEmail(email) && Utils.validateCitizenCardNumber(citizenCardNumber) && Utils.validateAddress(address) && Utils.validatePhoneNumber(phoneNumber);
+        return name != null && address != null && email != null && phoneNumber != null && citizenCardNumber != null && !name.isEmpty() && !address.isEmpty() && !phoneNumber.isEmpty() && !citizenCardNumber.isEmpty() && Utils.validateCitizenCardNumber(citizenCardNumber) && Utils.validateAddress(address) && Utils.validatePhoneNumber(phoneNumber);
     }
 }

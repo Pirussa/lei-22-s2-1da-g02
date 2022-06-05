@@ -38,7 +38,7 @@ public class CheckAndExportVaccinationStatsController {
     private List<String> getVaccinationStatsList() {
         assert center != null;
         List<String> vaccinationStats = new ArrayList<>();
-        List<VaccineBulletin> listFullyVaccinated= center.getFullyVaccinatedList();
+        List<VaccineBulletin> listFullyVaccinated= center.getVaccinesAdministeredList();
         LocalDate lastDay = getFirstDateAvailable(listFullyVaccinated);
         int total = 0;
         for (VaccineBulletin vaccineBulletin: listFullyVaccinated) {

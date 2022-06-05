@@ -337,15 +337,15 @@ public class Company implements Serializable {
         if (Objects.equals(selectedRole, "Nurse")) {
             Employee emp = new Nurse(dto.id, dto.name, dto.address, dto.phoneNumber, dto.email, dto.citizenCardNumber, dto.password);
             employees.add(emp);
-            this.authFacade.addUserWithRole(dto.name, dto.email, dto.password, Constants.ROLE_NURSE);
+            this.authFacade.addUserWithRole(dto.name, String.valueOf(dto.email), dto.password, Constants.ROLE_NURSE);
         } else if (Objects.equals(selectedRole, "Receptionist")) {
             Employee emp = new Receptionist(dto.id, dto.name, dto.address, dto.phoneNumber, dto.email, dto.citizenCardNumber, dto.password);
             employees.add(emp);
-            this.authFacade.addUserWithRole(dto.name, dto.email, dto.password, Constants.ROLE_RECEPTIONIST);
+            this.authFacade.addUserWithRole(dto.name, String.valueOf(dto.email), dto.password, Constants.ROLE_RECEPTIONIST);
         } else if (Objects.equals(selectedRole, "Center Coordinator")) {
             Employee emp = new CenterCoordinator(dto.id, dto.name, dto.address, dto.phoneNumber, dto.email, dto.citizenCardNumber, dto.password);
             employees.add(emp);
-            this.authFacade.addUserWithRole(dto.name, dto.email, dto.password, Constants.ROLE_CENTRE_COORDINATOR);
+            this.authFacade.addUserWithRole(dto.name, String.valueOf(dto.email), dto.password, Constants.ROLE_CENTRE_COORDINATOR);
         }
     }
 
@@ -353,11 +353,11 @@ public class Company implements Serializable {
         if (!employees.isEmpty()) {
             for (Employee emp : employees) {
                 if (emp instanceof Nurse) {
-                    this.authFacade.addUserWithRole(emp.getName(), emp.getEmail(), emp.getPassword(), Constants.ROLE_NURSE);
+                    this.authFacade.addUserWithRole(emp.getName(), String.valueOf(emp.getEmail()), emp.getPassword(), Constants.ROLE_NURSE);
                 } else if (emp instanceof Receptionist) {
-                    this.authFacade.addUserWithRole(emp.getName(), emp.getEmail(), emp.getPassword(), Constants.ROLE_RECEPTIONIST);
+                    this.authFacade.addUserWithRole(emp.getName(), String.valueOf(emp.getEmail()), emp.getPassword(), Constants.ROLE_RECEPTIONIST);
                 } else if (emp instanceof CenterCoordinator) {
-                    this.authFacade.addUserWithRole(emp.getName(), emp.getEmail(), emp.getPassword(), Constants.ROLE_CENTRE_COORDINATOR);
+                    this.authFacade.addUserWithRole(emp.getName(), String.valueOf(emp.getEmail()), emp.getPassword(), Constants.ROLE_CENTRE_COORDINATOR);
                 } else {
                     return false;
                 }

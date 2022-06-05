@@ -211,7 +211,7 @@ public class RecordVaccineAdministrationController {
     public void registerVaccineInVaccineBulletin() {
         VaccineBulletinMapper vaccineBulletinMapper = new VaccineBulletinMapper();
         if (vaccineBulletinMapper.VaccineBulletinDtoToDomain(snsUserAddVaccineBulletin()).isLastDose(snsUser.getUserAge())) {
-            vaccinationCenter.getFullyVaccinatedList().add(vaccineBulletinMapper.VaccineBulletinDtoToDomain(snsUserAddVaccineBulletin()));
+            vaccinationCenter.getVaccinesAdministeredList().add(vaccineBulletinMapper.VaccineBulletinDtoToDomain(snsUserAddVaccineBulletin()));
         }
         vaccinationCenter.getVaccinesAdministeredList().add(vaccineBulletinMapper.VaccineBulletinDtoToDomain(snsUserAddVaccineBulletin()));
         snsUser.registerVaccine(vaccineBulletinMapper.VaccineBulletinDtoToDomain(snsUserAddVaccineBulletin()));

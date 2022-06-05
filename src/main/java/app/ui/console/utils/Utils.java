@@ -6,6 +6,7 @@ import app.domain.shared.Constants;
 import app.domain.shared.GenericClass;
 import dto.MassVaccinationCenterDto;
 import dto.RegisterNewEmployeeDto;
+import pt.isep.lei.esoft.auth.domain.model.Email;
 
 import java.io.*;
 import java.text.DateFormat;
@@ -110,7 +111,7 @@ public class Utils {
         dtoEmp.password = "AAA11aa";
         dtoEmp.phoneNumber = "915604427";
         dtoEmp.citizenCardNumber = "11960343 8 ZW1";
-        dtoEmp.email = "ana@gmail.com";
+        dtoEmp.email = new Email("ana@gmail.com");
         dtoEmp.address = "Via Diagonal / 4475-079 / Porto";
         ctrlEmp.saveCreatedEmployee(dtoEmp, "Center Coordinator");
 
@@ -120,7 +121,7 @@ public class Utils {
         dtoEmp2.password = "AAA11aa";
         dtoEmp2.phoneNumber = "919880654";
         dtoEmp2.citizenCardNumber = "38002291 5 ZY5";
-        dtoEmp2.email = "joana@gmail.com";
+        dtoEmp2.email = new Email("joana@gmail.com");
         dtoEmp2.address = "Rua De Azevedo De Albuquerque / 4050-076 / Porto";
         ctrlEmp.saveCreatedEmployee(dtoEmp2, "Nurse");
 
@@ -130,7 +131,7 @@ public class Utils {
         dtoEmp4.password = "AAA11aa";
         dtoEmp4.phoneNumber = "912345679";
         dtoEmp4.citizenCardNumber = "19112459 1 ZY2";
-        dtoEmp4.email = "carla@gmail.com";
+        dtoEmp4.email = new Email("carla@gmail.com");
         dtoEmp4.address = "Rua rua / 4440-124 / Porto";
         ctrlEmp.saveCreatedEmployee(dtoEmp4, "Receptionist");
     }

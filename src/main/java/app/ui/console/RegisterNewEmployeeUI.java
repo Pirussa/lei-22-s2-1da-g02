@@ -6,6 +6,7 @@ import app.domain.model.Company;
 import app.domain.model.Employee;
 import app.ui.console.utils.Utils;
 import dto.RegisterNewEmployeeDto;
+import pt.isep.lei.esoft.auth.domain.model.Email;
 
 import java.io.NotSerializableException;
 import java.util.ArrayList;
@@ -42,7 +43,12 @@ public class RegisterNewEmployeeUI implements Runnable {
             dto.name = Utils.readLineFromConsole("- Insert Name: ").trim();
             dto.address = Utils.readLineFromConsole("- Insert Address (Street / Zip Code / Location): ");
             dto.phoneNumber = Utils.readLineFromConsole("- Insert Phone Number (9 chars, only numbers): (+351) ").trim();
-            dto.email = Utils.readLineFromConsole("- Insert Email (@ and . are required): ").trim();
+            try {
+                dto.email = new Email(Utils.readLineFromConsole("- Insert Email (@ and . are required): "));
+            } catch (IllegalArgumentException e) {
+                System.out.println("Invalid Email");
+            }
+
             dto.citizenCardNumber = Utils.readLineFromConsole("- Insert Citizen Card Number (Format - XXXXXXXX X LLX): ");
 
 
