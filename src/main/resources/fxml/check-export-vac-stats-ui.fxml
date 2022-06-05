@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.effect.Bloom?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
@@ -46,11 +47,15 @@
    <center>
       <FlowPane alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
-            <Pane fx:id="mainMenuPane" prefHeight="427.0" prefWidth="898.0">
+            <Pane fx:id="mainMenuPane" prefHeight="520.0" prefWidth="898.0">
                <effect>
                   <Bloom threshold="1.0" />
                </effect>
                <children>
+                  <TextArea fx:id="askFileNameTxt" layoutX="306.0" layoutY="454.0" opacity="0.58" prefHeight="17.0" prefWidth="235.0" promptText="choose the file name" visible="false">
+                     <font>
+                        <Font size="15.0" />
+                     </font></TextArea>
                   <DatePicker fx:id="firstDatePicker" layoutX="140.0" layoutY="99.0" onAction="#getFirstDate" prefHeight="64.0" prefWidth="277.0" promptText="first date" />
                   <DatePicker fx:id="lastDatePicker" layoutX="483.0" layoutY="99.0" onAction="#getLastDate" prefHeight="65.0" prefWidth="277.0" promptText="last date" />
                   <Label fx:id="selectLbl" layoutX="90.0" layoutY="14.0" text="Select the period you want to get the statistics from">
@@ -63,11 +68,15 @@
                         <Font name="System Bold" size="32.0" />
                      </font>
                   </Button>
-                  <Button fx:id="exportStatsButton" layoutX="305.0" layoutY="358.0" mnemonicParsing="false" onAction="#exportStatistics" text="Export Statistics">
+                  <Button fx:id="exportStatsButton" layoutX="305.0" layoutY="358.0" mnemonicParsing="false" onAction="#exportStatisticsOption" text="Export Statistics">
                      <font>
                         <Font name="System Bold" size="32.0" />
                      </font>
                   </Button>
+                  <Button fx:id="okBtn" layoutX="544.0" layoutY="455.0" mnemonicParsing="false" onAction="#exportStatistics" prefHeight="42.0" prefWidth="45.0" style="-fx-background-color: LIGHTGREEN;" styleClass="login-button" stylesheets="@../styles/styleSheet.css" text="OK" visible="false">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font></Button>
                </children>
             </Pane>
          </children>

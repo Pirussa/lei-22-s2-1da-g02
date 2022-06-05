@@ -17,8 +17,10 @@ public class MainGUI extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-
+        Company company = App.getInstance().getCompany();
         Utils.bootstrap();
+        company.authenticateSNSUser();
+        company.authenticateEmployees();
 
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/login-menu.fxml"));
 

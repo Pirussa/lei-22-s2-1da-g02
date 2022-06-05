@@ -1,6 +1,7 @@
 package app.domain.model;
 
 import dto.ScheduledVaccineDto;
+import dto.VaccineBulletinDto;
 
 import java.io.Serializable;
 import java.time.Duration;
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Objects;
 
 /**
@@ -19,24 +21,24 @@ import java.util.Objects;
 public class VaccinationCenter implements Serializable {
 
 
-    private String strID;
-    private String strName;
-    private String strPhoneNumber;
-    private String strEmail;
-    private String strFax;
-    private String strWebsite;
-    private String strOpeningHour;
-    private String strClosingHour;
-    private String strSlotDuration;
-    private String strVaccinesPerSlot;
-    private String strRoad;
-    private String strZipCode;
-    private String strLocal;
-    private String strCenterCoordinatorID;
+    private final String strID;
+    private final String strName;
+    private final String strPhoneNumber;
+    private final String strEmail;
+    private final String strFax;
+    private final String strWebsite;
+    private final String strOpeningHour;
+    private final String strClosingHour;
+    private final String strSlotDuration;
+    private final String strVaccinesPerSlot;
+    private final String strRoad;
+    private final String strZipCode;
+    private final String strLocal;
+    private final String strCenterCoordinatorID;
     private List<ScheduledVaccine> scheduledVaccineList = new ArrayList<>();
     private List<Arrival> arrivalsList = new ArrayList<>();
 
-    private List<VaccineBulletin> vaccineBulletinsAllUsers = new ArrayList<>();
+    private final List<VaccineBulletin> vaccinesAdministered = new ArrayList<>();
 
     private static final int NUMBER_OF_PHONE_NUMBER_DIGITS = 9;
     private static final int STARTING_NUMBER_PORTUGUESE_PHONE = 9;
@@ -44,8 +46,9 @@ public class VaccinationCenter implements Serializable {
     private static final int SECOND_SECOND_NUMBER_PORTUGUESE_PHONE = 2;
     private static final int THIRD_SECOND_NUMBER_PORTUGUESE_PHONE = 3;
     private static final int FOURTH_SECOND_NUMBER_PORTUGUESE_PHONE = 6;
-    private static String[] strTopLevelDomain = {".com", ".pt", ".co.uk"};
-    private static String strWorldWideWeb = "www.";
+    private static final String[] strTopLevelDomain = {".com", ".pt", ".co.uk"};
+    private static final String strWorldWideWeb = "www.";
+    private List<VaccineBulletin> fullyVaccinatedList;
 
     /**
      * Creates a vaccination center with the following attributes, also verifies inside the constructors the those attributes are valid.
@@ -156,8 +159,13 @@ public class VaccinationCenter implements Serializable {
         return arrivalsList;
     }
 
-    public List<VaccineBulletin> getVaccineBulletinsAllUsers() {
-        return vaccineBulletinsAllUsers;
+    /**
+     * Gets vaccines administered.
+     *
+     * @return the vaccines administered
+     */
+    public List<VaccineBulletin> getVaccinesAdministered() {
+        return vaccinesAdministered;
     }
 
     /**
@@ -350,7 +358,6 @@ public class VaccinationCenter implements Serializable {
         this.scheduledVaccineList.add(newAppointment);
 
     }
-
 
     /**
      * Checks center availability.
@@ -609,5 +616,14 @@ public class VaccinationCenter implements Serializable {
      */
     public void setArrivalsList(List<Arrival> arrivalsList) {
         this.arrivalsList = arrivalsList;
+    }
+
+    /**
+     * Gets fully vaccinated list.
+     *
+     * @return the fully vaccinated list
+     */
+    public List<VaccineBulletin> getFullyVaccinatedList() {
+        return fullyVaccinatedList;
     }
 }

@@ -1,17 +1,20 @@
 package app.domain.model;
 
+import app.domain.shared.Constants;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.IllegalFormatCodePointException;
 
 /**
- * Has all the info about a scheduled Vaccine
+ * Has all the info about a Given Vaccine
  *
  * @author Gustavo Jorge <1211061@isep.ipp.pt>
  * @author Guilherme Sousa <1211073@isep.ipp.pt>
  */
 
 /**
- * The type Taken vaccine.
+ * The Bulletin is the object that is used to record the administration of a vaccine.
  */
 public class VaccineBulletin implements Serializable {
 
@@ -23,22 +26,29 @@ public class VaccineBulletin implements Serializable {
     /**
      * Date and Time of when the user took the last dose of the vaccine
      */
-    private LocalDateTime dateTimeOfLastDose;
+    private final LocalDateTime dateTimeOfLastDose;
 
     /**
      * Tracks the number of doses the user has taken so far
      */
     private int doseNumber;
 
-    private String lotNumber;
+    private final String lotNumber;
 
+    /**
+     * Instantiates a new Vaccine bulletin.
+     *
+     * @param vaccine   the vaccine
+     * @param dateTime  the date time
+     * @param doses     the doses
+     * @param lotNumber the lot number
+     */
     public VaccineBulletin(Vaccine vaccine, LocalDateTime dateTime, int doses, String lotNumber) {
         this.vaccine = vaccine;
         this.dateTimeOfLastDose = dateTime;
         this.doseNumber = doses;
         this.lotNumber = lotNumber;
     }
-
 
     /**
      * Gets vaccine the user took.
@@ -67,6 +77,11 @@ public class VaccineBulletin implements Serializable {
         return doseNumber;
     }
 
+    /**
+     * Gets lot number.
+     *
+     * @return the lot number
+     */
     public String getLotNumber() {
         return lotNumber;
     }
@@ -78,5 +93,16 @@ public class VaccineBulletin implements Serializable {
      */
     public void setDose(int doses) {
         this.doseNumber = doses;
+    }
+
+    /**
+     * Checks if it is the last dose.
+     *
+     * @param ageGroupIndex the age group index
+     * @return the boolean
+     */
+    public boolean isLastDose(int ageGroupIndex) {
+       int totalDoses = vaccine.getAdminProcess().getNumberOfDoses().get(ageGroupIndex);
+        return doseNumber == totalDoses;
     }
 }

@@ -4,8 +4,8 @@ import app.controller.RecordVaccineAdministrationController;
 import app.domain.shared.Constants;
 import app.ui.console.utils.Utils;
 import dto.SnsUserDto;
-import dto.VaccineBulletinDto;
 
+import java.io.IOException;
 import java.io.NotSerializableException;
 import java.util.Scanner;
 
@@ -20,7 +20,7 @@ public class RecordVaccineAdministrationUI implements Runnable {
 
     @Override
     public void run() {
-        // Start User Storie
+        // Start User Story
         vaccineAdministrationPrompt(Constants.VACCINE_ADMINISTRATION);
 
         // Select Vaccination Center
@@ -47,6 +47,11 @@ public class RecordVaccineAdministrationUI implements Runnable {
             try {
                 controller.exportDataToFile();
             } catch (NotSerializableException e) {
+                throw new RuntimeException(e);
+            }
+            try {
+                controller.printRecoveryTime();
+            } catch (IOException e) {
                 throw new RuntimeException(e);
             }
             vaccineAdministrationPrompt(Constants.END_VACCINATION);
@@ -115,6 +120,6 @@ public class RecordVaccineAdministrationUI implements Runnable {
             System.out.printf("%nIntroduce Lot Number: ");
             lotNumber = read.nextLine();
         } while (!controller.validateLotNumber(lotNumber));
-        controller.setLotnumber(lotNumber);
+        controller.setLotNumber(lotNumber);
     }
 }

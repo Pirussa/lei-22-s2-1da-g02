@@ -1,8 +1,6 @@
 package app.ui.gui;
 
 import app.controller.CheckAndExportVaccinationStatsController;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,16 +8,13 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.layout.Pane;
+import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 public class CheckAndExportVacStatsGUI {
 
@@ -30,19 +25,15 @@ public class CheckAndExportVacStatsGUI {
     private LocalDate lastDate;
 
     @FXML
-    private ListView<String> statsListView = new ListView<>();
-
-    @FXML
     private DatePicker firstDatePicker;
 
     @FXML
     private DatePicker lastDatePicker;
 
     @FXML
-    private Label selectLbl;
-
+    private Button okBtn;
     @FXML
-    private Pane mainMenuPane;
+    private TextArea askFileNameTxt;
 
     @FXML
     void getFirstDate(ActionEvent event) {
@@ -62,22 +53,16 @@ public class CheckAndExportVacStatsGUI {
     @FXML
     public void back(ActionEvent event) throws IOException {
         toCenterCoordinatorMenu(event);
-
     }
 
-    @FXML
-    public void backToMainScene(ActionEvent event) throws IOException {
-        toMainScene(event);
-    }
 
     public void checkStatistics(ActionEvent event) throws IOException {
         if (hasBothDates()) {
             switch (controller.checkIfDatesAreValid(firstDate, lastDate)) {
                 case 0:
 
-                     List<String> vaccinationStatsPerDay = controller.getVaccinationStats();
-
                     toCheckVaccinationStatsScene(event);
+
                     break;
                 case 1:
                     Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -114,8 +99,31 @@ public class CheckAndExportVacStatsGUI {
         }
     }
 
-    public void exportStatistics(ActionEvent event) {
+    public void exportStatistics(ActionEvent event)   {
+        String fileName = askFileNameTxt.getText();
+        if (!fileName.isEmpty()){
+            if (controller.exportVaccinationStats(fileName,firstDate,lastDate)){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Success");
+                alert.setContentText("The statistics were exported successfully");
+                alert.showAndWait();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setContentText("The statistics were not exported successfully");
+                alert.showAndWait();
+            }
+        }else{
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setContentText("Please enter a file name");
+            alert.showAndWait();
+        }
+    }
 
+    public void exportStatisticsOption(ActionEvent event) {
+        askFileNameTxt.setVisible(true);
+        okBtn.setVisible(true);
     }
 
     private void toCheckVaccinationStatsScene(ActionEvent event) throws IOException {
@@ -124,19 +132,11 @@ public class CheckAndExportVacStatsGUI {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+
     }
 
     private void toCenterCoordinatorMenu(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/center-coordinator-menu.fxml"));
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-
-    }
-
-    private void toMainScene(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/check-export-vac-stats-ui.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);

@@ -5,6 +5,7 @@ import dto.*;
 import mapper.ScheduledVaccineMapper;
 import pt.isep.lei.esoft.auth.AuthFacade;
 import org.apache.commons.lang3.StringUtils;
+import pt.isep.lei.esoft.auth.domain.model.Email;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -56,7 +57,7 @@ public class Company implements Serializable {
     /**
      * List that stores the Center Coordinators
      */
-    private ArrayList<Employee> centreCoordinatorList = new ArrayList<>();
+    private ArrayList<Employee> centerCoordinatorList = new ArrayList<>();
 
 
     /**
@@ -252,7 +253,7 @@ public class Company implements Serializable {
      * Gets the list of all Center Coordinators, copies it and fills it with only the IDs, only adds IDs if those aren't already inside the list.
      */
     public void centerCoordinatorIDList() {
-        ArrayList<Employee> centerCoordinators = getCentreCoordinatorList();
+        ArrayList<Employee> centerCoordinators = getCenterCoordinatorList();
         for (int i = 0; i < centerCoordinators.size(); i++) {
             if (!(centerCoordinatorIDs.contains(centerCoordinators.get(i).getId()))) {
                 centerCoordinatorIDs.add(centerCoordinators.get(i).getId());
@@ -391,7 +392,7 @@ public class Company implements Serializable {
                 fillListOfEmployeesChecker(emp, positionArrayListEmployees, check, receptionistList);
 
             } else if (emp.get(positionArrayListEmployees) instanceof CenterCoordinator) {
-                fillListOfEmployeesChecker(emp, positionArrayListEmployees, check, centreCoordinatorList);
+                fillListOfEmployeesChecker(emp, positionArrayListEmployees, check, centerCoordinatorList);
             }
         }
     }
@@ -433,9 +434,9 @@ public class Company implements Serializable {
      *
      * @return An ArrayList of Centre Coordinator.
      */
-    public ArrayList<Employee> getCentreCoordinatorList() {
+    public ArrayList<Employee> getCenterCoordinatorList() {
         fillListOfEmployeesWithAGivenRole();
-        return centreCoordinatorList;
+        return centerCoordinatorList;
     }
 
     //START
@@ -560,11 +561,31 @@ public class Company implements Serializable {
         try {
             FileWriter out = new FileWriter(file, true);
             for (int vaccinationCenterListPosition = 0; vaccinationCenterListPosition < getVaccinationCenters().size(); vaccinationCenterListPosition++) {
-                out.write(LocalDate.now() + "," + getVaccinationCenters().get(vaccinationCenterListPosition) + "," + getVaccinationCenters().get(vaccinationCenterListPosition).getVaccineBulletinsAllUsers().size() + "\n");
+                out.write(LocalDate.now() + "," + getVaccinationCenters().get(vaccinationCenterListPosition) + "," + getVaccinationCenters().get(vaccinationCenterListPosition).getVaccinesAdministered().size() + "\n");
             }
             out.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public VaccinationCenter getVaccinationCenterAssociatedToCoordinator(String coordinatorId) {
+        for (VaccinationCenter vaccinationCenter : getVaccinationCenters()) {
+            if (vaccinationCenter.getStrCenterCoordinatorID().equals(coordinatorId)) {
+                return vaccinationCenter;
+            }
+        }
+        return null;
+    }
+
+    public String getCoordinatorId(Email email) {
+
+        for (Employee centerCoordinator : getEmployees()) {
+            if (email.toString().equals(centerCoordinator.getEmail())) {
+                return centerCoordinator.getId();
+            }
+        }
+
+        return "";
     }
 }
