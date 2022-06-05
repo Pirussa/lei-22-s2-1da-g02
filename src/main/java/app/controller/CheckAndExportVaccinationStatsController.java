@@ -89,11 +89,7 @@ public class CheckAndExportVaccinationStatsController {
             writer = new PrintWriter(file);
             writer.format("%s,%s\n", "Date", "Total");
 
-
-            for (String stat :getVaccinationStatsListBetweenDates(firstDate,lastDate) ) {
-                writer.format("%s\n", stat);
-            }
-            writer.close();
+            writer.format("teste123");
         } catch (Exception FileNotFoundException) {
             return false;
         } finally {
