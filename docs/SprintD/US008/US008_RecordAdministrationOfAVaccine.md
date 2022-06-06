@@ -69,8 +69,6 @@ There is a dependency to the US001 and US002, because it is required a scheduled
 
 ### 1.6. System Sequence Diagram (SSD)
 
-**Alternative 1**
-
 ![US008_SSD](US008_SSD.svg)
 
 ### 1.7 Other Relevant Remarks
@@ -90,22 +88,48 @@ There is a dependency to the US001 and US002, because it is required a scheduled
 
 ### 3.1. Rationale
 
-**SSD - Alternative 1 is adopted.**
+| *Interaction ID* | *Question: Which class is responsible for...*                                                             | *Answer*                               | *Justification (with patterns)*                                                                                                                                                        |
+|:-----------------|:----------------------------------------------------------------------------------------------------------|:---------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Step 1           | ... showing the list with all the vaccination centers available                                           | RecordVaccineAdministrationUI          | **Pure Fabrication:** There is no reason to assign this responsibility to any existing class in the Domain Model.                                                                      |
+| 			  		          | ... disponibilize the previous list to the RecordVaccineAdministrationUI                                  | RecordVaccineAdministrationController  | **Controller:** Act as a mediator between the UI and the Model. Has the responsibility of controlling the data transmission between both. It maps the user action into model updates   |
+| 			  		          | ... disponibilize the previous list to the RecordVaccineAdministrationController                          | Company                                | **IE:** The Company knows all of it's Vaccination Centers                                                                                                                              |
+|                  | ...saving the selected vaccination center                                                                 | RecordVaccineAdministrationController  | **IE:** The controller needs to know the selected Vaccination Center throughout the whole process of adminitration of a Vaccine                                                        |
+| Step 2           | ... showing the list with all the users available in the waiting room for the selected vaccination center | RecordVaccineAdministrationUI          | **Pure Fabrication:** There is no reason to assign this responsibility to any existing class in the Domain Model                                                                       |
+| 			  		          | ... disponibilize the previous list to the RecordVaccineAdministrationUI                                  | RecordVaccineAdministrationController  | **Controller:** Act as a mediator between the UI and the Model. Has the responsibility of controlling the data transmission between both. It maps the user action into model updates   |
+| 			  		          | ... disponibilize the previous list to the RecordVaccineAdministrationController                          | VaccinationCenter                      | **IE:** The Vaccination Center knows all of it's users in the waiting room                                                                                                             |
+|                  | ...saving the selected user                                                                               | RecordVaccineAdministrationController  | **IE:** The controller needs to know the selected user throughout the whole process of adminitration of a Vaccine                                                                      |
+| Step 3           | ... showing the list with all the Vaccines available for the selected vaccination center                  | RecordVaccineAdministrationUI          | **Pure Fabrication:** There is no reason to assign this responsibility to any existing class in the Domain Model.                                                                      |
+| 			  		          | ... disponibilize the previous list to the RecordVaccineAdministrationUI                                  | RecordVaccineAdministrationController  | **Controller:** Act as a mediator between the UI and the Model. Has the responsibility of controlling the data transmission between both. It maps the user action into model updates   |
+| 			  		          | ... disponibilize the previous list to the RecordVaccineAdministrationController                          | Company                                | **IE:** The Company knows all Vaccines that can be administered                                                                                                                        |
+| 			  		          | ... disponibilize the selected user age to the RecordVaccineAdministrationController                      | Sns User                               | **IE/HCLC:** The user knows his own age and we can assign this responsabiltie for himself                                                                                              |
+| 			  		          | ... saving the selected vaccine                                                                           | RecordVaccineAdministrationController  | **IE:** The controller needs to know the selected vaccine throughout the whole process of adminitration of a Vaccine                                                                   |
+| Step 4           | ... showing the dosage for vaccine current dose                                                           | RecordVaccineAdministrationUI          | **Pure Fabrication:** There is no reason to assign this responsibility to any existing class in the Domain Model                                                                       |
+| 			  		          | ... disponibilize the dosage to the RecordVaccineAdministrationUI                                         | RecordVaccineAdministrationController  | **Controller:** Act as a mediator between the UI and the Model. Has the responsibility of controlling the data transmission between both. It maps the user action into model updates   |
+| 			  		          | ... disponibilize the dosage to the ScheduleVaccineController                                             | AdministrationProcess                  | **IE:** The Sns User knows it's taken vaccines and all the personal information about himself, therefore the last dose of the selected vaccine                                         |
+| Step 5           | ... request data (selected vaccine lot number)                                                            | n/a                                    |                                                                                                                                                                                        |
+| Step 6           | ... validating data (selected vaccine lot number)                                                         | Vaccination Center                     | **IE:** The Vaccination Center knows the valid format of a lot number                                                                                                                  |
+| Step 7           | ...transfer the selected and typed in the UI to the domain?                                               | VaccineBulletinDto                     | **DTO:** When there is so much data to transfer, it is better to opt by using a DTO in order to reduce coupling between UI and domain                                                  |
+| Step 8           | ... record vaccine administration                                                                         | RecordVaccineAdministrationController  | **Controller:** Act as a mediator between the UI and the Model. Has the responsibility of controlling the data transmission between both. It maps the user action into model updates   |
+| 			  		          | ... instantiating an administered vaccine?                                                                | VaccineBulletinMapper                  | **Creator:**, the "VaccineBulletinMapper" closely uses the Vaccine Bulletin (R3),                                                                                                      |
+|                  | ...saving the administration of the vaccine?                                                              | VaccineBulletinList                    | **IE:** A list with all the taken vaccines by the user.                                                                                                                                |
+| Step 11          | ... printing the SMS information to a file (when recovery time finishes)                                  | RecordVaccineAdministrationController  | **Controller:** act as a mediator between the UI and the Model. Has the responsibility of controlling the data transmission between both. It maps the user action into model updates.  |
 
-| *Interaction ID* | *Question: Which class is responsible for...* | *Answer*  | *Justification (with patterns)*  |
-|:-------------  |:--------------------- |:------------|:---------------------------- |
-| Step 1  		 |	... interacting with the actor?	 |       RecordVaccineAdministrationUI      |    *Pure Fabrication:* The UI class is responsible for the direct interaction with the user through the controller and the different other implemented classes. | Step 2  		 |							 |             |                              |
-| |... coordinating the US? | RecordVaccineAdministrationUController| *Controller:* Intermediary between the UI and the Domain Model, and as its name says, controls the information that is transferred between both of them. | |
 ### Systematization ##
 
 According to the taken rationale, the conceptual classes promoted to software classes are: 
 
- *
+ * Vaccine Bulletin
 
 Other software classes (i.e. Pure Fabrication) identified: 
 
- * RecordVaccineAdministrationUI  
- * RecordVaccineAdministrationUController
+* RecordVaccineAdministrationUI
+* RecordVaccineAdministrationController
+* VaccineBulletinDto
+* VaccineBulletinMapper
+* Vaccine
+* Sns User
+* Administration Process
+* Company
 
 
 ## 3.2. Sequence Diagram (SD)
