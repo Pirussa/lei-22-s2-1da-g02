@@ -42,20 +42,39 @@ public class RecordVaccineAdministrationController {
     public RecordVaccineAdministrationController() {
     }
 
-    // Set Methods, allow the controller to always have these objects
+    /**
+     * Sets vaccination center.
+     *
+     * @param index the index
+     */
     public void setVaccinationCenter(int index) {
         vaccinationCenter = company.getVaccinationCenters().get(index);
     }
 
+    /**
+     * Sets sns user.
+     *
+     * @param snsUserDto the sns user dto
+     */
     public void setSnsUser(SnsUserDto snsUserDto) {
         SnsUserMapper snsUserMapper = new SnsUserMapper();
         snsUser = snsUserMapper.SNSUserDtoToDomain(snsUserDto);
     }
 
+    /**
+     * Sets vaccine type.
+     *
+     * @param userIndexInList the user index in list
+     */
     public void setVaccineType(int userIndexInList) {
         vaccineType = arrivalsVaccination.get(userIndexInList).getVaccineType();
     }
 
+    /**
+     * Sets vaccine.
+     *
+     * @param currentAppointment the current appointment
+     */
     public void setVaccine(int currentAppointment) {
         if (!snsUser.administratedVaccines().isEmpty())
             vaccine = snsUser.administratedVaccines().get(currentAppointment).getVaccine();
@@ -63,10 +82,19 @@ public class RecordVaccineAdministrationController {
             vaccine = vaccineTypeAvailableVaccines().get(currentAppointment);
     }
 
+    /**
+     * Sets lot number.
+     *
+     * @param setLotNumber the set lot number
+     */
     public void setLotNumber(String setLotNumber) {
         lotNumber = setLotNumber;
     }
 
+
+    /**
+     * Sets local date time.
+     */
     public void setLocalDateTime() {
         localDateTime = LocalDateTime.now();
     }
@@ -74,11 +102,19 @@ public class RecordVaccineAdministrationController {
     // Functionalities
 
 
-    // Get lists of some sort
+    /**
+     * Sets arrival list.
+     */
     public void setArrivalList() {
         arrivalsVaccination = new ArrayList<>(vaccinationCenter.getArrivalsList());
     }
 
+
+    /**
+     * Vaccine type available vaccines list.
+     *
+     * @return the list with the available vaccines for vaccine type
+     */
     public List<Vaccine> vaccineTypeAvailableVaccines() {
         ArrayList<Vaccine> vaccinesAvailable = new ArrayList<>();
         for (int index = 0; index < company.getVaccinesList().size(); index++) {
@@ -89,6 +125,12 @@ public class RecordVaccineAdministrationController {
         return vaccinesAvailable;
     }
 
+
+    /**
+     * Vaccine available name list.
+     *
+     * @return the list of vaccine names for appointment vaccine type
+     */
     public List<String> vaccineAvailableName() {
         ArrayList<String> vaccinesAvailable = new ArrayList<>();
         for (int index = 0; index < company.getVaccinesList().size(); index++) {
@@ -99,13 +141,25 @@ public class RecordVaccineAdministrationController {
         return vaccinesAvailable;
     }
 
+
+    /**
+     * Fill list with user sns number list.
+     *
+     * @return the list containing sns users sns number
+     */
     public List<String> fillListWithUserSnsNumber() {
         ArrayList<String> userSnsNumber = new ArrayList<>();
         for (Arrival arrival : arrivalsVaccination) userSnsNumber.add("SNS Number - " + arrival.getSnsNumber());
         return userSnsNumber;
     }
 
-    // Sns User related
+
+    /**
+     * Gets sns user information.
+     *
+     * @param selectedUser the selected user in the waiting room list
+     * @return the sns user information as Dto
+     */
     public SnsUserDto getSnsUserInformation(int selectedUser) {
         SnsUserMapper snsUserMapper = new SnsUserMapper();
         return snsUserMapper.domainToSNSUserDto(company.getSnsUserList().get(snsUserIndexInList(selectedUser)));
@@ -120,6 +174,13 @@ public class RecordVaccineAdministrationController {
         return Constants.INVALID_VALUE;
     }
 
+
+    /**
+     * Check if user fits into any of the available vaccines age group
+     *
+     * @param indexVaccine selected vaccine index in vaccines list
+     * @return the age grouop he fits
+     */
     public int userFirstDoseAgeGroup(int indexVaccine) {
         int userAge = snsUser.getUserAge();
         ArrayList<Vaccine> vaccines = (ArrayList<Vaccine>) vaccineTypeAvailableVaccines();
@@ -134,10 +195,14 @@ public class RecordVaccineAdministrationController {
     }
 
 
+    /**
+     * Remove selected user from list.
+     *
+     * @param index the index of the user in the waiting room list
+     */
     public void removeUserFromList(int index) {
         vaccinationCenter.getArrivalsList().remove(index);
     }
-    // Vaccine/Vaccine Type related
 
     /**
      * Gets user number of doses, for a given vaccine type.
@@ -150,6 +215,12 @@ public class RecordVaccineAdministrationController {
         return Constants.FIRST_DOSE;
     }
 
+
+    /**
+     * Find last dose of the vaccine type of the appointment.
+     *
+     * @return the index of the last taken vaccine, since it contains the number of doses taken by each vaccine type
+     */
     public int findLastDoseOfVaccineType() {
         for (int index = snsUser.administratedVaccines().size() - 1; index >= 0; index--) {
             if (vaccineType.equals(snsUser.administratedVaccines().get(index).getVaccine().getVaccineType()))
@@ -169,18 +240,45 @@ public class RecordVaccineAdministrationController {
 
     }
 
+
+    /**
+     * Get dosage for respective dose vaccine administration process.
+     *
+     * @param numberOfDoses the number of doses taken already by the user
+     * @param indexVaccine  the index of the selected vaccine in vaccines list
+     * @return dosage for respective dose.
+     */
     public String vaccineAdministrationProcess(int numberOfDoses, int indexVaccine) {
         return "Dosage: " + dosageForDose(numberOfDoses, indexVaccine) + "ml";
     }
 
+
+    /**
+     * Vaccine type Code for appointment vaccine type.
+     *
+     * @return the vaccine type code
+     */
     public String vaccineTypeInfo() {
         return "Vaccine Type: " + vaccineType.getCode();
     }
 
+
+    /**
+     * Vaccine name for selected vaccine or for previously took vaccine.
+     *
+     * @return the vaccine name
+     */
     public String vaccineInfo() {
         return "Vaccine: " + vaccine.getName();
     }
 
+
+    /**
+     * Validate vaccine´s lot number.
+     *
+     * @param lotNumber the vaccine´s lot number
+     * @return true if vaccine´s lot number is validated
+     */
     public boolean validateLotNumber(String lotNumber) {
         String numbers = "(.*\\d.*)";
         String upperCaseChars = "(.*[A-Z].*)";
@@ -208,6 +306,10 @@ public class RecordVaccineAdministrationController {
         return vaccineBulletinDto;
     }
 
+
+    /**
+     * Register vaccine in vaccine bulletin.
+     */
     public void registerVaccineInVaccineBulletin() {
         VaccineBulletinMapper vaccineBulletinMapper = new VaccineBulletinMapper();
 
@@ -218,6 +320,11 @@ public class RecordVaccineAdministrationController {
         snsUser.registerVaccine(vaccineBulletinMapper.VaccineBulletinDtoToDomain(snsUserAddVaccineBulletin()));
     }
 
+    /**
+     * Check if arrivals list is or not empty.
+     *
+     * @return true if the arrivals list is not empty
+     */
     public boolean checkIfArrivalsListEmpty() {
         return !vaccinationCenter.getArrivalsList().isEmpty();
     }
@@ -235,7 +342,6 @@ public class RecordVaccineAdministrationController {
 
     /**
      * Exports the list of Vaccine Bulletins to a binary file.
-     *
      */
     public void exportDataToFile() throws NotSerializableException {
         genericClass.binaryFileWrite(Constants.FILE_PATH_VACCINE_BULLETIN, snsUser.administratedVaccines());
