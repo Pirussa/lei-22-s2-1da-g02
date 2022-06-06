@@ -34,7 +34,7 @@ activate C
 deactivate C
 deactivate CTRL
 
-UI -> CTRL : setArrivalsList = getArrivalsList()
+UI -> CTRL : setArrivalsList = vaccinationCenter.getArrivalsList()
 activate CTRL
 CTRL -> VC : arrivalsList = getArrivalsList()
 
@@ -49,7 +49,7 @@ N -> UI : selects one user
 activate UI
 UI -> CTRL : setVaccineType(arrivalsListUserIndex)
 activate CTRL
-CTRL -> CTRL : doseNumber = findLastDoseOfVaccineType
+CTRL -> CTRL : doseNumber = findLastDoseOfVaccineType()
 alt It´s user´s first dose
 UI -> CTRL : vaccineList = getVaccineNameList()
 CTRL -> C : vaccineList = getVaccineList()
