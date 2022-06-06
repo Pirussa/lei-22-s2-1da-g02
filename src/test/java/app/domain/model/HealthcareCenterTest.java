@@ -66,20 +66,6 @@ class HealthcareCenterTest {
         assertFalse(hc.validateWebsite("wwwkajshdj.com",strTopLevelDomain,"www."));
     }
 
-    /**
-     * Verifies email possibilities
-     */
-    @Test
-    void validateEmail() {
-        strVaccineTypeTest.add(new VaccineType("AAAAA","test123","tech1" ));
-        strVaccineTypeTest.add(new VaccineType("ASDWR","test123","tech1" ));
-        HealthcareCenter hc = new HealthcareCenter("HC-2132","asdad","933398881","hasjd-2131@gmail.com",
-                "933398881","www.akhjd.pt","5","9","123","133","ajkshd",
-                "7337-111","kahjsda","CC-1234","asd1ad","ad", strVaccineTypeTest);
-        assertTrue(hc.validateEmail("skajdhkaj@gmail.com"));
-        assertTrue(hc.validateEmail("skajdhkaj@isep.ipp.pt"));
-        assertFalse(hc.validateEmail("skajdhkaj@gmail"));
-    }
 
     /**
      * Verifies Phone/Fax Number possibilities

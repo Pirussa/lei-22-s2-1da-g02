@@ -49,16 +49,7 @@ class MassVaccinationCenterTest {
         assertFalse(mvc.validateWebsite("wwwkajshdj.com",strTopLevelDomain,"www."));
     }
 
-    /**
-     * Verifies email possibilities
-     */
-    @Test
-    void validateEmail() {
-        assertTrue(mvc.validateEmail("skajdhkaj@gmail.com"));
-        assertTrue(mvc.validateEmail("skajdhkaj@isep.ipp.pt"));
-        assertFalse(mvc.validateEmail("skajdhkaj@gmail"));
 
-    }
 
     /**
      * Verifies Phone/Fax Number possibilities
