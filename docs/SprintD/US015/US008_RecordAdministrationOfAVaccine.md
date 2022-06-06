@@ -108,7 +108,10 @@ There is a dependency with US008, as it is required to have the necessary inform
 
 ### 2.2. Other Remarks
 
-> *_There aren't any other relevant remarks._*
+> VaccinationStatistics represents the statistics of the vaccination process.
+> By the VaccinationStatistics we get the total number of fully vaccinated users per day, in a center.
+> The same center can have several statistics, as the Center Coordinator can check and export statistics for different time intervals.
+> Per example: the Center Coordinator can check the statistics from day 1 to 10 of a month, and then export the statistics from day 10 to 20 of the next month. Therefore, those are different statistics.
 
 
 ## 3. Design - User Story Realization 
