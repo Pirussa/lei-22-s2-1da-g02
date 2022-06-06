@@ -581,7 +581,7 @@ public class Company implements Serializable {
     public String getCoordinatorId(Email email) {
 
         for (Employee centerCoordinator : getEmployees()) {
-            if (email.toString().equals(centerCoordinator.getEmail())) {
+            if (email.equals(centerCoordinator.getEmail())) {
                 return centerCoordinator.getId();
             }
         }

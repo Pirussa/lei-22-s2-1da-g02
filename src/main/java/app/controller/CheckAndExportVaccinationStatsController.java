@@ -1,6 +1,7 @@
 package app.controller;
 
 import app.domain.model.*;
+import app.ui.console.utils.Utils;
 import pt.isep.lei.esoft.auth.domain.model.Email;
 
 import java.io.File;
@@ -26,7 +27,7 @@ public class CheckAndExportVaccinationStatsController {
     private VaccinationCenter center;
 
     private void setCenter(){
-        String id = getLoggedCoordinatorId();
+        String id = Utils.getLoggedCoordinatorId();
         center = getVaccinationCenterAssociatedToCoordinator(id);
     }
 
@@ -36,7 +37,6 @@ public class CheckAndExportVaccinationStatsController {
      * @return the vaccination stats
      */
     private List<String> getVaccinationStatsList() {
-        assert center != null;
         List<String> vaccinationStats = new ArrayList<>();
         List<VaccineBulletin> listFullyVaccinated= center.getVaccinesAdministeredList();
         LocalDate lastDay = getFirstDateAvailable(listFullyVaccinated);
@@ -60,7 +60,7 @@ public class CheckAndExportVaccinationStatsController {
         List<String> statsBetweenDates = new ArrayList<>();
 
         for (String dailyStat: dailyStats) {
-            String[] dailyStatArray = dailyStat.split(",");
+            String[] dailyStatArray = dailyStat.split(";");
             LocalDate date = LocalDate.parse(dailyStatArray[0]);
             if (date.isAfter(firstDate) && date.isBefore(lastDate)) {
                 statsBetweenDates.add(dailyStat);
@@ -136,11 +136,6 @@ public class CheckAndExportVaccinationStatsController {
         return null;
     }
 
-    private String getLoggedCoordinatorId() {
-        Email email = company.getAuthFacade().getCurrentUserSession().getUserId();
-
-        return company.getCoordinatorId(email);
-    }
 }
 
 

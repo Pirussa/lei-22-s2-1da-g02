@@ -789,4 +789,11 @@ public class Utils {
             listToBeFilled.add(listFromFile.get(listPosition));
         }
     }
+
+    public static String getLoggedCoordinatorId() {
+        Email email = company.getAuthFacade().getCurrentUserSession().getUserId();
+
+        return company.getCoordinatorId(email);
+    }
+
 }
