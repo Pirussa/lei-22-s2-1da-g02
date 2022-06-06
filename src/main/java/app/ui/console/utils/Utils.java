@@ -4,8 +4,6 @@ import app.controller.*;
 import app.domain.model.*;
 import app.domain.shared.Constants;
 import app.domain.shared.GenericClass;
-import dto.MassVaccinationCenterDto;
-import dto.RegisterNewEmployeeDto;
 import pt.isep.lei.esoft.auth.domain.model.Email;
 
 import java.io.*;
@@ -30,9 +28,13 @@ public class Utils {
     private static final Company company = App.getInstance().getCompany();
 
 
-    private static void bootstrapEmployees() {company.readBinaryFileEmployees();}
+    private static void bootstrapEmployees() {
+        company.readBinaryFileEmployees();
+    }
 
-    private static void bootstrapVaccineTypes() {company.readBinaryFileVaccineTypes();}
+    private static void bootstrapVaccineTypes() {
+        company.readBinaryFileVaccineTypes();
+    }
 
     private static void bootstrapVaccinationCenters() {
         company.readBinaryFileCenters();
@@ -42,34 +44,19 @@ public class Utils {
         company.readBinaryFileSnsUsers();
     }
 
-    private static void bootstrapVaccines() { company.readBinaryFileVaccines(); }
+    private static void bootstrapVaccines() {
+        company.readBinaryFileVaccines();
+    }
 
     private static void bootstrapScheduledAppointments() {
-        for (VaccinationCenter center: company.getVaccinationCenters()) {
-            center.readBinaryFilesAppointments();}
-        }
-
-
-
-    private static void bootstrapVaccineBulletin() {
-
-        GenericClass<VaccineBulletin> genericsClass = new GenericClass<>();
-        try {
-            for (VaccinationCenter vaccinationCenter : company.getVaccinationCenters()) {
-                genericsClass.binaryFileRead(Constants.FILE_PATH_ARRIVALS, vaccinationCenter.getVaccinesAdministeredList());
-                for (VaccineBulletin vaccineBulletin : vaccinationCenter.getVaccinesAdministeredList()) {
-                    System.out.println(vaccineBulletin);
-                }
-            }
-        } catch (EOFException e) {
-            e.printStackTrace();
+        for (VaccinationCenter center : company.getVaccinationCenters()) {
+            center.readBinaryFilesAppointments();
         }
     }
 
-
-
-
-
+    private static void bootstrapAdministeredVaccines() {
+        company.readBinaryFileVaccineBulletins();
+    }
 
     private static void bootstrapArrivals() {
         GenericClass<Arrival> genericsClass = new GenericClass<>();
@@ -96,7 +83,7 @@ public class Utils {
         bootstrapSnsUsers();
         bootstrapScheduledAppointments();
         bootstrapArrivals();
-        bootstrapVaccineBulletin();
+        bootstrapAdministeredVaccines();
     }
 
     /**

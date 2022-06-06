@@ -30,6 +30,7 @@ public class Company implements Serializable {
     private final String designation;
     private final transient AuthFacade authFacade;
 
+    public final GenericClass<VaccineBulletin> genericsVaccineBulletin = new GenericClass<>();
     private final GenericClass<Vaccine> genericsVaccine = new GenericClass<>();
     private final GenericClass<SnsUser> genericsSnsUsers = new GenericClass<>();
     private final GenericClass<VaccinationCenter> genericsCenters = new GenericClass<>();
@@ -660,6 +661,9 @@ public class Company implements Serializable {
         }
     }
 
+    /**
+     * Read binary file sns users.
+     */
     public void readBinaryFileSnsUsers() {
         try {
             genericsSnsUsers.binaryFileRead(Constants.FILE_PATH_SNS_USERS, snsUsersList);
@@ -668,6 +672,9 @@ public class Company implements Serializable {
         }
     }
 
+    /**
+     * Read binary file vaccines.
+     */
     public void readBinaryFileVaccines() {
         try {
             genericsVaccine.binaryFileRead(Constants.FILE_PATH_VACCINES, vaccinesList);
@@ -676,6 +683,14 @@ public class Company implements Serializable {
         }
     }
 
-
+    public void readBinaryFileVaccineBulletins() {
+        try {
+            for (VaccinationCenter vaccinationCenter : vaccinationCenters) {
+                    genericsVaccineBulletin.binaryFileRead(Constants.FILE_PATH_VACCINE_BULLETIN, vaccinationCenter.getVaccinesAdministeredList());
+            }
+        } catch (EOFException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

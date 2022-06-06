@@ -104,6 +104,11 @@ public class LoginMenuGUI {
     }
 
 
+    /**
+     * Does the logout.
+     *
+     * @param event the event
+     */
     public void logout(ActionEvent event) {
         controller.doLogout();
     }

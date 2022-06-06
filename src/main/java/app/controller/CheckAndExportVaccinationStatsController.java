@@ -55,6 +55,13 @@ public class CheckAndExportVaccinationStatsController {
         return vaccinationStats;
     }
 
+    /**
+     * Get vaccination stats list between dates list.
+     *
+     * @param firstDate the first date
+     * @param lastDate  the last date
+     * @return the list
+     */
     public List<String>getVaccinationStatsListBetweenDates(LocalDate firstDate, LocalDate lastDate){
         List<String> dailyStats = getVaccinationStatsList();
         List<String> statsBetweenDates = new ArrayList<>();
@@ -77,9 +84,11 @@ public class CheckAndExportVaccinationStatsController {
     /**
      * Export vaccination stats boolean.
      *
+     * @param fileName  the file name
+     * @param firstDate the first date
+     * @param lastDate  the last date
      * @return true if the export was done successfully
      */
-
     public boolean exportVaccinationStats(String fileName,LocalDate firstDate, LocalDate lastDate) {
         fileName = fileName + ".csv";
         File file = new File(fileName);

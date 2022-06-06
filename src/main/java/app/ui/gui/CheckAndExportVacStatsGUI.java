@@ -16,6 +16,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.time.LocalDate;
 
+/**
+ * The type Check and export vac stats gui.
+ */
 public class CheckAndExportVacStatsGUI {
 
     private final CheckAndExportVaccinationStatsController controller = new CheckAndExportVaccinationStatsController();
@@ -35,25 +38,52 @@ public class CheckAndExportVacStatsGUI {
     @FXML
     private TextArea askFileNameTxt;
 
+    /**
+     * Gets the first date.
+     *
+     * @param event the event
+     */
     @FXML
     void getFirstDate(ActionEvent event) {
         firstDate = firstDatePicker.getValue();
     }
 
+    /**
+     * Gets the last date.
+     *
+     * @param event the event
+     */
     @FXML
     void getLastDate(ActionEvent event) {
         lastDate = lastDatePicker.getValue();
     }
 
+    /**
+     * Checks if both dates were selected.
+     *
+     * @return the boolean
+     */
     boolean hasBothDates() {
         return firstDate != null && lastDate != null;
     }
 
+    /**
+     * Goes to the previous scene.
+     *
+     * @param event the event
+     * @throws IOException the io exception
+     */
     @FXML
     public void back(ActionEvent event) throws IOException {
         toCenterCoordinatorMenu(event);
     }
 
+    /**
+     * Check statistics.
+     *
+     * @param event the event
+     * @throws IOException the io exception
+     */
     public void checkStatistics(ActionEvent event) throws IOException {
         if (hasBothDates()) {
             switch (controller.checkIfDatesAreValid(firstDate, lastDate)) {
@@ -96,6 +126,11 @@ public class CheckAndExportVacStatsGUI {
         }
     }
 
+    /**
+     * Export statistics.
+     *
+     * @param event the event
+     */
     public void exportStatistics(ActionEvent event) {
 
 
@@ -120,6 +155,11 @@ public class CheckAndExportVacStatsGUI {
         }
     }
 
+    /**
+     * Export statistics option.
+     *
+     * @param event the event
+     */
     public void exportStatisticsOption(ActionEvent event) {
         if (hasBothDates()) {
             switch (controller.checkIfDatesAreValid(firstDate, lastDate)) {

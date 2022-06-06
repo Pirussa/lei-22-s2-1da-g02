@@ -13,6 +13,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * The type Center coordinator gui.
+ */
 public class CenterCoordinatorGUI {
 
     private final LoginMenuGUI loginMenuGUI = new LoginMenuGUI();
@@ -22,6 +25,11 @@ public class CenterCoordinatorGUI {
     @FXML
     private Pane tittlePane;
 
+    /**
+     * Not implemented yet.
+     *
+     * @param event the event
+     */
     @FXML
     void notImplementedYet(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -31,6 +39,12 @@ public class CenterCoordinatorGUI {
 
     }
 
+    /**
+     * Logout.
+     *
+     * @param event the event
+     * @throws IOException the io exception
+     */
     @FXML
     public void logout(ActionEvent event) throws IOException {
         loginMenuGUI.logout(event);
@@ -47,6 +61,12 @@ public class CenterCoordinatorGUI {
     }
 
 
+    /**
+     * Check and export stats.
+     *
+     * @param event the event
+     * @throws IOException the io exception
+     */
     public void checkAndExportStats(ActionEvent event) throws IOException {
         toCheckAndExportStatsGUI(event);
 

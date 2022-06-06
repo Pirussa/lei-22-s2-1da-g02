@@ -1,5 +1,6 @@
 package app.domain.model;
 
+import app.controller.App;
 import app.domain.shared.Constants;
 import app.domain.shared.GenericClass;
 import app.ui.console.utils.Utils;
@@ -23,6 +24,7 @@ import java.util.List;
  */
 public class VaccinationCenter implements Serializable {
 
+
     private final GenericClass<ScheduledVaccine> genericsSchedules = new GenericClass<>();
     private final String strID;
     private final String strName;
@@ -38,6 +40,7 @@ public class VaccinationCenter implements Serializable {
     private final String strZipCode;
     private final String strLocal;
     private final String strCenterCoordinatorID;
+    private final GenericClass<VaccineBulletin> genericsVaccineBulletin = App.getInstance().getCompany().genericsVaccineBulletin;
     private List<ScheduledVaccine> scheduledVaccineList = new ArrayList<>();
     private List<Arrival> arrivalsList = new ArrayList<>();
     private final List<VaccineBulletin> vaccinesAdministeredList = new ArrayList<>();
@@ -624,6 +627,9 @@ public class VaccinationCenter implements Serializable {
     }
 
 
+    /**
+     * Read binary files appointments.
+     */
     public void readBinaryFilesAppointments() {
         try {
             genericsSchedules.binaryFileRead(Constants.FILE_PATH_APPOINTMENTS, scheduledVaccineList);
@@ -631,4 +637,9 @@ public class VaccinationCenter implements Serializable {
             e.printStackTrace();
         }
     }
+
+   public void addAdministeredVaccine(VaccineBulletin newAdministration){
+        vaccinesAdministeredList.add(newAdministration);
+       genericsVaccineBulletin.binaryFileWrite(Constants.FILE_PATH_VACCINE_BULLETIN, vaccinesAdministeredList);
+   }
 }

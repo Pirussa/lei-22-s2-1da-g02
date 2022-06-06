@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class AuthController {
 
-    private App app;
+    private final App app;
 
     public AuthController() {
         this.app = App.getInstance();
@@ -33,6 +33,9 @@ public class AuthController {
         return null;
     }
 
+    /**
+     * Do logout.
+     */
     public void doLogout() {
         this.app.doLogout();
     }

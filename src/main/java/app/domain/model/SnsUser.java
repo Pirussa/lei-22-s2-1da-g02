@@ -5,6 +5,7 @@ package app.domain.model;
  * @author João Castro <1210816@isep.ipp.pt>
  */
 
+import app.domain.shared.GenericClass;
 import app.ui.console.utils.Utils;
 
 import pt.isep.lei.esoft.auth.AuthFacade;
@@ -186,6 +187,12 @@ public class SnsUser implements Serializable {
         return zipCode.length() == 8 && zipCode.charAt(4) == '-';
     }
 
+    /**
+     * Validate address simple boolean.
+     *
+     * @param strAddress the str address
+     * @return the boolean
+     */
     public static boolean validateAddressSimple(String strAddress) {
         if (!strAddress.isEmpty()){
             return true;
@@ -274,15 +281,6 @@ public class SnsUser implements Serializable {
         return Period.between(birthdate, LocalDate.now()).getYears();
     }
 
-    /**
-     * Gets vaccine bulletins.
-     *
-     * @return the vaccine bulletins
-     */
-    public List<VaccineBulletin> getVaccineBulletins() {
-        return vaccineBulletins;
-    }
-
     @Override
     public boolean equals(Object objects) {
         if (this == objects) return true;
@@ -290,5 +288,7 @@ public class SnsUser implements Serializable {
         SnsUser snsUser = (SnsUser) objects;
         return snsUserNumber == snsUser.snsUserNumber && strEmail.equals(snsUser.strEmail);
     }
+
+
 
 }

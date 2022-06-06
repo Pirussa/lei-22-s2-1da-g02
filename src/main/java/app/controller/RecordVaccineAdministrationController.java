@@ -22,7 +22,6 @@ import java.util.*;
 
 public class RecordVaccineAdministrationController {
 
-    GenericClass<VaccineBulletin> genericClass = new GenericClass<>();
     private final Company company = App.getInstance().getCompany();
 
     private VaccinationCenter vaccinationCenter;
@@ -316,7 +315,7 @@ public class RecordVaccineAdministrationController {
         if (vaccineBulletinMapper.VaccineBulletinDtoToDomain(snsUserAddVaccineBulletin()).isLastDose( vaccine.getUserAgeGroupIndex(snsUser.getUserAge()))) {
             vaccinationCenter.getListFullyVaccinated().add(vaccineBulletinMapper.VaccineBulletinDtoToDomain(snsUserAddVaccineBulletin()));
         }
-        vaccinationCenter.getVaccinesAdministeredList().add(vaccineBulletinMapper.VaccineBulletinDtoToDomain(snsUserAddVaccineBulletin()));
+        vaccinationCenter.addAdministeredVaccine(vaccineBulletinMapper.VaccineBulletinDtoToDomain(snsUserAddVaccineBulletin()));
         snsUser.registerVaccine(vaccineBulletinMapper.VaccineBulletinDtoToDomain(snsUserAddVaccineBulletin()));
     }
 
@@ -340,10 +339,4 @@ public class RecordVaccineAdministrationController {
         printWriter.close();
     }
 
-    /**
-     * Exports the list of Vaccine Bulletins to a binary file.
-     */
-    public void exportDataToFile() throws NotSerializableException {
-        genericClass.binaryFileWrite(Constants.FILE_PATH_VACCINE_BULLETIN, snsUser.administratedVaccines());
-    }
 }
