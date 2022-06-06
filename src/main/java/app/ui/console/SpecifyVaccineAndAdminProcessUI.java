@@ -232,11 +232,6 @@ public class SpecifyVaccineAndAdminProcessUI implements Runnable {
                 showVaccineAndAdminProcessData(dto);
                 if (Utils.confirmCreation()) {
                     ctrl.saveVaccine(dto);
-                    try {
-                        ctrl.exportDataToFile();
-                    } catch (NotSerializableException e) {
-                        e.printStackTrace();
-                    }
                     System.out.println();
                     System.out.println("The new Vaccine with its administration process was added to the Company Vaccines with success.");
                 } else {

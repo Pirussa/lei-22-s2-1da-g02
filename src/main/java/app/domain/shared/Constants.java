@@ -10,8 +10,7 @@ public class Constants {
 
     public static final String DAILY_REGISTERS_FILE_NAME = "DailyTotalOfPeopleVaccinated.csv";
     public static final int LOT_NUMBER_LENGTH = 8;
-
-    private Company company;
+    public static final int ID_LENGTH = 5;
     public static final String ROLE_ADMIN = "ADMINISTRATOR";
     public static final String ROLE_RECEPTIONIST = "RECEPTIONIST";
     public static final String ROLE_NURSE = "NURSE";
@@ -21,7 +20,6 @@ public class Constants {
     public static final String PARAMS_COMPANY_DESIGNATION = "Company.Designation";
 
 
-    public static final String ID_FIRST_EMPLOYEE = "Company.Designation";
 
     public static final String SUGGESTED_VACCINE_TYPE_ONGOING_OUTBREAK = "COVID";
 
@@ -31,7 +29,6 @@ public class Constants {
     public static final int PASSWORD_LENGTH = 7;
     public static final int PARAMS_MILLISECONDS_IN_DAY = 1000 * 60 * 60 * 24;
 
-    public static final int ID_LENGTH = 5;
 
     public static final int NUMBER_OF_PHONE_NUMBER_DIGITS = 9;
 

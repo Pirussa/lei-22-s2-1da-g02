@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * @author 1210816@isep.ipp.pt
  */
 public class LoadCSVController {
-    private Company company = App.getInstance().getCompany();
+    private final Company company = App.getInstance().getCompany();
     GenericClass<SnsUser> generics = new GenericClass<>();
 
     /**
@@ -47,12 +47,5 @@ public class LoadCSVController {
         return company.getSnsUserList();
     }
 
-    /**
-     * Exports the list of SNS Users to a binary file.
-     * @throws NotSerializableException
-     */
-    public void exportDataToFile() throws NotSerializableException {
-        generics.binaryFileWrite(Constants.FILE_PATH_SNS_USERS, getSNSUserList());
-    }
 
 }

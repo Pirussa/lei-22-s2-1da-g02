@@ -1,6 +1,7 @@
 package app.domain.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Represents a Vaccine for a virus.
@@ -12,7 +13,7 @@ public class Vaccine implements Serializable {
     private int id;
     private String brand;
     private AdministrationProcess adminProcess;
-    private VaccineType vaccineType;
+    private final VaccineType vaccineType;
 
     /**
      * Creates a vaccine with the following attributes:
@@ -110,4 +111,13 @@ public class Vaccine implements Serializable {
         }
         return -1;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Vaccine)) return false;
+        Vaccine vaccine = (Vaccine) o;
+        return id == vaccine.id;
+    }
+
 }

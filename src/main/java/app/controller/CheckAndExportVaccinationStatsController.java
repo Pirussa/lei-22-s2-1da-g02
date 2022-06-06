@@ -93,6 +93,7 @@ public class CheckAndExportVaccinationStatsController {
             }
 
         } catch (Exception FileNotFoundException) {
+            file.delete();
             return false;
         } finally {
             assert writer != null;

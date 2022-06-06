@@ -116,13 +116,5 @@ public class CreateVaccinationCenterController {
         company.fillListOfEmployeesWithAGivenRole();
     }
 
-    /**
-     * Exports the list of Vaccine Types to a binary file.
-     * @throws NotSerializableException
-     */
-    public void exportDataToFile() throws NotSerializableException {
-        generics.binaryFileWrite(Constants.FILE_PATH_VACCINATION_CENTERS, company.getVaccinationCenters());
-    }
-
 }
 

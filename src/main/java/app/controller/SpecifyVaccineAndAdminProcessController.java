@@ -8,7 +8,6 @@ import app.domain.shared.GenericClass;
 import dto.VaccineAndAdminProcessDto;
 
 import java.io.NotSerializableException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,8 +18,7 @@ import java.util.List;
 
 public class SpecifyVaccineAndAdminProcessController {
 
-    private Company company = App.getInstance().getCompany();
-    GenericClass<Vaccine> generics = new GenericClass<>();
+    private final Company company = App.getInstance().getCompany();
 
     public SpecifyVaccineAndAdminProcessController() {
     }
@@ -37,10 +35,7 @@ public class SpecifyVaccineAndAdminProcessController {
      */
     public boolean specifyNewVaccineAndAdminProcess(VaccineAndAdminProcessDto dto) {
 
-        if (company.specifyNewVaccineAndAdminProcess(dto)) {
-            return true;
-        }
-        return false;
+        return company.specifyNewVaccineAndAdminProcess(dto);
     }
 
 
@@ -60,11 +55,4 @@ public class SpecifyVaccineAndAdminProcessController {
         company.saveVaccine(dto);
     }
 
-    /**
-     * Exports the list of Vaccine to a binary file.
-     * @throws NotSerializableException
-     */
-    public void exportDataToFile() throws NotSerializableException {
-        generics.binaryFileWrite(Constants.FILE_PATH_VACCINES, company.getVaccines());
-    }
 }

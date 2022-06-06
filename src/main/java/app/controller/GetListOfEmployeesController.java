@@ -25,7 +25,7 @@ public class GetListOfEmployeesController {
      */
 
     public ArrayList<Employee> getEmployees(){
-        return Company.getEmployees();
+        return company.getEmployees();
     }
 
     /**

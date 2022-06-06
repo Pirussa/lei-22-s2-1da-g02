@@ -5,7 +5,6 @@ import app.domain.model.SnsUser;
 import app.domain.model.Vaccine;
 import app.domain.shared.Constants;
 import app.domain.shared.GenericClass;
-import app.ui.console.DataFromLegacySystemUI;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -19,7 +18,7 @@ public class DataFromLegacySystemController {
     }
 
     public List<Vaccine> getVaccines() {
-        return company.getVaccines();
+        return company.getVaccinesList();
     }
 
     List<String> csvLegacyData = new ArrayList<>();

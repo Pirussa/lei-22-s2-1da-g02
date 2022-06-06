@@ -32,7 +32,7 @@ public class ScheduleVaccineController {
     private final Company company = App.getInstance().getCompany();
     private final transient AuthFacade authFacade = company.getAuthFacade();
     private VaccinationCenter vaccinationCenter;
-    GenericClass<ScheduledVaccine> generics = new GenericClass<>();
+
 
 
     /**
@@ -50,7 +50,12 @@ public class ScheduleVaccineController {
     public boolean scheduleVaccine(ScheduledVaccineDto scheduledVaccineDto) {
         if (!validateAppointment(scheduledVaccineDto)) return false;
         company.addAppointment(createScheduledVaccine(scheduledVaccineDto));
-        vaccinationCenter.addAppointment(createScheduledVaccine(scheduledVaccineDto));
+
+        try {
+            vaccinationCenter.addAppointment(createScheduledVaccine(scheduledVaccineDto));
+        } catch (NotSerializableException e) {
+            e.printStackTrace();
+        }
 
         return true;
     }
@@ -322,11 +327,4 @@ public class ScheduleVaccineController {
         return false;
     }
 
-    /**
-     * Exports the list of appointments to a binary file.
-     * @throws NotSerializableException
-     */
-    public void exportDataToFile() throws NotSerializableException {
-        generics.binaryFileWrite(Constants.FILE_PATH_APPOINTMENTS, company.getAppointments());
-    }
 }

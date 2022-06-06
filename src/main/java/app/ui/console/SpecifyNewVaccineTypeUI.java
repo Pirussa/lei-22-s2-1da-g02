@@ -71,11 +71,6 @@ public class SpecifyNewVaccineTypeUI implements Runnable {
                 if (Utils.confirmCreation()) {
                     controller.saveVaccineType(code, description, technology);
 
-                    try {
-                        controller.exportDataToFile();
-                    } catch (NotSerializableException e) {
-                        e.printStackTrace();
-                    }
                     System.out.println();
                     System.out.println("New Vaccine Type added");
 

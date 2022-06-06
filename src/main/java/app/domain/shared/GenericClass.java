@@ -14,6 +14,8 @@ public class GenericClass<E> implements Serializable {
     public GenericClass() {
     }
 
+    private List<E> importedList = new ArrayList<>();
+
     /**
      * Writes the registered information to a binary file.
      *
@@ -23,13 +25,20 @@ public class GenericClass<E> implements Serializable {
 
     public void binaryFileWrite(String fileName, List<E> list) {
         File file = new File(fileName);
+        List<E> listToWrite = new ArrayList<>(importedList);
         try {
             if (!file.exists()) {
                 file.createNewFile();
             }
             ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file));
             try {
-                out.writeObject(list);
+                for (int listPosition = importedList.size(); listPosition < list.size(); listPosition++) {
+                    if (!importedList.contains(list.get(listPosition))){
+                        listToWrite.add(list.get(listPosition));
+                    }
+
+                }
+                out.writeObject(listToWrite);
             } finally {
                 out.flush();
                 out.close();
@@ -38,8 +47,6 @@ public class GenericClass<E> implements Serializable {
             e.printStackTrace();
         }
     }
-
-    List<E> list = new ArrayList<>();
 
 
     /**
@@ -51,24 +58,19 @@ public class GenericClass<E> implements Serializable {
      */
     public void binaryFileRead(String fileName, List<E> listToBeFilled) throws EOFException {
         File file = new File(fileName);
-        if(file.exists()) {
+        if (file.exists()) {
             try {
-
                 ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
-
-
-                list = (List<E>) in.readObject();
+                importedList = (List<E>) in.readObject();
                 in.close();
-                listToBeFilled.addAll(list);
-
-
+                listToBeFilled.addAll(importedList);
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    public List<E> getList() {
-        return list;
+    public List<E> getImportedList() {
+        return importedList;
     }
 }

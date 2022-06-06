@@ -81,9 +81,9 @@ public class RecordVaccineAdministrationController {
 
     public List<Vaccine> vaccineTypeAvailableVaccines() {
         ArrayList<Vaccine> vaccinesAvailable = new ArrayList<>();
-        for (int index = 0; index < company.getVaccines().size(); index++) {
-            if (vaccineType.equals(company.getVaccines().get(index).getVaccineType())) {
-                vaccinesAvailable.add(company.getVaccines().get(index));
+        for (int index = 0; index < company.getVaccinesList().size(); index++) {
+            if (vaccineType.equals(company.getVaccinesList().get(index).getVaccineType())) {
+                vaccinesAvailable.add(company.getVaccinesList().get(index));
             }
         }
         return vaccinesAvailable;
@@ -91,9 +91,9 @@ public class RecordVaccineAdministrationController {
 
     public List<String> vaccineAvailableName() {
         ArrayList<String> vaccinesAvailable = new ArrayList<>();
-        for (int index = 0; index < company.getVaccines().size(); index++) {
-            if (vaccineType.equals(company.getVaccines().get(index).getVaccineType())) {
-                vaccinesAvailable.add(company.getVaccines().get(index).getName());
+        for (int index = 0; index < company.getVaccinesList().size(); index++) {
+            if (vaccineType.equals(company.getVaccinesList().get(index).getVaccineType())) {
+                vaccinesAvailable.add(company.getVaccinesList().get(index).getName());
             }
         }
         return vaccinesAvailable;
@@ -210,8 +210,9 @@ public class RecordVaccineAdministrationController {
 
     public void registerVaccineInVaccineBulletin() {
         VaccineBulletinMapper vaccineBulletinMapper = new VaccineBulletinMapper();
-        if (vaccineBulletinMapper.VaccineBulletinDtoToDomain(snsUserAddVaccineBulletin()).isLastDose(snsUser.getUserAge())) {
-            vaccinationCenter.getVaccinesAdministeredList().add(vaccineBulletinMapper.VaccineBulletinDtoToDomain(snsUserAddVaccineBulletin()));
+
+        if (vaccineBulletinMapper.VaccineBulletinDtoToDomain(snsUserAddVaccineBulletin()).isLastDose( vaccine.getUserAgeGroupIndex(snsUser.getUserAge()))) {
+            vaccinationCenter.getListFullyVaccinated().add(vaccineBulletinMapper.VaccineBulletinDtoToDomain(snsUserAddVaccineBulletin()));
         }
         vaccinationCenter.getVaccinesAdministeredList().add(vaccineBulletinMapper.VaccineBulletinDtoToDomain(snsUserAddVaccineBulletin()));
         snsUser.registerVaccine(vaccineBulletinMapper.VaccineBulletinDtoToDomain(snsUserAddVaccineBulletin()));

@@ -21,9 +21,8 @@ import java.util.List;
 
 public class SpecifyNewVaccineTypeController implements Serializable {
 
-    private Company company = App.getInstance().getCompany();
+    private final Company  company = App.getInstance().getCompany();
 
-    GenericClass<VaccineType> generics = new GenericClass<>();
 
     /**
      * Specifies a new Vaccine Type:
@@ -52,16 +51,6 @@ public class SpecifyNewVaccineTypeController implements Serializable {
      */
     public void saveVaccineType(String code, String description, String technology) {
         company.saveVaccineType(code, description, technology);
-    }
-
-
-
-    /**
-     * Exports the list of Vaccine Types to a binary file.
-     * @throws NotSerializableException
-     */
-    public void exportDataToFile() throws NotSerializableException {
-        generics.binaryFileWrite(Constants.FILE_PATH_VACCINE_TYPES, getVaccineTypes());
     }
 
 

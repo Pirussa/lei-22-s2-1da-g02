@@ -43,25 +43,10 @@ public class CreateVaccinationCenterUI implements Runnable {
             int typeOfCenter = choice.nextInt();
             if (typeOfCenter == 0) {
                 massVaccinationCenterUI(typeOfCenter);
-                try {
-                    controller.exportDataToFile();
-                } catch (NotSerializableException e) {
-                    e.printStackTrace();
-                }
             } else if (typeOfCenter == 1) {
                 healthcareCenterUI(typeOfCenter);
-                try {
-                    controller.exportDataToFile();
-                } catch (NotSerializableException e) {
-                    e.printStackTrace();
-                }
             } else if (typeOfCenter == 2) {
                 getListOfVaccinationCentersUI();
-                try {
-                    controller.exportDataToFile();
-                } catch (NotSerializableException e) {
-                    e.printStackTrace();
-                }
             } else if (typeOfCenter == 3) {
                 return;
             } else {

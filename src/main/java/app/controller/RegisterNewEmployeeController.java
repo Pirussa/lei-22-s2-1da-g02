@@ -20,11 +20,7 @@ import java.util.List;
 
 public class RegisterNewEmployeeController implements Serializable {
 
-    private final int PASSWORD_LENGTH = 7;
-
-    private Company company = App.getInstance().getCompany();
-
-    GenericClass<Employee> generics = new GenericClass<>();
+    private final Company company = App.getInstance().getCompany();
 
     public RegisterNewEmployeeController() {
     }
@@ -48,28 +44,18 @@ public class RegisterNewEmployeeController implements Serializable {
      */
 
     public void saveCreatedEmployee(RegisterNewEmployeeDto dto, String selectedRole) {
-        company.saveCreatedEmployee(dto, selectedRole);
-    }
-
-    /**
-     * Exports the list of Employees to a binary file.
-     * @throws NotSerializableException
-     */
-    public void exportDataToFile() throws NotSerializableException {
-        generics.binaryFileWrite(Constants.FILE_PATH_EMPLOYEES, Company.getEmployees());
-    }
-
-    /**
-     * Verifies if the Employees are duplicated.
-     * @param registerNewEmployeeDto: An Employee.
-     * @return true if the Employees are duplicated, or false if they are not.
-     */
-    public boolean duplicatedEmployee(RegisterNewEmployeeDto registerNewEmployeeDto) {
-        for (int index = 0; index < Company.getEmployees().size(); index++) {
-            if (Company.getEmployees().get(index).getEmail().equals(registerNewEmployeeDto.name))
-                return false;
+        try {
+            company.saveCreatedEmployee(dto, selectedRole);
+        } catch (NotSerializableException e) {
+            e.printStackTrace();
         }
-        return true;
     }
 
+    public boolean duplicatedEmployee(RegisterNewEmployeeDto dto) {
+        return company.duplicatedEmployee(dto);
+    }
+
+    public StringBuilder idGenerator() {
+        return  company.idGenerator();
+    }
 }

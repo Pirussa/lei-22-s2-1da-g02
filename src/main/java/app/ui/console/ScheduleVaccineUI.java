@@ -53,11 +53,6 @@ public class ScheduleVaccineUI implements Runnable {
             if (controller.validateAppointment(scheduledVaccineDto)) {
                 printAppointmentInfo(scheduledVaccineDto, vaccinationCenterInfo);
                 if (Utils.confirmCreation() && (controller.scheduleVaccine(scheduledVaccineDto))) {
-                    try {
-                        controller.exportDataToFile();
-                    } catch (NotSerializableException e) {
-                        e.printStackTrace();
-                    }
                     printValidAppointmentInfo(scheduledVaccineDto, vaccinationCenterInfo);
                     try {
                         System.out.printf("-----%n|SMS|%n-----%n%n");

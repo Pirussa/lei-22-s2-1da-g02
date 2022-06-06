@@ -33,21 +33,17 @@ public class RegisterNewEmployeeUI implements Runnable {
         roles.add("Nurse");
         roles.add("Receptionist");
         roles.add("Center Coordinator");
-
         int index = Utils.showAndSelectIndex(roles, "Select a Role: ");
         if (index == INVALID) {
         } else {
             String selectedRole = roles.get(index);
-            dto.id = String.valueOf(Company.idGenerator());
+            dto.id = String.valueOf(controller.idGenerator());
             dto.password = Employee.passwordGenerator();
-            dto.name = Utils.readLineFromConsole("- Insert Name: ").trim();
+            dto.name = Utils.readLineFromConsole("- Insert Name: ");
             dto.address = Utils.readLineFromConsole("- Insert Address (Street / Zip Code / Location): ");
-            dto.phoneNumber = Utils.readLineFromConsole("- Insert Phone Number (9 chars, only numbers): (+351) ").trim();
-            try {
-                dto.email = new Email(Utils.readLineFromConsole("- Insert Email (@ and . are required): "));
-            } catch (IllegalArgumentException e) {
-                System.out.println("Invalid Email");
-            }
+            dto.phoneNumber = Utils.readLineFromConsole("- Insert Phone Number (9 chars, only numbers): (+351) ");
+            dto.email = Utils.readLineFromConsole("- Insert Email (@ and . are required): ");
+
 
             dto.citizenCardNumber = Utils.readLineFromConsole("- Insert Citizen Card Number (Format - XXXXXXXX X LLX): ");
 
@@ -56,11 +52,7 @@ public class RegisterNewEmployeeUI implements Runnable {
                 showNewEmployeeData(dto, selectedRole);
                 if (Utils.confirmCreation()) {
                     controller.saveCreatedEmployee(dto, selectedRole);
-                    try {
-                        controller.exportDataToFile();
-                    } catch (NotSerializableException e) {
-                        e.printStackTrace();
-                    }
+
                     System.out.printf("%n-----------------------------%n|The Employee was registered|%n-----------------------------%n");
                 } else
                     System.out.printf("%n---------------------------------%n|The Employee was not registered|%n---------------------------------%n");

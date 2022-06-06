@@ -40,11 +40,6 @@ public class LoadCSVUI implements Runnable {
             int option = choice.nextInt();
             if (option == 0) {
                 runLoadCSV();
-                try {
-                    controller.exportDataToFile();
-                } catch (NotSerializableException e) {
-                    e.printStackTrace();
-                }
             } else if (option == 1) {
                 getListOfSNSUsers();
             } else if (option == 2) {

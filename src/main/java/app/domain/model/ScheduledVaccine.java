@@ -1,7 +1,7 @@
 package app.domain.model;
-import dto.ScheduledVaccineDto;
-import mapper.ScheduledVaccineMapper;
+
 import java.time.LocalDateTime;
+
 
 
 /**
@@ -16,17 +16,17 @@ public class ScheduledVaccine {
     /**
      * User´s SNS Number
      */
-    private int snsNumber;
+    private final int snsNumber;
 
     /**
      * User´s selected vaccine type
      */
-    private VaccineType vaccineType;
+    private final VaccineType vaccineType;
 
     /**
      * User´s selected date and time to be vaccinated
      */
-    private LocalDateTime date;
+    private final LocalDateTime date;
 
     /**
      * Creates a scheduled vaccine with the following attributes:
@@ -85,5 +85,12 @@ public class ScheduledVaccine {
         return vaccineType;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ScheduledVaccine)) return false;
+        ScheduledVaccine that = (ScheduledVaccine) o;
+        return snsNumber == that.snsNumber && vaccineType.equals(that.vaccineType) && date.equals(that.date);
+    }
 
 }

@@ -28,26 +28,29 @@ import java.util.logging.Logger;
 public class Utils {
 
     private static final Company company = App.getInstance().getCompany();
-    private static final int MAXNUMBEROFCHARSSNSUSERNUMBER = 9;
 
-    /**
-     * It creates and adds VaccineTypes to the Company as soon as the App runs
-     */
-    private static void bootstrapVaccineTypes() {
 
-        GenericClass<VaccineType> genericsClass = new GenericClass<>();
-        try {
-            genericsClass.binaryFileRead(Constants.FILE_PATH_VACCINE_TYPES, company.getVaccineTypes());
-        } catch (EOFException e) {
-            e.printStackTrace();
-        }
-        SpecifyNewVaccineTypeController ctrlVt = new SpecifyNewVaccineTypeController();
-        ctrlVt.saveVaccineType("COVID", "A vaccine to prevent serious infections of the Covid-19 Virus", VaccineType.vaccineTechnologies[5]);
+    private static void bootstrapEmployees() {company.readBinaryFileEmployees();}
+
+    private static void bootstrapVaccineTypes() {company.readBinaryFileVaccineTypes();}
+
+    private static void bootstrapVaccinationCenters() {
+        company.readBinaryFileCenters();
     }
 
-    /**
-     * It creates and adds VaccineBulletins to the Company as soon as the App runs
-     */
+    private static void bootstrapSnsUsers() {
+        company.readBinaryFileSnsUsers();
+    }
+
+    private static void bootstrapVaccines() { company.readBinaryFileVaccines(); }
+
+    private static void bootstrapScheduledAppointments() {
+        for (VaccinationCenter center: company.getVaccinationCenters()) {
+            center.readBinaryFilesAppointments();}
+        }
+
+
+
     private static void bootstrapVaccineBulletin() {
 
         GenericClass<VaccineBulletin> genericsClass = new GenericClass<>();
@@ -63,115 +66,10 @@ public class Utils {
         }
     }
 
-    /**
-     * It creates and adds Vaccination Centers to the Company as soon as the App runs
-     */
-    private static void bootstrapVaccinationCenters() {
-        GenericClass<VaccinationCenter> genericsClass = new GenericClass<>();
-        try {
-            genericsClass.binaryFileRead(Constants.FILE_PATH_VACCINATION_CENTERS, company.getVaccinationCenters());
-        } catch (EOFException e) {
-            e.printStackTrace();
-        }
-        CreateVaccinationCenterController ctrlVc = new CreateVaccinationCenterController();
-        MassVaccinationCenterDto mvcDto = new MassVaccinationCenterDto();
-        mvcDto.strID = "1234";
-        mvcDto.strName = "CVC Matosinhos";
-        mvcDto.strPhoneNumber = "915607321";
-        mvcDto.strFax = "915607321";
-        mvcDto.strEmail = "cvcmatosinhos@gmail.com";
-        mvcDto.strClosingHour = "16";
-        mvcDto.strOpeningHour = "9";
-        mvcDto.strVaccinesPerSlot = "1";
-        mvcDto.strSlotDuration = "30";
-        mvcDto.strWebsite = "www.cvcmatosinhos.com";
-        mvcDto.strRoad = "Rua do Amial";
-        mvcDto.strZipCode = "4460-098";
-        mvcDto.strLocal = "Matosinhos";
-        mvcDto.strCenterCoordinatorID = company.getEmployees().get(0).getId();
-        mvcDto.vaccineType = new VaccineType("COVID", "To prevent serious COVID-19 infections", VaccineType.vaccineTechnologies[5]);
-        ctrlVc.saveMassVaccinationCenter(mvcDto);
-    }
 
-    /**
-     * It creates and adds Employees to the Company as soon as the App runs
-     */
-    private static void bootstrapEmployees() {
-        GenericClass<Employee> genericsClass = new GenericClass<>();
-        try {
-            genericsClass.binaryFileRead(Constants.FILE_PATH_EMPLOYEES, Company.getEmployees());
-        } catch (EOFException e) {
-            e.printStackTrace();
-        }
-        RegisterNewEmployeeController ctrlEmp = new RegisterNewEmployeeController();
 
-        RegisterNewEmployeeDto dtoEmp = new RegisterNewEmployeeDto();
-        dtoEmp.id = "00001";
-        dtoEmp.name = "Ana";
-        dtoEmp.password = "AAA11aa";
-        dtoEmp.phoneNumber = "915604427";
-        dtoEmp.citizenCardNumber = "11960343 8 ZW1";
-        dtoEmp.email = new Email("ana@gmail.com");
-        dtoEmp.address = "Via Diagonal / 4475-079 / Porto";
-        ctrlEmp.saveCreatedEmployee(dtoEmp, "Center Coordinator");
 
-        RegisterNewEmployeeDto dtoEmp2 = new RegisterNewEmployeeDto();
-        dtoEmp2.id = "00003";
-        dtoEmp2.name = "Joana";
-        dtoEmp2.password = "AAA11aa";
-        dtoEmp2.phoneNumber = "919880654";
-        dtoEmp2.citizenCardNumber = "38002291 5 ZY5";
-        dtoEmp2.email = new Email("joana@gmail.com");
-        dtoEmp2.address = "Rua De Azevedo De Albuquerque / 4050-076 / Porto";
-        ctrlEmp.saveCreatedEmployee(dtoEmp2, "Nurse");
 
-        RegisterNewEmployeeDto dtoEmp4 = new RegisterNewEmployeeDto();
-        dtoEmp4.id = "00005";
-        dtoEmp4.name = "Carla";
-        dtoEmp4.password = "AAA11aa";
-        dtoEmp4.phoneNumber = "912345679";
-        dtoEmp4.citizenCardNumber = "19112459 1 ZY2";
-        dtoEmp4.email = new Email("carla@gmail.com");
-        dtoEmp4.address = "Rua rua / 4440-124 / Porto";
-        ctrlEmp.saveCreatedEmployee(dtoEmp4, "Receptionist");
-    }
-
-    /**
-     * It creates and adds Sns Users to the Company as soon as the App runs
-     */
-    private static void bootstrapSnsUsers() {
-        GenericClass<SnsUser> genericsClass = new GenericClass<>();
-        try {
-            genericsClass.binaryFileRead(Constants.FILE_PATH_SNS_USERS, company.getSnsUserList());
-        } catch (EOFException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * It creates and adds Vaccines to the Company as soon as the App runs
-     */
-    private static void bootstrapVaccines() {
-        GenericClass<Vaccine> genericsClass = new GenericClass<>();
-        try {
-            genericsClass.binaryFileRead(Constants.FILE_PATH_VACCINES, company.getVaccines());
-        } catch (EOFException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    /**
-     * It creates and adds Scheduled Appointments to the Company as soon as the App runs
-     */
-    private static void bootstrapScheduledAppointments() {
-        GenericClass<ScheduledVaccine> genericsClass = new GenericClass<>();
-        try {
-            genericsClass.binaryFileRead(Constants.FILE_PATH_APPOINTMENTS, company.getAppointments());
-        } catch (EOFException e) {
-            e.printStackTrace();
-        }
-    }
 
     private static void bootstrapArrivals() {
         GenericClass<Arrival> genericsClass = new GenericClass<>();
@@ -654,7 +552,7 @@ public class Utils {
      */
     public static boolean validateSnsUserNumber(int snsUserNumber) {
         String strSnsUserNumber = String.valueOf(snsUserNumber);
-        return strSnsUserNumber.trim().matches("^[0-9]*$") && strSnsUserNumber.length() == MAXNUMBEROFCHARSSNSUSERNUMBER;
+        return strSnsUserNumber.trim().matches("^[0-9]*$") && strSnsUserNumber.length() == Constants.NUMBER_OF_PHONE_NUMBER_DIGITS;
     }
 
     /**

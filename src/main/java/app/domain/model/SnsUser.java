@@ -282,4 +282,13 @@ public class SnsUser implements Serializable {
     public List<VaccineBulletin> getVaccineBulletins() {
         return vaccineBulletins;
     }
+
+    @Override
+    public boolean equals(Object objects) {
+        if (this == objects) return true;
+        if (!(objects instanceof SnsUser)) return false;
+        SnsUser snsUser = (SnsUser) objects;
+        return snsUserNumber == snsUser.snsUserNumber && strEmail.equals(snsUser.strEmail);
+    }
+
 }

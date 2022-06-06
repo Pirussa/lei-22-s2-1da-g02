@@ -7,6 +7,7 @@ import pt.isep.lei.esoft.auth.domain.model.Email;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 
 public class Employee implements Serializable {
@@ -18,12 +19,12 @@ public class Employee implements Serializable {
      */
 
     private String id;
-    private String name;
-    private String address;
-    private String phoneNumber;
-    private Email email;
-    private String citizenCardNumber;
-    private String password;
+    private final String name;
+    private final String address;
+    private final String phoneNumber;
+    private final String email;
+    private final String citizenCardNumber;
+    private final String password;
 
     /**
      * Creates an Employee with the following attributes:
@@ -37,7 +38,7 @@ public class Employee implements Serializable {
      * @param password          The Employee´s password.
      */
 
-    public Employee(String id, String name, String address, String phoneNumber, Email email, String citizenCardNumber, String password) {
+    public Employee(String id, String name, String address, String phoneNumber, String email, String citizenCardNumber, String password) {
 
         this.id = id;
         this.name = name;
@@ -52,6 +53,7 @@ public class Employee implements Serializable {
     public String getPassword() {
         return password;
     }
+
     public String getName() {
         return name;
     }
@@ -68,7 +70,7 @@ public class Employee implements Serializable {
         return phoneNumber;
     }
 
-    public Email getEmail() {
+    public String getEmail() {
         return email;
     }
 
@@ -80,8 +82,6 @@ public class Employee implements Serializable {
         this.id = id;
     }
 
-    RegisterNewEmployeeController ctrl = new RegisterNewEmployeeController();
-
     /**
      * Generates a new password for each created Employee.
      *
@@ -92,14 +92,13 @@ public class Employee implements Serializable {
         final String alphabetLetters = "abcdefghijklmnopqrstuvwyxzABCDEFGHIJKLMNOPQRSTUVWYXZ0123456789";
         StringBuilder password = new StringBuilder();
         Random generate = new Random();
-        ArrayList<String> randomAlphanumerics = new ArrayList<>();
         StringBuilder employeePassword = new StringBuilder();
 
         for (int position = 0; position < Constants.PASSWORD_LENGTH; position++) {
             if (position <= 2)
                 password.append(Character.toUpperCase(alphabetLetters.charAt(generate.nextInt(25))));
             else if (position <= 4)
-                password.append(String.valueOf(generate.nextInt(9)));
+                password.append(generate.nextInt(9));
             else
                 password.append(alphabetLetters.charAt(generate.nextInt(alphabetLetters.length())));
         }
@@ -120,6 +119,26 @@ public class Employee implements Serializable {
      */
 
     public boolean validateEmployee() {
-        return name != null && address != null && email != null && phoneNumber != null && citizenCardNumber != null && !name.isEmpty() && !address.isEmpty() && !phoneNumber.isEmpty() && !citizenCardNumber.isEmpty() && Utils.validateCitizenCardNumber(citizenCardNumber) && Utils.validateAddress(address) && Utils.validatePhoneNumber(phoneNumber);
+        return validateEmail(email) && !email.isEmpty() && name != null && address != null && phoneNumber != null && citizenCardNumber != null && !name.isEmpty() && !address.isEmpty() && !phoneNumber.isEmpty() && !citizenCardNumber.isEmpty() && Utils.validateCitizenCardNumber(citizenCardNumber) && Utils.validateAddress(address) && Utils.validatePhoneNumber(phoneNumber);
     }
+
+    private boolean validateEmail(String email) {
+       try{
+           new Email(email);
+       }catch (Exception e){
+           System.out.println("Invalid email");
+           return false;
+       }
+        return true;
+
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (!(object instanceof Employee)) return false;
+        Employee employee = (Employee) object;
+        return id.equals(employee.id) && email.equals(employee.email);
+    }
+
 }

@@ -1,7 +1,5 @@
 package dto;
 
-import pt.isep.lei.esoft.auth.domain.model.Email;
-
 public class RegisterNewEmployeeDto {
 
 
@@ -13,7 +11,7 @@ public class RegisterNewEmployeeDto {
 
     public String phoneNumber;
 
-    public Email email;
+    public String email;
 
     public String citizenCardNumber;
 
@@ -22,7 +20,7 @@ public class RegisterNewEmployeeDto {
     public RegisterNewEmployeeDto() {
     }
 
-    public RegisterNewEmployeeDto(String id, String name, String address, String phoneNumber, Email email, String citizenCardNumber, String password) {
+    public RegisterNewEmployeeDto(String id, String name, String address, String phoneNumber, String email, String citizenCardNumber, String password) {
         this.id = id;
         this.name = name;
         this.address = address;

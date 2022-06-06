@@ -1,9 +1,12 @@
 package app.domain.model;
 
 import app.domain.shared.Constants;
+import app.domain.shared.GenericClass;
 import app.ui.console.utils.Utils;
 import dto.ScheduledVaccineDto;
 
+import java.io.EOFException;
+import java.io.NotSerializableException;
 import java.io.Serializable;
 import java.time.Duration;
 import java.time.LocalDate;
@@ -13,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 /**
  * Creates a Vaccination Center
  *
@@ -21,7 +23,7 @@ import java.util.List;
  */
 public class VaccinationCenter implements Serializable {
 
-
+    private final GenericClass<ScheduledVaccine> genericsSchedules = new GenericClass<>();
     private final String strID;
     private final String strName;
     private final String strPhoneNumber;
@@ -39,11 +41,12 @@ public class VaccinationCenter implements Serializable {
     private List<ScheduledVaccine> scheduledVaccineList = new ArrayList<>();
     private List<Arrival> arrivalsList = new ArrayList<>();
     private final List<VaccineBulletin> vaccinesAdministeredList = new ArrayList<>();
-
+    private final List<VaccineBulletin> listFullyVaccinated = new ArrayList<>();
 
     private static final String[] strTopLevelDomain = {".com", ".pt", ".co.uk"};
     private static final String strWorldWideWeb = "www.";
 
+    GenericClass<ScheduledVaccine> appointmentsGenericClass = new GenericClass<>();
 
     /**
      * Creates a vaccination center with the following attributes, also verifies inside the constructors the those attributes are valid.
@@ -161,6 +164,16 @@ public class VaccinationCenter implements Serializable {
      */
     public List<VaccineBulletin> getVaccinesAdministeredList() {
         return vaccinesAdministeredList;
+    }
+
+
+    /**
+     * Gets list fully vaccinated.
+     *
+     * @return the list fully vaccinated
+     */
+    public List<VaccineBulletin> getListFullyVaccinated() {
+        return listFullyVaccinated;
     }
 
     /**
@@ -329,9 +342,9 @@ public class VaccinationCenter implements Serializable {
      *
      * @param newAppointment A Scheduled Vaccine object to be added to the List containing all the appointments
      */
-    public void addAppointment(ScheduledVaccine newAppointment) {
+    public void addAppointment(ScheduledVaccine newAppointment) throws NotSerializableException {
         this.scheduledVaccineList.add(newAppointment);
-
+        appointmentsGenericClass.binaryFileWrite(Constants.FILE_PATH_APPOINTMENTS, scheduledVaccineList);
     }
 
     /**
@@ -343,9 +356,7 @@ public class VaccinationCenter implements Serializable {
     public boolean centerHasAvailability(ScheduledVaccineDto scheduledVaccineDto) {
         if (!dayHasAvailability(scheduledVaccineDto.date.toLocalDate()))
             return false;
-
         return slotHasAvailability(scheduledVaccineDto.date.toLocalDate(), scheduledVaccineDto.date.toLocalTime());
-
     }
 
     /**
@@ -365,6 +376,12 @@ public class VaccinationCenter implements Serializable {
         return counterAppointments != Integer.parseInt(strVaccinesPerSlot);
     }
 
+    /**
+     * Day has availability.
+     *
+     * @param date the date
+     * @return the boolean
+     */
     public boolean dayHasAvailability(LocalDate date) {
         int vaccinesPerDay = getSlotsPerDay() * Integer.parseInt(strVaccinesPerSlot);
         int counterAppointments = 0;
@@ -380,6 +397,11 @@ public class VaccinationCenter implements Serializable {
         return true;
     }
 
+    /**
+     * Gets slots per day.
+     *
+     * @return the slots per day
+     */
     public int getSlotsPerDay() {
         int closingHour = Integer.parseInt(strClosingHour);
         int openingHour = Integer.parseInt(strOpeningHour);
@@ -497,7 +519,6 @@ public class VaccinationCenter implements Serializable {
         getScheduledVaccineList().remove(appointment);
     }
 
-
     /**
      * Checks if a user has already been registered
      *
@@ -594,4 +615,20 @@ public class VaccinationCenter implements Serializable {
     }
 
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof VaccinationCenter)) return false;
+        VaccinationCenter that = (VaccinationCenter) o;
+        return strID.equals(that.strID) && strEmail.equals(that.strEmail) && strWebsite.equals(that.strWebsite) && strCenterCoordinatorID.equals(that.strCenterCoordinatorID);
+    }
+
+
+    public void readBinaryFilesAppointments() {
+        try {
+            genericsSchedules.binaryFileRead(Constants.FILE_PATH_APPOINTMENTS, scheduledVaccineList);
+        } catch (EOFException e) {
+            e.printStackTrace();
+        }
+    }
 }
