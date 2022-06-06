@@ -49,44 +49,52 @@ N -> UI : selects one user
 activate UI
 UI -> CTRL : setVaccineType(arrivalsListUserIndex)
 activate CTRL
+CTRL -> CTRL : vaccineType = arrivalsList(arrivalsListUserIndex).getVaccineType()
 CTRL -> CTRL : doseNumber = findLastDoseOfVaccineType()
-alt It´s user´s first dose
+alt User´s first dose for Vaccine Type
 UI -> CTRL : vaccineList = getVaccineNameList()
 CTRL -> C : vaccineList = getVaccineList()
 activate C
 deactivate C
 loop Validate User Age Group
 UI --> N : shows a list with the available vaccines
+deactivate UI
 N -> UI : selects one vaccine
-UI -> CTRL : vaccineName = vaccineList(vaccineIndex)
+activate UI
+UI -> CTRL : setVaccine(vaccineIndex)
+CTRL -> C : vaccine = getVaccineList().get(vaccineIndex)
+activate C
+deactivate C
 CTRL -> SU : userAge = snsUser.getSnsUserAge()
+activate SU
+deactivate SU
 CTRL -> CTRL : validate user age group
 end
 end
 deactivate CTRL
 UI --> N : shows dosage for respective dose
-loop Validate Lot Number
-UI --> N :requests vaccine´s lot number
+UI --> N :requests vaccine´s lot
+deactivate UI
 N -> UI : introduces vaccine´s lot number
+activate UI
 
-UI -> CTRL : vaccine´s lot number
+UI -> CTRL : validateLotNumber(lotNumber)
 activate CTRL
-CTRL -> CTRL : validate vaccine´s lot number
 
-end
-
-UI -> CTRL : VaccineBulletinDto()
+UI -> CTRL : vaccineBulletin(VaccineBulletinDto)
 
 CTRL -> SU : addVaccineBulletin(VaccineBulletin)
 activate SU
+
 SU -> L : addVaccineBulletin(VaccineBulletin)
 activate L
-
+deactivate L
+deactivate SU
 UI -> CTRL : printRecoveryTime()
 
 UI --> N : informs that vaccine administration is completed
-deactivate L
-deactivate SU
+
+
 deactivate CTRL
 deactivate UI
 deactivate N
