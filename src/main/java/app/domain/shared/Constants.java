@@ -88,6 +88,14 @@ public class Constants {
 
     public static final String FILE_PATH_VACCINE_BULLETIN = "vaccinebulletin";
 
+    public static final String DAILY_TOTAL_VACCINATIONS_FILE_HEADER = "Date;Vaccination Center;Total Vaccinated People";
+
+    public static final String DAILY_REGISTERS_FILE_NAME_EXPECTED_TEST = "DailyTotalOfVaccinatedPeopleExpectedTest.csv";
+
+    public static final String DAILY_REGISTERS_FILE_NAME_TEST_FALSE = "DailyTotalOfVaccinatedPeopleTestFalse.csv";
+
+    public static String DAILY_REGISTERS_FILE_NAME_ACTUAL_TEST = "DailyTotalOfVaccinatedPeopleActualTest.csv";
+
 
     public static final int VACCINE_ADMINISTRATION = 0;
 

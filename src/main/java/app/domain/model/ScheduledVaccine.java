@@ -1,5 +1,6 @@
 package app.domain.model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 
@@ -11,7 +12,7 @@ import java.time.LocalDateTime;
  * @author Guilherme Sousa <1211073@isep.ipp.pt>
  * @author Pedro Monteiro <1211076@isep.ipp.pt>
  */
-public class ScheduledVaccine {
+public class ScheduledVaccine implements Serializable {
 
     /**
      * User´s SNS Number

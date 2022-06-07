@@ -2,6 +2,7 @@ package app.domain.model;
 
 import app.domain.shared.Constants;
 import app.domain.shared.GenericClass;
+import app.ui.console.utils.Utils;
 import dto.*;
 import mapper.ScheduledVaccineMapper;
 import pt.isep.lei.esoft.auth.AuthFacade;
@@ -13,6 +14,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Scanner;
 
 /**
  * The type Company.
@@ -153,7 +155,7 @@ public class Company implements Serializable {
         genericsVaccine.binaryFileWrite(Constants.FILE_PATH_VACCINES, vaccinesList);
     }
 
-    public void saveVaccineBs(Vaccine vaccine){
+    public void saveVaccineBs(Vaccine vaccine) {
         vaccinesList.add(vaccine);
         genericsVaccine.binaryFileWrite(Constants.FILE_PATH_VACCINES, vaccinesList);
     }
@@ -568,23 +570,41 @@ public class Company implements Serializable {
      *
      * @throws IOException the io exception
      */
-    public void registerDailyTotalOfVaccinatedPeople() throws IOException {
-        File file = new File(Constants.DAILY_REGISTERS_FILE_NAME);
+    public void registerDailyTotalOfVaccinatedPeople(String fileName) throws IOException {
+        File file = new File(fileName);
         if (!file.exists()) {
             file.createNewFile();
             FileWriter out = new FileWriter(file);
-            out.write("Date,Vaccination Center,Total Vaccinated People" + "\n");
+            out.write(Constants.DAILY_TOTAL_VACCINATIONS_FILE_HEADER);
             out.close();
         }
         try {
             FileWriter out = new FileWriter(file, true);
             for (int vaccinationCenterListPosition = 0; vaccinationCenterListPosition < getVaccinationCenters().size(); vaccinationCenterListPosition++) {
-                out.write(LocalDate.now() + ";" + getVaccinationCenters().get(vaccinationCenterListPosition) + ";" + getVaccinationCenters().get(vaccinationCenterListPosition).getVaccinesAdministeredList().size() + "\n");
+                String dailyTotalOfVaccinatedPeople = Utils.formatDateToPrint(LocalDate.now()) + ";" + getVaccinationCenters().get(vaccinationCenterListPosition) + ";" + getVaccinationCenters().get(vaccinationCenterListPosition).getVaccinesAdministeredList().size();
+                if (dailyTotalOfVaccinatedPeopleCheckDuplicates(dailyTotalOfVaccinatedPeople,fileName)) {
+                    out.write("\n" + dailyTotalOfVaccinatedPeople);
+                }
             }
             out.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean dailyTotalOfVaccinatedPeopleCheckDuplicates(String data, String fileName) {
+        try {
+            Scanner read = new Scanner(new File(fileName));
+            while (read.hasNextLine()) {
+                String check = read.nextLine();
+                if (check.equals(data)) {
+                    return false;
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return true;
     }
 
     /**
@@ -691,7 +711,7 @@ public class Company implements Serializable {
     public void readBinaryFileVaccineBulletins() {
         try {
             for (VaccinationCenter vaccinationCenter : vaccinationCenters) {
-                    genericsVaccineBulletin.binaryFileRead(Constants.FILE_PATH_VACCINE_BULLETIN, vaccinationCenter.getVaccinesAdministeredList());
+                genericsVaccineBulletin.binaryFileRead(Constants.FILE_PATH_VACCINE_BULLETIN, vaccinationCenter.getVaccinesAdministeredList());
             }
         } catch (EOFException e) {
             e.printStackTrace();

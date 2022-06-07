@@ -102,7 +102,7 @@ public class App {
             @Override
             public void run() {
                 try {
-                    company.registerDailyTotalOfVaccinatedPeople();
+                    company.registerDailyTotalOfVaccinatedPeople(Constants.DAILY_REGISTERS_FILE_NAME);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
