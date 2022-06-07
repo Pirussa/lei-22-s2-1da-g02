@@ -221,7 +221,6 @@ public class CheckAndExportVacStatsGUI {
 
     private void toCheckVaccinationStatsScene(ActionEvent event) throws IOException {
         Parent root;
-
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/check-vac-stats.fxml"));
         root = loader.load();
 

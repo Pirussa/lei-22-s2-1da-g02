@@ -51,8 +51,6 @@ public class LoginMenuGUI {
                 UserRoleDTO role = roles.get(0);
                 redirectToRoleUI(role, event);
             } else {
-
-
                 Alert alertNoRoles = new Alert(Alert.AlertType.ERROR);
                 alertNoRoles.setTitle("Login Failed");
                 alertNoRoles.setContentText("User has no roles");
@@ -109,7 +107,16 @@ public class LoginMenuGUI {
      *
      * @param event the event
      */
-    public void logout(ActionEvent event) {
+    public void logout(ActionEvent event) throws IOException {
         controller.doLogout();
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Logout Successful");
+        alert.setContentText("You have been logged out.");
+        alert.showAndWait();
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/login-menu.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 }

@@ -2,7 +2,6 @@ package app.controller;
 
 import app.domain.model.*;
 import app.ui.console.utils.Utils;
-import pt.isep.lei.esoft.auth.domain.model.Email;
 
 import java.io.File;
 import java.io.PrintWriter;
@@ -77,7 +76,7 @@ public class CheckAndExportVaccinationStatsController {
         for (String dailyStat : dailyStats) {
             String[] dailyStatArray = dailyStat.split(";");
             LocalDate date = LocalDate.parse(dailyStatArray[0]);
-            if (date.isAfter(firstDate) && date.isBefore(lastDate)) {
+            if ((date.isEqual(firstDate) ||date.isAfter(firstDate)) && (date.isBefore(lastDate)|| date.isEqual(lastDate))) {
                 statsBetweenDates.add(dailyStat);
             }
         }

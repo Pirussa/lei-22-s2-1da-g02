@@ -48,16 +48,6 @@ public class CenterCoordinatorGUI {
     @FXML
     public void logout(ActionEvent event) throws IOException {
         loginMenuGUI.logout(event);
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Logout Successful");
-        alert.setContentText("You have been logged out.");
-        alert.showAndWait();
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/login-menu.fxml"));
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-
     }
 
 
