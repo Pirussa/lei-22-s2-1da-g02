@@ -27,11 +27,27 @@ public class CheckAndExportVacStatsGUI {
 
     private LocalDate lastDate;
 
+    public void setFirstDate(LocalDate firstDate) {
+        this.firstDate = firstDate;
+    }
+
+    public void setLastDate(LocalDate lastDate) {
+        this.lastDate = lastDate;
+    }
+
     @FXML
     private DatePicker firstDatePicker;
 
     @FXML
     private DatePicker lastDatePicker;
+
+    public void setFirstDatePicker(LocalDate firstDate) {
+        this.firstDatePicker.setValue(firstDate);
+    }
+
+    public void setLastDatePicker(LocalDate lastDate) {
+        this.lastDatePicker.setValue(lastDate);
+    }
 
     @FXML
     private Button okBtn;
@@ -210,6 +226,9 @@ public class CheckAndExportVacStatsGUI {
         root = loader.load();
 
         CheckListVacStatsGUI nextSceneUi = loader.getController();
+
+        nextSceneUi.setFirstDate(firstDate);
+        nextSceneUi.setLastDate(lastDate);
         nextSceneUi.setStatsListView(firstDate, lastDate);
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

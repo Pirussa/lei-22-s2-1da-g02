@@ -1,8 +1,6 @@
 package app.ui;
 
 
-import app.controller.App;
-import app.domain.model.Company;
 import app.ui.console.utils.Utils;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -17,10 +15,8 @@ public class MainGUI extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Company company = App.getInstance().getCompany();
+
         Utils.bootstrap();
-        company.authenticateSNSUser();
-        company.authenticateEmployees();
 
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/login-menu.fxml"));
 

@@ -4,6 +4,7 @@ import app.controller.*;
 import app.domain.model.*;
 import app.domain.shared.Constants;
 import app.domain.shared.GenericClass;
+import dto.MassVaccinationCenterDto;
 import pt.isep.lei.esoft.auth.domain.model.Email;
 
 import java.io.*;
@@ -11,6 +12,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,6 +32,7 @@ public class Utils {
 
     private static void bootstrapEmployees() {
         company.readBinaryFileEmployees();
+        company.authenticateEmployees();
     }
 
     private static void bootstrapVaccineTypes() {
@@ -38,10 +41,31 @@ public class Utils {
 
     private static void bootstrapVaccinationCenters() {
         company.readBinaryFileCenters();
+
+        CreateVaccinationCenterController ctrlVc = new CreateVaccinationCenterController();
+        MassVaccinationCenterDto mvcDto = new MassVaccinationCenterDto();
+        mvcDto.strID = "1234";
+        mvcDto.strName = "CVC Matosinhos";
+        mvcDto.strPhoneNumber = "915607321";
+        mvcDto.strFax = "915607321";
+        mvcDto.strEmail = "cvcmatosinhos@gmail.com";
+        mvcDto.strClosingHour = "21";
+        mvcDto.strOpeningHour = "9";
+        mvcDto.strVaccinesPerSlot = "1";
+        mvcDto.strSlotDuration = "30";
+        mvcDto.strWebsite = "www.cvcmatosinhos.com";
+        mvcDto.strRoad = "Rua do Amial";
+        mvcDto.strZipCode = "4460-098";
+        mvcDto.strLocal = "Matosinhos";
+        mvcDto.strCenterCoordinatorID = "00001";
+        mvcDto.vaccineType = new VaccineType("COVID", "To prevent serious COVID-19 infections", VaccineType.vaccineTechnologies[5]);
+        ctrlVc.saveMassVaccinationCenter(mvcDto);
+
     }
 
     private static void bootstrapSnsUsers() {
         company.readBinaryFileSnsUsers();
+        company.authenticateSNSUser();
     }
 
     private static void bootstrapVaccines() {
@@ -56,6 +80,10 @@ public class Utils {
 
     private static void bootstrapAdministeredVaccines() {
         company.readBinaryFileVaccineBulletins();
+        for (VaccinationCenter center : company.getVaccinationCenters()) {
+            center.readBinaryFilesFullyVaccinated();
+        }
+
     }
 
     private static void bootstrapArrivals() {

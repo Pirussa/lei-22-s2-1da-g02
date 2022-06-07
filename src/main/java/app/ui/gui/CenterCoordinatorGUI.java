@@ -75,7 +75,7 @@ public class CenterCoordinatorGUI {
     private void toCheckAndExportStatsGUI(ActionEvent event) throws IOException {
         switch (controller.companyHasEnoughInfoForVaccinationStats()){
             case 0:
-                Parent root = FXMLLoader.load(getClass().getResource("/fxml/check-and-export-vac-stats-ui.fxml"));
+                Parent root = FXMLLoader.load(getClass().getResource("/fxml/check-export-vac-stats-ui.fxml"));
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 Scene scene = new Scene(root);
                 stage.setScene(scene);

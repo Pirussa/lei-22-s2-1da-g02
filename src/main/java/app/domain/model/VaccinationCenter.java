@@ -175,7 +175,7 @@ public class VaccinationCenter implements Serializable {
      *
      * @return the list fully vaccinated
      */
-    public List<VaccineBulletin> getListFullyVaccinated() {
+    public List<VaccineBulletin> getFullyVaccinatedList() {
         return listFullyVaccinated;
     }
 
@@ -641,5 +641,27 @@ public class VaccinationCenter implements Serializable {
    public void addAdministeredVaccine(VaccineBulletin newAdministration){
         vaccinesAdministeredList.add(newAdministration);
        genericsVaccineBulletin.binaryFileWrite(Constants.FILE_PATH_VACCINE_BULLETIN, vaccinesAdministeredList);
+   }
+
+
+    /**
+     * Adds a Vaccine Bulletin to the list that contains all the fully vaccinated users correspondent bulletin.
+     *
+     * @param newAdministration the new administration
+     */
+    public void addFullyVaccinated(VaccineBulletin newAdministration){
+       listFullyVaccinated.add(newAdministration);
+       genericsVaccineBulletin.binaryFileWrite(Constants.FILE_PATH_FULLY_VACCINATED_LIST, listFullyVaccinated);
+   }
+
+    /**
+     * Read binary files fully vaccinated.
+     */
+    public void readBinaryFilesFullyVaccinated(){
+       try {
+           genericsVaccineBulletin.binaryFileRead(Constants.FILE_PATH_FULLY_VACCINATED_LIST, listFullyVaccinated);
+       } catch (EOFException e) {
+           e.printStackTrace();
+       }
    }
 }

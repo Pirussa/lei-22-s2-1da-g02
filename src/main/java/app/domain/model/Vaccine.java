@@ -9,10 +9,10 @@ import java.util.Objects;
  * @author Gustavo Jorge <1211061@isep.ipp.pt>
  */
 public class Vaccine implements Serializable {
-    private String name;
-    private int id;
-    private String brand;
-    private AdministrationProcess adminProcess;
+    private final String name;
+    private final int id;
+    private final String brand;
+    private final AdministrationProcess adminProcess;
     private final VaccineType vaccineType;
 
     /**
@@ -41,14 +41,7 @@ public class Vaccine implements Serializable {
         return id;
     }
 
-    /**
-     * Instantiates a new Vaccine.
-     *
-     * @param vaccineType the vt
-     */
-    public Vaccine(VaccineType vaccineType) {
-        this.vaccineType = vaccineType;
-    }
+
 
     /**
      * Gets name.

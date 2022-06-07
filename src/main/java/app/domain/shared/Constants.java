@@ -98,4 +98,5 @@ public class Constants {
     public static final int ADD_DOSE = 1;
     public static final String[] OPTIONS = {"Yes", "No"};
 
+    public static final String FILE_PATH_FULLY_VACCINATED_LIST = "fullyvaccinatedlist";
 }

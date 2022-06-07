@@ -25,6 +25,17 @@ public class CheckListVacStatsGUI {
     @FXML
     private ListView<String> statsListView;
 
+    private LocalDate firstDate;
+    private LocalDate lastDate;
+
+    public void setFirstDate(LocalDate firstDate) {
+        this.firstDate = firstDate;
+    }
+
+    public void setLastDate(LocalDate lastDate) {
+        this.lastDate = lastDate;
+    }
+
     /**
      * Sets the list view with the Vaccination Statistics.
      *
@@ -45,7 +56,15 @@ public class CheckListVacStatsGUI {
      */
     @FXML
     void backToMainScene(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/check-export-vac-stats-ui.fxml"));
+        Parent root;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/check-export-vac-stats-ui.fxml"));
+        root = loader.load();
+
+        CheckAndExportVacStatsGUI mainScene = loader.getController();
+        mainScene.setFirstDate(firstDate);
+        mainScene.setLastDate(lastDate);
+        mainScene.setFirstDatePicker(firstDate);
+        mainScene.setLastDatePicker(lastDate);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);

@@ -17,7 +17,7 @@ public class CenterCoordinatorMenuController {
      * Instantiates a new Center coordinator menu controller.
      */
     public CenterCoordinatorMenuController() {
-    center = company.getVaccinationCenterAssociatedToCoordinator( Utils.getLoggedCoordinatorId());
+    center = company.getVaccinationCenterAssociatedToCoordinator(Utils.getLoggedCoordinatorId());
     }
 
     private final Company company = App.getInstance().getCompany();
@@ -33,7 +33,7 @@ public class CenterCoordinatorMenuController {
             return 1;
         }
 
-        if (center.getVaccinesAdministeredList().isEmpty()) {
+        if (center.getFullyVaccinatedList().isEmpty()) {
             return 2;
         }
 

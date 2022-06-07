@@ -153,6 +153,11 @@ public class Company implements Serializable {
         genericsVaccine.binaryFileWrite(Constants.FILE_PATH_VACCINES, vaccinesList);
     }
 
+    public void saveVaccineBs(Vaccine vaccine){
+        vaccinesList.add(vaccine);
+        genericsVaccine.binaryFileWrite(Constants.FILE_PATH_VACCINES, vaccinesList);
+    }
+
     /**
      * Save vaccine test.
      *
@@ -606,7 +611,7 @@ public class Company implements Serializable {
     public String getCoordinatorId(Email email) {
 
         for (Employee centerCoordinator : getEmployees()) {
-            if (email.equals(centerCoordinator.getEmail())) {
+            if (String.valueOf(email).equals(centerCoordinator.getEmail())) {
                 return centerCoordinator.getId();
             }
         }
