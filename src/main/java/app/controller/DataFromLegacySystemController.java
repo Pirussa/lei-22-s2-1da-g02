@@ -36,7 +36,7 @@ public class DataFromLegacySystemController {
     }
 
     public void updateLegacyFile() throws NotSerializableException {
-        if (!getSNSUserList().isEmpty()){
+        if (!getSNSUserList().isEmpty() && !getVaccines().isEmpty()){
             for (int i = 0; i < csvLegacyData.size(); i++) {
                 String[] values;
                 float percentage = (float)i*100/csvLegacyData.size();
@@ -64,6 +64,9 @@ public class DataFromLegacySystemController {
             System.out.println();
             printUpdatedLegacy(csvLegacyData);
             exportDataToFile(csvLegacyData);
+        } else{
+            System.out.println("Either the SNS User list is empty or the Vaccine list is," +
+                    " this makes it impossible to update the legacy data with the SNS User number and the Vaccine's description.");
         }
     }
 

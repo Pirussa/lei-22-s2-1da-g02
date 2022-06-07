@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: ANTIQUEWHITE;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.ui.gui.CenterCoordinatorGUI">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: ANTIQUEWHITE;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.ui.gui.NurseGUI">
    <center>
       <FlowPane alignment="CENTER" columnHalignment="CENTER" BorderPane.alignment="CENTER">
          <children>
@@ -17,17 +17,7 @@
                   <Bloom threshold="1.0" />
                </effect>
                <children>
-                  <Button layoutX="368.0" layoutY="100.0" mnemonicParsing="false" onAction="#checkAndExportStats" prefHeight="91.0" prefWidth="619.0" text="Check and export Vaccination Statistics">
-                     <font>
-                        <Font name="System Bold" size="31.0" />
-                     </font>
-                  </Button>
-                  <Button layoutX="369.0" layoutY="261.0" mnemonicParsing="false" onAction="#notImplementedYet" prefHeight="93.0" prefWidth="618.0" text="Analyze the performance">
-                     <font>
-                        <Font name="System Bold" size="31.0" />
-                     </font>
-                  </Button>
-                  <Button layoutX="369.0" layoutY="424.0" mnemonicParsing="false" onAction="#notImplementedYet" prefHeight="93.0" prefWidth="619.0" text="Import data from legacy system">
+                  <Button layoutX="368.0" layoutY="274.0" mnemonicParsing="false" onAction="#recordVaccineAdministration" prefHeight="93.0" prefWidth="618.0" style="-fx-background-color: #9E768F;" text="Record Vaccine Administration" textFill="ANTIQUEWHITE">
                      <font>
                         <Font name="System Bold" size="31.0" />
                      </font>
@@ -38,7 +28,7 @@
       </FlowPane>
    </center>
    <top>
-      <FlowPane alignment="CENTER" prefHeight="115.0" prefWidth="1356.0" style="-fx-background-color: LIGHTSTEELBLUE;" BorderPane.alignment="CENTER">
+      <FlowPane alignment="CENTER" prefHeight="115.0" prefWidth="1356.0" style="-fx-background-color: #9FA4C4;" BorderPane.alignment="CENTER">
          <children>
             <Pane>
                <children>
