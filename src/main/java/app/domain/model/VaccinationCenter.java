@@ -45,6 +45,7 @@ public class VaccinationCenter implements Serializable {
     private List<Arrival> arrivalsList = new ArrayList<>();
     private final List<VaccineBulletin> vaccinesAdministeredList = new ArrayList<>();
     private final List<VaccineBulletin> listFullyVaccinated = new ArrayList<>();
+    private static final long serialVersionUID = 0;
 
     private static final String[] strTopLevelDomain = {".com", ".pt", ".co.uk"};
     private static final String strWorldWideWeb = "www.";

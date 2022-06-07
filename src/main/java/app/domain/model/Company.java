@@ -568,7 +568,7 @@ public class Company implements Serializable {
      *
      * @throws IOException the io exception
      */
-    public void registerDailyTotalOfPeopleVaccinated() throws IOException {
+    public void registerDailyTotalOfVaccinatedPeople() throws IOException {
         File file = new File(Constants.DAILY_REGISTERS_FILE_NAME);
         if (!file.exists()) {
             file.createNewFile();

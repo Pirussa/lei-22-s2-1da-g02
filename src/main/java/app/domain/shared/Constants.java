@@ -8,7 +8,7 @@ import app.domain.model.Company;
  */
 public class Constants {
 
-    public static final String DAILY_REGISTERS_FILE_NAME = "DailyTotalOfPeopleVaccinated.csv";
+    public static final String DAILY_REGISTERS_FILE_NAME = "DailyTotalOfVaccinatedPeople.csv";
     public static final int LOT_NUMBER_LENGTH = 8;
     public static final int ID_LENGTH = 5;
     public static final String ROLE_ADMIN = "ADMINISTRATOR";
