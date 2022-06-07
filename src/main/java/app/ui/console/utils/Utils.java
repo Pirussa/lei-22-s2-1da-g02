@@ -4,7 +4,6 @@ import app.controller.*;
 import app.domain.model.*;
 import app.domain.shared.Constants;
 import app.domain.shared.GenericClass;
-import dto.MassVaccinationCenterDto;
 import pt.isep.lei.esoft.auth.domain.model.Email;
 
 import java.io.*;
@@ -12,7 +11,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,26 +39,6 @@ public class Utils {
 
     private static void bootstrapVaccinationCenters() {
         company.readBinaryFileCenters();
-
-        CreateVaccinationCenterController ctrlVc = new CreateVaccinationCenterController();
-        MassVaccinationCenterDto mvcDto = new MassVaccinationCenterDto();
-        mvcDto.strID = "1234";
-        mvcDto.strName = "CVC Matosinhos";
-        mvcDto.strPhoneNumber = "915607321";
-        mvcDto.strFax = "915607321";
-        mvcDto.strEmail = "cvcmatosinhos@gmail.com";
-        mvcDto.strClosingHour = "21";
-        mvcDto.strOpeningHour = "9";
-        mvcDto.strVaccinesPerSlot = "1";
-        mvcDto.strSlotDuration = "30";
-        mvcDto.strWebsite = "www.cvcmatosinhos.com";
-        mvcDto.strRoad = "Rua do Amial";
-        mvcDto.strZipCode = "4460-098";
-        mvcDto.strLocal = "Matosinhos";
-        mvcDto.strCenterCoordinatorID = "00001";
-        mvcDto.vaccineType = new VaccineType("COVID", "To prevent serious COVID-19 infections", VaccineType.vaccineTechnologies[5]);
-        ctrlVc.saveMassVaccinationCenter(mvcDto);
-
     }
 
     private static void bootstrapSnsUsers() {
@@ -83,7 +61,6 @@ public class Utils {
         for (VaccinationCenter center : company.getVaccinationCenters()) {
             center.readBinaryFilesFullyVaccinated();
         }
-
     }
 
     private static void bootstrapArrivals() {
@@ -247,7 +224,7 @@ public class Utils {
      * @return Integer - The choosen option from the list
      */
     static public int selectsIndex(List list) {
-        String input = "";
+        String input;
         int value = -1;
         do {
             try {
@@ -466,12 +443,7 @@ public class Utils {
     }
 
     public static boolean validatePhoneNumberSimple(String phoneNumber) {
-
-        if (phoneNumber.matches("^[0-9]{9}$")) {
-
-            return true;
-        } else return false;
-
+        return phoneNumber.matches("^[0-9]{9}$");
     }
 
     /**
@@ -679,7 +651,7 @@ public class Utils {
             index++;
             System.out.println(index + ". " + o.toString());
         }
-        System.out.println("");
+        System.out.println();
         if (value == 0)
             System.out.println("0 - Next Month");
         else if (value == 1)
@@ -698,8 +670,8 @@ public class Utils {
 
 
     public static void fillListsUsingBinaryFileInformation(List listToBeFilled, List listFromFile) {
-        for (int listPosition = 0; listPosition < listFromFile.size(); listPosition++) {
-            listToBeFilled.add(listFromFile.get(listPosition));
+        for (Object o : listFromFile) {
+            listToBeFilled.add(o);
         }
     }
 
