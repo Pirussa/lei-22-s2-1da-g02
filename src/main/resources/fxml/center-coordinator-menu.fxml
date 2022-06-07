@@ -32,7 +32,7 @@
             </Label>
             <ImageView fitHeight="119.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../Images/Icon%20center%20coordinator.png" />
+                  <Image url="@../Images/Icon center coordinator.png" />
                </image>
             </ImageView>
          </children>
@@ -45,7 +45,7 @@
                <children>
                   <ImageView fitHeight="110.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../Images/check%20and%20export.png" />
+                        <Image url="@../Images/check and export.png" />
                      </image>
                      <HBox.margin>
                         <Insets right="60.0" />
@@ -88,7 +88,7 @@
                         <Insets right="60.0" />
                      </HBox.margin>
                      <image>
-                        <Image url="@../Images/Import%20data.png" />
+                        <Image url="@../Images/Import data.png" />
                      </image>
                   </ImageView>
                   <Button mnemonicParsing="false" onAction="#notImplementedYet" prefHeight="62.0" prefWidth="619.0" styleClass="centerCoordinator-buttons" stylesheets="@../styles/styleSheet.css" text="Import data from legacy system">
