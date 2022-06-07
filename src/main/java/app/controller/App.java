@@ -102,7 +102,7 @@ public class App {
             @Override
             public void run() {
                 try {
-                    company.registerDailyTotalOfPeopleVaccinated();
+                    company.registerDailyTotalOfVaccinatedPeople();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

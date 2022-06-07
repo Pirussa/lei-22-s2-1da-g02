@@ -4,4 +4,18 @@
 
 .login-button {
     -fx-background-radius: 20;
+    -fx-background-color: linear-gradient(#8acbf8, #4EA2E5);
+    -fx-border-style: solid;
+    -fx-border-radius: 20;
+    -fx-border-color: linear-gradient(#67a0c6, #4a90c6);
+
+}
+
+.radius-background {
+    -fx-background-color: white;
+    -fx-background-radius: 40;
+}
+
+.transparent {
+    -fx-background-color: rgba(0, 0, 0, 0);
 }
