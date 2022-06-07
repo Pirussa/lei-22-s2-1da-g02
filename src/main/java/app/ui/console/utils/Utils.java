@@ -4,6 +4,7 @@ import app.controller.*;
 import app.domain.model.*;
 import app.domain.shared.Constants;
 import app.domain.shared.GenericClass;
+import dto.RegisterNewEmployeeDto;
 import pt.isep.lei.esoft.auth.domain.model.Email;
 
 import java.io.*;
@@ -26,7 +27,6 @@ import java.util.logging.Logger;
 public class Utils {
 
     private static final Company company = App.getInstance().getCompany();
-
 
     private static void bootstrapEmployees() {
         company.readBinaryFileEmployees();
