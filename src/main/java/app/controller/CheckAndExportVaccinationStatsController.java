@@ -76,9 +76,8 @@ public class CheckAndExportVaccinationStatsController {
         for (String dailyStat : dailyStats) {
             String[] dailyStatArray = dailyStat.split(";");
             LocalDate date = LocalDate.parse(dailyStatArray[0]);
-            if ((date.isEqual(firstDate) || date.isAfter(firstDate)) && (date.isBefore(lastDate) || date.isEqual(lastDate))) {
+            if ((date.isEqual(firstDate) || date.isAfter(firstDate)) && (date.isBefore(lastDate) || date.isEqual(lastDate)))
                 statsBetweenDates.add(dailyStat);
-            }
         }
         return statsBetweenDates;
 
@@ -106,9 +105,7 @@ public class CheckAndExportVaccinationStatsController {
             for (String stat : getVaccinationStatsListBetweenDates(firstDate, lastDate)) {
                 writer.format("%s\n", stat);
             }
-
         } catch (Exception FileNotFoundException) {
-            file.delete();
             return false;
         } finally {
             assert writer != null;
@@ -126,18 +123,14 @@ public class CheckAndExportVaccinationStatsController {
      * @return an int related to the outcome
      */
     public int checkIfDatesAreValid(LocalDate firstDate, LocalDate lastDate) {
-        if (firstDate == null || lastDate == null) {
-           return  1;
-        }
-        if (firstDate.isAfter(lastDate)) {
-            return  2;
-        }
-        if (firstDate.isBefore(LocalDate.of(2021, 1, 1))) {
-            return  3;
-        }
-        if (lastDate.isAfter(LocalDate.now())) {
-            return  4;
-        }
+        if (firstDate == null || lastDate == null)
+            return 1;
+        if (firstDate.isAfter(lastDate))
+            return 2;
+        if (firstDate.isBefore(LocalDate.of(2021, 1, 1)))
+            return 3;
+        if (lastDate.isAfter(LocalDate.now()))
+            return 4;
         return 0;
     }
 

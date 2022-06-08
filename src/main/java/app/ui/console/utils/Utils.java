@@ -32,39 +32,10 @@ public class Utils {
     private static void bootstrapEmployees() {
         company.readBinaryFileEmployees();
         company.authenticateEmployees();
-        RegisterNewEmployeeController ctrlEmp = new RegisterNewEmployeeController();
-
-        RegisterNewEmployeeDto dtoEmp = new RegisterNewEmployeeDto();
-        dtoEmp.id = "00001";
-        dtoEmp.name = "Ana";
-        dtoEmp.password = "AAA11aa";
-        dtoEmp.phoneNumber = "915604427";
-        dtoEmp.citizenCardNumber = "11960343 8 ZW1";
-        dtoEmp.email = "ana@gmail.com";
-        dtoEmp.address = "Via Diagonal / 4475-079 / Porto";
-        ctrlEmp.saveCreatedEmployee(dtoEmp, "Center Coordinator");
-        //---------------------------------------------------------------------------------------------------------------------------------------------------
-
-        RegisterNewEmployeeDto dtoEmp1 = new RegisterNewEmployeeDto();
-        dtoEmp1.id = "00002";
-        dtoEmp1.name = "Joana";
-        dtoEmp1.password = "AAA11aa";
-        dtoEmp1.phoneNumber = "919700873";
-        dtoEmp1.citizenCardNumber = "14268862 2 ZX8";
-        dtoEmp1.email = "joana@gmail.com";
-        dtoEmp1.address = "Rua de São Tomé / 4200-489 / Porto";
-        ctrlEmp.saveCreatedEmployee(dtoEmp1, "Nurse");
-        //---------------------------------------------------------------------------------------------------------------------------------------------------
-
-        RegisterNewEmployeeDto dtoEmp2 = new RegisterNewEmployeeDto();
-        dtoEmp2.id = "00003";
-        dtoEmp2.name = "Carla";
-        dtoEmp2.password = "AAA11aa";
     }
 
     private static void bootstrapVaccineTypes() {
         company.readBinaryFileVaccineTypes();
-        company.saveVaccineType("COVID","JdhaKDH","ksajjdka");
     }
 
     private static void bootstrapVaccinationCenters() {
@@ -78,15 +49,6 @@ public class Utils {
 
     private static void bootstrapVaccines() {
         company.readBinaryFileVaccines();
-        ArrayList <Integer> minAge = new ArrayList<>(List.of(1,20,50,100));
-        ArrayList <Integer> maxAge = new ArrayList<>(List.of(19,49,99,120));
-        ArrayList <Integer> numberOfDoses = new ArrayList<>(List.of(2,3,3,2));
-        ArrayList <Double> dosage = new ArrayList<>(List.of(25.0,35.0,30.0,20.5));
-        ArrayList <Integer> timeIntervalBetween1stAnd2nd = new ArrayList<>(List.of(15,15,15,15));
-        ArrayList <Integer> timeIntervalBetween2ndAnd3rd = new ArrayList<>(List.of(0,150,180,0));
-        AdministrationProcess administrationProcess = new AdministrationProcess(new ArrayList<>( List.of(minAge,maxAge)),numberOfDoses,dosage, new ArrayList<>(List.of(timeIntervalBetween1stAnd2nd,timeIntervalBetween2ndAnd3rd)));
-        Vaccine vaccine = new Vaccine("Spikevax",1000,"SpikeBrand",administrationProcess, new VaccineType("COVID","description","Tech"));
-        company.saveVaccineBs(vaccine);
     }
 
     private static void bootstrapScheduledAppointments() {
