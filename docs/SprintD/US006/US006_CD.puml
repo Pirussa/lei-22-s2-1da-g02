@@ -1,11 +1,30 @@
 @startuml
 'https://plantuml.com/class-diagram
 
-
+skinparam classAttributeIconSize 0
 
 
 class App{
 +runDailyTasks()
+}
+
+class VaccinationCenter{
+-id
+-name
+-phoneNumber
+-email
+-fax
+-website
+-openingHour
+-closingHour
+-slotDuration
+-vaccinesPerSlot
+-road
+-zipCode
+-local
+-centerCoordinatorID
+-arrivalsList
++getVaccinesAdministeredList()
 }
 
 
@@ -17,7 +36,7 @@ class Company{
 left to right direction
 
 
-App -r- Company
-
-
+App .r.> Company
+App .>VaccinationCenter
+Company"1" --- "*"VaccinationCenter: > has
 @enduml

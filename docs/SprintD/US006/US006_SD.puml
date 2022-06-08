@@ -1,0 +1,31 @@
+@startuml
+
+autonumber
+
+participant ":App" as A
+participant "Company" as C
+participant "Vaccination Center" as VC
+
+
+
+[o--> A :asks to execute the daily task that records the total of people vaccinated for each vaccination center.
+activate A
+A -> C : runDailyTasks()
+activate C
+deactivate A
+loop Vaccination Center Total Vaccinated People
+C -> C : vaccinationCenter = getVaccinationCentersList().get(position)
+activate C
+deactivate C
+C->VC :   administeredVaccinesList = vaccinationCenter.getAdministeredVaccines()
+activate VC
+deactivate VC
+C -> C : amountOfVaccinatedPeople = vaccinationCenter.administeredVaccinesList.size()
+activate C
+deactivate C
+C -> A : Print information to a csv file
+activate A
+deactivate A
+end
+
+@enduml

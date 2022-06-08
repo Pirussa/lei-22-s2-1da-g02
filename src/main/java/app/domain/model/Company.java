@@ -586,10 +586,11 @@ public class Company implements Serializable {
             out.close();
         }
         try {
+            StringBuilder  dailyTotalOfVaccinatedPeople = new StringBuilder();
             FileWriter out = new FileWriter(file, true);
             for (int vaccinationCenterListPosition = 0; vaccinationCenterListPosition < getVaccinationCenters().size(); vaccinationCenterListPosition++) {
-                String dailyTotalOfVaccinatedPeople = Utils.formatDateToPrint(LocalDate.now()) + ";" + getVaccinationCenters().get(vaccinationCenterListPosition) + ";" + getVaccinationCenters().get(vaccinationCenterListPosition).getVaccinesAdministeredList().size();
-                if (dailyTotalOfVaccinatedPeopleCheckDuplicates(dailyTotalOfVaccinatedPeople,fileName)) {
+               dailyTotalOfVaccinatedPeople.append(Utils.formatDateToPrint(LocalDate.now())).append(";").append(getVaccinationCenters().get(vaccinationCenterListPosition)).append(";").append(getVaccinationCenters().get(vaccinationCenterListPosition).getVaccinesAdministeredList().size());
+                if (dailyTotalOfVaccinatedPeopleCheckDuplicates(dailyTotalOfVaccinatedPeople.toString(),fileName)) {
                     out.write("\n" + dailyTotalOfVaccinatedPeople);
                 }
             }
