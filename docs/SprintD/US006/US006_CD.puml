@@ -17,7 +17,7 @@ class Company{
 left to right direction
 
 
-App .....> Company
+App -r- Company
 
 
 @enduml

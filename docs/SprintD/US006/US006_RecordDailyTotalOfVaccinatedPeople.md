@@ -54,7 +54,7 @@
 
 ### 1.7 Other Relevant Remarks
 
->*
+>*The task is supposed to run daily,
 
 
 ## 2. OO Analysis
