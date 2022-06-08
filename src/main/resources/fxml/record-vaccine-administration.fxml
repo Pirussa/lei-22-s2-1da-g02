@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" style="-fx-background-image: Downloads;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <bottom>
       <HBox alignment="CENTER" prefHeight="40.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
@@ -89,7 +89,7 @@
                               <Font name="Constantia" size="12.0" />
                            </font>
                         </Label>
-                        <TextField alignment="BOTTOM_LEFT" prefHeight="26.0" prefWidth="145.0" style="-fx-border-color: #DFC39B;">
+                        <TextField alignment="BOTTOM_LEFT" editable="false" prefHeight="26.0" prefWidth="170.0" style="-fx-border-color: #DFC39B;">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
@@ -103,15 +103,15 @@
                      <children>
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="62.0" text="Dosage">
                            <HBox.margin>
-                              <Insets top="5.0" />
+                              <Insets top="4.0" />
                            </HBox.margin>
                            <font>
                               <Font name="Constantia" size="12.0" />
                            </font>
                         </Label>
-                        <TextField prefHeight="26.0" prefWidth="146.0" style="-fx-border-color: #DFC39B;">
+                        <TextField editable="false" prefHeight="26.0" prefWidth="170.0" style="-fx-border-color: #DFC39B;">
                            <HBox.margin>
-                              <Insets bottom="10.0" left="66.0" right="20.0" top="2.0" />
+                              <Insets bottom="10.0" left="66.0" right="20.0" />
                            </HBox.margin>
                         </TextField>
                      </children>
@@ -119,30 +119,21 @@
                         <Insets />
                      </VBox.margin>
                   </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <HBox prefHeight="35.0" prefWidth="380.0">
                      <children>
-                        <GridPane prefHeight="100.0" prefWidth="190.0">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                        </GridPane>
-                        <GridPane prefHeight="100.0" prefWidth="189.0">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                        </GridPane>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="86.0" text="Lot Number">
+                           <font>
+                              <Font name="Constantia" size="12.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets top="5.0" />
+                           </HBox.margin>
+                        </Label>
+                        <TextField prefHeight="26.0" prefWidth="170.0" style="-fx-border-color: #DFC39B;">
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="42.0" right="20.0" />
+                           </HBox.margin>
+                        </TextField>
                      </children>
                   </HBox>
                </children>
