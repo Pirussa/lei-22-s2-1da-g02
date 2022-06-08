@@ -2,11 +2,9 @@ package app.controller;
 
 import app.domain.model.Company;
 import app.domain.model.SnsUser;
-import app.domain.shared.Constants;
 import app.domain.shared.GenericClass;
-import dto.SnsUserDto;
+import app.dto.SnsUserDto;
 
-import java.io.NotSerializableException;
 import java.util.ArrayList;
 
 /**

@@ -2,14 +2,10 @@ package app.controller;
 
 
 import app.domain.model.Company;
-import app.domain.model.Employee;
-import app.domain.shared.Constants;
-import app.domain.shared.GenericClass;
-import dto.RegisterNewEmployeeDto;
+import app.dto.RegisterNewEmployeeDto;
 
 import java.io.NotSerializableException;
 import java.io.Serializable;
-import java.util.List;
 
 
 /**

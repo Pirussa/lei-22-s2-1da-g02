@@ -3,10 +3,9 @@ package app.ui.console;
 import app.controller.RecordVaccineAdministrationController;
 import app.domain.shared.Constants;
 import app.ui.console.utils.Utils;
-import dto.SnsUserDto;
+import app.dto.SnsUserDto;
 
 import java.io.IOException;
-import java.io.NotSerializableException;
 import java.util.Scanner;
 
 /**

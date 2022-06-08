@@ -3,10 +3,9 @@ package app.ui.console;
 import app.controller.CreateVaccinationCenterController;
 import app.domain.model.VaccineType;
 import app.ui.console.utils.Utils;
-import dto.HealthcareCenterDto;
-import dto.MassVaccinationCenterDto;
+import app.dto.HealthcareCenterDto;
+import app.dto.MassVaccinationCenterDto;
 
-import java.io.NotSerializableException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Random;

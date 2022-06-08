@@ -1,11 +1,9 @@
 package app.controller;
 
 import app.domain.model.*;
-import dto.MassVaccinationCenterDto;
-import dto.RegisterNewEmployeeDto;
-import dto.VaccinationCenterDto;
-import mapper.VaccinationCenterMapper;
-import org.junit.jupiter.api.BeforeAll;
+import app.dto.RegisterNewEmployeeDto;
+import app.dto.VaccinationCenterDto;
+import app.mapper.VaccinationCenterMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

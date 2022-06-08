@@ -4,8 +4,6 @@ import app.controller.*;
 import app.domain.model.*;
 import app.domain.shared.Constants;
 import app.domain.shared.GenericClass;
-import dto.MassVaccinationCenterDto;
-import dto.RegisterNewEmployeeDto;
 import pt.isep.lei.esoft.auth.domain.model.Email;
 
 import java.io.*;

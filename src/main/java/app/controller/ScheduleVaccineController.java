@@ -2,12 +2,11 @@ package app.controller;
 
 import app.domain.model.*;
 import app.domain.shared.Constants;
-import app.domain.shared.GenericClass;
 import app.ui.console.utils.Utils;
-import dto.ScheduledVaccineDto;
-import dto.VaccinationCenterDto;
-import mapper.ScheduledVaccineMapper;
-import mapper.VaccinationCenterMapper;
+import app.dto.ScheduledVaccineDto;
+import app.dto.VaccinationCenterDto;
+import app.mapper.ScheduledVaccineMapper;
+import app.mapper.VaccinationCenterMapper;
 import pt.isep.lei.esoft.auth.AuthFacade;
 
 import java.io.IOException;

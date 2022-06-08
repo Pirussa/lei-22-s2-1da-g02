@@ -5,7 +5,7 @@ import app.domain.model.SnsUser;
 import app.domain.model.Vaccine;
 import app.domain.shared.Constants;
 import app.domain.shared.GenericClass;
-import miscellaneous.ReadLegacyDataFile;
+import app.miscellaneous.ReadLegacyDataFile;
 
 import java.io.*;
 import java.time.LocalDateTime;

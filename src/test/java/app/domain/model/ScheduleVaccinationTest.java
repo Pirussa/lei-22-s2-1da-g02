@@ -3,8 +3,8 @@ package app.domain.model;
 import app.controller.App;
 import app.controller.ScheduleVaccineController;
 import app.ui.console.utils.Utils;
-import dto.ScheduledVaccineDto;
-import mapper.ScheduledVaccineMapper;
+import app.dto.ScheduledVaccineDto;
+import app.mapper.ScheduledVaccineMapper;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;

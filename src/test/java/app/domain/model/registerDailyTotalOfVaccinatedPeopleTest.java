@@ -4,9 +4,7 @@ import app.controller.App;
 import app.controller.CreateVaccinationCenterController;
 import app.controller.RegisterTheArrivalOfAnSnsUserController;
 import app.domain.shared.Constants;
-import dto.MassVaccinationCenterDto;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
+import app.dto.MassVaccinationCenterDto;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

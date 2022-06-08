@@ -1,13 +1,9 @@
 package app.controller;
 
 import app.domain.model.Company;
-import app.domain.model.Vaccine;
 import app.domain.model.VaccineType;
-import app.domain.shared.Constants;
-import app.domain.shared.GenericClass;
-import dto.VaccineAndAdminProcessDto;
+import app.dto.VaccineAndAdminProcessDto;
 
-import java.io.NotSerializableException;
 import java.util.List;
 
 /**

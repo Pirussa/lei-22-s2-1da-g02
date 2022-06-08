@@ -1,4 +1,4 @@
-package miscellaneous;
+package app.miscellaneous;
 
 import app.controller.App;
 

@@ -3,8 +3,8 @@ package app.ui.console;
 import app.controller.ScheduleVaccineController;
 import app.domain.shared.Constants;
 import app.ui.console.utils.Utils;
-import dto.ScheduledVaccineDto;
-import dto.VaccinationCenterDto;
+import app.dto.ScheduledVaccineDto;
+import app.dto.VaccinationCenterDto;
 
 import java.io.*;
 import java.time.LocalDate;

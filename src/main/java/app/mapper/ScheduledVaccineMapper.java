@@ -1,7 +1,7 @@
-package mapper;
+package app.mapper;
 
 import app.domain.model.ScheduledVaccine;
-import dto.ScheduledVaccineDto;
+import app.dto.ScheduledVaccineDto;
 
 public class ScheduledVaccineMapper {
 

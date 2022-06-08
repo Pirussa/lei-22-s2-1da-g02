@@ -1,7 +1,7 @@
-package mapper;
+package app.mapper;
 
 import app.domain.model.VaccineBulletin;
-import dto.VaccineBulletinDto;
+import app.dto.VaccineBulletinDto;
 
 public class VaccineBulletinMapper {
 
