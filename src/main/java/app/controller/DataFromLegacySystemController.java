@@ -5,6 +5,7 @@ import app.domain.model.SnsUser;
 import app.domain.model.Vaccine;
 import app.domain.shared.Constants;
 import app.domain.shared.GenericClass;
+import miscellaneous.ReadLegacyDataFile;
 
 import java.io.*;
 import java.time.LocalDateTime;
@@ -14,13 +15,11 @@ import java.util.Collections;
 import java.util.List;
 
 public class DataFromLegacySystemController {
-    private Company company = App.getInstance().getCompany();
+    private final Company company = App.getInstance().getCompany();
 
     private ArrayList<SnsUser> getSNSUserList() {
         return company.getSnsUserList();
     }
-
-    private List<LocalDateTime> listOfArrivalDates = new ArrayList<>();
 
     private List<Vaccine> getVaccines() {
         return company.getVaccinesList();
@@ -28,18 +27,18 @@ public class DataFromLegacySystemController {
 
     private List<String> csvLegacyData = new ArrayList<>();
 
-    public void readFile(String path) throws Exception {
-        String line = null;
-        BufferedReader br = new BufferedReader(new FileReader(path));
-        br.readLine();
-        while ((line = br.readLine()) != null) {
-            line = line.replaceAll("\"", "");
-            String[] values = line.split(";");
-            csvLegacyData.add(values[0] + "_" + values[1] + "_" + values[2] + "_" + values[3] + "_" + values[4] + "_" + values[5] + "_"
-                    + values[6] + "_" + values[7]);
-        }
+    private void readFile(String path) throws Exception {
+        ReadLegacyDataFile readLegacyDataFile = new ReadLegacyDataFile();
+        readLegacyDataFile.readFile(path);
     }
 
+    /**
+     * Update legacy file.
+     * <p>
+     * Adds names and vaccines descriptions to the list.
+     *
+     * @throws NotSerializableException the not serializable exception
+     */
     public void updateLegacyFile() throws NotSerializableException {
         if (!getSNSUserList().isEmpty() && !getVaccines().isEmpty()) {
             for (int i = 0; i < csvLegacyData.size(); i++) {
@@ -76,47 +75,6 @@ public class DataFromLegacySystemController {
         }
     }
 
-
-    public void bubbleSort() {
-
-        for (int numberToBeChecked = 0; numberToBeChecked < listOfArrivalDates.size() - 1; ++numberToBeChecked) {
-
-            for (int otherElements = 0; otherElements < listOfArrivalDates.size() - numberToBeChecked - 1; ++otherElements) {
-
-                if (listOfArrivalDates.get(otherElements + 1).isAfter(listOfArrivalDates.get(otherElements))) {
-
-                    LocalDateTime swap = listOfArrivalDates.get(otherElements);
-                    //listOfArrivalDates.get(otherElements) = listOfArrivalDates.get(otherElements + 1);
-                    //listOfArrivalDates.get(otherElements + 1) = swap;
-
-                    String swapString = csvLegacyData.get(otherElements);
-
-                }
-            }
-        }
-
-
-    }
-
-    public void setArrivalDateList() {
-        String[] values;
-        for (int position = 0; position < csvLegacyData.size(); position++) {
-            values = csvLegacyData.get(position).split("_");
-            String data = values[6];
-            String[] dataEhora = data.split(" ");
-            String[] dia0mes1ano2 = dataEhora[0].split("/");
-            int year = Integer.parseInt(dia0mes1ano2[2]);
-            int month = Integer.parseInt(dia0mes1ano2[1]);
-            int day = Integer.parseInt(dia0mes1ano2[0]);
-            String[] horaEminuto = dataEhora[1].split(":");
-            int hour = Integer.parseInt(horaEminuto[0]);
-            int minute = Integer.parseInt(horaEminuto[1]);
-
-            LocalDateTime dataToBeAdded = LocalDateTime.of(year, month, day, hour, minute);
-            listOfArrivalDates.add(dataToBeAdded);
-        }
-
-    }
 
     public void sortArrivalTime() throws NotSerializableException {
         if (!csvLegacyData.isEmpty()) {
@@ -163,4 +121,10 @@ public class DataFromLegacySystemController {
     }
 
 
+    public List<String> getSortedList(String path) throws Exception {
+        readFile(path);
+        updateLegacyFile();
+        sortArrivalTime();
+        return null;
+    }
 }

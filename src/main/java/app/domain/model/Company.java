@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
+
 /**
  * The type Company.
  *
@@ -155,7 +156,12 @@ public class Company implements Serializable {
         genericsVaccine.binaryFileWrite(Constants.FILE_PATH_VACCINES, vaccinesList);
     }
 
-    public void saveVaccineBs(Vaccine vaccine) {
+    /**
+     * Save vaccine.
+     *
+     * @param vaccine the vaccine
+     */
+    public void saveVaccineBs(Vaccine vaccine){
         vaccinesList.add(vaccine);
         genericsVaccine.binaryFileWrite(Constants.FILE_PATH_VACCINES, vaccinesList);
     }
@@ -167,6 +173,7 @@ public class Company implements Serializable {
      */
     public void saveVaccineTest(Vaccine v) {
         vaccinesList.add(v);
+        genericsVaccine.binaryFileWrite(Constants.FILE_PATH_VACCINES, vaccinesList);
     }
 
     /**

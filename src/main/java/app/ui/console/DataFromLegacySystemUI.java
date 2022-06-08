@@ -18,10 +18,8 @@ public class DataFromLegacySystemUI implements Runnable{
     System.out.println("File Location: ");
     System.out.println();
     String path = readPath.nextLine();
-    controller.readFile(path);
-    controller.updateLegacyFile();
     controller.sortArrivalTime();
-
+    List <String> sortedList = controller.getSortedList(path);
 
 } catch (Exception e){
       e.printStackTrace();
@@ -29,7 +27,9 @@ public class DataFromLegacySystemUI implements Runnable{
   }
 
   public void sortByArrivalTime(List<String> csvLegacyData){
-    System.out.println("TODO");
+    //create
+
+
     }
 
   public void sortByLeavingTime(List<String> csvLegacyData){

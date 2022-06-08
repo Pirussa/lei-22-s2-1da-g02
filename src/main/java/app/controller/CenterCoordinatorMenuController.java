@@ -6,6 +6,7 @@ import app.ui.console.utils.Utils;
 
 /**
  * The Center coordinator menu controller.
+ *
  * @author Gustavo Jorge
  * @author Pedro Monteiro
  */
@@ -17,7 +18,7 @@ public class CenterCoordinatorMenuController {
      * Instantiates a new Center coordinator menu controller.
      */
     public CenterCoordinatorMenuController() {
-    center = company.getVaccinationCenterAssociatedToCoordinator(Utils.getLoggedCoordinatorId());
+        center = company.getVaccinationCenterAssociatedToCoordinator(Utils.getLoggedCoordinatorId());
     }
 
     private final Company company = App.getInstance().getCompany();
@@ -28,15 +29,11 @@ public class CenterCoordinatorMenuController {
      * @return the int related to the error or success of the operation
      */
     public int companyHasEnoughInfoForVaccinationStats() {
-
-        if (company.getVaccinationCenters().isEmpty()) {
+        if (company.getVaccinationCenters() ==null || company.getVaccinationCenters().isEmpty()) {
             return 1;
-        }
-
-        if (center.getFullyVaccinatedList().isEmpty()) {
+        }else if (center.getFullyVaccinatedList() == null || center.getFullyVaccinatedList().isEmpty()) {
             return 2;
         }
-
         return 0;
     }
 

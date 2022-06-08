@@ -126,6 +126,8 @@ public class VaccinationCenter implements Serializable {
         this.strCenterCoordinatorID = strCenterCoordinatorID;
     }
 
+
+
     public String getStrCenterCoordinatorID() {
         return strCenterCoordinatorID;
     }

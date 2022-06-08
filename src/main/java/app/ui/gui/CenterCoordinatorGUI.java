@@ -19,7 +19,7 @@ import java.io.IOException;
 public class CenterCoordinatorGUI {
 
     private final LoginMenuGUI loginMenuGUI = new LoginMenuGUI();
-    private final CenterCoordinatorMenuController controller= new CenterCoordinatorMenuController();
+    private final CenterCoordinatorMenuController controller = new CenterCoordinatorMenuController();
 
 
     @FXML
@@ -63,7 +63,7 @@ public class CenterCoordinatorGUI {
     }
 
     private void toCheckAndExportStatsGUI(ActionEvent event) throws IOException {
-        switch (controller.companyHasEnoughInfoForVaccinationStats()){
+        switch (controller.companyHasEnoughInfoForVaccinationStats()) {
             case 0:
                 Parent root = FXMLLoader.load(getClass().getResource("/fxml/check-export-vac-stats-ui.fxml"));
                 Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -86,7 +86,6 @@ public class CenterCoordinatorGUI {
         }
 
     }
-
 
 
 }

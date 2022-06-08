@@ -76,7 +76,7 @@ public class CheckAndExportVaccinationStatsController {
         for (String dailyStat : dailyStats) {
             String[] dailyStatArray = dailyStat.split(";");
             LocalDate date = LocalDate.parse(dailyStatArray[0]);
-            if ((date.isEqual(firstDate) ||date.isAfter(firstDate)) && (date.isBefore(lastDate)|| date.isEqual(lastDate))) {
+            if ((date.isEqual(firstDate) || date.isAfter(firstDate)) && (date.isBefore(lastDate) || date.isEqual(lastDate))) {
                 statsBetweenDates.add(dailyStat);
             }
         }
@@ -100,7 +100,6 @@ public class CheckAndExportVaccinationStatsController {
         fileName = fileName + ".csv";
         File file = new File(fileName);
         PrintWriter writer = null;
-
         try {
             writer = new PrintWriter(file);
             writer.format("%s;%s\n", "Date", "Total");
@@ -127,30 +126,23 @@ public class CheckAndExportVaccinationStatsController {
      * @return an int related to the outcome
      */
     public int checkIfDatesAreValid(LocalDate firstDate, LocalDate lastDate) {
-        int errorCode = 0;
         if (firstDate == null || lastDate == null) {
-            errorCode = 1;
+           return  1;
         }
         if (firstDate.isAfter(lastDate)) {
-            errorCode = 2;
+            return  2;
         }
-
         if (firstDate.isBefore(LocalDate.of(2021, 1, 1))) {
-            errorCode = 3;
+            return  3;
         }
-
         if (lastDate.isAfter(LocalDate.now())) {
-            errorCode = 4;
-
+            return  4;
         }
-        return errorCode;
+        return 0;
     }
 
     private VaccinationCenter getVaccinationCenterAssociatedToCoordinator(String coordinatorId) {
-        if (company.getVaccinationCenterAssociatedToCoordinator(coordinatorId) != null) {
-            return company.getVaccinationCenterAssociatedToCoordinator(coordinatorId);
-        }
-        return null;
+        return company.getVaccinationCenterAssociatedToCoordinator(coordinatorId);
     }
 
 }
