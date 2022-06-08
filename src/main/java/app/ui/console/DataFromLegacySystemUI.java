@@ -20,6 +20,8 @@ public class DataFromLegacySystemUI implements Runnable{
     String path = readPath.nextLine();
     controller.readFile(path);
     controller.updateLegacyFile();
+    controller.sortArrivalTime();
+
 
 } catch (Exception e){
       e.printStackTrace();

@@ -7,7 +7,10 @@ import app.domain.shared.Constants;
 import app.domain.shared.GenericClass;
 
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class DataFromLegacySystemController {
@@ -17,7 +20,7 @@ public class DataFromLegacySystemController {
         return company.getSnsUserList();
     }
 
-    public List<Vaccine> getVaccines() {
+    private List<Vaccine> getVaccines() {
         return company.getVaccinesList();
     }
 
@@ -66,7 +69,83 @@ public class DataFromLegacySystemController {
             exportDataToFile(csvLegacyData);
         } else{
             System.out.println("Either the SNS User list is empty or the Vaccine list is," +
-                    " this makes it impossible to update the legacy data with the SNS User number and the Vaccine's description.");
+                    " this makes it impossible to update the legacy " +
+                    "data with the SNS User number and the Vaccine's description.");
+        }
+    }
+
+
+    public void bubbleSort() {
+
+        for (int numberToBeChecked = 0; numberToBeChecked < listOfArrivalDates.size() - 1; ++numberToBeChecked) {
+
+            for (int otherElements = 0; otherElements < listOfArrivalDates.size() - numberToBeChecked - 1; ++otherElements) {
+
+                if (listOfArrivalDates.get(otherElements + 1).isAfter(listOfArrivalDates.get(otherElements))) {
+
+                    LocalDateTime swap = listOfArrivalDates.get(otherElements);
+                    //listOfArrivalDates.get(otherElements) = listOfArrivalDates.get(otherElements + 1);
+                    //listOfArrivalDates.get(otherElements + 1) = swap;
+
+                    String swapString = csvLegacyData.get(otherElements);
+
+                }
+            }
+        }
+
+
+    }
+
+    public void setArrivalDateList() {
+        String[] values;
+        for (int position = 0; position < csvLegacyData.size(); position++) {
+            values = csvLegacyData.get(position).split("_");
+            String data = values[6];
+            String[] dataEhora = data.split(" ");
+            String[] dia0mes1ano2 = dataEhora[0].split("/");
+            int year = Integer.parseInt(dia0mes1ano2[2]);
+            int month = Integer.parseInt(dia0mes1ano2[1]);
+            int day = Integer.parseInt(dia0mes1ano2[0]);
+            String[] horaEminuto = dataEhora[1].split(":");
+            int hour = Integer.parseInt(horaEminuto[0]);
+            int minute = Integer.parseInt(horaEminuto[1]);
+
+            LocalDateTime dataToBeAdded = LocalDateTime.of(year, month, day, hour, minute);
+            listOfArrivalDates.add(dataToBeAdded);
+        }
+
+    }
+
+    public void sortArrivalTime() throws NotSerializableException {
+        if (!csvLegacyData.isEmpty()) {
+            String[] values;
+            String[] valuesMinusOne;
+            LocalDateTime dateFormatted;
+            LocalDateTime dateFormattedMinusOne;
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm");
+            dateFormattedMinusOne = LocalDateTime.parse("01/01/1990 00:00", formatter);
+            boolean itsFirstTime = true;
+
+
+            for (int i = 1; i < csvLegacyData.size(); i++) {
+                values = csvLegacyData.get(i).split("_");
+
+                if (i - 1 >= 0) {
+                    valuesMinusOne = csvLegacyData.get(i - 1).split("_");
+                    dateFormattedMinusOne = LocalDateTime.parse(valuesMinusOne[6], formatter);
+                    itsFirstTime = false;
+                }
+
+                dateFormatted = LocalDateTime.parse(values[6], formatter);
+                if (!itsFirstTime && dateFormatted.isAfter(dateFormattedMinusOne)) {
+                    continue;
+                } else if (dateFormattedMinusOne.isAfter(dateFormatted)) {
+                    Collections.swap(csvLegacyData, i, i - 1);
+                } else {
+                    continue;
+                }
+            }
+            System.out.println(csvLegacyData);
         }
     }
 
@@ -80,5 +159,6 @@ public class DataFromLegacySystemController {
             System.out.println(list.get(i));
         }
     }
+
 
 }
