@@ -149,7 +149,6 @@ public class CheckAndExportVacStatsGUI {
      */
     public void exportStatistics(ActionEvent event) {
 
-
         String fileName = askFileNameTxt.getText();
         if (!fileName.isEmpty()) {
             if (controller.exportVaccinationStats(fileName, firstDate, lastDate)) {
