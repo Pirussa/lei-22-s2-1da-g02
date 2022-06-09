@@ -41,7 +41,7 @@ public class SpecifyVaccineAndAdminProcessController {
      * @return an ArrayList with all the Vaccine Types that are available to choose.
      */
     public List<VaccineType> getVaccineTypesList() {
-        return company.getVaccineTypes();
+        return company.getVaccineTypesStore().getVaccineTypes();
     }
 
     /**

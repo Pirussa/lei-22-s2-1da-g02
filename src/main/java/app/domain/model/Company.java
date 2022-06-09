@@ -4,6 +4,7 @@ import app.domain.shared.Constants;
 import app.domain.shared.GenericClass;
 import app.dto.*;
 import app.stores.VaccinationCentersStore;
+import app.stores.VaccineTypesStore;
 import app.ui.console.utils.Utils;
 import app.mapper.ScheduledVaccineMapper;
 import pt.isep.lei.esoft.auth.AuthFacade;
@@ -38,9 +39,8 @@ public class Company implements Serializable {
     private final GenericClass<Vaccine> genericsVaccine = new GenericClass<>();
     private final GenericClass<SnsUser> genericsSnsUsers = new GenericClass<>();
 
-    private final GenericClass<VaccineType> genericsVaccineType = new GenericClass<>();
+
     private final GenericClass<Employee> genericsEmployee = new GenericClass<>();
-    private final ArrayList<VaccineType> vaccineTypes = new ArrayList<>();
     private final ArrayList<Vaccine> vaccinesList = new ArrayList<>();
     private final ArrayList<Employee> employees = new ArrayList<>();
     private final ArrayList<Employee> nurseList = new ArrayList<>();
@@ -49,6 +49,7 @@ public class Company implements Serializable {
     private final List<ScheduledVaccine> appointmentsList = new ArrayList<>();
 
     private final VaccinationCentersStore vaccinationCentersStore = new VaccinationCentersStore();
+    private final VaccineTypesStore vaccineTypesStore = new VaccineTypesStore();
 
     /**
      * Gets vaccination centers store.
@@ -57,6 +58,15 @@ public class Company implements Serializable {
      */
     public VaccinationCentersStore getVaccinationCentersStore() {
         return vaccinationCentersStore;
+    }
+
+    /**
+     * Gets vaccine types store.
+     *
+     * @return the vaccine types store
+     */
+    public VaccineTypesStore getVaccineTypesStore(){
+        return vaccineTypesStore;
     }
 
     /**
@@ -90,14 +100,6 @@ public class Company implements Serializable {
         return authFacade;
     }
 
-    /**
-     * Gets the Vaccine Types that are stored in the Company.
-     *
-     * @return An ArrayList of Vaccine Types.
-     */
-    public List<VaccineType> getVaccineTypes() {
-        return vaccineTypes;
-    }
 
     /**
      * Gets the Vaccines that are stored in the Company.
@@ -167,35 +169,6 @@ public class Company implements Serializable {
         genericsVaccine.binaryFileWrite(Constants.FILE_PATH_VACCINES, vaccinesList);
     }
 
-    /**
-     * Specifies a new Vaccine Type:
-     * <p>
-     * <p>
-     * The method should create a vaccine type that should be validated, if so, it returns true
-     *
-     * @param code        a String to validate
-     * @param description the description
-     * @param technology  the technology
-     * @return true if the type is valid
-     */
-    public boolean specifyNewVaccineType(String code, String description, String technology) {
-        VaccineType vt = new VaccineType(code, description, technology);
-        return vt.validateVaccineType();
-    }
-
-    /**
-     * Saves a Vaccine Type into the Company storage.
-     * Company Vaccines Storage: {@link #vaccineTypes}
-     *
-     * @param code        the code
-     * @param description the description
-     * @param technology  the technology
-     */
-    public void saveVaccineType(String code, String description, String technology) {
-        VaccineType vt = new VaccineType(code, description, technology);
-        vaccineTypes.add(vt);
-        genericsVaccineType.binaryFileWrite(Constants.FILE_PATH_VACCINE_TYPES, vaccineTypes);
-    }
 
     private final ArrayList<String> centerCoordinatorIDs = new ArrayList<>();
 
@@ -545,16 +518,6 @@ public class Company implements Serializable {
         }
     }
 
-    /**
-     * Read binary file vaccine types.
-     */
-    public void readBinaryFileVaccineTypes() {
-        try {
-            genericsVaccineType.binaryFileRead(Constants.FILE_PATH_VACCINE_TYPES, vaccineTypes);
-        } catch (EOFException e) {
-            e.printStackTrace();
-        }
-    }
 
     /**
      * Read binary file sns users.

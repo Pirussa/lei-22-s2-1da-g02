@@ -28,7 +28,7 @@ class registerDailyTotalOfVaccinatedPeopleTest {
     private void setup() {
         //Vaccine Type
         VaccineType vt1 = new VaccineType("COVID", "A vaccine to prevent serious infections of the Covid-19 Virus", VaccineType.vaccineTechnologies[5]);
-        company.getVaccineTypes().add(vt1);
+        company.getVaccineTypesStore().getVaccineTypes().add(vt1);
 
         //Vaccination Center
         MassVaccinationCenterDto mvcDto = new MassVaccinationCenterDto();
@@ -70,7 +70,7 @@ class registerDailyTotalOfVaccinatedPeopleTest {
         ArrayList<Integer> timeBetween1stAnd2ndDose1 = new ArrayList<>(List.of(15, 15));
         ArrayList<Integer> timeBetween2ndAnd3rdDose1 = new ArrayList<>(List.of(0, 150));
         AdministrationProcess administrationProcess1 = new AdministrationProcess(new ArrayList<>(Arrays.asList(minAge1, maxAge1)), new ArrayList<>(List.of(2, 3)), new ArrayList<>(List.of(20.0, 30.0)), new ArrayList<>(Arrays.asList(timeBetween1stAnd2ndDose1, timeBetween2ndAnd3rdDose1)));
-        Vaccine vaccine1 = new Vaccine("Test", 12, "Brand1", administrationProcess1, company.getVaccineTypes().get(0));
+        Vaccine vaccine1 = new Vaccine("Test", 12, "Brand1", administrationProcess1, company.getVaccineTypesStore().getVaccineTypes().get(0));
         company.getVaccinesList().add(vaccine1);
         VaccineBulletin vaccineBulletin1 = new VaccineBulletin(vaccine1, LocalDateTime.of(2022, 6, 7, 17, 30), 1, "54321-21");
         company.getVaccinationCentersStore().getVaccinationCenters().get(0).addAdministeredVaccine(vaccineBulletin1);

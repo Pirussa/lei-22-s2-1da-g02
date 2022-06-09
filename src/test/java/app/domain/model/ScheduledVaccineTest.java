@@ -56,7 +56,7 @@ class ScheduledVaccineTest {
         Utils.bootstrap();
         ScheduledVaccineDto scheduledVaccineDto1 = new ScheduledVaccineDto();
         controller.setVaccinationCenter(0);
-        scheduledVaccineDto1.vaccineType = company.getVaccineTypes().get(0);
+        scheduledVaccineDto1.vaccineType = company.getVaccineTypesStore().getVaccineTypes().get(0);
         scheduledVaccineDto1.date = LocalDateTime.of(2022, 6, 22, 10, 0);
         assertFalse(controller.validateAppointment(scheduledVaccineDto1));
         company.cleanAppointments();
@@ -79,7 +79,7 @@ class ScheduledVaccineTest {
         ScheduledVaccineDto scheduledVaccineDto1 = new ScheduledVaccineDto();
         controller.setVaccinationCenter(0);
         scheduledVaccineDto1.snsNumber = 999999999;
-        scheduledVaccineDto1.vaccineType = company.getVaccineTypes().get(0);
+        scheduledVaccineDto1.vaccineType = company.getVaccineTypesStore().getVaccineTypes().get(0);
         assertFalse(controller.validateAppointment(scheduledVaccineDto1));
         company.cleanAppointments();
     }

@@ -1,7 +1,6 @@
 package app.controller;
 
 import app.domain.model.*;
-import app.domain.shared.GenericClass;
 import app.dto.HealthcareCenterDto;
 import app.dto.MassVaccinationCenterDto;
 import app.stores.VaccinationCentersStore;
@@ -78,7 +77,7 @@ public class CreateVaccinationCenterController {
      * @return a List of all Vaccine Types.
      */
     public List<VaccineType> getVaccineTypeList(){
-        return company.getVaccineTypes();
+        return company.getVaccineTypesStore().getVaccineTypes();
     }
 
     /**
