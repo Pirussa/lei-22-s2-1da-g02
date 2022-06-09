@@ -1,4 +1,4 @@
-package dto;
+package app.dto;
 
 import app.domain.model.Arrival;
 import app.domain.model.ScheduledVaccine;

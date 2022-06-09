@@ -2,14 +2,8 @@ package app.controller;
 
 
 import app.domain.model.*;
-import app.domain.shared.Constants;
-import app.domain.shared.GenericClass;
-import app.ui.console.utils.Utils;
 
-import java.io.EOFException;
-import java.io.NotSerializableException;
 import java.io.Serializable;
-import java.io.WriteAbortedException;
 import java.util.List;
 
 
@@ -36,12 +30,12 @@ public class SpecifyNewVaccineTypeController implements Serializable {
      * @return true if the type is valid
      */
     public boolean specifyNewVaccineType(String code, String description, String technology) {
-        return company.specifyNewVaccineType(code, description, technology);
+        return company.getVaccineTypesStore().specifyNewVaccineType(code, description, technology);
     }
 
 
     public List<VaccineType> getVaccineTypes() {
-        return company.getVaccineTypes();
+        return company.getVaccineTypesStore().getVaccineTypes();
     }
 
 
@@ -50,7 +44,7 @@ public class SpecifyNewVaccineTypeController implements Serializable {
      * Company Vaccines Storage: vaccineTypes
      */
     public void saveVaccineType(String code, String description, String technology) {
-        company.saveVaccineType(code, description, technology);
+        company.getVaccineTypesStore().saveVaccineType(code, description, technology);
     }
 
 

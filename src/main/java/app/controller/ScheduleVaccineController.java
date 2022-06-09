@@ -2,12 +2,12 @@ package app.controller;
 
 import app.domain.model.*;
 import app.domain.shared.Constants;
-import app.domain.shared.GenericClass;
+import app.stores.VaccinationCentersStore;
 import app.ui.console.utils.Utils;
-import dto.ScheduledVaccineDto;
-import dto.VaccinationCenterDto;
-import mapper.ScheduledVaccineMapper;
-import mapper.VaccinationCenterMapper;
+import app.dto.ScheduledVaccineDto;
+import app.dto.VaccinationCenterDto;
+import app.mapper.ScheduledVaccineMapper;
+import app.mapper.VaccinationCenterMapper;
 import pt.isep.lei.esoft.auth.AuthFacade;
 
 import java.io.IOException;
@@ -32,7 +32,7 @@ public class ScheduleVaccineController {
     private final Company company = App.getInstance().getCompany();
     private final transient AuthFacade authFacade = company.getAuthFacade();
     private VaccinationCenter vaccinationCenter;
-
+    private final VaccinationCentersStore vaccinationCentersStore = company.getVaccinationCentersStore();
 
 
     /**
@@ -131,8 +131,8 @@ public class ScheduleVaccineController {
      */
     public boolean companyHasNecessaryInfo() {
         if (company.getSnsUserList().isEmpty()) return false;
-        if (company.getVaccineTypes().isEmpty()) return false;
-        return !company.getVaccinationCenters().isEmpty();
+        if (company.getVaccineTypesStore().getVaccineTypes().isEmpty()) return false;
+        return !vaccinationCentersStore.getVaccinationCenters().isEmpty();
     }
 
     /**
@@ -170,7 +170,7 @@ public class ScheduleVaccineController {
      * @param index the index
      */
     public void setVaccinationCenter(int index) {
-        vaccinationCenter = company.getVaccinationCenters().get(index);
+        vaccinationCenter = vaccinationCentersStore.getVaccinationCenters().get(index);
     }
 
     /**

@@ -1,7 +1,7 @@
 package app.domain.model;
 
 import app.controller.App;
-import dto.VaccineAndAdminProcessDto;
+import app.dto.VaccineAndAdminProcessDto;
 import app.ui.console.utils.Utils;
 import org.junit.jupiter.api.Test;
 

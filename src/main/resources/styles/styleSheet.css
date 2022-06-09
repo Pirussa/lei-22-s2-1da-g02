@@ -1,5 +1,13 @@
-.lougout-button {
+.logout-button {
     -fx-background-radius: 25;
+}
+
+.top-background {
+    -fx-background-color: #00A4E8;
+}
+
+.top-right-background {
+    -fx-background-color: #f6f6f6;
 }
 
 .login-button {
@@ -27,4 +35,8 @@
     -fx-border-radius: 20;
     -fx-border-color: linear-gradient(#67a0c6, #4a90c6);
     -fx-text-fill: white;
+}
+
+.select-option-process {
+    -fx-background-color: #f4f4f4;
 }

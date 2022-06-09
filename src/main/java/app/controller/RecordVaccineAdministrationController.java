@@ -2,15 +2,14 @@ package app.controller;
 
 import app.domain.model.*;
 import app.domain.shared.Constants;
-import app.domain.shared.GenericClass;
+import app.stores.VaccinationCentersStore;
 import app.ui.console.utils.Utils;
-import dto.SnsUserDto;
-import dto.VaccineBulletinDto;
-import mapper.SnsUserMapper;
-import mapper.VaccineBulletinMapper;
+import app.dto.SnsUserDto;
+import app.dto.VaccineBulletinDto;
+import app.mapper.SnsUserMapper;
+import app.mapper.VaccineBulletinMapper;
 
 import java.io.IOException;
-import java.io.NotSerializableException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -47,7 +46,8 @@ public class RecordVaccineAdministrationController {
      * @param index the index
      */
     public void setVaccinationCenter(int index) {
-        vaccinationCenter = company.getVaccinationCenters().get(index);
+        VaccinationCentersStore vaccinationCentersStore = company.getVaccinationCentersStore();
+        vaccinationCenter = vaccinationCentersStore.getVaccinationCenters().get(index);
     }
 
     /**

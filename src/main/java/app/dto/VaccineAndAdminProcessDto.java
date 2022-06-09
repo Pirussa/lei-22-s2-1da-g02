@@ -1,4 +1,4 @@
-package dto;
+package app.dto;
 
 /**
  * This class is just a DTO (Data Transfer Object), responsible for helping to transfer data from the UI to the Domain.

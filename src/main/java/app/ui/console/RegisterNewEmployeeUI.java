@@ -1,14 +1,10 @@
 package app.ui.console;
 
-import app.controller.App;
 import app.controller.RegisterNewEmployeeController;
-import app.domain.model.Company;
 import app.domain.model.Employee;
 import app.ui.console.utils.Utils;
-import dto.RegisterNewEmployeeDto;
-import pt.isep.lei.esoft.auth.domain.model.Email;
+import app.dto.RegisterNewEmployeeDto;
 
-import java.io.NotSerializableException;
 import java.util.ArrayList;
 
 /**

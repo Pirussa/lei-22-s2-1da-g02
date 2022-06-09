@@ -1,13 +1,9 @@
 package app.controller;
 
 import app.domain.model.Company;
-import app.domain.model.Vaccine;
 import app.domain.model.VaccineType;
-import app.domain.shared.Constants;
-import app.domain.shared.GenericClass;
-import dto.VaccineAndAdminProcessDto;
+import app.dto.VaccineAndAdminProcessDto;
 
-import java.io.NotSerializableException;
 import java.util.List;
 
 /**
@@ -45,7 +41,7 @@ public class SpecifyVaccineAndAdminProcessController {
      * @return an ArrayList with all the Vaccine Types that are available to choose.
      */
     public List<VaccineType> getVaccineTypesList() {
-        return company.getVaccineTypes();
+        return company.getVaccineTypesStore().getVaccineTypes();
     }
 
     /**

@@ -4,7 +4,8 @@ import app.controller.*;
 import app.domain.model.*;
 import app.domain.shared.Constants;
 import app.domain.shared.GenericClass;
-import dto.RegisterNewEmployeeDto;
+import app.stores.VaccinationCentersStore;
+import app.stores.VaccineTypesStore;
 import pt.isep.lei.esoft.auth.domain.model.Email;
 
 import java.io.*;
@@ -27,47 +28,21 @@ import java.util.logging.Logger;
 public class Utils {
 
     private static final Company company = App.getInstance().getCompany();
+    private static final VaccinationCentersStore VACCINATION_CENTERS_STORE = company.getVaccinationCentersStore();
+    private static final VaccineTypesStore VACCINE_TYPE_STORE = company.getVaccineTypesStore();
+
 
     private static void bootstrapEmployees() {
         company.readBinaryFileEmployees();
         company.authenticateEmployees();
-        RegisterNewEmployeeController ctrlEmp = new RegisterNewEmployeeController();
-
-        RegisterNewEmployeeDto dtoEmp = new RegisterNewEmployeeDto();
-        dtoEmp.id = "00001";
-        dtoEmp.name = "Ana";
-        dtoEmp.password = "AAA11aa";
-        dtoEmp.phoneNumber = "915604427";
-        dtoEmp.citizenCardNumber = "11960343 8 ZW1";
-        dtoEmp.email = "ana@gmail.com";
-        dtoEmp.address = "Via Diagonal / 4475-079 / Porto";
-        ctrlEmp.saveCreatedEmployee(dtoEmp, "Center Coordinator");
-        //---------------------------------------------------------------------------------------------------------------------------------------------------
-
-        RegisterNewEmployeeDto dtoEmp1 = new RegisterNewEmployeeDto();
-        dtoEmp1.id = "00002";
-        dtoEmp1.name = "Joana";
-        dtoEmp1.password = "AAA11aa";
-        dtoEmp1.phoneNumber = "919700873";
-        dtoEmp1.citizenCardNumber = "14268862 2 ZX8";
-        dtoEmp1.email = "joana@gmail.com";
-        dtoEmp1.address = "Rua de São Tomé / 4200-489 / Porto";
-        ctrlEmp.saveCreatedEmployee(dtoEmp1, "Nurse");
-        //---------------------------------------------------------------------------------------------------------------------------------------------------
-
-        RegisterNewEmployeeDto dtoEmp2 = new RegisterNewEmployeeDto();
-        dtoEmp2.id = "00003";
-        dtoEmp2.name = "Carla";
-        dtoEmp2.password = "AAA11aa";
     }
 
     private static void bootstrapVaccineTypes() {
-        company.readBinaryFileVaccineTypes();
-        company.saveVaccineType("COVID","JdhaKDH","ksajjdka");
+        VACCINE_TYPE_STORE.readBinaryFileVaccineTypes();
     }
 
     private static void bootstrapVaccinationCenters() {
-        company.readBinaryFileCenters();
+        VACCINATION_CENTERS_STORE.readBinaryFileCenters();
     }
 
     private static void bootstrapSnsUsers() {
@@ -77,26 +52,17 @@ public class Utils {
 
     private static void bootstrapVaccines() {
         company.readBinaryFileVaccines();
-        ArrayList <Integer> minAge = new ArrayList<>(List.of(1,20,50,100));
-        ArrayList <Integer> maxAge = new ArrayList<>(List.of(19,49,99,120));
-        ArrayList <Integer> numberOfDoses = new ArrayList<>(List.of(2,3,3,2));
-        ArrayList <Double> dosage = new ArrayList<>(List.of(25.0,35.0,30.0,20.5));
-        ArrayList <Integer> timeIntervalBetween1stAnd2nd = new ArrayList<>(List.of(15,15,15,15));
-        ArrayList <Integer> timeIntervalBetween2ndAnd3rd = new ArrayList<>(List.of(0,150,180,0));
-        AdministrationProcess administrationProcess = new AdministrationProcess(new ArrayList<>( List.of(minAge,maxAge)),numberOfDoses,dosage, new ArrayList<>(List.of(timeIntervalBetween1stAnd2nd,timeIntervalBetween2ndAnd3rd)));
-        Vaccine vaccine = new Vaccine("Spikevax",1000,"SpikeBrand",administrationProcess, new VaccineType("COVID","description","Tech"));
-        company.saveVaccineBs(vaccine);
     }
 
     private static void bootstrapScheduledAppointments() {
-        for (VaccinationCenter center : company.getVaccinationCenters()) {
+        for (VaccinationCenter center : VACCINATION_CENTERS_STORE.getVaccinationCenters()) {
             center.readBinaryFilesAppointments();
         }
     }
 
     private static void bootstrapAdministeredVaccines() {
         company.readBinaryFileVaccineBulletins();
-        for (VaccinationCenter center : company.getVaccinationCenters()) {
+        for (VaccinationCenter center : VACCINATION_CENTERS_STORE.getVaccinationCenters()) {
             center.readBinaryFilesFullyVaccinated();
         }
     }
@@ -104,7 +70,7 @@ public class Utils {
     private static void bootstrapArrivals() {
         GenericClass<Arrival> genericsClass = new GenericClass<>();
         try {
-            for (VaccinationCenter vaccinationCenter : company.getVaccinationCenters()) {
+            for (VaccinationCenter vaccinationCenter : VACCINATION_CENTERS_STORE.getVaccinationCenters()) {
                 genericsClass.binaryFileRead(Constants.FILE_PATH_ARRIVALS, vaccinationCenter.getArrivalsList());
                 for (Arrival arrival : vaccinationCenter.getArrivalsList()) {
                     System.out.println(arrival);
@@ -423,7 +389,7 @@ public class Utils {
         bootstrap();
         AdministrationProcess aP = new AdministrationProcess(new ArrayList<>(Arrays.asList(new ArrayList<>(List.of(minAge)), new ArrayList<>(List.of(maxAge)))), new ArrayList<>(List.of(2)), new ArrayList<>(List.of(dosage)), new ArrayList<>(Arrays.asList(new ArrayList<>(List.of(timeBetweenDoses)))));
 
-        Vaccine v = new Vaccine(name, id, brand, aP, c.getVaccineTypes().get(0));
+        Vaccine v = new Vaccine(name, id, brand, aP, c.getVaccineTypesStore().getVaccineTypes().get(0));
 
 
         return v;
@@ -703,7 +669,7 @@ public class Utils {
      */
     public static int selectVaccinationCenterIndex() {
         Company company = App.getInstance().getCompany();
-        return Utils.selectFromList(company.getVaccinationCenters(), "\nSelect a Vaccination Center");
+        return Utils.selectFromList(VACCINATION_CENTERS_STORE.getVaccinationCenters(), "\nSelect a Vaccination Center");
     }
 
 

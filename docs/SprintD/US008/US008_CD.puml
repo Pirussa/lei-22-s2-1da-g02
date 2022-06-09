@@ -1,0 +1,117 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class RecordVaccineAdministrationUI {
++run()
+-waitingRoomList()
+-userFirstDose()
+-setDosageAndVaccine(vaccineHistory)
+-vaccineAdministrationPrompt(prompt)
+-lotNumber()
+}
+
+class RecordVaccineAdministrationController {
++vaccineTypeAvailableVaccines();
++getSnsUserInformation(selectedUser);
++snsUserIndexInList(selectedUser);
++userFirstDoseAgeGroup(indexVaccine);
++getUserNumberOfDoses();
++dosageForDose(numberOfDoses, indexVaccine);
++vaccineAdministrationProcess(numberOfDoses, indexVaccine);
++validateLotNumber(lotNumber);
++registerVaccineInVaccineBulletin();
++printRecoveryTime();
++exportDataToFile();
+}
+
+class VaccinationCenter {
+ -id
+ -name
+ -phoneNumber
+ -email
+ -fax
+ -website
+ -openingHour
+ -closingHour
+ -slotDuration
+ -vaccinesPerSlot
+ -road
+ -zipCode
+ -local
+ -centerCoordinatorID
+ -arrivalsList
+ +VaccinationCenter(id, name, phoneNumber, email, fax, website, openingHour, closingHour, slotDuration, vaccinesPerSlot, road, zipCode, local, centerCoordinatorID)
+ +addAppointment(newAppointment)
+ +validateAppointment(scheduledVaccineDto)
+ -centerHasAvailability(appointmentsList, scheduledVaccineDto, center)
+ +validateAppointmentAccordingToAgeGroupAndTimeSinceLastDose(dto, company)
+ +validateAppointmentAccordingToAdminProcess(snsUser, dto, takenVaccine)
+ -getUserAgeGroup(snsUser, administrationProcess)
+ -validateAgeGroup(snsUser, administrationProcess)
+ }
+
+class VaccineBulletinDto {
++vaccine
++dateTimeOfLastDose
++doseNumber
++lotNumber
+}
+
+class VaccineBulletinMapper {
++createScheduledVaccine(scheduledVaccineDto)
+}
+
+class Company{}
+
+class Vaccine {
+-name;
+-id;
+-brand;
+-adminProcess;
+-vaccineType;
+}
+ class VaccineBulletin {
+-vaccine;
+-dateTimeOfLastDose;
+-doseNumber;
+-lotNumber;
+ }
+
+class SnsUser {
+- name;
+- sex;
+- birthDate;
+- address;
+- phoneNumber;
+- email;
+- userNumber;
+- citizenCardNumber;
+- password;
+- takenVaccines;
++ snsUser(Name, Sex, BirthDate, Address, Number, Email, snsUserNumber, CitizenCardNumber, Password)
++ registerVaccine(TakenVaccine takenVaccine)
+}
+
+'UI
+RecordVaccineAdministrationUI ...> RecordVaccineAdministrationController
+RecordVaccineAdministrationUI ..> VaccineBulletinDto
+'CONTROLLER
+RecordVaccineAdministrationController ....> VaccineBulletinDto
+RecordVaccineAdministrationController ....> VaccinationCenter
+RecordVaccineAdministrationController .l.> Company
+RecordVaccineAdministrationController ....> VaccineBulletinMapper
+RecordVaccineAdministrationController ..> VaccineBulletin
+
+Company "1" -- "*" VaccinationCenter : has >
+Company "1" --l-- "*" SnsUser : has >
+Company "1" ---- "*" Vaccine : has >
+
+VaccinationCenter "1" -> "*" VaccineBulletin : has >
+VaccineBulletin "*" ---> "1" Vaccine : is associated to >
+
+VaccineBulletinMapper .u.> VaccineBulletinDto
+VaccineBulletinMapper ....> VaccineBulletin
+
+SnsUser .> VaccineBulletin
+
+@enduml

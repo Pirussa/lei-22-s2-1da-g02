@@ -1,6 +1,7 @@
 package app.controller;
 
 import app.domain.model.*;
+import app.stores.VaccinationCentersStore;
 import app.ui.console.utils.Utils;
 
 import java.io.File;
@@ -14,110 +15,19 @@ import java.util.List;
  */
 public class CheckAndExportVaccinationStatsController {
 
+    private final VaccinationCenter center;
+
+
     /**
      * Instantiates a new Check and export vaccination stats controller.
      */
     public CheckAndExportVaccinationStatsController() {
-        setCenter();
-    }
-
-    private final Company company = App.getInstance().getCompany();
-
-    private VaccinationCenter center;
-
-    private void setCenter() {
+        final Company company = App.getInstance().getCompany();
+        final VaccinationCentersStore store = company.getVaccinationCentersStore();
         String id = Utils.getLoggedCoordinatorId();
-        center = getVaccinationCenterAssociatedToCoordinator(id);
+        center = store.getVaccinationCenterAssociatedToCoordinator(id);
     }
 
-    /**
-     * Gets a list with the total of fully vaccinated people per day (each day has a total) .
-     *
-     * @return the vaccination stats
-     */
-    private List<String> getVaccinationStatsList() {
-        List<String> vaccinationStats = new ArrayList<>();
-        List<VaccineBulletin> listFullyVaccinated = center.getFullyVaccinatedList();
-        LocalDate dayOfLastRegister = getFirstDateAvailable(listFullyVaccinated);
-        int total = 0;
-        StringBuilder stringBuilder;
-        for (VaccineBulletin vaccineBulletin : listFullyVaccinated) {
-
-            if (vaccineBulletin.getDateTimeOfLastDose().toLocalDate().isAfter(dayOfLastRegister)) {
-                stringBuilder = new StringBuilder();
-                stringBuilder.append(dayOfLastRegister).append(";").append(total);
-                String statsOfOneDay = stringBuilder.toString();
-                vaccinationStats.add(statsOfOneDay);
-                dayOfLastRegister = vaccineBulletin.getDateTimeOfLastDose().toLocalDate();
-            }
-            total++;
-            if (vaccineBulletin.equals(listFullyVaccinated.get(listFullyVaccinated.size() - 1))) {
-                stringBuilder = new StringBuilder();
-                stringBuilder.append(dayOfLastRegister).append(";").append(total);
-                String statsOfOneDay = stringBuilder.toString();
-                vaccinationStats.add(statsOfOneDay);
-            }
-        }
-
-        return vaccinationStats;
-    }
-
-    /**
-     * Get vaccination stats list between dates list.
-     *
-     * @param firstDate the first date
-     * @param lastDate  the last date
-     * @return the list
-     */
-    public List<String> getVaccinationStatsListBetweenDates(LocalDate firstDate, LocalDate lastDate) {
-        List<String> dailyStats = getVaccinationStatsList();
-        List<String> statsBetweenDates = new ArrayList<>();
-
-        for (String dailyStat : dailyStats) {
-            String[] dailyStatArray = dailyStat.split(";");
-            LocalDate date = LocalDate.parse(dailyStatArray[0]);
-            if ((date.isEqual(firstDate) ||date.isAfter(firstDate)) && (date.isBefore(lastDate)|| date.isEqual(lastDate))) {
-                statsBetweenDates.add(dailyStat);
-            }
-        }
-        return statsBetweenDates;
-
-    }
-
-    private LocalDate getFirstDateAvailable(List<VaccineBulletin> listFullyVaccinated) {
-        return listFullyVaccinated.get(0).getDateTimeOfLastDose().toLocalDate();
-    }
-
-    /**
-     * Export vaccination stats boolean.
-     *
-     * @param fileName  the file name
-     * @param firstDate the first date
-     * @param lastDate  the last date
-     * @return true if the export was done successfully
-     */
-    public boolean exportVaccinationStats(String fileName, LocalDate firstDate, LocalDate lastDate) {
-        fileName = fileName + ".csv";
-        File file = new File(fileName);
-        PrintWriter writer = null;
-
-        try {
-            writer = new PrintWriter(file);
-            writer.format("%s;%s\n", "Date", "Total");
-            for (String stat : getVaccinationStatsListBetweenDates(firstDate, lastDate)) {
-                writer.format("%s\n", stat);
-            }
-
-        } catch (Exception FileNotFoundException) {
-            file.delete();
-            return false;
-        } finally {
-            assert writer != null;
-            writer.close();
-        }
-
-        return true;
-    }
 
     /**
      * Check if dates are valid.
@@ -127,32 +37,26 @@ public class CheckAndExportVaccinationStatsController {
      * @return an int related to the outcome
      */
     public int checkIfDatesAreValid(LocalDate firstDate, LocalDate lastDate) {
-        int errorCode = 0;
-        if (firstDate == null || lastDate == null) {
-            errorCode = 1;
-        }
-        if (firstDate.isAfter(lastDate)) {
-            errorCode = 2;
-        }
-
-        if (firstDate.isBefore(LocalDate.of(2021, 1, 1))) {
-            errorCode = 3;
-        }
-
-        if (lastDate.isAfter(LocalDate.now())) {
-            errorCode = 4;
-
-        }
-        return errorCode;
+        if (firstDate == null || lastDate == null)
+            return 1;
+        if (firstDate.isAfter(lastDate))
+            return 2;
+        if (firstDate.isBefore(LocalDate.of(2021, 1, 1)))
+            return 3;
+        if (lastDate.isAfter(LocalDate.now()))
+            return 4;
+        return 0;
     }
 
-    private VaccinationCenter getVaccinationCenterAssociatedToCoordinator(String coordinatorId) {
-        if (company.getVaccinationCenterAssociatedToCoordinator(coordinatorId) != null) {
-            return company.getVaccinationCenterAssociatedToCoordinator(coordinatorId);
-        }
-        return null;
+
+
+    public boolean exportVaccinationStats(String fileName, LocalDate firstDate, LocalDate lastDate) {
+        return center.exportVaccinationStats(fileName, firstDate, lastDate);
     }
 
+    public List<String> getVaccinationStatsListBetweenDates(LocalDate firstDate, LocalDate lastDate) {
+       return center.getVaccinationStatsListBetweenDates(firstDate, lastDate);
+    }
 }
 
 

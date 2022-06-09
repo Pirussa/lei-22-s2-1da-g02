@@ -1,7 +1,7 @@
-package mapper;
+package app.mapper;
 
 import app.domain.model.SnsUser;
-import dto.SnsUserDto;
+import app.dto.SnsUserDto;
 
 public class SnsUserMapper {
 

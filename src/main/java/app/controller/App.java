@@ -55,6 +55,7 @@ public class App {
         props.setProperty(Constants.PARAMS_COMPANY_DESIGNATION, "DGS/SNS");
         props.setProperty("Timer.Hour", "23");
         props.setProperty("Timer.Minutes", "59");
+        props.setProperty("Sort.Algorithm", "BubbleSort");
         // Read configured values
         try {
             InputStream in = new FileInputStream(Constants.PARAMS_FILENAME);
@@ -102,7 +103,7 @@ public class App {
             @Override
             public void run() {
                 try {
-                    company.registerDailyTotalOfVaccinatedPeople(Constants.DAILY_REGISTERS_FILE_NAME);
+                    company.getVaccinationCentersStore().registerDailyTotalOfVaccinatedPeople(Constants.DAILY_REGISTERS_FILE_NAME);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -114,4 +115,10 @@ public class App {
         timer.scheduleAtFixedRate(timerTask, Date.from(calendar.toInstant()), Constants.PARAMS_MILLISECONDS_IN_DAY);
 
     }
+
+    public String getSortingAlgorithm() {
+        Properties properties = getProperties();
+        return properties.getProperty("SortingAlgorithm");
+    }
+
 }

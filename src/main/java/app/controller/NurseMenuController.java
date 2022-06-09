@@ -17,12 +17,12 @@ public class NurseMenuController {
      *
      * @return the int related to the error or success of the operation
      */
-    public int vaccineAdministrationRequirments() {
-        if (company.getVaccinationCenters().isEmpty())
+    public int vaccineAdministrationRequirements() {
+        if (company.getVaccinationCentersStore().getVaccinationCenters().isEmpty())
             return 1;
         if (company.getVaccinesList().isEmpty())
             return 2;
-        if (company.getVaccineTypes().isEmpty())
+        if (company.getVaccineTypesStore().getVaccineTypes().isEmpty())
             return 3;
         return 0;
     }

@@ -2,7 +2,7 @@ package app.domain.model;
 
 import app.controller.App;
 import app.controller.RegisterTheArrivalOfAnSnsUserController;
-import org.junit.jupiter.api.BeforeAll;
+import app.stores.VaccinationCentersStore;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,9 +13,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class RegisterTheArrivalOfAnSnsUserTest {
 
-    private Company c = App.getInstance().getCompany();
-    private RegisterTheArrivalOfAnSnsUserController ctrl = new RegisterTheArrivalOfAnSnsUserController();
-
+    private final Company company = App.getInstance().getCompany();
+    private final RegisterTheArrivalOfAnSnsUserController ctrl = new RegisterTheArrivalOfAnSnsUserController();
+private  final VaccinationCentersStore vaccinationCentersStore = company.getVaccinationCentersStore();
 
     /**
      * Creations instances of what is necessary in order to test the User Story correctly
@@ -26,8 +26,8 @@ class RegisterTheArrivalOfAnSnsUserTest {
                 "16", "30", "1", "Rua do Amial", "4460-098", "Matosinhos", "CC-95634");
         VaccinationCenter vcU = new VaccinationCenter("1234", "Isep", "915607321", "cvcmatosinhos@gmail.com", "915607321", "www.cvcmatosinhos.com", "9",
                 "16", "30", "1", "Rua do Amial", "4460-098", "Matosinhos", "CC-95634");
-        c.getVaccinationCenters().add(vcR);
-        c.getVaccinationCenters().add(vcU);
+        vaccinationCentersStore.getVaccinationCenters().add(vcR);
+        vaccinationCentersStore.getVaccinationCenters().add(vcU);
 
         VaccineType vt1 = new VaccineType("12345" ,"Covid", VaccineType.vaccineTechnologies[0]);
 

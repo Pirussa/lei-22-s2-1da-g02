@@ -3,7 +3,7 @@ package app.ui.console;
 import app.controller.LoadCSVController;
 import app.domain.model.SnsUser;
 import app.ui.console.utils.Utils;
-import dto.SnsUserDto;
+import app.dto.SnsUserDto;
 
 import java.io.*;
 import java.util.ArrayList;
