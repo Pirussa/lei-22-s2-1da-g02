@@ -214,7 +214,7 @@
    <top>
       <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="400.0" styleClass="top-background" stylesheets="@../styles/styleSheet.css" BorderPane.alignment="CENTER">
          <children>
-            <Label prefHeight="30.0" prefWidth="295.0" text="Administration Process" textFill="WHITE">
+            <Label prefHeight="30.0" prefWidth="295.0" text="Vaccine Administration " textFill="WHITE">
                <font>
                   <Font size="20.0" />
                </font>
@@ -225,7 +225,7 @@
             <HBox prefHeight="38.0" prefWidth="230.0" />
             <ImageView fitHeight="38.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../Images/record%20vaccine%20administration.png" />
+                  <Image url="@../Images/record vaccine administration.png" />
                </image>
             </ImageView>
          </children>
