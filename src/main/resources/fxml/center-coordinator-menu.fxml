@@ -39,9 +39,9 @@
       </HBox>
    </top>
    <center>
-      <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
          <children>
-            <HBox alignment="CENTER" prefHeight="217.0" prefWidth="1280.0">
+            <HBox alignment="CENTER" prefHeight="186.0" prefWidth="1280.0">
                <children>
                   <ImageView fitHeight="110.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -61,7 +61,7 @@
                   </Button>
                </children>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="201.0" prefWidth="1280.0">
+            <HBox alignment="CENTER" prefHeight="166.0" prefWidth="1280.0">
                <children>
                   <ImageView fitHeight="110.0" fitWidth="110.0" pickOnBounds="true" preserveRatio="true">
                      <HBox.margin>
@@ -107,7 +107,7 @@
    <bottom>
       <Pane prefHeight="117.0" prefWidth="200.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
          <children>
-            <Button layoutX="22.0" layoutY="14.0" mnemonicParsing="false" onAction="#logout" prefHeight="85.0" prefWidth="178.0" style="-fx-background-color: INDIANRED;" styleClass="lougout-button" stylesheets="@../styles/styleSheet.css" text="LOGOUT" textFill="ANTIQUEWHITE">
+            <Button layoutX="22.0" layoutY="14.0" mnemonicParsing="false" onAction="#logout" prefHeight="85.0" prefWidth="178.0" style="-fx-background-color: INDIANRED;" styleClass="logout-button" stylesheets="@../styles/styleSheet.css" text="LOGOUT" textFill="ANTIQUEWHITE">
                <font>
                   <Font name="System Bold" size="33.0" />
                </font>
