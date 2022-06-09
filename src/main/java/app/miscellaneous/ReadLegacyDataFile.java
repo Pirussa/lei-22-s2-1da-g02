@@ -1,15 +1,18 @@
 package app.miscellaneous;
 
 import app.controller.App;
+import app.controller.DataFromLegacySystemController;
+import app.domain.model.Company;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.NotSerializableException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ReadLegacyDataFile {
-
+    private final DataFromLegacySystemController ctrl = new DataFromLegacySystemController();
     private List<String> csvLegacyData = new ArrayList<>();
 
     private List<LocalDateTime> listOfArrivalDates = new ArrayList<>();
@@ -21,8 +24,8 @@ public class ReadLegacyDataFile {
         while ((line = br.readLine()) != null) {
             line = line.replaceAll("\"", "");
             String[] values = line.split(";");
-            csvLegacyData.add(values[0] + "_" + values[1] + "_" + values[2] + "_" + values[3] + "_" + values[4] + "_" + values[5] + "_"
-                    + values[6] + "_" + values[7]);
+            csvLegacyData.add(values[0] + "|" + values[1] + "|" + values[2] + "|" + values[3] + "|" + values[4] + "|" + values[5] + "|"
+                    + values[6] + "|" + values[7]);
         }
     }
 
@@ -31,48 +34,115 @@ public class ReadLegacyDataFile {
         String algorithmToBeUsed = App.getInstance().getSortingAlgorithm();
         switch (algorithmToBeUsed) {
             case "BubbleSort":
-                bubbleSort();
+                bubbleSortAscending();
                 break;
             case "OtherSort":
                 System.out.println("Not implemented yet");
                 break;
         }
-
-
     }
 
-    public void bubbleSort() {
+    public void updateLegacyFile() throws NotSerializableException {
+        if (!ctrl.getSNSUserList().isEmpty() && !ctrl.getVaccines().isEmpty()) {
+            for (int i = 0; i < csvLegacyData.size(); i++) {
+                String[] values;
+                float percentage = (float) i * 100 / csvLegacyData.size();
+                boolean flag;
+                int j;
+                int k;
 
-        for (int numberToBeChecked = 0; numberToBeChecked < listOfArrivalDates.size() - 1; ++numberToBeChecked) {
+                System.out.printf("\n%.1f%% complete...", percentage);
+                values = csvLegacyData.get(i).split("\\|");
 
-            for (int otherElements = 0; otherElements < listOfArrivalDates.size() - numberToBeChecked - 1; ++otherElements) {
+                for (j = 0; j < ctrl.getSNSUserList().size(); j++) {
+                    if (ctrl.getSNSUserList().get(j).getSnsUserNumber() == Integer.parseInt(values[0])) {
+                        break;
+                    }
+                }
+                csvLegacyData.set(i, ctrl.getSNSUserList().get(j).getStrName() + "|" + csvLegacyData.get(i));
 
-                if (listOfArrivalDates.get(otherElements + 1).isAfter(listOfArrivalDates.get(otherElements))) {
+                for (k = 0; k < ctrl.getVaccines().size(); k++) {
+                    if (ctrl.getVaccines().get(k).getName().equals(values[1])) {
+                        break;
+                    }
+                }
+                csvLegacyData.set(i, csvLegacyData.get(i) + "|" + ctrl.getVaccines().get(k).getVaccineType().getDescription());
+            }
+            //System.out.println();
+            //printUpdatedLegacy(csvLegacyData);
+            ctrl.exportDataToFile(csvLegacyData);
+        } else {
+            System.out.println("Either the SNS User list is empty or the Vaccine list is," +
+                    " this makes it impossible to update the legacy " +
+                    "data with the SNS User number and the Vaccine's description.");
+        }
+    }
 
-                    LocalDateTime swap = listOfArrivalDates.get(otherElements);
-                    //listOfArrivalDates.get(otherElements) = listOfArrivalDates.get(otherElements + 1);
-                    //listOfArrivalDates.get(otherElements + 1) = swap;
+    public void printUpdatedLegacy(List<String> list) {
+        String[] values;
+        for (int i = 0; i < list.size(); i++) {
+            //values=list.get(i).split("\\|");
+            System.out.println(list.get(i));
+            //System.out.println(values[6]);
+        }
+    }
 
-                    String swapString = csvLegacyData.get(otherElements);
+    public void bubbleSortAscending(){
 
+        for (int i = 0; i < listOfArrivalDates.size() - 1; ++i) {
+
+            for (int j = 0; j < listOfArrivalDates.size() - i - 1; ++j) {
+
+                if (listOfArrivalDates.get(j + 1).isBefore(listOfArrivalDates.get(j))) {
+
+                    LocalDateTime swap = listOfArrivalDates.get(j);
+                    listOfArrivalDates.set(j,listOfArrivalDates.get(j + 1));
+                    listOfArrivalDates.set(j+1,swap);
+
+                    String swapString = csvLegacyData.get(j);
+                    csvLegacyData.set(j,csvLegacyData.get(j+1));
+                    csvLegacyData.set(j+1,swapString);
                 }
             }
         }
+        printUpdatedLegacy(csvLegacyData);
+        }
 
+    public void bubbleSortDescending(){
 
+        for (int i = 0; i < listOfArrivalDates.size() - 1; ++i) {
+
+            for (int j = 0; j < listOfArrivalDates.size() - i - 1; ++j) {
+
+                if (listOfArrivalDates.get(j + 1).isAfter(listOfArrivalDates.get(j))) {
+
+                    LocalDateTime swap = listOfArrivalDates.get(j);
+                    listOfArrivalDates.set(j,listOfArrivalDates.get(j + 1));
+                    listOfArrivalDates.set(j+1,swap);
+
+                    String swapString = csvLegacyData.get(j);
+                    csvLegacyData.set(j,csvLegacyData.get(j+1));
+                    csvLegacyData.set(j+1,swapString);
+                }
+            }
+        }
+        printUpdatedLegacy(csvLegacyData);
     }
+
+
+
 
 
     public void setArrivalDateList() {
         String[] values;
         for (String csvLegacyDatum : csvLegacyData) {
-            values = csvLegacyDatum.split("_");
+            values = csvLegacyDatum.split("\\|");
             String date = values[6];
             String[] dateAndHour = date.split(" ");
             String[] dayMonthYear = dateAndHour[0].split("/");
             int year = Integer.parseInt(dayMonthYear[2]);
-            int month = Integer.parseInt(dayMonthYear[1]);
-            int day = Integer.parseInt(dayMonthYear[0]);
+            int month = Integer.parseInt(dayMonthYear[0]);
+            int day = Integer.parseInt(dayMonthYear[1]);
             String[] hourAndMinute = dateAndHour[1].split(":");
             int hour = Integer.parseInt(hourAndMinute[0]);
             int minute = Integer.parseInt(hourAndMinute[1]);
