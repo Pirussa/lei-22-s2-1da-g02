@@ -3,6 +3,7 @@ package app.miscellaneous;
 import app.controller.App;
 import app.controller.DataFromLegacySystemController;
 import app.domain.model.Company;
+import app.ui.console.utils.Utils;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -10,11 +11,13 @@ import java.io.NotSerializableException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class ReadLegacyDataFile {
-    private final DataFromLegacySystemController ctrl = new DataFromLegacySystemController();
-    private List<String> csvLegacyData = new ArrayList<>();
 
+    private final DataFromLegacySystemController ctrl = new DataFromLegacySystemController();
+
+    private List<String> csvLegacyData = new ArrayList<>();
     private List<LocalDateTime> listOfArrivalDates = new ArrayList<>();
 
     public void readFile(String path) throws Exception {
@@ -29,16 +32,42 @@ public class ReadLegacyDataFile {
         }
     }
 
-    public void sortListByArrivalTime() {
-        setArrivalDateList();
+    public void sortListWithAlgo() {
         String algorithmToBeUsed = App.getInstance().getSortingAlgorithm();
         switch (algorithmToBeUsed) {
             case "BubbleSort":
-                bubbleSortAscending();
+                Scanner sc = new Scanner(System.in);
+                System.out.println();
+                System.out.println("Choose the way you want to sort.");
+                System.out.println("0 - Ascending");
+                System.out.println("1 - Descending");
+                int option = sc.nextInt();
+                switch (option){
+                    case 0: bubbleSortAscending();
+                    case 1: bubbleSortDescending();
+                }
                 break;
             case "OtherSort":
                 System.out.println("Not implemented yet");
                 break;
+        }
+    }
+
+    public void chooseOrderToSort(){
+        Scanner sc = new Scanner(System.in);
+        try {
+            System.out.println();
+            System.out.println("Choose the way you want to sort.");
+            System.out.println("0 - Ascending");
+            System.out.println("1 - Descending");
+            int option = sc.nextInt();
+            switch (option){
+                case 0: bubbleSortAscending();
+                case 1: bubbleSortDescending();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            chooseOrderToSort();
         }
     }
 
@@ -79,11 +108,8 @@ public class ReadLegacyDataFile {
     }
 
     public void printUpdatedLegacy(List<String> list) {
-        String[] values;
         for (int i = 0; i < list.size(); i++) {
-            //values=list.get(i).split("\\|");
             System.out.println(list.get(i));
-            //System.out.println(values[6]);
         }
     }
 
@@ -108,6 +134,8 @@ public class ReadLegacyDataFile {
         printUpdatedLegacy(csvLegacyData);
         }
 
+
+
     public void bubbleSortDescending(){
 
         for (int i = 0; i < listOfArrivalDates.size() - 1; ++i) {
@@ -130,14 +158,32 @@ public class ReadLegacyDataFile {
     }
 
 
+    public void choosePositionToSort(){
+        Scanner sc = new Scanner(System.in);
+        try {
+            System.out.println();
+            System.out.println("Choose the option you want to sort.");
+            System.out.println("0 - Arrival Date Time");
+            System.out.println("1 - Leaving Date Time");
+            int option = sc.nextInt();
+            switch (option){
+                case 0: setList(6);
+                case 1: setList(8);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            choosePositionToSort();
+        }
+    }
 
 
 
-    public void setArrivalDateList() {
+    public void setList(int position) {
         String[] values;
+        listOfArrivalDates.clear();
         for (String csvLegacyDatum : csvLegacyData) {
             values = csvLegacyDatum.split("\\|");
-            String date = values[6];
+            String date = values[position];
             String[] dateAndHour = date.split(" ");
             String[] dayMonthYear = dateAndHour[0].split("/");
             int year = Integer.parseInt(dayMonthYear[2]);

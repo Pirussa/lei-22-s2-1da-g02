@@ -69,7 +69,7 @@ public class DataFromLegacySystemController {
         ReadLegacyDataFile rldf = new ReadLegacyDataFile();
         rldf.readFile(path);
         rldf.updateLegacyFile();
-        rldf.setArrivalDateList();
-        rldf.bubbleSortAscending();
+        rldf.choosePositionToSort();
+        rldf.sortListWithAlgo();
     }
 }
