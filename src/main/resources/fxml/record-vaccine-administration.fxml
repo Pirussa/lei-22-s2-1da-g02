@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" style="-fx-background-image: Downloads;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <bottom>
       <HBox alignment="CENTER" prefHeight="40.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
@@ -59,7 +59,7 @@
                            <font>
                               <Font name="Constantia" size="12.0" />
                            </font></Label>
-                        <ComboBox prefHeight="26.0" prefWidth="220.0" style="-fx-border-color: #DFC39B;" GridPane.columnIndex="1" />
+                        <ComboBox prefHeight="26.0" prefWidth="220.0" GridPane.columnIndex="1" />
                         <Label alignment="CENTER" prefHeight="18.0" prefWidth="65.0" text="User List" GridPane.rowIndex="1">
                            <font>
                               <Font name="Constantia" size="12.0" />
@@ -68,15 +68,49 @@
                            <font>
                               <Font name="Constantia" size="12.0" />
                            </font></Label>
-                        <ComboBox prefHeight="26.0" prefWidth="220.0" style="-fx-border-color: #DFC39B;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <ComboBox prefHeight="26.0" prefWidth="220.0" style="-fx-border-color: #DFC39B;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <ComboBox prefHeight="26.0" prefWidth="220.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <ComboBox prefHeight="26.0" prefWidth="220.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                      </children>
+                     <VBox.margin>
+                        <Insets top="1.0" />
+                     </VBox.margin>
                   </GridPane>
-                  <HBox prefHeight="10.0" prefWidth="380.0" />
-                  <Label text="Administration Process">
+                  <HBox prefHeight="42.0" prefWidth="380.0">
+                     <children>
+                        <Label text="Name">
+                           <HBox.margin>
+                              <Insets left="12.0" top="10.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Constantia" size="12.0" />
+                           </font>
+                        </Label>
+                        <TextField editable="false" style="-fx-background-radius: 5;">
+                           <HBox.margin>
+                              <Insets left="10.0" top="5.0" />
+                           </HBox.margin>
+                        </TextField>
+                        <Label text="Age">
+                           <HBox.margin>
+                              <Insets left="30.0" top="10.0" />
+                           </HBox.margin>
+                           <font>
+                              <Font name="Constantia" size="12.0" />
+                           </font>
+                        </Label>
+                        <TextField editable="false" prefWidth="35.0" style="-fx-background-radius: 5;">
+                           <HBox.margin>
+                              <Insets left="10.0" top="5.0" />
+                           </HBox.margin>
+                        </TextField>
+                     </children></HBox>
+                  <Label text="Administration Process" textFill="#05450a">
                      <font>
                         <Font name="Constantia" size="14.0" />
                      </font>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
                   </Label>
                   <Separator prefWidth="200.0" />
                   <HBox prefHeight="35.0" prefWidth="380.0">
@@ -89,7 +123,7 @@
                               <Font name="Constantia" size="12.0" />
                            </font>
                         </Label>
-                        <TextField alignment="BOTTOM_LEFT" editable="false" prefHeight="26.0" prefWidth="170.0" style="-fx-border-color: #DFC39B;">
+                        <TextField alignment="BOTTOM_LEFT" editable="false" prefHeight="26.0" prefWidth="90.0" style="-fx-background-radius: 5;">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
@@ -109,7 +143,7 @@
                               <Font name="Constantia" size="12.0" />
                            </font>
                         </Label>
-                        <TextField editable="false" prefHeight="26.0" prefWidth="170.0" style="-fx-border-color: #DFC39B;">
+                        <TextField editable="false" prefHeight="26.0" prefWidth="35.0" style="-fx-background-radius: 5;">
                            <HBox.margin>
                               <Insets bottom="10.0" left="66.0" right="20.0" />
                            </HBox.margin>
@@ -129,7 +163,7 @@
                               <Insets top="5.0" />
                            </HBox.margin>
                         </Label>
-                        <TextField prefHeight="26.0" prefWidth="170.0" style="-fx-border-color: #DFC39B;">
+                        <TextField prefHeight="26.0" prefWidth="70.0" style="-fx-background-radius: 5;">
                            <HBox.margin>
                               <Insets bottom="10.0" left="42.0" right="20.0" />
                            </HBox.margin>
