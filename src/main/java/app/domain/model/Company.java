@@ -2,9 +2,10 @@ package app.domain.model;
 
 import app.domain.shared.Constants;
 import app.domain.shared.GenericClass;
+import app.dto.*;
+import app.stores.VaccinationCentersStore;
 import app.ui.console.utils.Utils;
-import dto.*;
-import mapper.ScheduledVaccineMapper;
+import app.mapper.ScheduledVaccineMapper;
 import pt.isep.lei.esoft.auth.AuthFacade;
 import org.apache.commons.lang3.StringUtils;
 import pt.isep.lei.esoft.auth.domain.model.Email;
@@ -36,7 +37,7 @@ public class Company implements Serializable {
     public final GenericClass<VaccineBulletin> genericsVaccineBulletin = new GenericClass<>();
     private final GenericClass<Vaccine> genericsVaccine = new GenericClass<>();
     private final GenericClass<SnsUser> genericsSnsUsers = new GenericClass<>();
-    private final GenericClass<VaccinationCenter> genericsCenters = new GenericClass<>();
+
     private final GenericClass<VaccineType> genericsVaccineType = new GenericClass<>();
     private final GenericClass<Employee> genericsEmployee = new GenericClass<>();
     private final ArrayList<VaccineType> vaccineTypes = new ArrayList<>();
@@ -46,6 +47,17 @@ public class Company implements Serializable {
     private final ArrayList<Employee> receptionistList = new ArrayList<>();
     private final ArrayList<Employee> centerCoordinatorList = new ArrayList<>();
     private final List<ScheduledVaccine> appointmentsList = new ArrayList<>();
+
+    private final VaccinationCentersStore vaccinationCentersStore = new VaccinationCentersStore();
+
+    /**
+     * Gets vaccination centers store.
+     *
+     * @return the vaccination centers store
+     */
+    public VaccinationCentersStore getVaccinationCentersStore() {
+        return vaccinationCentersStore;
+    }
 
     /**
      * Instantiates a new Company.
@@ -59,8 +71,7 @@ public class Company implements Serializable {
         this.designation = designation;
         this.authFacade = new AuthFacade();
     }
-
-
+    
     /**
      * Gets the designation
      *
@@ -88,7 +99,6 @@ public class Company implements Serializable {
         return vaccineTypes;
     }
 
-
     /**
      * Gets the Vaccines that are stored in the Company.
      *
@@ -96,25 +106,6 @@ public class Company implements Serializable {
      */
     public List<Vaccine> getVaccinesList() {
         return vaccinesList;
-    }
-
-
-    /**
-     * Gets the Healthcare Centers that are stored in the Company.
-     *
-     * @return A List of Healthcare Centers.
-     */
-    public List<HealthcareCenter> getHealthcareCenter() {
-        return healthcareCenters;
-    }
-
-    /**
-     * Gets the Mass Vaccination Centers that are stored in the Company.
-     *
-     * @return A List of Mass Vaccination Centers.
-     */
-    public List<MassVaccinationCenter> getMassVaccinationCenter() {
-        return massVaccinationCenters;
     }
 
     /**
@@ -206,10 +197,6 @@ public class Company implements Serializable {
         genericsVaccineType.binaryFileWrite(Constants.FILE_PATH_VACCINE_TYPES, vaccineTypes);
     }
 
-    //START
-    private final ArrayList<VaccinationCenter> vaccinationCenters = new ArrayList<>();
-    private final ArrayList<MassVaccinationCenter> massVaccinationCenters = new ArrayList<>();
-    private final ArrayList<HealthcareCenter> healthcareCenters = new ArrayList<>();
     private final ArrayList<String> centerCoordinatorIDs = new ArrayList<>();
 
     /**
@@ -234,69 +221,15 @@ public class Company implements Serializable {
     }
 
     /**
-     * Saves a Mass Vaccination Center into two lists, one comprised of only Mass Vaccination Centers and another that has both kinds.
-     *
-     * @param dto copies the information from the DTO that has the data needed to instantiate the center.
-     */
-    public void saveMassVaccinationCenter(MassVaccinationCenterDto dto) {
-        MassVaccinationCenter massVaccinationCenter = new MassVaccinationCenter(dto.strID, dto.strName, dto.strPhoneNumber, dto.strEmail, dto.strFax, dto.strWebsite, dto.strOpeningHour,
-                dto.strClosingHour, dto.strSlotDuration, dto.strVaccinesPerSlot, dto.strRoad, dto.strZipCode, dto.strLocal, dto.strCenterCoordinatorID, dto.vaccineType);
-        massVaccinationCenters.add(massVaccinationCenter);
-        vaccinationCenters.add(massVaccinationCenter);
-        genericsCenters.binaryFileWrite(Constants.FILE_PATH_VACCINATION_CENTERS, vaccinationCenters);
-    }
-
-    /**
-     * Saves a Healthcare Center into two lists, one comprised of only Healthcare Centers and another that has both kinds.
-     *
-     * @param dto copies the information from the DTO that has the data needed to instantiate the center.
-     */
-    public void saveHealthcareCenter(HealthcareCenterDto dto) {
-        HealthcareCenter healthcareCenter = new HealthcareCenter(dto.strID, dto.strName, dto.strPhoneNumber, dto.strEmail, dto.strFax, dto.strWebsite, dto.strOpeningHour,
-                dto.strClosingHour, dto.strSlotDuration, dto.strVaccinesPerSlot, dto.strRoad, dto.strZipCode, dto.strLocal, dto.strCenterCoordinatorID, dto.strARS, dto.strAGES,
-                dto.vaccineTypes);
-        healthcareCenters.add(healthcareCenter);
-        vaccinationCenters.add(healthcareCenter);
-        genericsCenters.binaryFileWrite(Constants.FILE_PATH_VACCINATION_CENTERS, vaccinationCenters);
-    }
-
-    /**
      * Gets the list of all Center Coordinators, copies it and fills it with only the IDs, only adds IDs if those aren't already inside the list.
      */
     public void centerCoordinatorIDList() {
         ArrayList<Employee> centerCoordinators = getCenterCoordinatorList();
-        for (int i = 0; i < centerCoordinators.size(); i++) {
-            if (!(centerCoordinatorIDs.contains(centerCoordinators.get(i).getId()))) {
-                centerCoordinatorIDs.add(centerCoordinators.get(i).getId());
+        for (Employee centerCoordinator : centerCoordinators) {
+            if (!(centerCoordinatorIDs.contains(centerCoordinator.getId()))) {
+                centerCoordinatorIDs.add(centerCoordinator.getId());
             }
         }
-    }
-
-    /**
-     * Gets a list of Vaccination Centers
-     *
-     * @return a list of Vaccination Centers
-     */
-    public ArrayList<VaccinationCenter> getVaccinationCenters() {
-        return vaccinationCenters;
-    }
-
-    /**
-     * Gets a list of Mass Vaccination Centers
-     *
-     * @return a list of Mass Vaccination Centers
-     */
-    public ArrayList<MassVaccinationCenter> getMassVaccinationCenters() {
-        return massVaccinationCenters;
-    }
-
-    /**
-     * Gets a list of Healthcare Centers
-     *
-     * @return a list of Healthcare Centers
-     */
-    public ArrayList<HealthcareCenter> getHealthcareCenters() {
-        return healthcareCenters;
     }
 
     /**
@@ -307,7 +240,6 @@ public class Company implements Serializable {
     public ArrayList<String> getCenterCoordinatorIDs() {
         return centerCoordinatorIDs;
     }
-    //END
 
     /**
      * Generates a new id for each created Employee.
@@ -382,7 +314,6 @@ public class Company implements Serializable {
 
     }
 
-
     /**
      * Gets the Employees registered in the Company.
      *
@@ -412,16 +343,16 @@ public class Company implements Serializable {
     }
 
     private void fillListOfEmployeesChecker(ArrayList<Employee> emp, int positionArrayListEmployees, boolean check, ArrayList<Employee> listToBeFilled) {
-        for (int listToBeFilledPosition = 0; listToBeFilledPosition < listToBeFilled.size(); listToBeFilledPosition++) {
-            if (emp.get(positionArrayListEmployees).getEmail().equals(listToBeFilled.get(listToBeFilledPosition).getEmail()) && emp.get(positionArrayListEmployees).getCitizenCardNumber().equals(listToBeFilled.get(listToBeFilledPosition).getCitizenCardNumber())) {
+        for (Employee employee : listToBeFilled) {
+            if (emp.get(positionArrayListEmployees).getEmail().equals(employee.getEmail()) && emp.get(positionArrayListEmployees).getCitizenCardNumber().equals(employee.getCitizenCardNumber())) {
                 check = true;
+                break;
             }
         }
         if (!check) {
             listToBeFilled.add(emp.get(positionArrayListEmployees));
         }
     }
-
 
     /**
      * Gets the Nurses registered in the Company.
@@ -573,64 +504,6 @@ public class Company implements Serializable {
     }
 
     /**
-     * Registers the daily total of people vaccinated in each vaccination center, and exports it to a file.
-     *
-     * @throws IOException the io exception
-     */
-    public void registerDailyTotalOfVaccinatedPeople(String fileName) throws IOException {
-        File file = new File(fileName);
-        if (!file.exists()) {
-            file.createNewFile();
-            FileWriter out = new FileWriter(file);
-            out.write(Constants.DAILY_TOTAL_VACCINATIONS_FILE_HEADER);
-            out.close();
-        }
-        try {
-            StringBuilder  dailyTotalOfVaccinatedPeople = new StringBuilder();
-            FileWriter out = new FileWriter(file, true);
-            for (int vaccinationCenterListPosition = 0; vaccinationCenterListPosition < getVaccinationCenters().size(); vaccinationCenterListPosition++) {
-               dailyTotalOfVaccinatedPeople.append(Utils.formatDateToPrint(LocalDate.now())).append(";").append(getVaccinationCenters().get(vaccinationCenterListPosition)).append(";").append(getVaccinationCenters().get(vaccinationCenterListPosition).getVaccinesAdministeredList().size());
-                if (dailyTotalOfVaccinatedPeopleCheckDuplicates(dailyTotalOfVaccinatedPeople.toString(),fileName)) {
-                    out.write("\n" + dailyTotalOfVaccinatedPeople);
-                }
-            }
-            out.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public boolean dailyTotalOfVaccinatedPeopleCheckDuplicates(String data, String fileName) {
-        try {
-            Scanner read = new Scanner(new File(fileName));
-            while (read.hasNextLine()) {
-                String check = read.nextLine();
-                if (check.equals(data)) {
-                    return false;
-                }
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        return true;
-    }
-
-    /**
-     * Gets vaccination center associated to coordinator.
-     *
-     * @param coordinatorId the coordinator id
-     * @return the vaccination center associated to coordinator
-     */
-    public VaccinationCenter getVaccinationCenterAssociatedToCoordinator(String coordinatorId) {
-        for (VaccinationCenter vaccinationCenter : getVaccinationCenters()) {
-            if (vaccinationCenter.getStrCenterCoordinatorID().equals(coordinatorId)) {
-                return vaccinationCenter;
-            }
-        }
-        return null;
-    }
-
-    /**
      * Gets coordinator id.
      *
      * @param email the email
@@ -684,17 +557,6 @@ public class Company implements Serializable {
     }
 
     /**
-     * Read binary file centers.
-     */
-    public void readBinaryFileCenters() {
-        try {
-            genericsCenters.binaryFileRead(Constants.FILE_PATH_VACCINATION_CENTERS, vaccinationCenters);
-        } catch (EOFException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
      * Read binary file sns users.
      */
     public void readBinaryFileSnsUsers() {
@@ -716,14 +578,16 @@ public class Company implements Serializable {
         }
     }
 
+    /**
+     * Read binary file vaccine bulletins.
+     */
     public void readBinaryFileVaccineBulletins() {
         try {
-            for (VaccinationCenter vaccinationCenter : vaccinationCenters) {
+            for (VaccinationCenter vaccinationCenter : getVaccinationCentersStore().getVaccinationCenters()) {
                 genericsVaccineBulletin.binaryFileRead(Constants.FILE_PATH_VACCINE_BULLETIN, vaccinationCenter.getVaccinesAdministeredList());
             }
         } catch (EOFException e) {
             e.printStackTrace();
         }
     }
-
 }

@@ -1,6 +1,7 @@
 package app.controller;
 
 import app.domain.model.*;
+import app.stores.VaccinationCentersStore;
 import app.ui.console.utils.Utils;
 
 import java.io.File;
@@ -14,21 +15,19 @@ import java.util.List;
  */
 public class CheckAndExportVaccinationStatsController {
 
+    private final VaccinationCenter center;
+
+
     /**
      * Instantiates a new Check and export vaccination stats controller.
      */
     public CheckAndExportVaccinationStatsController() {
-        setCenter();
-    }
-
-    private final Company company = App.getInstance().getCompany();
-
-    private VaccinationCenter center;
-
-    private void setCenter() {
+        final Company company = App.getInstance().getCompany();
+        final VaccinationCentersStore store = company.getVaccinationCentersStore();
         String id = Utils.getLoggedCoordinatorId();
-        center = getVaccinationCenterAssociatedToCoordinator(id);
+        center = store.getVaccinationCenterAssociatedToCoordinator(id);
     }
+
 
     /**
      * Check if dates are valid.
@@ -49,9 +48,7 @@ public class CheckAndExportVaccinationStatsController {
         return 0;
     }
 
-    private VaccinationCenter getVaccinationCenterAssociatedToCoordinator(String coordinatorId) {
-        return company.getVaccinationCenterAssociatedToCoordinator(coordinatorId);
-    }
+
 
     public boolean exportVaccinationStats(String fileName, LocalDate firstDate, LocalDate lastDate) {
         return center.exportVaccinationStats(fileName, firstDate, lastDate);

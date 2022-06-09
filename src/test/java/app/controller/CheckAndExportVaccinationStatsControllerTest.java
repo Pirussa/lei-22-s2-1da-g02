@@ -4,6 +4,7 @@ import app.domain.model.*;
 import app.dto.RegisterNewEmployeeDto;
 import app.dto.VaccinationCenterDto;
 import app.mapper.VaccinationCenterMapper;
+import app.stores.VaccinationCentersStore;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -17,10 +18,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CheckAndExportVaccinationStatsControllerTest {
     private Company company;
+    private  VaccinationCentersStore vaccinationCentersStore;
 
     @BeforeEach
     void setUp() {
         company = App.getInstance().getCompany();
+        vaccinationCentersStore = company.getVaccinationCentersStore();
         //Creating a center coordinator
         RegisterNewEmployeeController ctrlEmp = new RegisterNewEmployeeController();
         RegisterNewEmployeeDto dtoEmp = new RegisterNewEmployeeDto();
@@ -51,7 +54,7 @@ class CheckAndExportVaccinationStatsControllerTest {
         centerDto.strLocal = "Matosinhos";
         centerDto.strCenterCoordinatorID = "00001";
         VaccinationCenterMapper mapper = new VaccinationCenterMapper();
-        company.getVaccinationCenters().add(mapper.dtoToDomain(centerDto));
+        vaccinationCentersStore.getVaccinationCenters().add(mapper.dtoToDomain(centerDto));
 
         ArrayList<Integer> minAge = new ArrayList<>(List.of(1, 20, 50, 100));
         ArrayList<Integer> maxAge = new ArrayList<>(List.of(19, 49, 99, 120));
@@ -69,9 +72,9 @@ class CheckAndExportVaccinationStatsControllerTest {
     void getVaccinationStatsListBetweenDates() {
 
         VaccineBulletin vaccineBulletin = new VaccineBulletin(company.getVaccinesList().get(0), LocalDateTime.now().minusDays(1), 2, "12345-12");
-        company.getVaccinationCenters().get(0).addFullyVaccinated(vaccineBulletin);
+        vaccinationCentersStore.getVaccinationCenters().get(0).addFullyVaccinated(vaccineBulletin);
         VaccineBulletin vaccineBulletin1 = new VaccineBulletin(company.getVaccinesList().get(0), LocalDateTime.now(), 2, "12345-12");
-        company.getVaccinationCenters().get(0).addFullyVaccinated(vaccineBulletin1);
+        vaccinationCentersStore.getVaccinationCenters().get(0).addFullyVaccinated(vaccineBulletin1);
         CheckAndExportVaccinationStatsController controller = new CheckAndExportVaccinationStatsController();
 
         LocalDate firstDate = LocalDate.now().minusDays(5);
@@ -83,7 +86,7 @@ class CheckAndExportVaccinationStatsControllerTest {
 
     @Test
     void exportVaccinationStatsWithNoStats() {
-        company.getVaccinationCenters().get(0).getFullyVaccinatedList().clear();
+        vaccinationCentersStore.getVaccinationCenters().get(0).getFullyVaccinatedList().clear();
         CheckAndExportVaccinationStatsController controller = new CheckAndExportVaccinationStatsController();
         LocalDate firstDate = LocalDate.now().minusDays(15);
         LocalDate secondDate = LocalDate.now().minusDays(10);
@@ -97,7 +100,7 @@ class CheckAndExportVaccinationStatsControllerTest {
         LocalDate secondDate = LocalDate.now();
 
         VaccineBulletin vaccineBulletin = new VaccineBulletin(company.getVaccinesList().get(0), LocalDateTime.now().minusDays(1), 2, "54321-12");
-        company.getVaccinationCenters().get(0).addFullyVaccinated(vaccineBulletin);
+        vaccinationCentersStore.getVaccinationCenters().get(0).addFullyVaccinated(vaccineBulletin);
 
         assertTrue(controller.exportVaccinationStats("fileTest",firstDate, secondDate));
     }

@@ -2,6 +2,7 @@ package app.controller;
 
 import app.domain.model.*;
 import app.domain.shared.Constants;
+import app.stores.VaccinationCentersStore;
 import app.ui.console.utils.Utils;
 import app.dto.SnsUserDto;
 import app.dto.VaccineBulletinDto;
@@ -45,7 +46,8 @@ public class RecordVaccineAdministrationController {
      * @param index the index
      */
     public void setVaccinationCenter(int index) {
-        vaccinationCenter = company.getVaccinationCenters().get(index);
+        VaccinationCentersStore vaccinationCentersStore = company.getVaccinationCentersStore();
+        vaccinationCenter = vaccinationCentersStore.getVaccinationCenters().get(index);
     }
 
     /**

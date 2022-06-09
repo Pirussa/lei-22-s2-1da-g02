@@ -4,6 +4,7 @@ import app.domain.model.*;
 import app.dto.RegisterNewEmployeeDto;
 import app.dto.VaccinationCenterDto;
 import app.mapper.VaccinationCenterMapper;
+import app.stores.VaccinationCentersStore;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -16,10 +17,12 @@ import static org.junit.jupiter.api.Assertions.*;
 class CenterCoordinatorMenuControllerTest {
 
     private Company company;
+    private VaccinationCentersStore vaccinationCentersStore;
 
     @BeforeEach
     void setup(){
         company = App.getInstance().getCompany();
+        vaccinationCentersStore = company.getVaccinationCentersStore();
         //Creating a center coordinator
         RegisterNewEmployeeController ctrlEmp = new RegisterNewEmployeeController();
         RegisterNewEmployeeDto dtoEmp = new RegisterNewEmployeeDto();
@@ -60,7 +63,7 @@ class CenterCoordinatorMenuControllerTest {
         centerDto.strLocal = "Matosinhos";
         centerDto.strCenterCoordinatorID = "00001";
         VaccinationCenterMapper mapper = new VaccinationCenterMapper();
-        company.getVaccinationCenters().add(mapper.dtoToDomain(centerDto));
+        vaccinationCentersStore.getVaccinationCenters().add(mapper.dtoToDomain(centerDto));
         CenterCoordinatorMenuController centerCoordinatorMenuController = new CenterCoordinatorMenuController();
         //Check if company has at least one center
         assertEquals(2, centerCoordinatorMenuController.companyHasEnoughInfoForVaccinationStats());
@@ -78,7 +81,7 @@ class CenterCoordinatorMenuControllerTest {
 
         //Check if company has at least one fully vaccinated center
         VaccineBulletin vaccineBulletin =  new VaccineBulletin(company.getVaccinesList().get(0), LocalDateTime.now(), 2, "12345-12");
-        company.getVaccinationCenters().get(0).addFullyVaccinated(vaccineBulletin);
+        vaccinationCentersStore.getVaccinationCenters().get(0).addFullyVaccinated(vaccineBulletin);
 
         assertEquals(0, centerCoordinatorMenuController.companyHasEnoughInfoForVaccinationStats());
     }

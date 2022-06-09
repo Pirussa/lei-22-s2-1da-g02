@@ -1,12 +1,11 @@
 package app.controller;
 
 import app.domain.model.*;
-import app.domain.shared.Constants;
 import app.domain.shared.GenericClass;
-import dto.HealthcareCenterDto;
-import dto.MassVaccinationCenterDto;
+import app.dto.HealthcareCenterDto;
+import app.dto.MassVaccinationCenterDto;
+import app.stores.VaccinationCentersStore;
 
-import java.io.NotSerializableException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,9 +16,9 @@ import java.util.List;
  */
 public class CreateVaccinationCenterController {
 
-    private Company company = App.getInstance().getCompany();
+    private final Company company = App.getInstance().getCompany();
+    private final VaccinationCentersStore store = company.getVaccinationCentersStore();
 
-    GenericClass<VaccinationCenter> generics = new GenericClass<>();
 
     public CreateVaccinationCenterController(){}
 
@@ -36,7 +35,7 @@ public class CreateVaccinationCenterController {
      *
      */
     public void saveMassVaccinationCenter(MassVaccinationCenterDto dto){
-        company.saveMassVaccinationCenter(dto);
+        store.saveMassVaccinationCenter(dto);
     }
 
     /**
@@ -52,7 +51,7 @@ public class CreateVaccinationCenterController {
      *
      */
     public void saveHealthcareCenter(HealthcareCenterDto dto){
-        company.saveHealthcareCenter(dto);
+        store.saveHealthcareCenter(dto);
     }
 
     /**
@@ -60,27 +59,10 @@ public class CreateVaccinationCenterController {
      *
      * @return a List of Vaccination Centers
      */
-    public ArrayList<VaccinationCenter> getVaccinationCenters() {
-         return company.getVaccinationCenters();
+    public List<VaccinationCenter> getVaccinationCenters() {
+         return store.getVaccinationCenters();
     }
 
-    /**
-     * Gets a list of mass vaccination centers
-     *
-     * @return a List of Mass Vaccination Centers
-     */
-    public ArrayList<MassVaccinationCenter> getMassVaccinationCenters() {
-        return company.getMassVaccinationCenters();
-    }
-
-    /**
-     * Gets a list of healthcare centers
-     *
-     * @return a List of Healthcare Centers
-     */
-    public ArrayList<HealthcareCenter> getHealthcareCenters() {
-        return company.getHealthcareCenters();
-    }
 
     /**
      * Calls the centerCoordinatorIDList method inside the company.

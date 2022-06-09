@@ -2,6 +2,7 @@ package app.domain.model;
 
 import app.controller.App;
 import app.controller.ScheduleVaccineController;
+import app.stores.VaccinationCentersStore;
 import app.ui.console.utils.Utils;
 import app.dto.ScheduledVaccineDto;
 import app.mapper.ScheduledVaccineMapper;
@@ -21,6 +22,7 @@ class ScheduleVaccinationTest {
 
     private final ScheduledVaccineMapper mapper = new ScheduledVaccineMapper();
     private final Company company = App.getInstance().getCompany();
+    VaccinationCentersStore vaccinationCentersStore = company.getVaccinationCentersStore();
 
     @Test
     void scheduleInvalidTimeSinceLastAppointment() {
@@ -28,8 +30,8 @@ class ScheduleVaccinationTest {
         VaccineType vaccineType = new VaccineType("COVID", "A vaccine to prevent serious infections of the Covid-19 Virus", VaccineType.vaccineTechnologies[5]);
 
         VaccinationCenter vaccinationCenter = new VaccinationCenter("test", "test", "911111111", "test@gmail.com", "911111111", "www.test.com", "9", "16", "420", "1", "test", "4470-111", "test", "00006");
-        company.getVaccinationCenters().add(vaccinationCenter);
-        controller.setVaccinationCenter(company.getVaccinationCenters().size()-1);
+        vaccinationCentersStore.getVaccinationCenters().add(vaccinationCenter);
+        controller.setVaccinationCenter(vaccinationCentersStore.getVaccinationCenters().size()-1);
 
         ArrayList<Integer> minAge1 = new ArrayList<>(List.of(1, 19));
         ArrayList<Integer> maxAge1 = new ArrayList<>(List.of(18, 30));

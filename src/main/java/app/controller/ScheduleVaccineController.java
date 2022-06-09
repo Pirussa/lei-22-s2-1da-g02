@@ -2,6 +2,7 @@ package app.controller;
 
 import app.domain.model.*;
 import app.domain.shared.Constants;
+import app.stores.VaccinationCentersStore;
 import app.ui.console.utils.Utils;
 import app.dto.ScheduledVaccineDto;
 import app.dto.VaccinationCenterDto;
@@ -31,7 +32,7 @@ public class ScheduleVaccineController {
     private final Company company = App.getInstance().getCompany();
     private final transient AuthFacade authFacade = company.getAuthFacade();
     private VaccinationCenter vaccinationCenter;
-
+    private final VaccinationCentersStore vaccinationCentersStore = company.getVaccinationCentersStore();
 
 
     /**
@@ -131,7 +132,7 @@ public class ScheduleVaccineController {
     public boolean companyHasNecessaryInfo() {
         if (company.getSnsUserList().isEmpty()) return false;
         if (company.getVaccineTypes().isEmpty()) return false;
-        return !company.getVaccinationCenters().isEmpty();
+        return !vaccinationCentersStore.getVaccinationCenters().isEmpty();
     }
 
     /**
@@ -169,7 +170,7 @@ public class ScheduleVaccineController {
      * @param index the index
      */
     public void setVaccinationCenter(int index) {
-        vaccinationCenter = company.getVaccinationCenters().get(index);
+        vaccinationCenter = vaccinationCentersStore.getVaccinationCenters().get(index);
     }
 
     /**

@@ -30,7 +30,7 @@ public class ConsultUsersInTheWaitingRoomController {
      */
 
     public void setVaccinationCenter(int index) {
-        vaccinationCenter = company.getVaccinationCenters().get(index);
+        vaccinationCenter = company.getVaccinationCentersStore().getVaccinationCenters().get(index);
     }
 
     /**

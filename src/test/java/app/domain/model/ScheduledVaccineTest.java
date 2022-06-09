@@ -2,6 +2,7 @@ package app.domain.model;
 
 import app.controller.App;
 import app.controller.ScheduleVaccineController;
+import app.stores.VaccinationCentersStore;
 import app.ui.console.utils.Utils;
 import app.dto.ScheduledVaccineDto;
 import app.mapper.ScheduledVaccineMapper;
@@ -17,7 +18,7 @@ class ScheduledVaccineTest {
     private final ScheduledVaccineMapper mapper = new ScheduledVaccineMapper();
     private final ScheduleVaccineController controller = new ScheduleVaccineController();
     private final Company company = App.getInstance().getCompany();
-
+    private final VaccinationCentersStore vaccinationCentersStore = company.getVaccinationCentersStore();
 
     @Test
     void addTwoAppointmentForTheSameVaccine() {
@@ -90,9 +91,9 @@ class ScheduledVaccineTest {
         ScheduledVaccineDto scheduledVaccineDto1 = new ScheduledVaccineDto();
         ScheduledVaccineDto scheduledVaccineDto2 = new ScheduledVaccineDto();
         VaccinationCenter vaccinationCenter = new VaccinationCenter("test", "test", "911111111", "test@gmail.com", "911111111", "www.test.com", "9", "16", "420", "1", "test", "4470-111", "test", company.getCenterCoordinatorList().get(0).getId());
-        company.getVaccinationCenters().add(vaccinationCenter);
+        vaccinationCentersStore.getVaccinationCenters().add(vaccinationCenter);
 
-        controller.setVaccinationCenter(company.getVaccinationCenters().size() - 1);
+        controller.setVaccinationCenter(vaccinationCentersStore.getVaccinationCenters().size() - 1);
 
         final VaccineType vaccineType = new VaccineType("TEST1", "test", "test1");
         scheduledVaccineDto1.vaccineType = vaccineType;
@@ -117,9 +118,9 @@ class ScheduledVaccineTest {
 
         ScheduledVaccineDto scheduledVaccineDto1 = new ScheduledVaccineDto();
         VaccinationCenter vaccinationCenter = new VaccinationCenter("test", "test", "911111111", "test@gmail.com", "911111111", "www.test.com", "9", "16", "420", "1", "test", "4470-111", "test", company.getCenterCoordinatorList().get(0).getId());
-        company.getVaccinationCenters().add(vaccinationCenter);
+        vaccinationCentersStore.getVaccinationCenters().add(vaccinationCenter);
 
-        controller.setVaccinationCenter(company.getVaccinationCenters().size()-1);
+        controller.setVaccinationCenter(vaccinationCentersStore.getVaccinationCenters().size()-1);
 
 
         scheduledVaccineDto1.vaccineType = new VaccineType("TEST1", "test", "test1");
@@ -140,9 +141,9 @@ class ScheduledVaccineTest {
         ScheduledVaccineDto scheduledVaccineDto1 = new ScheduledVaccineDto();
         ScheduledVaccineDto scheduledVaccineDto2 = new ScheduledVaccineDto();
         VaccinationCenter vaccinationCenter = new VaccinationCenter("test", "test", "911111111", "test@gmail.com", "911111111", "www.test.com", "9", "16", "30", "1", "test", "4470-111", "test", company.getCenterCoordinatorList().get(0).getId());
-        company.getVaccinationCenters().add(vaccinationCenter);
+        vaccinationCentersStore.getVaccinationCenters().add(vaccinationCenter);
 
-        controller.setVaccinationCenter(company.getVaccinationCenters().size()-1);
+        controller.setVaccinationCenter(vaccinationCentersStore.getVaccinationCenters().size()-1);
 
         final VaccineType vaccineType = new VaccineType("TEST1", "test", "test1");
         scheduledVaccineDto1.vaccineType = vaccineType;

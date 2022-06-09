@@ -2,6 +2,7 @@ package app.controller;
 
 import app.domain.model.Company;
 import app.domain.model.VaccinationCenter;
+import app.stores.VaccinationCentersStore;
 import app.ui.console.utils.Utils;
 
 /**
@@ -12,16 +13,18 @@ import app.ui.console.utils.Utils;
  */
 public class CenterCoordinatorMenuController {
 
+    private final VaccinationCentersStore store;
     private final VaccinationCenter center;
 
     /**
      * Instantiates a new Center coordinator menu controller.
      */
     public CenterCoordinatorMenuController() {
-        center = company.getVaccinationCenterAssociatedToCoordinator(Utils.getLoggedCoordinatorId());
+        final Company company = App.getInstance().getCompany();
+        store = company.getVaccinationCentersStore();
+        center = store.getVaccinationCenterAssociatedToCoordinator(Utils.getLoggedCoordinatorId());
     }
 
-    private final Company company = App.getInstance().getCompany();
 
     /**
      * Checks if the company has enough info for vaccination stats.
@@ -29,7 +32,7 @@ public class CenterCoordinatorMenuController {
      * @return the int related to the error or success of the operation
      */
     public int companyHasEnoughInfoForVaccinationStats() {
-        if (company.getVaccinationCenters() ==null || company.getVaccinationCenters().isEmpty()) {
+        if (store.getVaccinationCenters() ==null || store.getVaccinationCenters().isEmpty()) {
             return 1;
         }else if (center.getFullyVaccinatedList() == null || center.getFullyVaccinatedList().isEmpty()) {
             return 2;

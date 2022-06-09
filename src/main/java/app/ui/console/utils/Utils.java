@@ -4,6 +4,7 @@ import app.controller.*;
 import app.domain.model.*;
 import app.domain.shared.Constants;
 import app.domain.shared.GenericClass;
+import app.stores.VaccinationCentersStore;
 import pt.isep.lei.esoft.auth.domain.model.Email;
 
 import java.io.*;
@@ -26,6 +27,8 @@ import java.util.logging.Logger;
 public class Utils {
 
     private static final Company company = App.getInstance().getCompany();
+    private static final VaccinationCentersStore VACCINATION_CENTERS_STORE = company.getVaccinationCentersStore();
+
 
     private static void bootstrapEmployees() {
         company.readBinaryFileEmployees();
@@ -37,7 +40,7 @@ public class Utils {
     }
 
     private static void bootstrapVaccinationCenters() {
-        company.readBinaryFileCenters();
+        VACCINATION_CENTERS_STORE.readBinaryFileCenters();
     }
 
     private static void bootstrapSnsUsers() {
@@ -50,14 +53,14 @@ public class Utils {
     }
 
     private static void bootstrapScheduledAppointments() {
-        for (VaccinationCenter center : company.getVaccinationCenters()) {
+        for (VaccinationCenter center : VACCINATION_CENTERS_STORE.getVaccinationCenters()) {
             center.readBinaryFilesAppointments();
         }
     }
 
     private static void bootstrapAdministeredVaccines() {
         company.readBinaryFileVaccineBulletins();
-        for (VaccinationCenter center : company.getVaccinationCenters()) {
+        for (VaccinationCenter center : VACCINATION_CENTERS_STORE.getVaccinationCenters()) {
             center.readBinaryFilesFullyVaccinated();
         }
     }
@@ -65,7 +68,7 @@ public class Utils {
     private static void bootstrapArrivals() {
         GenericClass<Arrival> genericsClass = new GenericClass<>();
         try {
-            for (VaccinationCenter vaccinationCenter : company.getVaccinationCenters()) {
+            for (VaccinationCenter vaccinationCenter : VACCINATION_CENTERS_STORE.getVaccinationCenters()) {
                 genericsClass.binaryFileRead(Constants.FILE_PATH_ARRIVALS, vaccinationCenter.getArrivalsList());
                 for (Arrival arrival : vaccinationCenter.getArrivalsList()) {
                     System.out.println(arrival);
@@ -664,7 +667,7 @@ public class Utils {
      */
     public static int selectVaccinationCenterIndex() {
         Company company = App.getInstance().getCompany();
-        return Utils.selectFromList(company.getVaccinationCenters(), "\nSelect a Vaccination Center");
+        return Utils.selectFromList(VACCINATION_CENTERS_STORE.getVaccinationCenters(), "\nSelect a Vaccination Center");
     }
 
 

@@ -56,13 +56,13 @@ class registerDailyTotalOfVaccinatedPeopleTest {
 
         //Appointment
         ScheduledVaccine appointment = new ScheduledVaccine(100000000, vt1, LocalDateTime.of(2022, 6, 7, 18, 20));
-        company.getVaccinationCenters().get(0).getScheduledVaccineList().add(appointment);
+        company.getVaccinationCentersStore().getVaccinationCenters().get(0).getScheduledVaccineList().add(appointment);
 
         //Arrivals
         controllerArrivals.checkAndSetUserAppointment(100000000);
         controllerArrivals.setArrival(100000000);
         Arrival arrival1 = new Arrival(100000000, vt1);
-        company.getVaccinationCenters().get(0).getArrivalsList().add(arrival1);
+        company.getVaccinationCentersStore().getVaccinationCenters().get(0).getArrivalsList().add(arrival1);
 
         //Administer Vaccine
         ArrayList<Integer> minAge1 = new ArrayList<>(List.of(1, 19));
@@ -73,7 +73,7 @@ class registerDailyTotalOfVaccinatedPeopleTest {
         Vaccine vaccine1 = new Vaccine("Test", 12, "Brand1", administrationProcess1, company.getVaccineTypes().get(0));
         company.getVaccinesList().add(vaccine1);
         VaccineBulletin vaccineBulletin1 = new VaccineBulletin(vaccine1, LocalDateTime.of(2022, 6, 7, 17, 30), 1, "54321-21");
-        company.getVaccinationCenters().get(0).addAdministeredVaccine(vaccineBulletin1);
+        company.getVaccinationCentersStore().getVaccinationCenters().get(0).addAdministeredVaccine(vaccineBulletin1);
     }
 
     @Test
@@ -84,7 +84,7 @@ class registerDailyTotalOfVaccinatedPeopleTest {
         File expectedFile = new File(Constants.DAILY_REGISTERS_FILE_NAME_EXPECTED_TEST);
 
         try {
-            company.registerDailyTotalOfVaccinatedPeople(Constants.DAILY_REGISTERS_FILE_NAME_ACTUAL_TEST);
+            company.getVaccinationCentersStore().registerDailyTotalOfVaccinatedPeople(Constants.DAILY_REGISTERS_FILE_NAME_ACTUAL_TEST);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -114,7 +114,7 @@ class registerDailyTotalOfVaccinatedPeopleTest {
         File expectedFile = new File(Constants.DAILY_REGISTERS_FILE_NAME_TEST_FALSE);
         File actualFile = new File(Constants.DAILY_REGISTERS_FILE_NAME_ACTUAL_TEST);
         try {
-            company.registerDailyTotalOfVaccinatedPeople(Constants.DAILY_REGISTERS_FILE_NAME_ACTUAL_TEST);
+            company.getVaccinationCentersStore().registerDailyTotalOfVaccinatedPeople(Constants.DAILY_REGISTERS_FILE_NAME_ACTUAL_TEST);
         } catch (IOException e) {
             e.printStackTrace();
         }
