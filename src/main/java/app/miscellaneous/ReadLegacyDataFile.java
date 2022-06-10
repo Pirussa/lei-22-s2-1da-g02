@@ -23,7 +23,7 @@ public class ReadLegacyDataFile {
         while ((line = br.readLine()) != null) {
             line = line.replaceAll("\"", "");
             String[] values = line.split(";");
-            csvLegacyData.add(values[0] + "|" + values[1] + "|" + values[2] + "|" + values[3] + "|" + values[4] + "|" + values[5] + "|"
+            legacyDataList.add(values[0] + "|" + values[1] + "|" + values[2] + "|" + values[3] + "|" + values[4] + "|" + values[5] + "|"
                     + values[6] + "|" + values[7]);
         }
         return true;
@@ -41,7 +41,7 @@ public class ReadLegacyDataFile {
                 System.out.println("0 - Ascending");
                 System.out.println("1 - Descending");
                 System.out.println("2 - Back to Menu");
-                int optionOne = scOne.nextInt();
+                int optionOne = scanner.nextInt();
                 switch (optionOne) {
                     case 0:
                         heapSortAscending();
