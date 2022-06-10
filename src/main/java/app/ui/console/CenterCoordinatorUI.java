@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CenterCoordinatorUI implements Runnable {
+
     @Override
     public void run() {
         List<MenuItem> options = new ArrayList<>();

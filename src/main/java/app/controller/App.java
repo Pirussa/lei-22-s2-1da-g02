@@ -56,6 +56,7 @@ public class App {
         props.setProperty("Timer.Hour", "23");
         props.setProperty("Timer.Minutes", "59");
         props.setProperty("Sorting.Algorithm", "BubbleSort");
+        props.setProperty("Sorting.Algorithm", "MergeSort");
         // Read configured values
         try {
             InputStream in = new FileInputStream(Constants.PARAMS_FILENAME);

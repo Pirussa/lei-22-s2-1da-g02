@@ -3,11 +3,12 @@ package app.miscellaneous;
 import app.controller.App;
 import app.controller.DataFromLegacySystemController;
 import app.domain.model.Company;
+import app.ui.console.CenterCoordinatorUI;
+import app.ui.console.MainMenuUI;
 import app.ui.console.utils.Utils;
+import com.sun.scenario.effect.Merge;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.NotSerializableException;
+import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,7 @@ public class ReadLegacyDataFile {
     private List<String> csvLegacyData = new ArrayList<>();
     private List<LocalDateTime> listOfArrivalDates = new ArrayList<>();
 
-    public void readFile(String path) throws Exception {
+    public boolean readFile(String path) throws Exception {
         String line;
         BufferedReader br = new BufferedReader(new FileReader(path));
         br.readLine();
@@ -30,46 +31,50 @@ public class ReadLegacyDataFile {
             csvLegacyData.add(values[0] + "|" + values[1] + "|" + values[2] + "|" + values[3] + "|" + values[4] + "|" + values[5] + "|"
                     + values[6] + "|" + values[7]);
         }
+        return true;
     }
 
     public void sortListWithAlgo() {
         String algorithmToBeUsed = App.getInstance().getSortingAlgorithm();
+        System.out.println();
+        System.out.println("Algo in config file: "+algorithmToBeUsed);
         switch (algorithmToBeUsed) {
             case "BubbleSort":
-                Scanner sc = new Scanner(System.in);
+                Scanner scOne = new Scanner(System.in);
                 System.out.println();
                 System.out.println("Choose the way you want to sort.");
                 System.out.println("0 - Ascending");
                 System.out.println("1 - Descending");
-                int option = sc.nextInt();
-                switch (option){
-                    case 0: bubbleSortAscending();
-                    case 1: bubbleSortDescending();
+                int optionOne = scOne.nextInt();
+                switch (optionOne) {
+                    case 0:
+                        bubbleSortAscending();
+                        break;
+                    case 1:
+                        bubbleSortDescending();
+                        break;
                 }
                 break;
-            case "OtherSort":
-                System.out.println("Not implemented yet");
+            case "MergeSort":
+                Scanner scTwo = new Scanner(System.in);
+                System.out.println();
+                System.out.println("Choose the way you want to sort.");
+                System.out.println("0 - Ascending");
+                System.out.println("1 - Descending");
+                int optionTwo = scTwo.nextInt();
+                switch (optionTwo) {
+                    case 0:
+                        mergeSortAscending(listOfArrivalDates, 0, listOfArrivalDates.size() - 1);
+                        break;
+                    case 1:
+                        mergeSortDescending(listOfArrivalDates, 0, listOfArrivalDates.size() - 1);
+                        break;
+                }
                 break;
         }
+
     }
 
-    public void chooseOrderToSort(){
-        Scanner sc = new Scanner(System.in);
-        try {
-            System.out.println();
-            System.out.println("Choose the way you want to sort.");
-            System.out.println("0 - Ascending");
-            System.out.println("1 - Descending");
-            int option = sc.nextInt();
-            switch (option){
-                case 0: bubbleSortAscending();
-                case 1: bubbleSortDescending();
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-            chooseOrderToSort();
-        }
-    }
 
     public void updateLegacyFile() throws NotSerializableException {
         if (!ctrl.getSNSUserList().isEmpty() && !ctrl.getVaccines().isEmpty()) {
@@ -97,13 +102,9 @@ public class ReadLegacyDataFile {
                 }
                 csvLegacyData.set(i, csvLegacyData.get(i) + "|" + ctrl.getVaccines().get(k).getVaccineType().getDescription());
             }
-            //System.out.println();
-            //printUpdatedLegacy(csvLegacyData);
             ctrl.exportDataToFile(csvLegacyData);
         } else {
-            System.out.println("Either the SNS User list is empty or the Vaccine list is," +
-                    " this makes it impossible to update the legacy " +
-                    "data with the SNS User number and the Vaccine's description.");
+            System.out.println("Either SNS User list is empty or Vaccine's list is.");
         }
     }
 
@@ -111,9 +112,104 @@ public class ReadLegacyDataFile {
         for (int i = 0; i < list.size(); i++) {
             System.out.println(list.get(i));
         }
+        System.out.println();
+        System.out.println(list.size() + " " + "entries.");
     }
 
-    public void bubbleSortAscending(){
+    void mergeSortAscending(List<LocalDateTime> list, int begin, int end) {
+
+        int middle = (begin + end) / 2;
+        if (middle < end) {
+            mergeSortAscending(list, begin, middle); //call Merge Sort on the first half
+            mergeSortAscending(list, middle + 1, end); //call Merge Sort on the second half
+
+            //merge the two sorted lists together:
+            ArrayList<LocalDateTime> newlist = new ArrayList<>();
+            ArrayList<String> tempList = new ArrayList<>();
+            int i = begin, j = middle + 1;
+            while (i <= middle && j <= end) {
+                if (list.get(j).compareTo(list.get(i)) > 0) {
+                    int x = i;
+                    newlist.add(list.get(i++));
+                    tempList.add(csvLegacyData.get(x++));
+                } else {
+                    int z = j;
+                    newlist.add(list.get(j++));
+                    tempList.add(csvLegacyData.get(z++));
+                }
+            }
+            while (i <= middle) {
+                int t = i;
+                newlist.add(list.get(i++));
+
+                tempList.add(csvLegacyData.get(t++));
+            }
+            while (j <= end) {
+                int r = j;
+                newlist.add(list.get(j++));
+                tempList.add(csvLegacyData.get(r++));
+            }
+            i = begin;
+            int k = i;
+            for (LocalDateTime item : newlist) {
+                list.set(i++, item);
+            }
+
+            for (String strItem : tempList) {
+                csvLegacyData.set(k++, strItem);
+            }
+            //printUpdatedLegacy(csvLegacyData);
+            writeArrayToFile(csvLegacyData);
+        }
+    }
+
+    public void mergeSortDescending(List<LocalDateTime> list, int begin, int end) {
+        int middle = (begin + end) / 2;
+        if (middle < end) {
+            mergeSortDescending(list, begin, middle); //call Merge Sort on the first half
+            mergeSortDescending(list, middle + 1, end); //call Merge Sort on the second half
+
+            //merge the two sorted lists together:
+            ArrayList<LocalDateTime> newlist = new ArrayList<>();
+            ArrayList<String> tempList = new ArrayList<>();
+            int i = begin, j = middle + 1;
+            while (i <= middle && j <= end) {
+                if (list.get(j).compareTo(list.get(i)) < 0) {
+                    int x = i;
+                    newlist.add(list.get(i++));
+                    tempList.add(csvLegacyData.get(x++));
+                } else {
+                    int z = j;
+                    newlist.add(list.get(j++));
+                    tempList.add(csvLegacyData.get(z++));
+                }
+            }
+            while (i <= middle) {
+                int t = i;
+                newlist.add(list.get(i++));
+
+                tempList.add(csvLegacyData.get(t++));
+            }
+            while (j <= end) {
+                int r = j;
+                newlist.add(list.get(j++));
+                tempList.add(csvLegacyData.get(r++));
+            }
+            i = begin;
+            int k = i;
+            for (LocalDateTime item : newlist) {
+                list.set(i++, item);
+            }
+
+            for (String strItem : tempList) {
+                csvLegacyData.set(k++, strItem);
+            }
+            //printUpdatedLegacy(csvLegacyData);
+            writeArrayToFile(csvLegacyData);
+        }
+    }
+
+    public void bubbleSortAscending() {
 
         for (int i = 0; i < listOfArrivalDates.size() - 1; ++i) {
 
@@ -122,21 +218,21 @@ public class ReadLegacyDataFile {
                 if (listOfArrivalDates.get(j + 1).isBefore(listOfArrivalDates.get(j))) {
 
                     LocalDateTime swap = listOfArrivalDates.get(j);
-                    listOfArrivalDates.set(j,listOfArrivalDates.get(j + 1));
-                    listOfArrivalDates.set(j+1,swap);
+                    listOfArrivalDates.set(j, listOfArrivalDates.get(j + 1));
+                    listOfArrivalDates.set(j + 1, swap);
 
                     String swapString = csvLegacyData.get(j);
-                    csvLegacyData.set(j,csvLegacyData.get(j+1));
-                    csvLegacyData.set(j+1,swapString);
+                    csvLegacyData.set(j, csvLegacyData.get(j + 1));
+                    csvLegacyData.set(j + 1, swapString);
                 }
             }
         }
-        printUpdatedLegacy(csvLegacyData);
-        }
+        //printUpdatedLegacy(csvLegacyData);
+        writeArrayToFile(csvLegacyData);
+    }
 
 
-
-    public void bubbleSortDescending(){
+    public void bubbleSortDescending() {
 
         for (int i = 0; i < listOfArrivalDates.size() - 1; ++i) {
 
@@ -145,44 +241,49 @@ public class ReadLegacyDataFile {
                 if (listOfArrivalDates.get(j + 1).isAfter(listOfArrivalDates.get(j))) {
 
                     LocalDateTime swap = listOfArrivalDates.get(j);
-                    listOfArrivalDates.set(j,listOfArrivalDates.get(j + 1));
-                    listOfArrivalDates.set(j+1,swap);
+                    listOfArrivalDates.set(j, listOfArrivalDates.get(j + 1));
+                    listOfArrivalDates.set(j + 1, swap);
 
                     String swapString = csvLegacyData.get(j);
-                    csvLegacyData.set(j,csvLegacyData.get(j+1));
-                    csvLegacyData.set(j+1,swapString);
+                    csvLegacyData.set(j, csvLegacyData.get(j + 1));
+                    csvLegacyData.set(j + 1, swapString);
                 }
             }
         }
-        printUpdatedLegacy(csvLegacyData);
+        //printUpdatedLegacy(csvLegacyData);
+        writeArrayToFile(csvLegacyData);
     }
 
 
-    public void choosePositionToSort(){
-        Scanner sc = new Scanner(System.in);
-        try {
-            System.out.println();
-            System.out.println("Choose the option you want to sort.");
-            System.out.println("0 - Arrival Date Time");
-            System.out.println("1 - Leaving Date Time");
-            int option = sc.nextInt();
-            switch (option){
-                case 0: setList(6);
-                case 1: setList(8);
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-            choosePositionToSort();
+    public boolean choosePositionToSort() {
+        Scanner scPos = new Scanner(System.in);
+        final int ArrivalOption = 6;
+        final int LeaveOption = 8;
+        System.out.println();
+        System.out.println("Choose the option you want to sort.");
+        System.out.println("0 - Arrival Date Time");
+        System.out.println("1 - Leaving Date Time");
+        System.out.println("2 - Back to Menu");
+        int optionPosition = scPos.nextInt();
+        switch (optionPosition) {
+            case 0:
+                setList(ArrivalOption);
+                break;
+            case 1:
+                setList(LeaveOption);
+                break;
+            case 2:
+                return false;
         }
+        return true;
     }
-
 
 
     public void setList(int position) {
         String[] values;
         listOfArrivalDates.clear();
-        for (String csvLegacyDatum : csvLegacyData) {
-            values = csvLegacyDatum.split("\\|");
+        for (int i = 0; i < csvLegacyData.size(); i++) {
+            values = csvLegacyData.get(i).split("\\|");
             String date = values[position];
             String[] dateAndHour = date.split(" ");
             String[] dayMonthYear = dateAndHour[0].split("/");
@@ -195,6 +296,21 @@ public class ReadLegacyDataFile {
 
             LocalDateTime dataToBeAdded = LocalDateTime.of(year, month, day, hour, minute);
             listOfArrivalDates.add(dataToBeAdded);
+        }
+    }
+
+    public void writeArrayToFile(List<String> list){
+        FileWriter writer = null;
+        try {
+            writer = new FileWriter("SortingTest.txt");
+            for(String str: list) {
+                writer.write(str + System.lineSeparator());
+                System.out.println("writing to file...");
+            }
+
+            writer.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
     }
 

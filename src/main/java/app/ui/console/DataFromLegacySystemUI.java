@@ -25,10 +25,4 @@ public class DataFromLegacySystemUI implements Runnable{
     }
   }
 
-  public void sortByArrivalTime(List<String> csvLegacyData){
-    //create
-
-
-    }
-
 }
