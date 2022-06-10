@@ -8,11 +8,7 @@ import app.domain.shared.GenericClass;
 import app.miscellaneous.ReadLegacyDataFile;
 
 import java.io.*;
-import java.sql.SQLOutput;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class DataFromLegacySystemController {
@@ -32,11 +28,11 @@ public class DataFromLegacySystemController {
     }
 
     public void getSortedList(String path) throws Exception {
-        ReadLegacyDataFile rldf = new ReadLegacyDataFile();
-        if (rldf.readFile(path)) {
-            rldf.updateLegacyFile();
-            if (rldf.choosePositionToSort()){
-                rldf.sortListWithAlgo();
+        ReadLegacyDataFile readLegacyDataFile = new ReadLegacyDataFile();
+        if (readLegacyDataFile.readFile(path)) {
+            readLegacyDataFile.updateLegacyFile();
+            if (readLegacyDataFile.chooseCriteriaToSort()){
+                readLegacyDataFile.sortListWithAlgo();
             }
         }
     }
