@@ -40,3 +40,7 @@
 .select-option-process {
     -fx-background-color: #f4f4f4;
 }
+
+.dropdown-menu {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .3), 10, 0, 0, 1);
+}

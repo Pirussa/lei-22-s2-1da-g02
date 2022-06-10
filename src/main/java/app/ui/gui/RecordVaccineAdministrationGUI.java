@@ -14,12 +14,16 @@ import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 
 
 public class RecordVaccineAdministrationGUI {
 
     private final RecordVaccineAdministrationController controller = new RecordVaccineAdministrationController();
+
+    @FXML
+    private javafx.scene.control.Button btCancel;
 
     @FXML
     private ComboBox<String> vaccinationCenterList;
@@ -86,6 +90,7 @@ public class RecordVaccineAdministrationGUI {
         Parent root;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/nurse-menu.fxml"));
         root = loader.load();
+
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
