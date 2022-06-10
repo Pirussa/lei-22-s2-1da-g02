@@ -1,11 +1,7 @@
 package app.ui.gui;
 
 import app.controller.RecordVaccineAdministrationController;
-import app.domain.model.SnsUser;
-import app.domain.model.VaccinationCenter;
-import app.domain.model.Vaccine;
-import app.domain.model.VaccineType;
-import app.dto.SnsUserDto;
+import app.domain.shared.Constants;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -19,6 +15,7 @@ import javafx.stage.Stage;
 
 import java.awt.*;
 import java.io.IOException;
+
 
 public class RecordVaccineAdministrationGUI {
 
@@ -41,7 +38,7 @@ public class RecordVaccineAdministrationGUI {
 
 
     @FXML
-    private void initializeCenter() {
+    public void initializeCenter() {
         ObservableList<String> vaccinationCenterNameList = FXCollections.observableArrayList(controller.vaccinationCentersAvailable());
         vaccinationCenterList.setItems(vaccinationCenterNameList);
     }
@@ -67,7 +64,12 @@ public class RecordVaccineAdministrationGUI {
     }
 
     public void selectedVaccine() {
-        controller.setVaccine(vaccineList.getSelectionModel().getSelectedIndex());
+        if (controller.getUserNumberOfDoses() == Constants.FIRST_DOSE)
+            controller.setVaccine(vaccineList.getSelectionModel().getSelectedIndex());
+        else {
+            int currentAppointment = controller.findLastDoseOfVaccineType();
+            controller.setVaccine(currentAppointment);
+        }
     }
 
     public void setUserNameTxt() {
@@ -84,7 +86,6 @@ public class RecordVaccineAdministrationGUI {
         Parent root;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/nurse-menu.fxml"));
         root = loader.load();
-
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
