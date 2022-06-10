@@ -6,6 +6,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -15,15 +17,18 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.ui.gui.RecordVaccineAdministrationGUI">
    <bottom>
       <HBox alignment="CENTER" prefHeight="40.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" prefWidth="80.0" text="Record" textAlignment="CENTER">
+            <Button mnemonicParsing="false" prefWidth="80.0" styleClass="centerCoordinator-buttons" stylesheets="@../styles/styleSheet.css" text="Record" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="Constantia" size="12.0" />
-               </font></Button>
-            <Button mnemonicParsing="false" prefWidth="80.0" text="Cancel" textAlignment="CENTER">
+               </font>
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin></Button>
+            <Button mnemonicParsing="false" prefWidth="80.0" styleClass="centerCoordinator-buttons" stylesheets="@../styles/styleSheet.css" text="Cancel" textAlignment="CENTER">
                <font>
                   <Font name="Constantia" size="12.0" />
                </font></Button>
@@ -58,18 +63,48 @@
                         <Label alignment="CENTER" prefHeight="18.0" prefWidth="59.0" text="Facility">
                            <font>
                               <Font name="Constantia" size="12.0" />
-                           </font></Label>
-                        <ComboBox prefHeight="26.0" prefWidth="220.0" GridPane.columnIndex="1" />
+                           </font>
+                        </Label>
+                        <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="39.0" prefWidth="254.0" styleClass="radius-background" stylesheets="@../styles/styleSheet.css">
+                                 <children>
+                                    <ComboBox fx:id="vaccinationCenterList" prefHeight="26.0" prefWidth="220.0" styleClass="transparent" onMouseClicked="#initializeCenter" stylesheets="@../styles/styleSheet.css" />
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="15.0" prefWidth="254.0" />
+                           </children>
+                        </VBox>
                         <Label alignment="CENTER" prefHeight="18.0" prefWidth="65.0" text="User List" GridPane.rowIndex="1">
                            <font>
                               <Font name="Constantia" size="12.0" />
-                           </font></Label>
+                           </font>
+                        </Label>
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="64.0" text="Vaccine" GridPane.rowIndex="2">
                            <font>
                               <Font name="Constantia" size="12.0" />
-                           </font></Label>
-                        <ComboBox prefHeight="26.0" prefWidth="220.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <ComboBox prefHeight="26.0" prefWidth="220.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                           </font>
+                        </Label>
+                        <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="39.0" prefWidth="254.0" styleClass="radius-background" stylesheets="@../styles/styleSheet.css">
+                                 <children>
+                                    <ComboBox fx:id="userList" onAction="#initializeUser" prefHeight="26.0" prefWidth="220.0" styleClass="transparent" stylesheets="@../styles/styleSheet.css" />
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="15.0" prefWidth="254.0" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="39.0" prefWidth="254.0" styleClass="radius-background" stylesheets="@../styles/styleSheet.css">
+                                 <children>
+                                    <ComboBox fx:id="vaccineList" onAction="#initializeVaccine" prefHeight="26.0" prefWidth="220.0" styleClass="transparent" stylesheets="@../styles/styleSheet.css" />
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="15.0" prefWidth="254.0" />
+                           </children>
+                        </VBox>
                      </children>
                      <VBox.margin>
                         <Insets top="1.0" />
@@ -85,7 +120,7 @@
                               <Font name="Constantia" size="12.0" />
                            </font>
                         </Label>
-                        <TextField editable="false" style="-fx-background-radius: 5;">
+                        <TextField fx:id="userNameTxt" editable="false" onAction="#setUserNameTxt" style="-fx-background-radius: 5;">
                            <HBox.margin>
                               <Insets left="10.0" top="5.0" />
                            </HBox.margin>
@@ -98,12 +133,13 @@
                               <Font name="Constantia" size="12.0" />
                            </font>
                         </Label>
-                        <TextField editable="false" prefWidth="35.0" style="-fx-background-radius: 5;">
+                        <TextField fx:id="userAgeTxt" editable="false" onAction="#setUserAgeTxt" prefWidth="35.0" style="-fx-background-radius: 5;">
                            <HBox.margin>
                               <Insets left="10.0" top="5.0" />
                            </HBox.margin>
                         </TextField>
-                     </children></HBox>
+                     </children>
+                  </HBox>
                   <Label text="Administration Process" textFill="#05450a">
                      <font>
                         <Font name="Constantia" size="14.0" />
@@ -175,4 +211,24 @@
          </children>
       </AnchorPane>
    </center>
+   <top>
+      <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="400.0" styleClass="top-background" stylesheets="@../styles/styleSheet.css" BorderPane.alignment="CENTER">
+         <children>
+            <Label prefHeight="30.0" prefWidth="295.0" text="Vaccine Administration " textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Label>
+            <HBox prefHeight="38.0" prefWidth="230.0" />
+            <ImageView fitHeight="38.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/record vaccine administration.png" />
+               </image>
+            </ImageView>
+         </children>
+      </HBox>
+   </top>
 </BorderPane>

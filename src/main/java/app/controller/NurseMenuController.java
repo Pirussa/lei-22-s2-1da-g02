@@ -22,9 +22,8 @@ public class NurseMenuController {
             return 1;
         if (company.getVaccinesList().isEmpty())
             return 2;
-        if (company.getVaccineTypes().isEmpty())
+        if (company.getVaccineTypesStore().getVaccineTypes().isEmpty())
             return 3;
         return 0;
     }
-
 }

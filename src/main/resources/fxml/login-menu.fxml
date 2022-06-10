@@ -66,7 +66,7 @@
                               <Insets left="4.0" />
                            </HBox.margin>
                         </ImageView>
-                        <PasswordField fx:id="pwdTxtField" alignment="TOP_CENTER" prefHeight="65.0" prefWidth="320.0" promptText="password" styleClass="transparent" stylesheets="@../styles/styleSheet.css">
+                        <PasswordField fx:id="pwdTxtField" alignment="CENTER" prefHeight="65.0" prefWidth="320.0" promptText="password" styleClass="transparent" stylesheets="@../styles/styleSheet.css">
                            <font>
                               <Font size="30.0" />
                            </font>

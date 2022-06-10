@@ -5,6 +5,7 @@ import app.domain.model.*;
 import app.domain.shared.Constants;
 import app.domain.shared.GenericClass;
 import app.stores.VaccinationCentersStore;
+import app.stores.VaccineTypesStore;
 import pt.isep.lei.esoft.auth.domain.model.Email;
 
 import java.io.*;
@@ -28,6 +29,7 @@ public class Utils {
 
     private static final Company company = App.getInstance().getCompany();
     private static final VaccinationCentersStore VACCINATION_CENTERS_STORE = company.getVaccinationCentersStore();
+    private static final VaccineTypesStore VACCINE_TYPE_STORE = company.getVaccineTypesStore();
 
 
     private static void bootstrapEmployees() {
@@ -36,7 +38,7 @@ public class Utils {
     }
 
     private static void bootstrapVaccineTypes() {
-        company.readBinaryFileVaccineTypes();
+        VACCINE_TYPE_STORE.readBinaryFileVaccineTypes();
     }
 
     private static void bootstrapVaccinationCenters() {
@@ -387,7 +389,7 @@ public class Utils {
         bootstrap();
         AdministrationProcess aP = new AdministrationProcess(new ArrayList<>(Arrays.asList(new ArrayList<>(List.of(minAge)), new ArrayList<>(List.of(maxAge)))), new ArrayList<>(List.of(2)), new ArrayList<>(List.of(dosage)), new ArrayList<>(Arrays.asList(new ArrayList<>(List.of(timeBetweenDoses)))));
 
-        Vaccine v = new Vaccine(name, id, brand, aP, c.getVaccineTypes().get(0));
+        Vaccine v = new Vaccine(name, id, brand, aP, c.getVaccineTypesStore().getVaccineTypes().get(0));
 
 
         return v;

@@ -131,7 +131,7 @@ public class ScheduleVaccineController {
      */
     public boolean companyHasNecessaryInfo() {
         if (company.getSnsUserList().isEmpty()) return false;
-        if (company.getVaccineTypes().isEmpty()) return false;
+        if (company.getVaccineTypesStore().getVaccineTypes().isEmpty()) return false;
         return !vaccinationCentersStore.getVaccinationCenters().isEmpty();
     }
 

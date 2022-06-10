@@ -66,7 +66,7 @@ public class VaccineType implements Serializable {
             return false;
 
         Company c = App.getInstance().getCompany();
-        for (VaccineType vt : c.getVaccineTypes()) {
+        for (VaccineType vt : c.getVaccineTypesStore().getVaccineTypes()) {
             if (code.equals(vt.code)) return false;
         }
 
