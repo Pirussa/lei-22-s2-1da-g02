@@ -26,5 +26,4 @@ public class NurseMenuController {
             return 3;
         return 0;
     }
-
 }

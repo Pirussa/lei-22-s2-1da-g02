@@ -2,6 +2,8 @@ package app.controller;
 
 import app.domain.model.*;
 import app.domain.shared.Constants;
+import app.dto.VaccinationCenterDto;
+import app.mapper.VaccinationCenterMapper;
 import app.stores.VaccinationCentersStore;
 import app.ui.console.utils.Utils;
 import app.dto.SnsUserDto;
@@ -347,5 +349,25 @@ public class RecordVaccineAdministrationController {
             vaccinationCenterName.add(vaccinationCentersStore.getVaccinationCenters().get(index).getStrName());
         }
         return vaccinationCenterName;
+    }
+
+    public int allInfoVaccinationRecord() {
+        if (vaccinationCenter == null)
+            return 1;
+        if (snsUser == null)
+            return 2;
+        if (vaccine == null)
+            return 3;
+        if (lotNumber == null)
+            return 4;
+        return 0;
+    }
+
+    public String getSnsUserName() {
+        return snsUser.getStrName();
+    }
+
+    public int getUserAge() {
+        return snsUser.getUserAge();
     }
 }
