@@ -45,6 +45,7 @@ public class ReadLegacyDataFile {
                 System.out.println("Choose the way you want to sort.");
                 System.out.println("0 - Ascending");
                 System.out.println("1 - Descending");
+                System.out.println("2 - Back to Menu");
                 int optionOne = scOne.nextInt();
                 switch (optionOne) {
                     case 0:
@@ -52,6 +53,8 @@ public class ReadLegacyDataFile {
                         break;
                     case 1:
                         bubbleSortDescending();
+                        break;
+                    case 2:
                         break;
                 }
                 break;
@@ -61,6 +64,7 @@ public class ReadLegacyDataFile {
                 System.out.println("Choose the way you want to sort.");
                 System.out.println("0 - Ascending");
                 System.out.println("1 - Descending");
+                System.out.println("2 - Back to Menu");
                 int optionTwo = scTwo.nextInt();
                 switch (optionTwo) {
                     case 0:
@@ -68,6 +72,8 @@ public class ReadLegacyDataFile {
                         break;
                     case 1:
                         mergeSortDescending(listOfArrivalDates, 0, listOfArrivalDates.size() - 1);
+                        break;
+                    case 2:
                         break;
                 }
                 break;
@@ -301,11 +307,11 @@ public class ReadLegacyDataFile {
 
     public void writeArrayToFile(List<String> list){
         FileWriter writer = null;
+        System.out.println("Writing to file...");
         try {
             writer = new FileWriter("SortingTest.txt");
             for(String str: list) {
                 writer.write(str + System.lineSeparator());
-                System.out.println("writing to file...");
             }
 
             writer.close();
