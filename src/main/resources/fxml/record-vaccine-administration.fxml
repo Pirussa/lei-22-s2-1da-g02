@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.ui.gui.RecordVaccineAdministrationGUI">
    <bottom>
       <HBox alignment="CENTER" prefHeight="40.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
          <children>
@@ -69,7 +69,7 @@
                            <children>
                               <HBox alignment="CENTER" prefHeight="39.0" prefWidth="254.0" styleClass="radius-background" stylesheets="@../styles/styleSheet.css">
                                  <children>
-                                    <ComboBox prefHeight="26.0" prefWidth="220.0" styleClass="transparent" stylesheets="@../styles/styleSheet.css" />
+                                    <ComboBox fx:id="vaccinationCenterList" onAction="#initialize" prefHeight="26.0" prefWidth="220.0" styleClass="transparent" stylesheets="@../styles/styleSheet.css" />
                                  </children>
                               </HBox>
                               <HBox prefHeight="15.0" prefWidth="254.0" />

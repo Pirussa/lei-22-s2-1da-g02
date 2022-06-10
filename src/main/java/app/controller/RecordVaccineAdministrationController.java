@@ -23,6 +23,8 @@ public class RecordVaccineAdministrationController {
 
     private final Company company = App.getInstance().getCompany();
 
+    private final VaccinationCentersStore vaccinationCentersStore = company.getVaccinationCentersStore();
+
     private VaccinationCenter vaccinationCenter;
 
     private VaccineType vaccineType;
@@ -312,7 +314,7 @@ public class RecordVaccineAdministrationController {
     public void registerVaccineInVaccineBulletin() {
         VaccineBulletinMapper vaccineBulletinMapper = new VaccineBulletinMapper();
 
-        if (vaccineBulletinMapper.VaccineBulletinDtoToDomain(snsUserAddVaccineBulletin()).isLastDose( vaccine.getUserAgeGroupIndex(snsUser.getUserAge()))) {
+        if (vaccineBulletinMapper.VaccineBulletinDtoToDomain(snsUserAddVaccineBulletin()).isLastDose(vaccine.getUserAgeGroupIndex(snsUser.getUserAge()))) {
             vaccinationCenter.addFullyVaccinated(vaccineBulletinMapper.VaccineBulletinDtoToDomain(snsUserAddVaccineBulletin()));
         }
         vaccinationCenter.addAdministeredVaccine(vaccineBulletinMapper.VaccineBulletinDtoToDomain(snsUserAddVaccineBulletin()));
@@ -339,4 +341,11 @@ public class RecordVaccineAdministrationController {
         printWriter.close();
     }
 
+    public List<String> vaccinationCentersAvailable() {
+        List<String> vaccinationCenterName = new ArrayList<>();
+        for (int index = 0; index < vaccinationCentersStore.getVaccinationCenters().size(); index++) {
+            vaccinationCenterName.add(vaccinationCentersStore.getVaccinationCenters().get(index).getStrName());
+        }
+        return vaccinationCenterName;
+    }
 }
