@@ -23,7 +23,7 @@ public class ReadLegacyDataFile {
         while ((line = br.readLine()) != null) {
             line = line.replaceAll("\"", "");
             String[] values = line.split(";");
-            legacyDataList.add(values[0] + "|" + values[1] + "|" + values[2] + "|" + values[3] + "|" + values[4] + "|" + values[5] + "|"
+            csvLegacyData.add(values[0] + "|" + values[1] + "|" + values[2] + "|" + values[3] + "|" + values[4] + "|" + values[5] + "|"
                     + values[6] + "|" + values[7]);
         }
         return true;
@@ -40,7 +40,8 @@ public class ReadLegacyDataFile {
                 System.out.println("Choose the way you want to sort.");
                 System.out.println("0 - Ascending");
                 System.out.println("1 - Descending");
-                int optionOne = scanner.nextInt();
+                System.out.println("2 - Back to Menu");
+                int optionOne = scOne.nextInt();
                 switch (optionOne) {
                     case 0:
                         heapSortAscending();
@@ -50,6 +51,8 @@ public class ReadLegacyDataFile {
                         heapSortDescending();
                         printSortedArray();
                         break;
+                    case 2:
+                        break;
                 }
                 break;
             case "MergeSort":
@@ -58,6 +61,7 @@ public class ReadLegacyDataFile {
                 System.out.println("Choose the way you want to sort.");
                 System.out.println("0 - Ascending");
                 System.out.println("1 - Descending");
+                System.out.println("2 - Back to Menu");
                 int optionTwo = scTwo.nextInt();
                 switch (optionTwo) {
                     case 0:
@@ -65,6 +69,8 @@ public class ReadLegacyDataFile {
                         break;
                     case 1:
                         mergeSortDescending(listToSort, 0, listToSort.size() - 1);
+                        break;
+                    case 2:
                         break;
                 }
                 break;
@@ -236,7 +242,6 @@ public class ReadLegacyDataFile {
         for (String line : legacyDataList) {
             values = line.split("\\|");
             String date = values[position];
-
             String[] dateAndHour = date.split(" ");
             String[] hourAndMinute = dateAndHour[1].split(":");
             int hour = Integer.parseInt(hourAndMinute[0]);
@@ -249,11 +254,11 @@ public class ReadLegacyDataFile {
 
     public void writeArrayToFile(List<String> list){
         FileWriter writer = null;
+        System.out.println("Writing to file...");
         try {
             writer = new FileWriter("SortingTest.txt");
             for(String str: list) {
                 writer.write(str + System.lineSeparator());
-                System.out.println("writing to file...");
             }
 
             writer.close();
