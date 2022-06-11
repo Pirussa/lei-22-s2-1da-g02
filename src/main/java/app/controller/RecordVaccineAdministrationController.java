@@ -2,8 +2,6 @@ package app.controller;
 
 import app.domain.model.*;
 import app.domain.shared.Constants;
-import app.dto.VaccinationCenterDto;
-import app.mapper.VaccinationCenterMapper;
 import app.stores.VaccinationCentersStore;
 import app.ui.console.utils.Utils;
 import app.dto.SnsUserDto;
@@ -165,9 +163,11 @@ public class RecordVaccineAdministrationController {
      */
     public SnsUserDto getSnsUserInformation(int selectedUser) {
         SnsUserMapper snsUserMapper = new SnsUserMapper();
-        return snsUserMapper.domainToSNSUserDto(company.getSnsUserList().get(snsUserIndexInList(selectedUser)));
+        //return snsUserMapper.domainToSNSUserDto(company.getSnsUserList().get(snsUserIndexInList(selectedUser)));
+        return snsUserMapper.domainToSNSUserDto(company.getSnsUserList().get(selectedUser));
     }
 
+/*
     private int snsUserIndexInList(int selectedUser) {
         for (int index = 0; index < company.getSnsUserList().size(); index++) {
             if (arrivalsVaccination.get(selectedUser).getSnsNumber() == company.getSnsUserList().get(index).getSnsUserNumber()) {
@@ -176,6 +176,7 @@ public class RecordVaccineAdministrationController {
         }
         return Constants.INVALID_VALUE;
     }
+*/
 
 
     /**
@@ -232,7 +233,7 @@ public class RecordVaccineAdministrationController {
         return Constants.FIRST_DOSE;
     }
 
-    private Double dosageForDose(int numberOfDoses, int indexVaccine) {
+    public Double dosageForDose(int numberOfDoses, int indexVaccine) {
         if (numberOfDoses == Constants.FIRST_DOSE)
             return vaccineTypeAvailableVaccines().get(indexVaccine).getAdminProcess().getDosage().get(Constants.FIRST_DOSE + 1);
         else {
@@ -351,23 +352,27 @@ public class RecordVaccineAdministrationController {
         return vaccinationCenterName;
     }
 
-    public int allInfoVaccinationRecord() {
-        if (vaccinationCenter == null)
-            return 1;
-        if (snsUser == null)
-            return 2;
-        if (vaccine == null)
-            return 3;
-        if (lotNumber == null)
-            return 4;
-        return 0;
-    }
-
     public String getSnsUserName() {
         return snsUser.getStrName();
     }
 
     public int getUserAge() {
         return snsUser.getUserAge();
+    }
+
+    public List<String> users() {
+        ArrayList<String> ola = new ArrayList<>();
+        for (int i = 0; i < company.getSnsUserList().size(); i++) {
+            ola.add(String.valueOf(company.getSnsUserList().get(i).getSnsUserNumber()));
+        }
+        return ola;
+    }
+
+    public String getVaccineName() {
+        return vaccine.getName();
+    }
+
+    public String getVaccineTypeName() {
+        return vaccineType.getCode();
     }
 }

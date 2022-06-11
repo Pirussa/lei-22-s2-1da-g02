@@ -4,26 +4,21 @@ import app.controller.RecordVaccineAdministrationController;
 import app.domain.shared.Constants;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.io.IOException;
 
 
 public class RecordVaccineAdministrationGUI {
 
     private final RecordVaccineAdministrationController controller = new RecordVaccineAdministrationController();
-
-    @FXML
-    private javafx.scene.control.Button btCancel;
 
     @FXML
     private ComboBox<String> vaccinationCenterList;
@@ -40,53 +35,89 @@ public class RecordVaccineAdministrationGUI {
     @FXML
     private javafx.scene.control.TextField userAgeTxt;
 
+    @FXML
+    private javafx.scene.control.TextField vaccineTypeTxt;
 
     @FXML
-    public void initializeCenter() {
-        ObservableList<String> vaccinationCenterNameList = FXCollections.observableArrayList(controller.vaccinationCentersAvailable());
-        vaccinationCenterList.setItems(vaccinationCenterNameList);
-    }
+    private javafx.scene.control.TextField lotNumberTxt;
 
     @FXML
-    private void initializeUser() {
-        ObservableList<String> userSnsNumberList = FXCollections.observableArrayList(controller.fillListWithUserSnsNumber());
-        userList.setItems(userSnsNumberList);
-    }
+    private javafx.scene.control.TextField dosageTxt;
+
 
     @FXML
-    private void initializeVaccine() {
-        ObservableList<String> vaccineNameList = FXCollections.observableArrayList(controller.vaccineAvailableName());
-        vaccineList.setItems(vaccineNameList);
+    private CheckBox confirmSelectionCheckBox;
+
+    @FXML
+    private Button recordButton;
+
+    @FXML
+    private Button cancelButton;
+
+
+    public void confirmSelection(ActionEvent event) {
+        checkBoxVerify(event);
     }
 
-    public void selectedVaccinationCenter() {
-        controller.setVaccinationCenter(vaccinationCenterList.getSelectionModel().getSelectedIndex());
-    }
+    private void checkBoxVerify(ActionEvent event) {
+        if (/*vaccineList.getSelectionModel().isEmpty() ||*/ vaccinationCenterList.getSelectionModel().isEmpty() || userList.getSelectionModel().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("You must select all the fields");
+            alert.showAndWait();
+            confirmSelectionCheckBox.setSelected(false);
+        } else {
+            // Set selected Center
+            setVaccinationCenter();
 
-    public void selectedSnsUser() {
-        controller.setSnsUser(controller.getSnsUserInformation(userList.getSelectionModel().getSelectedIndex()));
-    }
+            // Set selected User
+            setUser();
 
-    public void selectedVaccine() {
-        if (controller.getUserNumberOfDoses() == Constants.FIRST_DOSE)
-            controller.setVaccine(vaccineList.getSelectionModel().getSelectedIndex());
-        else {
-            int currentAppointment = controller.findLastDoseOfVaccineType();
-            controller.setVaccine(currentAppointment);
+            // Set selected Vaccine or Previous Vaccine
+            initializeVaccine();
+
+            // Get User´s Name
+            getUserName();
+
+            // Get User´s Age
+            userAgeTxt.setText("12");
+
+            // Disable the checkbox and the combo boxes
+            disableComboBox();
+            disableCheckBox();
+
+            // Set Vaccine Type
+            getVaccineTypeName();
+
+            // Set Dosage
+            getDosageQuantity();
         }
     }
 
-    public void setUserNameTxt() {
-        if (controller.getSnsUserName() != null)
-            userNameTxt.setText(controller.getSnsUserName());
-    }
-
-    public void setUserAgeTxt() {
-        if (controller.getSnsUserName() != null)
-            userAgeTxt.setText(String.valueOf(controller.getUserAge()));
-    }
-
+    @FXML
     private void recordVaccineAdministrationConfirmed(javafx.event.ActionEvent event) throws IOException {
+        if (lotNumberTxt.getText().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("You must introduce a lot number");
+            alert.showAndWait();
+            confirmSelectionCheckBox.setSelected(false);
+        } else {
+            if (!controller.validateLotNumber(lotNumberTxt.getText())) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setContentText("Lot Number is not valid");
+                alert.showAndWait();
+                confirmSelectionCheckBox.setSelected(false);
+            } else {
+                recordVaccineAdministration(event);
+                returnToNurseGUI(event);
+            }
+        }
+    }
+
+    @FXML
+    private void returnToNurseGUI(javafx.event.ActionEvent event) throws IOException {
         Parent root;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/nurse-menu.fxml"));
         root = loader.load();
@@ -97,44 +128,75 @@ public class RecordVaccineAdministrationGUI {
         stage.show();
     }
 
-    public void recordVaccineAdministration(javafx.event.ActionEvent event) {
-        //if (controller.validateLotNumber()) {
-        switch (controller.allInfoVaccinationRecord()) {
-            case 0:
+    @FXML
+    public void initializeCenter() {
+        ObservableList<String> vaccinationCenterNameList = FXCollections.observableArrayList(controller.vaccinationCentersAvailable());
+        vaccinationCenterList.setItems(vaccinationCenterNameList);
+    }
 
-                break;
-            case 1:
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setContentText("You must select a Vaccination Center");
-                alert.showAndWait();
-                break;
-            case 2:
-                Alert alert2 = new Alert(Alert.AlertType.ERROR);
-                alert2.setTitle("Error");
-                alert2.setContentText("You must select an User");
-                alert2.showAndWait();
-                break;
-            case 3:
-                Alert alert3 = new Alert(Alert.AlertType.ERROR);
-                alert3.setTitle("Error");
-                alert3.setContentText("You must select a Vaccine");
-                alert3.showAndWait();
-                break;
-            case 4:
-                Alert alert4 = new Alert(Alert.AlertType.ERROR);
-                alert4.setTitle("Error");
-                alert4.setContentText("You must introduce a Lot Number");
-                alert4.showAndWait();
-                break;
+    @FXML
+    private void initializeUser() {
+        //ObservableList<String> userSnsNumberList = FXCollections.observableArrayList(controller.fillListWithUserSnsNumber());
+        controller.setArrivalList();
+        ObservableList<String> userSnsNumberList = FXCollections.observableArrayList(controller.users());
+        userList.setItems(userSnsNumberList);
+    }
+
+    public void initializeVaccine() {
+        if (controller.getUserNumberOfDoses() == Constants.FIRST_DOSE) {
+            ObservableList<String> vaccineNameList = FXCollections.observableArrayList(controller.vaccineAvailableName());
+            vaccineList.setItems(vaccineNameList);
+            controller.setVaccine(vaccineList.getSelectionModel().getSelectedIndex());
+        } else {
+            int currentAppointment = controller.findLastDoseOfVaccineType();
+            controller.setVaccine(currentAppointment);
+            vaccineList.setValue(controller.getVaccineName());
+            vaccineList.setDisable(true);
         }
+    }
 
+    private void setVaccinationCenter() {
+        controller.setVaccinationCenter(vaccinationCenterList.getSelectionModel().getSelectedIndex());
+    }
 
-       /* } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Warning");
-            alert.setContentText("Please select both dates");
-            alert.showAndWait();
-        }*/
+    private void setUser() {
+        controller.setSnsUser(controller.getSnsUserInformation(userList.getSelectionModel().getSelectedIndex()));
+    }
+
+    private void getUserName() {
+        if (controller.getSnsUserName() != null)
+            userNameTxt.setText(controller.getSnsUserName());
+    }
+
+    private void getUserAge() {
+           /* if (controller.getSnsUserAge() != null)
+        userAgeTxt.setText(String.valueOf(controller.getUserAge()));*/
+        userAgeTxt.setText("12");
+    }
+
+    private void getVaccineTypeName() {
+        controller.setVaccineType(userList.getSelectionModel().getSelectedIndex());
+        vaccineTypeTxt.setText(controller.getVaccineTypeName());
+    }
+
+    private void getDosageQuantity() {
+        if (controller.getUserNumberOfDoses() == Constants.FIRST_DOSE)
+            dosageTxt.setText(String.valueOf(controller.dosageForDose(Constants.INVALID_VALUE, vaccineList.getSelectionModel().getSelectedIndex())));
+        else
+            dosageTxt.setText(String.valueOf(controller.dosageForDose(controller.getUserNumberOfDoses(), controller.findLastDoseOfVaccineType())));
+    }
+
+    private void disableComboBox() {
+        userList.setDisable(true);
+        vaccinationCenterList.setDisable(true);
+        vaccineList.setDisable(true);
+    }
+
+    private void disableCheckBox() {
+        confirmSelectionCheckBox.setDisable(true);
+    }
+
+    private void recordVaccineAdministration(javafx.event.ActionEvent event) {
+        controller.registerVaccineInVaccineBulletin();
     }
 }
