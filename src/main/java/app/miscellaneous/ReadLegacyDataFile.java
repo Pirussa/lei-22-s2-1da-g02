@@ -2,6 +2,7 @@ package app.miscellaneous;
 
 import app.controller.App;
 import app.controller.DataFromLegacySystemController;
+import app.domain.model.Company;
 
 import java.io.*;
 import java.time.LocalTime;
@@ -11,12 +12,15 @@ import java.util.Scanner;
 
 public class ReadLegacyDataFile {
 
-    private final DataFromLegacySystemController ctrl = new DataFromLegacySystemController();
 
-    private final List<String> legacyDataList = new ArrayList<>();
-    private final List<LocalTime> listToSort = new ArrayList<>();
+    //private final DataFromLegacySystemController ctrl = new DataFromLegacySystemController();
+    private final Company company = App.getInstance().getCompany();
 
-    public boolean readFile(String path) throws Exception {
+
+    public final List<String> legacyDataList = new ArrayList<>();
+    public final List<LocalTime> listToSort = new ArrayList<>();
+
+    public void readFile(String path) throws Exception {
         String line;
         BufferedReader br = new BufferedReader(new FileReader(path));
         br.readLine();
@@ -26,61 +30,10 @@ public class ReadLegacyDataFile {
             legacyDataList.add(values[0] + "|" + values[1] + "|" + values[2] + "|" + values[3] + "|" + values[4] + "|" + values[5] + "|"
                     + values[6] + "|" + values[7]);
         }
-        return true;
     }
-
-    public void sortListWithAlgo() {
-        String algorithmToBeUsed = App.getInstance().getSortingAlgorithm();
-
-        System.out.printf("%nAlgorithm in config file: "+algorithmToBeUsed);
-        switch (algorithmToBeUsed) {
-            case "HeapSort":
-                Scanner scanner = new Scanner(System.in);
-                System.out.println();
-                System.out.println("Choose the way you want to sort.");
-                System.out.println("0 - Ascending");
-                System.out.println("1 - Descending");
-                System.out.println("2 - Back to Menu");
-                int optionOne = scanner.nextInt();
-                switch (optionOne) {
-                    case 0:
-                        heapSortAscending();
-                        printSortedArray();
-                        break;
-                    case 1:
-                        heapSortDescending();
-                        printSortedArray();
-                        break;
-                    case 2:
-                        break;
-                }
-                break;
-            case "MergeSort":
-                Scanner scTwo = new Scanner(System.in);
-                System.out.println();
-                System.out.println("Choose the way you want to sort.");
-                System.out.println("0 - Ascending");
-                System.out.println("1 - Descending");
-                System.out.println("2 - Back to Menu");
-                int optionTwo = scTwo.nextInt();
-                switch (optionTwo) {
-                    case 0:
-                        mergeSortAscending(listToSort, 0, listToSort.size() - 1);
-                        break;
-                    case 1:
-                        mergeSortDescending(listToSort, 0, listToSort.size() - 1);
-                        break;
-                    case 2:
-                        break;
-                }
-                break;
-        }
-
-    }
-
 
     public void updateLegacyFile() throws NotSerializableException {
-        if (!ctrl.getSNSUserList().isEmpty() && !ctrl.getVaccines().isEmpty()) {
+        if (!company.getSnsUserList().isEmpty() && !company.getVaccinesList().isEmpty()) {
             for (int i = 0; i < legacyDataList.size(); i++) {
                 String[] values;
                 float percentage = (float) i * 100 / legacyDataList.size();
@@ -90,21 +43,21 @@ public class ReadLegacyDataFile {
                 System.out.printf("\n%.1f%% complete...", percentage);
                 values = legacyDataList.get(i).split("\\|");
 
-                for (j = 0; j < ctrl.getSNSUserList().size(); j++) {
-                    if (ctrl.getSNSUserList().get(j).getSnsUserNumber() == Integer.parseInt(values[0])) {
+                for (j = 0; j < company.getSnsUserList().size(); j++) {
+                    if (company.getSnsUserList().get(j).getSnsUserNumber() == Integer.parseInt(values[0])) {
                         break;
                     }
                 }
-                legacyDataList.set(i, ctrl.getSNSUserList().get(j).getStrName() + "|" + legacyDataList.get(i));
+                legacyDataList.set(i, company.getSnsUserList().get(j).getStrName() + "|" + legacyDataList.get(i));
 
-                for (k = 0; k < ctrl.getVaccines().size(); k++) {
-                    if (ctrl.getVaccines().get(k).getName().equals(values[1])) {
+                for (k = 0; k < company.getVaccinesList().size(); k++) {
+                    if (company.getVaccinesList().get(k).getName().equals(values[1])) {
                         break;
                     }
                 }
-                legacyDataList.set(i, legacyDataList.get(i) + "|" + ctrl.getVaccines().get(k).getVaccineType().getDescription());
+                legacyDataList.set(i, legacyDataList.get(i) + "|" + company.getVaccinesList().get(k).getVaccineType().getDescription());
             }
-            ctrl.exportDataToFile(legacyDataList);
+            //ctrl.exportDataToFile(legacyDataList);
         } else {
             System.out.println("Either SNS User list is empty or Vaccine's list is.");
         }
@@ -118,7 +71,7 @@ public class ReadLegacyDataFile {
         System.out.println(list.size() + " " + "entries.");
     }
 
-    void mergeSortAscending(List<LocalTime> list, int begin, int end) {
+    public void mergeSortAscending(List<LocalTime> list, int begin, int end) {
 
         int middle = (begin + end) / 2;
         if (middle < end) {
@@ -160,7 +113,8 @@ public class ReadLegacyDataFile {
             for (String strItem : tempList) {
                 legacyDataList.set(k++, strItem);
             }
-            //printUpdatedLegacy(csvLegacyData);
+
+            System.out.println(legacyDataList);
             writeArrayToFile(legacyDataList);
         }
     }
@@ -206,35 +160,10 @@ public class ReadLegacyDataFile {
             for (String strItem : tempList) {
                 legacyDataList.set(k++, strItem);
             }
-            //printUpdatedLegacy(csvLegacyData);
+            printUpdatedLegacy(legacyDataList);
             writeArrayToFile(legacyDataList);
         }
     }
-
-
-    public boolean chooseCriteriaToSort() {
-        Scanner scPos = new Scanner(System.in);
-        final int ArrivalOption = 6;
-        final int LeaveOption = 8;
-        System.out.println();
-        System.out.println("Choose the option you want to sort.");
-        System.out.println("0 - Arrival Date Time");
-        System.out.println("1 - Leaving Date Time");
-        System.out.println("2 - Back to Menu");
-        int optionPosition = scPos.nextInt();
-        switch (optionPosition) {
-            case 0:
-                setList(ArrivalOption);
-                break;
-            case 1:
-                setList(LeaveOption);
-                break;
-            case 2:
-                return false;
-        }
-        return true;
-    }
-
 
     public void setList(int position) {
         String[] values;
@@ -252,12 +181,12 @@ public class ReadLegacyDataFile {
         }
     }
 
-    public void writeArrayToFile(List<String> list){
+    public void writeArrayToFile(List<String> list) {
         FileWriter writer = null;
         System.out.println("Writing to file...");
         try {
             writer = new FileWriter("SortingTest.txt");
-            for(String str: list) {
+            for (String str : list) {
                 writer.write(str + System.lineSeparator());
             }
 
@@ -267,8 +196,7 @@ public class ReadLegacyDataFile {
         }
     }
 
-    private void heapSortAscending(){
-
+    public void heapSortAscending() {
         int length = listToSort.size();
 
         // Build the heap the first time
@@ -289,8 +217,6 @@ public class ReadLegacyDataFile {
 
             heapifyAscending(listToSort, position, 0);
         }
-
-
     }
 
     private void heapifyAscending(List<LocalTime> listToSort, int length, int lineOfTheHeap) {
@@ -321,11 +247,9 @@ public class ReadLegacyDataFile {
             // Recursive call to heapify until the root is the latest
             heapifyAscending(listToSort, length, latest);
         }
-
-
     }
 
-    private void heapSortDescending(){
+    public void heapSortDescending() {
 
         int length = listToSort.size();
 
@@ -344,11 +268,8 @@ public class ReadLegacyDataFile {
             legacyDataList.set(0, legacyDataList.get(position));
             legacyDataList.set(position, temp2);
 
-
             heapifyDescending(listToSort, position, 0);
         }
-
-
     }
 
     private void heapifyDescending(List<LocalTime> listToSort, int length, int lineOfTheHeap) {
@@ -379,11 +300,9 @@ public class ReadLegacyDataFile {
             // Recursive call to heapify until the root is the latest
             heapifyDescending(listToSort, length, earliest);
         }
-
-
     }
 
-    private void printSortedArray(){
+    public void printSortedArray() {
         System.out.println("Sorted Array:");
         for (LocalTime line : listToSort) {
             System.out.println(line);
