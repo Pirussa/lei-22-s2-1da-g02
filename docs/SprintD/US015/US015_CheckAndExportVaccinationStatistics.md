@@ -87,8 +87,8 @@ There is a dependency with US008, as it is required to have the necessary inform
 
 **Output Data:**
 
-> The Vaccination Statistics;
-> A file with the Vaccination Statistics.
+The Vaccination Statistics;
+ A file with the Vaccination Statistics.
 
 
 ### 1.6. System Sequence Diagram (SSD)

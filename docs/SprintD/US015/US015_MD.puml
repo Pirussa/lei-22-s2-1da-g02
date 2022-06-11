@@ -56,6 +56,6 @@ Company "1" -- "*" ApplicationUser : has >
 
 Company "1" -- "*" VaccinationCenter : has >
 
-VaccinationStatistics "*" --> "*" VaccinationCenter : are related to >
+VaccinationStatistics "*" --> "1" VaccinationCenter : are related to >
 
 @enduml
