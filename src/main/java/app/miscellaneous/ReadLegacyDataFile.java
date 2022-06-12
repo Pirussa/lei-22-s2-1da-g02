@@ -12,8 +12,6 @@ import java.util.Scanner;
 
 public class ReadLegacyDataFile {
 
-
-    //private final DataFromLegacySystemController ctrl = new DataFromLegacySystemController();
     private final Company company = App.getInstance().getCompany();
 
 
@@ -22,56 +20,47 @@ public class ReadLegacyDataFile {
 
     public void readFile(String path) throws Exception {
         String line;
-        BufferedReader br = new BufferedReader(new FileReader(path));
-        br.readLine();
-        while ((line = br.readLine()) != null) {
+        BufferedReader reader = new BufferedReader(new FileReader(path));
+        reader.readLine();
+        while ((line = reader.readLine()) != null) {
             line = line.replaceAll("\"", "");
             String[] values = line.split(";");
-            legacyDataList.add(values[0] + "|" + values[1] + "|" + values[2] + "|" + values[3] + "|" + values[4] + "|" + values[5] + "|"
-                    + values[6] + "|" + values[7]);
+            StringBuilder stringToBeAdded = new StringBuilder();
+            stringToBeAdded.append(values[0]).append("|").append(values[1]).append("|").append(values[2]).append("|").append(values[3])
+                    .append("|").append(values[4]).append("|").append(values[5]).append("|").append(values[6]).append("|").append(values[7]);
+            legacyDataList.add(stringToBeAdded.toString());
         }
     }
 
-    public void updateLegacyFile() throws NotSerializableException {
+    public boolean updateLegacyFile() throws NotSerializableException {
         if (!company.getSnsUserList().isEmpty() && !company.getVaccinesList().isEmpty()) {
-            for (int i = 0; i < legacyDataList.size(); i++) {
+            for (int lineOfTheData = 0; lineOfTheData < legacyDataList.size(); lineOfTheData++) {
                 String[] values;
-                float percentage = (float) i * 100 / legacyDataList.size();
-                int j;
-                int k;
+                int positionInSnsUserList = 0;
+                int positionInVaccinesList = 0;
+                values = legacyDataList.get(lineOfTheData).split("\\|");
 
-                System.out.printf("\n%.1f%% complete...", percentage);
-                values = legacyDataList.get(i).split("\\|");
-
-                for (j = 0; j < company.getSnsUserList().size(); j++) {
-                    if (company.getSnsUserList().get(j).getSnsUserNumber() == Integer.parseInt(values[0])) {
+                for ( positionInSnsUserList = 0; positionInSnsUserList < company.getSnsUserList().size(); positionInSnsUserList++) {
+                    if (company.getSnsUserList().get(positionInSnsUserList).getSnsUserNumber() == Integer.parseInt(values[0])) {
                         break;
                     }
                 }
-                legacyDataList.set(i, company.getSnsUserList().get(j).getStrName() + "|" + legacyDataList.get(i));
+                legacyDataList.set(lineOfTheData, company.getSnsUserList().get(positionInSnsUserList).getStrName() + "|" + legacyDataList.get(lineOfTheData));
 
-                for (k = 0; k < company.getVaccinesList().size(); k++) {
-                    if (company.getVaccinesList().get(k).getName().equals(values[1])) {
+                for ( positionInVaccinesList = 0; positionInVaccinesList < company.getVaccinesList().size(); positionInVaccinesList++) {
+                    if (company.getVaccinesList().get(positionInVaccinesList).getName().equals(values[1])) {
                         break;
                     }
                 }
-                legacyDataList.set(i, legacyDataList.get(i) + "|" + company.getVaccinesList().get(k).getVaccineType().getDescription());
+                legacyDataList.set(lineOfTheData, legacyDataList.get(lineOfTheData) + "|" + company.getVaccinesList().get(positionInVaccinesList).getVaccineType().getDescription());
             }
-            //ctrl.exportDataToFile(legacyDataList);
         } else {
-            System.out.println("Either SNS User list is empty or Vaccine's list is.");
+            return  false;
         }
+        return true;
     }
 
-    public void printUpdatedLegacy(List<String> list) {
-        for (String line : list) {
-            System.out.println(line);
-        }
-        System.out.println();
-        System.out.println(list.size() + " " + "entries.");
-    }
-
-    public void mergeSortAscending(List<LocalTime> list, int begin, int end) {
+    public List<String> mergeSortAscending(List<LocalTime> list, int begin, int end) {
 
         int middle = (begin + end) / 2;
         if (middle < end) {
@@ -114,12 +103,13 @@ public class ReadLegacyDataFile {
                 legacyDataList.set(k++, strItem);
             }
 
-            System.out.println(legacyDataList);
             writeArrayToFile(legacyDataList);
         }
+
+        return legacyDataList;
     }
 
-    public void mergeSortDescending(List<LocalTime> list, int begin, int end) {
+    public List<String> mergeSortDescending(List<LocalTime> list, int begin, int end) {
         int middle = (begin + end) / 2;
         if (middle < end) {
             mergeSortDescending(list, begin, middle); //call Merge Sort on the first half
@@ -160,9 +150,9 @@ public class ReadLegacyDataFile {
             for (String strItem : tempList) {
                 legacyDataList.set(k++, strItem);
             }
-            printUpdatedLegacy(legacyDataList);
             writeArrayToFile(legacyDataList);
         }
+        return  legacyDataList;
     }
 
     public void setList(int position) {
@@ -196,7 +186,7 @@ public class ReadLegacyDataFile {
         }
     }
 
-    public void heapSortAscending() {
+    public List<String> heapSortAscending() {
         int length = listToSort.size();
 
         // Build the heap the first time
@@ -217,6 +207,7 @@ public class ReadLegacyDataFile {
 
             heapifyAscending(listToSort, position, 0);
         }
+        return legacyDataList;
     }
 
     private void heapifyAscending(List<LocalTime> listToSort, int length, int lineOfTheHeap) {
@@ -249,7 +240,7 @@ public class ReadLegacyDataFile {
         }
     }
 
-    public void heapSortDescending() {
+    public List<String> heapSortDescending() {
 
         int length = listToSort.size();
 
@@ -270,6 +261,7 @@ public class ReadLegacyDataFile {
 
             heapifyDescending(listToSort, position, 0);
         }
+        return legacyDataList;
     }
 
     private void heapifyDescending(List<LocalTime> listToSort, int length, int lineOfTheHeap) {
@@ -302,11 +294,6 @@ public class ReadLegacyDataFile {
         }
     }
 
-    public void printSortedArray() {
-        System.out.println("Sorted Array:");
-        for (LocalTime line : listToSort) {
-            System.out.println(line);
-        }
-    }
+
 
 }

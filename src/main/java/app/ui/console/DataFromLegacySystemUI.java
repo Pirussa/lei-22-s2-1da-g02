@@ -9,11 +9,12 @@ import app.domain.shared.GenericClass;
 import app.miscellaneous.ReadLegacyDataFile;
 
 import java.io.*;
+import java.time.LocalTime;
 import java.util.*;
 
 public class DataFromLegacySystemUI implements Runnable {
     private final DataFromLegacySystemController controller = new DataFromLegacySystemController();
-
+    private List<String> sortedList;
 
     public void run() {
         try {
@@ -23,7 +24,11 @@ public class DataFromLegacySystemUI implements Runnable {
             System.out.println();
             String path = readPath.nextLine();
             controller.readFile(path);
-            controller.updateFile();
+            if (controller.updateFile()) {
+                System.out.println("File updated successfully");
+            } else {
+                System.out.println("File update failed");
+            }
             chooseCriteriaToSort();
             sortListWithAlgo();
 
@@ -60,20 +65,16 @@ public class DataFromLegacySystemUI implements Runnable {
         switch (algorithmToBeUsed) {
             case "HeapSort":
                 Scanner scanner = new Scanner(System.in);
-                System.out.println();
-                System.out.println("Choose the way you want to sort.");
-                System.out.println("0 - Ascending");
-                System.out.println("1 - Descending");
-                System.out.println("2 - Back to Menu");
+                System.out.printf("%nChoose the way you want to sort.%n0 - Ascending%n1 - Descending%n2 - Back to Menu%n");
                 int optionOne = scanner.nextInt();
                 switch (optionOne) {
                     case 0:
-                       controller.heapAscending();
-                       controller.getPrintSortedArray();
+                         sortedList = controller.heapAscending();
+
                         break;
                     case 1:
-                       controller.heapDescending();
-                        controller.getPrintSortedArray();
+                        sortedList = controller.heapDescending();
+
                         break;
                     case 2:
                         break;
@@ -89,10 +90,10 @@ public class DataFromLegacySystemUI implements Runnable {
                 int optionTwo = scTwo.nextInt();
                 switch (optionTwo) {
                     case 0:
-                        controller.mergeAscending(controller.getListToSort(), 0, controller.getListToSort().size() - 1);
+                       sortedList = controller.mergeAscending(controller.getListToSort(), 0, controller.getListToSort().size() - 1);
                         break;
                     case 1:
-                        controller.mergeDescending(controller.getListToSort(), 0, controller.getListToSort().size() - 1);
+                        sortedList =  controller.mergeDescending(controller.getListToSort(), 0, controller.getListToSort().size() - 1);
                         break;
                     case 2:
                         break;
@@ -100,6 +101,13 @@ public class DataFromLegacySystemUI implements Runnable {
                 break;
         }
 
+    }
+
+    public void printSortedArray(List<String> sortedList) {
+        System.out.println("Sorted Array:");
+        for (String line : sortedList) {
+            System.out.println(line);
+        }
     }
 
 }

@@ -39,43 +39,33 @@ public class DataFromLegacySystemController {
         readLegacyDataFile.readFile(path);
     }
 
-    public void updateFile() throws NotSerializableException {
-        readLegacyDataFile.updateLegacyFile();
+    public boolean updateFile() throws NotSerializableException {
+       return readLegacyDataFile.updateLegacyFile();
     }
 
     public void setList(int position){
-        //ReadLegacyDataFile readLegacyDataFile = new ReadLegacyDataFile();
         readLegacyDataFile.setList(position);
     }
 
-    public void mergeAscending(List<LocalTime> list, int begin, int end){
-        //ReadLegacyDataFile readLegacyDataFile = new ReadLegacyDataFile();
-        readLegacyDataFile.mergeSortAscending(list,begin,end);
+    public List<String> mergeAscending(List<LocalTime> list, int begin, int end){
+       return readLegacyDataFile.mergeSortAscending(list,begin,end);
     }
 
-    public void mergeDescending(List<LocalTime> list, int begin, int end){
-        //ReadLegacyDataFile readLegacyDataFile = new ReadLegacyDataFile();
-        readLegacyDataFile.mergeSortDescending(list,begin,end);
+    public List<String> mergeDescending(List<LocalTime> list, int begin, int end){
+         return readLegacyDataFile.mergeSortDescending(list,begin,end);
     }
 
     public List<LocalTime> getListToSort(){
-       // ReadLegacyDataFile readLegacyDataFile = new ReadLegacyDataFile();
         return readLegacyDataFile.listToSort;
     }
 
-    public void heapAscending(){
-        //ReadLegacyDataFile readLegacyDataFile = new ReadLegacyDataFile();
-        readLegacyDataFile.heapSortAscending();
+    public List<String> heapAscending(){
+     return    readLegacyDataFile.heapSortAscending();
     }
 
-    public void heapDescending(){
-       // ReadLegacyDataFile readLegacyDataFile = new ReadLegacyDataFile();
-        readLegacyDataFile.heapSortDescending();
+    public List<String> heapDescending(){
+      return readLegacyDataFile.heapSortDescending();
     }
 
-    public void getPrintSortedArray(){
-        //ReadLegacyDataFile readLegacyDataFile = new ReadLegacyDataFile();
-        readLegacyDataFile.printSortedArray();
-    }
 
 }
