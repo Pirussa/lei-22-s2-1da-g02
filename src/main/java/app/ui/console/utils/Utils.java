@@ -33,8 +33,8 @@ public class Utils {
 
 
     private static void bootstrapEmployees() {
-        company.readBinaryFileEmployees();
-        company.authenticateEmployees();
+        company.getEmployeesStore().readBinaryFileEmployees();
+        company.getEmployeesStore().authenticateEmployees();
     }
 
     private static void bootstrapVaccineTypes() {
@@ -682,7 +682,7 @@ public class Utils {
     public static String getLoggedCoordinatorId() {
         Email email = company.getAuthFacade().getCurrentUserSession().getUserId();
 
-        return company.getCoordinatorId(email);
+        return company.getEmployeesStore().getCoordinatorId(email);
     }
 
 }

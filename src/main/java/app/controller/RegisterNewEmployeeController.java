@@ -29,7 +29,7 @@ public class RegisterNewEmployeeController implements Serializable {
      */
 
     public boolean registerNewEmployee(RegisterNewEmployeeDto dto) {
-        return company.registerNewEmployee(dto);
+        return company.getEmployeesStore().registerNewEmployee(dto);
     }
 
     /**
@@ -41,17 +41,17 @@ public class RegisterNewEmployeeController implements Serializable {
 
     public void saveCreatedEmployee(RegisterNewEmployeeDto dto, String selectedRole) {
         try {
-            company.saveCreatedEmployee(dto, selectedRole);
+            company.getEmployeesStore().saveCreatedEmployee(dto, selectedRole);
         } catch (NotSerializableException e) {
             e.printStackTrace();
         }
     }
 
     public boolean duplicatedEmployee(RegisterNewEmployeeDto dto) {
-        return company.duplicatedEmployee(dto);
+        return company.getEmployeesStore().duplicatedEmployee(dto);
     }
 
     public StringBuilder idGenerator() {
-        return  company.idGenerator();
+        return  company.getEmployeesStore().idGenerator();
     }
 }

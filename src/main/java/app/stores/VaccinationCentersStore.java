@@ -23,6 +23,28 @@ public class VaccinationCentersStore {
 
 
     /**
+     * Instantiates a mass vaccination center with information of the DTO to verify if the data is valid.
+     *
+     * @param dto copies the information from the DTO that has the data needed to instantiate the center.
+     */
+    public void createMassVaccinationCenter(MassVaccinationCenterDto dto) {
+        MassVaccinationCenter mvc = new MassVaccinationCenter(dto.strID, dto.strName, dto.strPhoneNumber, dto.strEmail, dto.strFax, dto.strWebsite, dto.strOpeningHour,
+                dto.strClosingHour, dto.strSlotDuration, dto.strVaccinesPerSlot, dto.strRoad, dto.strZipCode, dto.strLocal, dto.strCenterCoordinatorID, dto.vaccineType);
+    }
+
+    /**
+     * Instantiates a healthcare center with information of the DTO to verify if the data is valid.
+     *
+     * @param dto copies the information from the DTO that has the data needed to instantiate the center.
+     */
+    public void createHealthcareCenter(HealthcareCenterDto dto) {
+        HealthcareCenter hc = new HealthcareCenter(dto.strID, dto.strName, dto.strPhoneNumber, dto.strEmail, dto.strFax, dto.strWebsite, dto.strOpeningHour,
+                dto.strClosingHour, dto.strSlotDuration, dto.strVaccinesPerSlot, dto.strRoad, dto.strZipCode, dto.strLocal, dto.strCenterCoordinatorID, dto.strARS, dto.strAGES,
+                dto.vaccineTypes);
+    }
+
+
+    /**
      * Saves a Mass Vaccination Center into two lists, one comprised of only Mass Vaccination Centers and another that has both kinds.
      *
      * @param dto copies the information from the DTO that has the data needed to instantiate the center.

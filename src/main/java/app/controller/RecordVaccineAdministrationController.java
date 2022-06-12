@@ -35,8 +35,6 @@ public class RecordVaccineAdministrationController {
 
     private LocalDateTime localDateTime;
 
-    private ArrayList<Arrival> arrivalsVaccination;
-
     private String lotNumber;
 
     public RecordVaccineAdministrationController() {
@@ -68,7 +66,7 @@ public class RecordVaccineAdministrationController {
      * @param userIndexInList the user index in list
      */
     public void setVaccineType(int userIndexInList) {
-        vaccineType = arrivalsVaccination.get(userIndexInList).getVaccineType();
+        vaccineType = vaccinationCenter.getArrivalsList().get(userIndexInList).getVaccineType();
     }
 
     /**
@@ -101,15 +99,6 @@ public class RecordVaccineAdministrationController {
     }
 
     // Functionalities
-
-
-    /**
-     * Sets arrival list.
-     */
-    public void setArrivalList() {
-        arrivalsVaccination = new ArrayList<>(vaccinationCenter.getArrivalsList());
-    }
-
 
     /**
      * Vaccine type available vaccines list.
@@ -150,7 +139,7 @@ public class RecordVaccineAdministrationController {
      */
     public List<String> fillListWithUserSnsNumber() {
         ArrayList<String> userSnsNumber = new ArrayList<>();
-        for (Arrival arrival : arrivalsVaccination) userSnsNumber.add("SNS Number - " + arrival.getSnsNumber());
+        for (Arrival arrival : vaccinationCenter.getArrivalsList()) userSnsNumber.add("SNS Number - " + arrival.getSnsNumber());
         return userSnsNumber;
     }
 
@@ -163,21 +152,17 @@ public class RecordVaccineAdministrationController {
      */
     public SnsUserDto getSnsUserInformation(int selectedUser) {
         SnsUserMapper snsUserMapper = new SnsUserMapper();
-        //return snsUserMapper.domainToSNSUserDto(company.getSnsUserList().get(snsUserIndexInList(selectedUser)));
-        return snsUserMapper.domainToSNSUserDto(company.getSnsUserList().get(selectedUser));
+        return snsUserMapper.domainToSNSUserDto(company.getSnsUserList().get(snsUserIndexInList(selectedUser)));
     }
 
-/*
     private int snsUserIndexInList(int selectedUser) {
         for (int index = 0; index < company.getSnsUserList().size(); index++) {
-            if (arrivalsVaccination.get(selectedUser).getSnsNumber() == company.getSnsUserList().get(index).getSnsUserNumber()) {
+            if (vaccinationCenter.getArrivalsList().get(selectedUser).getSnsNumber() == company.getSnsUserList().get(index).getSnsUserNumber()) {
                 return index;
             }
         }
         return Constants.INVALID_VALUE;
     }
-*/
-
 
     /**
      * Check if user fits into any of the available vaccines age group

@@ -99,7 +99,7 @@
                            <children>
                               <HBox alignment="CENTER" prefHeight="39.0" prefWidth="254.0" styleClass="radius-background" stylesheets="@../styles/styleSheet.css">
                                  <children>
-                                    <ComboBox fx:id="userList" onMouseClicked="#initializeUser" prefHeight="26.0" prefWidth="220.0" styleClass="transparent" stylesheets="@../styles/styleSheet.css" />
+                                    <ComboBox fx:id="userList" disable="true" onMouseClicked="#initializeUser" prefHeight="26.0" prefWidth="220.0" styleClass="transparent" stylesheets="@../styles/styleSheet.css" />
                                  </children>
                               </HBox>
                               <HBox prefHeight="15.0" prefWidth="254.0" />
@@ -109,7 +109,7 @@
                            <children>
                               <HBox alignment="CENTER" prefHeight="39.0" prefWidth="254.0" styleClass="radius-background" stylesheets="@../styles/styleSheet.css">
                                  <children>
-                                    <ComboBox fx:id="vaccineList" onMouseClicked="#initializeVaccine" prefHeight="26.0" prefWidth="220.0" styleClass="transparent" stylesheets="@../styles/styleSheet.css" />
+                                    <ComboBox fx:id="vaccineList" disable="true" onMouseClicked="#initializeVaccine" prefHeight="26.0" prefWidth="220.0" styleClass="transparent" stylesheets="@../styles/styleSheet.css" />
                                  </children>
                               </HBox>
                               <HBox prefHeight="15.0" prefWidth="254.0" />
