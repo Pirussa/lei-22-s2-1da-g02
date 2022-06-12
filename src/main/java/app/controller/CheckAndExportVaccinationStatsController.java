@@ -4,8 +4,16 @@ import app.domain.model.*;
 import app.miscellaneous.ExportListToFile;
 import app.stores.VaccinationCentersStore;
 import app.ui.console.utils.Utils;
+import app.ui.gui.CheckListVacStatsGUI;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -17,7 +25,44 @@ import java.util.List;
 public class CheckAndExportVaccinationStatsController {
 
     private final VaccinationCenter center;
+    private LocalDate firstDate;
+    private LocalDate lastDate;
 
+    /**
+     * Sets first date.
+     *
+     * @param firstDate the first date
+     */
+    public void setFirstDate(LocalDate firstDate) {
+        this.firstDate = firstDate;
+    }
+
+    /**
+     * Sets last date.
+     *
+     * @param lastDate the last date
+     */
+    public void setLastDate(LocalDate lastDate) {
+        this.lastDate = lastDate;
+    }
+
+    /**
+     * Gets first date.
+     *
+     * @return the first date
+     */
+    public LocalDate getFirstDate() {
+        return firstDate;
+    }
+
+    /**
+     * Gets last date.
+     *
+     * @return the last date
+     */
+    public LocalDate getLastDate() {
+        return lastDate;
+    }
 
     /**
      * Instantiates a new Check and export vaccination stats controller.
@@ -33,11 +78,9 @@ public class CheckAndExportVaccinationStatsController {
     /**
      * Check if dates are valid.
      *
-     * @param firstDate the first date
-     * @param lastDate  the last date
      * @return an int related to the outcome
      */
-    public int checkIfDatesAreValid(LocalDate firstDate, LocalDate lastDate) {
+    public int checkIfDatesAreValid() {
         if (firstDate == null || lastDate == null)
             return 1;
         if (firstDate.isAfter(lastDate))
@@ -53,11 +96,9 @@ public class CheckAndExportVaccinationStatsController {
      * Export vaccination stats.
      *
      * @param fileName  the file name
-     * @param firstDate the first date
-     * @param lastDate  the last date
      * @return true if the file is exported successfully
      */
-    public boolean exportVaccinationStats(String fileName, LocalDate firstDate, LocalDate lastDate) {
+    public boolean exportVaccinationStats(String fileName) {
         List<String> vaccinationStats = center.getVaccinationStatsListBetweenDates(firstDate, lastDate);
         ExportListToFile exportListToFile = new ExportListToFile(fileName, vaccinationStats, ExportListToFile.FILE_TYPE_CSV);
         return exportListToFile.exportList("Date;Total");
@@ -73,6 +114,31 @@ public class CheckAndExportVaccinationStatsController {
     public List<String> getVaccinationStatsListBetweenDates(LocalDate firstDate, LocalDate lastDate) {
         return center.getVaccinationStatsListBetweenDates(firstDate, lastDate);
     }
+
+    /**
+     * To check vaccination stats scene.
+     *
+     * @param event the event
+     * @throws IOException the io exception
+     */
+    public void toCheckVaccinationStatsScene(ActionEvent event) throws IOException {
+        Parent root;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/check-vac-stats.fxml"));
+        root = loader.load();
+
+        CheckListVacStatsGUI nextSceneUi = loader.getController();
+
+        nextSceneUi.setFirstDate(firstDate);
+        nextSceneUi.setLastDate(lastDate);
+        nextSceneUi.setStatsListView(firstDate, lastDate);
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+
+    }
+
 }
 
 

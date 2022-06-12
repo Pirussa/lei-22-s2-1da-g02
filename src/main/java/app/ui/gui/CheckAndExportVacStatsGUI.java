@@ -23,16 +23,13 @@ public class CheckAndExportVacStatsGUI {
 
     private final CheckAndExportVaccinationStatsController controller = new CheckAndExportVaccinationStatsController();
 
-    private LocalDate firstDate;
-
-    private LocalDate lastDate;
 
     public void setFirstDate(LocalDate firstDate) {
-        this.firstDate = firstDate;
+        controller.setFirstDate(firstDate);
     }
 
     public void setLastDate(LocalDate lastDate) {
-        this.lastDate = lastDate;
+        controller.setLastDate(lastDate);
     }
 
     @FXML
@@ -70,8 +67,8 @@ public class CheckAndExportVacStatsGUI {
      * @param event the event
      */
     @FXML
-    void getFirstDate(ActionEvent event) {
-        firstDate = firstDatePicker.getValue();
+    void setFirstDate(ActionEvent event) {
+        controller.setFirstDate(firstDatePicker.getValue());
     }
 
     /**
@@ -80,17 +77,8 @@ public class CheckAndExportVacStatsGUI {
      * @param event the event
      */
     @FXML
-    void getLastDate(ActionEvent event) {
-        lastDate = lastDatePicker.getValue();
-    }
-
-    /**
-     * Checks if both dates were selected.
-     *
-     * @return the boolean
-     */
-    boolean hasBothDates() {
-        return firstDate != null && lastDate != null;
+    void setLastDate(ActionEvent event) {
+        controller.setLastDate(lastDatePicker.getValue());
     }
 
     /**
@@ -111,11 +99,10 @@ public class CheckAndExportVacStatsGUI {
      * @throws IOException the io exception
      */
     public void checkStatistics(ActionEvent event) throws IOException {
-        if (hasBothDates()) {
-            switch (controller.checkIfDatesAreValid(firstDate, lastDate)) {
+
+            switch (controller.checkIfDatesAreValid()) {
                 case 0:
                     toCheckVaccinationStatsScene(event);
-
                     break;
                 case 1:
                     Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -143,13 +130,6 @@ public class CheckAndExportVacStatsGUI {
                     break;
             }
 
-
-        } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Warning");
-            alert.setContentText("Please select both dates");
-            alert.showAndWait();
-        }
     }
 
     /**
@@ -161,10 +141,10 @@ public class CheckAndExportVacStatsGUI {
 
         String fileName = askFileNameTxt.getText();
         if (!fileName.isEmpty()) {
-            if (controller.exportVaccinationStats(fileName, firstDate, lastDate)) {
+            if (controller.exportVaccinationStats(fileName)) {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Success");
-                alert.setContentText("The available statistics from " + firstDate + " to " + lastDate + " were exported successfully");
+                alert.setContentText("The available statistics from " + controller.getFirstDate() + " to " + controller.getLastDate() + " were exported successfully");
                 alert.showAndWait();
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -186,8 +166,8 @@ public class CheckAndExportVacStatsGUI {
      * @param event the event
      */
     public void exportStatisticsOption(ActionEvent event) {
-        if (hasBothDates()) {
-            switch (controller.checkIfDatesAreValid(firstDate, lastDate)) {
+
+            switch (controller.checkIfDatesAreValid()) {
                 case 0:
                     askFileNameTxt.setVisible(true);
                     okBtn.setVisible(true);
@@ -219,31 +199,10 @@ public class CheckAndExportVacStatsGUI {
             }
 
 
-        } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Warning");
-            alert.setContentText("Please select both dates");
-            alert.showAndWait();
-        }
-
     }
 
     private void toCheckVaccinationStatsScene(ActionEvent event) throws IOException {
-        Parent root;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/check-vac-stats.fxml"));
-        root = loader.load();
-
-        CheckListVacStatsGUI nextSceneUi = loader.getController();
-
-        nextSceneUi.setFirstDate(firstDate);
-        nextSceneUi.setLastDate(lastDate);
-        nextSceneUi.setStatsListView(firstDate, lastDate);
-
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-
+        controller.toCheckVaccinationStatsScene(event);
     }
 
     private void toCenterCoordinatorMenu(ActionEvent event) throws IOException {

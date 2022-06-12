@@ -54,12 +54,12 @@
                      <font>
                         <Font size="15.0" />
                      </font></TextArea>
-                  <DatePicker fx:id="firstDatePicker" layoutX="140.0" layoutY="99.0" onAction="#getFirstDate" prefHeight="64.0" prefWidth="277.0" promptText="first date" stylesheets="@../styles/styleSheet.css">
+                  <DatePicker fx:id="firstDatePicker" layoutX="140.0" layoutY="99.0" onAction="#setFirstDate" prefHeight="64.0" prefWidth="277.0" promptText="first date" stylesheets="@../styles/styleSheet.css">
                      <styleClass>
                         <String fx:value="transparent" />
                         <String fx:value="dropdown-menu" />
                      </styleClass></DatePicker>
-                  <DatePicker fx:id="lastDatePicker" layoutX="483.0" layoutY="99.0" onAction="#getLastDate" prefHeight="65.0" prefWidth="277.0" promptText="last date" stylesheets="@../styles/styleSheet.css">
+                  <DatePicker fx:id="lastDatePicker" layoutX="483.0" layoutY="99.0" onAction="#setLastDate" prefHeight="65.0" prefWidth="277.0" promptText="last date" stylesheets="@../styles/styleSheet.css">
                      <styleClass>
                         <String fx:value="transparent" />
                         <String fx:value="dropdown-menu" />

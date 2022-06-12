@@ -542,7 +542,7 @@ public class VaccinationCenter implements Serializable {
      * @param snsNumber The number that identifies an SNS user
      * @return boolean - true if the user is already registered
      */
-    public boolean checkIfAlreadyRegistered(int snsNumber)   {
+    public boolean checkIfAlreadyRegistered(int snsNumber) {
         for (Arrival arrival : arrivalsList)
             if (arrival.getSnsNumber() == snsNumber)
                 return false;
@@ -657,10 +657,10 @@ public class VaccinationCenter implements Serializable {
      *
      * @param newAdministration the new administration
      */
-    public void addAdministeredVaccine(VaccineBulletin newAdministration){
+    public void addAdministeredVaccine(VaccineBulletin newAdministration) {
         vaccinesAdministeredList.add(newAdministration);
-       genericsVaccineBulletin.binaryFileWrite(Constants.FILE_PATH_VACCINE_BULLETIN, vaccinesAdministeredList);
-   }
+        genericsVaccineBulletin.binaryFileWrite(Constants.FILE_PATH_VACCINE_BULLETIN, vaccinesAdministeredList);
+    }
 
 
     /**
@@ -668,21 +668,21 @@ public class VaccinationCenter implements Serializable {
      *
      * @param newAdministration the new administration
      */
-    public void addFullyVaccinated(VaccineBulletin newAdministration){
-       listFullyVaccinated.add(newAdministration);
-       genericsVaccineBulletin.binaryFileWrite(Constants.FILE_PATH_FULLY_VACCINATED_LIST, listFullyVaccinated);
-   }
+    public void addFullyVaccinated(VaccineBulletin newAdministration) {
+        listFullyVaccinated.add(newAdministration);
+        genericsVaccineBulletin.binaryFileWrite(Constants.FILE_PATH_FULLY_VACCINATED_LIST, listFullyVaccinated);
+    }
 
     /**
      * Read binary files fully vaccinated.
      */
-    public void readBinaryFilesFullyVaccinated(){
-       try {
-           genericsVaccineBulletin.binaryFileRead(Constants.FILE_PATH_FULLY_VACCINATED_LIST, listFullyVaccinated);
-       } catch (EOFException e) {
-           e.printStackTrace();
-       }
-   }
+    public void readBinaryFilesFullyVaccinated() {
+        try {
+            genericsVaccineBulletin.binaryFileRead(Constants.FILE_PATH_FULLY_VACCINATED_LIST, listFullyVaccinated);
+        } catch (EOFException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * Gets a list with the total of fully vaccinated people per day (each day has a total) .

@@ -85,12 +85,14 @@ class CheckAndExportVaccinationStatsControllerTest {
 
 
     @Test
-    void exportVaccinationStatsWithNoStats() {
+    void exportVaccinationStatsCatchFileNotFoundException() {
         vaccinationCentersStore.getVaccinationCenters().get(0).getFullyVaccinatedList().clear();
         CheckAndExportVaccinationStatsController controller = new CheckAndExportVaccinationStatsController();
         LocalDate firstDate = LocalDate.now().minusDays(15);
         LocalDate secondDate = LocalDate.now().minusDays(10);
-        assertFalse(controller.exportVaccinationStats("fileTest",firstDate, secondDate));
+        controller.setFirstDate(firstDate);
+        controller.setLastDate(secondDate);
+        assertFalse(controller.exportVaccinationStats("fileTest"));
     }
 
     @Test
@@ -101,8 +103,9 @@ class CheckAndExportVaccinationStatsControllerTest {
 
         VaccineBulletin vaccineBulletin = new VaccineBulletin(company.getVaccinesList().get(0), LocalDateTime.now().minusDays(1), 2, "54321-12");
         vaccinationCentersStore.getVaccinationCenters().get(0).addFullyVaccinated(vaccineBulletin);
-
-        assertTrue(controller.exportVaccinationStats("fileTest",firstDate, secondDate));
+        controller.setFirstDate(firstDate);
+        controller.setLastDate(secondDate);
+        assertTrue(controller.exportVaccinationStats("fileTest"));
     }
 
 
@@ -112,7 +115,9 @@ class CheckAndExportVaccinationStatsControllerTest {
         LocalDate firstDate = LocalDate.now().minusDays(3);
         LocalDate secondDate = LocalDate.now();
         CheckAndExportVaccinationStatsController ctrl = new CheckAndExportVaccinationStatsController();
-        assertEquals(0, ctrl.checkIfDatesAreValid(firstDate, secondDate));
+        ctrl.setFirstDate(firstDate);
+        ctrl.setLastDate(secondDate);
+        assertEquals(0, ctrl.checkIfDatesAreValid());
     }
 
     @Test
@@ -120,7 +125,9 @@ class CheckAndExportVaccinationStatsControllerTest {
         LocalDate firstDate = null;
         LocalDate secondDate = null;
         CheckAndExportVaccinationStatsController ctrl = new CheckAndExportVaccinationStatsController();
-        assertEquals(1, ctrl.checkIfDatesAreValid(firstDate, secondDate));
+        ctrl.setFirstDate(firstDate);
+        ctrl.setLastDate(secondDate);
+        assertEquals(1, ctrl.checkIfDatesAreValid());
     }
 
     @Test
@@ -128,7 +135,9 @@ class CheckAndExportVaccinationStatsControllerTest {
         LocalDate firstDate = LocalDate.now();
         LocalDate secondDate = LocalDate.now().minusDays(1);
         CheckAndExportVaccinationStatsController ctrl = new CheckAndExportVaccinationStatsController();
-        assertEquals(2, ctrl.checkIfDatesAreValid(firstDate, secondDate));
+        ctrl.setFirstDate(firstDate);
+        ctrl.setLastDate(secondDate);
+        assertEquals(2, ctrl.checkIfDatesAreValid());
     }
 
     @Test
@@ -136,7 +145,9 @@ class CheckAndExportVaccinationStatsControllerTest {
         LocalDate firstDate = LocalDate.of(2020, 1, 1);
         LocalDate secondDate = LocalDate.now().minusDays(1);
         CheckAndExportVaccinationStatsController ctrl = new CheckAndExportVaccinationStatsController();
-        assertEquals(3, ctrl.checkIfDatesAreValid(firstDate, secondDate));
+        ctrl.setFirstDate(firstDate);
+        ctrl.setLastDate(secondDate);
+        assertEquals(3, ctrl.checkIfDatesAreValid());
     }
 
     @Test
@@ -144,6 +155,10 @@ class CheckAndExportVaccinationStatsControllerTest {
         LocalDate firstDate = LocalDate.now().minusDays(5);
         LocalDate secondDate = LocalDate.now().plusDays(1);
         CheckAndExportVaccinationStatsController ctrl = new CheckAndExportVaccinationStatsController();
-        assertEquals(4, ctrl.checkIfDatesAreValid(firstDate, secondDate));
+        ctrl.setFirstDate(firstDate);
+        ctrl.setLastDate(secondDate);
+        assertEquals(4, ctrl.checkIfDatesAreValid());
     }
+
+
 }
