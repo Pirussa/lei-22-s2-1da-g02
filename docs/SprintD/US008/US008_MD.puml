@@ -12,7 +12,6 @@ class SnsUser {
 -sex
 -address
 -citizenCardNumber
--takenVaccines : List<TakenVacine>
 }
 
 class VaccineBulletin {

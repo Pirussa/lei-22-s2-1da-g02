@@ -37,5 +37,5 @@ Class Task
 
 Company "1" -- "*" VaccinationCenter: has >
 VaccinationCenter"1" -- "*"VaccineBulletin: has >
-Company"1" -- "1"Task: executes >
+Company "1" -- "1" DailyTask: executes >
 @enduml

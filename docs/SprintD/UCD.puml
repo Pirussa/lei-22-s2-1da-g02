@@ -19,7 +19,7 @@ TC -d- UC6
 Usecase UC15 as "UC15 - Check and export vaccination statistics"
 Usecase UC16 as "UC16 - Analyze the performance of a center"
 Usecase UC17 as "U17 - Import data from a legacy system"
-Usecase UC18 as "UC18 - Get alist of all vaccines"
+Usecase UC18 as "UC18 - Get a list of all vaccines"
 
 :Center Coordinator: as CC
 
