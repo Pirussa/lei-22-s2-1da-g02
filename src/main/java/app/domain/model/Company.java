@@ -382,6 +382,8 @@ public class Company implements Serializable {
                 dto.strEmail, dto.snsUserNumber, dto.strCitizenCardNumber, dto.strPassword);
     }
 
+    //test
+
     /**
      * Save sns user inside an array of SNS Users
      *
