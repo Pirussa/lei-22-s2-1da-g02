@@ -10,14 +10,29 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * The type Read legacy data file.
+ */
 public class ReadLegacyDataFile {
 
     private final Company company = App.getInstance().getCompany();
 
 
+    /**
+     * The Legacy data list.
+     */
     public final List<String> legacyDataList = new ArrayList<>();
+    /**
+     * The List to sort.
+     */
     public final List<LocalTime> listToSort = new ArrayList<>();
 
+    /**
+     * Read file.
+     *
+     * @param path the path
+     * @throws Exception the exception
+     */
     public void readFile(String path) throws Exception {
         String line;
         BufferedReader reader = new BufferedReader(new FileReader(path));
@@ -32,6 +47,12 @@ public class ReadLegacyDataFile {
         }
     }
 
+    /**
+     * Update legacy file.
+     *
+     * @return the boolean
+     * @throws NotSerializableException the not serializable exception
+     */
     public boolean updateLegacyFile() throws NotSerializableException {
         if (!company.getSnsUserList().isEmpty() && !company.getVaccinesList().isEmpty()) {
             for (int lineOfTheData = 0; lineOfTheData < legacyDataList.size(); lineOfTheData++) {
@@ -60,6 +81,14 @@ public class ReadLegacyDataFile {
         return true;
     }
 
+    /**
+     * Merge sort ascending list.
+     *
+     * @param list  the list
+     * @param begin the begin
+     * @param end   the end
+     * @return the list
+     */
     public List<String> mergeSortAscending(List<LocalTime> list, int begin, int end) {
 
         int middle = (begin + end) / 2;
@@ -109,6 +138,14 @@ public class ReadLegacyDataFile {
         return legacyDataList;
     }
 
+    /**
+     * Merge sort descending list.
+     *
+     * @param list  the list
+     * @param begin the begin
+     * @param end   the end
+     * @return the list
+     */
     public List<String> mergeSortDescending(List<LocalTime> list, int begin, int end) {
         int middle = (begin + end) / 2;
         if (middle < end) {
@@ -155,6 +192,11 @@ public class ReadLegacyDataFile {
         return  legacyDataList;
     }
 
+    /**
+     * Sets list.
+     *
+     * @param position the position
+     */
     public void setList(int position) {
         String[] values;
         listToSort.clear();
@@ -171,6 +213,11 @@ public class ReadLegacyDataFile {
         }
     }
 
+    /**
+     * Write array to file.
+     *
+     * @param list the list
+     */
     public void writeArrayToFile(List<String> list) {
         FileWriter writer = null;
         System.out.println("Writing to file...");
@@ -186,6 +233,11 @@ public class ReadLegacyDataFile {
         }
     }
 
+    /**
+     * Heap sort ascending list.
+     *
+     * @return the list
+     */
     public List<String> heapSortAscending() {
         int length = listToSort.size();
 
@@ -240,6 +292,11 @@ public class ReadLegacyDataFile {
         }
     }
 
+    /**
+     * Heap sort descending list.
+     *
+     * @return the list
+     */
     public List<String> heapSortDescending() {
 
         int length = listToSort.size();

@@ -41,10 +41,20 @@ public class CheckAndExportVacStatsGUI {
     @FXML
     private DatePicker lastDatePicker;
 
+    /**
+     * Sets first date picker.
+     *
+     * @param firstDate the first date
+     */
     public void setFirstDatePicker(LocalDate firstDate) {
         this.firstDatePicker.setValue(firstDate);
     }
 
+    /**
+     * Sets last date picker.
+     *
+     * @param lastDate the last date
+     */
     public void setLastDatePicker(LocalDate lastDate) {
         this.lastDatePicker.setValue(lastDate);
     }

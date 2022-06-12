@@ -1,6 +1,7 @@
 package app.controller;
 
 import app.domain.model.*;
+import app.miscellaneous.ExportListToFile;
 import app.stores.VaccinationCentersStore;
 import app.ui.console.utils.Utils;
 
@@ -48,14 +49,29 @@ public class CheckAndExportVaccinationStatsController {
         return 0;
     }
 
-
-
+    /**
+     * Export vaccination stats.
+     *
+     * @param fileName  the file name
+     * @param firstDate the first date
+     * @param lastDate  the last date
+     * @return true if the file is exported successfully
+     */
     public boolean exportVaccinationStats(String fileName, LocalDate firstDate, LocalDate lastDate) {
-        return center.exportVaccinationStats(fileName, firstDate, lastDate);
+        List<String> vaccinationStats = center.getVaccinationStatsListBetweenDates(firstDate, lastDate);
+        ExportListToFile exportListToFile = new ExportListToFile(fileName, vaccinationStats, ExportListToFile.FILE_TYPE_CSV);
+        return exportListToFile.exportList("Date;Total");
     }
 
+    /**
+     * Gets vaccination stats list between dates.
+     *
+     * @param firstDate the first date
+     * @param lastDate  the last date
+     * @return the vaccination stats list between dates
+     */
     public List<String> getVaccinationStatsListBetweenDates(LocalDate firstDate, LocalDate lastDate) {
-       return center.getVaccinationStatsListBetweenDates(firstDate, lastDate);
+        return center.getVaccinationStatsListBetweenDates(firstDate, lastDate);
     }
 }
 

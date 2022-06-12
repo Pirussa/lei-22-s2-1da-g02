@@ -28,10 +28,20 @@ public class CheckListVacStatsGUI {
     private LocalDate firstDate;
     private LocalDate lastDate;
 
+    /**
+     * Sets first date.
+     *
+     * @param firstDate the first date
+     */
     public void setFirstDate(LocalDate firstDate) {
         this.firstDate = firstDate;
     }
 
+    /**
+     * Sets last date.
+     *
+     * @param lastDate the last date
+     */
     public void setLastDate(LocalDate lastDate) {
         this.lastDate = lastDate;
     }

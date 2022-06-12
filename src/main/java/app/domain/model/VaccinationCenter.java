@@ -48,6 +48,9 @@ public class VaccinationCenter implements Serializable {
     private static final String[] strTopLevelDomain = {".com", ".pt", ".co.uk"};
     private static final String strWorldWideWeb = "www.";
 
+    /**
+     * The Appointments generic class.
+     */
     GenericClass<ScheduledVaccine> appointmentsGenericClass = new GenericClass<>();
 
     /**
@@ -125,11 +128,20 @@ public class VaccinationCenter implements Serializable {
     }
 
 
-
+    /**
+     * Gets str center coordinator id.
+     *
+     * @return the str center coordinator id
+     */
     public String getStrCenterCoordinatorID() {
         return strCenterCoordinatorID;
     }
 
+    /**
+     * Gets str name.
+     *
+     * @return the str name
+     */
     public String getStrName() {
         return strName;
     }
@@ -345,6 +357,7 @@ public class VaccinationCenter implements Serializable {
      * Adds an appointment of a Vaccine to the List with all the Scheduled Vaccines
      *
      * @param newAppointment A Scheduled Vaccine object to be added to the List containing all the appointments
+     * @throws NotSerializableException the not serializable exception
      */
     public void addAppointment(ScheduledVaccine newAppointment) throws NotSerializableException {
         this.scheduledVaccineList.add(newAppointment);
@@ -417,8 +430,8 @@ public class VaccinationCenter implements Serializable {
     /**
      * Validate appointment according to age group and time since last dose.
      *
-     * @param scheduledVaccineDto     the dto
-     * @param company the company
+     * @param scheduledVaccineDto the dto
+     * @param company             the company
      * @return true if the appointment is validated according to age group and time since last dose.
      */
     public boolean validateAppointmentAccordingToAgeGroupAndTimeSinceLastDose(ScheduledVaccineDto scheduledVaccineDto, Company company) {
@@ -439,8 +452,8 @@ public class VaccinationCenter implements Serializable {
     /**
      * Validate appointment according to admin process.
      *
-     * @param snsUser      the sns user
-     * @param dto          the dto
+     * @param snsUser         the sns user
+     * @param dto             the dto
      * @param vaccineBulletin the taken vaccine
      * @return if the appointment is validated according to the admin process
      */
@@ -721,34 +734,6 @@ public class VaccinationCenter implements Serializable {
         }
         return statsBetweenDates;
 
-    }
-
-    /**
-     * Export vaccination stats boolean.
-     *
-     * @param fileName  the file name
-     * @param firstDate the first date
-     * @param lastDate  the last date
-     * @return true if the export was done successfully
-     */
-    public boolean exportVaccinationStats(String fileName, LocalDate firstDate, LocalDate lastDate) {
-        fileName = fileName + ".csv";
-        File file = new File(fileName);
-        PrintWriter writer = null;
-        try {
-            writer = new PrintWriter(file);
-            writer.format("%s;%s\n", "Date", "Total");
-            for (String stat : getVaccinationStatsListBetweenDates(firstDate, lastDate)) {
-                writer.format("%s\n", stat);
-            }
-        } catch (Exception FileNotFoundException) {
-            return false;
-        } finally {
-            assert writer != null;
-            writer.close();
-        }
-
-        return true;
     }
 
     private LocalDate getFirstDateAvailable(List<VaccineBulletin> listFullyVaccinated) {
