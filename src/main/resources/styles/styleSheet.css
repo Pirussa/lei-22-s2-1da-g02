@@ -2,6 +2,10 @@
     -fx-background-radius: 25;
 }
 
+.light-blue {
+    -fx-background-color: #eefaff;
+}
+
 .top-background {
     -fx-background-color: #00A4E8;
 }

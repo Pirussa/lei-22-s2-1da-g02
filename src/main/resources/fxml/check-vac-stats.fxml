@@ -3,25 +3,23 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.effect.Bloom?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="821.0" prefWidth="1356.0" style="-fx-background-color: ANTIQUEWHITE;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.ui.gui.CheckListVacStatsGUI">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="light-blue" stylesheets="@../styles/styleSheet.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.ui.gui.CheckListVacStatsGUI">
    <top>
-      <FlowPane alignment="CENTER" prefHeight="115.0" prefWidth="1356.0" style="-fx-background-color: LIGHTSTEELBLUE;" BorderPane.alignment="CENTER">
+      <FlowPane alignment="CENTER" prefHeight="74.0" prefWidth="1280.0" styleClass="top-background" stylesheets="@../styles/styleSheet.css" BorderPane.alignment="CENTER">
          <children>
             <Pane>
                <children>
-                  <Label alignment="CENTER" text="Vaccination Statistics" textAlignment="CENTER">
+                  <Label alignment="CENTER" text="Vaccination Statistics" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="59.0" />
                      </font>
-                     <effect>
-                        <Bloom />
-                     </effect>
                   </Label>
                </children>
             </Pane>
@@ -29,11 +27,11 @@
       </FlowPane>
    </top>
    <bottom>
-      <FlowPane prefHeight="94.0" prefWidth="1356.0" BorderPane.alignment="CENTER">
+      <FlowPane prefHeight="94.0" prefWidth="1356.0" styleClass="light-blue" stylesheets="@../styles/styleSheet.css" BorderPane.alignment="CENTER">
          <children>
-            <Pane prefHeight="117.0" prefWidth="200.0" style="-fx-background-color: ANTIQUEWHITE;">
+            <Pane prefHeight="117.0" prefWidth="200.0" styleClass="light-blue" stylesheets="@../styles/styleSheet.css">
                <children>
-                  <Button layoutX="22.0" layoutY="29.0" mnemonicParsing="false" onAction="#backToMainScene" prefHeight="70.0" prefWidth="165.0" style="-fx-background-color: INDIANRED;" text="Back" textFill="ANTIQUEWHITE">
+                  <Button layoutX="22.0" layoutY="29.0" mnemonicParsing="false" onAction="#backToMainScene" prefHeight="70.0" prefWidth="165.0" style="-fx-background-color: INDIANRED;" styleClass="logout-button" stylesheets="@../styles/styleSheet.css" text="Back" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="33.0" />
                      </font>
@@ -44,10 +42,23 @@
       </FlowPane>
    </bottom>
    <center>
-      <FlowPane alignment="CENTER" BorderPane.alignment="CENTER">
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <ListView fx:id="statsListView" prefHeight="536.0" prefWidth="321.0" />
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label text="Vaccination Center ; Total Number of People Vaccinated">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="448.0" prefWidth="1280.0">
+               <children>
+                  <ListView fx:id="statsListView" prefHeight="433.0" prefWidth="374.0" />
+               </children>
+            </HBox>
          </children>
-      </FlowPane>
+      </VBox>
    </center>
 </BorderPane>
