@@ -26,7 +26,7 @@ public class CreateVaccinationCenterController {
      *
      */
     public void createMassVaccinationCenter(MassVaccinationCenterDto dto){
-        company.createMassVaccinationCenter(dto);
+        company.getVaccinationCentersStore().createMassVaccinationCenter(dto);
     }
 
     /**
@@ -42,7 +42,7 @@ public class CreateVaccinationCenterController {
      *
      */
     public void createHealthcareCenter(HealthcareCenterDto dto){
-        company.createHealthcareCenter(dto);
+        company.getVaccinationCentersStore().createHealthcareCenter(dto);
     }
 
     /**
@@ -68,7 +68,7 @@ public class CreateVaccinationCenterController {
      *
      */
     public void centerCoordinatorIDList(){
-        company.centerCoordinatorIDList();
+        company.getEmployeesStore().centerCoordinatorIDList();
     }
 
     /**
@@ -86,7 +86,7 @@ public class CreateVaccinationCenterController {
      * @return a List of Center Coordinator's IDs.
      */
     public ArrayList<String> getCenterCoordinatorIDs(){
-        return company.getCenterCoordinatorIDs();
+        return company.getEmployeesStore().getCenterCoordinatorIDs();
     }
 
     /**
@@ -94,7 +94,7 @@ public class CreateVaccinationCenterController {
      *
      */
     public void fillListOfEmployeesWithAGivenRole(){
-        company.fillListOfEmployeesWithAGivenRole();
+        company.getEmployeesStore().fillListOfEmployeesWithAGivenRole();
     }
 
 }

@@ -25,7 +25,7 @@ public class GetListOfEmployeesController {
      */
 
     public ArrayList<Employee> getEmployees(){
-        return company.getEmployees();
+        return company.getEmployeesStore().getEmployees();
     }
 
     /**
@@ -33,7 +33,7 @@ public class GetListOfEmployeesController {
      */
 
     public void fillListOfEmployeesWithAGivenRole(){
-        company.fillListOfEmployeesWithAGivenRole();
+        company.getEmployeesStore().fillListOfEmployeesWithAGivenRole();
     }
 
 
@@ -44,7 +44,7 @@ public class GetListOfEmployeesController {
      */
 
     public ArrayList<Employee> getNurseList(){
-        return company.getNurseList();
+        return company.getEmployeesStore().getNurseList();
     }
 
     /**
@@ -54,7 +54,7 @@ public class GetListOfEmployeesController {
      */
 
     public ArrayList<Employee> getReceptionistList() {
-        return company.getReceptionistList();
+        return company.getEmployeesStore().getReceptionistList();
     }
 
     /**
@@ -64,7 +64,7 @@ public class GetListOfEmployeesController {
      */
 
     public ArrayList<Employee> getCentreCoordinatorList() {
-        return company.getCenterCoordinatorList();
+        return company.getEmployeesStore().getCenterCoordinatorList();
     }
 
 
