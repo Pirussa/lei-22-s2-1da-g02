@@ -46,7 +46,13 @@ public class RecordVaccineAdministrationGUI {
 
 
     @FXML
-    private CheckBox confirmSelectionCheckBox;
+    private CheckBox confirmCenterSelectionCheckBox;
+
+    @FXML
+    private CheckBox confirmUserSelectionCheckBox;
+
+    @FXML
+    private CheckBox confirmVaccineSelectionCheckBox;
 
     @FXML
     private Button recordButton;
@@ -55,26 +61,41 @@ public class RecordVaccineAdministrationGUI {
     private Button cancelButton;
 
 
-    public void confirmSelection(ActionEvent event) {
-        checkBoxVerify(event);
+    public void confirmCenterSelection(ActionEvent event) {
+        checkBoxVerifyCenter(event);
     }
 
-    private void checkBoxVerify(ActionEvent event) {
-        if (/*vaccineList.getSelectionModel().isEmpty() ||*/ vaccinationCenterList.getSelectionModel().isEmpty() || userList.getSelectionModel().isEmpty()) {
+    private void checkBoxVerifyCenter(ActionEvent event) {
+        if (vaccinationCenterList.getSelectionModel().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
-            alert.setContentText("You must select all the fields");
+            alert.setContentText("You must select a center");
             alert.showAndWait();
-            confirmSelectionCheckBox.setSelected(false);
+            confirmCenterSelectionCheckBox.setSelected(false);
         } else {
             // Set selected Center
             setVaccinationCenter();
 
+            // Disable the checkbox and the combo box
+            disableComboBoxCenter();
+            disableCheckBoxCenter();
+        }
+    }
+
+    public void confirmUserSelection(ActionEvent event) {
+        checkBoxVerifyUser(event);
+    }
+
+    private void checkBoxVerifyUser(ActionEvent event) {
+        if (userList.getSelectionModel().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("You must select an user");
+            alert.showAndWait();
+            confirmUserSelectionCheckBox.setSelected(false);
+        } else {
             // Set selected User
             setUser();
-
-            // Set selected Vaccine or Previous Vaccine
-            initializeVaccine();
 
             // Get User´s Name
             getUserName();
@@ -83,8 +104,29 @@ public class RecordVaccineAdministrationGUI {
             userAgeTxt.setText("12");
 
             // Disable the checkbox and the combo boxes
-            disableComboBox();
-            disableCheckBox();
+            disableComboBoxUser();
+            disableCheckBoxUser();
+        }
+    }
+
+    public void confirmVaccineSelection(ActionEvent event) {
+        checkBoxVerifyVaccine(event);
+    }
+
+    private void checkBoxVerifyVaccine(ActionEvent event) {
+        if (vaccineList.getSelectionModel().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("You must select a center");
+            alert.showAndWait();
+            confirmVaccineSelectionCheckBox.setSelected(false);
+        } else {
+            // Set selected Vaccine or Previous Vaccine
+            initializeVaccine();
+
+            // Disable the checkbox and the combo boxes
+            disableComboBoxVaccine();
+            disableCheckBoxVaccine();
 
             // Set Vaccine Type
             getVaccineTypeName();
@@ -101,14 +143,14 @@ public class RecordVaccineAdministrationGUI {
             alert.setTitle("Error");
             alert.setContentText("You must introduce a lot number");
             alert.showAndWait();
-            confirmSelectionCheckBox.setSelected(false);
+            confirmCenterSelectionCheckBox.setSelected(false);
         } else {
             if (!controller.validateLotNumber(lotNumberTxt.getText())) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
                 alert.setContentText("Lot Number is not valid");
                 alert.showAndWait();
-                confirmSelectionCheckBox.setSelected(false);
+                confirmCenterSelectionCheckBox.setSelected(false);
             } else {
                 recordVaccineAdministration(event);
                 returnToNurseGUI(event);
@@ -136,9 +178,8 @@ public class RecordVaccineAdministrationGUI {
 
     @FXML
     private void initializeUser() {
-        //ObservableList<String> userSnsNumberList = FXCollections.observableArrayList(controller.fillListWithUserSnsNumber());
         controller.setArrivalList();
-        ObservableList<String> userSnsNumberList = FXCollections.observableArrayList(controller.users());
+        ObservableList<String> userSnsNumberList = FXCollections.observableArrayList(controller.fillListWithUserSnsNumber());
         userList.setItems(userSnsNumberList);
     }
 
@@ -169,9 +210,8 @@ public class RecordVaccineAdministrationGUI {
     }
 
     private void getUserAge() {
-           /* if (controller.getSnsUserAge() != null)
-        userAgeTxt.setText(String.valueOf(controller.getUserAge()));*/
-        userAgeTxt.setText("12");
+        if (controller.getUserAge() != 0)
+            userAgeTxt.setText(String.valueOf(controller.getUserAge()));
     }
 
     private void getVaccineTypeName() {
@@ -186,14 +226,28 @@ public class RecordVaccineAdministrationGUI {
             dosageTxt.setText(String.valueOf(controller.dosageForDose(controller.getUserNumberOfDoses(), controller.findLastDoseOfVaccineType())));
     }
 
-    private void disableComboBox() {
-        userList.setDisable(true);
+    private void disableComboBoxCenter() {
         vaccinationCenterList.setDisable(true);
+    }
+
+    private void disableComboBoxUser() {
+        userList.setDisable(true);
+    }
+
+    private void disableComboBoxVaccine() {
         vaccineList.setDisable(true);
     }
 
-    private void disableCheckBox() {
-        confirmSelectionCheckBox.setDisable(true);
+    private void disableCheckBoxCenter() {
+        confirmCenterSelectionCheckBox.setDisable(true);
+    }
+
+    private void disableCheckBoxUser() {
+        confirmUserSelectionCheckBox.setDisable(true);
+    }
+
+    private void disableCheckBoxVaccine() {
+        confirmVaccineSelectionCheckBox.setDisable(true);
     }
 
     private void recordVaccineAdministration(javafx.event.ActionEvent event) {

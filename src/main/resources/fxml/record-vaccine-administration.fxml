@@ -65,6 +65,9 @@
                            <font>
                               <Font name="Constantia" size="12.0" />
                            </font>
+                           <padding>
+                              <Insets bottom="9.0" />
+                           </padding>
                         </Label>
                         <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
                            <children>
@@ -80,11 +83,17 @@
                            <font>
                               <Font name="Constantia" size="12.0" />
                            </font>
+                           <GridPane.margin>
+                              <Insets bottom="6.5" />
+                           </GridPane.margin>
                         </Label>
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="64.0" text="Vaccine" GridPane.rowIndex="2">
                            <font>
                               <Font name="Constantia" size="12.0" />
                            </font>
+                           <GridPane.margin>
+                              <Insets bottom="6.5" />
+                           </GridPane.margin>
                         </Label>
                         <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <children>
@@ -106,6 +115,30 @@
                               <HBox prefHeight="15.0" prefWidth="254.0" />
                            </children>
                         </VBox>
+                        <CheckBox fx:id="confirmCenterSelectionCheckBox" mnemonicParsing="false" onAction="#confirmCenterSelection">
+                           <padding>
+                              <Insets left="80.0" />
+                           </padding>
+                           <GridPane.margin>
+                              <Insets bottom="6.5" />
+                           </GridPane.margin>
+                        </CheckBox>
+                        <CheckBox fx:id="confirmUserSelectionCheckBox" mnemonicParsing="false" onAction="#confirmUserSelection" GridPane.rowIndex="1">
+                           <padding>
+                              <Insets left="80.0" />
+                           </padding>
+                           <GridPane.margin>
+                              <Insets bottom="5.0" />
+                           </GridPane.margin>
+                        </CheckBox>
+                        <CheckBox fx:id="confirmVaccineSelectionCheckBox" mnemonicParsing="false" onAction="#confirmVaccineSelection" GridPane.rowIndex="2">
+                           <padding>
+                              <Insets left="80.0" />
+                           </padding>
+                           <GridPane.margin>
+                              <Insets bottom="5.0" />
+                           </GridPane.margin>
+                        </CheckBox>
                      </children>
                      <VBox.margin>
                         <Insets top="1.0" />
@@ -139,11 +172,6 @@
                               <Insets left="10.0" top="5.0" />
                            </HBox.margin>
                         </TextField>
-                        <CheckBox fx:id="confirmSelectionCheckBox" mnemonicParsing="false" onAction="#confirmSelection">
-                           <HBox.margin>
-                              <Insets left="30.0" top="8.5" />
-                           </HBox.margin>
-                        </CheckBox>
                      </children>
                   </HBox>
                   <Label text="Administration Process" textFill="#05450a">
