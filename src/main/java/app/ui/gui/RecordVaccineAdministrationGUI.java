@@ -79,6 +79,7 @@ public class RecordVaccineAdministrationGUI {
             // Disable the checkbox and the combo box
             disableComboBoxCenter();
             disableCheckBoxCenter();
+            userList.setDisable(false);
         }
     }
 
@@ -106,6 +107,7 @@ public class RecordVaccineAdministrationGUI {
             // Disable the checkbox and the combo boxes
             disableComboBoxUser();
             disableCheckBoxUser();
+            vaccineList.setDisable(false);
         }
     }
 
@@ -117,7 +119,7 @@ public class RecordVaccineAdministrationGUI {
         if (vaccineList.getSelectionModel().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
-            alert.setContentText("You must select a center");
+            alert.setContentText("You must select a vaccine");
             alert.showAndWait();
             confirmVaccineSelectionCheckBox.setSelected(false);
         } else {
@@ -178,7 +180,6 @@ public class RecordVaccineAdministrationGUI {
 
     @FXML
     private void initializeUser() {
-        controller.setArrivalList();
         ObservableList<String> userSnsNumberList = FXCollections.observableArrayList(controller.fillListWithUserSnsNumber());
         userList.setItems(userSnsNumberList);
     }

@@ -27,7 +27,6 @@ public class RecordVaccineAdministrationUI implements Runnable {
         controller.setVaccinationCenter(vaccinationCenterIndexInList);
 
         // Select User from Waiting Room List
-        controller.setArrivalList();
         int selectUser = waitingRoomList();
 
         // Select a Vaccine (Verifies if it matches the Vaccine Type)
