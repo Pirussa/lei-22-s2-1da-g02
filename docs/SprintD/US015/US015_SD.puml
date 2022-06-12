@@ -6,15 +6,32 @@ actor CenterCoordinator as CC
 
 participant ":CheckAndExportVacStatsGUI" as UI
 participant ":CheckAndExportVaccinationStatsController" as CTRL
-participant "vaccinationCenter\n:VaccinationCenter" as VC
 participant "exportListToFile\n:ExportListToFIle" as EL
-
+participant "company\n:Company" as C
+participant "vaccinationCentersStore\n:VaccinationCentersStore" as S
+participant "vaccinationCenter\n:VaccinationCenter" as VC
 
 
 activate CC
 CC -> UI :asks to check and export vaccination statistics
 
 activate UI
+
+UI -> CTRL : setVaccinationCenter()
+activate CTRL
+CTRL -> C : getVaccinationCentersStore()
+activate C
+C --> CTRL : returns the store
+deactivate C
+
+CTRL -> S : getVaccinationCenterAssociatedToCoordinator(id)
+activate S
+S --> CTRL : returns the vaccination center
+deactivate S
+
+
+deactivate CTRL
+
 UI --> CC : shows the dates to be selected and asks for one selection
 deactivate UI
 
