@@ -99,37 +99,37 @@ public class ReadLegacyDataFile {
             //merge the two sorted lists together:
             ArrayList<LocalTime> newlist = new ArrayList<>();
             ArrayList<String> tempList = new ArrayList<>();
-            int i = begin, j = middle + 1;
-            while (i <= middle && j <= end) {
-                if (list.get(j).compareTo(list.get(i)) > 0) {
-                    int x = i;
-                    newlist.add(list.get(i++));
-                    tempList.add(legacyDataList.get(x++));
+            int firstPositionOfListToSort = begin, midPositionOfListToSort = middle + 1;
+            while (firstPositionOfListToSort <= middle && midPositionOfListToSort <= end) {
+                if (list.get(midPositionOfListToSort).compareTo(list.get(firstPositionOfListToSort)) > 0) {
+                    int copyOfPos1 = firstPositionOfListToSort;
+                    newlist.add(list.get(firstPositionOfListToSort++));
+                    tempList.add(legacyDataList.get(copyOfPos1++));
                 } else {
-                    int z = j;
-                    newlist.add(list.get(j++));
-                    tempList.add(legacyDataList.get(z++));
+                    int copyOfPos2 = midPositionOfListToSort;
+                    newlist.add(list.get(midPositionOfListToSort++));
+                    tempList.add(legacyDataList.get(copyOfPos2++));
                 }
             }
-            while (i <= middle) {
-                int t = i;
-                newlist.add(list.get(i++));
+            while (firstPositionOfListToSort <= middle) {
+                int copyOfPos3 = firstPositionOfListToSort;
+                newlist.add(list.get(firstPositionOfListToSort++));
 
-                tempList.add(legacyDataList.get(t++));
+                tempList.add(legacyDataList.get(copyOfPos3++));
             }
-            while (j <= end) {
-                int r = j;
-                newlist.add(list.get(j++));
-                tempList.add(legacyDataList.get(r++));
+            while (midPositionOfListToSort <= end) {
+                int copyOfPos4 = midPositionOfListToSort;
+                newlist.add(list.get(midPositionOfListToSort++));
+                tempList.add(legacyDataList.get(copyOfPos4++));
             }
-            i = begin;
-            int k = i;
+            firstPositionOfListToSort = begin;
+            int copyOfPos5 = firstPositionOfListToSort;
             for (LocalTime item : newlist) {
-                list.set(i++, item);
+                list.set(firstPositionOfListToSort++, item);
             }
 
             for (String strItem : tempList) {
-                legacyDataList.set(k++, strItem);
+                legacyDataList.set(copyOfPos5++, strItem);
             }
 
             writeArrayToFile(legacyDataList);
@@ -155,37 +155,37 @@ public class ReadLegacyDataFile {
             //merge the two sorted lists together:
             ArrayList<LocalTime> newlist = new ArrayList<>();
             ArrayList<String> tempList = new ArrayList<>();
-            int i = begin, j = middle + 1;
-            while (i <= middle && j <= end) {
-                if (list.get(j).compareTo(list.get(i)) < 0) {
-                    int x = i;
-                    newlist.add(list.get(i++));
-                    tempList.add(legacyDataList.get(x++));
+            int firstPositionOfListToSort = begin, midPositionOfListToSort = middle + 1;
+            while (firstPositionOfListToSort <= middle && midPositionOfListToSort <= end) {
+                if (list.get(midPositionOfListToSort).compareTo(list.get(firstPositionOfListToSort)) < 0) {
+                    int copyOfPos1 = firstPositionOfListToSort;
+                    newlist.add(list.get(firstPositionOfListToSort++));
+                    tempList.add(legacyDataList.get(copyOfPos1++));
                 } else {
-                    int z = j;
-                    newlist.add(list.get(j++));
-                    tempList.add(legacyDataList.get(z++));
+                    int copyOfPos2 = midPositionOfListToSort;
+                    newlist.add(list.get(midPositionOfListToSort++));
+                    tempList.add(legacyDataList.get(copyOfPos2++));
                 }
             }
-            while (i <= middle) {
-                int t = i;
-                newlist.add(list.get(i++));
+            while (firstPositionOfListToSort <= middle) {
+                int copyOfPos3 = firstPositionOfListToSort;
+                newlist.add(list.get(firstPositionOfListToSort++));
 
-                tempList.add(legacyDataList.get(t++));
+                tempList.add(legacyDataList.get(copyOfPos3++));
             }
-            while (j <= end) {
-                int r = j;
-                newlist.add(list.get(j++));
-                tempList.add(legacyDataList.get(r++));
+            while (midPositionOfListToSort <= end) {
+                int copyOfPos4 = midPositionOfListToSort;
+                newlist.add(list.get(midPositionOfListToSort++));
+                tempList.add(legacyDataList.get(copyOfPos4++));
             }
-            i = begin;
-            int k = i;
+            firstPositionOfListToSort = begin;
+            int copyOfPos5 = firstPositionOfListToSort;
             for (LocalTime item : newlist) {
-                list.set(i++, item);
+                list.set(firstPositionOfListToSort++, item);
             }
 
             for (String strItem : tempList) {
-                legacyDataList.set(k++, strItem);
+                legacyDataList.set(copyOfPos5++, strItem);
             }
             writeArrayToFile(legacyDataList);
         }
