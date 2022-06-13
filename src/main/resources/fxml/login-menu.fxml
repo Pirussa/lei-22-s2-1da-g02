@@ -12,9 +12,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="821.0" prefWidth="1356.0" style="-fx-ground-color: ANTIQUEWHITE;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.ui.gui.LoginMenuGUI">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-ground-color: ANTIQUEWHITE;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.ui.gui.LoginMenuGUI">
    <right>
-      <VBox prefHeight="821.0" prefWidth="563.0" style="-fx-background-color: #DAEDF2;" BorderPane.alignment="CENTER">
+      <VBox prefHeight="720.0" prefWidth="582.0" style="-fx-background-color: #DAEDF2;" BorderPane.alignment="CENTER">
          <children>
             <ImageView fitHeight="140.0" fitWidth="216.0" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
                <image>
@@ -41,10 +41,10 @@
                               <Image url="@../Images/gmail icon.png" />
                            </image>
                            <HBox.margin>
-                              <Insets left="4.0" />
+                              <Insets left="2.0" />
                            </HBox.margin>
                         </ImageView>
-                        <TextField fx:id="emailTxtField" alignment="CENTER" prefHeight="65.0" prefWidth="320.0" promptText="email        " styleClass="transparent" stylesheets="@../styles/styleSheet.css">
+                        <TextField fx:id="emailTxtField" alignment="CENTER" prefHeight="65.0" prefWidth="348.0" promptText="email      " styleClass="transparent" stylesheets="@../styles/styleSheet.css">
                            <font>
                               <Font size="30.0" />
                            </font>
@@ -63,10 +63,10 @@
                               <Image url="@../Images/Locker.png" />
                            </image>
                            <HBox.margin>
-                              <Insets left="4.0" />
+                              <Insets left="2.0" />
                            </HBox.margin>
                         </ImageView>
-                        <PasswordField fx:id="pwdTxtField" alignment="CENTER" prefHeight="65.0" prefWidth="320.0" promptText="password" styleClass="transparent" stylesheets="@../styles/styleSheet.css">
+                        <PasswordField fx:id="pwdTxtField" alignment="CENTER" prefHeight="65.0" prefWidth="320.0" promptText="password  " styleClass="transparent" stylesheets="@../styles/styleSheet.css">
                            <font>
                               <Font size="30.0" />
                            </font>
@@ -88,7 +88,7 @@
       </VBox>
    </right>
    <center>
-      <ImageView fitHeight="829.0" fitWidth="1015.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+      <ImageView fitHeight="746.0" fitWidth="710.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
          <image>
             <Image url="@../Images/VaccinationCenter_Login.jpg" />
          </image>

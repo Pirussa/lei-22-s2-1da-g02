@@ -26,7 +26,7 @@
 
 .buttons {
     -fx-background-radius: 20;
-    -fx-background-color: linear-gradient(#62c8ef, #50a9cc);
+    -fx-background-color: linear-gradient(#add1f6, #0094d2);
     -fx-border-style: solid;
     -fx-border-radius: 20;
     -fx-border-color: linear-gradient(#67a0c6, #4a90c6);
@@ -34,9 +34,11 @@
 }
 
 .buttons:hover {
-    -fx-background-color: linear-gradient(#d2b43d, #edc531);
-    -fx-border-color: linear-gradient(#fad643, #edc531);
+    -fx-background-color: linear-gradient(#ffed7b, #e3b64d);
+    -fx-text-fill: #4a5466;
+    -fx-border-color: linear-gradient(#e3d36c, #cba140);
 }
+
 
 
 .select-option-process {
