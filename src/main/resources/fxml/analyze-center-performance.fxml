@@ -48,7 +48,7 @@
    <center>
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <VBox alignment="TOP_CENTER" prefHeight="488.0" prefWidth="661.0">
+            <VBox alignment="CENTER" prefHeight="488.0" prefWidth="661.0">
                <children>
                         <Label prefHeight="84.0" prefWidth="510.0" text="Select the date you want to analyze">
                             <font>
@@ -73,7 +73,11 @@
                   </Label>
                   <HBox alignment="CENTER" prefHeight="90.0" prefWidth="572.0">
                      <children>
-                        <TextField fx:id="timeIntervalTxt" prefHeight="47.0" prefWidth="274.0" promptText="Select the time Inteval" styleClass="radius-background" stylesheets="@../styles/styleSheet.css" />
+                        <TextField fx:id="timeIntervalTxt" prefHeight="47.0" prefWidth="274.0" promptText="Select the time Inteval" stylesheets="@../styles/styleSheet.css">
+                           <styleClass>
+                              <String fx:value="radius-background" />
+                              <String fx:value="dropdown-menu" />
+                           </styleClass></TextField>
                      </children>
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="84.0" prefWidth="572.0">
@@ -87,14 +91,18 @@
                   </HBox>
                </children>
             </VBox>
-            <VBox prefHeight="488.0" prefWidth="623.0">
+            <VBox alignment="CENTER" prefHeight="488.0" prefWidth="617.0">
                <children>
-                  <TableView prefHeight="435.0" prefWidth="580.0">
-                    <columns>
-                      <TableColumn prefWidth="75.0" text="C1" />
-                      <TableColumn prefWidth="75.0" text="C2" />
-                    </columns>
-                  </TableView>
+                  <HBox alignment="CENTER" prefHeight="429.0" prefWidth="621.0">
+                     <children>
+                        <TableView prefHeight="429.0" prefWidth="353.0" styleClass="border-radius" stylesheets="@../styles/styleSheet.css">
+                           <columns>
+                              <TableColumn prefWidth="179.0" text="Time Interval" />
+                              <TableColumn prefWidth="173.0" text="Difference" />
+                           </columns>
+                        </TableView>
+                     </children>
+                  </HBox>
                </children>
             </VBox>
          </children>

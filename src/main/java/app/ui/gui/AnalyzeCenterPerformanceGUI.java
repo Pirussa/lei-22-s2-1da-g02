@@ -36,7 +36,8 @@ public class AnalyzeCenterPerformanceGUI {
             List<Object> listWithInformationToShow = controller.analyzeCenterPerformanceForDay();
 
 
-        }else{
+        }
+        else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Invalid time interval");

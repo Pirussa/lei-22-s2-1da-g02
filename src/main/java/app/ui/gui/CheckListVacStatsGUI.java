@@ -1,6 +1,7 @@
 package app.ui.gui;
 
 import app.controller.CheckAndExportVaccinationStatsController;
+import app.domain.model.VaccinationCenterStats;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -10,6 +11,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -24,6 +28,15 @@ public class CheckListVacStatsGUI {
 
     @FXML
     private ListView<String> statsListView;
+
+    @FXML
+    private TableView<VaccinationCenterStats> tableView;
+
+    @FXML
+    private TableColumn<VaccinationCenterStats, String> dateCollumn;
+
+    @FXML
+    private TableColumn<VaccinationCenterStats, String> totalVaccinatedCollumn;
 
     private LocalDate firstDate;
     private LocalDate lastDate;
@@ -53,9 +66,17 @@ public class CheckListVacStatsGUI {
      * @param lastDate  the last date
      */
     public void setStatsListView(LocalDate firstDate, LocalDate lastDate ) {
-        ObservableList<String> list = FXCollections.observableArrayList(controller.getVaccinationStatsListBetweenDates(firstDate, lastDate));
-        statsListView.setItems(list);
+        String[][] stats = new String[controller.getVaccinationStatsListBetweenDates(firstDate, lastDate).size()][2];
+        ObservableList<VaccinationCenterStats> statsList = FXCollections.observableArrayList();
 
+        for (int position = 0; position < stats.length; position++) {
+            stats[position] = controller.getVaccinationStatsListBetweenDates(firstDate, lastDate).get(position).split(";");
+            statsList.add(new VaccinationCenterStats(stats[position][0], stats[position][1]));
+        }
+
+        dateCollumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+        totalVaccinatedCollumn.setCellValueFactory(new PropertyValueFactory<>("totalVaccinated"));
+        tableView.setItems(statsList);
     }
 
     /**
