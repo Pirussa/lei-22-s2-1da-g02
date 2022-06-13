@@ -3,6 +3,7 @@ package app.domain.model;
 import app.controller.App;
 import app.domain.shared.Constants;
 import app.domain.shared.GenericClass;
+import app.stores.DepartureStore;
 import app.ui.console.utils.Utils;
 import app.dto.ScheduledVaccineDto;
 
@@ -41,7 +42,7 @@ public class VaccinationCenter implements Serializable {
     private final GenericClass<VaccineBulletin> genericsVaccineBulletin = App.getInstance().getCompany().genericsVaccineBulletin;
     private List<ScheduledVaccine> scheduledVaccineList = new ArrayList<>();
     private List<Arrival> arrivalsList = new ArrayList<>();
-    private List<Departure> departuresList = new ArrayList<>();
+    private final DepartureStore departureStore = new DepartureStore();
     private final List<VaccineBulletin> vaccinesAdministeredList = new ArrayList<>();
     private final List<VaccineBulletin> listFullyVaccinated = new ArrayList<>();
     private static final long serialVersionUID = 0;
@@ -173,6 +174,14 @@ public class VaccinationCenter implements Serializable {
     public List<Arrival> getArrivalsList() {
         return arrivalsList;
     }
+
+
+    /**
+     * Gets the Departure Store of the Vaccination Center
+     *
+     * @return The Departure Store
+     */
+    public DepartureStore getDepartureStore() { return departureStore; }
 
     /**
      * Gets vaccines administered.

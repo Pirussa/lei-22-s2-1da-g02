@@ -1,18 +1,18 @@
 package app.ui.gui;
 
 import app.controller.AnalyzeCenterPerformanceController;
+import app.domain.model.VaccinationCenterDailyPerformance;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 
+import java.awt.TextField;
 import java.io.IOException;
 import java.util.List;
 
@@ -21,13 +21,36 @@ public class AnalyzeCenterPerformanceGUI {
     private final AnalyzeCenterPerformanceController controller = new AnalyzeCenterPerformanceController();
 
     @FXML
+    private javafx.scene.control.TextField txtTimeInterval;
+
+    @FXML
     private Button analyzeBtn;
 
     @FXML
     private DatePicker datePicker;
 
     @FXML
-    private TextArea timeIntervalTxt;
+    private TextField timeIntervalTxt;
+
+    @FXML
+    private TableView TimeTableView;
+
+    @FXML
+    private TableColumn<VaccinationCenterDailyPerformance, String> timeIntervalCollumn;
+
+    @FXML
+    private TableColumn<VaccinationCenterDailyPerformance, Integer> differenceBetweenArrivalsAndDeparturesCollumn;
+
+
+    @FXML
+    private TableView sumListTableView;
+
+    // Criar coluna para esta lista
+
+
+    @FXML
+    private Label lbSum;
+
 
     @FXML
     void analyzeCenterPerformance(ActionEvent event) {

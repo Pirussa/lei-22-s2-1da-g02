@@ -213,6 +213,4 @@ public class CheckAndExportVacStatsGUI {
         stage.show();
 
     }
-
-
 }

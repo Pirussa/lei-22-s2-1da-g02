@@ -5,6 +5,7 @@ import app.domain.model.*;
 import app.domain.shared.Constants;
 import app.domain.shared.GenericClass;
 import app.dto.RegisterNewEmployeeDto;
+import app.stores.DepartureStore;
 import app.stores.VaccinationCentersStore;
 import app.stores.VaccineTypesStore;
 import pt.isep.lei.esoft.auth.domain.model.Email;
@@ -81,11 +82,30 @@ public class Utils {
         try {
             for (VaccinationCenter vaccinationCenter : VACCINATION_CENTERS_STORE.getVaccinationCenters()) {
                 genericsClass.binaryFileRead(Constants.FILE_PATH_ARRIVALS, vaccinationCenter.getArrivalsList());
+                for (Arrival arrival : vaccinationCenter.getArrivalsList()) {
+                    System.out.println(arrival);
+                }
             }
         } catch (EOFException e) {
             e.printStackTrace();
         }
     }
+
+//    private static void bootstrapDepartures() {
+//        GenericClass<Departure> genericsClass = new GenericClass<>();
+//        try {
+//            for (VaccinationCenter vaccinationCenter : VACCINATION_CENTERS_STORE.getVaccinationCenters()) {
+//                DepartureStore departureStore = vaccinationCenter.getDepartureStore();
+//                genericsClass.binaryFileRead(Constants.FILE_PATH_DEPARTURES, departureStore.getDeparturesList());
+//                departureStore.getDeparturesList().add(new Departure(LocalDateTime.now()));
+//                for (Departure departure : departureStore.getDeparturesList()) {
+//                    System.out.println(departure);
+//                }
+//            }
+//        } catch (EOFException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     /**
      * It creates and adds everything that the App needs as soon as it runs, so it is not needed to create something prior to using one functionality

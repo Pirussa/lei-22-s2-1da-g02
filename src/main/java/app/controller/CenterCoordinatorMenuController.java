@@ -2,6 +2,7 @@ package app.controller;
 
 import app.domain.model.Company;
 import app.domain.model.VaccinationCenter;
+import app.stores.DepartureStore;
 import app.stores.VaccinationCentersStore;
 import app.ui.console.utils.Utils;
 
@@ -15,6 +16,7 @@ public class CenterCoordinatorMenuController {
 
     private final VaccinationCentersStore store;
     private final VaccinationCenter center;
+    private final DepartureStore departureStore;
 
     /**
      * Instantiates a new Center coordinator menu controller.
@@ -23,6 +25,7 @@ public class CenterCoordinatorMenuController {
         final Company company = App.getInstance().getCompany();
         store = company.getVaccinationCentersStore();
         center = store.getVaccinationCenterAssociatedToCoordinator(Utils.getLoggedCoordinatorId());
+        departureStore = center.getDepartureStore();
     }
 
 
@@ -50,8 +53,8 @@ public class CenterCoordinatorMenuController {
             return 1;
         }else if (center.getArrivalsList() == null || center.getArrivalsList().isEmpty()) {
             return 2;
-      //  }else if (center.getDeparturesList() == null || center.getDeparturesList().isEmpty()) {
-     //       return 3;
+        }else if (departureStore.getDeparturesList() == null || departureStore.getDeparturesList().isEmpty()) {
+            return 3;
         }
         return 0;
     }
