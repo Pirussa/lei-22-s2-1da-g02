@@ -46,7 +46,7 @@ public class Company implements Serializable {
 
     private final VaccinationCentersStore vaccinationCentersStore = new VaccinationCentersStore();
     private final VaccineTypesStore vaccineTypesStore = new VaccineTypesStore();
-    private final EmployeesStore employeesStore = new EmployeesStore();
+    private final EmployeesStore employeesStore;
 
     /**
      * Gets vaccination centers store.
@@ -86,6 +86,11 @@ public class Company implements Serializable {
 
         this.designation = designation;
         this.authFacade = new AuthFacade();
+
+       employeesStore = new EmployeesStore(authFacade);
+
+
+
     }
 
     /**

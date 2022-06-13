@@ -71,7 +71,7 @@
                         <Image url="@../Images/performance.png" />
                      </image>
                   </ImageView>
-                  <Button mnemonicParsing="false" onAction="#notImplementedYet" prefHeight="62.0" prefWidth="618.0" styleClass="centerCoordinator-buttons" stylesheets="@../styles/styleSheet.css" text="Analyze the performance">
+                  <Button mnemonicParsing="false" onAction="#analyzeCenterPerformance" prefHeight="62.0" prefWidth="618.0" styleClass="centerCoordinator-buttons" stylesheets="@../styles/styleSheet.css" text="Analyze the performance">
                      <font>
                         <Font name="System Bold" size="31.0" />
                      </font>

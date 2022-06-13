@@ -58,18 +58,9 @@ public class CenterCoordinatorGUI {
      * @throws IOException the io exception
      */
     public void checkAndExportStats(ActionEvent event) throws IOException {
-        toCheckAndExportStatsGUI(event);
-
-    }
-
-    private void toCheckAndExportStatsGUI(ActionEvent event) throws IOException {
         switch (controller.companyHasEnoughInfoForVaccinationStats()) {
             case 0:
-                Parent root = FXMLLoader.load(getClass().getResource("/fxml/check-export-vac-stats-ui.fxml"));
-                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                Scene scene = new Scene(root);
-                stage.setScene(scene);
-                stage.show();
+                toCheckAndExportStatsGUI(event);
                 break;
             case 1:
                 Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -83,9 +74,53 @@ public class CenterCoordinatorGUI {
                 alert.setContentText("There are no Statistics for this Vaccination Center, yet.");
                 alert.showAndWait();
                 break;
+
         }
 
     }
 
+    private void toCheckAndExportStatsGUI(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/check-export-vac-stats-ui.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void analyzeCenterPerformance(ActionEvent event) throws IOException {
+        switch (controller.companyHasEnoughDataToAnalyzeThePerformance()) {
+            case 0:
+                toAnalyzeCenterPerformanceGUI(event);
+                break;
+            case 1:
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("No Vaccination Centers");
+                alert.setContentText("There are no Vaccination Centers yet.");
+                alert.showAndWait();
+                break;
+            case 2:
+                alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("No Arrivals");
+                alert.setContentText("There are no Arrivals registered on this Center, yet.");
+                alert.showAndWait();
+                break;
+            case 3:
+                alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("No Departures");
+                alert.setContentText("There are no Departures registered on this Center, yet.");
+                alert.showAndWait();
+                break;
+        }
+
+    }
+
+    private void toAnalyzeCenterPerformanceGUI(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/analyze-center-performance.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+
+    }
 
 }

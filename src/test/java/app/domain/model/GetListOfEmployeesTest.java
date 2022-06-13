@@ -28,11 +28,11 @@ class GetListOfEmployeesTest {
     public void fillListOfNurses() {
         Employee nurse = new Nurse("NR-12345", "Nurse", "Rua / 1111-111 / Portugal", "912345678", "nurse@gmail.com", "11960343 8 ZW1", "AAA11aa");
 
-        company.getEmployees().add(nurse);
+        company.getEmployeesStore().getEmployees().add(nurse);
 
-        company.fillListOfEmployeesWithAGivenRole();
+        company.getEmployeesStore().fillListOfEmployeesWithAGivenRole();
 
-        assertFalse(company.getNurseList().isEmpty());
+        assertFalse(company.getEmployeesStore().getNurseList().isEmpty());
     }
 
 
@@ -43,9 +43,9 @@ class GetListOfEmployeesTest {
 
     public void fillListOfNursesFalse() {
 
-        company.fillListOfEmployeesWithAGivenRole();
+        company.getEmployeesStore().fillListOfEmployeesWithAGivenRole();
 
-        assertTrue(company.getNurseList().isEmpty());
+        assertTrue(company.getEmployeesStore().getNurseList().isEmpty());
     }
 
 
@@ -57,11 +57,11 @@ class GetListOfEmployeesTest {
     public void fillListOfReceptionists() {
         Employee receptionist = new Receptionist("RC-12345", "Receptionist", "Rua / 2222-222 / Portugal", "913456789",  "receptionist@gmail.com", "14268862 2 ZX8", "BBB22bb");
 
-        company.getEmployees().add(receptionist);
+        company.getEmployeesStore().getEmployees().add(receptionist);
 
-        company.fillListOfEmployeesWithAGivenRole();
+        company.getEmployeesStore().fillListOfEmployeesWithAGivenRole();
 
-        assertTrue(company.getReceptionistList().isEmpty());
+        assertTrue(company.getEmployeesStore().getReceptionistList().isEmpty());
 
     }
 
@@ -72,9 +72,9 @@ class GetListOfEmployeesTest {
 
     public void fillListOfReceptionistsFalse() {
 
-        company.fillListOfEmployeesWithAGivenRole();
+        company.getEmployeesStore().fillListOfEmployeesWithAGivenRole();
 
-        assertTrue(company.getReceptionistList().isEmpty());
+        assertTrue(company.getEmployeesStore().getReceptionistList().isEmpty());
     }
 
     @Test
@@ -85,11 +85,11 @@ class GetListOfEmployeesTest {
     public void fillListOfCentreCoordinators() {
         Employee centreCoordinator = new CenterCoordinator("CC-12345", "Centre Coordinator", "Rua / 3333-333 / Portugal", "914567894", "centrecoordinator@gmail.com", "35619927 4 ZX6", "CCC33cc");
 
-        company.getEmployees().add(centreCoordinator);
+        company.getEmployeesStore().getEmployees().add(centreCoordinator);
 
-        company.fillListOfEmployeesWithAGivenRole();
+        company.getEmployeesStore().fillListOfEmployeesWithAGivenRole();
 
-        assertFalse(company.getCenterCoordinatorList().isEmpty());
+        assertFalse(company.getEmployeesStore().getCenterCoordinatorList().isEmpty());
 
     }
 
@@ -99,9 +99,9 @@ class GetListOfEmployeesTest {
      */
     public void fillListOfCentreCoordinatorsFalse() {
 
-        company.fillListOfEmployeesWithAGivenRole();
+        company.getEmployeesStore().fillListOfEmployeesWithAGivenRole();
 
-        assertTrue(company.getCenterCoordinatorList().isEmpty());
+        assertTrue(company.getEmployeesStore().getCenterCoordinatorList().isEmpty());
     }
 
 }

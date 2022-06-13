@@ -1,5 +1,6 @@
 package app.stores;
 
+import app.controller.App;
 import app.domain.model.CenterCoordinator;
 import app.domain.model.Employee;
 import app.domain.model.Nurse;
@@ -25,8 +26,8 @@ public class EmployeesStore {
     private final ArrayList<String> centerCoordinatorIDs = new ArrayList<>();
     private final transient AuthFacade authFacade;
 
-    public EmployeesStore() {
-        this.authFacade = new AuthFacade();
+    public EmployeesStore(AuthFacade authFacade) {
+        this.authFacade = authFacade;
     }
 
     public void centerCoordinatorIDList() {
