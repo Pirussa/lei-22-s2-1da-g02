@@ -4,14 +4,17 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: ANTIQUEWHITE;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.ui.gui.AnalyzeCenterPerformanceGUI">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="light-blue" stylesheets="@../styles/styleSheet.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.ui.gui.AnalyzeCenterPerformanceGUI">
     <top>
         <FlowPane alignment="CENTER" prefHeight="115.0" prefWidth="1356.0" styleClass="top-background" stylesheets="@../styles/styleSheet.css" BorderPane.alignment="CENTER">
             <children>
@@ -28,9 +31,9 @@
         </FlowPane>
     </top>
     <bottom>
-        <FlowPane prefHeight="94.0" prefWidth="1356.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+        <FlowPane prefHeight="94.0" prefWidth="1356.0" styleClass="light-blue" stylesheets="@../styles/styleSheet.css" BorderPane.alignment="CENTER">
             <children>
-                <Pane prefHeight="117.0" prefWidth="200.0" style="-fx-background-color: white;">
+                <Pane prefHeight="117.0" prefWidth="200.0" styleClass="light-blue" stylesheets="@../styles/styleSheet.css">
                     <children>
                         <Button layoutX="22.0" layoutY="29.0" mnemonicParsing="false" onAction="#back" prefHeight="70.0" prefWidth="165.0" style="-fx-background-color: INDIANRED;" styleClass="logout-button" stylesheets="@../styles/styleSheet.css" text="Back" textFill="ANTIQUEWHITE">
                             <font>
@@ -42,39 +45,59 @@
             </children>
         </FlowPane>
     </bottom>
-   <left>
-        <FlowPane alignment="CENTER" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
-            <children>
-                <Pane prefHeight="486.0" prefWidth="713.0">
-                    <effect>
-                        <Bloom threshold="1.0" />
-                    </effect>
-                    <children>
-                        <TextArea fx:id="timeIntervalTxt" layoutX="224.0" layoutY="211.0" opacity="0.58" prefHeight="48.0" prefWidth="289.0" promptText="choose the time interval of your division" visible="false">
-                            <font>
-                                <Font size="15.0" />
-                            </font></TextArea>
-                        <DatePicker fx:id="datePicker" layoutX="212.0" layoutY="100.0" onAction="#setSelectedDate" prefHeight="64.0" prefWidth="312.0" promptText="date to analyze" stylesheets="@../styles/styleSheet.css">
-                            <styleClass>
-                                <String fx:value="transparent" />
-                                <String fx:value="dropdown-menu" />
-                            </styleClass></DatePicker>
-                        <Label layoutX="113.0" layoutY="14.0" prefHeight="69.0" prefWidth="510.0" text="Select the date you want to analyze">
+   <center>
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="TOP_CENTER" prefHeight="488.0" prefWidth="661.0">
+               <children>
+                        <Label prefHeight="84.0" prefWidth="510.0" text="Select the date you want to analyze">
                             <font>
                                 <Font size="32.0" />
                             </font>
                         </Label>
-                        <Button fx:id="analyzeBtn" layoutX="287.0" layoutY="309.0" mnemonicParsing="false" onAction="#analyzeCenterPerformance" styleClass="centerCoordinator-buttons" stylesheets="@../styles/styleSheet.css" text="Analyze" visible="false">
-                            <font>
-                                <Font name="System Bold" size="32.0" />
-                            </font>
+                  <HBox alignment="CENTER" prefHeight="111.0" prefWidth="572.0">
+                     <children>
+                              <DatePicker fx:id="datePicker" onAction="#setSelectedDate" prefHeight="64.0" prefWidth="272.0" promptText="Selete a date" stylesheets="@../styles/styleSheet.css">
+                                  <styleClass>
+                                      <String fx:value="transparent" />
+                                      <String fx:value="dropdown-menu" />
+                                  </styleClass>
+                        </DatePicker>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="43.0" prefWidth="572.0" />
+                  <Label prefHeight="69.0" prefWidth="342.0" text="Select the Time Interval">
+                     <font>
+                        <Font size="32.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="CENTER" prefHeight="90.0" prefWidth="572.0">
+                     <children>
+                        <TextField fx:id="timeIntervalTxt" prefHeight="47.0" prefWidth="274.0" promptText="Select the time Inteval" styleClass="radius-background" stylesheets="@../styles/styleSheet.css" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="84.0" prefWidth="572.0">
+                     <children>
+                        <Button fx:id="analyzeBtn" mnemonicParsing="false" onAction="#analyzeCenterPerformance" prefHeight="40.0" prefWidth="114.0" styleClass="buttons" stylesheets="@../styles/styleSheet.css" text="Analyze">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
                         </Button>
-                    </children>
-                </Pane>
-            </children>
-        </FlowPane>
-   </left>
-   <right>
-      <Pane prefHeight="488.0" prefWidth="411.0" BorderPane.alignment="CENTER" />
-   </right>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox prefHeight="488.0" prefWidth="623.0">
+               <children>
+                  <TableView prefHeight="435.0" prefWidth="580.0">
+                    <columns>
+                      <TableColumn prefWidth="75.0" text="C1" />
+                      <TableColumn prefWidth="75.0" text="C2" />
+                    </columns>
+                  </TableView>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </center>
 </BorderPane>

@@ -49,7 +49,7 @@
                         <Image url="@../Images/record vaccine administration.png" />
                      </image>
                   </ImageView>
-                  <Button mnemonicParsing="false" onAction="#recordVaccineAdministration" prefHeight="93.0" prefWidth="618.0" styleClass="centerCoordinator-buttons" stylesheets="@../styles/styleSheet.css" text="Record Vaccine Administration" textFill="ANTIQUEWHITE">
+                  <Button mnemonicParsing="false" onAction="#recordVaccineAdministration" prefHeight="93.0" prefWidth="618.0" styleClass="buttons" stylesheets="@../styles/styleSheet.css" text="Record Vaccine Administration" textFill="ANTIQUEWHITE">
                      <font>
                         <Font name="System Bold" size="31.0" />
                      </font>

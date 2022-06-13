@@ -69,12 +69,12 @@
                         <Font size="32.0" />
                      </font>
                   </Label>
-                  <Button fx:id="checkStatsBtn" layoutX="310.0" layoutY="231.0" mnemonicParsing="false" onAction="#checkStatistics" styleClass="centerCoordinator-buttons" stylesheets="@../styles/styleSheet.css" text="Check Statistics">
+                  <Button fx:id="checkStatsBtn" layoutX="310.0" layoutY="231.0" mnemonicParsing="false" onAction="#checkStatistics" styleClass="buttons" stylesheets="@../styles/styleSheet.css" text="Check Statistics">
                      <font>
                         <Font name="System Bold" size="32.0" />
                      </font>
                   </Button>
-                  <Button fx:id="exportStatsButton" layoutX="305.0" layoutY="358.0" mnemonicParsing="false" onAction="#exportStatisticsOption" styleClass="centerCoordinator-buttons" stylesheets="@../styles/styleSheet.css" text="Export Statistics">
+                  <Button fx:id="exportStatsButton" layoutX="305.0" layoutY="358.0" mnemonicParsing="false" onAction="#exportStatisticsOption" styleClass="buttons" stylesheets="@../styles/styleSheet.css" text="Export Statistics">
                      <font>
                         <Font name="System Bold" size="32.0" />
                      </font>

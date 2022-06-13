@@ -32,7 +32,7 @@
     -fx-background-color: rgba(0, 0, 0, 0);
 }
 
-.centerCoordinator-buttons {
+.buttons {
     -fx-background-radius: 20;
     -fx-background-color: linear-gradient(#62c8ef, #50a9cc);
     -fx-border-style: solid;
@@ -41,10 +41,44 @@
     -fx-text-fill: white;
 }
 
+.buttons:hover {
+    -fx-background-color: linear-gradient(#d2b43d, #edc531);
+    -fx-border-color: linear-gradient(#fad643, #edc531);
+}
+
+
 .select-option-process {
     -fx-background-color: #f4f4f4;
 }
 
 .dropdown-menu {
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, .3), 10, 0, 0, 1);
+}
+
+
+.border-radius {
+    -fx-background-radius: 15;
+}
+
+.table-view .column-header {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header-background{
+    -fx-background-color: linear-gradient(to bottom, #1dbbdd44, #93f9b944);
+    -fx-background-radius: 15px 15px 0px 0px;
+    -fx-padding: 5 0 7px 0;
+}
+
+.table-view .corner {
+    -fx-background-color: transparent;
+}
+
+.table-view .table-cell{
+    -fx-border-color: transparent;
+    -fx-padding: 2 0 2 10px;
+}
+.table-row-cell:hover {
+    -fx-background-color: #93f9b911;
+    -fx-text-background-color: #142b3e;
 }
