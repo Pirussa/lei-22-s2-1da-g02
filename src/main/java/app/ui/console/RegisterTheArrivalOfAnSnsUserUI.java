@@ -16,7 +16,6 @@ public class RegisterTheArrivalOfAnSnsUserUI implements Runnable {
 
         int vaccinationCenterReceptionist = Utils.selectVaccinationCenterIndex();
         controller.setVaccinationCenter(vaccinationCenterReceptionist);
-        controller.cleanArrivalsList();
 
         int snsNumber;
 

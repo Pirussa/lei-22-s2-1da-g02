@@ -41,6 +41,7 @@ public class VaccinationCenter implements Serializable {
     private final GenericClass<VaccineBulletin> genericsVaccineBulletin = App.getInstance().getCompany().genericsVaccineBulletin;
     private List<ScheduledVaccine> scheduledVaccineList = new ArrayList<>();
     private List<Arrival> arrivalsList = new ArrayList<>();
+    private List<Departure> departuresList = new ArrayList<>();
     private final List<VaccineBulletin> vaccinesAdministeredList = new ArrayList<>();
     private final List<VaccineBulletin> listFullyVaccinated = new ArrayList<>();
     private static final long serialVersionUID = 0;
@@ -516,16 +517,6 @@ public class VaccinationCenter implements Serializable {
         getArrivalsList().add(arrival);
     }
 
-    /**
-     * Cleans the arrivals list
-     */
-    public void cleanArrivalsList() {
-        int currentHour = LocalDateTime.now().getHour();
-
-        if (currentHour == Integer.parseInt(strClosingHour))
-            for (Arrival arrival : arrivalsList)
-                arrivalsList.remove(arrival);
-    }
 
     /**
      * Removes an appointment from the appointments list

@@ -77,13 +77,6 @@ private final VaccinationCentersStore vaccinationCentersStore = company.getVacci
         vaccinationCenter.removeAppointment(appointment);
     }
 
-    /**
-     * Cleans the list of arrivals
-     *
-     */
-    public void cleanArrivalsList() {
-        vaccinationCenter.cleanArrivalsList();
-    }
 
     /**
      * Sets the arrival

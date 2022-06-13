@@ -11,7 +11,7 @@ public class Arrival implements Serializable {
 
     private final int snsNumber;
 
-    private final LocalDateTime dateTime;
+    private final LocalDateTime arrivalTime;
 
     private final VaccineType vaccineType;
 
@@ -23,7 +23,7 @@ public class Arrival implements Serializable {
      */
     public Arrival(int snsNumber, VaccineType vaccineType) {
         this.snsNumber = snsNumber;
-        this.dateTime = LocalDateTime.now();
+        this.arrivalTime = LocalDateTime.now();
         this.vaccineType = vaccineType;
     }
 
@@ -34,6 +34,10 @@ public class Arrival implements Serializable {
      */
     public int getSnsNumber() {
         return snsNumber;
+    }
+
+    public LocalDateTime getArrivalTime() {
+        return arrivalTime;
     }
 
     public VaccineType getVaccineType() {
@@ -48,7 +52,7 @@ public class Arrival implements Serializable {
      */
     @Override
     public String toString() {
-        return "SNS Number: " + snsNumber + " | Day: " + dateTime.getDayOfMonth() + "/" + dateTime.getMonth() + "/" + dateTime.getYear() + " , at " + dateTime.getHour() + ":" + dateTime.getMinute() + " |  Vaccine Type: " + vaccineType;
+        return "SNS Number: " + snsNumber + " | Day: " + arrivalTime.getDayOfMonth() + "/" + arrivalTime.getMonth() + "/" + arrivalTime.getYear() + " , at " + arrivalTime.getHour() + ":" + arrivalTime.getMinute() + " |  Vaccine Type: " + vaccineType;
     }
 
     /**
@@ -67,13 +71,13 @@ public class Arrival implements Serializable {
 
     private boolean validateDate(LocalDateTime appointmentDay) {
 
-        if (appointmentDay.getDayOfMonth() != dateTime.getDayOfMonth())
+        if (appointmentDay.getDayOfMonth() != arrivalTime.getDayOfMonth())
             return false;
 
-        if (appointmentDay.getMonth() != dateTime.getMonth())
+        if (appointmentDay.getMonth() != arrivalTime.getMonth())
             return false;
 
-        return appointmentDay.getYear() == dateTime.getYear();
+        return appointmentDay.getYear() == arrivalTime.getYear();
     }
 
     private boolean validateTime(LocalDateTime appointmentTime, VaccinationCenter vaccinationCenter) {
@@ -81,7 +85,7 @@ public class Arrival implements Serializable {
         LocalDateTime minusTime = subtractTimes(slotDuration, appointmentTime);
         LocalDateTime plusTime = sumTimes(appointmentTime);
 
-        return (dateTime.getHour() == minusTime.getHour() && dateTime.getMinute() >= minusTime.getMinute()) && dateTime.getHour() <= plusTime.getHour() ;
+        return (arrivalTime.getHour() == minusTime.getHour() && arrivalTime.getMinute() >= minusTime.getMinute()) && arrivalTime.getHour() <= plusTime.getHour() ;
     }
 
     private LocalDateTime subtractTimes(int slotDuration, LocalDateTime appointmentTime) {

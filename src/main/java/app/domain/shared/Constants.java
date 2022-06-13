@@ -79,6 +79,8 @@ public class Constants {
 
     public static final String FILE_PATH_ARRIVALS = "arrivals";
 
+    public static final String FILE_PATH_DEPARTURES = "departures";
+
     public static final String FILE_PATH_VACCINES = "vaccine";
 
     public static final String FILE_PATH_APPOINTMENTS = "appointments";
