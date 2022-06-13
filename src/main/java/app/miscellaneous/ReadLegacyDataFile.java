@@ -54,19 +54,19 @@ public class ReadLegacyDataFile {
      * @throws NotSerializableException the not serializable exception
      */
     public boolean updateLegacyFile() throws NotSerializableException {
-        if (!company.getSnsUserList().isEmpty() && !company.getVaccinesList().isEmpty()) {
+        if (!company.getSnsUsersStore().getSnsUserList().isEmpty() && !company.getVaccinesList().isEmpty()) {
             for (int lineOfTheData = 0; lineOfTheData < legacyDataList.size(); lineOfTheData++) {
                 String[] values;
                 int positionInSnsUserList = 0;
                 int positionInVaccinesList = 0;
                 values = legacyDataList.get(lineOfTheData).split("\\|");
 
-                for ( positionInSnsUserList = 0; positionInSnsUserList < company.getSnsUserList().size(); positionInSnsUserList++) {
-                    if (company.getSnsUserList().get(positionInSnsUserList).getSnsUserNumber() == Integer.parseInt(values[0])) {
+                for ( positionInSnsUserList = 0; positionInSnsUserList < company.getSnsUsersStore().getSnsUserList().size(); positionInSnsUserList++) {
+                    if (company.getSnsUsersStore().getSnsUserList().get(positionInSnsUserList).getSnsUserNumber() == Integer.parseInt(values[0])) {
                         break;
                     }
                 }
-                legacyDataList.set(lineOfTheData, company.getSnsUserList().get(positionInSnsUserList).getStrName() + "|" + legacyDataList.get(lineOfTheData));
+                legacyDataList.set(lineOfTheData, company.getSnsUsersStore().getSnsUserList().get(positionInSnsUserList).getStrName() + "|" + legacyDataList.get(lineOfTheData));
 
                 for ( positionInVaccinesList = 0; positionInVaccinesList < company.getVaccinesList().size(); positionInVaccinesList++) {
                     if (company.getVaccinesList().get(positionInVaccinesList).getName().equals(values[1])) {

@@ -52,7 +52,7 @@ class registerDailyTotalOfVaccinatedPeopleTest {
 
         //SNSUsers
         SnsUser snsUser = new SnsUser("User Default", "Male", "01/01/1998", "Default # 4000-000 # Default", "915604428", "u@gmail.com", 100000000, "14698413 7 ZY7", "AAA00aa");
-        company.getSnsUserList().add(snsUser);
+        company.getSnsUsersStore().getSnsUserList().add(snsUser);
 
         //Appointment
         ScheduledVaccine appointment = new ScheduledVaccine(100000000, vt1, LocalDateTime.of(2022, 6, 7, 18, 20));

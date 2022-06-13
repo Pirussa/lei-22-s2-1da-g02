@@ -23,7 +23,7 @@ public class LoadCSVController {
      * @return the sns user
      */
     public SnsUser createSNSUser(SnsUserDto dto) {
-        return company.createSNSUser(dto);
+        return company.getSnsUsersStore().createSNSUser(dto);
     }
 
     /**
@@ -33,7 +33,7 @@ public class LoadCSVController {
      * @return a string that confirms if the User was saved or not
      */
     public boolean saveSNSUser(SnsUserDto dto){
-        return company.saveSNSUser(dto);
+        return company.getSnsUsersStore().saveSNSUser(dto);
     }
 
     /**
@@ -42,7 +42,7 @@ public class LoadCSVController {
      * @return the array list of SNS Users
      */
     public ArrayList<SnsUser> getSNSUserList(){
-        return company.getSnsUserList();
+        return company.getSnsUsersStore().getSnsUserList();
     }
 
 

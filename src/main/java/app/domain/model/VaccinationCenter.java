@@ -445,7 +445,7 @@ public class VaccinationCenter implements Serializable {
      * @return true if the appointment is validated according to age group and time since last dose.
      */
     public boolean validateAppointmentAccordingToAgeGroupAndTimeSinceLastDose(ScheduledVaccineDto scheduledVaccineDto, Company company) {
-        SnsUser snsUser = company.getSnsUserList().get(company.getUserIndexInUsersList(scheduledVaccineDto.snsNumber));
+        SnsUser snsUser = company.getSnsUsersStore().getSnsUserList().get(company.getUserIndexInUsersList(scheduledVaccineDto.snsNumber));
 
         if (!snsUser.administratedVaccines().isEmpty()) {
             for (VaccineBulletin vaccineBulletin : snsUser.administratedVaccines()) {

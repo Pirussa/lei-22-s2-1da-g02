@@ -49,8 +49,8 @@ public class Utils {
     }
 
     private static void bootstrapSnsUsers() {
-        company.readBinaryFileSnsUsers();
-        company.authenticateSNSUser();
+        company.getSnsUsersStore().readBinaryFileSnsUsers();
+        company.getSnsUsersStore().authenticateSNSUser();
     }
 
     private static void bootstrapVaccines() {

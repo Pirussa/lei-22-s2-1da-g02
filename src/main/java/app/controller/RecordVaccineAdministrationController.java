@@ -153,12 +153,12 @@ public class RecordVaccineAdministrationController {
      */
     public SnsUserDto getSnsUserInformation(int selectedUser) {
         SnsUserMapper snsUserMapper = new SnsUserMapper();
-        return snsUserMapper.domainToSNSUserDto(company.getSnsUserList().get(snsUserIndexInList(selectedUser)));
+        return snsUserMapper.domainToSNSUserDto(company.getSnsUsersStore().getSnsUserList().get(snsUserIndexInList(selectedUser)));
     }
 
     private int snsUserIndexInList(int selectedUser) {
-        for (int index = 0; index < company.getSnsUserList().size(); index++) {
-            if (vaccinationCenter.getArrivalsList().get(selectedUser).getSnsNumber() == company.getSnsUserList().get(index).getSnsUserNumber()) {
+        for (int index = 0; index < company.getSnsUsersStore().getSnsUserList().size(); index++) {
+            if (vaccinationCenter.getArrivalsList().get(selectedUser).getSnsNumber() == company.getSnsUsersStore().getSnsUserList().get(index).getSnsUserNumber()) {
                 return index;
             }
         }
@@ -348,8 +348,8 @@ public class RecordVaccineAdministrationController {
 
     public List<String> users() {
         ArrayList<String> ola = new ArrayList<>();
-        for (int i = 0; i < company.getSnsUserList().size(); i++) {
-            ola.add(String.valueOf(company.getSnsUserList().get(i).getSnsUserNumber()));
+        for (int i = 0; i < company.getSnsUsersStore().getSnsUserList().size(); i++) {
+            ola.add(String.valueOf(company.getSnsUsersStore().getSnsUserList().get(i).getSnsUserNumber()));
         }
         return ola;
     }

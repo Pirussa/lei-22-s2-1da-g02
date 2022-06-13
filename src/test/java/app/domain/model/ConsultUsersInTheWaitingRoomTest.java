@@ -54,8 +54,8 @@ class ConsultUsersInTheWaitingRoomTest {
         SnsUser snsuser1 = new SnsUser("User Default", "Male", "01/01/1998", "Default # 4000-000 # Default", "915604428", "u@gmail.com", 100000000, "14698413 7 ZY7", "AAA00aa");
         SnsUser snsuser2 = new SnsUser("User Default1", "Male", "01/01/2003", "Default # 4000-001 # Default", "915604429", "u1@gmail.com", 200000000, "16068893 0 ZX7", "AAA11aa");
 
-        company.getSnsUserList().add(snsuser1);
-        company.getSnsUserList().add(snsuser2);
+        company.getSnsUsersStore().getSnsUserList().add(snsuser1);
+        company.getSnsUsersStore().getSnsUserList().add(snsuser2);
 
 
     }

@@ -91,8 +91,8 @@ public class ScheduleVaccineController {
      */
     public List<Integer> getSnsUsersList() {
         List<Integer> snsUserNameList = new ArrayList<>();
-        for (int position = 0; position < company.getSnsUserList().size(); position++)
-            snsUserNameList.add(company.getSnsUserList().get(position).getSnsUserNumber());
+        for (int position = 0; position < company.getSnsUsersStore().getSnsUserList().size(); position++)
+            snsUserNameList.add(company.getSnsUsersStore().getSnsUserList().get(position).getSnsUserNumber());
         return snsUserNameList;
     }
 
@@ -102,7 +102,7 @@ public class ScheduleVaccineController {
      * @return the user phone number
      */
     public int getUserPhoneNumber() {
-        for (SnsUser user : company.getSnsUserList()) {
+        for (SnsUser user : company.getSnsUsersStore().getSnsUserList()) {
             if (user.getStrEmail().equals(String.valueOf(authFacade.getCurrentUserSession().getUserId())) || authFacade.getCurrentUserSession().isLoggedInWithRole("Receptionist")) {
                 return Integer.parseInt(user.getStrPhoneNumber());
             }
@@ -116,7 +116,7 @@ public class ScheduleVaccineController {
      * @return the sns user number
      */
     public int getSnsUserNumber() {
-        for (SnsUser user : company.getSnsUserList()) {
+        for (SnsUser user : company.getSnsUsersStore().getSnsUserList()) {
             if (user.getStrEmail().equals(String.valueOf(authFacade.getCurrentUserSession().getUserId()))) {
                 return user.getSnsUserNumber();
             }
@@ -130,7 +130,7 @@ public class ScheduleVaccineController {
      * @return true if all the arrays have at least one object each
      */
     public boolean companyHasNecessaryInfo() {
-        if (company.getSnsUserList().isEmpty()) return false;
+        if (company.getSnsUsersStore().getSnsUserList().isEmpty()) return false;
         if (company.getVaccineTypesStore().getVaccineTypes().isEmpty()) return false;
         return !vaccinationCentersStore.getVaccinationCenters().isEmpty();
     }

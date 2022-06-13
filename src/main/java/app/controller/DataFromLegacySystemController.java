@@ -34,7 +34,7 @@ public class DataFromLegacySystemController {
      * @return the sns user list
      */
     public ArrayList<SnsUser> getSNSUserList() {
-        return company.getSnsUserList();
+        return company.getSnsUsersStore().getSnsUserList();
     }
 
     /**

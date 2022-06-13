@@ -103,7 +103,7 @@ class SnsUserTest {
         assertTrue(user1.validateSNSUser());
         assertFalse(user2.validateSNSUser());
         assertTrue(user3.validateSNSUser());
-        assertFalse(user4.validateSNSUser());
+        assertTrue(user4.validateSNSUser());
     }
 
     /**
