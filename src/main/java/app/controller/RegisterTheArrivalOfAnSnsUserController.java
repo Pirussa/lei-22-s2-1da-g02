@@ -97,7 +97,7 @@ private final VaccinationCentersStore vaccinationCentersStore = company.getVacci
      */
     public void exportDataToFile() throws NotSerializableException {
         for (VaccinationCenter vaccinationCenter : vaccinationCentersStore.getVaccinationCenters()) {
-            generics.binaryFileWrite(Constants.FILE_PATH_SNS_USERS, vaccinationCenter.getArrivalsList());
+            generics.binaryFileWrite(Constants.FILE_PATH_ARRIVALS, vaccinationCenter.getArrivalsList());
         }
     }
 }

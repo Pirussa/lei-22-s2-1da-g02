@@ -108,6 +108,7 @@ public class RecordVaccineAdministrationGUI {
             disableComboBoxUser();
             disableCheckBoxUser();
             vaccineList.setDisable(false);
+            controller.setVaccineType(userList.getSelectionModel().getSelectedIndex());
         }
     }
 
@@ -216,7 +217,6 @@ public class RecordVaccineAdministrationGUI {
     }
 
     private void getVaccineTypeName() {
-        controller.setVaccineType(userList.getSelectionModel().getSelectedIndex());
         vaccineTypeTxt.setText(controller.getVaccineTypeName());
     }
 

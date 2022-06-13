@@ -244,7 +244,6 @@ public class Company implements Serializable {
                 this.authFacade.addUserWithRole(snsUser.getStrName(), snsUser.getStrEmail(), snsUser.getStrPassword(), Constants.ROLE_SNS_USER);
             }
         }
-
     }
 
     /**

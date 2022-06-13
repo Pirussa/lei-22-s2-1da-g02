@@ -75,7 +75,7 @@ public class RecordVaccineAdministrationController {
      * @param currentAppointment the current appointment
      */
     public void setVaccine(int currentAppointment) {
-        if (!snsUser.administratedVaccines().isEmpty())
+        if (snsUser.administratedVaccines()!=null)
             vaccine = snsUser.administratedVaccines().get(currentAppointment).getVaccine();
         else
             vaccine = vaccineTypeAvailableVaccines().get(currentAppointment);
@@ -139,7 +139,8 @@ public class RecordVaccineAdministrationController {
      */
     public List<String> fillListWithUserSnsNumber() {
         ArrayList<String> userSnsNumber = new ArrayList<>();
-        for (Arrival arrival : vaccinationCenter.getArrivalsList()) userSnsNumber.add("SNS Number - " + arrival.getSnsNumber());
+        for (Arrival arrival : vaccinationCenter.getArrivalsList())
+            userSnsNumber.add("SNS Number - " + arrival.getSnsNumber());
         return userSnsNumber;
     }
 
@@ -174,10 +175,8 @@ public class RecordVaccineAdministrationController {
         int userAge = snsUser.getUserAge();
         ArrayList<Vaccine> vaccines = (ArrayList<Vaccine>) vaccineTypeAvailableVaccines();
         for (int columns = 0; columns < vaccines.get(indexVaccine).getAdminProcess().getAgeGroups().get(0).size(); columns++) {
-            for (int rows = 0; rows < vaccines.get(indexVaccine).getAdminProcess().getAgeGroups().size() - 1; rows++) {
-                if ((userAge > vaccines.get(indexVaccine).getAdminProcess().getAgeGroups().get(columns).get(rows)) && userAge < vaccines.get(indexVaccine).getAdminProcess().getAgeGroups().get(columns).get(rows + 1) && rows == 0) {
-                    return columns;
-                }
+            if ((userAge > vaccines.get(indexVaccine).getAdminProcess().getAgeGroups().get(0).get(columns)) && userAge < vaccines.get(indexVaccine).getAdminProcess().getAgeGroups().get(1).get(columns)) {
+                return columns;
             }
         }
         return -1;
@@ -199,7 +198,7 @@ public class RecordVaccineAdministrationController {
      * @return the number of doses
      */
     public int getUserNumberOfDoses() {
-        if (!snsUser.administratedVaccines().isEmpty())
+        if (snsUser.administratedVaccines() != null)
             return (snsUser.administratedVaccines().get(findLastDoseOfVaccineType()).getDose());
         return Constants.FIRST_DOSE;
     }
@@ -211,9 +210,11 @@ public class RecordVaccineAdministrationController {
      * @return the index of the last taken vaccine, since it contains the number of doses taken by each vaccine type
      */
     public int findLastDoseOfVaccineType() {
-        for (int index = snsUser.administratedVaccines().size() - 1; index >= 0; index--) {
-            if (vaccineType.equals(snsUser.administratedVaccines().get(index).getVaccine().getVaccineType()))
-                return index;
+        if (snsUser.administratedVaccines() != null) {
+            for (int index = snsUser.administratedVaccines().size() - 1; index >= 0; index--) {
+                if (vaccineType.equals(snsUser.administratedVaccines().get(index).getVaccine().getVaccineType()))
+                    return index;
+            }
         }
         return Constants.FIRST_DOSE;
     }
@@ -302,9 +303,9 @@ public class RecordVaccineAdministrationController {
     public void registerVaccineInVaccineBulletin() {
         VaccineBulletinMapper vaccineBulletinMapper = new VaccineBulletinMapper();
 
-        if (vaccineBulletinMapper.VaccineBulletinDtoToDomain(snsUserAddVaccineBulletin()).isLastDose(vaccine.getUserAgeGroupIndex(snsUser.getUserAge()))) {
-            vaccinationCenter.addFullyVaccinated(vaccineBulletinMapper.VaccineBulletinDtoToDomain(snsUserAddVaccineBulletin()));
-        }
+//        if (vaccineBulletinMapper.VaccineBulletinDtoToDomain(snsUserAddVaccineBulletin()).isLastDose(vaccine.getUserAgeGroupIndex(snsUser.getUserAge()))) {
+//            vaccinationCenter.addFullyVaccinated(vaccineBulletinMapper.VaccineBulletinDtoToDomain(snsUserAddVaccineBulletin()));
+//        }
         vaccinationCenter.addAdministeredVaccine(vaccineBulletinMapper.VaccineBulletinDtoToDomain(snsUserAddVaccineBulletin()));
         snsUser.registerVaccine(vaccineBulletinMapper.VaccineBulletinDtoToDomain(snsUserAddVaccineBulletin()));
     }

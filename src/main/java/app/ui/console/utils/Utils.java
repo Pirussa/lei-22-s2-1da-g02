@@ -4,6 +4,7 @@ import app.controller.*;
 import app.domain.model.*;
 import app.domain.shared.Constants;
 import app.domain.shared.GenericClass;
+import app.dto.RegisterNewEmployeeDto;
 import app.stores.VaccinationCentersStore;
 import app.stores.VaccineTypesStore;
 import pt.isep.lei.esoft.auth.domain.model.Email;
@@ -13,6 +14,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -58,6 +60,13 @@ public class Utils {
         for (VaccinationCenter center : VACCINATION_CENTERS_STORE.getVaccinationCenters()) {
             center.readBinaryFilesAppointments();
         }
+
+        ScheduledVaccine scheduledVaccine = new ScheduledVaccine(161593120, company.getVaccineTypesStore().getVaccineTypes().get(0), LocalDateTime.of(2022, 6, 13, 15, 0));
+        try {
+            company.getVaccinationCentersStore().getVaccinationCenters().get(0).addAppointment(scheduledVaccine);
+        } catch (NotSerializableException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private static void bootstrapAdministeredVaccines() {
@@ -72,9 +81,6 @@ public class Utils {
         try {
             for (VaccinationCenter vaccinationCenter : VACCINATION_CENTERS_STORE.getVaccinationCenters()) {
                 genericsClass.binaryFileRead(Constants.FILE_PATH_ARRIVALS, vaccinationCenter.getArrivalsList());
-                for (Arrival arrival : vaccinationCenter.getArrivalsList()) {
-                    System.out.println(arrival);
-                }
             }
         } catch (EOFException e) {
             e.printStackTrace();
