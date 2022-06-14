@@ -27,9 +27,6 @@ public class CheckListVacStatsGUI {
     private final CheckAndExportVaccinationStatsController controller = new CheckAndExportVaccinationStatsController();
 
     @FXML
-    private ListView<String> statsListView;
-
-    @FXML
     private TableView<VaccinationCenterStats> tableView;
 
     @FXML
@@ -38,39 +35,16 @@ public class CheckListVacStatsGUI {
     @FXML
     private TableColumn<VaccinationCenterStats, String> totalVaccinatedCollumn;
 
-    private LocalDate firstDate;
-    private LocalDate lastDate;
-
-    /**
-     * Sets first date.
-     *
-     * @param firstDate the first date
-     */
-    public void setFirstDate(LocalDate firstDate) {
-        this.firstDate = firstDate;
-    }
-
-    /**
-     * Sets last date.
-     *
-     * @param lastDate the last date
-     */
-    public void setLastDate(LocalDate lastDate) {
-        this.lastDate = lastDate;
-    }
-
     /**
      * Sets the list view with the Vaccination Statistics.
      *
-     * @param firstDate the first date
-     * @param lastDate  the last date
      */
-    public void setStatsListView(LocalDate firstDate, LocalDate lastDate ) {
-        String[][] stats = new String[controller.getVaccinationStatsListBetweenDates(firstDate, lastDate).size()][2];
+    public void setStatsTable() {
+        String[][] stats = new String[controller.getVaccinationStatsListBetweenDates().size()][2];
         ObservableList<VaccinationCenterStats> statsList = FXCollections.observableArrayList();
 
         for (int position = 0; position < stats.length; position++) {
-            stats[position] = controller.getVaccinationStatsListBetweenDates(firstDate, lastDate).get(position).split(";");
+            stats[position] = controller.getVaccinationStatsListBetweenDates( ).get(position).split(";");
             statsList.add(new VaccinationCenterStats(stats[position][0], stats[position][1]));
         }
 
@@ -92,10 +66,8 @@ public class CheckListVacStatsGUI {
         root = loader.load();
 
         CheckAndExportVacStatsGUI mainScene = loader.getController();
-        mainScene.setFirstDate(firstDate);
-        mainScene.setLastDate(lastDate);
-        mainScene.setFirstDatePicker(firstDate);
-        mainScene.setLastDatePicker(lastDate);
+        mainScene.setFirstDatePicker(controller.getFirstDate());
+        mainScene.setLastDatePicker(controller.getLastDate());
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);

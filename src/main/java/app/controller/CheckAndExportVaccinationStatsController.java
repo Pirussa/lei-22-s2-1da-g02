@@ -12,11 +12,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -74,7 +71,6 @@ public class CheckAndExportVaccinationStatsController {
         center = store.getVaccinationCenterAssociatedToCoordinator(id);
     }
 
-
     /**
      * Check if dates are valid.
      *
@@ -106,12 +102,9 @@ public class CheckAndExportVaccinationStatsController {
 
     /**
      * Gets vaccination stats list between dates.
-     *
-     * @param firstDate the first date
-     * @param lastDate  the last date
      * @return the vaccination stats list between dates
      */
-    public List<String> getVaccinationStatsListBetweenDates(LocalDate firstDate, LocalDate lastDate) {
+    public List<String> getVaccinationStatsListBetweenDates() {
         return center.getVaccinationStatsListBetweenDates(firstDate, lastDate);
     }
 
@@ -128,9 +121,7 @@ public class CheckAndExportVaccinationStatsController {
 
         CheckListVacStatsGUI nextSceneUi = loader.getController();
 
-        nextSceneUi.setFirstDate(firstDate);
-        nextSceneUi.setLastDate(lastDate);
-        nextSceneUi.setStatsListView(firstDate, lastDate);
+        nextSceneUi.setStatsTable();
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);

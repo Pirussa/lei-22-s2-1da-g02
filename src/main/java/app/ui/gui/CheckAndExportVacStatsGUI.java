@@ -23,15 +23,6 @@ public class CheckAndExportVacStatsGUI {
 
     private final CheckAndExportVaccinationStatsController controller = new CheckAndExportVaccinationStatsController();
 
-
-    public void setFirstDate(LocalDate firstDate) {
-        controller.setFirstDate(firstDate);
-    }
-
-    public void setLastDate(LocalDate lastDate) {
-        controller.setLastDate(lastDate);
-    }
-
     @FXML
     private DatePicker firstDatePicker;
 

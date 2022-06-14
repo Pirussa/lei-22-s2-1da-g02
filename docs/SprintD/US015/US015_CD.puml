@@ -1,0 +1,110 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+
+
+class CheckAndExportVacStatsGUI {
+-controller : CheckAndExportVaccinationStatsController
+-firstDatePicker : DatePicker
+-lastDatePicker : DatePicker
+-okBtn : Button
+-askFileNameTxt : TextArea
+
++CheckAndExportVacStatsGUI()
++back(event)
++setFirstDate(firstDate)
++setLastDate(lastDate)
++setFirstDatePicker(firstDate)
++setLastDatePicker(lastDate)
++checkStatistics(event)
++exportStatistics(event)
++exportStatisticsOption(event)
+-toCheckVacStatsScene(event)
+-toCenterCoordinatorMenu(event)
+
+}
+
+class CheckListVacStatsGUI {
+-controller : CheckAndExportVaccinationStatsController
+-tableView : TableView
+-dateColumn : TableColumn
+-totalVaccinatedColumn : TableColumn
++CheckListVacStatsGUI()
++setStatsTable()
++back(event)
+}
+
+
+
+class CheckAndExportVaccinationStatsController {
+-center : VaccinationCenter
+- firstDate : LocalDate
+- lastDate : LocalDate
++CheckAndExportVaccinationStatsController()
++setFirstDate(firstDate)
++setLastDate(lastDate)
++getFirstDate()
++getLastDate()
++checkIfDatesAreValid()
++exportVaccinationStatistics(fileName)
++getVaccinationStatsListBetweenDates()
++toCheckVaccinationStatsScene(event)
+}
+
+
+
+class Company{
+
+}
+
+class VaccinationCenter {
+-id
+-name
+-phoneNumber
+-email
+-fax
+-website
+-openingHour
+-closingHour
+-slotDuration
+-vaccinesPerSlot
+-road
+-zipCode
+-local
+-centerCoordinatorID
++VaccinationCenter(id, name, phoneNumber, email, fax, website, openingHour, closingHour, slotDuration, vaccinesPerSlot, road, zipCode, local, centerCoordinatorID)
++addFullyVaccinated(newAdministration)
+-getVaccinationStatsList()
++getVaccinationStatsListBetweenDates(firstDate, lastDate)
++getFirstDateAvailable(listFullyVaccinated)
+}
+
+class VaccinationCentersStore {
+-vaccinationCenters : List<VaccinationCenter>
++getVaccinationCenters()
++getVaccinationCenterAssociatedToCoordinator(coordinatorId)
+
+}
+
+
+'UI
+CheckAndExportVacStatsGUI ..> CheckListVacStatsGUI
+CheckAndExportVacStatsGUI ..> CheckAndExportVaccinationStatsController
+CheckListVacStatsGUI ..> CheckAndExportVaccinationStatsController
+
+'CONTROLLER
+
+CheckAndExportVaccinationStatsController ..> VaccinationCentersStore
+CheckAndExportVaccinationStatsController ..> VaccinationCenter
+CheckAndExportVaccinationStatsController ..> Company
+
+
+
+'DOMAIN
+
+Company "1" -- "1" VaccinationCentersStore : has >
+Company "1" -- "*" VaccinationCenter : has >
+VaccinationCentersStore "1" -- "*" VaccinationCenter : has >
+
+
+@enduml

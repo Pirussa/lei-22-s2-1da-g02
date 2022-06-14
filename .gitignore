@@ -53,3 +53,6 @@ Thumbs.db
 /Serialization/employees
 /Serialization/appointments
 /Serialization/arrivals
+/Serialization/departures
+/Serialization/vaccinationcenters
+/Serialization/vaccine

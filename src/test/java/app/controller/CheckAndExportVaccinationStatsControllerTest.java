@@ -79,8 +79,9 @@ class CheckAndExportVaccinationStatsControllerTest {
 
         LocalDate firstDate = LocalDate.now().minusDays(5);
         LocalDate secondDate = LocalDate.now();
-
-        assertEquals(2, controller.getVaccinationStatsListBetweenDates(firstDate, secondDate).size());
+controller.setFirstDate(firstDate);
+        controller.setLastDate(secondDate);
+        assertEquals(2, controller.getVaccinationStatsListBetweenDates().size());
     }
 
 
