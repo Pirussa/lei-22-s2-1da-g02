@@ -12,6 +12,7 @@ import java.io.*;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * The type Data from legacy system controller.
@@ -20,7 +21,7 @@ public class DataFromLegacySystemController {
 
     private final ReadLegacyDataFile readLegacyDataFile = new ReadLegacyDataFile();
     private final Company company = App.getInstance().getCompany();
-
+    private List<String> sortedList;
     /**
      * Instantiates a new Data from legacy system controller.
      */
@@ -137,5 +138,50 @@ public class DataFromLegacySystemController {
       return readLegacyDataFile.heapSortDescending();
     }
 
+
+    public void chooseCriteriaToSort(int option) {
+        final int ArrivalOption = 6;
+        final int LeaveOption = 8;
+        switch (option) {
+            case 0:
+                setList(ArrivalOption);
+                break;
+            case 1:
+                setList(LeaveOption);
+                break;
+            case 2:
+                break;
+        }
+    }
+
+    public List<String> sortListWithAlgo(String algorithm, int option) {
+        switch (algorithm) {
+            case "HeapSort":
+                switch (option) {
+                    case 0:
+                        sortedList = heapAscending();
+                        return sortedList;
+                    case 1:
+                        sortedList = heapDescending();
+                        return sortedList;
+                    case 2:
+                        break;
+                }
+                break;
+            case "MergeSort":
+                switch (option) {
+                    case 0:
+                        sortedList = mergeAscending(getListToSort(), 0, getListToSort().size() - 1);
+                        return sortedList;
+                    case 1:
+                        sortedList =  mergeDescending(getListToSort(), 0, getListToSort().size() - 1);
+                        return sortedList;
+                    case 2:
+                        break;
+                }
+                break;
+        }
+        return null;
+    }
 
 }

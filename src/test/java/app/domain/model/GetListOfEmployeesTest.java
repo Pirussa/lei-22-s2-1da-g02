@@ -2,7 +2,6 @@ package app.domain.model;
 
 import app.controller.App;
 import org.junit.jupiter.api.Test;
-import pt.isep.lei.esoft.auth.domain.model.Email;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -19,12 +18,11 @@ class GetListOfEmployeesTest {
     Company company = App.getInstance().getCompany();
 
 
-    @Test
 
     /**
      * Verifies if the list of nurses is filled.
      */
-
+    @Test
     public void fillListOfNurses() {
         Employee nurse = new Nurse("NR-12345", "Nurse", "Rua / 1111-111 / Portugal", "912345678", "nurse@gmail.com", "11960343 8 ZW1", "AAA11aa");
 
@@ -36,40 +34,40 @@ class GetListOfEmployeesTest {
     }
 
 
-//    @Test
-    /**
-     * Verifies if the list of nurses is empty.
-     */
 
- //  public void fillListOfNursesFalse() {
+/**
+ * Verifies if the list of nurses is empty.
+ */
+@Test
+public void fillListOfNursesFalse(){
 
- //      company.getEmployeesStore().fillListOfEmployeesWithAGivenRole();
+    company.getEmployeesStore().fillListOfEmployeesWithAGivenRole();
 
- //      assertTrue(company.getEmployeesStore().getNurseList().isEmpty());
- //  }
+    assertTrue(company.getEmployeesStore().getReceptionistList().isEmpty());
+}
 
 
-  //  @Test
+
     /**
      * Verifies if the list of receptionists is filled.
      */
-
- //   public void fillListOfReceptionists() {
- //       Employee receptionist = new Receptionist("RC-12345", "Receptionist", "Rua / 2222-222 / Portugal", "913456789",  "receptionist@gmail.com", "14268862 2 ZX8", "BBB22bb");
-//
- //       company.getEmployeesStore().getEmployees().add(receptionist);
-//
- //       company.getEmployeesStore().fillListOfEmployeesWithAGivenRole();
-//
- //       assertTrue(company.getEmployeesStore().getReceptionistList().isEmpty());
-//
- //   }
-
     @Test
+    public void fillListOfReceptionists() {
+        Employee receptionist = new Receptionist("RC-12345", "Receptionist", "Rua / 2222-222 / Portugal", "913456789",  "receptionist@gmail.com", "14268862 2 ZX8", "BBB22bb");
+
+        company.getEmployeesStore().getEmployees().add(receptionist);
+
+        company.getEmployeesStore().fillListOfEmployeesWithAGivenRole();
+
+        assertFalse(company.getEmployeesStore().getReceptionistList().isEmpty());
+
+    }
+
+
     /**
      * Verifies if the list of receptionists is empty.
      */
-
+    @Test
     public void fillListOfReceptionistsFalse() {
 
         company.getEmployeesStore().fillListOfEmployeesWithAGivenRole();
@@ -77,11 +75,11 @@ class GetListOfEmployeesTest {
         assertTrue(company.getEmployeesStore().getReceptionistList().isEmpty());
     }
 
-    @Test
+
     /**
      * Verifies if the list of centre coordinators is filled
      */
-
+    @Test
     public void fillListOfCentreCoordinators() {
         Employee centreCoordinator = new CenterCoordinator("CC-12345", "Centre Coordinator", "Rua / 3333-333 / Portugal", "914567894", "centrecoordinator@gmail.com", "35619927 4 ZX6", "CCC33cc");
 
@@ -93,10 +91,11 @@ class GetListOfEmployeesTest {
 
     }
 
-    @Test
+
     /**
      * Verifies if the list of centre coordinators is empty.
      */
+    @Test
     public void fillListOfCentreCoordinatorsFalse() {
 
         company.getEmployeesStore().fillListOfEmployeesWithAGivenRole();
