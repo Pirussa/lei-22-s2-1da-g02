@@ -90,9 +90,11 @@ public class DataFromLegacySystemUI implements Runnable {
                 switch (optionTwo) {
                     case 0:
                        sortedList = controller.mergeAscending(controller.getListToSort(), 0, controller.getListToSort().size() - 1);
+                       printSortedArray(sortedList);
                         break;
                     case 1:
                         sortedList =  controller.mergeDescending(controller.getListToSort(), 0, controller.getListToSort().size() - 1);
+                        printSortedArray(sortedList);
                         break;
                     case 2:
                         break;
@@ -104,8 +106,8 @@ public class DataFromLegacySystemUI implements Runnable {
 
     public void printSortedArray(List<String> sortedList) {
         System.out.println("Sorted Array:");
-        for (String line : sortedList) {
-            System.out.println(line);
+        for (int position = 0; position < sortedList.size(); position++) {
+            System.out.println(sortedList.get(position));
         }
     }
 

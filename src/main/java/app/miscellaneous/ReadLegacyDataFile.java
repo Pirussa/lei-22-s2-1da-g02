@@ -131,7 +131,7 @@ public class ReadLegacyDataFile {
                 updatedList.set(copyOfPos5++, strItem);
             }
 
-            writeArrayToFile(updatedList);
+            //writeArrayToFile(updatedList);
         }
 
         return updatedList;
@@ -186,7 +186,7 @@ public class ReadLegacyDataFile {
             for (String strItem : tempList) {
                 updatedList.set(copyOfPos5++, strItem);
             }
-            writeArrayToFile(updatedList);
+            //writeArrayToFile(updatedList);
         }
         return  updatedList;
     }
