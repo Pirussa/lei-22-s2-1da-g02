@@ -5,13 +5,14 @@ import app.domain.shared.Constants;
 import app.domain.shared.GenericClass;
 
 import java.io.EOFException;
+import java.io.NotSerializableException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DepartureStore {
 
     private final ArrayList<Departure> departures = new ArrayList<>();
-    private final GenericClass<Departure> genericsVaccineType = new GenericClass<>();
+ //   private final GenericClass<Departure> genericsVaccineType = new GenericClass<>();
 
 
     /**
@@ -35,11 +36,12 @@ public class DepartureStore {
     /**
      * Read binary file departures.
      */
-    public void readBinaryFileDepartures() {
+    /*
+    public void readBinaryFileDepartures() throws NotSerializableException {
         try {
             genericsVaccineType.binaryFileRead(Constants.FILE_PATH_DEPARTURES, departures);
         } catch (EOFException e) {
             e.printStackTrace();
         }
-    }
+    } */
 }

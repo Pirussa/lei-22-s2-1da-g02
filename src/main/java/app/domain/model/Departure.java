@@ -27,9 +27,11 @@ public class Departure {
      * Exports the list of Users that arrived at a vaccination center to a binary file.
      * @throws NotSerializableException
      */
+    /*
     public void exportDataToFile() throws NotSerializableException {
         for (VaccinationCenter vaccinationCenter : vaccinationCentersStore.getVaccinationCenters()) {
             generics.binaryFileWrite(Constants.FILE_PATH_ARRIVALS, vaccinationCenter.getArrivalsList());
         }
     }
+    */
 }

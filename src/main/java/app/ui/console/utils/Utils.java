@@ -4,6 +4,7 @@ import app.controller.*;
 import app.domain.model.*;
 import app.domain.shared.Constants;
 import app.domain.shared.GenericClass;
+import app.dto.MassVaccinationCenterDto;
 import app.dto.RegisterNewEmployeeDto;
 import app.stores.DepartureStore;
 import app.stores.VaccinationCentersStore;
@@ -38,43 +39,11 @@ public class Utils {
     private static void bootstrapEmployees() {
         company.getEmployeesStore().readBinaryFileEmployees();
         company.getEmployeesStore().authenticateEmployees();
-        RegisterNewEmployeeController ctrlEmp = new RegisterNewEmployeeController();
-
-        RegisterNewEmployeeDto dtoEmp = new RegisterNewEmployeeDto();
-        dtoEmp.id = "00001";
-        dtoEmp.name = "Ana";
-        dtoEmp.password = "AAA11aa";
-        dtoEmp.phoneNumber = "915604427";
-        dtoEmp.citizenCardNumber = "11960343 8 ZW1";
-        dtoEmp.email = "ana@gmail.com";
-        dtoEmp.address = "Via Diagonal / 4475-079 / Porto";
-        ctrlEmp.saveCreatedEmployee(dtoEmp, "Center Coordinator");
-        //---------------------------------------------------------------------------------------------------------------------------------------------------
-
-        RegisterNewEmployeeDto dtoEmp1 = new RegisterNewEmployeeDto();
-        dtoEmp1.id = "00002";
-        dtoEmp1.name = "Joana";
-        dtoEmp1.password = "AAA11aa";
-        dtoEmp1.phoneNumber = "919700873";
-        dtoEmp1.citizenCardNumber = "14268862 2 ZX8";
-        dtoEmp1.email = "joana@gmail.com";
-        dtoEmp1.address = "Rua de São Tomé / 4200-489 / Porto";
-        ctrlEmp.saveCreatedEmployee(dtoEmp1, "Nurse");
-        //---------------------------------------------------------------------------------------------------------------------------------------------------
-
-        RegisterNewEmployeeDto dtoEmp2 = new RegisterNewEmployeeDto();
-        dtoEmp2.id = "00003";
-        dtoEmp2.name = "Carla";
-        dtoEmp2.password = "AAA11aa";
-        dtoEmp2.phoneNumber = "919880654";
-        dtoEmp2.citizenCardNumber = "38002291 5 ZY5";
-        dtoEmp2.email = "carla@gmail.com";
-        dtoEmp2.address = "Rua De Azevedo De Albuquerque / 4050-076 / Porto";
-        ctrlEmp.saveCreatedEmployee(dtoEmp2, "Receptionist");
     }
 
     private static void bootstrapVaccineTypes() {
         VACCINE_TYPE_STORE.readBinaryFileVaccineTypes();
+        company.getVaccineTypesStore().saveVaccineType("COVID", "Coronavirus", "Tech");
     }
 
     private static void bootstrapVaccinationCenters() {
@@ -101,7 +70,6 @@ public class Utils {
         for (VaccinationCenter center : VACCINATION_CENTERS_STORE.getVaccinationCenters()) {
             center.readBinaryFilesFullyVaccinated();
         }
-
 
     }
 
