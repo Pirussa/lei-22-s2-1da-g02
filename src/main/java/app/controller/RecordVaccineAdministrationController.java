@@ -2,6 +2,7 @@ package app.controller;
 
 import app.domain.model.*;
 import app.domain.shared.Constants;
+import app.domain.shared.GenericClass;
 import app.stores.VaccinationCentersStore;
 import app.ui.console.utils.Utils;
 import app.dto.SnsUserDto;
@@ -10,6 +11,7 @@ import app.mapper.SnsUserMapper;
 import app.mapper.VaccineBulletinMapper;
 
 import java.io.IOException;
+import java.io.NotSerializableException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -36,6 +38,8 @@ public class RecordVaccineAdministrationController {
     private LocalDateTime localDateTime;
 
     private String lotNumber;
+
+    private final GenericClass<VaccineBulletin> generics = new GenericClass<>();
 
     public RecordVaccineAdministrationController() {
     }
@@ -75,7 +79,7 @@ public class RecordVaccineAdministrationController {
      * @param currentAppointment the current appointment
      */
     public void setVaccine(int currentAppointment) {
-        if (snsUser.administratedVaccines()!=null)
+        if (findLastDoseOfVaccineType() != Constants.FIRST_DOSE)
             vaccine = snsUser.administratedVaccines().get(currentAppointment).getVaccine();
         else
             vaccine = vaccineTypeAvailableVaccines().get(currentAppointment);
@@ -198,7 +202,7 @@ public class RecordVaccineAdministrationController {
      * @return the number of doses
      */
     public int getUserNumberOfDoses() {
-        if (snsUser.administratedVaccines() != null)
+        if (findLastDoseOfVaccineType() != Constants.FIRST_DOSE)
             return (snsUser.administratedVaccines().get(findLastDoseOfVaccineType()).getDose());
         return Constants.FIRST_DOSE;
     }
@@ -303,9 +307,9 @@ public class RecordVaccineAdministrationController {
     public void registerVaccineInVaccineBulletin() {
         VaccineBulletinMapper vaccineBulletinMapper = new VaccineBulletinMapper();
 
-//        if (vaccineBulletinMapper.VaccineBulletinDtoToDomain(snsUserAddVaccineBulletin()).isLastDose(vaccine.getUserAgeGroupIndex(snsUser.getUserAge()))) {
-//            vaccinationCenter.addFullyVaccinated(vaccineBulletinMapper.VaccineBulletinDtoToDomain(snsUserAddVaccineBulletin()));
-//        }
+        if (vaccineBulletinMapper.VaccineBulletinDtoToDomain(snsUserAddVaccineBulletin()).isLastDose(vaccine.getUserAgeGroupIndex(snsUser.getUserAge()))) {
+            vaccinationCenter.addFullyVaccinated(vaccineBulletinMapper.VaccineBulletinDtoToDomain(snsUserAddVaccineBulletin()));
+        }
         vaccinationCenter.addAdministeredVaccine(vaccineBulletinMapper.VaccineBulletinDtoToDomain(snsUserAddVaccineBulletin()));
         snsUser.registerVaccine(vaccineBulletinMapper.VaccineBulletinDtoToDomain(snsUserAddVaccineBulletin()));
     }
@@ -346,13 +350,6 @@ public class RecordVaccineAdministrationController {
         return snsUser.getUserAge();
     }
 
-    public List<String> users() {
-        ArrayList<String> ola = new ArrayList<>();
-        for (int i = 0; i < company.getSnsUsersStore().getSnsUserList().size(); i++) {
-            ola.add(String.valueOf(company.getSnsUsersStore().getSnsUserList().get(i).getSnsUserNumber()));
-        }
-        return ola;
-    }
 
     public String getVaccineName() {
         return vaccine.getName();
@@ -360,5 +357,15 @@ public class RecordVaccineAdministrationController {
 
     public String getVaccineTypeName() {
         return vaccineType.getCode();
+    }
+
+    /**
+     * Exports the list of vaccine bulletins to a binary file.
+     * @throws NotSerializableException
+     */
+    public void exportDataToFile() throws NotSerializableException {
+        for (SnsUser snsUser : company.getSnsUsersStore().getSnsUserList()) {
+            generics.binaryFileWrite(Constants.FILE_PATH_VACCINE_BULLETIN_SNS_USER, snsUser.administratedVaccines());
+        }
     }
 }

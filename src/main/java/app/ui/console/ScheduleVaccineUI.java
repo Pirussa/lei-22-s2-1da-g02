@@ -62,6 +62,7 @@ public class ScheduleVaccineUI implements Runnable {
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
+
                 } else
                     System.out.printf("%n-------------------------------%n|No appointment was registered|%n-------------------------------%n");
             } else

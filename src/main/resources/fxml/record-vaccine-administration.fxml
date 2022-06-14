@@ -73,7 +73,7 @@
                            <children>
                               <HBox alignment="CENTER" prefHeight="39.0" prefWidth="254.0" styleClass="radius-background" stylesheets="@../styles/styleSheet.css">
                                  <children>
-                                    <ComboBox fx:id="vaccinationCenterList" onMouseClicked="#initializeCenter" prefHeight="26.0" prefWidth="220.0" styleClass="transparent" stylesheets="@../styles/styleSheet.css" />
+                                    <ComboBox fx:id="vaccinationCenterList" onAction="#confirmCenterSelection" onMouseClicked="#initializeCenter" prefHeight="26.0" prefWidth="220.0" styleClass="transparent" stylesheets="@../styles/styleSheet.css" />
                                  </children>
                               </HBox>
                               <HBox prefHeight="15.0" prefWidth="254.0" />

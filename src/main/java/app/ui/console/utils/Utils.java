@@ -61,13 +61,6 @@ public class Utils {
         for (VaccinationCenter center : VACCINATION_CENTERS_STORE.getVaccinationCenters()) {
             center.readBinaryFilesAppointments();
         }
-
-        ScheduledVaccine scheduledVaccine = new ScheduledVaccine(161593120, company.getVaccineTypesStore().getVaccineTypes().get(0), LocalDateTime.of(2022, 6, 13, 15, 0));
-        try {
-            company.getVaccinationCentersStore().getVaccinationCenters().get(0).addAppointment(scheduledVaccine);
-        } catch (NotSerializableException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     private static void bootstrapAdministeredVaccines() {
@@ -82,9 +75,6 @@ public class Utils {
         try {
             for (VaccinationCenter vaccinationCenter : VACCINATION_CENTERS_STORE.getVaccinationCenters()) {
                 genericsClass.binaryFileRead(Constants.FILE_PATH_ARRIVALS, vaccinationCenter.getArrivalsList());
-                for (Arrival arrival : vaccinationCenter.getArrivalsList()) {
-                    System.out.println(arrival);
-                }
             }
         } catch (EOFException e) {
             e.printStackTrace();

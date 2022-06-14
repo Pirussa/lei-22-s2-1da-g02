@@ -49,5 +49,5 @@ Thumbs.db
 *.wmv
 
 /fullyvaccinatedlist
-/vaccinetypes
-/employees
+/Serialization/vaccinetypes
+/Serialization/employees

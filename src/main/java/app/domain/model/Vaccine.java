@@ -96,10 +96,8 @@ public class Vaccine implements Serializable {
      */
     public int getUserAgeGroupIndex(int userAge) {
         for (int columns = 0; columns < getAdminProcess().getAgeGroups().get(0).size(); columns++) {
-            for (int rows = 0; rows < getAdminProcess().getAgeGroups().size() - 1; rows++) {
-                if ((userAge > getAdminProcess().getAgeGroups().get(columns).get(rows)) && userAge < getAdminProcess().getAgeGroups().get(columns).get(rows + 1)) {
+                if ((userAge > getAdminProcess().getAgeGroups().get(0).get(columns)) && userAge < getAdminProcess().getAgeGroups().get(1).get(columns)) {
                     return columns;
-                }
             }
         }
         return -1;

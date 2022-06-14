@@ -34,7 +34,9 @@ public class SnsUser implements Serializable {
     private final int snsUserNumber;
     private final String strCitizenCardNumber;
     private final String strPassword;
-    transient private List<VaccineBulletin> vaccineBulletins = new ArrayList<>();
+    private List<VaccineBulletin> vaccineBulletins;
+
+    private static final long serialVersionUID = -6242190924713816484L;
 
 
 
@@ -53,7 +55,6 @@ public class SnsUser implements Serializable {
      */
     public SnsUser(String strName, String strSex, String strBirthDate, String strAddress, String strPhoneNumber,
                    String strEmail, int snsUserNumber, String strCitizenCardNumber, String strPassword) {
-
         this.strName = strName;
         this.strSex = strSex;
         this.strBirthDate = strBirthDate;
@@ -63,6 +64,7 @@ public class SnsUser implements Serializable {
         this.snsUserNumber = snsUserNumber;
         this.strCitizenCardNumber = strCitizenCardNumber;
         this.strPassword = strPassword;
+        this.vaccineBulletins = new ArrayList<>();
 
         try {
             if (!validateSNSUser()) {
@@ -288,7 +290,5 @@ public class SnsUser implements Serializable {
         SnsUser snsUser = (SnsUser) objects;
         return snsUserNumber == snsUser.snsUserNumber && strEmail.equals(snsUser.strEmail);
     }
-
-
 
 }

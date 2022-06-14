@@ -14,7 +14,6 @@ import java.util.ArrayList;
  */
 public class LoadCSVController {
     private final Company company = App.getInstance().getCompany();
-    GenericClass<SnsUser> generics = new GenericClass<>();
 
     /**
      * Create a sns user

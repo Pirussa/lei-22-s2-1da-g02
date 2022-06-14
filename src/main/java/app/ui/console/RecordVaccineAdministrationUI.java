@@ -6,6 +6,7 @@ import app.ui.console.utils.Utils;
 import app.dto.SnsUserDto;
 
 import java.io.IOException;
+import java.io.NotSerializableException;
 import java.util.Scanner;
 
 /**
@@ -42,6 +43,11 @@ public class RecordVaccineAdministrationUI implements Runnable {
             // Clean User from Waiting Room List
             controller.removeUserFromList(selectUser);
             controller.registerVaccineInVaccineBulletin();
+            try {
+                controller.exportDataToFile();
+            } catch (NotSerializableException e) {
+                throw new RuntimeException(e);
+            }
 
             try {
                 controller.printRecoveryTime();

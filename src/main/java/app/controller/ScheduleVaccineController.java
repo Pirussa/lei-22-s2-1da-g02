@@ -2,6 +2,7 @@ package app.controller;
 
 import app.domain.model.*;
 import app.domain.shared.Constants;
+import app.domain.shared.GenericClass;
 import app.stores.VaccinationCentersStore;
 import app.ui.console.utils.Utils;
 import app.dto.ScheduledVaccineDto;
@@ -33,6 +34,8 @@ public class ScheduleVaccineController {
     private final transient AuthFacade authFacade = company.getAuthFacade();
     private VaccinationCenter vaccinationCenter;
     private final VaccinationCentersStore vaccinationCentersStore = company.getVaccinationCentersStore();
+
+
 
 
     /**

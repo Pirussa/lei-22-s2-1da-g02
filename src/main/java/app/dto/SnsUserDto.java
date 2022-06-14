@@ -27,7 +27,7 @@ public class SnsUserDto implements Serializable {
     public String strCitizenCardNumber;
     public String strPassword;
 
-    public List<VaccineBulletin> vaccineBulletins = new ArrayList<>();
+    public List<VaccineBulletin> vaccineBulletins ;
 
     public SnsUserDto(String strName, int snsUserNumber, String strEmail, String strBirthDate, String strPhoneNumber, String strSex, String strAddress, String strCitizenCardNumber, String strPassword) {
         this.strName = strName;
@@ -39,6 +39,7 @@ public class SnsUserDto implements Serializable {
         this.strAddress = strAddress;
         this.strCitizenCardNumber = strCitizenCardNumber;
         this.strPassword = strPassword;
+        this.vaccineBulletins = new ArrayList<>();
     }
 
     public SnsUserDto() {

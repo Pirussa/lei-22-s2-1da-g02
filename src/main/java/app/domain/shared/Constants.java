@@ -69,26 +69,28 @@ public class Constants {
     /**
      * Names for the binary files.
      */
-    public static final String FILE_PATH_VACCINE_TYPES = "vaccinetypes";
+    public static final String FILE_PATH_VACCINE_TYPES = "Serialization/vaccinetypes";
 
-    public static final String FILE_PATH_SNS_USERS = "snsusers";
+    public static final String FILE_PATH_SNS_USERS = "Serialization/snsusers";
 
-    public static final String FILE_PATH_EMPLOYEES = "employees";
+    public static final String FILE_PATH_EMPLOYEES = "Serialization/employees";
 
-    public static final String FILE_PATH_VACCINATION_CENTERS = "vaccinationcenters";
+    public static final String FILE_PATH_VACCINATION_CENTERS = "Serialization/vaccinationcenters";
 
-    public static final String FILE_PATH_ARRIVALS = "arrivals";
+    public static final String FILE_PATH_ARRIVALS = "Serialization/arrivals";
 
-    public static final String FILE_PATH_DEPARTURES = "departures";
+    public static final String FILE_PATH_DEPARTURES = "Serialization/departures";
 
-    public static final String FILE_PATH_VACCINES = "vaccine";
+    public static final String FILE_PATH_VACCINES = "Serialization/vaccine";
 
-    public static final String FILE_PATH_APPOINTMENTS = "appointments";
+    public static final String FILE_PATH_APPOINTMENTS = "Serialization/appointments";
 
 
-    public static final String FILE_PATH_UPDATEDLEGACY = "updatedlegacy";
+    public static final String FILE_PATH_UPDATEDLEGACY = "Serialization/updatedlegacy";
 
-    public static final String FILE_PATH_VACCINE_BULLETIN = "vaccinebulletin";
+    public static final String FILE_PATH_VACCINE_BULLETIN = "Serialization/vaccinebulletin";
+
+    public static final String FILE_PATH_VACCINE_BULLETIN_SNS_USER = "Serialization/vaccinebulletinsnsuser";
 
     public static final String DAILY_TOTAL_VACCINATIONS_FILE_HEADER = "Date;Vaccination Center;Total Vaccinated People";
 

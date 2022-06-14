@@ -48,14 +48,7 @@ public class SNSUsersStore {
             this.authFacade.addUserWithRole(dto.strName, dto.strEmail, dto.strPassword, Constants.ROLE_SNS_USER);
             return true;
         } else {
-            for (SnsUser snsUser : snsUsersList) {
-                if ((Objects.equals(snsUser.getSnsUserNumber(), createSNSUser(dto).getSnsUserNumber())) ||
-                        (Objects.equals(snsUser.getStrEmail(), createSNSUser(dto).getStrEmail())) ||
-                        (Objects.equals(snsUser.getStrPhoneNumber(), createSNSUser(dto).getStrPhoneNumber())) ||
-                        (Objects.equals(snsUser.getStrCitizenCardNumber(), createSNSUser(dto).getStrCitizenCardNumber()))) {
-                    return false;
-                }
-            }
+            if (snsUsersList.contains(createSNSUser(dto))) return false;
         }
         snsUsersList.add(createSNSUser(dto));
         genericsSnsUsers.binaryFileWrite(Constants.FILE_PATH_SNS_USERS, snsUsersList);
