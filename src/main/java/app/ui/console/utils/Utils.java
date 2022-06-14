@@ -49,7 +49,6 @@ public class Utils {
 
     private static void bootstrapVaccinationCenters() {
         VACCINATION_CENTERS_STORE.readBinaryFileCenters();
-
     }
 
     private static void bootstrapSnsUsers() {
@@ -97,12 +96,11 @@ public class Utils {
         }
     }
 
-   private static void bootstrapDepartures() {
+    private static void bootstrapDepartures() {
         GenericClass<Departure> genericsClass = new GenericClass<>();
         try {
             for (VaccinationCenter vaccinationCenter : VACCINATION_CENTERS_STORE.getVaccinationCenters()) {
-                List<Departure> departureList = vaccinationCenter.getDepartureList();
-                genericsClass.binaryFileRead(Constants.FILE_PATH_DEPARTURES, departureList);
+                genericsClass.binaryFileRead(Constants.FILE_PATH_DEPARTURES, vaccinationCenter.getDepartureList());
             }
         } catch (EOFException e) {
             e.printStackTrace();
@@ -112,6 +110,7 @@ public class Utils {
     /**
      * It creates and adds everything that the App needs as soon as it runs, so it is not needed to create something prior to using one functionality
      */
+
     public static void bootstrap() {
         bootstrapEmployees();
         bootstrapVaccineTypes();

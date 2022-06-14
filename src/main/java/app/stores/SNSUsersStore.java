@@ -10,6 +10,7 @@ import pt.isep.lei.esoft.auth.AuthFacade;
 
 import java.io.EOFException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class SNSUsersStore {
@@ -74,6 +75,11 @@ public class SNSUsersStore {
         } catch (EOFException e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean containsUserWithNumber(int snsUserNumber) {
+        SnsUser snsUser = new SnsUser("p", "Male", "16/04/2000", "a", "932782461", "ampedro2003@gmail.com", snsUserNumber, "30035797", "AAA11aa");
+        return snsUsersList.contains(snsUser);
     }
 
 }

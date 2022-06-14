@@ -2,6 +2,7 @@ package app.domain.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  * @author Pedro Monteiro <1211076@isep.ipp.pt>
@@ -15,15 +16,17 @@ public class Arrival implements Serializable {
 
     private final VaccineType vaccineType;
 
+    private static final long serialVersionUID = -7896654909260539336L;
+
     /**
      * Creates and instance of the Arrival class with the following attributes
      *
      * @param snsNumber Number that identifies the SNS user
      * @param vaccineType The type of vaccine
      */
-    public Arrival(int snsNumber, VaccineType vaccineType) {
+    public Arrival(int snsNumber, VaccineType vaccineType, LocalDateTime arrivalTime) {
         this.snsNumber = snsNumber;
-        this.arrivalTime = LocalDateTime.now();
+        this.arrivalTime = arrivalTime;
         this.vaccineType = vaccineType;
     }
 
@@ -94,6 +97,14 @@ public class Arrival implements Serializable {
 
     private LocalDateTime sumTimes(LocalDateTime appointmentTime) {
         return appointmentTime.plusMinutes(10);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Arrival arrival = (Arrival) o;
+        return snsNumber == arrival.snsNumber;
     }
 
 }

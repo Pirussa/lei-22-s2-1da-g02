@@ -2,11 +2,14 @@ package app.controller;
 
 import app.domain.model.Company;
 import app.domain.model.SnsUser;
+import app.domain.model.VaccinationCenter;
 import app.domain.model.Vaccine;
 import app.domain.shared.Constants;
 import app.domain.shared.GenericClass;
 import app.miscellaneous.ReadLegacyDataFile;
+import app.stores.VaccinationCentersStore;
 import app.ui.console.DataFromLegacySystemUI;
+import app.ui.console.utils.Utils;
 
 import java.io.*;
 import java.time.LocalTime;
@@ -19,13 +22,19 @@ import java.util.Scanner;
  */
 public class DataFromLegacySystemController {
 
-    private final ReadLegacyDataFile readLegacyDataFile = new ReadLegacyDataFile();
     private final Company company = App.getInstance().getCompany();
     private List<String> sortedList;
+    private VaccinationCenter center;
+    private final ReadLegacyDataFile readLegacyDataFile;
     /**
      * Instantiates a new Data from legacy system controller.
      */
     public DataFromLegacySystemController() {
+        final Company company = App.getInstance().getCompany();
+        final VaccinationCentersStore store = company.getVaccinationCentersStore();
+        String id = Utils.getLoggedCoordinatorId();
+        center = store.getVaccinationCenterAssociatedToCoordinator(id);
+        readLegacyDataFile = new ReadLegacyDataFile(center);
     }
 
 

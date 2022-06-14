@@ -259,4 +259,17 @@ public class Company implements Serializable {
         }
     }
 
+    public boolean containsVaccine(String name) {
+        ArrayList <Integer> minAge = new ArrayList<>(List.of(1,20,50,100));
+        ArrayList <Integer> maxAge = new ArrayList<>(List.of(19,49,99,120));
+        ArrayList <Integer> numberOfDoses = new ArrayList<>(List.of(2,3,3,2));
+        ArrayList <Double> dosage = new ArrayList<>(List.of(25.0,35.0,30.0,20.5));
+        ArrayList <Integer> timeIntervalBetween1stAnd2nd = new ArrayList<>(List.of(15,15,15,15));
+        ArrayList <Integer> timeIntervalBetween2ndAnd3rd = new ArrayList<>(List.of(0,150,180,0));
+        AdministrationProcess administrationProcess = new AdministrationProcess(new ArrayList<>( List.of(minAge,maxAge)),numberOfDoses,dosage, new ArrayList<>(List.of(timeIntervalBetween1stAnd2nd,timeIntervalBetween2ndAnd3rd)));
+        Vaccine vaccine = new Vaccine(name,1000,"SpikeBrand",administrationProcess, new VaccineType("COVID","description","Tech"));
+
+        return vaccinesList.contains(vaccine);
+    }
+
 }

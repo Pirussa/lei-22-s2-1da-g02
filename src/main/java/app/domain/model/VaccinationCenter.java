@@ -42,10 +42,13 @@ public class VaccinationCenter implements Serializable {
     private final GenericClass<VaccineBulletin> genericsVaccineBulletin = App.getInstance().getCompany().genericsVaccineBulletin;
     private List<ScheduledVaccine> scheduledVaccineList = new ArrayList<>();
     private List<Arrival> arrivalsList = new ArrayList<>();
-    private List<Departure> departuresList = new ArrayList<>();
+    private final GenericClass<Arrival> genericsArrivals = new GenericClass<>();
+    private final List<Departure> departuresList = new ArrayList<>();
+    private final GenericClass<Departure> genericsDeparture = new GenericClass<>();
     private final List<VaccineBulletin> vaccinesAdministeredList = new ArrayList<>();
     private final List<VaccineBulletin> listFullyVaccinated = new ArrayList<>();
     private static final long serialVersionUID = 0;
+
 
     private static final String[] strTopLevelDomain = {".com", ".pt", ".co.uk"};
     private static final String strWorldWideWeb = "www.";
@@ -54,6 +57,7 @@ public class VaccinationCenter implements Serializable {
      * The Appointments generic class.
      */
     GenericClass<ScheduledVaccine> appointmentsGenericClass = new GenericClass<>();
+
 
     /**
      * Creates a vaccination center with the following attributes, also verifies inside the constructors the those attributes are valid.
@@ -738,6 +742,17 @@ public class VaccinationCenter implements Serializable {
 
     private LocalDate getFirstDateAvailable(List<VaccineBulletin> listFullyVaccinated) {
         return listFullyVaccinated.get(0).getDateTimeOfLastDose().toLocalDate();
+    }
+
+
+    public void addArrival(Arrival arrival) throws NotSerializableException {
+        arrivalsList.add(arrival);
+        genericsArrivals.binaryFileWrite(Constants.FILE_PATH_ARRIVALS, arrivalsList);
+    }
+
+    public void addDeparture(Departure departure) throws NotSerializableException {
+        departuresList.add(departure);
+        genericsDeparture.binaryFileWrite(Constants.FILE_PATH_DEPARTURES, departuresList);
     }
 
 }

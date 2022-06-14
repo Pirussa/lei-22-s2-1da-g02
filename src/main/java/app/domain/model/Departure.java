@@ -9,14 +9,17 @@ import java.io.NotSerializableException;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class Departure implements Serializable {
+public class Departure {
+
+    private final int snsNumber;
 
     private final LocalDateTime departureTime;
 
-    GenericClass<Arrival> generics = new GenericClass<>();
+    GenericClass<Departure> generics = new GenericClass<>();
     VaccinationCentersStore vaccinationCentersStore = App.getInstance().getCompany().getVaccinationCentersStore();
 
-    public Departure(LocalDateTime departureTime) {
+    public Departure(int snsNumber, LocalDateTime departureTime) {
+        this.snsNumber = snsNumber;
         this.departureTime = departureTime;
     }
 
@@ -26,21 +29,16 @@ public class Departure implements Serializable {
 
     @Override
     public String toString() {
-        return "Departure{" +
-                "departureTime=" + departureTime +
-                ", vaccinationCentersStore=" + vaccinationCentersStore +
-                '}';
+        return "departureTime=" + departureTime;
     }
 
     /**
      * Exports the list of Users that arrived at a vaccination center to a binary file.
      * @throws NotSerializableException
      */
-    /*
     public void exportDataToFile() throws NotSerializableException {
         for (VaccinationCenter vaccinationCenter : vaccinationCentersStore.getVaccinationCenters()) {
-            generics.binaryFileWrite(Constants.FILE_PATH_ARRIVALS, vaccinationCenter.getArrivalsList());
+            generics.binaryFileWrite(Constants.FILE_PATH_DEPARTURES, vaccinationCenter.getDepartureList());
         }
     }
-    */
 }

@@ -61,7 +61,7 @@ class registerDailyTotalOfVaccinatedPeopleTest {
         //Arrivals
         controllerArrivals.checkAndSetUserAppointment(100000000);
         controllerArrivals.setArrival(100000000);
-        Arrival arrival1 = new Arrival(100000000, vt1);
+        Arrival arrival1 = new Arrival(100000000, vt1, LocalDateTime.now());
         company.getVaccinationCentersStore().getVaccinationCenters().get(0).getArrivalsList().add(arrival1);
 
         //Administer Vaccine

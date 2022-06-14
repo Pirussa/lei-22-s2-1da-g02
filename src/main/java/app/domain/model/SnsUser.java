@@ -194,9 +194,7 @@ public class SnsUser implements Serializable {
      * @return the boolean
      */
     public static boolean validateAddressSimple(String strAddress) {
-        if (!strAddress.isEmpty()){
-            return true;
-        } else return false;
+        return !strAddress.isEmpty();
     }
 
     /**
@@ -287,7 +285,7 @@ public class SnsUser implements Serializable {
         if (this == objects) return true;
         if (!(objects instanceof SnsUser)) return false;
         SnsUser snsUser = (SnsUser) objects;
-        return snsUserNumber == snsUser.snsUserNumber && strEmail.equals(snsUser.strEmail);
+        return snsUserNumber == snsUser.snsUserNumber;
     }
 
 

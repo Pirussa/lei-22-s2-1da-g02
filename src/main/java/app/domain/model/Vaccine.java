@@ -22,7 +22,7 @@ public class Vaccine implements Serializable {
      * @param id           The vaccine's ID.
      * @param brand        The brand that created the vaccine.
      * @param adminProcess The Administration Process related to the vaccine.
-     * @param vaccineType           The Vaccine Type of the vaccine (e.g.: Covid-19, Flu) - The disease related to the vaccine.
+     * @param vaccineType  The Vaccine Type of the vaccine (e.g.: Covid-19, Flu) - The disease related to the vaccine.
      */
     public Vaccine(String name, int id, String brand, AdministrationProcess adminProcess, VaccineType vaccineType) {
         this.name = name;
@@ -32,6 +32,7 @@ public class Vaccine implements Serializable {
         this.vaccineType = vaccineType;
     }
 
+
     /**
      * Gets id.
      *
@@ -40,7 +41,6 @@ public class Vaccine implements Serializable {
     public int getId() {
         return id;
     }
-
 
 
     /**
@@ -96,8 +96,8 @@ public class Vaccine implements Serializable {
      */
     public int getUserAgeGroupIndex(int userAge) {
         for (int columns = 0; columns < getAdminProcess().getAgeGroups().get(0).size(); columns++) {
-                if ((userAge > getAdminProcess().getAgeGroups().get(0).get(columns)) && userAge < getAdminProcess().getAgeGroups().get(1).get(columns)) {
-                    return columns;
+            if ((userAge > getAdminProcess().getAgeGroups().get(0).get(columns)) && userAge < getAdminProcess().getAgeGroups().get(1).get(columns)) {
+                return columns;
             }
         }
         return -1;

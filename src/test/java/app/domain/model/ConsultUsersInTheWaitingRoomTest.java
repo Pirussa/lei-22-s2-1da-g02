@@ -50,8 +50,8 @@ class ConsultUsersInTheWaitingRoomTest {
         ctrl2.checkAndSetUserAppointment(200000000);
         ctrl2.setArrival(200000000);
 
-        Arrival arrival1 = new Arrival(100000000, vt1);
-        Arrival arrival2 = new Arrival(200000000, vt1);
+        Arrival arrival1 = new Arrival(100000000, vt1, LocalDateTime.now());
+        Arrival arrival2 = new Arrival(200000000, vt1, LocalDateTime.now());
 
         vc.getArrivalsList().add(arrival1);
         vc.getArrivalsList().add(arrival2);

@@ -2,10 +2,12 @@ package app.miscellaneous;
 
 import app.controller.App;
 import app.controller.DataFromLegacySystemController;
-import app.domain.model.Company;
+import app.domain.model.*;
 
 import java.io.*;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -16,7 +18,11 @@ import java.util.Scanner;
 public class ReadLegacyDataFile {
 
     private final Company company = App.getInstance().getCompany();
+    private final VaccinationCenter center;
 
+    public ReadLegacyDataFile(VaccinationCenter center) {
+        this.center = center;
+    }
 
     /**
      * The Legacy data list.
@@ -58,35 +64,119 @@ public class ReadLegacyDataFile {
      */
     public List<String> updateLegacyFile() throws NotSerializableException {
         updatedList.clear();
+        int counter = 0;
         if (!company.getSnsUsersStore().getSnsUserList().isEmpty() && !company.getVaccinesList().isEmpty()) {
-            for (int lineOfTheData = 0; lineOfTheData < legacyDataList.size(); lineOfTheData++) {
+            for (String line : legacyDataList) {
                 String[] values;
                 int positionInSnsUserList = 0;
                 int positionInVaccinesList = 0;
-                values = legacyDataList.get(lineOfTheData).split("\\|");
-
-                for ( positionInSnsUserList = 0; positionInSnsUserList < company.getSnsUsersStore().getSnsUserList().size(); positionInSnsUserList++) {
-                    if (company.getSnsUsersStore().getSnsUserList().get(positionInSnsUserList).getSnsUserNumber() == Integer.parseInt(values[0])) {
-                        for ( positionInVaccinesList = 0; positionInVaccinesList < company.getVaccinesList().size(); positionInVaccinesList++) {
-                            if (company.getVaccinesList().get(positionInVaccinesList).getName().equals(values[1])) {
-                                updatedList.add(company.getSnsUsersStore().getSnsUserList().get(positionInSnsUserList).getStrName() + "|" + legacyDataList.get(lineOfTheData)+ "|" + company.getVaccinesList().get(positionInVaccinesList).getVaccineType().getDescription());
-                                break;
-                            }
-                        }
+                values = line.split("\\|");
+                if (company.getSnsUsersStore().containsUserWithNumber(Integer.parseInt(values[0]))) {
+                    if (company.containsVaccine(values[1])) {
+                        updatedList.add(company.getSnsUsersStore().getSnsUserList().get(positionInSnsUserList).getStrName() + "|" + line + "|" + company.getVaccinesList().get(positionInVaccinesList).getVaccineType().getDescription());
+                        setArrival(values[4], values[0]);
+                        setDeparture(values[7], values[0]);
+                        counter++;
+                        System.out.println(counter);
                     }
                 }
             }
             return updatedList;
         } else {
-            return  null;
+            return null;
         }
     }
+
+    private void setDeparture(String departureTime, String snsNumber) {
+        LocalDateTime departure;
+        if (!checkTimeFormat(departureTime).equals("0")) {
+            departure = LocalDateTime.parse(departureTime, DateTimeFormatter.ofPattern(checkTimeFormat(departureTime)));
+            try {
+                center.addDeparture(new Departure(Integer.parseInt(snsNumber), departure));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void setArrival(String arrivalTime, String snsNumber) {
+        LocalDateTime arrival;
+        if (!checkTimeFormat(arrivalTime).equals("0")) {
+            arrival = LocalDateTime.parse(arrivalTime, DateTimeFormatter.ofPattern(checkTimeFormat(arrivalTime)));
+            try {
+                center.addArrival(new Arrival(Integer.parseInt(snsNumber), company.getVaccineTypesStore().getVaccineTypes().get(0), arrival));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private String checkTimeFormat(String arrivalTime) {
+        String n;
+        try {
+            LocalDateTime.parse(arrivalTime, DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm"));
+            return "MM/dd/yyyy HH:mm";
+        } catch (Exception e) {
+            n = "0";
+        }
+
+        try {
+            LocalDateTime.parse(arrivalTime, DateTimeFormatter.ofPattern("MM/d/yyyy HH:mm"));
+            return "MM/d/yyyy HH:mm";
+        } catch (Exception e) {
+            n = "0";
+        }
+
+        try {
+            LocalDateTime.parse(arrivalTime, DateTimeFormatter.ofPattern("MM/dd/yyyy H:mm"));
+            return "MM/dd/yyyy H:mm";
+        } catch (Exception e) {
+            n = "0";
+        }
+
+        try {
+            LocalDateTime.parse(arrivalTime, DateTimeFormatter.ofPattern("MM/d/yyyy H:mm"));
+            return "MM/d/yyyy H:mm";
+        } catch (Exception e) {
+            n = "0";
+        }
+
+        try {
+            LocalDateTime.parse(arrivalTime, DateTimeFormatter.ofPattern("M/dd/yyyy HH:mm"));
+            return "M/dd/yyyy HH:mm";
+        } catch (Exception e) {
+            n = "0";
+        }
+
+        try {
+            LocalDateTime.parse(arrivalTime, DateTimeFormatter.ofPattern("M/d/yyyy HH:mm"));
+            return "M/d/yyyy HH:mm";
+        } catch (Exception e) {
+            n = "0";
+        }
+
+        try {
+            LocalDateTime.parse(arrivalTime, DateTimeFormatter.ofPattern("M/dd/yyyy H:mm"));
+            return "M/dd/yyyy H:mm";
+        } catch (Exception e) {
+            n = "0";
+        }
+
+        try {
+            LocalDateTime.parse(arrivalTime, DateTimeFormatter.ofPattern("M/d/yyyy H:mm"));
+            return "M/d/yyyy H:mm";
+        } catch (Exception e) {
+            return n;
+        }
+
+    }
+
 
     /**
      * Merge sort ascending list.
      *
      * @param list  the list
-     * @param begin the begin
+     * @param begin the beginning
      * @param end   the end
      * @return the list
      */
@@ -190,7 +280,7 @@ public class ReadLegacyDataFile {
             }
             //writeArrayToFile(updatedList);
         }
-        return  updatedList;
+        return updatedList;
     }
 
     /**
@@ -351,7 +441,6 @@ public class ReadLegacyDataFile {
             heapifyDescending(listToSort, length, earliest);
         }
     }
-
 
 
 }

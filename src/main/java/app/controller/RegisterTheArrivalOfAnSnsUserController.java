@@ -6,6 +6,7 @@ import app.domain.shared.GenericClass;
 import app.stores.VaccinationCentersStore;
 
 import java.io.NotSerializableException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class RegisterTheArrivalOfAnSnsUserController {
@@ -84,7 +85,7 @@ private final VaccinationCentersStore vaccinationCentersStore = company.getVacci
      * @param snsNumber The number that identifies an SNS user
      */
     public void setArrival(int snsNumber) {
-        arrival = new Arrival(snsNumber, appointment.getVaccineType());
+        arrival = new Arrival(snsNumber, appointment.getVaccineType(), LocalDateTime.now());
     }
 
     public int getUserIndexInUsersList(int snsNumber) {
