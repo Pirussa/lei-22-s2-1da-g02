@@ -77,7 +77,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="264.0" prefWidth="554.0">
                <children>
-                  <Button fx:id="loginBtn" graphicTextGap="2.0" mnemonicParsing="false" onAction="#doLogin" prefHeight="69.0" prefWidth="195.0" styleClass="buttons" stylesheets="@../styles/styleSheet.css" text="LOGIN" textFill="WHITE">
+                  <Button fx:id="loginBtn" defaultButton="true" graphicTextGap="2.0" mnemonicParsing="false" onAction="#doLogin" prefHeight="69.0" prefWidth="195.0" styleClass="buttons" stylesheets="@../styles/styleSheet.css" text="LOGIN" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="21.0" />
                      </font>

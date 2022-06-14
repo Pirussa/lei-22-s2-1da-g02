@@ -48,6 +48,8 @@ Thumbs.db
 *.mov
 *.wmv
 
-/fullyvaccinatedlist
+/Serialization/fullyvaccinatedlist
 /Serialization/vaccinetypes
 /Serialization/employees
+/Serialization/appointments
+/Serialization/arrivals
