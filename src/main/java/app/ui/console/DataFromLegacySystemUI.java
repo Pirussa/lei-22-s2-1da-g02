@@ -24,14 +24,13 @@ public class DataFromLegacySystemUI implements Runnable {
             System.out.println();
             String path = readPath.nextLine();
             controller.readFile(path);
-            if (controller.updateFile()) {
+            if (!controller.updateFile().isEmpty()) {
                 System.out.println("File updated successfully");
+                chooseCriteriaToSort();
+                sortListWithAlgo();
             } else {
-                System.out.println("File update failed");
+                System.out.println("File update failed, probable cause: No User Number/Vaccine is registered in the system.");
             }
-            chooseCriteriaToSort();
-            sortListWithAlgo();
-
         } catch (Exception e) {
             e.printStackTrace();
         }

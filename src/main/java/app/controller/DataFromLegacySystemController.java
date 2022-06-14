@@ -73,7 +73,7 @@ public class DataFromLegacySystemController {
      * @return the boolean
      * @throws NotSerializableException the not serializable exception
      */
-    public boolean updateFile() throws NotSerializableException {
+    public List<String> updateFile() throws NotSerializableException {
        return readLegacyDataFile.updateLegacyFile();
     }
 

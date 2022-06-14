@@ -27,6 +27,8 @@ public class ReadLegacyDataFile {
      */
     public final List<LocalTime> listToSort = new ArrayList<>();
 
+    public List<String> updatedList = new ArrayList<>();
+
     /**
      * Read file.
      *
@@ -53,7 +55,7 @@ public class ReadLegacyDataFile {
      * @return the boolean
      * @throws NotSerializableException the not serializable exception
      */
-    public boolean updateLegacyFile() throws NotSerializableException {
+    public List<String> updateLegacyFile() throws NotSerializableException {
         if (!company.getSnsUsersStore().getSnsUserList().isEmpty() && !company.getVaccinesList().isEmpty()) {
             for (int lineOfTheData = 0; lineOfTheData < legacyDataList.size(); lineOfTheData++) {
                 String[] values;
@@ -63,22 +65,19 @@ public class ReadLegacyDataFile {
 
                 for ( positionInSnsUserList = 0; positionInSnsUserList < company.getSnsUsersStore().getSnsUserList().size(); positionInSnsUserList++) {
                     if (company.getSnsUsersStore().getSnsUserList().get(positionInSnsUserList).getSnsUserNumber() == Integer.parseInt(values[0])) {
-                        break;
+                        for ( positionInVaccinesList = 0; positionInVaccinesList < company.getVaccinesList().size(); positionInVaccinesList++) {
+                            if (company.getVaccinesList().get(positionInVaccinesList).getName().equals(values[1])) {
+                                updatedList.add(company.getSnsUsersStore().getSnsUserList().get(positionInSnsUserList).getStrName() + "|" + legacyDataList.get(lineOfTheData)+ "|" + company.getVaccinesList().get(positionInVaccinesList).getVaccineType().getDescription());
+                                break;
+                            }
+                        }
                     }
                 }
-                legacyDataList.set(lineOfTheData, company.getSnsUsersStore().getSnsUserList().get(positionInSnsUserList).getStrName() + "|" + legacyDataList.get(lineOfTheData));
-
-                for ( positionInVaccinesList = 0; positionInVaccinesList < company.getVaccinesList().size(); positionInVaccinesList++) {
-                    if (company.getVaccinesList().get(positionInVaccinesList).getName().equals(values[1])) {
-                        break;
-                    }
-                }
-                legacyDataList.set(lineOfTheData, legacyDataList.get(lineOfTheData) + "|" + company.getVaccinesList().get(positionInVaccinesList).getVaccineType().getDescription());
             }
+            return updatedList;
         } else {
-            return  false;
+            return  null;
         }
-        return true;
     }
 
     /**
@@ -104,23 +103,23 @@ public class ReadLegacyDataFile {
                 if (list.get(midPositionOfListToSort).compareTo(list.get(firstPositionOfListToSort)) > 0) {
                     int copyOfPos1 = firstPositionOfListToSort;
                     newlist.add(list.get(firstPositionOfListToSort++));
-                    tempList.add(legacyDataList.get(copyOfPos1++));
+                    tempList.add(updatedList.get(copyOfPos1++));
                 } else {
                     int copyOfPos2 = midPositionOfListToSort;
                     newlist.add(list.get(midPositionOfListToSort++));
-                    tempList.add(legacyDataList.get(copyOfPos2++));
+                    tempList.add(updatedList.get(copyOfPos2++));
                 }
             }
             while (firstPositionOfListToSort <= middle) {
                 int copyOfPos3 = firstPositionOfListToSort;
                 newlist.add(list.get(firstPositionOfListToSort++));
 
-                tempList.add(legacyDataList.get(copyOfPos3++));
+                tempList.add(updatedList.get(copyOfPos3++));
             }
             while (midPositionOfListToSort <= end) {
                 int copyOfPos4 = midPositionOfListToSort;
                 newlist.add(list.get(midPositionOfListToSort++));
-                tempList.add(legacyDataList.get(copyOfPos4++));
+                tempList.add(updatedList.get(copyOfPos4++));
             }
             firstPositionOfListToSort = begin;
             int copyOfPos5 = firstPositionOfListToSort;
@@ -129,13 +128,13 @@ public class ReadLegacyDataFile {
             }
 
             for (String strItem : tempList) {
-                legacyDataList.set(copyOfPos5++, strItem);
+                updatedList.set(copyOfPos5++, strItem);
             }
 
-            writeArrayToFile(legacyDataList);
+            writeArrayToFile(updatedList);
         }
 
-        return legacyDataList;
+        return updatedList;
     }
 
     /**
@@ -160,23 +159,23 @@ public class ReadLegacyDataFile {
                 if (list.get(midPositionOfListToSort).compareTo(list.get(firstPositionOfListToSort)) < 0) {
                     int copyOfPos1 = firstPositionOfListToSort;
                     newlist.add(list.get(firstPositionOfListToSort++));
-                    tempList.add(legacyDataList.get(copyOfPos1++));
+                    tempList.add(updatedList.get(copyOfPos1++));
                 } else {
                     int copyOfPos2 = midPositionOfListToSort;
                     newlist.add(list.get(midPositionOfListToSort++));
-                    tempList.add(legacyDataList.get(copyOfPos2++));
+                    tempList.add(updatedList.get(copyOfPos2++));
                 }
             }
             while (firstPositionOfListToSort <= middle) {
                 int copyOfPos3 = firstPositionOfListToSort;
                 newlist.add(list.get(firstPositionOfListToSort++));
 
-                tempList.add(legacyDataList.get(copyOfPos3++));
+                tempList.add(updatedList.get(copyOfPos3++));
             }
             while (midPositionOfListToSort <= end) {
                 int copyOfPos4 = midPositionOfListToSort;
                 newlist.add(list.get(midPositionOfListToSort++));
-                tempList.add(legacyDataList.get(copyOfPos4++));
+                tempList.add(updatedList.get(copyOfPos4++));
             }
             firstPositionOfListToSort = begin;
             int copyOfPos5 = firstPositionOfListToSort;
@@ -185,11 +184,11 @@ public class ReadLegacyDataFile {
             }
 
             for (String strItem : tempList) {
-                legacyDataList.set(copyOfPos5++, strItem);
+                updatedList.set(copyOfPos5++, strItem);
             }
-            writeArrayToFile(legacyDataList);
+            writeArrayToFile(updatedList);
         }
-        return  legacyDataList;
+        return  updatedList;
     }
 
     /**
@@ -200,7 +199,7 @@ public class ReadLegacyDataFile {
     public void setList(int position) {
         String[] values;
         listToSort.clear();
-        for (String line : legacyDataList) {
+        for (String line : updatedList) {
             values = line.split("\\|");
             String date = values[position];
             String[] dateAndHour = date.split(" ");
@@ -252,14 +251,14 @@ public class ReadLegacyDataFile {
             listToSort.set(0, listToSort.get(position));
             listToSort.set(position, temp);
 
-            String temp2 = legacyDataList.get(0);
-            legacyDataList.set(0, legacyDataList.get(position));
-            legacyDataList.set(position, temp2);
+            String temp2 = updatedList.get(0);
+            updatedList.set(0, updatedList.get(position));
+            updatedList.set(position, temp2);
 
 
             heapifyAscending(listToSort, position, 0);
         }
-        return legacyDataList;
+        return updatedList;
     }
 
     private void heapifyAscending(List<LocalTime> listToSort, int length, int lineOfTheHeap) {
@@ -283,9 +282,9 @@ public class ReadLegacyDataFile {
             LocalTime temp = listToSort.get(latest);
             listToSort.set(latest, listToSort.get(lineOfTheHeap));
             listToSort.set(lineOfTheHeap, temp);
-            String temp2 = legacyDataList.get(latest);
-            legacyDataList.set(latest, legacyDataList.get(lineOfTheHeap));
-            legacyDataList.set(lineOfTheHeap, temp2);
+            String temp2 = updatedList.get(latest);
+            updatedList.set(latest, updatedList.get(lineOfTheHeap));
+            updatedList.set(lineOfTheHeap, temp2);
 
             // Recursive call to heapify until the root is the latest
             heapifyAscending(listToSort, length, latest);
@@ -312,13 +311,13 @@ public class ReadLegacyDataFile {
             listToSort.set(0, listToSort.get(position));
             listToSort.set(position, temp);
 
-            String temp2 = legacyDataList.get(0);
-            legacyDataList.set(0, legacyDataList.get(position));
-            legacyDataList.set(position, temp2);
+            String temp2 = updatedList.get(0);
+            updatedList.set(0, updatedList.get(position));
+            updatedList.set(position, temp2);
 
             heapifyDescending(listToSort, position, 0);
         }
-        return legacyDataList;
+        return updatedList;
     }
 
     private void heapifyDescending(List<LocalTime> listToSort, int length, int lineOfTheHeap) {
@@ -342,9 +341,9 @@ public class ReadLegacyDataFile {
             LocalTime temp = listToSort.get(earliest);
             listToSort.set(earliest, listToSort.get(lineOfTheHeap));
             listToSort.set(lineOfTheHeap, temp);
-            String temp2 = legacyDataList.get(earliest);
-            legacyDataList.set(earliest, legacyDataList.get(lineOfTheHeap));
-            legacyDataList.set(lineOfTheHeap, temp2);
+            String temp2 = updatedList.get(earliest);
+            updatedList.set(earliest, updatedList.get(lineOfTheHeap));
+            updatedList.set(lineOfTheHeap, temp2);
 
             // Recursive call to heapify until the root is the latest
             heapifyDescending(listToSort, length, earliest);
