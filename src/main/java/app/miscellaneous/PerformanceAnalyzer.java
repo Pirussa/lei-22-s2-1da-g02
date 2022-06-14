@@ -3,7 +3,7 @@ package app.miscellaneous;
 import app.domain.model.Arrival;
 import app.domain.model.Departure;
 import app.domain.model.VaccinationCenter;
-import app.stores.DepartureStore;
+
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -14,7 +14,6 @@ public class PerformanceAnalyzer {
 
     private final VaccinationCenter vaccinationCenter;
 
-    private DepartureStore departureStore;
 
     public PerformanceAnalyzer(VaccinationCenter vaccinationCenter) {
         this.vaccinationCenter = vaccinationCenter;
@@ -96,8 +95,8 @@ public class PerformanceAnalyzer {
 
     //Método que gera a lista a ser analisada aka a lista que mandei desenhada no paint pelo wpp (Guga -> Pedro)
     private int[] getListToBeAnalyzed(LocalDate date, int timeInterval) {
-        List<Arrival> arrivalsList = vaccinationCenter.getArrivalsList();
-        List<Departure> departuresList = departureStore.getDeparturesList();
+
+
 
         int[] listOfArrivalsAndDepartures = new int[getLengthOfList(timeInterval)];
 
@@ -135,7 +134,7 @@ public class PerformanceAnalyzer {
             if (arrival.getArrivalTime().isAfter(beginningSlot) && arrival.getArrivalTime().isBefore(endSlot))
                 counterArrivals++;
 
-        for (Departure departure : departureStore.getDeparturesList())
+        for (Departure departure : vaccinationCenter.getDeparturesList())
             if (departure.getDepartureTime().isAfter(beginningSlot) && departure.getDepartureTime().isBefore(endSlot))
                 counterDepartures++;
 

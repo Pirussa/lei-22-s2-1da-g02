@@ -51,7 +51,7 @@ public class CenterCoordinatorMenuController {
             return 1;
         }else if (center.getArrivalsList() == null || center.getArrivalsList().isEmpty()) {
             return 2;
-        } else if (center.getDepartureList() == null || center.getDepartureList().isEmpty()) {
+        } else if (center.getDeparturesList() == null || center.getDeparturesList().isEmpty()) {
             return 3;
         }
         return 0;

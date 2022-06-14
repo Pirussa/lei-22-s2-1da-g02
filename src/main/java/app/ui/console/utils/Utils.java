@@ -4,9 +4,8 @@ import app.controller.*;
 import app.domain.model.*;
 import app.domain.shared.Constants;
 import app.domain.shared.GenericClass;
+
 import app.dto.MassVaccinationCenterDto;
-import app.dto.RegisterNewEmployeeDto;
-import app.stores.DepartureStore;
 import app.stores.SNSUsersStore;
 import app.stores.VaccinationCentersStore;
 import app.stores.VaccineTypesStore;
@@ -17,7 +16,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -100,7 +98,7 @@ public class Utils {
         GenericClass<Departure> genericsClass = new GenericClass<>();
         try {
             for (VaccinationCenter vaccinationCenter : VACCINATION_CENTERS_STORE.getVaccinationCenters()) {
-                genericsClass.binaryFileRead(Constants.FILE_PATH_DEPARTURES, vaccinationCenter.getDepartureList());
+                genericsClass.binaryFileRead(Constants.FILE_PATH_DEPARTURES, vaccinationCenter.getDeparturesList());
             }
         } catch (EOFException e) {
             e.printStackTrace();

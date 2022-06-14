@@ -6,7 +6,6 @@ import app.domain.shared.GenericClass;
 import app.stores.VaccinationCentersStore;
 
 import java.io.NotSerializableException;
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 public class Departure {
@@ -32,13 +31,5 @@ public class Departure {
         return "departureTime=" + departureTime;
     }
 
-    /**
-     * Exports the list of Users that arrived at a vaccination center to a binary file.
-     * @throws NotSerializableException
-     */
-    public void exportDataToFile() throws NotSerializableException {
-        for (VaccinationCenter vaccinationCenter : vaccinationCentersStore.getVaccinationCenters()) {
-            generics.binaryFileWrite(Constants.FILE_PATH_DEPARTURES, vaccinationCenter.getDepartureList());
-        }
-    }
+
 }

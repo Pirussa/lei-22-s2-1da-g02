@@ -3,7 +3,6 @@ package app.domain.model;
 import app.controller.App;
 import app.domain.shared.Constants;
 import app.domain.shared.GenericClass;
-import app.stores.DepartureStore;
 import app.ui.console.utils.Utils;
 import app.dto.ScheduledVaccineDto;
 
@@ -23,7 +22,8 @@ import java.util.List;
  */
 public class VaccinationCenter implements Serializable {
 
-
+    private final GenericClass<Arrival> genericsArrivals = new GenericClass<>();
+    private final GenericClass<Departure> genericsDeparture = new GenericClass<>();
     private final GenericClass<ScheduledVaccine> genericsSchedules = new GenericClass<>();
     private final String strID;
     private final String strName;
@@ -42,9 +42,7 @@ public class VaccinationCenter implements Serializable {
     private final GenericClass<VaccineBulletin> genericsVaccineBulletin = App.getInstance().getCompany().genericsVaccineBulletin;
     private List<ScheduledVaccine> scheduledVaccineList = new ArrayList<>();
     private List<Arrival> arrivalsList = new ArrayList<>();
-    private final GenericClass<Arrival> genericsArrivals = new GenericClass<>();
     private final List<Departure> departuresList = new ArrayList<>();
-    private final GenericClass<Departure> genericsDeparture = new GenericClass<>();
     private final List<VaccineBulletin> vaccinesAdministeredList = new ArrayList<>();
     private final List<VaccineBulletin> listFullyVaccinated = new ArrayList<>();
     private static final long serialVersionUID = 0;
@@ -185,7 +183,7 @@ public class VaccinationCenter implements Serializable {
      *
      * @return The Departure Store
      */
-    public List<Departure> getDepartureList() { return departuresList; }
+    public List<Departure> getDeparturesList() { return departuresList; }
 
     /**
      * Gets vaccines administered.
