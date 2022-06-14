@@ -15,6 +15,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+/*
 
 class ScheduleVaccinationTest {
 
@@ -57,4 +58,4 @@ class ScheduleVaccinationTest {
     que tenta registar a vacinação tem idade que encaixe dentro de um dos age groups.
     Testar com SNS Numbver inválido.
      */
-}
+

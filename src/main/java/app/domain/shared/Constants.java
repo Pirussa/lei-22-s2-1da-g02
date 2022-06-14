@@ -92,6 +92,8 @@ public class Constants {
 
     public static final String FILE_PATH_VACCINE_BULLETIN_SNS_USER = "Serialization/vaccinebulletinsnsuser";
 
+    public static final String FILE_PATH_FULLY_VACCINATED_LIST = "Serialization/fullyvaccinatedlist";
+
     public static final String DAILY_TOTAL_VACCINATIONS_FILE_HEADER = "Date;Vaccination Center;Total Vaccinated People";
 
     public static final String DAILY_REGISTERS_FILE_NAME_EXPECTED_TEST = "DailyTotalOfVaccinatedPeopleExpectedTest.csv";
@@ -110,5 +112,4 @@ public class Constants {
     public static final int ADD_DOSE = 1;
     public static final String[] OPTIONS = {"Yes", "No"};
 
-    public static final String FILE_PATH_FULLY_VACCINATED_LIST = "fullyvaccinatedlist";
 }

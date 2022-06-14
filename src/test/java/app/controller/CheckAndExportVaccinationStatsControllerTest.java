@@ -85,17 +85,6 @@ class CheckAndExportVaccinationStatsControllerTest {
 
 
     @Test
-    void exportVaccinationStatsCatchFileNotFoundException() {
-        vaccinationCentersStore.getVaccinationCenters().get(0).getFullyVaccinatedList().clear();
-        CheckAndExportVaccinationStatsController controller = new CheckAndExportVaccinationStatsController();
-        LocalDate firstDate = LocalDate.now().minusDays(15);
-        LocalDate secondDate = LocalDate.now().minusDays(10);
-        controller.setFirstDate(firstDate);
-        controller.setLastDate(secondDate);
-        assertFalse(controller.exportVaccinationStats("fileTest"));
-    }
-
-    @Test
     void exportVaccinationStats() {
         CheckAndExportVaccinationStatsController controller = new CheckAndExportVaccinationStatsController();
         LocalDate firstDate = LocalDate.now().minusDays(5);
