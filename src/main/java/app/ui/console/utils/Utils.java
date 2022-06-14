@@ -48,6 +48,7 @@ public class Utils {
 
     private static void bootstrapVaccinationCenters() {
         VACCINATION_CENTERS_STORE.readBinaryFileCenters();
+
     }
 
     private static void bootstrapSnsUsers() {
@@ -84,16 +85,12 @@ public class Utils {
         }
     }
 
-    private static void bootstrapDepartures() {
+   private static void bootstrapDepartures() {
         GenericClass<Departure> genericsClass = new GenericClass<>();
         try {
             for (VaccinationCenter vaccinationCenter : VACCINATION_CENTERS_STORE.getVaccinationCenters()) {
-                DepartureStore departureStore = vaccinationCenter.getDepartureStore();
-                genericsClass.binaryFileRead(Constants.FILE_PATH_DEPARTURES, departureStore.getDeparturesList());
-                departureStore.getDeparturesList().add(new Departure(LocalDateTime.now()));
-                for (Departure departure : departureStore.getDeparturesList()) {
-                    System.out.println(departure);
-                }
+                List<Departure> departureList = vaccinationCenter.getDepartureList();
+                genericsClass.binaryFileRead(Constants.FILE_PATH_DEPARTURES, departureList);
             }
         } catch (EOFException e) {
             e.printStackTrace();
@@ -112,7 +109,7 @@ public class Utils {
         bootstrapScheduledAppointments();
         bootstrapArrivals();
         bootstrapAdministeredVaccines();
-    //    bootstrapDepartures();
+        bootstrapDepartures();
     }
 
     /**

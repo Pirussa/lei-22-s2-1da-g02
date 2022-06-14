@@ -6,9 +6,10 @@ import app.domain.shared.GenericClass;
 import app.stores.VaccinationCentersStore;
 
 import java.io.NotSerializableException;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class Departure {
+public class Departure implements Serializable {
 
     private final LocalDateTime departureTime;
 
@@ -21,6 +22,14 @@ public class Departure {
 
     public LocalDateTime getDepartureTime() {
         return departureTime;
+    }
+
+    @Override
+    public String toString() {
+        return "Departure{" +
+                "departureTime=" + departureTime +
+                ", vaccinationCentersStore=" + vaccinationCentersStore +
+                '}';
     }
 
     /**

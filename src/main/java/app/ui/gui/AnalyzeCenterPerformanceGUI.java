@@ -78,7 +78,7 @@ public class AnalyzeCenterPerformanceGUI {
     @FXML
     void setSelectedDate(ActionEvent event) {
         controller.setSelectedDate(datePicker.getValue());
-        timeIntervalTxt.setVisible(true);
+            timeIntervalTxt.setVisible(true);
         analyzeBtn.setVisible(true);
     }
 

@@ -85,7 +85,7 @@ public class Arrival implements Serializable {
         LocalDateTime minusTime = subtractTimes(slotDuration, appointmentTime);
         LocalDateTime plusTime = sumTimes(appointmentTime);
 
-        return (arrivalTime.getHour() == minusTime.getHour() && arrivalTime.getMinute() >= minusTime.getMinute()) && arrivalTime.getHour() <= plusTime.getHour() ;
+        return arrivalTime.isAfter(minusTime) && arrivalTime.isBefore(plusTime);
     }
 
     private LocalDateTime subtractTimes(int slotDuration, LocalDateTime appointmentTime) {

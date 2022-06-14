@@ -42,7 +42,7 @@ public class VaccinationCenter implements Serializable {
     private final GenericClass<VaccineBulletin> genericsVaccineBulletin = App.getInstance().getCompany().genericsVaccineBulletin;
     private List<ScheduledVaccine> scheduledVaccineList = new ArrayList<>();
     private List<Arrival> arrivalsList = new ArrayList<>();
-    private final DepartureStore departureStore = new DepartureStore();
+    private List<Departure> departuresList = new ArrayList<>();
     private final List<VaccineBulletin> vaccinesAdministeredList = new ArrayList<>();
     private final List<VaccineBulletin> listFullyVaccinated = new ArrayList<>();
     private static final long serialVersionUID = 0;
@@ -181,7 +181,7 @@ public class VaccinationCenter implements Serializable {
      *
      * @return The Departure Store
      */
-    public DepartureStore getDepartureStore() { return departureStore; }
+    public List<Departure> getDepartureList() { return departuresList; }
 
     /**
      * Gets vaccines administered.
