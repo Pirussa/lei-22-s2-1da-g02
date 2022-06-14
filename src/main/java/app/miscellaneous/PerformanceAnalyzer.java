@@ -58,7 +58,7 @@ public class PerformanceAnalyzer {
             for (int lastPositionList = firstPositionList; lastPositionList < listToBeAnalyzed.length; lastPositionList++) {
 
                 int sum = 0;
-                for (int sumPosition = firstPositionList; sumPosition < lastPositionList; sumPosition++) {
+                for (int sumPosition = firstPositionList; sumPosition <= lastPositionList; sumPosition++) {
                     sum += listToBeAnalyzed[sumPosition];
                 }
 
@@ -75,9 +75,10 @@ public class PerformanceAnalyzer {
         int[] maxSubList = new int[endIndex - startIndex + 1];
 
         int index = startIndex;
-
-        while (index < endIndex) {
-            maxSubList[index] = listToBeAnalyzed[index];
+        int position = 0;
+        while (index <= endIndex) {
+            maxSubList[position] = listToBeAnalyzed[index];
+            position++;
             index++;
         }
 
