@@ -34,14 +34,19 @@ public class DataFromLegacySystemUI implements Runnable {
                 System.out.println("1 - Leaving Date Time");
                 System.out.println("2 - Back to Menu");
                 int optionPosition = scPos.nextInt();
-                controller.chooseCriteriaToSort(optionPosition);
-                String algorithmToBeUsed = App.getInstance().getSortingAlgorithm();
-                System.out.printf("%nAlgorithm in config file: " + algorithmToBeUsed);
-                System.out.printf("%nChoose the way you want to sort.%n0 - Ascending%n1 - Descending%n2 - Back to Menu%n");
-                int option = scanner.nextInt();
-                sortedListUI=controller.sortListWithAlgo(algorithmToBeUsed,option);
-                System.out.println();
-                printSortedArray(sortedListUI);
+                if (optionPosition==0||optionPosition==1){
+                    controller.chooseCriteriaToSort(optionPosition);
+                    String algorithmToBeUsed = App.getInstance().getSortingAlgorithm();
+                    System.out.printf("%nAlgorithm in config file: " + algorithmToBeUsed);
+                    System.out.printf("%nChoose the way you want to sort.%n0 - Ascending%n1 - Descending%n2 - Back to Menu%n");
+                    int option = scanner.nextInt();
+                    if (option==0||option==1){
+                        sortedListUI=controller.sortListWithAlgo(algorithmToBeUsed,option);
+                        System.out.println();
+                        printSortedArray(sortedListUI);
+                    }
+                }
+
             } else {
                 System.out.println("File update failed, probable cause: No User Number/Vaccine is registered in the system.");
             }
@@ -56,6 +61,8 @@ public class DataFromLegacySystemUI implements Runnable {
         for (int position = 0; position < sortedList.size(); position++) {
             System.out.println(sortedList.get(position));
         }
+        System.out.println();
+        System.out.println(sortedList.size()+" entries.");
     }
 
 }

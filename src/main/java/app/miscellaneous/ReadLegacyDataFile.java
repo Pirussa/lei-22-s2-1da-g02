@@ -39,6 +39,7 @@ public class ReadLegacyDataFile {
         String line;
         BufferedReader reader = new BufferedReader(new FileReader(path));
         reader.readLine();
+        legacyDataList.clear();
         while ((line = reader.readLine()) != null) {
             line = line.replaceAll("\"", "");
             String[] values = line.split(";");
@@ -56,6 +57,7 @@ public class ReadLegacyDataFile {
      * @throws NotSerializableException the not serializable exception
      */
     public List<String> updateLegacyFile() throws NotSerializableException {
+        updatedList.clear();
         if (!company.getSnsUsersStore().getSnsUserList().isEmpty() && !company.getVaccinesList().isEmpty()) {
             for (int lineOfTheData = 0; lineOfTheData < legacyDataList.size(); lineOfTheData++) {
                 String[] values;

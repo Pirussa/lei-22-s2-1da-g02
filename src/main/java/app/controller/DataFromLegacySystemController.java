@@ -150,6 +150,7 @@ public class DataFromLegacySystemController {
                 setList(LeaveOption);
                 break;
             case 2:
+                break;
         }
     }
 
