@@ -42,11 +42,6 @@ public class RecordVaccineAdministrationUI implements Runnable {
 
             // Clean User from Waiting Room List
             controller.registerVaccineInVaccineBulletin();
-            try {
-                controller.exportDataToFile();
-            } catch (NotSerializableException e) {
-                throw new RuntimeException(e);
-            }
 
             try {
                 controller.printRecoveryTime();

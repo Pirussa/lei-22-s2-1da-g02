@@ -103,6 +103,7 @@ public class Constants {
     public static String DAILY_REGISTERS_FILE_NAME_ACTUAL_TEST = "DailyTotalOfVaccinatedPeopleActualTest.csv";
 
 
+
     public static final int VACCINE_ADMINISTRATION = 0;
 
     public static final int VACCINATION = 1;

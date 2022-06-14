@@ -357,14 +357,4 @@ public class RecordVaccineAdministrationController {
         return vaccineType.getCode();
     }
 
-    /**
-     * Exports the list of vaccine bulletins to a binary file.
-     *
-     * @throws NotSerializableException
-     */
-   /* public void exportDataToFile() throws NotSerializableException {
-        for (SnsUser snsUser : company.getSnsUsersStore().getSnsUserList()) {
-            generics.binaryFileWrite(Constants.FILE_PATH_VACCINE_BULLETIN_SNS_USER, snsUser.administratedVaccines());
-        }
-    }*/
 }

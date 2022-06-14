@@ -5,10 +5,9 @@ package app.domain.model;
  * @author João Castro <1210816@isep.ipp.pt>
  */
 
+import app.domain.shared.Constants;
 import app.domain.shared.GenericClass;
 import app.ui.console.utils.Utils;
-
-import pt.isep.lei.esoft.auth.AuthFacade;
 
 
 import java.io.Serializable;
@@ -19,6 +18,9 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
+
+
+
 
 /**
  * The type Sns user.
@@ -34,7 +36,7 @@ public class SnsUser implements Serializable {
     private final String strCitizenCardNumber;
     private final String strPassword;
     private List<VaccineBulletin> vaccineBulletins;
-
+    private final GenericClass<VaccineBulletin> genericsVaccineBulletin = new GenericClass<>();
     private static final long serialVersionUID = -6242190924713816484L;
     /**
      * Instantiates a new Sns user.
@@ -266,6 +268,7 @@ public class SnsUser implements Serializable {
      */
     public void registerVaccine(VaccineBulletin vaccineBulletin) {
         vaccineBulletins.add(vaccineBulletin);
+        genericsVaccineBulletin.binaryFileWrite(Constants.FILE_PATH_VACCINE_BULLETIN_SNS_USER, vaccineBulletins);
     }
 
     /**
@@ -286,5 +289,7 @@ public class SnsUser implements Serializable {
         SnsUser snsUser = (SnsUser) objects;
         return snsUserNumber == snsUser.snsUserNumber && strEmail.equals(snsUser.strEmail);
     }
+
+
 
 }
