@@ -102,7 +102,7 @@ public class RecordVaccineAdministrationGUI {
             getUserName();
 
             // Get User´s Age
-            userAgeTxt.setText("12");
+            getUserAge();
 
             // Disable the checkbox and the combo boxes
             disableComboBoxUser();
@@ -189,7 +189,8 @@ public class RecordVaccineAdministrationGUI {
         if (controller.getUserNumberOfDoses() == Constants.FIRST_DOSE) {
             ObservableList<String> vaccineNameList = FXCollections.observableArrayList(controller.vaccineAvailableName());
             vaccineList.setItems(vaccineNameList);
-            controller.setVaccine(vaccineList.getSelectionModel().getSelectedIndex());
+            if (vaccineList.getSelectionModel().getSelectedIndex() >= 0)
+                controller.setVaccine(vaccineList.getSelectionModel().getSelectedIndex());
         } else {
             int currentAppointment = controller.findLastDoseOfVaccineType();
             controller.setVaccine(currentAppointment);
