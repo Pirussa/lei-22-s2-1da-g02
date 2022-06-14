@@ -253,10 +253,10 @@ public class Utils {
     }
 
     /**
-     * Prints the choosen list with options and let the user choose one
+     * Prints the chosen list with options and let the user choose one
      *
-     * @param list A choosen list
-     * @return Object - the choosen option from a list
+     * @param list A chosen list
+     * @return Object - the chosen option from a list
      */
     static public Object selectsObject(List list) {
         String input;
@@ -274,10 +274,10 @@ public class Utils {
     }
 
     /**
-     * Prints the choosen list with options and let the user choose one
+     * Prints the chooen list with options and let the user choose one
      *
-     * @param list A choosen list
-     * @return Integer - The choosen option from the list
+     * @param list A chosen list
+     * @return Integer - The chosen option from the list
      */
     static public int selectsIndex(List list) {
         String input;
@@ -322,11 +322,11 @@ public class Utils {
     }
 
     /**
-     * Shows the choosen list (showList) and let the user choose an option
+     * Shows the chosen list (showList) and let the user choose an option
      *
-     * @param list   A choosen list
-     * @param header A choosen header
-     * @return Object - the option choosen by the user
+     * @param list   A chosen list
+     * @param header A chosen header
+     * @return Object - the option chosen by the user
      */
     static public Object showAndSelectOne(List list, String header) {
         showList(list, header);
@@ -334,11 +334,11 @@ public class Utils {
     }
 
     /**
-     * Shows the choosen list (showList) and let the user choose an option
+     * Shows the chosen list (showList) and let the user choose an option
      *
-     * @param list   A choosen list
-     * @param header A choosen header
-     * @return Integer - the option choosen by the user
+     * @param list   A chosen list
+     * @param header A chosen header
+     * @return Integer - the option chosen by the user
      */
     static public int showAndSelectIndex(List list, String header) {
         showList(list, header);
@@ -474,7 +474,7 @@ public class Utils {
      * Checks if there are only 9 numbers
      *
      * @param strPhoneNumber The email to be validated
-     * @return returnes true if the email is valid
+     * @return returns true if the email is valid
      */
     public static boolean validatePhoneNumber(String strPhoneNumber) {
         final int NUMBER_OF_PHONE_NUMBER_DIGITS = 9;
@@ -535,9 +535,7 @@ public class Utils {
     }
 
     public static boolean validateCitizenCardNumberSimple(String citizenCardNumber) {
-        if (citizenCardNumber.matches("^[0-9]{8}")) {
-            return true;
-        } else return false;
+        return citizenCardNumber.matches("^[0-9]{8}");
     }
 
     /**
@@ -683,10 +681,10 @@ public class Utils {
     }
 
     /**
-     * Prints the chossen list with a header and options
+     * Prints the chosen list with a header and options
      *
-     * @param list   - A choosen list
-     * @param header - A choosen header
+     * @param list   - A chosen list
+     * @param header - A chosen header
      */
     static public void showList(List list, String header) {
         System.out.println(header);

@@ -98,7 +98,7 @@ public class PerformanceAnalyzer {
         List<Arrival> arrivalsList = vaccinationCenter.getArrivalsList();
         List<Departure> departuresList = departureStore.getDeparturesList();
 
-        int[] listOfArrivalsAndDepartures = new int[getLenghtOfList(timeInterval)];
+        int[] listOfArrivalsAndDepartures = new int[getLengthOfList(timeInterval)];
 
         for (int position = 0; position < listOfArrivalsAndDepartures.length; position++) {
             int[] arrivalsAndDepartures = countArrivalsAndDepartures(date, timeInterval, position);
@@ -108,7 +108,7 @@ public class PerformanceAnalyzer {
         return listOfArrivalsAndDepartures;
     }
 
-    private int getLenghtOfList(int timeInterval) {
+    private int getLengthOfList(int timeInterval) {
         int openingHour = Integer.parseInt(vaccinationCenter.getStrOpeningHour());
         int closingHour = Integer.parseInt(vaccinationCenter.getStrClosingHour());
         int minsOfTheDay = (closingHour - openingHour) * 60;
