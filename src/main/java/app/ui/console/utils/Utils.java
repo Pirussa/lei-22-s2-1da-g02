@@ -7,6 +7,7 @@ import app.domain.shared.GenericClass;
 import app.dto.MassVaccinationCenterDto;
 import app.dto.RegisterNewEmployeeDto;
 import app.stores.DepartureStore;
+import app.stores.SNSUsersStore;
 import app.stores.VaccinationCentersStore;
 import app.stores.VaccineTypesStore;
 import pt.isep.lei.esoft.auth.domain.model.Email;
@@ -35,6 +36,7 @@ public class Utils {
     private static final VaccinationCentersStore VACCINATION_CENTERS_STORE = company.getVaccinationCentersStore();
     private static final VaccineTypesStore VACCINE_TYPE_STORE = company.getVaccineTypesStore();
 
+    private static final SNSUsersStore SNS_USERS_STORE = company.getSnsUsersStore();
 
     private static void bootstrapEmployees() {
         company.getEmployeesStore().readBinaryFileEmployees();
@@ -43,7 +45,6 @@ public class Utils {
 
     private static void bootstrapVaccineTypes() {
         VACCINE_TYPE_STORE.readBinaryFileVaccineTypes();
-        company.getVaccineTypesStore().saveVaccineType("COVID", "Coronavirus", "Tech");
     }
 
     private static void bootstrapVaccinationCenters() {
@@ -72,6 +73,17 @@ public class Utils {
             center.readBinaryFilesFullyVaccinated();
         }
 
+    }
+
+    private static void bootstrapAdministeredVaccinesTheRealOne() {
+        GenericClass<VaccineBulletin> genericsClass = new GenericClass<>();
+        try {
+            for (SnsUser snsUser : SNS_USERS_STORE.getSnsUserList()) {
+                genericsClass.binaryFileRead(Constants.FILE_PATH_VACCINE_BULLETIN_SNS_USER, snsUser.administratedVaccines());
+            }
+        } catch (EOFException e) {
+            e.printStackTrace();
+        }
     }
 
     private static void bootstrapArrivals() {
@@ -108,6 +120,7 @@ public class Utils {
         bootstrapSnsUsers();
         bootstrapScheduledAppointments();
         bootstrapArrivals();
+        bootstrapAdministeredVaccinesTheRealOne();
         bootstrapAdministeredVaccines();
         bootstrapDepartures();
     }

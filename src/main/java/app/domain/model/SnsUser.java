@@ -19,7 +19,6 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * The type Sns user.
@@ -37,9 +36,6 @@ public class SnsUser implements Serializable {
     private List<VaccineBulletin> vaccineBulletins;
 
     private static final long serialVersionUID = -6242190924713816484L;
-
-
-
     /**
      * Instantiates a new Sns user.
      *

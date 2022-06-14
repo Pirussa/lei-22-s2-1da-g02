@@ -41,7 +41,6 @@ public class RecordVaccineAdministrationUI implements Runnable {
             lotNumber();
 
             // Clean User from Waiting Room List
-            controller.removeUserFromList(selectUser);
             controller.registerVaccineInVaccineBulletin();
             try {
                 controller.exportDataToFile();

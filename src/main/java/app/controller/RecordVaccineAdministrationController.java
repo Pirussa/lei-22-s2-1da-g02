@@ -143,8 +143,16 @@ public class RecordVaccineAdministrationController {
      */
     public List<String> fillListWithUserSnsNumber() {
         ArrayList<String> userSnsNumber = new ArrayList<>();
-        for (Arrival arrival : vaccinationCenter.getArrivalsList())
-            userSnsNumber.add("SNS Number - " + arrival.getSnsNumber());
+        for (Arrival arrival : vaccinationCenter.getArrivalsList()) {
+            for (int index = 0; index < company.getSnsUsersStore().getSnsUserList().size(); index++) {
+                if (arrival.getSnsNumber() == company.getSnsUsersStore().getSnsUserList().get(index).getSnsUserNumber()) {
+                    if (company.getSnsUsersStore().getSnsUserList().get(index).administratedVaccines().isEmpty())
+                        userSnsNumber.add("SNS Number - " + arrival.getSnsNumber());
+                    else if (!company.getSnsUsersStore().getSnsUserList().get(index).administratedVaccines().isEmpty() && company.getSnsUsersStore().getSnsUserList().get(index).administratedVaccines().get(company.getSnsUsersStore().getSnsUserList().get(index).administratedVaccines().size() - 1).getDateTimeOfLastDose().getDayOfMonth() != LocalDate.now().getDayOfMonth())
+                        userSnsNumber.add("SNS Number - " + arrival.getSnsNumber());
+                }
+            }
+        }
         return userSnsNumber;
     }
 
@@ -184,16 +192,6 @@ public class RecordVaccineAdministrationController {
             }
         }
         return -1;
-    }
-
-
-    /**
-     * Remove selected user from list.
-     *
-     * @param index the index of the user in the waiting room list
-     */
-    public void removeUserFromList(int index) {
-        vaccinationCenter.getArrivalsList().remove(index);
     }
 
     /**
@@ -361,11 +359,12 @@ public class RecordVaccineAdministrationController {
 
     /**
      * Exports the list of vaccine bulletins to a binary file.
+     *
      * @throws NotSerializableException
      */
-    public void exportDataToFile() throws NotSerializableException {
+   /* public void exportDataToFile() throws NotSerializableException {
         for (SnsUser snsUser : company.getSnsUsersStore().getSnsUserList()) {
             generics.binaryFileWrite(Constants.FILE_PATH_VACCINE_BULLETIN_SNS_USER, snsUser.administratedVaccines());
         }
-    }
+    }*/
 }

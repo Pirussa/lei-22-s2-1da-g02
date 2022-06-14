@@ -44,16 +44,6 @@ public class RecordVaccineAdministrationGUI {
     @FXML
     private javafx.scene.control.TextField dosageTxt;
 
-
-    @FXML
-    private CheckBox confirmCenterSelectionCheckBox;
-
-    @FXML
-    private CheckBox confirmUserSelectionCheckBox;
-
-    @FXML
-    private CheckBox confirmVaccineSelectionCheckBox;
-
     @FXML
     private Button recordButton;
 
@@ -71,14 +61,12 @@ public class RecordVaccineAdministrationGUI {
             alert.setTitle("Error");
             alert.setContentText("You must select a center");
             alert.showAndWait();
-            confirmCenterSelectionCheckBox.setSelected(false);
         } else {
             // Set selected Center
             setVaccinationCenter();
 
             // Disable the checkbox and the combo box
             disableComboBoxCenter();
-            disableCheckBoxCenter();
             userList.setDisable(false);
         }
     }
@@ -93,7 +81,6 @@ public class RecordVaccineAdministrationGUI {
             alert.setTitle("Error");
             alert.setContentText("You must select an user");
             alert.showAndWait();
-            confirmUserSelectionCheckBox.setSelected(false);
         } else {
             // Set selected User
             setUser();
@@ -106,7 +93,6 @@ public class RecordVaccineAdministrationGUI {
 
             // Disable the checkbox and the combo boxes
             disableComboBoxUser();
-            disableCheckBoxUser();
             vaccineList.setDisable(false);
             controller.setVaccineType(userList.getSelectionModel().getSelectedIndex());
         }
@@ -122,20 +108,20 @@ public class RecordVaccineAdministrationGUI {
             alert.setTitle("Error");
             alert.setContentText("You must select a vaccine");
             alert.showAndWait();
-            confirmVaccineSelectionCheckBox.setSelected(false);
         } else {
             // Set selected Vaccine or Previous Vaccine
             initializeVaccine();
 
             // Disable the checkbox and the combo boxes
             disableComboBoxVaccine();
-            disableCheckBoxVaccine();
 
             // Set Vaccine Type
             getVaccineTypeName();
 
             // Set Dosage
             getDosageQuantity();
+
+            controller.setLocalDateTime();
         }
     }
 
@@ -146,15 +132,14 @@ public class RecordVaccineAdministrationGUI {
             alert.setTitle("Error");
             alert.setContentText("You must introduce a lot number");
             alert.showAndWait();
-            confirmCenterSelectionCheckBox.setSelected(false);
         } else {
             if (!controller.validateLotNumber(lotNumberTxt.getText())) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
                 alert.setContentText("Lot Number is not valid");
                 alert.showAndWait();
-                confirmCenterSelectionCheckBox.setSelected(false);
             } else {
+                controller.setLotNumber(lotNumberTxt.getText());
                 recordVaccineAdministration(event);
                 returnToNurseGUI(event);
             }
@@ -238,18 +223,6 @@ public class RecordVaccineAdministrationGUI {
 
     private void disableComboBoxVaccine() {
         vaccineList.setDisable(true);
-    }
-
-    private void disableCheckBoxCenter() {
-        confirmCenterSelectionCheckBox.setDisable(true);
-    }
-
-    private void disableCheckBoxUser() {
-        confirmUserSelectionCheckBox.setDisable(true);
-    }
-
-    private void disableCheckBoxVaccine() {
-        confirmVaccineSelectionCheckBox.setDisable(true);
     }
 
     private void recordVaccineAdministration(javafx.event.ActionEvent event) {
