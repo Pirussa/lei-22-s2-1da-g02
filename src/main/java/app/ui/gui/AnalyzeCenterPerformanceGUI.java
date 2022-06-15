@@ -86,7 +86,7 @@ public class AnalyzeCenterPerformanceGUI {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Invalid time interval");
-            alert.setContentText("Please enter a valid time interval. It has to be a positive integer and can't be less than 1 neither more than the number of minutes that the Vaccination Center is open in a day.  ");
+            alert.setContentText("Please enter a valid time interval. It has to be a positive integer, and it also has be to a smaller interval than the working hours of the Vaccination Center");
             alert.showAndWait();
         }
 

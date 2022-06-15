@@ -124,30 +124,51 @@ public class PerformanceAnalyzer {
         return (closingHour - openingHour) * 60;
     }
 
+
+    /**
+     * Gets the time interval in minutes.
+     *
+     * @param timeInterval the chosen time interval
+     * @return A list with the different time intervals
+     */
     public List<String> getTimeIntervals(int timeInterval) {
         List<String> timeIntervals = new ArrayList<>();
         LocalDateTime date = LocalDateTime.of(2022, 1, 1, Integer.parseInt(vaccinationCenter.getStrOpeningHour()), 0);
 
         for (int position = 0; position < getLengthOfList(timeInterval); position++) {
-            StringBuilder stringBuilder = new StringBuilder();
-            if (date.getHour() < 10)
-                stringBuilder.append("0").append(date.getHour());
-            else
-                stringBuilder.append(date.getHour());
-
-            stringBuilder.append(":");
-
-            if (date.getMinute() < 10)
-                stringBuilder.append("0").append(date.getMinute());
-            else
-                stringBuilder.append(date.getMinute());
-
+            String timeInterval1 = checkTimeFormat(date);
+            String timeInterval2 = getNextSlot(date, timeInterval);
+            StringBuilder stringBuilder = new StringBuilder().append(timeInterval1).append(timeInterval2);
             timeIntervals.add(stringBuilder.toString());
             date = date.plusMinutes(timeInterval);
         }
 
         return timeIntervals;
     }
+
+    private String checkTimeFormat(LocalDateTime date) {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        if (date.getHour() < 10)
+            stringBuilder.append("0").append(date.getHour());
+        else
+            stringBuilder.append(date.getHour());
+
+        stringBuilder.append(":");
+
+        if (date.getMinute() < 10)
+            stringBuilder.append("0").append(date.getMinute());
+        else
+            stringBuilder.append(date.getMinute());
+
+        return stringBuilder.toString();
+    }
+
+    private String getNextSlot(LocalDateTime date, int timeInterval) {
+        return timeInterval != 1 ? " - " + checkTimeFormat(date.plusMinutes(timeInterval - 1)) : " ";
+    }
+
+
 
     private int[] countArrivalsAndDepartures(LocalDate date, int timeInterval, int slot) {
         int counterArrivals = 0;
