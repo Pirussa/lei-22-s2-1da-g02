@@ -1,6 +1,7 @@
 package app.ui.gui;
 
 import app.controller.CenterCoordinatorMenuController;
+import app.controller.CheckAndExportVaccinationStatsController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -80,7 +81,12 @@ public class CenterCoordinatorGUI {
     }
 
     private void toCheckAndExportStatsGUI(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/fxml/check-export-vac-stats-ui.fxml"));
+        Parent root;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/check-export-vac-stats-ui.fxml"));
+        root = loader.load();
+
+        CheckAndExportVacStatsGUI mainScene = loader.getController();
+        mainScene.setController(new CheckAndExportVaccinationStatsController());
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);

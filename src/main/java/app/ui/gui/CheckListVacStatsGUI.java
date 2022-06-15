@@ -24,7 +24,11 @@ import java.time.LocalDate;
  */
 public class CheckListVacStatsGUI {
 
-    private final CheckAndExportVaccinationStatsController controller = new CheckAndExportVaccinationStatsController();
+    private  CheckAndExportVaccinationStatsController controller;
+
+    public void setController(CheckAndExportVaccinationStatsController controller) {
+        this.controller = controller;
+    }
 
     @FXML
     private TableView<VaccinationCenterStats> tableView;
@@ -66,6 +70,7 @@ public class CheckListVacStatsGUI {
         root = loader.load();
 
         CheckAndExportVacStatsGUI mainScene = loader.getController();
+        mainScene.setController(controller);
         mainScene.setFirstDatePicker(controller.getFirstDate());
         mainScene.setLastDatePicker(controller.getLastDate());
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

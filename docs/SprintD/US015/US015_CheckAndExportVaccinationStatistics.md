@@ -126,6 +126,8 @@ The Vaccination Statistics;
 | | ... disponibilize the previous list to the CheckListVacStatsGUI  | CheckAndExportVaccinationStatsController | **Controller:** act as a mediator between the UI and the Model. Has the responsibility of controlling the data transmission between both. **IE:** The controller knows the logged Center's Coordinator Center. |
 | | ... "telling" the CheckAndExportVaccinationStatsController the logged Center's Coordinator Center | Company | **IE:** The Company knows the logged Center's Coordinator Center. |
 | |    ... disponibilize the previous list to the CheckAndExportVaccinationStatsController  | VaccinationCenter | **IE:** The Vaccination Center knows it's own statistics, therefore by receiving the dates as an input he can return a filtered list.  |
+| |    ... disponibilize the previous VaccinationCenter to the CheckAndExportVaccinationStatsController  | VaccinationCentersStore | **IE:** The VaccinationCentersStore knows all the Vaccination Centers of the Company.  |
+| |    ... disponibilize the previous VaccinationCentersStore to the CheckAndExportVaccinationStatsController  | Company | **IE:** The Company knows all of its own stores, therefore it knows the Store related to the Vaccination Centers.|
 | Step 3 (User chooses to export the Vaccination stats) | ... requesting the name of the file for the Vaccination Stats to be exported | CheckAndExportVacStatsGUI |  **Pure Fabrication:** there is no reason to assign this responsibility to any existing class in the Domain Model.  |
 | Step 4 |  ... exporting the Vaccination Statistics | ExportListToFile | **Pure Fabrication:** there is no reason to assign this responsibility to any existing class in the Domain Model. By creating a Class to assign the responsibility of exporting a list we are adopting the **HCLC** principle as we are not assigning another responsibility to the Vaccination Center and we are promoting reusable code.  |
 | 	 |    ... disponibilize the list with the statistics to ExportList | VaccinationCenter |**IE:** The Vaccination Center knows it's own statistics, therefore by receiving the dates as an input he can return a filtered list. |
@@ -138,7 +140,7 @@ The Vaccination Statistics;
 According to the taken rationale, the conceptual classes promoted to software classes are:
 
 
-* ExportListToFile
+
 * VaccinationCenter
 * Company
 
@@ -146,6 +148,9 @@ Other software classes (i.e. Pure Fabrication) identified:
 * CheckAndExportVacStatsGUI
 * CheckAndExportVaccinationStatsController
 * CheckListVacStatsGUI
+* VaccinationCentersStore
+* ExportListToFile
+
 
 ## 3.2. Sequence Diagram (SD)
 

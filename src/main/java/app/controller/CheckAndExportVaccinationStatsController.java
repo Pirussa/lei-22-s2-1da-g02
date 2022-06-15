@@ -24,6 +24,11 @@ public class CheckAndExportVaccinationStatsController {
     private final VaccinationCenter center;
     private LocalDate firstDate;
     private LocalDate lastDate;
+    private CheckAndExportVaccinationStatsController controllerInfo;
+
+    public void setControllerInfo(CheckAndExportVaccinationStatsController controllerInfo) {
+        this.controllerInfo = controllerInfo;
+    }
 
     /**
      * Sets first date.
@@ -120,7 +125,7 @@ public class CheckAndExportVaccinationStatsController {
         root = loader.load();
 
         CheckListVacStatsGUI nextSceneUi = loader.getController();
-
+        nextSceneUi.setController(controllerInfo);
         nextSceneUi.setStatsTable();
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

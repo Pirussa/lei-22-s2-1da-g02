@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class VaccinationCentersStore {
+public class VaccinationCentersStore implements Serializable {
     private final GenericClass<VaccinationCenter> genericsCenters = new GenericClass<>();
     private final List<VaccinationCenter> vaccinationCenters = new ArrayList<>();
     private final List<MassVaccinationCenter> massVaccinationCenters = new ArrayList<>();

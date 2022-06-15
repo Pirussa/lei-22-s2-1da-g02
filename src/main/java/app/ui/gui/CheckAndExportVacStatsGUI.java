@@ -21,7 +21,12 @@ import java.time.LocalDate;
  */
 public class CheckAndExportVacStatsGUI {
 
-    private final CheckAndExportVaccinationStatsController controller = new CheckAndExportVaccinationStatsController();
+    private  CheckAndExportVaccinationStatsController controller;
+
+    public void setController(CheckAndExportVaccinationStatsController controller) {
+        this.controller = controller;
+        controller.setControllerInfo(controller);
+    }
 
     @FXML
     private DatePicker firstDatePicker;
