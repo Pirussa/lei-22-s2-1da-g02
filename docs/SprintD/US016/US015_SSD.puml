@@ -4,34 +4,18 @@ autonumber
 actor "CenterCoordinator" as CC
 
 activate CC
-CC -> ":System" : asks to check and export vaccination statistics
+
+CC -> ":System" : asks to analze the performance of a center
 
 activate ":System"
-":System" --> CC : request the selection of a period (two dates)
+":System" --> CC : request the selection of a date and a time interval
 deactivate ":System"
-CC -> ":System" : selects the dates
+CC -> ":System" : selects the date and types the time interval
 
 activate ":System"
-":System" --> CC : request a selection between the option of checking \nstatistics and the option of exporting them
+":System" --> CC : shows the data requested
 deactivate ":System"
 
-CC -> ":System" : selects one
-activate ":System"
-alt check statistics
-
- ":System" --> CC : shows a list with the total number \nof fully vaccinated users per day
-
-else export statistics
-
- ":System" --> CC : requests the name of the file
-deactivate ":System"
-CC-> ":System" : types the name of the file
-activate ":System"
-
- ":System" --> CC : informs that the vaccination statistics have been exported
-
-deactivate ":System"
-end
 
 deactivate CC
 

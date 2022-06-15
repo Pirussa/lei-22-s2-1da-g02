@@ -1,4 +1,4 @@
-package app.domain.model;
+package app.miscellaneous;
 
 import javafx.beans.property.SimpleStringProperty;
 

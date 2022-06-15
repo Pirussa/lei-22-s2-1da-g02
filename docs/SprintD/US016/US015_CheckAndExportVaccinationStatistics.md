@@ -50,6 +50,7 @@ delivered with the application
 >The file can have data from more than one day. In US16 the center coordinator should select the day for which he wants to analyse the performance of the vaccination center.
 
 
+
 >**Question:**
 >Is the time of departure of an SNS user the time he got vaccinated plus the recovery time or do we have another way of knowing it?
 >
@@ -65,6 +66,7 @@ delivered with the application
 >The algorithm to run should be defined in a configuration file.
  
 
+
 >**Question:**
 >I would like to ask that if to analyse the performance of a center, we can assume (as a pre requirement) that the center coordinator was already attributed to a specific vaccination center and proceed with the US as so (like the center coordinator does not have to choose at a certain point where he is working. This is already treated before this US happens). Could you clarify this?
 >
@@ -72,11 +74,13 @@ delivered with the application
 >A center coordinator can only coordinate one vaccination center. The center coordinator can only analyze the performance of the center that he coordinates.
 
 
+
 >**Question**
 >I would like to know if we could be strict the user to pick only those intervals (m) (i.e. 1, 5, 10, 20, 30) as options for analyzing the performance of a center, since picking intervals is dependent on the list which is 720/m (which the length is an integer result). If we let the user pick an interval that results in a non-integer result, this will result in an invalid list since some data for the performance analysis will be lost. Can you provide a clarification on this situation?
 > 
 > **Answer**
 >  The user can introduce any interval value. The system should validate the interval value introduced by the user.
+
 
 
 >**Question**
@@ -90,28 +94,28 @@ delivered with the application
 ### 1.3. Acceptance Criteria
 
 
-* **AC1:** A file with the Vaccination Statistics is created.
+* **AC1:** No two arrivals or departures should be equal.
 
 
 ### 1.4. Found out Dependencies
 
-There is a dependency with US008, as it is required to have the necessary information that that US provides in order to create a file with the vaccination statistics.
+There is a dependency with US004 and US008, deu to the fact that the system must be able to register not only arrivals, but also departures, in order to be able to analyze the performance of the center.
 
 ### 1.5 Input and Output Data
 
 **Input Data:**
 
 * Typed data:
-    - The name of the file intended to export the vaccination statistics.
-
+    - the time interval 
+  
 * Selected data:
-    - The time interval.
-    - Between the options of checking or exporting the vaccination statistics.
+    - The date to analyze.
 
 **Output Data:**
 
-The Vaccination Statistics;
- A file with the Vaccination Statistics.
+A list with the differente between the number of new clients arriving and the number of clients leaving the center for each time interval.
+A list with the time intervals for which the center was most effective in responding.
+The maxium sum, resulting from the contiguous subsequence with maximum sum.
 
 
 ### 1.6. System Sequence Diagram (SSD)
@@ -139,7 +143,9 @@ The Vaccination Statistics;
 ## 3. Design - User Story Realization 
 
 ### 3.1. Rationale
-
+| *Interaction ID* |     *Question: Which class is responsible for...*     |           *Answer*           |                                          *Justification (with patterns)*                                           |
+|:----------------:|:-----------------------------------------------------:|:----------------------------:|:------------------------------------------------------------------------------------------------------------------:|
+ |      Step 1      | ...showing the date and request the selection of one  | AnalyzeCenterPerformanceGUI  | **Pure Fabrication:** There is no reason to assign this responsibility to any existing class in the Domain Model.  | 
 
 
 ### Systematization ##

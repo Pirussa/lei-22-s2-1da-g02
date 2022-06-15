@@ -1,7 +1,7 @@
 package app.ui.gui;
 
 import app.controller.CheckAndExportVaccinationStatsController;
-import app.domain.model.VaccinationCenterStats;
+import app.miscellaneous.VaccinationCenterStats;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -10,14 +10,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.time.LocalDate;
 
 /**
  * UI for the Check and Export Vaccination Stats

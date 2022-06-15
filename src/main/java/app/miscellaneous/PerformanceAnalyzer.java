@@ -18,33 +18,48 @@ public class PerformanceAnalyzer {
     private int[] maxSumSubList;
 
 
+    /**
+     * Instantiates a new performance analyzer.
+     *
+     * @param vaccinationCenter the vaccination center of the Center Coordinator
+     */
     public PerformanceAnalyzer(VaccinationCenter vaccinationCenter) {
         this.vaccinationCenter = vaccinationCenter;
     }
 
 
-
+    /**
+     * Gets the statistics daily list.
+     *
+     * @param date the chosen date
+     * @param timeInterval the chosen time interval
+     * @return the statistics daily list
+     */
     public int[] getTheStatisticsDailyList(LocalDate date, int timeInterval) {
         listToBeAnalyzed = getListToBeAnalyzed(date, timeInterval);
         return listToBeAnalyzed;
     }
 
+    /**
+     * Gets a list with the time intervals for which the center was most effective in responding.
+     *
+     * @return the list with maxium sum
+     */
     public int[] getMaxSumSubList() {
         maxSumSubList = findMaxSumSublist(listToBeAnalyzed);
         return maxSumSubList;
     }
 
+    /**
+     * Gets the sublist with the maximum sum.
+     *
+     * @return the sum
+     */
     public int getMaxSum() {
         return calculateSum(maxSumSubList);
     }
 
 
-    /**
-     * Find the sublist with the maximum sum.
-     *
-     * @param listToBeAnalyzed the list to be analyzed
-     * @return the sublist with the maximum sum
-     */
     private int[] findMaxSumSublist(int[] listToBeAnalyzed) {
         int maxSum = 0;
 
@@ -87,14 +102,14 @@ public class PerformanceAnalyzer {
 
     private int calculateSum(int[] maxSumSublist) {
         int sum = 0;
-        for (int position : maxSumSublist) {
+        for (int position : maxSumSublist)
             sum += position;
-        }
+
         return sum;
     }
 
 
-    //Método que gera a lista a ser analisada aka a lista que mandei desenhada no paint pelo wpp (Guga -> Pedro)
+
     private int[] getListToBeAnalyzed(LocalDate date, int timeInterval) {
 
         int[] listOfArrivalsAndDepartures = new int[getLengthOfList(timeInterval)];
@@ -112,12 +127,14 @@ public class PerformanceAnalyzer {
         return listOfArrivalsAndDepartures;
     }
 
-    private int getLengthOfList(int timeInterval) {
+    private int getLengthOfList(int timeInterval) { return getMinutesOpenCenterPerDay() / timeInterval; }
 
 
-        return getMinutesOpenCenterPerDay() / timeInterval;
-    }
-
+    /**
+     * Calculates for how many minutes the center is open.
+     *
+     * @return the minutes the center is open per day
+     */
     public int getMinutesOpenCenterPerDay(){
         int openingHour = Integer.parseInt(vaccinationCenter.getStrOpeningHour());
         int closingHour = Integer.parseInt(vaccinationCenter.getStrClosingHour());
@@ -167,7 +184,6 @@ public class PerformanceAnalyzer {
     private String getNextSlot(LocalDateTime date, int timeInterval) {
         return timeInterval != 1 ? " - " + checkTimeFormat(date.plusMinutes(timeInterval - 1)) : " ";
     }
-
 
 
     private int[] countArrivalsAndDepartures(LocalDate date, int timeInterval, int slot) {

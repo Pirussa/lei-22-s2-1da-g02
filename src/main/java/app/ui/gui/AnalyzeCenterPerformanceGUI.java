@@ -1,7 +1,7 @@
 package app.ui.gui;
 
 import app.controller.AnalyzeCenterPerformanceController;
-import app.domain.model.VaccinationCenterDailyPerformance;
+import app.miscellaneous.VaccinationCenterDailyPerformance;
 import app.miscellaneous.MaxSumSubListStats;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

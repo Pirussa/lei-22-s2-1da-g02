@@ -104,7 +104,7 @@
                         <HBox prefHeight="429.0" prefWidth="28.0" />
                         <TableView fx:id="sumListTableView" prefHeight="429.0" prefWidth="136.0" styleClass="border-radius" stylesheets="@../styles/styleSheet.css">
                           <columns>
-                            <TableColumn fx:id="maxSumList" prefWidth="141.0" text="Max Sum List" />
+                            <TableColumn fx:id="maxSumList" prefWidth="141.0" text="Sublist" />
                           </columns>
                         </TableView>
                         <VBox alignment="CENTER" prefHeight="429.0" prefWidth="145.0">
