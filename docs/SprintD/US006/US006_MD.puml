@@ -33,9 +33,15 @@ Class VaccineBulletin{
 -lotNumber
 }
 
-Class Task
+class MassVaccinationCenter extends VaccinationCenter {
+
+}
+
+class HealthcareCenter extends VaccinationCenter {
+-ARE
+-AGES
+}
 
 Company "1" -- "*" VaccinationCenter: has >
 VaccinationCenter"1" -- "*"VaccineBulletin: has >
-Company "1" -- "1" DailyTask: executes >
 @enduml

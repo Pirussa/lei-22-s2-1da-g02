@@ -7,6 +7,7 @@ actor Nurse as N
 participant ":RecordVaccineAdministrationUI" as UI
 participant ":RecordVaccineAdministrationController" as CTRL
 participant "company\n:Company" as C
+participant "vaccinationCenterStore\n:VaccinationCenterStore" as VS
 participant "vaccinationCenter\n:VaccinationCenter" as VC
 participant "snsUser\n:SnsUser" as SU
 participant "vaccineBulletinList\nList<VaccineBulletin>" as L
@@ -20,8 +21,10 @@ activate CTRL
 CTRL -> C : vaccinationCenterList = getVaccinationCenters()
 activate C
 deactivate CTRL
+C -> VS : vaccinationCenterList = getVaccinationCenters()
+activate VS
+deactivate VS
 deactivate C
-
 UI --> N : shows a list with the available vaccination centers
 deactivate UI
 
@@ -31,7 +34,13 @@ UI -> CTRL : setVaccinationCenter(vaccinationCenterIndex)
 activate CTRL
 CTRL -> C : vaccinationCenter = getVaccinationCenters().get(index)
 activate C
+C -> VS : vaccinationCenter = getVaccinationCenters().get(index)
 deactivate C
+activate VS
+VS -> VC : vaccinationCenter = getVaccinationCenters().get(index)
+activate VC
+deactivate VC
+deactivate VS
 deactivate CTRL
 
 UI -> CTRL : setArrivalsList = vaccinationCenter.getArrivalsList()
@@ -72,8 +81,7 @@ CTRL -> CTRL : validate user age group
 end
 end
 deactivate CTRL
-UI --> N : shows dosage for respective dose
-UI --> N :requests vaccine´s lot
+UI --> N : shows dosage for respective dose and requests vaccine´s lot
 deactivate UI
 N -> UI : introduces vaccine´s lot number
 activate UI
@@ -81,7 +89,8 @@ activate UI
 UI -> CTRL : validateLotNumber(lotNumber)
 activate CTRL
 
-UI -> CTRL : vaccineBulletin(VaccineBulletinDto)
+ref over CTRL : SD_CreateVaccineBulletin.puml
+
 
 CTRL -> SU : addVaccineBulletin(VaccineBulletin)
 activate SU

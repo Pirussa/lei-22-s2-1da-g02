@@ -15,8 +15,7 @@
 
 **From the specifications document:**
 
-> **_The Center Coordinator wants to monitor the vaccination process, to see statistics and charts, to evaluate the performance of the vaccination process, generate reports and analyze data from other centers, including data from legacy systems._**
-
+> * No relevant information regarding the specifications document.
 
 **From the client clarifications:**
 
@@ -36,6 +35,17 @@
  
 > **Answer:** The algorithm should run automatically at a time defined in a configuration file and should register the date, the name of the vaccination center and the total number of vaccinated users.
 
+> **Question:** After asking you to be more clear with your answer to my previous questions, you said that we can either access directly the "vaccinations report" file or create the option for center coordinators and administrators to view it's content, is this correct?
+ 
+> **Answer:** You misunderstood, I didn't say that. The file should be available in the file system and anyone having access to the file system can read the file contents.
+ 
+> **Question:** Do we need to create an UI for this US?
+ 
+> **Answer:** No. Please study ESOFT!
+
+> **Question:** Should the Company choose first the vaccination center that wants to analyze or should the program show the information of all the vaccination centers?
+ 
+> **Answer:** Please read carefully the USs requirements and discuss them with your team. The application should show the information for all vaccination centers.
 
 
 ### 1.3. Acceptance Criteria
@@ -89,7 +99,7 @@
 | Step 1  		   | ...asking to execute the task	 | ???     | **Pure Fabrication:** There is no need to assign this responsibility to any other existing classes.   | 
 | Step 2  		   | ...executing the task      	 | App     | **Controller:** Intermediates the information between whats shown to the User and the domain.         | 
 |          		   | ...creating the csv file with the data	         | Company | **IE:** Has the necessary information to create the requested file.   | 
-|          		   | ...supplying the list of vaccination centers         | Company | **IE:** Knows all vaccination centers.   |
+|          		   | ...supplying the list of vaccination centers         | VaccinationCentersStore | **Pure Fabrication:** Has the vaccination centers.   |
 |          		   | ...supplying the list of vaccine bulletins         | VaccinationCenter | **IE:** Knows it's own vaccine bulletins.   |
 
 
@@ -97,13 +107,13 @@
 
 According to the taken rationale, the conceptual classes promoted to software classes are: 
 
+* Company.
 * VaccinationCenter.
 
 Other software classes (i.e. Pure Fabrication) identified: 
 
-* Company.
 * App.
-
+* VaccinationCentersStore.
 
 ## 3.2. Sequence Diagram (SD)
 
