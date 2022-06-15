@@ -52,10 +52,10 @@ public class RecordVaccineAdministrationGUI {
 
 
     public void confirmCenterSelection(ActionEvent event) {
-        checkBoxVerifyCenter(event);
+        verifyCenter(event);
     }
 
-    private void checkBoxVerifyCenter(ActionEvent event) {
+    private void verifyCenter(ActionEvent event) {
         // Set selected Center
         setVaccinationCenter();
 
@@ -65,10 +65,10 @@ public class RecordVaccineAdministrationGUI {
     }
 
     public void confirmUserSelection(ActionEvent event) {
-        checkBoxVerifyUser(event);
+        verifyUser(event);
     }
 
-    private void checkBoxVerifyUser(ActionEvent event) {
+    private void verifyUser(ActionEvent event) {
         // Set selected User
         setUser();
 
@@ -87,10 +87,10 @@ public class RecordVaccineAdministrationGUI {
     }
 
     public void confirmVaccineSelection(ActionEvent event) {
-        checkBoxVerifyVaccine(event);
+        verifyVaccine(event);
     }
 
-    private void checkBoxVerifyVaccine(ActionEvent event) {
+    private void verifyVaccine(ActionEvent event) {
         // Set selected Vaccine or Previous Vaccine
         initializeVaccine();
 
@@ -121,6 +121,10 @@ public class RecordVaccineAdministrationGUI {
                 alert.showAndWait();
             } else {
                 controller.setLotNumber(lotNumberTxt.getText());
+                printRecoveryTimeSMS();
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Success");
+                alert.setContentText("Administration Registered. A message will be sent to the user, when recovery time ends.");
                 recordVaccineAdministration(event);
                 returnToNurseGUI(event);
             }
@@ -210,5 +214,9 @@ public class RecordVaccineAdministrationGUI {
 
     private void recordVaccineAdministration(javafx.event.ActionEvent event) {
         controller.registerVaccineInVaccineBulletin();
+    }
+
+    private void printRecoveryTimeSMS() {
+        controller.setRecoveryTimeSMS();
     }
 }
