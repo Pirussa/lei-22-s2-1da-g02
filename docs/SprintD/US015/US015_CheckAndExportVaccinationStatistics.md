@@ -1,4 +1,4 @@
-# US 008 - Check and export vaccination statistics
+# US 015 - Check and export vaccination statistics
 
 ## 1. Requirements Engineering
 
@@ -87,8 +87,10 @@ There is a dependency with US008, as it is required to have the necessary inform
 
 **Output Data:**
 
-The Vaccination Statistics;
- A file with the Vaccination Statistics.
+  - The Vaccination Statistics;
+  - A file with the Vaccination Statistics.
+
+ 
 
 
 ### 1.6. System Sequence Diagram (SSD)
@@ -119,15 +121,15 @@ The Vaccination Statistics;
 
 | Interaction ID | Question: Which class is responsible for... | Answer  | Justification (with patterns)  |
 |:-------------  |:--------------------- |:------------|:---------------------------- |
-| Step 1         |    ...showing the dates and requesting the selection of a period (two dates) | CheckAndExportVacStatsGUI   |  **Pure Fabrication:** there is no reason to assign this responsibility to any existing class in the Domain Model. Using a Class for the interactions of the User with the System promotes the **HCLC** principle   |
+| Step 1         |    ...showing the dates and requesting the selection of a period (two dates) | CheckAndExportVacStatsGUI   |  **Pure Fabrication:** there is no reason to assign this responsibility to any existing class in the Domain Model. Using a Class for the interactions of the User with the System promotes the **HCLC** principle .  |
 | |  ...saving the selected dates  | CheckAndExportVaccinationStatsController| **Controller:** act as a mediator between the UI and the Model. Has the responsibility of controlling the data transmission between both. **Pure Fabrication**: As there is no Domain Class with such responsibility one is following the Pure Fabrication pattern.      |
-| Step 2         | ...requesting a selection between the option of checking statistics and the option of exporting them | CheckAndExportVacStatsGUI | **Pure Fabrication:** there is no reason to assign this responsibility to any existing class in the Domain Model. Using a Class for the interactions of the User with the System promotes the **HCLC** principle |
+| Step 2         | ...requesting a selection between the option of checking statistics and the option of exporting them | CheckAndExportVacStatsGUI | **Pure Fabrication:** there is no reason to assign this responsibility to any existing class in the Domain Model. Using a Class for the interactions of the User with the System promotes the **HCLC** principle. |
 | Step 3 (User chooses to check the Vaccination stats)| ... showing the list with the Center's Vaccination Statistics | CheckListVacStatsGUI |  **Pure Fabrication:** there is no reason to assign this responsibility to any existing class in the Domain Model.  |
 | | ... disponibilize the previous list to the CheckListVacStatsGUI  | CheckAndExportVaccinationStatsController | **Controller:** act as a mediator between the UI and the Model. Has the responsibility of controlling the data transmission between both. **IE:** The controller knows the logged Center's Coordinator Center. |
 | | ... "telling" the CheckAndExportVaccinationStatsController the logged Center's Coordinator Center | Company | **IE:** The Company knows the logged Center's Coordinator Center. |
 | |    ... disponibilize the previous list to the CheckAndExportVaccinationStatsController  | VaccinationCenter | **IE:** The Vaccination Center knows it's own statistics, therefore by receiving the dates as an input he can return a filtered list.  |
 | |    ... disponibilize the previous VaccinationCenter to the CheckAndExportVaccinationStatsController  | VaccinationCentersStore | **IE:** The VaccinationCentersStore knows all the Vaccination Centers of the Company.  |
-| |    ... disponibilize the previous VaccinationCentersStore to the CheckAndExportVaccinationStatsController  | Company | **IE:** The Company knows all of its own stores, therefore it knows the Store related to the Vaccination Centers.|
+| |    ... disponibilize the previous VaccinationCentersStore to the CheckAndExportVaccinationStatsController  | Company | **IE:** The Company knows all of its own stores, therefore it knows the Store related to the Vaccination Centers. The VaccinationCentersStore (and all the other stores) is created by **Pure Fabrication**, promoting the **HCLC** principle. |
 | Step 3 (User chooses to export the Vaccination stats) | ... requesting the name of the file for the Vaccination Stats to be exported | CheckAndExportVacStatsGUI |  **Pure Fabrication:** there is no reason to assign this responsibility to any existing class in the Domain Model.  |
 | Step 4 |  ... exporting the Vaccination Statistics | ExportListToFile | **Pure Fabrication:** there is no reason to assign this responsibility to any existing class in the Domain Model. By creating a Class to assign the responsibility of exporting a list we are adopting the **HCLC** principle as we are not assigning another responsibility to the Vaccination Center and we are promoting reusable code.  |
 | 	 |    ... disponibilize the list with the statistics to ExportList | VaccinationCenter |**IE:** The Vaccination Center knows it's own statistics, therefore by receiving the dates as an input he can return a filtered list. |
@@ -154,12 +156,8 @@ Other software classes (i.e. Pure Fabrication) identified:
 
 ## 3.2. Sequence Diagram (SD)
 
-**Alternative 1**
-
 ![US015_SD](US015_SD.svg)
 
 ## 3.3. Class Diagram (CD)
-
-**From alternative 1**
 
 ![US008_CD](US008_CD.svg)

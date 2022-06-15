@@ -40,22 +40,48 @@ class VaccinationCenter {
 -vaccinesAdministeredList
 }
 
-class VaccinationStatistics
+class Arrival {
+-snsNumber
+-arrivalTime
+-vaccineType
+}
+
+class Departure {
+-snsNumber
+-departureTime
+}
+
+class PerformanceAnalyzer {
+}
+
+class InformationToAnalyze {
+}
 
 
 ApplicationUser <|-- Employee
 
 Employee <|-- CenterCoordinator
-'Ele exporta um ficheiro, represento de alguma forma ou chega dizer que ele exporta as stats?
-'Aqui devo pôr que coordena ou checks and exports vaccination statistics, uma vez que é o que ele faz na US
+
+PerformanceAnalyzer "1" -- "1" InformationToAnalyze : has >
+
+InformationToAnalyze "1" -- "1" VaccinationCenter : is related to >
+
+InformationToAnalyze "1" -- "*" Arrival : utilizes >
+
+InformationToAnalyze "1" -- "*" Departure : utilizes >
+
+VaccinationCenter "1" -- "*" Arrival : has >
+
+VaccinationCenter "1" -- "*" Departure : has >
+
 CenterCoordinator "1" --> "1" VaccinationCenter : coordinates >
 
-CenterCoordinator "1" --> "*" VaccinationStatistics : checks and exports >
+CenterCoordinator "1" --> "1" PerformanceAnalyzer : utilizes >
+
+PerformanceAnalyzer "1" --> "1" VaccinationCenter : analyzes >
 
 Company "1" -- "*" ApplicationUser : has >
 
 Company "1" -- "*" VaccinationCenter : has >
-
-VaccinationStatistics "*" --> "1" VaccinationCenter : are related to >
 
 @enduml

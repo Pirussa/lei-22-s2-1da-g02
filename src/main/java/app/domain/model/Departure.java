@@ -15,8 +15,7 @@ public class Departure implements Serializable {
 
     private final LocalDateTime departureTime;
 
-    GenericClass<Departure> generics = new GenericClass<>();
-    VaccinationCentersStore vaccinationCentersStore = App.getInstance().getCompany().getVaccinationCentersStore();
+
 
     public Departure(int snsNumber, LocalDateTime departureTime) {
         this.snsNumber = snsNumber;

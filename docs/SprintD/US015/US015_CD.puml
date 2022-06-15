@@ -58,20 +58,20 @@ class Company{
 }
 
 class VaccinationCenter {
--id
--name
--phoneNumber
--email
--fax
--website
--openingHour
--closingHour
--slotDuration
--vaccinesPerSlot
--road
--zipCode
--local
--centerCoordinatorID
+-id : int
+-name : String
+-phoneNumber : PhoneNumber
+-email : Email
+-fax : PhoneNumber
+-website : Website
+-openingHour : LocalDateTime
+-closingHour : LocalDateTime
+-slotDuration : int
+-vaccinesPerSlot : int
+-road : String
+-zipCode : ZipCode
+-local : String
+-centerCoordinatorID : int
 +VaccinationCenter(id, name, phoneNumber, email, fax, website, openingHour, closingHour, slotDuration, vaccinesPerSlot, road, zipCode, local, centerCoordinatorID)
 +addFullyVaccinated(newAdministration)
 -getVaccinationStatsList()
