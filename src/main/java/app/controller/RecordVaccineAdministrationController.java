@@ -2,7 +2,6 @@ package app.controller;
 
 import app.domain.model.*;
 import app.domain.shared.Constants;
-import app.domain.shared.GenericClass;
 import app.stores.VaccinationCentersStore;
 import app.ui.console.utils.Utils;
 import app.dto.SnsUserDto;
@@ -11,7 +10,6 @@ import app.mapper.SnsUserMapper;
 import app.mapper.VaccineBulletinMapper;
 
 import java.io.IOException;
-import java.io.NotSerializableException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -38,8 +36,6 @@ public class RecordVaccineAdministrationController {
     private LocalDateTime localDateTime;
 
     private String lotNumber;
-
-    private final GenericClass<VaccineBulletin> generics = new GenericClass<>();
 
     public RecordVaccineAdministrationController() {
     }
@@ -112,7 +108,7 @@ public class RecordVaccineAdministrationController {
     public List<Vaccine> vaccineTypeAvailableVaccines() {
         ArrayList<Vaccine> vaccinesAvailable = new ArrayList<>();
         for (int index = 0; index < company.getVaccinesList().size(); index++) {
-            if (vaccineType.equals(company.getVaccinesList().get(index).getVaccineType())) {
+            if (vaccineType.equals(company.getVaccinesList().get(index).getVaccineType()) && userFirstDoseAgeGroup(company.getVaccinesList().get(index))) {
                 vaccinesAvailable.add(company.getVaccinesList().get(index));
             }
         }
@@ -128,7 +124,7 @@ public class RecordVaccineAdministrationController {
     public List<String> vaccineAvailableName() {
         ArrayList<String> vaccinesAvailable = new ArrayList<>();
         for (int index = 0; index < company.getVaccinesList().size(); index++) {
-            if (vaccineType.equals(company.getVaccinesList().get(index).getVaccineType())) {
+            if (vaccineType.equals(company.getVaccinesList().get(index).getVaccineType()) && userFirstDoseAgeGroup(company.getVaccinesList().get(index))) {
                 vaccinesAvailable.add(company.getVaccinesList().get(index).getName());
             }
         }
@@ -180,18 +176,16 @@ public class RecordVaccineAdministrationController {
     /**
      * Check if user fits into any of the available vaccines age group
      *
-     * @param indexVaccine selected vaccine index in vaccines list
      * @return the age grouop he fits
      */
-    public int userFirstDoseAgeGroup(int indexVaccine) {
+    private boolean userFirstDoseAgeGroup(Vaccine vaccine) {
         int userAge = snsUser.getUserAge();
-        ArrayList<Vaccine> vaccines = (ArrayList<Vaccine>) vaccineTypeAvailableVaccines();
-        for (int columns = 0; columns < vaccines.get(indexVaccine).getAdminProcess().getAgeGroups().get(0).size(); columns++) {
-            if ((userAge > vaccines.get(indexVaccine).getAdminProcess().getAgeGroups().get(0).get(columns)) && userAge < vaccines.get(indexVaccine).getAdminProcess().getAgeGroups().get(1).get(columns)) {
-                return columns;
+        for (int columns = 0; columns < vaccine.getAdminProcess().getAgeGroups().get(0).size(); columns++) {
+            if ((userAge > vaccine.getAdminProcess().getAgeGroups().get(0).get(columns)) && userAge < vaccine.getAdminProcess().getAgeGroups().get(1).get(columns)) {
+                return true;
             }
         }
-        return -1;
+        return false;
     }
 
     /**

@@ -6,7 +6,6 @@ import app.ui.console.utils.Utils;
 import app.dto.SnsUserDto;
 
 import java.io.IOException;
-import java.io.NotSerializableException;
 import java.util.Scanner;
 
 /**
@@ -64,14 +63,9 @@ public class RecordVaccineAdministrationUI implements Runnable {
     }
 
     private int userFirstDose() {
-        int vaccineIndexInList;
-        if (controller.findLastDoseOfVaccineType() == Constants.FIRST_DOSE) {
-            do {
-                vaccineIndexInList = Utils.selectFromList(controller.vaccineAvailableName(), "\nSelect a Vaccine: ");
-            } while (controller.userFirstDoseAgeGroup(vaccineIndexInList) == Constants.INVALID_VALUE);
+        if (controller.findLastDoseOfVaccineType() == Constants.FIRST_DOSE)
             //If the user doesn´t fit in any of the age groups.
-            return vaccineIndexInList;
-        }
+            return Utils.selectFromList(controller.vaccineAvailableName(), "\nSelect a Vaccine: ");
         return Constants.FIT_AGE_GROUP;
     }
 
