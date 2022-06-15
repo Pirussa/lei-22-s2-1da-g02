@@ -223,7 +223,7 @@
    <top>
       <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="400.0" styleClass="top-background" stylesheets="@../styles/styleSheet.css" BorderPane.alignment="CENTER">
          <children>
-            <Label prefHeight="30.0" prefWidth="295.0" text="Vaccine Administration " textFill="WHITE">
+            <Label prefHeight="30.0" prefWidth="405.0" text="Vaccine Administration " textFill="WHITE">
                <font>
                   <Font size="20.0" />
                </font>
