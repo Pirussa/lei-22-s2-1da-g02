@@ -2,11 +2,13 @@ package app.controller;
 
 import app.domain.model.Company;
 import app.domain.shared.Constants;
+import app.ui.console.utils.Utils;
 import pt.isep.lei.esoft.auth.AuthFacade;
 import pt.isep.lei.esoft.auth.UserSession;
 
 import java.io.*;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Properties;
@@ -57,6 +59,7 @@ public class App {
         props.setProperty("Timer.Minutes", "59");
         props.setProperty("Sorting.Algorithm", "BubbleSort");
         props.setProperty("Sorting.Algorithm", "MergeSort");
+        props.setProperty("Recovery.Time", "1");
         // Read configured values
         try {
             InputStream in = new FileInputStream(Constants.PARAMS_FILENAME);
@@ -122,4 +125,8 @@ public class App {
         return properties.getProperty("Sorting.Algorithm");
     }
 
+    public int getRecoveryTime() {
+        Properties props = getProperties();
+        return Integer.parseInt(props.getProperty("Recovery.Time"));
+    }
 }

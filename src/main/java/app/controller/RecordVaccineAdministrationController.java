@@ -2,6 +2,7 @@ package app.controller;
 
 import app.domain.model.*;
 import app.domain.shared.Constants;
+import app.miscellaneous.RecoveryPeriodTimer;
 import app.stores.VaccinationCentersStore;
 import app.ui.console.utils.Utils;
 import app.dto.SnsUserDto;
@@ -9,6 +10,7 @@ import app.dto.VaccineBulletinDto;
 import app.mapper.SnsUserMapper;
 import app.mapper.VaccineBulletinMapper;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
@@ -95,7 +97,7 @@ public class RecordVaccineAdministrationController {
      * Sets local date time.
      */
     public void setLocalDateTime() {
-        localDateTime = LocalDateTime.now();
+        localDateTime = LocalDateTime.now().plusMinutes(App.getInstance().getRecoveryTime());
     }
 
     // Functionalities
@@ -321,9 +323,16 @@ public class RecordVaccineAdministrationController {
      * @throws IOException the io exception
      */
     public void printRecoveryTime() throws IOException {
-        PrintWriter printWriter = new PrintWriter(Constants.PATH_RECOVERY_TIME_MESSAGE);
+        File file = new File(Constants.PATH_RECOVERY_TIME_MESSAGE);
+        PrintWriter printWriter = new PrintWriter(file);
+        printWriter.println("Olá macaco Nova Vacina suiiiiiiiiii!!!!!!!!");
         printWriter.printf("Received at: " + Utils.formatDateToPrint(LocalDate.now()) + "%n%nYour Recovery Time is now finished, stay safe.");
         printWriter.close();
+    }
+
+    public void setRecoveryTimeSMS() {
+        RecoveryPeriodTimer recoveryPeriodTimer = new RecoveryPeriodTimer();
+        recoveryPeriodTimer.printUserRecoveryTimeSMS();
     }
 
     public List<String> vaccinationCentersAvailable() {
@@ -341,7 +350,6 @@ public class RecordVaccineAdministrationController {
     public int getUserAge() {
         return snsUser.getUserAge();
     }
-
 
     public String getVaccineName() {
         return vaccine.getName();
