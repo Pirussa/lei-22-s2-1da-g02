@@ -1,12 +1,10 @@
-# US 008 - Check and export vaccination statistics
+# US 016 - Analyze the performance of a center
 
 ## 1. Requirements Engineering
 
 ### 1.1. User Story Description
 
-
-As a **Center Coordinator**, I intend to **check** and **export** vaccination statistics. 
-I want to export, to a csv file, the total number of fully vaccinated users per day.
+As a **Center Coordinator**, I intend to **analyze** the performance of a center.
 
 
 ### 1.2. Customer Specifications and Clarifications
@@ -19,49 +17,74 @@ statistics and charts, to evaluate the performance of the vaccination process, g
 ### **From the client clarifications:**
 
 **-From the requirements document:**
->The goal of this US is to explore this data jointly with data obtained from external sources to estimate the number of new cases and the number of deaths using information about the Reproduction Rate, Number of ICU Patients, Number of In-Hospital Patients, Number of New Cases, Positive Rate and Number of People Fully Vaccinated. In this study, simple linear and a multi-linear regression models should be developed to find the linear relationship between: 1- each independent variable and each dependent variable; 2- all six independent variables and each dependent variable; 3- three selected variables and each dependent variable. As the application is under development it is not possible to generate all data required for the analysis. Therefore, and to simulate a production system, we made available in moodle a file containing all the information required for this study. The regression analysis should be made outside the application and should be performed using Microsoft Excel spreadsheet program. The regression analysis should be documented in the application user manual (in the annexes) that must be delivered with the application. The report should include day and week (observed and estimated) values, the regression model used to estimate each value, R(SLR), R2 and R2 adjusted for SLR and MLR, confidence intervals and hypothesis tests for regression coefficients and significance model with Anova.
+>The Center Coordinator wants to monitor the vaccination process, to see
+statistics and charts, to evaluate the performance of the vaccination process, generate reports and
+analyze data from other centers, including data from legacy systems. The goal of the performance
+analysis is to decrease the number of clients in the center, from the moment they register at the
+arrival, until the moment they receive the SMS informing they can leave the vaccination center. To
+evaluate this, it proceeds as follows: for any time interval on one day, the difference between the
+number of new clients arrival and the number of clients leaving the center every five-minute period
+is computed.
+
+>Now, the problem consists in determining what the contiguous subsequence of the initial sequence
+is, whose sum of their entries is maximum. This will show the time interval, in such a day, when the
+vaccination center was less effective in responding. So, the application should implement a brute-
+force algorithm (an algorithm which examines all the contiguous subsequences) to determine the
+contiguous subsequence with maximum sum. The implemented algorithm should be analyzed in
+terms of its worst-case time complexity, and it should be compared to a benchmark algorithm
+provided. The computational complexity analysis (of the brute-force algorithm and any sorting
+algorithms implemented within this application), must be accompanied by the observation of the
+execution time of the algorithms for inputs of variable size, in order to observe the asymptotic
+behavior. The worst-case time complexity analysis of the algorithms should be properly
+documented in the user manual of the application (in the annexes). The user manual must be
+delivered with the application
+ 
 
 **-From the client forum:**
 
->**Questions:** 
-> 
->1- When exporting vaccination statistics,do we export the data from all days available in the system or does the center coordinator chooses the time interval? 
->
->2-Is there any kind of format our exported data should follow?
-> 
->**Answers:**
-> 
->1- The user should define a time interval (two dates).
-> 
->2- Data format: date; number of fully vaccinated user.
 
 >**Question:**
->
->Is the exportation of the CSV file that contains the total number of fully vaccinated users per day, the only feature that needs to be implemented in code, for US15?
+>The file loaded in US17 have only one day to analyse, or it could have more than one day(?) and in US16 we need to select the day to analyse from 8:00 to 20:00
 >
 >**Answer:**
+>The file can have data from more than one day. In US16 the center coordinator should select the day for which he wants to analyse the performance of the vaccination center.
+
+
+>**Question:**
+>Is the time of departure of an SNS user the time he got vaccinated plus the recovery time or do we have another way of knowing it?
 >
->Yes.
+**Answer:**
+>The time of departure of an SNS user is the time he got vaccinated plus the recovery time
+
+
 
 >**Questions:**
+>In US 16, should the coordinator have the option to choose which algorithm to run (e.g. via a configuration file or while running the application) in order to determine the goal sublist, or is the Benchmark Algorithm strictly for drawing comparisons with the Bruteforce one?
 >
->1-Should the user introduce the name of the file intended to export the vaccination statistics ?
-> 
-> 2-Are the vaccination statistics referring only to the fully vaccinated users or referring to something more ?
->
->**Answer:**
->
->The user should introduce the name of the file.
-> 
->Only to fully vaccinated users.
+**Answer:**
+>The algorithm to run should be defined in a configuration file.
+ 
 
 >**Question:**
->
->In this US should the Center Coordinator check and export the Vaccination Statistics of the Center where he/she works at or should just check and export the Vaccination Statistics of all centers?
+>I would like to ask that if to analyse the performance of a center, we can assume (as a pre requirement) that the center coordinator was already attributed to a specific vaccination center and proceed with the US as so (like the center coordinator does not have to choose at a certain point where he is working. This is already treated before this US happens). Could you clarify this?
 >
 >**Answer:**
->
->The center coordinator can only export statistics from the vaccination center that he coordinates.
+>A center coordinator can only coordinate one vaccination center. The center coordinator can only analyze the performance of the center that he coordinates.
+
+
+>**Question**
+>I would like to know if we could be strict the user to pick only those intervals (m) (i.e. 1, 5, 10, 20, 30) as options for analyzing the performance of a center, since picking intervals is dependent on the list which is 720/m (which the length is an integer result). If we let the user pick an interval that results in a non-integer result, this will result in an invalid list since some data for the performance analysis will be lost. Can you provide a clarification on this situation?
+> 
+> **Answer**
+>  The user can introduce any interval value. The system should validate the interval value introduced by the user.
+
+
+>**Question**
+> From the Sprint D requirements it is possible to understand that we ought to implement a procedure that creates a list with the differences between the number of new clients arriving and the number of leaving clients for each time interval. My question then is, should this list strictly data from the legacy system (csv file from moodle which is loaded in US17), or should it also include data from our system?
+> 
+> **Answer**
+>US 16 is for all the data that exists in the system.
+
 
 
 ### 1.3. Acceptance Criteria
@@ -117,20 +140,6 @@ The Vaccination Statistics;
 
 ### 3.1. Rationale
 
-| Interaction ID | Question: Which class is responsible for... | Answer  | Justification (with patterns)  |
-|:-------------  |:--------------------- |:------------|:---------------------------- |
-| Step 1         |    ...showing the dates and requesting the selection of a period (two dates) | CheckAndExportVacStatsGUI   |  **Pure Fabrication:** there is no reason to assign this responsibility to any existing class in the Domain Model. Using a Class for the interactions of the User with the System promotes the **HCLC** principle   |
-| |  ...saving the selected dates  | CheckAndExportVaccinationStatsController| **Controller:** act as a mediator between the UI and the Model. Has the responsibility of controlling the data transmission between both. **Pure Fabrication**: As there is no Domain Class with such responsibility one is following the Pure Fabrication pattern.      |
-| Step 2         | ...requesting a selection between the option of checking statistics and the option of exporting them | CheckAndExportVacStatsGUI | **Pure Fabrication:** there is no reason to assign this responsibility to any existing class in the Domain Model. Using a Class for the interactions of the User with the System promotes the **HCLC** principle |
-| Step 3 (User chooses to check the Vaccination stats)| ... showing the list with the Center's Vaccination Statistics | CheckListVacStatsGUI |  **Pure Fabrication:** there is no reason to assign this responsibility to any existing class in the Domain Model.  |
-| | ... disponibilize the previous list to the CheckListVacStatsGUI  | CheckAndExportVaccinationStatsController | **Controller:** act as a mediator between the UI and the Model. Has the responsibility of controlling the data transmission between both. **IE:** The controller knows the logged Center's Coordinator Center. |
-| | ... "telling" the CheckAndExportVaccinationStatsController the logged Center's Coordinator Center | Company | **IE:** The Company knows the logged Center's Coordinator Center. |
-| |    ... disponibilize the previous list to the CheckAndExportVaccinationStatsController  | VaccinationCenter | **IE:** The Vaccination Center knows it's own statistics, therefore by receiving the dates as an input he can return a filtered list.  |
-| Step 3 (User chooses to export the Vaccination stats) | ... requesting the name of the file for the Vaccination Stats to be exported | CheckAndExportVacStatsGUI |  **Pure Fabrication:** there is no reason to assign this responsibility to any existing class in the Domain Model.  |
-| Step 4 |  ... exporting the Vaccination Statistics | ExportListToFile | **Pure Fabrication:** there is no reason to assign this responsibility to any existing class in the Domain Model. By creating a Class to assign the responsibility of exporting a list we are adopting the **HCLC** principle as we are not assigning another responsibility to the Vaccination Center and we are promoting reusable code.  |
-| 	 |    ... disponibilize the list with the statistics to ExportList | VaccinationCenter |**IE:** The Vaccination Center knows it's own statistics, therefore by receiving the dates as an input he can return a filtered list. |
-| | ... sending the dates to the VaccinationCenter so the list can be filtered | CheckAndExportVaccinationStatsController | **IE:** The controller knows the two dates that the user selected previously.   |
-| Step 5 |    ... informing the operation success | CheckAndExportVacStatsGUI |  **Pure Fabrication:** there is no reason to assign this responsibility to any existing class in the Domain Model.   |
 
 
 ### Systematization ##
