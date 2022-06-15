@@ -110,62 +110,63 @@ public class ReadLegacyDataFile {
 
     private String checkTimeFormat(String arrivalTime) {
         String n;
-        try {
-            LocalDateTime.parse(arrivalTime, DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm"));
-            return "MM/dd/yyyy HH:mm";
-        } catch (Exception e) {
-            n = "0";
-        }
-
-        try {
-            LocalDateTime.parse(arrivalTime, DateTimeFormatter.ofPattern("MM/d/yyyy HH:mm"));
-            return "MM/d/yyyy HH:mm";
-        } catch (Exception e) {
-            n = "0";
-        }
-
-        try {
-            LocalDateTime.parse(arrivalTime, DateTimeFormatter.ofPattern("MM/dd/yyyy H:mm"));
-            return "MM/dd/yyyy H:mm";
-        } catch (Exception e) {
-            n = "0";
-        }
-
-        try {
-            LocalDateTime.parse(arrivalTime, DateTimeFormatter.ofPattern("MM/d/yyyy H:mm"));
-            return "MM/d/yyyy H:mm";
-        } catch (Exception e) {
-            n = "0";
-        }
-
-        try {
-            LocalDateTime.parse(arrivalTime, DateTimeFormatter.ofPattern("M/dd/yyyy HH:mm"));
-            return "M/dd/yyyy HH:mm";
-        } catch (Exception e) {
-            n = "0";
-        }
-
-        try {
-            LocalDateTime.parse(arrivalTime, DateTimeFormatter.ofPattern("M/d/yyyy HH:mm"));
-            return "M/d/yyyy HH:mm";
-        } catch (Exception e) {
-            n = "0";
-        }
-
+        //Only one month , two days and one hour**
         try {
             LocalDateTime.parse(arrivalTime, DateTimeFormatter.ofPattern("M/dd/yyyy H:mm"));
             return "M/dd/yyyy H:mm";
         } catch (Exception e) {
             n = "0";
         }
-
+        //Only one month, two days and two hours
         try {
-            LocalDateTime.parse(arrivalTime, DateTimeFormatter.ofPattern("M/d/yyyy H:mm"));
-            return "M/d/yyyy H:mm";
+            LocalDateTime.parse(arrivalTime, DateTimeFormatter.ofPattern("M/dd/yyyy HH:mm"));
+            return "M/dd/yyyy HH:mm";
         } catch (Exception e) {
-            return n;
+            n = "0";
         }
-
+        //Only one month, one day and one hour
+       try {
+           LocalDateTime.parse(arrivalTime, DateTimeFormatter.ofPattern("M/d/yyyy H:mm"));
+           return "M/d/yyyy H:mm";
+       } catch (Exception e) {
+            n = "0";
+       }
+        //Only one month, one day and two hours
+        try {
+            LocalDateTime.parse(arrivalTime, DateTimeFormatter.ofPattern("M/d/yyyy HH:mm"));
+            return "M/d/yyyy HH:mm";
+        } catch (Exception e) {
+            n = "0";
+        }
+        //Two months, one day, one hour
+        try {
+            LocalDateTime.parse(arrivalTime, DateTimeFormatter.ofPattern("MM/d/yyyy H:mm"));
+            return "MM/d/yyyy H:mm";
+        } catch (Exception e) {
+            n = "0";
+        }
+        //Two months, one day, two hours
+        try {
+            LocalDateTime.parse(arrivalTime, DateTimeFormatter.ofPattern("MM/d/yyyy HH:mm"));
+            return "MM/d/yyyy HH:mm";
+        } catch (Exception e) {
+            n = "0";
+        }
+        //Two months, two days, one hour
+        try {
+            LocalDateTime.parse(arrivalTime, DateTimeFormatter.ofPattern("MM/dd/yyyy H:mm"));
+            return "MM/dd/yyyy H:mm";
+        } catch (Exception e) {
+            n = "0";
+        }
+        //Two months, two day, two hours
+        try {
+            LocalDateTime.parse(arrivalTime, DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm"));
+            return "MM/dd/yyyy HH:mm";
+        } catch (Exception e) {
+            n = "0";
+        }
+        return n;
     }
 
 

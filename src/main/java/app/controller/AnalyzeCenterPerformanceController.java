@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
- *  Analyze center performance controller.
+ * Analyze center performance controller.
  */
 public class AnalyzeCenterPerformanceController {
 
@@ -18,7 +18,7 @@ public class AnalyzeCenterPerformanceController {
     private LocalDate selectedDate;
     private int timeInterval;
 
-    private PerformanceAnalyzer analyzer;
+    private final PerformanceAnalyzer analyzer;
 
 
     /**
@@ -42,7 +42,7 @@ public class AnalyzeCenterPerformanceController {
     /**
      * Instantiates a new controller.
      */
-    public AnalyzeCenterPerformanceController( ) {
+    public AnalyzeCenterPerformanceController() {
         final Company company = App.getInstance().getCompany();
         final VaccinationCentersStore store = company.getVaccinationCentersStore();
         String id = Utils.getLoggedCoordinatorId();
@@ -51,9 +51,7 @@ public class AnalyzeCenterPerformanceController {
     }
 
 
-
-
-    public int[] getTheStatisticsDailyList(){
+    public int[] getTheStatisticsDailyList() {
         return analyzer.getTheStatisticsDailyList(selectedDate, timeInterval);
     }
 
@@ -68,5 +66,23 @@ public class AnalyzeCenterPerformanceController {
     public int getMaxSum() {
         return analyzer.getMaxSum();
     }
+
+    public boolean checkIfTimeIntervalIsValid(String timeInterval) {
+
+        if (timeInterval.isEmpty()) {
+            return false;
+        }
+        try {
+            int timeIntervalInt = Integer.parseInt(timeInterval);
+            if (!(timeIntervalInt > 0 && timeIntervalInt <= analyzer.getMinutesOpenCenterPerDay())) {
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            return false;
+        }
+
+        return true;
+    }
+
 
 }

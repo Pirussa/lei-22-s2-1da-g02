@@ -86,7 +86,7 @@ public class AnalyzeCenterPerformanceGUI {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Invalid time interval");
-            alert.setContentText("Please enter a valid time interval. It must be a positive integer.");
+            alert.setContentText("Please enter a valid time interval. It has to be a positive integer and can't be less than 1 neither more than the number of minutes that the Vaccination Center is open in a day.  ");
             alert.showAndWait();
         }
 
@@ -127,17 +127,7 @@ public class AnalyzeCenterPerformanceGUI {
     }
 
     private boolean checkIfTimeIntervalIsValid() {
-        String timeInterval = txtTimeInterval.getText();
-        if (timeInterval.isEmpty()) {
-            return false;
-        }
-        try {
-            Integer.parseInt(timeInterval);
-        } catch (NumberFormatException e) {
-            return false;
-        }
-
-        return true;
+        return controller.checkIfTimeIntervalIsValid(txtTimeInterval.getText());
     }
 
 }
