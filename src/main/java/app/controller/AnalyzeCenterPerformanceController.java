@@ -18,6 +18,8 @@ public class AnalyzeCenterPerformanceController {
     private LocalDate selectedDate;
     private int timeInterval;
 
+    private PerformanceAnalyzer analyzer;
+
 
     /**
      * Sets time interval.
@@ -45,19 +47,26 @@ public class AnalyzeCenterPerformanceController {
         final VaccinationCentersStore store = company.getVaccinationCentersStore();
         String id = Utils.getLoggedCoordinatorId();
         center = store.getVaccinationCenterAssociatedToCoordinator(id);
+        analyzer = new PerformanceAnalyzer(center);
     }
 
 
-    /**
-     * Analyzes center performance for a day.
-     *
-     * @return a list with all the relevant information about the center performance
-     */
-    public List<Object> analyzeCenterPerformanceForDay(){
-        PerformanceAnalyzer analyzer = new PerformanceAnalyzer(center);
-        return analyzer.analyzeCenterPerformanceForDay(selectedDate, timeInterval);
+
+
+    public int[] getTheStatisticsDailyList(){
+        return analyzer.getTheStatisticsDailyList(selectedDate, timeInterval);
     }
 
+    public List<String> getTimeIntervals() {
+        return analyzer.getTimeIntervals(timeInterval);
+    }
 
+    public int[] getMaxSumSubList() {
+        return analyzer.getMaxSumSubList();
+    }
+
+    public int getMaxSum() {
+        return analyzer.getMaxSum();
+    }
 
 }

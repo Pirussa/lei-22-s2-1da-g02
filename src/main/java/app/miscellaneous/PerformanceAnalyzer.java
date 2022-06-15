@@ -14,29 +14,28 @@ public class PerformanceAnalyzer {
 
     private final VaccinationCenter vaccinationCenter;
 
+    private int[] listToBeAnalyzed;
+    private int[] maxSumSubList;
+
 
     public PerformanceAnalyzer(VaccinationCenter vaccinationCenter) {
         this.vaccinationCenter = vaccinationCenter;
     }
 
 
-    /**
-     * Analyzes center performance for a day.
-     *
-     * @param date         the date
-     * @param timeInterval the time interval
-     * @return a list with all the relevant information about the center performance
-     */
-    public List<Object> analyzeCenterPerformanceForDay(LocalDate date, int timeInterval) {
-        List<Object> results = new ArrayList<>();
-        int[] listToBeAnalyzed = getListToBeAnalyzed(date, timeInterval);
-        results.add(listToBeAnalyzed);
-        int[] maxSumSublist = findMaxSumSublist(listToBeAnalyzed);
-        results.add(maxSumSublist);
-        int maxSum = calculateSum(maxSumSublist);
-        results.add(maxSum);
 
-        return results;
+    public int[] getTheStatisticsDailyList(LocalDate date, int timeInterval) {
+        listToBeAnalyzed = getListToBeAnalyzed(date, timeInterval);
+        return listToBeAnalyzed;
+    }
+
+    public int[] getMaxSumSubList() {
+        maxSumSubList = findMaxSumSublist(listToBeAnalyzed);
+        return maxSumSubList;
+    }
+
+    public int getMaxSum() {
+        return calculateSum(maxSumSubList);
     }
 
 
@@ -116,6 +115,31 @@ public class PerformanceAnalyzer {
         return minsOfTheDay / timeInterval;
     }
 
+    public List<String> getTimeIntervals(int timeInterval) {
+        List<String> timeIntervals = new ArrayList<>();
+        LocalDateTime date = LocalDateTime.of(2022, 1, 1, Integer.parseInt(vaccinationCenter.getStrOpeningHour()), 0);
+
+        for (int position = 0; position < getLengthOfList(timeInterval); position++) {
+            StringBuilder stringBuilder = new StringBuilder();
+            if (date.getHour() < 10)
+                stringBuilder.append("0").append(date.getHour());
+            else
+                stringBuilder.append(date.getHour());
+
+            stringBuilder.append(":");
+
+            if (date.getMinute() < 10)
+                stringBuilder.append("0").append(date.getMinute());
+            else
+                stringBuilder.append(date.getMinute());
+
+            timeIntervals.add(stringBuilder.toString());
+            date = date.plusMinutes(timeInterval);
+        }
+
+        return timeIntervals;
+    }
+
     private int[] countArrivalsAndDepartures(LocalDate date, int timeInterval, int slot) {
         int counterArrivals = 0;
         int counterDepartures = 0;
@@ -124,7 +148,7 @@ public class PerformanceAnalyzer {
         LocalDateTime beginningSlot;
         LocalDateTime endSlot;
 
-        if (slot == 1)
+        if (slot == 0)
             beginningSlot = time;
         else
             beginningSlot = time.plusMinutes((long) timeInterval * slot);

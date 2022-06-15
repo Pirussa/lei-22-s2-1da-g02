@@ -64,7 +64,6 @@ public class ReadLegacyDataFile {
      */
     public List<String> updateLegacyFile() throws NotSerializableException {
         updatedList.clear();
-        int counter = 0;
         if (!company.getSnsUsersStore().getSnsUserList().isEmpty() && !company.getVaccinesList().isEmpty()) {
             for (String line : legacyDataList) {
                 String[] values;
@@ -74,10 +73,8 @@ public class ReadLegacyDataFile {
                 if (company.getSnsUsersStore().containsUserWithNumber(Integer.parseInt(values[0]))) {
                     if (company.containsVaccine(values[1])) {
                         updatedList.add(company.getSnsUsersStore().getSnsUserList().get(positionInSnsUserList).getStrName() + "|" + line + "|" + company.getVaccinesList().get(positionInVaccinesList).getVaccineType().getDescription());
-                        setArrival(values[4], values[0]);
-                        setDeparture(values[7], values[0]);
-                        counter++;
-                        System.out.println(counter);
+//               setArrival(values[4], values[0]);
+//                        setDeparture(values[7], values[0]);
                     }
                 }
             }

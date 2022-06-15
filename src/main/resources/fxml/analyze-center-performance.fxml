@@ -66,7 +66,7 @@
                      </children>
                   </HBox>
                   <HBox prefHeight="43.0" prefWidth="572.0" />
-                  <Label prefHeight="67.0" prefWidth="506.0" text="Select the Time Interval">
+                  <Label fx:id="lbSelectTimeInterval" prefHeight="67.0" prefWidth="506.0" text="Select the Time Interval">
                      <font>
                         <Font size="25.0" />
                      </font>
