@@ -4,7 +4,9 @@ autonumber
 
 participant ":App" as A
 participant "Company" as C
+participant "Vaccination Center Store" as VCS
 participant "Vaccination Center" as VC
+
 
 
 
@@ -14,15 +16,17 @@ A -> C : runDailyTasks()
 activate C
 deactivate A
 loop Vaccination Center Total Vaccinated People
-C -> C : vaccinationCenter = getVaccinationCentersList().get(position)
-activate C
-deactivate C
-C->VC :   administeredVaccinesList = vaccinationCenter.getAdministeredVaccines()
+C -> VCS : getVaccinationCenterWithIndex()
+activate VCS
+deactivate VCS
+C->VC :   administeredVaccinesList = getAdministeredVaccines()
 activate VC
 deactivate VC
-C -> C : amountOfVaccinatedPeople = vaccinationCenter.administeredVaccinesList.size()
-activate C
-deactivate C
+
+C -> VC : amountOfVaccinatedPeople = administeredVaccinesListSize()
+
+activate VC
+deactivate VC
 C -> A : Print information to a csv file
 activate A
 deactivate A
