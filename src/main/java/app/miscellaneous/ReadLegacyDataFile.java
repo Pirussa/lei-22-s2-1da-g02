@@ -56,6 +56,7 @@ public class ReadLegacyDataFile {
         }
     }
 
+
     /**
      * Update legacy file.
      *
@@ -73,12 +74,14 @@ public class ReadLegacyDataFile {
 
                 for ( positionInSnsUserList = 0; positionInSnsUserList < company.getSnsUsersStore().getSnsUserList().size(); positionInSnsUserList++) {
                     if (company.getSnsUsersStore().getSnsUserList().get(positionInSnsUserList).getSnsUserNumber() == Integer.parseInt(values[0])) {
-                        for ( positionInVaccinesList = 0; positionInVaccinesList < company.getVaccinesList().size(); positionInVaccinesList++) {
-                            if (company.getVaccinesList().get(positionInVaccinesList).getName().equals(values[1])) {
-                                updatedList.add(company.getSnsUsersStore().getSnsUserList().get(positionInSnsUserList).getStrName() + "|" + legacyDataList.get(lineOfTheData)+ "|" + company.getVaccinesList().get(positionInVaccinesList).getVaccineType().getDescription());
-                                //setArrival(values[4], values[0]);
-                                //setDeparture(values[7], values[0]);
-                            }
+                            for ( positionInVaccinesList = 0; positionInVaccinesList < company.getVaccinesList().size(); positionInVaccinesList++) {
+                                if (company.getVaccinesList().get(positionInVaccinesList).getName().equals(values[1])) {
+                                    if (!updatedList.contains(company.getSnsUsersStore().getSnsUserList().get(positionInSnsUserList).getStrName() + "|" + legacyDataList.get(lineOfTheData)+ "|" + company.getVaccinesList().get(positionInVaccinesList).getVaccineType().getDescription())){
+                                        updatedList.add(company.getSnsUsersStore().getSnsUserList().get(positionInSnsUserList).getStrName() + "|" + legacyDataList.get(lineOfTheData)+ "|" + company.getVaccinesList().get(positionInVaccinesList).getVaccineType().getDescription());
+                                    }
+                                    //setArrival(values[4], values[0]);
+                                    //setDeparture(values[7], values[0]);
+                                }
                         }
                     }
                 }
