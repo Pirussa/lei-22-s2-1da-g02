@@ -16,7 +16,7 @@ public class RegisterTheArrivalOfAnSnsUserController {
     private Arrival arrival;
     private final Company company = App.getInstance().getCompany();
     GenericClass<Arrival> generics = new GenericClass<>();
-private final VaccinationCentersStore vaccinationCentersStore = company.getVaccinationCentersStore();
+    private final VaccinationCentersStore vaccinationCentersStore = company.getVaccinationCentersStore();
 
     public RegisterTheArrivalOfAnSnsUserController() {}
 

@@ -139,7 +139,7 @@ class AnalyzeThePerformanceOfACenterTest {
     public void analyzeThePerformanceCorrect() {
         assertTrue(controller.checkIfTimeIntervalIsValid(timeInterval));
 
-        int[] listToBeAnalyzed = {1, -1, 0, 1, -1, -1, 0, -1, 1, 3,0, -2};
+        int[] listToBeAnalyzed = {0,1, -1, 0, 1, -1, -1, 0, -1, 1, 3,0, -2};
         int[] expectedListToBeAnalyze = performanceAnalyzer.getTheStatisticsDailyList(date, Integer.parseInt(timeInterval));
         assertArrayEquals(listToBeAnalyzed, expectedListToBeAnalyze);
 
