@@ -1,160 +1,157 @@
-# US 017 - Import data from a legacy system that was used in the past to manage centers
+# US 015 - Check and export vaccination statistics
 
 ## 1. Requirements Engineering
 
 ### 1.1. User Story Description
 
-As a **Center Coordinator**, I want to **import** data from a legacy system that was used in the
-past to manage centers. The imported data should be presented to the user sorted by arrival time
-or by center leaving time. The **name** of the SNS user and the vaccine type **short description**
-attribute should also be presented to the user.
+As a **Center Coordinator**, I intend to **check** and **export** vaccination statistics.
+I want to export, to a csv file, the total number of fully vaccinated users per day.
 
 ### 1.2. Customer Specifications and Clarifications
 
-### **From the specifications document:**
+**From the specifications document:**
 
-> Each vaccination center has a Center Coordinator that has the responsibility to manage the Covid19 vaccination process. The Center Coordinator wants to monitor the vaccination process, to see
-statistics and charts, to evaluate the performance of the vaccination process, generate reports
+> The Center Coordinator wants to monitor the vaccination process, to see
+statistics and charts, to evaluate the performance of the vaccination process, generate reports and
+analyze data from other centers, including data from legacy systems.
 
-### **From the client clarifications:**
+**From the client clarifications:**
 
-**-From the requirements document:**
->The goal of this US is to explore this data jointly with data obtained from external sources to estimate the number of new cases and the number of deaths using information about the Reproduction Rate, Number of ICU Patients, Number of In-Hospital Patients, Number of New Cases, Positive Rate and Number of People Fully Vaccinated. In this study, simple linear and a multi-linear regression models should be developed to find the linear relationship between: 1- each independent variable and each dependent variable; 2- all six independent variables and each dependent variable; 3- three selected variables and each dependent variable. As the application is under development it is not possible to generate all data required for the analysis. Therefore, and to simulate a production system, we made available in moodle a file containing all the information required for this study. The regression analysis should be made outside the application and should be performed using Microsoft Excel spreadsheet program. The regression analysis should be documented in the application user manual (in the annexes) that must be delivered with the application. The report should include day and week (observed and estimated) values, the regression model used to estimate each value, R(SLR), R2 and R2 adjusted for SLR and MLR, confidence intervals and hypothesis tests for regression coefficients and significance model with Anova.
+>*Question:* "in a meeting you already clarified that when uploading a file from a legacy system the application should check if the SNS Users are already registered and if not US 014 should be put to use. My question is now if only one or two SNS Users are not registered, should the whole legacy file be discarded?".
+>
+>*Answer:* SNS users that are not registered should be loaded/registered. The other SNS users should not be registered again and should be ignored.
 
-**-From the client forum:**
+>*Question:* "The file loaded in US17 have only one day to analyse or it could have more than one day(?) and in US16 we need to select the day to analyse from 8:00 to 20:00"
+>
+>*Answer:* The file can have data from more than one day. In US16 the center coordinator should select the day for which he wants to analyse the performance of the vaccination center.
 
->**Questions:** 
-> 
->1- When exporting vaccination statistics,do we export the data from all days available in the system or does the center coordinator chooses the time interval? 
+>*Question:* "Regarding the validation of the data in the performance data csv, in case the dose is the not the first one, should we check if the user age and the date when the user took the other vaccine dose, are valid for the new dose to be administered? (This question popped up whith the project description: "The vaccine administration process comprises (i) one or more age groups (e.g.: 5 to 12 years old, 13 to 18 years old, greater than 18 years old), and (ii) per age group, the doses to be administered (e.g.: 1, 2, 3), the vaccine dosage (e.g.: 30 ml), and the time interval regarding the previously administered dose. Regarding this, it is important to notice that between doses (e.g.: between the 1st and 2nd doses) the dosage to be administered might vary as well as the time interval elapsing between two consecutive doses (e.g.: between the 1st and 2nd doses 21 days might be required, while between the 2nd and the 3 rd doses 6 months might be required).")"
 >
->2-Is there any kind of format our exported data should follow?
-> 
->**Answers:**
-> 
->1- The user should define a time interval (two dates).
-> 
->2- Data format: date; number of fully vaccinated user.
+>*Answer:* The data from the legacy system (CSV file) should be validated before being loaded.
+Even so, each team should create a Spikevax vaccine that allows loading all vaccinations from the example CSV file that is available in moodle. This is required for developing MDISC tasks and assessment.
 
->**Question:**
+>*Question:* "You already have clarified that when uploading a file from a legacy system the application should check if the SNS Users are already registered and if not, we should register them using US 014. How exactly do you want this to proceed, in case there aren't registered users, should the application ask the center coordinator to select the file with the users data to be uploaded?"
 >
->Is the exportation of the CSV file that contains the total number of fully vaccinated users per day, the only feature that needs to be implemented in code, for US15?
->
->**Answer:**
->
->Yes.
+>*Answer:*  US14 and US17 are two different features of the system. In US17, if the SNS user does not exist in the system, the vaccination of this SNS user should not be loaded. The system should continue processing the CSV file until all vaccinations are processed.
 
->**Questions:**
+>*Question:* The file loaded in US17 have only one day to analyse or it could have more than one day(?) and in US16 we need to select the day to analyse from 8:00 to 20:00
 >
->1-Should the user introduce the name of the file intended to export the vaccination statistics ?
-> 
-> 2-Are the vaccination statistics referring only to the fully vaccinated users or referring to something more ?
->
->**Answer:**
->
->The user should introduce the name of the file.
-> 
->Only to fully vaccinated users.
+>*Answer:* The file can have data from more than one day. In US16 the center coordinator should select the day for which he wants to analyse the performance of the vaccination center.
 
->**Question:**
+>*Question:* "Should the configuration file be defined , manually, before strating the program? Or Should an administrator or another DGS entity be able to alter the file in a user interface? This question is also important for US06 and US16 since these US also use configuration files, will the same process be applied to them?"
 >
->In this US should the Center Coordinator check and export the Vaccination Statistics of the Center where he/she works at or should just check and export the Vaccination Statistics of all centers?
->
->**Answer:**
->
->The center coordinator can only export statistics from the vaccination center that he coordinates.
+>*Answer:* The configuration file should be edited manually.
 
+>*Question:* 1 - When sorting data by arrival time or central leaving time, should we sort from greater to smallest or from smallest to greater? 2 - Also, should we consider only time or date also? So, for example, if we sort from smaller to greater and consider a date also, 20/11/2020 11:00 would go before 20/12/2020 08:00. Without considering the date (only time) it would be 20/12/2020 08:00 before 20/11/2020 11:00.
+>
+>*Answer:* 1. The user must be able to sort in ascending and descending order. 2. Date and time should be used to sort the data. Sort the data by date and then by time.
+
+>*Question:* "Should the vaccine named Spikevax, (the one in the given CSV file for US17), be registered before loading the CSV file?"
+>
+>*Answer:* Yes.
+
+>*Question:* "You already have clarified that when uploading a file from a legacy system the application should check if the SNS Users are already registered and if not, we should register them using US 014. How exactly do you want this to proceed, in case there aren't registered users, should the application ask the center coordinator to select the file with the users data to be uploaded?"
+>
+>*Answer:* US14 and US17 are two different features of the system. In US17, if the SNS user does not exist in the system, the vaccination of this SNS user should not be loaded. The system should continue processing the CSV file until all vaccinations are processed.
+
+>*Question:*  "In the Sprint D requirements is stated that two sorting algorithms should be implemented and that the imported data should be sorted by arrival time or center leaving time. Should each algorithm be capable of both sortings or is one of the algorithms supposed to do one (e.g. arrival time) and the other the remaining sorting criteria (e.g. leaving time)?"
+>
+>*Answer:* Each algorithm should be capable of doing both sortings. The application should be prepared to run both algorithms. The algorithm that will be used to sort data should be defined in a configuration file.
 
 ### 1.3. Acceptance Criteria
 
-
-* **AC1:** A file with the Vaccination Statistics is created.
-
+* **AC01:** Two sorting algorithms should be implemented
+* **AC02:** The center coordinator must be able to choose the file that is to be uploaded
+* **AC03:** Only files with valid information are accepted by the system.
+* **AC04:** Duplicated information is ignored by the system.
 
 ### 1.4. Found out Dependencies
 
-There is a dependency with US008, as it is required to have the necessary information that that US provides in order to create a file with the vaccination statistics.
+US017 has no dependencies.
 
 ### 1.5 Input and Output Data
 
 **Input Data:**
 
-* Typed data:
-    - The name of the file intended to export the vaccination statistics.
-
 * Selected data:
-    - The time interval.
-    - Between the options of checking or exporting the vaccination statistics.
+    - File Path
+    - Option of the sort
+    - Order of the sort
 
 **Output Data:**
 
-The Vaccination Statistics;
- A file with the Vaccination Statistics.
-
+* Warning about the file validity/existence
+* A sorted list
+* (In)Success of the operation
 
 ### 1.6. System Sequence Diagram (SSD)
 
-![US015_SSD](US015_SSD.svg)
+![US017-SSD](US017_SSD.svg)
 
 ### 1.7 Other Relevant Remarks
 
->No other relevant remarks.
+* N/A
 
 ## 2. OO Analysis
 
-### 2.1. Relevant Domain Model Excerpt 
+### 2.1. Relevant Domain Model Excerpt
 
-![US015_MD](US015_MD.svg)
+![US017-MD](US017_DM.svg)
 
 ### 2.2. Other Remarks
 
-> VaccinationStatistics represents the statistics of the vaccination process.
-> By the VaccinationStatistics we get the total number of fully vaccinated users per day, in a center.
-> The same center can have several statistics, as the Center Coordinator can check and export statistics for different time intervals.
-> Per example: the Center Coordinator can check the statistics from day 1 to 10 of a month, and then export the statistics from day 10 to 20 of the next month. Therefore, those are different statistics.
+No remarks.
 
-
-## 3. Design - User Story Realization 
+## 3. Design - User Story Realization
 
 ### 3.1. Rationale
 
 | Interaction ID | Question: Which class is responsible for... | Answer  | Justification (with patterns)  |
 |:-------------  |:--------------------- |:------------|:---------------------------- |
-| Step 1         |    ...showing the dates and requesting the selection of a period (two dates) | CheckAndExportVacStatsGUI   |  **Pure Fabrication:** there is no reason to assign this responsibility to any existing class in the Domain Model. Using a Class for the interactions of the User with the System promotes the **HCLC** principle   |
-| |  ...saving the selected dates  | CheckAndExportVaccinationStatsController| **Controller:** act as a mediator between the UI and the Model. Has the responsibility of controlling the data transmission between both. **Pure Fabrication**: As there is no Domain Class with such responsibility one is following the Pure Fabrication pattern.      |
-| Step 2         | ...requesting a selection between the option of checking statistics and the option of exporting them | CheckAndExportVacStatsGUI | **Pure Fabrication:** there is no reason to assign this responsibility to any existing class in the Domain Model. Using a Class for the interactions of the User with the System promotes the **HCLC** principle |
-| Step 3 (User chooses to check the Vaccination stats)| ... showing the list with the Center's Vaccination Statistics | CheckListVacStatsGUI |  **Pure Fabrication:** there is no reason to assign this responsibility to any existing class in the Domain Model.  |
-| | ... disponibilize the previous list to the CheckListVacStatsGUI  | CheckAndExportVaccinationStatsController | **Controller:** act as a mediator between the UI and the Model. Has the responsibility of controlling the data transmission between both. **IE:** The controller knows the logged Center's Coordinator Center. |
-| | ... "telling" the CheckAndExportVaccinationStatsController the logged Center's Coordinator Center | Company | **IE:** The Company knows the logged Center's Coordinator Center. |
-| |    ... disponibilize the previous list to the CheckAndExportVaccinationStatsController  | VaccinationCenter | **IE:** The Vaccination Center knows it's own statistics, therefore by receiving the dates as an input he can return a filtered list.  |
-| Step 3 (User chooses to export the Vaccination stats) | ... requesting the name of the file for the Vaccination Stats to be exported | CheckAndExportVacStatsGUI |  **Pure Fabrication:** there is no reason to assign this responsibility to any existing class in the Domain Model.  |
-| Step 4 |  ... exporting the Vaccination Statistics | ExportListToFile | **Pure Fabrication:** there is no reason to assign this responsibility to any existing class in the Domain Model. By creating a Class to assign the responsibility of exporting a list we are adopting the **HCLC** principle as we are not assigning another responsibility to the Vaccination Center and we are promoting reusable code.  |
-| 	 |    ... disponibilize the list with the statistics to ExportList | VaccinationCenter |**IE:** The Vaccination Center knows it's own statistics, therefore by receiving the dates as an input he can return a filtered list. |
-| | ... sending the dates to the VaccinationCenter so the list can be filtered | CheckAndExportVaccinationStatsController | **IE:** The controller knows the two dates that the user selected previously.   |
-| Step 5 |    ... informing the operation success | CheckAndExportVacStatsGUI |  **Pure Fabrication:** there is no reason to assign this responsibility to any existing class in the Domain Model.   |
-
+| Step 1  | Asking to load a CSV file?	                                                                     |  LoadCSVUI         | **Pure Fabrication:** there is no reason to assign this responsibility to any existing class in the Domain Model.                                                                                                        |
+| Step 2  |	Requesting the path of the CSV File?	                                                         |  LoadCSVUI         | **IE:** is responsible for user interactions                                                                                                                                                                             |
+| Step 3  |	Typing the path of the CSV File?	                                                             |  LoadCSVUI         | **Pure Fabrication:** there is no reason to assign this responsibility to any existing class in the Domain Model.                                                                                                        |
+| 		  |  ... validating the path?                                                                        |  LoadCSVUI         | **IE:** The UI knows the path, therefore it can validate it easily.                                                                                                                                                      | 
+| 		  |  ... validating the CSV that has SNS User data?                                                  |  LoadCSVUI         | **IE:** The UI knows the data inside the CSV, so it can validate the entire file.                                                                                                                                        |
+| 		  |  ... generating a password for the SNS User?                                                     |  Utils             | **Pure Fabrication:** This password generator was needed for US11, so in order to avoid code duplication we are assigning it to a shared class.                                                                          |
+| 		  |  ... saving the data into an ArrayList?                                                          |  LoadCSVUI         | **IE:** The UI knows the CSV data so it can save that data on an ArrayList.                                                                                                                                              |
+| 		  |  ... filling the SNSUserDTO with SNS User data?                                                  |  LoadCSVUI         | **IE:** The UI knows the data inside the ArrayList so it can fill the DTO with that data.                                                                                                                                |
+| 		  |  ... transferring the SNS User data from the UI to the controller?	                             |  SNSUserDTO        | **DTO:** When there is so much data to transfer, it is better to opt by using a DTO in order to reduce coupling between UI and other classes.                                                                            |
+| 		  |  ... transfer the SNS User data from the controller to the company?                              |  LoadCSVController | **Controller:** act as a mediator between the UI and the Model, in this case the Company class. Has the responsibility of controlling the data transmission between both. It maps the user action into model updates.    |
+| 		  |  ... instantiating a new SNS User?	                                                             |  Company           | By applying the **Creator** pattern instances of Company have the initializing information for instances of SNSUser and pass it on creation.                                                                             |
+| 		  |  ... validating the SNS User?                                                                    |  SNSUser           | **IE:** The SNS User class has it's own information so it can validate itself.                                                                                                                                           |
+| 		  |  ... validating SNS User duplication? 	                                                         |  Company           | **IE:** The Company class knows all SNSUsers so it can check for duplicates.                                                                                                                                             | 
+| 		  |  ... saving the SNS User?                                                                        |  Company           | **IE:** The Company class has all needed SNSUser information so it can save them.                                                                                                                                        |
+| 		  |  ... registering the SNS User as a system user?                                                  |  AuthFacade        | **IE:** cf. A&A component documentation.                                                                                                                                                                                 |
+| 		  |  ... checking duplicate email on all authenticated users?                                        |  AuthFacade        | **IE:** Knows all authenticated users email.                                                                                                                                                                             |
+| Step 4  |	Informing about how many users were created, how many were saved and how many were duplicates?   |  LoadCSVUI         | **IE:** is responsible for user interactions.                                                                                                                                                                            |
+| Step 5  |	Asking for a list with all saved SNS Users?					                                     |  LoadCSVUI         | **Pure Fabrication:** there is no reason to assign this responsibility to any existing class in the Domain Model.                                                                                                        |
+| 		  |  ... who makes available the previous list to the LoadCSVUI?                                     |  LoadCSVController | **Controller:** act as a mediator between the UI and the Model. Has the responsibility of controlling the data transmission between both. It maps the user action into model updates.                                    |
+| 		  |  ... who makes available  the previous list to the LoadCSVController?                            |  Company           | **IE:** The Company knows all saved SNS Users.                                                                                                                                                                           |
+| Step 6  |	Showing the list?						                                                         |  LoadCSVUI         | **IE:** is responsible for user interactions.                                                                                                                                                                            |              
 
 ### Systematization ##
 
 According to the taken rationale, the conceptual classes promoted to software classes are:
 
-
-* ExportListToFile
-* VaccinationCenter
 * Company
+* SNSUser
 
 Other software classes (i.e. Pure Fabrication) identified:
-* CheckAndExportVacStatsGUI
-* CheckAndExportVaccinationStatsController
-* CheckListVacStatsGUI
+
+* LoadCSVUI
+* Utils
+* SNSUserDTO
+* LoadCSVController
+
+Other software classes of external systems/components:
+
+* AuthFacade
 
 ## 3.2. Sequence Diagram (SD)
 
-**Alternative 1**
-
-![US015_SD](US015_SD.svg)
+![US017-SD](US017_SD.svg)
 
 ## 3.3. Class Diagram (CD)
 
-**From alternative 1**
-
-![US008_CD](US008_CD.svg)
+![US017-CD](US017_CD.svg)
