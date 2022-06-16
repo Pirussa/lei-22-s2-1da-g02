@@ -52,10 +52,10 @@ public class ConsultUsersInTheWaitingRoomController {
 
     public ArrayList<String> listOfUsersInTheWaitingRoom() {
         ArrayList<String> listOfUsersInTheWaitingRoom = new ArrayList<>();
-        StringBuilder snsUserInfo = new StringBuilder();
         for (int arrivalListPosition = 0; arrivalListPosition < getArrivalsList().size(); arrivalListPosition++) {
             for (int snsUserListPosition = 0; snsUserListPosition < company.getSnsUsersStore().getSnsUserList().size(); snsUserListPosition++) {
                 if (getArrivalsList().get(arrivalListPosition).getSnsNumber() == company.getSnsUsersStore().getSnsUserList().get(snsUserListPosition).getSnsUserNumber()) {
+                    StringBuilder snsUserInfo = new StringBuilder();
                     snsUserInfo.append("Name: ").append(company.getSnsUsersStore().getSnsUserList().get(snsUserListPosition).getStrName()).append('\n');
                     snsUserInfo.append("Sex: ").append(company.getSnsUsersStore().getSnsUserList().get(snsUserListPosition).getStrSex()).append('\n');
                     snsUserInfo.append("Birth Date: ").append(company.getSnsUsersStore().getSnsUserList().get(snsUserListPosition).getStrBirthDate()).append('\n');

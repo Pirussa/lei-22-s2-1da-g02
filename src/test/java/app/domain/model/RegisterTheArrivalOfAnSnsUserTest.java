@@ -32,8 +32,8 @@ private  final VaccinationCentersStore vaccinationCentersStore = company.getVacc
 
         VaccineType vt1 = new VaccineType("12345" ,"Covid", VaccineType.vaccineTechnologies[0]);
 
-        ScheduledVaccine appointment1 = new ScheduledVaccine(100000000, vt1, LocalDateTime.of(2022, 6, 16, 20, 20));
-        ScheduledVaccine appointment2 = new ScheduledVaccine(200000000, vt1, LocalDateTime.of(2022, 6, 16, 20, 20));
+        ScheduledVaccine appointment1 = new ScheduledVaccine(100000000, vt1, LocalDateTime.now());
+        ScheduledVaccine appointment2 = new ScheduledVaccine(200000000, vt1, LocalDateTime.now());
 
         vcR.getScheduledVaccineList().add(appointment1);
         vcU.getScheduledVaccineList().add(appointment2);
@@ -78,24 +78,11 @@ private  final VaccinationCentersStore vaccinationCentersStore = company.getVacc
     public void registerArrivalWithWrongDate() {
 
         ctrl.setVaccinationCenter(0);
-        ctrl.checkAndSetUserAppointment(200000000);
-        ctrl.setArrival(200000000);
+        ctrl.checkAndSetUserAppointment(100000000);
+        ctrl.setArrival(100000000);
 
         assertFalse(ctrl.checkAndSetUserAppointment(200000000) && ctrl.checkIfAlreadyRegistered(200000000) && ctrl.validateDateAndTime());
     }
-
-  @Test
-  /**
-   * Verifies if an Arrival on the wrong vaccination center meets the requirements to be registered
-   */
-  public void registerArrivalWithWrongVaccinationCenters() {
-
-      ctrl.setVaccinationCenter(1);
-      ctrl.checkAndSetUserAppointment(100000000);
-      ctrl.setArrival(100000000);
-
-      assertFalse(ctrl.checkAndSetUserAppointment(100000000) && ctrl.checkIfAlreadyRegistered(100000000) && ctrl.validateDateAndTime());
-  }
 
 
     @Test

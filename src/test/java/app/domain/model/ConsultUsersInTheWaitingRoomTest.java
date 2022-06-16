@@ -38,8 +38,8 @@ class ConsultUsersInTheWaitingRoomTest {
         company.getSnsUsersStore().getSnsUserList().add(snsuser1);
         company.getSnsUsersStore().getSnsUserList().add(snsuser2);
 
-        ScheduledVaccine appointment1 = new ScheduledVaccine(100000000, vt1, LocalDateTime.of(2022, 6, 14, 18, 0));
-        ScheduledVaccine appointment2 = new ScheduledVaccine(200000000, vt1, LocalDateTime.of(2022, 6, 14, 18, 10));
+        ScheduledVaccine appointment1 = new ScheduledVaccine(100000000, vt1, LocalDateTime.now());
+        ScheduledVaccine appointment2 = new ScheduledVaccine(200000000, vt1, LocalDateTime.now());
 
         vc.getScheduledVaccineList().add(appointment1);
         vc.getScheduledVaccineList().add(appointment2);
