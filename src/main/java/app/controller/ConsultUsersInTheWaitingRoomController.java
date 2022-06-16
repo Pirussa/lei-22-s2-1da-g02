@@ -52,8 +52,8 @@ public class ConsultUsersInTheWaitingRoomController {
 
     public ArrayList<String> listOfUsersInTheWaitingRoom() {
         ArrayList<String> listOfUsersInTheWaitingRoom = new ArrayList<>();
-        StringBuilder snsUserInfo = new StringBuilder();
         for (int arrivalListPosition = 0; arrivalListPosition < getArrivalsList().size(); arrivalListPosition++) {
+            StringBuilder snsUserInfo = new StringBuilder();
             for (int snsUserListPosition = 0; snsUserListPosition < company.getSnsUsersStore().getSnsUserList().size(); snsUserListPosition++) {
                 if (getArrivalsList().get(arrivalListPosition).getSnsNumber() == company.getSnsUsersStore().getSnsUserList().get(snsUserListPosition).getSnsUserNumber()) {
                     snsUserInfo.append("Name: ").append(company.getSnsUsersStore().getSnsUserList().get(snsUserListPosition).getStrName()).append('\n');
@@ -67,4 +67,6 @@ public class ConsultUsersInTheWaitingRoomController {
         }
         return listOfUsersInTheWaitingRoom;
     }
+
+
 }

@@ -38,8 +38,8 @@ class ConsultUsersInTheWaitingRoomTest {
         company.getSnsUsersStore().getSnsUserList().add(snsuser1);
         company.getSnsUsersStore().getSnsUserList().add(snsuser2);
 
-        ScheduledVaccine appointment1 = new ScheduledVaccine(100000000, vt1, LocalDateTime.of(2022, 6, 14, 18, 0));
-        ScheduledVaccine appointment2 = new ScheduledVaccine(200000000, vt1, LocalDateTime.of(2022, 6, 14, 18, 10));
+        ScheduledVaccine appointment1 = new ScheduledVaccine(100000000, vt1, LocalDateTime.of(2022, 6, 16, 21, 25));
+        ScheduledVaccine appointment2 = new ScheduledVaccine(200000000, vt1, LocalDateTime.of(2022, 6, 16, 21, 30));
 
         vc.getScheduledVaccineList().add(appointment1);
         vc.getScheduledVaccineList().add(appointment2);
@@ -64,9 +64,7 @@ class ConsultUsersInTheWaitingRoomTest {
     @Test
     void listOfUsersInTheWaitingRoom() {
         setup();
-
         ArrayList<String> checkList = new ArrayList<>();
-
         checkList.add(
                 "Name: " + "User Default" + '\n' +
                         "Sex: " + "Male" + '\n' +
@@ -80,6 +78,7 @@ class ConsultUsersInTheWaitingRoomTest {
                         "SNS User Number: " + "200000000" + '\n' +
                         "Phone Number: " + "915604429" + '\n');
 
+
         assertEquals(checkList, ctrl.listOfUsersInTheWaitingRoom());
     }
 
@@ -91,7 +90,6 @@ class ConsultUsersInTheWaitingRoomTest {
     void listOfUsersInTheWaitingRoomFalse() {
         setup();
         ArrayList<String> checkList = new ArrayList<>();
-
         assertNotEquals(checkList, ctrl.listOfUsersInTheWaitingRoom());
 
     }
