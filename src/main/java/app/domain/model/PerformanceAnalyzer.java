@@ -1,12 +1,13 @@
 package app.domain.model;
 
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PerformanceAnalyzer {
+public class PerformanceAnalyzer implements Serializable {
 
     private final VaccinationCenter vaccinationCenter;
 

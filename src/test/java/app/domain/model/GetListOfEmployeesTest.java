@@ -97,10 +97,9 @@ public void fillListOfNursesFalse(){
      */
     @Test
     public void fillListOfCentreCoordinatorsFalse() {
-
-        company.getEmployeesStore().fillListOfEmployeesWithAGivenRole();
-
-        assertTrue(company.getEmployeesStore().getCenterCoordinatorList().isEmpty());
+        Company company1 = new Company("Comps");
+        company1.getEmployeesStore().fillListOfEmployeesWithAGivenRole();
+        assertTrue(company1.getEmployeesStore().getCenterCoordinatorList().isEmpty());
     }
 
 }

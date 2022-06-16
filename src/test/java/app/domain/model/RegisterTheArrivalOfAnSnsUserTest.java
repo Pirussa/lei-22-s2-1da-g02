@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class RegisterTheArrivalOfAnSnsUserTest {
 
-    private final Company company = App.getInstance().getCompany();
+    private final Company company = new Company("Company");
     private final RegisterTheArrivalOfAnSnsUserController ctrl = new RegisterTheArrivalOfAnSnsUserController();
 private  final VaccinationCentersStore vaccinationCentersStore = company.getVaccinationCentersStore();
 
@@ -39,13 +39,13 @@ private  final VaccinationCentersStore vaccinationCentersStore = company.getVacc
     }
 
 
-  // @Test
+   @Test
     /**
      * Verifies if a valid arrival meets the requirements to be registered
      *
      * This test depends on the hour previously created on the creationOfTheNecessary() method
      */
-   /* public void registerValidArrival() {
+    public void registerValidArrival() {
 
         ctrl.setVaccinationCenter(0);
         ctrl.checkAndSetUserAppointment(100000000);
@@ -53,7 +53,7 @@ private  final VaccinationCentersStore vaccinationCentersStore = company.getVacc
 
         assertTrue(ctrl.checkAndSetUserAppointment(100000000) && ctrl.checkIfAlreadyRegistered(100000000) && ctrl.validateDateAndTime());
 
-    } */
+    }
 
 
     @Test
@@ -85,20 +85,20 @@ private  final VaccinationCentersStore vaccinationCentersStore = company.getVacc
         assertFalse(ctrl.checkAndSetUserAppointment(200000000) && ctrl.checkIfAlreadyRegistered(200000000) && ctrl.validateDateAndTime());
     }
 
-//    @Test
-//    /**
-//     * Verifies if an Arrival on the wrong vaccination center meets the requirements to be registered
-//     */
-//    public void registerArrivalWithWrongVaccinationCenters() {
-//
-//        setUp();
-//
-//        ctrl.setVaccinationCenter(0);
-//        ctrl.checkAndSetUserAppointment(100000000);
-//        ctrl.setArrival(100000000);
-//
-//        assertFalse(ctrl.checkAndSetUserAppointment(100000000) && ctrl.checkIfAlreadyRegistered(100000000) && ctrl.validateDateAndTime());
-//    }
+  @Test
+  /**
+   * Verifies if an Arrival on the wrong vaccination center meets the requirements to be registered
+   */
+  public void registerArrivalWithWrongVaccinationCenters() {
+
+      setUp();
+
+      ctrl.setVaccinationCenter(0);
+      ctrl.checkAndSetUserAppointment(100000000);
+      ctrl.setArrival(100000000);
+
+      assertFalse(ctrl.checkAndSetUserAppointment(100000000) && ctrl.checkIfAlreadyRegistered(100000000) && ctrl.validateDateAndTime());
+  }
 
 
     @Test
