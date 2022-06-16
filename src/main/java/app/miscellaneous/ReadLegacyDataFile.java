@@ -5,6 +5,7 @@ import app.controller.DataFromLegacySystemController;
 import app.domain.model.*;
 
 import java.io.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -31,10 +32,15 @@ public class ReadLegacyDataFile {
     /**
      * The List to sort.
      */
-    public final List<LocalTime> listToSort = new ArrayList<>();
+    public final List<LocalDateTime> listToSort = new ArrayList<>();
 
     public List<String> updatedList = new ArrayList<>();
 
+
+    public boolean validateFile(String SNSUserNumber, String ScheduledDateTime, String ArrivalDateTime, String NurseAdministrationDateTime, String LeavingDateTime){
+        //if (SNSUserNumber.matches("^[0-9]{9}$") && ScheduledDateTime.matches())
+        return true;
+    }
     /**
      * Read file.
      *
@@ -54,6 +60,7 @@ public class ReadLegacyDataFile {
                     .append("|").append(values[4]).append("|").append(values[5]).append("|").append(values[6]).append("|").append(values[7]);
             legacyDataList.add(stringToBeAdded.toString());
         }
+        updateLegacyFile();
     }
 
 
@@ -61,9 +68,8 @@ public class ReadLegacyDataFile {
      * Update legacy file.
      *
      * @return the boolean
-     * @throws NotSerializableException the not serializable exception
      */
-    public List<String> updateLegacyFile() throws NotSerializableException {
+    public List<String> updateLegacyFile() {
         updatedList.clear();
         if (!company.getSnsUsersStore().getSnsUserList().isEmpty() && !company.getVaccinesList().isEmpty()) {
             for (int lineOfTheData = 0; lineOfTheData < legacyDataList.size(); lineOfTheData++) {
@@ -186,7 +192,7 @@ public class ReadLegacyDataFile {
      * @param end   the end
      * @return the list
      */
-    public List<String> mergeSortAscending(List<LocalTime> list, int begin, int end) {
+    public List<String> mergeSortAscending(List<LocalDateTime> list, int begin, int end) {
 
         int middle = (begin + end) / 2;
         if (middle < end) {
@@ -194,7 +200,7 @@ public class ReadLegacyDataFile {
             mergeSortAscending(list, middle + 1, end); //call Merge Sort on the second half
 
             //merge the two sorted lists together:
-            ArrayList<LocalTime> newlist = new ArrayList<>();
+            ArrayList<LocalDateTime> newlist = new ArrayList<>();
             ArrayList<String> tempList = new ArrayList<>();
             int firstPositionOfListToSort = begin, midPositionOfListToSort = middle + 1;
             while (firstPositionOfListToSort <= middle && midPositionOfListToSort <= end) {
@@ -221,7 +227,7 @@ public class ReadLegacyDataFile {
             }
             firstPositionOfListToSort = begin;
             int copyOfPos5 = firstPositionOfListToSort;
-            for (LocalTime item : newlist) {
+            for (LocalDateTime item : newlist) {
                 list.set(firstPositionOfListToSort++, item);
             }
 
@@ -229,9 +235,9 @@ public class ReadLegacyDataFile {
                 updatedList.set(copyOfPos5++, strItem);
             }
 
-            //writeArrayToFile(updatedList);
         }
 
+        //writeArrayToFile(updatedList);
         return updatedList;
     }
 
@@ -243,14 +249,14 @@ public class ReadLegacyDataFile {
      * @param end   the end
      * @return the list
      */
-    public List<String> mergeSortDescending(List<LocalTime> list, int begin, int end) {
+    public List<String> mergeSortDescending(List<LocalDateTime> list, int begin, int end) {
         int middle = (begin + end) / 2;
         if (middle < end) {
             mergeSortDescending(list, begin, middle); //call Merge Sort on the first half
             mergeSortDescending(list, middle + 1, end); //call Merge Sort on the second half
 
             //merge the two sorted lists together:
-            ArrayList<LocalTime> newlist = new ArrayList<>();
+            ArrayList<LocalDateTime> newlist = new ArrayList<>();
             ArrayList<String> tempList = new ArrayList<>();
             int firstPositionOfListToSort = begin, midPositionOfListToSort = middle + 1;
             while (firstPositionOfListToSort <= middle && midPositionOfListToSort <= end) {
@@ -277,15 +283,15 @@ public class ReadLegacyDataFile {
             }
             firstPositionOfListToSort = begin;
             int copyOfPos5 = firstPositionOfListToSort;
-            for (LocalTime item : newlist) {
+            for (LocalDateTime item : newlist) {
                 list.set(firstPositionOfListToSort++, item);
             }
 
             for (String strItem : tempList) {
                 updatedList.set(copyOfPos5++, strItem);
             }
-            //writeArrayToFile(updatedList);
         }
+        //writeArrayToFile(updatedList);
         return updatedList;
     }
 
@@ -301,11 +307,15 @@ public class ReadLegacyDataFile {
             values = line.split("\\|");
             String date = values[position];
             String[] dateAndHour = date.split(" ");
+            String[] monthDayAndYear = dateAndHour[0].split("/");
+            int month = Integer.parseInt(monthDayAndYear[0]);
+            int day = Integer.parseInt(monthDayAndYear[1]);
+            int year = Integer.parseInt(monthDayAndYear[2]);
             String[] hourAndMinute = dateAndHour[1].split(":");
             int hour = Integer.parseInt(hourAndMinute[0]);
             int minute = Integer.parseInt(hourAndMinute[1]);
 
-            LocalTime dataToBeAdded = LocalTime.of(hour, minute);
+            LocalDateTime dataToBeAdded = LocalDateTime.of(year,month,day,hour,minute);
             listToSort.add(dataToBeAdded);
         }
     }
@@ -345,7 +355,7 @@ public class ReadLegacyDataFile {
 
 
         for (int position = length - 1; position >= 0; position--) {
-            LocalTime temp = listToSort.get(0);
+            LocalDateTime temp = listToSort.get(0);
             listToSort.set(0, listToSort.get(position));
             listToSort.set(position, temp);
 
@@ -359,7 +369,7 @@ public class ReadLegacyDataFile {
         return updatedList;
     }
 
-    private void heapifyAscending(List<LocalTime> listToSort, int length, int lineOfTheHeap) {
+    private void heapifyAscending(List<LocalDateTime> listToSort, int length, int lineOfTheHeap) {
 
         int latest = lineOfTheHeap;
         int leftChild = 2 * lineOfTheHeap + 1;
@@ -377,7 +387,7 @@ public class ReadLegacyDataFile {
 
         // If the root is not the latest
         if (latest != lineOfTheHeap) {
-            LocalTime temp = listToSort.get(latest);
+            LocalDateTime temp = listToSort.get(latest);
             listToSort.set(latest, listToSort.get(lineOfTheHeap));
             listToSort.set(lineOfTheHeap, temp);
             String temp2 = updatedList.get(latest);
@@ -405,7 +415,7 @@ public class ReadLegacyDataFile {
 
 
         for (int position = length - 1; position >= 0; position--) {
-            LocalTime temp = listToSort.get(0);
+            LocalDateTime temp = listToSort.get(0);
             listToSort.set(0, listToSort.get(position));
             listToSort.set(position, temp);
 
@@ -418,7 +428,7 @@ public class ReadLegacyDataFile {
         return updatedList;
     }
 
-    private void heapifyDescending(List<LocalTime> listToSort, int length, int lineOfTheHeap) {
+    private void heapifyDescending(List<LocalDateTime> listToSort, int length, int lineOfTheHeap) {
 
         int earliest = lineOfTheHeap;
         int leftChild = 2 * lineOfTheHeap + 1;
@@ -436,7 +446,7 @@ public class ReadLegacyDataFile {
 
         // If the root is not the latest
         if (earliest != lineOfTheHeap) {
-            LocalTime temp = listToSort.get(earliest);
+            LocalDateTime temp = listToSort.get(earliest);
             listToSort.set(earliest, listToSort.get(lineOfTheHeap));
             listToSort.set(lineOfTheHeap, temp);
             String temp2 = updatedList.get(earliest);
