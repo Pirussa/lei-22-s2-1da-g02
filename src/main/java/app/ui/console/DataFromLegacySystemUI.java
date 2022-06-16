@@ -10,6 +10,7 @@ import app.miscellaneous.ReadLegacyDataFile;
 
 import java.io.*;
 import java.time.LocalTime;
+import java.time.temporal.IsoFields;
 import java.util.*;
 
 public class DataFromLegacySystemUI implements Runnable {
@@ -58,8 +59,16 @@ public class DataFromLegacySystemUI implements Runnable {
 
     public void printSortedArray(List<String> sortedList) {
         System.out.println("Sorted Array:");
+
+        System.out.format("%-40s%-20s%-20s%-20s%-20s%-20s%-20s%-20s%-20s%-60s\n", "Name","SNSUSerNumber", "VaccineName", "Dose", "LotNumber","ScheduledDateTime",
+                "ArrivalDateTime","NurseAdmDateTime","LeavingDateTime","VaccineDesc");
         for (int position = 0; position < sortedList.size(); position++) {
-            System.out.println(sortedList.get(position));
+            String[] values;
+            values = sortedList.get(position).split("\\|");
+
+            System.out.format("%-40s%-20s%-20s%-20s%-20s%-20s%-20s%-20s%-20s%-60s\n",
+                    values[0], values[1], values[2], values[3],values[4],values[5],values[6],values[7],
+                    values[8],values[9]);
         }
         System.out.println();
         System.out.println(sortedList.size()+" entries.");

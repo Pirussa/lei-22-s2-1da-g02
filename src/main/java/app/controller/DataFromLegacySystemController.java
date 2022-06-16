@@ -18,6 +18,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -128,7 +129,7 @@ public class DataFromLegacySystemController {
      * @param end   the end
      * @return the list
      */
-    public List<String> mergeAscending(List<LocalTime> list, int begin, int end){
+    public List<String> mergeAscending(List<LocalDateTime> list, int begin, int end){
        return readLegacyDataFile.mergeSortAscending(list,begin,end);
     }
 
@@ -140,7 +141,7 @@ public class DataFromLegacySystemController {
      * @param end   the end
      * @return the list
      */
-    public List<String> mergeDescending(List<LocalTime> list, int begin, int end){
+    public List<String> mergeDescending(List<LocalDateTime> list, int begin, int end){
          return readLegacyDataFile.mergeSortDescending(list,begin,end);
     }
 
@@ -149,7 +150,7 @@ public class DataFromLegacySystemController {
      *
      * @return the list
      */
-    public List<LocalTime> getListToSort(){
+    public List<LocalDateTime> getListToSort(){
         return readLegacyDataFile.listToSort;
     }
 
