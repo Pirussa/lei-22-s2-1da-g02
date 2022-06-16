@@ -26,19 +26,6 @@ public class CenterCoordinatorGUI {
     @FXML
     private Pane tittlePane;
 
-    /**
-     * Not implemented yet.
-     *
-     * @param event the event
-     */
-    @FXML
-    void notImplementedYet(ActionEvent event) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Can't do that yet");
-        alert.setContentText("This feature is not implemented yet");
-        alert.showAndWait();
-
-    }
 
     /**
      * Logout.
@@ -126,7 +113,13 @@ public class CenterCoordinatorGUI {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-
     }
 
+    public void importDataFromLegacySystem(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/read-legacy-data-file.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 }
