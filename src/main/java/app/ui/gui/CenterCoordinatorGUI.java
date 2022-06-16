@@ -81,6 +81,12 @@ public class CenterCoordinatorGUI {
         stage.show();
     }
 
+    /**
+     * Analyze center performance.
+     *
+     * @param event the event
+     * @throws IOException the io exception
+     */
     public void analyzeCenterPerformance(ActionEvent event) throws IOException {
         switch (controller.companyHasEnoughDataToAnalyzeThePerformance()) {
             case 0:
@@ -116,6 +122,12 @@ public class CenterCoordinatorGUI {
         stage.show();
     }
 
+    /**
+     * To import data from legacy system.
+     *
+     * @param event the event
+     * @throws IOException the io exception
+     */
     public void toImportDataFromLegacySystem(ActionEvent event) throws IOException {
         Parent root;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/read-legacy-data-file.fxml"));

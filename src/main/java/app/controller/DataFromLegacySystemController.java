@@ -39,6 +39,11 @@ public class DataFromLegacySystemController {
     private int optionAscendingOrDescending;
 
 
+    /**
+     * Sets controller info.
+     *
+     * @param controllerInfo the controller info
+     */
     public void setControllerInfo(DataFromLegacySystemController controllerInfo) {
         this.controllerInfo = controllerInfo;
     }
@@ -56,8 +61,11 @@ public class DataFromLegacySystemController {
     }
 
 
-
-
+    /**
+     * Gets sorting algorithm.
+     *
+     * @return the sorting algorithm
+     */
     public String getSortingAlgorithm() {
         return App.getInstance().getSortingAlgorithm();
     }
@@ -173,6 +181,11 @@ public class DataFromLegacySystemController {
     }
 
 
+    /**
+     * Choose criteria to sort.
+     *
+     * @param option the option
+     */
     public void chooseCriteriaToSort(int option) {
         final int ArrivalOption = 6;
         final int LeaveOption = 8;
@@ -188,6 +201,13 @@ public class DataFromLegacySystemController {
         }
     }
 
+    /**
+     * Sort list with algo list.
+     *
+     * @param algorithm the algorithm
+     * @param option    the option
+     * @return the list
+     */
     public List<String> sortListWithAlgo(String algorithm, int option) {
         switch (algorithm) {
             case "HeapSort":
@@ -219,25 +239,42 @@ public class DataFromLegacySystemController {
     }
 
 
+    /**
+     * Gets option arrival or departure.
+     *
+     * @return the option arrival or departure
+     */
     public int getOptionArrivalOrDeparture() {
         return optionArrivalOrDeparture;
     }
 
+    /**
+     * Sets option arrival or departure.
+     *
+     * @param option the option
+     */
     public void setOptionArrivalOrDeparture(int option) {
         optionArrivalOrDeparture = option;
     }
 
 
+    /**
+     * Gets option ascending or descending.
+     *
+     * @return the option ascending or descending
+     */
     public int getOptionAscendingOrDescending() {
         return optionAscendingOrDescending;
     }
 
+    /**
+     * Sets option ascending or descending.
+     *
+     * @param option the option
+     */
     public void setOptionAscendingOrDescending(int option) {
         optionAscendingOrDescending = option;
     }
-
-
-
 
 
     /**

@@ -22,6 +22,9 @@ import java.io.IOException;
 import java.util.List;
 
 
+/**
+ * The type Login menu gui.
+ */
 public class LoginMenuGUI {
 
     private final AuthController controller = new AuthController();
@@ -42,6 +45,12 @@ public class LoginMenuGUI {
     @FXML
     private Pane tittlePane;
 
+    /**
+     * Do login.
+     *
+     * @param event the event
+     * @throws IOException the io exception
+     */
     @FXML
     void doLogin(ActionEvent event) throws IOException {
 
@@ -107,6 +116,7 @@ public class LoginMenuGUI {
      * Does the logout.
      *
      * @param event the event
+     * @throws IOException the io exception
      */
     public void logout(ActionEvent event) throws IOException {
         controller.doLogout();

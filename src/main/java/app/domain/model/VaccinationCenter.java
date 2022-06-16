@@ -741,11 +741,23 @@ public class VaccinationCenter implements Serializable {
     }
 
 
+    /**
+     * Add arrival.
+     *
+     * @param arrival the arrival
+     * @throws NotSerializableException the not serializable exception
+     */
     public void addArrival(Arrival arrival) throws NotSerializableException {
         arrivalsList.add(arrival);
         genericsArrivals.binaryFileWrite(Constants.FILE_PATH_ARRIVALS, arrivalsList);
     }
 
+    /**
+     * Add departure.
+     *
+     * @param departure the departure
+     * @throws NotSerializableException the not serializable exception
+     */
     public void addDeparture(Departure departure) throws NotSerializableException {
         departuresList.add(departure);
         genericsDeparture.binaryFileWrite(Constants.FILE_PATH_DEPARTURES, departuresList);

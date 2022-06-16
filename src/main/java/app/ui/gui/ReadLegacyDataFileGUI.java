@@ -17,10 +17,18 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * The type Read legacy data file gui.
+ */
 public class ReadLegacyDataFileGUI {
 
     private DataFromLegacySystemController controller;
 
+    /**
+     * Sets controller.
+     *
+     * @param controller the controller
+     */
     public void setController(DataFromLegacySystemController controller) {
         this.controller = controller;
         controller.setControllerInfo(controller);
@@ -50,8 +58,12 @@ public class ReadLegacyDataFileGUI {
     private Button btDescending;
 
 
-
-
+    /**
+     * Back.
+     *
+     * @param event the event
+     * @throws IOException the io exception
+     */
     public void back(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/center-coordinator-menu.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -60,6 +72,11 @@ public class ReadLegacyDataFileGUI {
         stage.show();
     }
 
+    /**
+     * Choose file.
+     *
+     * @param actionEvent the action event
+     */
     public void chooseFile(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
@@ -87,22 +104,44 @@ public class ReadLegacyDataFileGUI {
     }
 
 
+    /**
+     * Sort by arrival.
+     *
+     * @param actionEvent the action event
+     */
     public void sortByArrival(ActionEvent actionEvent) {
         controller.setOptionArrivalOrDeparture(0);
         setVisibility();
     }
 
+    /**
+     * Sort by departure.
+     *
+     * @param actionEvent the action event
+     */
     public void sortByDeparture(ActionEvent actionEvent) {
         controller.setOptionArrivalOrDeparture(1);
         setVisibility();
     }
 
 
+    /**
+     * Ascending.
+     *
+     * @param actionEvent the action event
+     * @throws IOException the io exception
+     */
     public void ascending(ActionEvent actionEvent) throws IOException {
         controller.setOptionAscendingOrDescending(0);
         controller.toSortedListScene(actionEvent);
     }
 
+    /**
+     * Descending.
+     *
+     * @param actionEvent the action event
+     * @throws IOException the io exception
+     */
     public void descending(ActionEvent actionEvent) throws IOException {
         controller.setOptionAscendingOrDescending(1);
         controller.toSortedListScene(actionEvent);

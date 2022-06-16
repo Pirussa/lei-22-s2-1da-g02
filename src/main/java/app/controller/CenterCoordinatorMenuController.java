@@ -23,7 +23,6 @@ public class CenterCoordinatorMenuController {
         final Company company = App.getInstance().getCompany();
         store = company.getVaccinationCentersStore();
         center = store.getVaccinationCenterAssociatedToCoordinator(Utils.getLoggedCoordinatorId());
-//        departureStore = (center.getDepartureStore() == null) ? new DepartureStore() : center.getDepartureStore();
     }
 
 

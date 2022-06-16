@@ -26,6 +26,11 @@ public class CheckAndExportVaccinationStatsController {
     private LocalDate lastDate;
     private CheckAndExportVaccinationStatsController controllerInfo;
 
+    /**
+     * Sets controller info.
+     *
+     * @param controllerInfo the controller info
+     */
     public void setControllerInfo(CheckAndExportVaccinationStatsController controllerInfo) {
         this.controllerInfo = controllerInfo;
     }
@@ -96,7 +101,7 @@ public class CheckAndExportVaccinationStatsController {
     /**
      * Export vaccination stats.
      *
-     * @param fileName  the file name
+     * @param fileName the file name
      * @return true if the file is exported successfully
      */
     public boolean exportVaccinationStats(String fileName) {
@@ -107,6 +112,7 @@ public class CheckAndExportVaccinationStatsController {
 
     /**
      * Gets vaccination stats list between dates.
+     *
      * @return the vaccination stats list between dates
      */
     public List<String> getVaccinationStatsListBetweenDates() {
