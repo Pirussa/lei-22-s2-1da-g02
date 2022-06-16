@@ -37,6 +37,10 @@ public class DataFromLegacySystemController {
         readLegacyDataFile = new ReadLegacyDataFile(center);
     }
 
+    public String getSortingAlgorithm() {
+        return App.getInstance().getSortingAlgorithm();
+    }
+
 
     /**
      * Gets sns user list.
