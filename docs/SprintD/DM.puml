@@ -180,6 +180,7 @@ class PerformanceAnalyzer {
 class InformationToAnalyze {
 }
 
+Arrival "*" -- "1" VaccineType : is associated to >
 
 PerformanceAnalyzer "1" -- "1" InformationToAnalyze : has >
 

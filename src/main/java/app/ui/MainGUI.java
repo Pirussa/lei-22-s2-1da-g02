@@ -21,7 +21,7 @@ public class MainGUI extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/fxml/login-menu.fxml"));
 
         Scene scene = new Scene(root);
-        primaryStage.setTitle("DGS - Vaccination Management System");
+        primaryStage.setTitle("VaxCare - DGS Vaccination Management System");
         primaryStage.setScene(scene);
         primaryStage.show();
 

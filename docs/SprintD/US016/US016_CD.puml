@@ -24,15 +24,6 @@ class CheckAndExportVacStatsGUI {
 
 }
 
-class CheckListVacStatsGUI {
--controller : CheckAndExportVaccinationStatsController
--tableView : TableView
--dateColumn : TableColumn
--totalVaccinatedColumn : TableColumn
-+CheckListVacStatsGUI()
-+setStatsTable()
-+back(event)
-}
 
 
 
@@ -86,11 +77,27 @@ class VaccinationCentersStore {
 
 }
 
+class Arrival {
+-snsNumber : int
+-arrivalTime : LocalDateTime
+}
+
+class Departure {
+-snsNumber : int
+-departureTime : LocalDateTime
+}
+
+class PerformanceAnalyzer {
+}
+
+class VaccineType {
+-code : String
+-description : String
+-technology : String
+}
 
 'UI
-CheckAndExportVacStatsGUI ..> CheckListVacStatsGUI
 CheckAndExportVacStatsGUI ..> CheckAndExportVaccinationStatsController
-CheckListVacStatsGUI ..> CheckAndExportVaccinationStatsController
 
 'CONTROLLER
 
@@ -104,6 +111,12 @@ CheckAndExportVaccinationStatsController ..> Company
 
 Company "1" -- "1" VaccinationCentersStore : has >
 VaccinationCentersStore "1" -- "*" VaccinationCenter : has >
+PerformanceAnalyzer "1" --> "1" VaccinationCenter : analyzes >
+VaccinationCenter "1" -- "*" Arrival : has >
+VaccinationCenter "1" -- "*" Departure : has >
+PerformanceAnalyzer ..> Arrival
+PerformanceAnalyzer ..> Departure
+Arrival "*" -- "1" VaccineType : is associated to >
 
 
 @enduml

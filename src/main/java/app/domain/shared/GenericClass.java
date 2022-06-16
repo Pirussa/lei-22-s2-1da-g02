@@ -6,6 +6,8 @@ import java.util.List;
 
 public class GenericClass<E> implements Serializable {
 
+    private static final long serialVersionUID = -9215818527600346760L;
+
     E element;
 
     /**
