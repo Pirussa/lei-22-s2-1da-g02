@@ -65,22 +65,27 @@ public class ReadLegacyDataFile {
     public List<String> updateLegacyFile() throws NotSerializableException {
         updatedList.clear();
         if (!company.getSnsUsersStore().getSnsUserList().isEmpty() && !company.getVaccinesList().isEmpty()) {
-            for (String line : legacyDataList) {
+            for (int lineOfTheData = 0; lineOfTheData < legacyDataList.size(); lineOfTheData++) {
                 String[] values;
                 int positionInSnsUserList = 0;
                 int positionInVaccinesList = 0;
-                values = line.split("\\|");
-                if (company.getSnsUsersStore().containsUserWithNumber(Integer.parseInt(values[0]))) {
-                    if (company.containsVaccine(values[1])) {
-                        updatedList.add(company.getSnsUsersStore().getSnsUserList().get(positionInSnsUserList).getStrName() + "|" + line + "|" + company.getVaccinesList().get(positionInVaccinesList).getVaccineType().getDescription());
-                        setArrival(values[4], values[0]);
-                        setDeparture(values[7], values[0]);
+                values = legacyDataList.get(lineOfTheData).split("\\|");
+
+                for ( positionInSnsUserList = 0; positionInSnsUserList < company.getSnsUsersStore().getSnsUserList().size(); positionInSnsUserList++) {
+                    if (company.getSnsUsersStore().getSnsUserList().get(positionInSnsUserList).getSnsUserNumber() == Integer.parseInt(values[0])) {
+                        for ( positionInVaccinesList = 0; positionInVaccinesList < company.getVaccinesList().size(); positionInVaccinesList++) {
+                            if (company.getVaccinesList().get(positionInVaccinesList).getName().equals(values[1])) {
+                                updatedList.add(company.getSnsUsersStore().getSnsUserList().get(positionInSnsUserList).getStrName() + "|" + legacyDataList.get(lineOfTheData)+ "|" + company.getVaccinesList().get(positionInVaccinesList).getVaccineType().getDescription());
+                                //setArrival(values[4], values[0]);
+                                //setDeparture(values[7], values[0]);
+                            }
+                        }
                     }
                 }
             }
             return updatedList;
         } else {
-            return null;
+            return  null;
         }
     }
 
