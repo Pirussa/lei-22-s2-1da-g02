@@ -43,12 +43,7 @@ public class ReadLegacyDataFileGUI {
 
 
     public void back(ActionEvent event) throws IOException {
-        Parent root;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/center-coordinator-menu.fxml"));
-        root = loader.load();
-
-        ReadLegacyDataFileGUI mainScene = loader.getController();
-        mainScene.setController(controller);
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/center-coordinator-menu.fxml"));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
