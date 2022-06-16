@@ -54,6 +54,7 @@ public class ReadLegacyDataFile {
                     .append("|").append(values[4]).append("|").append(values[5]).append("|").append(values[6]).append("|").append(values[7]);
             legacyDataList.add(stringToBeAdded.toString());
         }
+        updateLegacyFile();
     }
 
 
@@ -61,9 +62,8 @@ public class ReadLegacyDataFile {
      * Update legacy file.
      *
      * @return the boolean
-     * @throws NotSerializableException the not serializable exception
      */
-    public List<String> updateLegacyFile() throws NotSerializableException {
+    public List<String> updateLegacyFile() {
         updatedList.clear();
         if (!company.getSnsUsersStore().getSnsUserList().isEmpty() && !company.getVaccinesList().isEmpty()) {
             for (int lineOfTheData = 0; lineOfTheData < legacyDataList.size(); lineOfTheData++) {

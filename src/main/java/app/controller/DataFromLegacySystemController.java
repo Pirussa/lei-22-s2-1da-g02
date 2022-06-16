@@ -8,14 +8,19 @@ import app.domain.shared.Constants;
 import app.domain.shared.GenericClass;
 import app.miscellaneous.ReadLegacyDataFile;
 import app.stores.VaccinationCentersStore;
-import app.ui.console.DataFromLegacySystemUI;
 import app.ui.console.utils.Utils;
+import app.ui.gui.SortedListGUI;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 import java.io.*;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * The type Data from legacy system controller.
@@ -26,6 +31,18 @@ public class DataFromLegacySystemController {
     private List<String> sortedList;
     private VaccinationCenter center;
     private final ReadLegacyDataFile readLegacyDataFile;
+
+    private DataFromLegacySystemController controllerInfo;
+
+    private int optionArrivalOrDeparture;
+    private int optionAscendingOrDescending;
+
+
+    public void setControllerInfo(DataFromLegacySystemController controllerInfo) {
+        this.controllerInfo = controllerInfo;
+    }
+
+
     /**
      * Instantiates a new Data from legacy system controller.
      */
@@ -36,6 +53,9 @@ public class DataFromLegacySystemController {
         center = store.getVaccinationCenterAssociatedToCoordinator(id);
         readLegacyDataFile = new ReadLegacyDataFile(center);
     }
+
+
+
 
     public String getSortingAlgorithm() {
         return App.getInstance().getSortingAlgorithm();
@@ -104,7 +124,7 @@ public class DataFromLegacySystemController {
      * Merge ascending list.
      *
      * @param list  the list
-     * @param begin the begin
+     * @param begin the beggining
      * @param end   the end
      * @return the list
      */
@@ -116,7 +136,7 @@ public class DataFromLegacySystemController {
      * Merge descending list.
      *
      * @param list  the list
-     * @param begin the begin
+     * @param begin the beggining
      * @param end   the end
      * @return the list
      */
@@ -195,6 +215,50 @@ public class DataFromLegacySystemController {
                 break;
         }
         return null;
+    }
+
+
+    public int getOptionArrivalOrDeparture() {
+        return optionArrivalOrDeparture;
+    }
+
+    public void setOptionArrivalOrDeparture(int option) {
+        optionArrivalOrDeparture = option;
+    }
+
+
+    public int getOptionAscendingOrDescending() {
+        return optionAscendingOrDescending;
+    }
+
+    public void setOptionAscendingOrDescending(int option) {
+        optionAscendingOrDescending = option;
+    }
+
+
+
+
+
+    /**
+     * To check vaccination stats scene.
+     *
+     * @param event the event
+     * @throws IOException the io exception
+     */
+    public void toSortedListScene(ActionEvent event) throws IOException {
+        Parent root;
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/sorted-list.fxml"));
+        root = loader.load();
+
+        SortedListGUI nextSceneUi = loader.getController();
+        nextSceneUi.setController(controllerInfo);
+        nextSceneUi.setStatsTable();
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+
     }
 
 }

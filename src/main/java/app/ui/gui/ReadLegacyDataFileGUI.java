@@ -1,25 +1,21 @@
 package app.ui.gui;
 
-import app.controller.CheckAndExportVaccinationStatsController;
 import app.controller.DataFromLegacySystemController;
-import com.sun.glass.ui.CommonDialogs;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.concurrent.Callable;
 
 public class ReadLegacyDataFileGUI {
 
@@ -27,7 +23,12 @@ public class ReadLegacyDataFileGUI {
 
     public void setController(DataFromLegacySystemController controller) {
         this.controller = controller;
+        controller.setControllerInfo(controller);
     }
+
+
+    private int optionArrivalOrDeparture;
+    private int optionAscendingOrDescending;
 
 
     @FXML
@@ -38,6 +39,15 @@ public class ReadLegacyDataFileGUI {
 
     @FXML
     private Button btDeparture;
+
+    @FXML
+    private Label lbChoice;
+
+    @FXML
+    private Button btAscending;
+
+    @FXML
+    private Button btDescending;
 
 
 
@@ -51,20 +61,53 @@ public class ReadLegacyDataFileGUI {
     }
 
     public void chooseFile(ActionEvent actionEvent) {
-        lbSort.setVisible(true);
-        btArrival.setVisible(true);
-        btDeparture.setVisible(true);
-
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
         List<File> files = fileChooser.showOpenMultipleDialog(null);
-        for (File file : files)
-            System.out.println(file.getAbsolutePath());
+        try {
+            controller.readFile(files.get(0).getAbsolutePath());
+            lbSort.setVisible(true);
+            btArrival.setVisible(true);
+            btDeparture.setVisible(true);
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("No file selected");
+            alert.setHeaderText("No file was select");
+            alert.setContentText("Please select a file");
+            alert.showAndWait();
+        }
+
+
     }
 
+    private void setVisibility() {
+        lbChoice.setVisible(true);
+        btAscending.setVisible(true);
+        btDescending.setVisible(true);
+    }
+
+
     public void sortByArrival(ActionEvent actionEvent) {
+        controller.setOptionArrivalOrDeparture(0);
+        setVisibility();
     }
 
     public void sortByDeparture(ActionEvent actionEvent) {
+        controller.setOptionArrivalOrDeparture(1);
+        setVisibility();
     }
+
+
+    public void ascending(ActionEvent actionEvent) throws IOException {
+        controller.setOptionAscendingOrDescending(0);
+        controller.toSortedListScene(actionEvent);
+    }
+
+    public void descending(ActionEvent actionEvent) throws IOException {
+        controller.setOptionAscendingOrDescending(1);
+        controller.toSortedListScene(actionEvent);
+    }
+
+
+
 }
