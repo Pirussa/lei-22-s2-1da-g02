@@ -19,6 +19,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * The type Analyze center performance gui.
+ */
 public class AnalyzeCenterPerformanceGUI {
 
     private final AnalyzeCenterPerformanceController controller = new AnalyzeCenterPerformanceController();
@@ -57,6 +60,11 @@ public class AnalyzeCenterPerformanceGUI {
     private Label lbSum;
 
 
+    /**
+     * Analyze center performance.
+     *
+     * @param event the event
+     */
     @FXML
     void analyzeCenterPerformance(ActionEvent event) {
         if (checkIfTimeIntervalIsValid()){
@@ -93,7 +101,7 @@ public class AnalyzeCenterPerformanceGUI {
     }
 
     /**
-     * Gets the first date.
+     * Sets the select date.
      *
      * @param event the event
      */

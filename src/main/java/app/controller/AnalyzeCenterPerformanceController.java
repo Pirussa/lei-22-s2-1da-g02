@@ -51,22 +51,49 @@ public class AnalyzeCenterPerformanceController {
     }
 
 
+    /**
+     * Get the statistics daily list int [ ].
+     *
+     * @return the int [ ]
+     */
     public int[] getTheStatisticsDailyList() {
         return analyzer.getTheStatisticsDailyList(selectedDate, timeInterval);
     }
 
+
+    /**
+     * Gets time intervals list.
+     *
+     * @return the time intervals
+     */
     public List<String> getTimeIntervals() {
         return analyzer.getTimeIntervals(timeInterval);
     }
 
+    /**
+     * Get max sum sub array.
+     *
+     * @return sub sum list
+     */
     public int[] getMaxSumSubList() {
         return analyzer.getMaxSumSubList();
     }
 
+    /**
+     * Gets max sum.
+     *
+     * @return the max sum
+     */
     public int getMaxSum() {
         return analyzer.getMaxSum();
     }
 
+    /**
+     * Check if time interval is valid boolean.
+     *
+     * @param timeInterval the time interval
+     * @return true, if the time interval is valid
+     */
     public boolean checkIfTimeIntervalIsValid(String timeInterval) {
 
         if (timeInterval.isEmpty()) {
