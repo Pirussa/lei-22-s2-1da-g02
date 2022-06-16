@@ -5,6 +5,8 @@ import app.controller.DataFromLegacySystemController;
 import app.domain.model.*;
 
 import java.io.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -12,6 +14,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * The type Read legacy data file.
@@ -37,10 +41,6 @@ public class ReadLegacyDataFile {
     public List<String> updatedList = new ArrayList<>();
 
 
-    public boolean validateFile(String SNSUserNumber, String ScheduledDateTime, String ArrivalDateTime, String NurseAdministrationDateTime, String LeavingDateTime){
-        //if (SNSUserNumber.matches("^[0-9]{9}$") && ScheduledDateTime.matches())
-        return true;
-    }
     /**
      * Read file.
      *
@@ -55,12 +55,51 @@ public class ReadLegacyDataFile {
         while ((line = reader.readLine()) != null) {
             line = line.replaceAll("\"", "");
             String[] values = line.split(";");
-            StringBuilder stringToBeAdded = new StringBuilder();
-            stringToBeAdded.append(values[0]).append("|").append(values[1]).append("|").append(values[2]).append("|").append(values[3])
-                    .append("|").append(values[4]).append("|").append(values[5]).append("|").append(values[6]).append("|").append(values[7]);
-            legacyDataList.add(stringToBeAdded.toString());
+            String firstDate = values[4];
+            String secondDate = values[5];
+            String thirdDate = values[6];
+            String fourthDate = values[7];
+            String SNSUserNumber = values[0];
+            if (validateFileLegacy(SNSUserNumber,firstDate,secondDate,thirdDate,fourthDate)){
+                StringBuilder stringToBeAdded = new StringBuilder();
+                stringToBeAdded.append(values[0]).append("|").append(values[1]).append("|").append(values[2]).append("|").append(values[3])
+                        .append("|").append(values[4]).append("|").append(values[5]).append("|").append(values[6]).append("|").append(values[7]);
+                legacyDataList.add(stringToBeAdded.toString());
+            } else {
+                throw new IllegalArgumentException("Data imported from .csv file is invalid.");
+            }
         }
         updateLegacyFile();
+    }
+
+
+    public boolean validateFileLegacy(String SNSUserNumber, String ScheduledDateTime, String ArrivalDateTime, String NurseAdministrationDateTime, String LeavingDateTime) {
+
+        if (SNSUserNumber.matches("^[0-9]{9}$") && isValidDate(ScheduledDateTime)
+                && isValidDate(ArrivalDateTime) && isValidDate(NurseAdministrationDateTime) && isValidDate(LeavingDateTime)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+    public boolean isValidDate(String date) {
+        try {
+            String[] dateAndHour = date.split(" ");
+            String[] monthDayAndYear = dateAndHour[0].split("/");
+            int month = Integer.parseInt(monthDayAndYear[0]);
+            int day = Integer.parseInt(monthDayAndYear[1]);
+            int year = Integer.parseInt(monthDayAndYear[2]);
+            String[] hourAndMinute = dateAndHour[1].split(":");
+            int hour = Integer.parseInt(hourAndMinute[0]);
+            int minute = Integer.parseInt(hourAndMinute[1]);
+
+            LocalDateTime dataToCheck = LocalDateTime.of(year, month, day, hour, minute);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
 
@@ -78,23 +117,23 @@ public class ReadLegacyDataFile {
                 int positionInVaccinesList = 0;
                 values = legacyDataList.get(lineOfTheData).split("\\|");
 
-                for ( positionInSnsUserList = 0; positionInSnsUserList < company.getSnsUsersStore().getSnsUserList().size(); positionInSnsUserList++) {
+                for (positionInSnsUserList = 0; positionInSnsUserList < company.getSnsUsersStore().getSnsUserList().size(); positionInSnsUserList++) {
                     if (company.getSnsUsersStore().getSnsUserList().get(positionInSnsUserList).getSnsUserNumber() == Integer.parseInt(values[0])) {
-                            for ( positionInVaccinesList = 0; positionInVaccinesList < company.getVaccinesList().size(); positionInVaccinesList++) {
-                                if (company.getVaccinesList().get(positionInVaccinesList).getName().equals(values[1])) {
-                                    if (!updatedList.contains(company.getSnsUsersStore().getSnsUserList().get(positionInSnsUserList).getStrName() + "|" + legacyDataList.get(lineOfTheData)+ "|" + company.getVaccinesList().get(positionInVaccinesList).getVaccineType().getDescription())){
-                                        updatedList.add(company.getSnsUsersStore().getSnsUserList().get(positionInSnsUserList).getStrName() + "|" + legacyDataList.get(lineOfTheData)+ "|" + company.getVaccinesList().get(positionInVaccinesList).getVaccineType().getDescription());
-                                        //setArrival(values[4], values[0]);
-                                        //setDeparture(values[7], values[0]);
-                                    }
+                        for (positionInVaccinesList = 0; positionInVaccinesList < company.getVaccinesList().size(); positionInVaccinesList++) {
+                            if (company.getVaccinesList().get(positionInVaccinesList).getName().equals(values[1])) {
+                                if (!updatedList.contains(company.getSnsUsersStore().getSnsUserList().get(positionInSnsUserList).getStrName() + "|" + legacyDataList.get(lineOfTheData) + "|" + company.getVaccinesList().get(positionInVaccinesList).getVaccineType().getDescription())) {
+                                    updatedList.add(company.getSnsUsersStore().getSnsUserList().get(positionInSnsUserList).getStrName() + "|" + legacyDataList.get(lineOfTheData) + "|" + company.getVaccinesList().get(positionInVaccinesList).getVaccineType().getDescription());
+                                    //setArrival(values[4], values[0]);
+                                    //setDeparture(values[7], values[0]);
                                 }
+                            }
                         }
                     }
                 }
             }
             return updatedList;
         } else {
-            return  null;
+            return null;
         }
     }
 
@@ -139,12 +178,12 @@ public class ReadLegacyDataFile {
             n = "0";
         }
         //Only one month, one day and one hour
-       try {
-           LocalDateTime.parse(arrivalTime, DateTimeFormatter.ofPattern("M/d/yyyy H:mm"));
-           return "M/d/yyyy H:mm";
-       } catch (Exception e) {
+        try {
+            LocalDateTime.parse(arrivalTime, DateTimeFormatter.ofPattern("M/d/yyyy H:mm"));
+            return "M/d/yyyy H:mm";
+        } catch (Exception e) {
             n = "0";
-       }
+        }
         //Only one month, one day and two hours
         try {
             LocalDateTime.parse(arrivalTime, DateTimeFormatter.ofPattern("M/d/yyyy HH:mm"));
@@ -315,7 +354,7 @@ public class ReadLegacyDataFile {
             int hour = Integer.parseInt(hourAndMinute[0]);
             int minute = Integer.parseInt(hourAndMinute[1]);
 
-            LocalDateTime dataToBeAdded = LocalDateTime.of(year,month,day,hour,minute);
+            LocalDateTime dataToBeAdded = LocalDateTime.of(year, month, day, hour, minute);
             listToSort.add(dataToBeAdded);
         }
     }
