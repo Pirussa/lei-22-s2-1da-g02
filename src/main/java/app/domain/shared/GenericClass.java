@@ -54,7 +54,6 @@ public class GenericClass<E> implements Serializable {
      *
      * @param fileName:       path of the file containing the information.
      * @param listToBeFilled: list that is going to be filled with the file's information.
-     * @throws EOFException
      */
     public void binaryFileRead(String fileName, List<E> listToBeFilled) throws EOFException {
         File file = new File(fileName);
@@ -70,7 +69,4 @@ public class GenericClass<E> implements Serializable {
         }
     }
 
-    public List<E> getImportedList() {
-        return importedList;
-    }
 }
