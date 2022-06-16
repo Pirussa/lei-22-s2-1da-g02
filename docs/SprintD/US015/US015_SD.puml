@@ -104,7 +104,7 @@ CTRL --> UI : returns true if the list was exported successfully
 deactivate CTRL
  UI --> CC : informs that the vaccination statistics have been exported
 deactivate UI
-deactivate CC
+
 end
 
 

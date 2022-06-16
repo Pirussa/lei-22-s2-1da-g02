@@ -2,7 +2,7 @@ package app.controller;
 
 import app.domain.model.Company;
 import app.domain.model.VaccinationCenter;
-import app.miscellaneous.PerformanceAnalyzer;
+import app.domain.model.PerformanceAnalyzer;
 import app.stores.VaccinationCentersStore;
 import app.ui.console.utils.Utils;
 
@@ -18,7 +18,7 @@ public class AnalyzeCenterPerformanceController {
     private LocalDate selectedDate;
     private int timeInterval;
 
-    private final PerformanceAnalyzer analyzer;
+    private final PerformanceAnalyzer analyzer ;
 
 
     /**
@@ -47,7 +47,7 @@ public class AnalyzeCenterPerformanceController {
         final VaccinationCentersStore store = company.getVaccinationCentersStore();
         String id = Utils.getLoggedCoordinatorId();
         center = store.getVaccinationCenterAssociatedToCoordinator(id);
-        analyzer = new PerformanceAnalyzer(center);
+        analyzer = center.getAnalyzer();
     }
 
 
@@ -67,7 +67,7 @@ public class AnalyzeCenterPerformanceController {
      * @return the time intervals
      */
     public List<String> getTimeIntervals() {
-        return analyzer.getTimeIntervals(timeInterval);
+        return analyzer.getTimeInterval(timeInterval);
     }
 
     /**
@@ -95,20 +95,7 @@ public class AnalyzeCenterPerformanceController {
      * @return true, if the time interval is valid
      */
     public boolean checkIfTimeIntervalIsValid(String timeInterval) {
-
-        if (timeInterval.isEmpty()) {
-            return false;
-        }
-        try {
-            int timeIntervalInt = Integer.parseInt(timeInterval);
-            if (!(timeIntervalInt > 0 && timeIntervalInt <= analyzer.getMinutesOpenCenterPerDay())) {
-                return false;
-            }
-        } catch (NumberFormatException e) {
-            return false;
-        }
-
-        return true;
+           return analyzer.checkIfTimeIntervalIsValid(timeInterval);
     }
 
 

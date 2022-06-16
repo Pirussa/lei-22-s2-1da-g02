@@ -1,8 +1,4 @@
-package app.miscellaneous;
-
-import app.domain.model.Arrival;
-import app.domain.model.Departure;
-import app.domain.model.VaccinationCenter;
+package app.domain.model;
 
 
 import java.time.LocalDate;
@@ -36,14 +32,14 @@ public class PerformanceAnalyzer {
      * @return the statistics daily list
      */
     public int[] getTheStatisticsDailyList(LocalDate date, int timeInterval) {
-        listToBeAnalyzed = getListToBeAnalyzed(date, timeInterval);
+        listToBeAnalyzed = formatListToBeAnalyzed(date, timeInterval);
         return listToBeAnalyzed;
     }
 
     /**
      * Gets a list with the time intervals for which the center was most effective in responding.
      *
-     * @return the list with maxium sum
+     * @return the list with maximum sum
      */
     public int[] getMaxSumSubList() {
         maxSumSubList = findMaxSumSublist(listToBeAnalyzed);
@@ -110,36 +106,17 @@ public class PerformanceAnalyzer {
 
 
 
-    private int[] getListToBeAnalyzed(LocalDate date, int timeInterval) {
+    private int[] formatListToBeAnalyzed(LocalDate date, int timeInterval) {
 
         int[] listOfArrivalsAndDepartures = new int[getLengthOfList(timeInterval)];
-        int counterArrivals =0;
-        int counterDepartures =0;
         for (int position = 0; position < listOfArrivalsAndDepartures.length; position++) {
             int[] arrivalsAndDepartures = countArrivalsAndDepartures(date, timeInterval, position);
             listOfArrivalsAndDepartures[position] = arrivalsAndDepartures[0] - arrivalsAndDepartures[1];
-            counterArrivals += arrivalsAndDepartures[0];
-            counterDepartures+= arrivalsAndDepartures[1];
-
         }
-        System.out.println(counterArrivals);
-        System.out.println(counterDepartures);
         return listOfArrivalsAndDepartures;
     }
 
-    private int getLengthOfList(int timeInterval) { return getMinutesOpenCenterPerDay() / timeInterval; }
-
-
-    /**
-     * Calculates for how many minutes the center is open.
-     *
-     * @return the minutes the center is open per day
-     */
-    public int getMinutesOpenCenterPerDay(){
-        int openingHour = Integer.parseInt(vaccinationCenter.getStrOpeningHour());
-        int closingHour = Integer.parseInt(vaccinationCenter.getStrClosingHour());
-        return (closingHour - openingHour) * 60;
-    }
+    private int getLengthOfList(int timeInterval) { return vaccinationCenter.getMinutesOpenCenterPerDay() / timeInterval; }
 
 
     /**
@@ -148,7 +125,7 @@ public class PerformanceAnalyzer {
      * @param timeInterval the chosen time interval
      * @return A list with the different time intervals
      */
-    public List<String> getTimeIntervals(int timeInterval) {
+    private List<String> setUpTimeIntervals(int timeInterval) {
         List<String> timeIntervals = new ArrayList<>();
         LocalDateTime date = LocalDateTime.of(2022, 1, 1, Integer.parseInt(vaccinationCenter.getStrOpeningHour()), 0);
 
@@ -161,6 +138,10 @@ public class PerformanceAnalyzer {
         }
 
         return timeIntervals;
+    }
+
+    public List<String> getTimeInterval(int timeInterval){
+        return setUpTimeIntervals(timeInterval);
     }
 
     private String checkTimeFormat(LocalDateTime date) {
@@ -209,6 +190,38 @@ public class PerformanceAnalyzer {
                 counterDepartures++;
 
         return new int[] {counterArrivals, counterDepartures};
+    }
+
+    /**
+     * Check if time interval is valid boolean.
+     *
+     * @param timeInterval the time interval
+     * @return true, if the time interval is valid
+     */
+    public boolean checkIfTimeIntervalIsValid(String timeInterval) {
+
+        if (checkIfTimeIntervalIsEmpty(timeInterval)) {
+            return false;
+        }
+        try {
+            int timeIntervalInt = Integer.parseInt(timeInterval);
+
+            if (!checkIfTimeIntervalIsInAValidRange(timeIntervalInt)) {
+                return false;
+            }
+        } catch (NumberFormatException e) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean checkIfTimeIntervalIsEmpty(String timeInterval) {
+        return timeInterval.isEmpty();
+    }
+
+    private boolean checkIfTimeIntervalIsInAValidRange(int timeInterval) {
+        return (timeInterval > 0 && timeInterval <= vaccinationCenter.getMinutesOpenCenterPerDay());
     }
 
 }

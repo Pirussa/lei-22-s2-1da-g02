@@ -43,10 +43,10 @@ public class AnalyzeCenterPerformanceGUI {
     private TableView<VaccinationCenterDailyPerformance> TimeTableView;
 
     @FXML
-    private TableColumn<VaccinationCenterDailyPerformance, String> timeIntervalCollumn;
+    private TableColumn<VaccinationCenterDailyPerformance, String> timeIntervalColumn;
 
     @FXML
-    private TableColumn<VaccinationCenterDailyPerformance, String> differenceBetweenArrivalsAndDeparturesCollumn;
+    private TableColumn<VaccinationCenterDailyPerformance, String> differenceBetweenArrivalsAndDeparturesColumn;
 
 
     @FXML
@@ -67,13 +67,13 @@ public class AnalyzeCenterPerformanceGUI {
      */
     @FXML
     void analyzeCenterPerformance(ActionEvent event) {
-        if (checkIfTimeIntervalIsValid()){
+        if (controller.checkIfTimeIntervalIsValid(txtTimeInterval.getText())){
             controller.setTimeInterval(Integer.parseInt(txtTimeInterval.getText()));
             int[] statisticsDailyList = controller.getTheStatisticsDailyList();
             List<String> timeIntervals = controller.getTimeIntervals();
             ObservableList<VaccinationCenterDailyPerformance> timeObservableList = FXCollections.observableArrayList();
-            timeIntervalCollumn.setCellValueFactory(new PropertyValueFactory<>("timeInterval"));
-            differenceBetweenArrivalsAndDeparturesCollumn.setCellValueFactory(new PropertyValueFactory<>("differenceBetweenArrivalsAndDepartures"));
+            timeIntervalColumn.setCellValueFactory(new PropertyValueFactory<>("timeInterval"));
+            differenceBetweenArrivalsAndDeparturesColumn.setCellValueFactory(new PropertyValueFactory<>("differenceBetweenArrivalsAndDepartures"));
 
             for (int position = 0; position < statisticsDailyList.length; position++)
                 timeObservableList.add(new VaccinationCenterDailyPerformance(timeIntervals.get(position), String.valueOf(statisticsDailyList[position])));
@@ -108,9 +108,6 @@ public class AnalyzeCenterPerformanceGUI {
     @FXML
     void setSelectedDate(ActionEvent event) {
         controller.setSelectedDate(datePicker.getValue());
-        lbSelectTimeInterval.setVisible(true);
-        txtTimeInterval.setVisible(true);
-        analyzeBtn.setVisible(true);
     }
 
     /**
@@ -134,8 +131,5 @@ public class AnalyzeCenterPerformanceGUI {
 
     }
 
-    private boolean checkIfTimeIntervalIsValid() {
-        return controller.checkIfTimeIntervalIsValid(txtTimeInterval.getText());
-    }
 
 }

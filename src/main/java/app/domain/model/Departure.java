@@ -1,11 +1,5 @@
 package app.domain.model;
 
-import app.controller.App;
-import app.domain.shared.Constants;
-import app.domain.shared.GenericClass;
-import app.stores.VaccinationCentersStore;
-
-import java.io.NotSerializableException;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -15,6 +9,7 @@ public class Departure implements Serializable {
 
     private final LocalDateTime departureTime;
 
+    private static final long serialVersionUID = 5097142297744289963L;
 
 
     public Departure(int snsNumber, LocalDateTime departureTime) {

@@ -9,7 +9,6 @@ import app.dto.ScheduledVaccineDto;
 import java.io.*;
 import java.time.Duration;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,10 +45,9 @@ public class VaccinationCenter implements Serializable {
     private final List<VaccineBulletin> vaccinesAdministeredList = new ArrayList<>();
     private final List<VaccineBulletin> listFullyVaccinated = new ArrayList<>();
     private static final long serialVersionUID = 0;
-
-
     private static final String[] strTopLevelDomain = {".com", ".pt", ".co.uk"};
     private static final String strWorldWideWeb = "www.";
+    private final PerformanceAnalyzer analyzer = new PerformanceAnalyzer(this);
 
     /**
      * The Appointments generic class.
@@ -753,4 +751,23 @@ public class VaccinationCenter implements Serializable {
         genericsDeparture.binaryFileWrite(Constants.FILE_PATH_DEPARTURES, departuresList);
     }
 
+    /**
+     * Gets analyzer.
+     *
+     * @return the analyzer
+     */
+    public PerformanceAnalyzer getAnalyzer() {
+        return analyzer;
+    }
+
+    /**
+     * Calculates for how many minutes the center is open.
+     *
+     * @return the minutes the center is open per day
+     */
+    public int getMinutesOpenCenterPerDay(){
+        int openingHour = Integer.parseInt(strOpeningHour);
+        int closingHour = Integer.parseInt(strClosingHour);
+        return (closingHour - openingHour) * 60;
+    }
 }

@@ -6,7 +6,6 @@ import app.controller.CreateVaccinationCenterController;
 import app.controller.RegisterNewEmployeeController;
 import app.dto.MassVaccinationCenterDto;
 import app.dto.RegisterNewEmployeeDto;
-import app.miscellaneous.PerformanceAnalyzer;
 import app.stores.VaccinationCentersStore;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -14,8 +13,6 @@ import org.junit.jupiter.api.TestInstance;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -135,18 +132,6 @@ class AnalyzeThePerformanceOfACenterTest {
         int expectedValue = performanceAnalyzer.getTheStatisticsDailyList(date, Integer.parseInt(timeInterval)).length;
 
         assertEquals(lengthOfTheList, expectedValue);
-    }
-
-    /*
-    * Test for the minutes that a center is open per day
-     */
-    @Test
-    public void minutesOpenCenterPerDay() {
-        int minutesOfTheWorkingHoursOfTheCenter = 780;
-
-        int expectedValue = performanceAnalyzer.getMinutesOpenCenterPerDay();
-
-        assertEquals(minutesOfTheWorkingHoursOfTheCenter, expectedValue);
     }
 
 
