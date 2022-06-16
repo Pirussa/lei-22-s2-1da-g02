@@ -44,6 +44,7 @@ class CenterCoordinatorMenuControllerTest {
     @Test
     void companyHasEnoughInfoForVaccinationStats() {
 
+        vaccinationCentersStore.getVaccinationCenters().clear();
         CenterCoordinatorMenuController centerCoordinatorMenuController1 = new CenterCoordinatorMenuController();
         assertEquals(1, centerCoordinatorMenuController1.companyHasEnoughInfoForVaccinationStats());
        // Creating a new Vaccination Center
