@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 
 
 import static org.junit.jupiter.api.Assertions.*;
-/*
+
 class ScheduledVaccineTest {
 
     private final ScheduledVaccineMapper mapper = new ScheduledVaccineMapper();
@@ -162,4 +162,4 @@ class ScheduledVaccineTest {
         company.cleanAppointments();
     }
 }
-*/
+

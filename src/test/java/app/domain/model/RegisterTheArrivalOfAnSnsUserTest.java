@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class RegisterTheArrivalOfAnSnsUserTest {
 
-    private final Company company = new Company("Company");
+    private final Company company = App.getInstance().getCompany();
     private final RegisterTheArrivalOfAnSnsUserController ctrl = new RegisterTheArrivalOfAnSnsUserController();
 private  final VaccinationCentersStore vaccinationCentersStore = company.getVaccinationCentersStore();
 
@@ -26,16 +26,17 @@ private  final VaccinationCentersStore vaccinationCentersStore = company.getVacc
                 "16", "30", "1", "Rua do Amial", "4460-098", "Matosinhos", "CC-95634");
         VaccinationCenter vcU = new VaccinationCenter("1234", "Isep", "915607321", "cvcmatosinhos@gmail.com", "915607321", "www.cvcmatosinhos.com", "9",
                 "16", "30", "1", "Rua do Amial", "4460-098", "Matosinhos", "CC-95634");
+        vaccinationCentersStore.getVaccinationCenters().clear();
         vaccinationCentersStore.getVaccinationCenters().add(vcR);
         vaccinationCentersStore.getVaccinationCenters().add(vcU);
 
         VaccineType vt1 = new VaccineType("12345" ,"Covid", VaccineType.vaccineTechnologies[0]);
 
-        ScheduledVaccine appointment1 = new ScheduledVaccine(100000000, vt1, LocalDateTime.of(2022, 5, 31, 12, 30));
-        ScheduledVaccine appointment2 = new ScheduledVaccine(200000000, vt1, LocalDateTime.of(2022, 5, 24, 22, 30));
+        ScheduledVaccine appointment1 = new ScheduledVaccine(100000000, vt1, LocalDateTime.of(2022, 6, 16, 20, 20));
+        ScheduledVaccine appointment2 = new ScheduledVaccine(200000000, vt1, LocalDateTime.of(2022, 6, 16, 20, 20));
 
         vcR.getScheduledVaccineList().add(appointment1);
-        vcR.getScheduledVaccineList().add(appointment2);
+        vcU.getScheduledVaccineList().add(appointment2);
     }
 
 
@@ -76,8 +77,6 @@ private  final VaccinationCentersStore vaccinationCentersStore = company.getVacc
      */
     public void registerArrivalWithWrongDate() {
 
-
-
         ctrl.setVaccinationCenter(0);
         ctrl.checkAndSetUserAppointment(200000000);
         ctrl.setArrival(200000000);
@@ -91,9 +90,7 @@ private  final VaccinationCentersStore vaccinationCentersStore = company.getVacc
    */
   public void registerArrivalWithWrongVaccinationCenters() {
 
-      setUp();
-
-      ctrl.setVaccinationCenter(0);
+      ctrl.setVaccinationCenter(1);
       ctrl.checkAndSetUserAppointment(100000000);
       ctrl.setArrival(100000000);
 

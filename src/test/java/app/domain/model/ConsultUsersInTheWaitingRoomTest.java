@@ -29,6 +29,7 @@ class ConsultUsersInTheWaitingRoomTest {
         VaccineType vt1 = new VaccineType("COVID", "A vaccine to prevent serious infections of the Covid-19 Virus", VaccineType.vaccineTechnologies[5]);
 
         VaccinationCenter vc = new VaccinationCenter("1234", "CVC Matosinhos", "915607321", "cvcmatosinhos@gmail.com", "915607321", "www.cvcmatosinhos.com", "1", "9", "30", "16", "Rua do Amial", "4460-098", "Matosinhos", "CC-95634");
+        company.getVaccinationCentersStore().getVaccinationCenters().clear();
         company.getVaccinationCentersStore().getVaccinationCenters().add(vc);
         ctrl.setVaccinationCenter(0);
 
@@ -79,7 +80,7 @@ class ConsultUsersInTheWaitingRoomTest {
                         "SNS User Number: " + "200000000" + '\n' +
                         "Phone Number: " + "915604429" + '\n');
 
-        assertEquals(checkList,ctrl.listOfUsersInTheWaitingRoom());
+        assertEquals(checkList, ctrl.listOfUsersInTheWaitingRoom());
     }
 
     /**

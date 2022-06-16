@@ -72,8 +72,8 @@ public class ScheduleVaccineController {
     public boolean validateAppointment(ScheduledVaccineDto scheduledVaccineDto) {
         if (!dataIsAllFilled(scheduledVaccineDto)) return false;
         if (!company.userIsEligibleForTheAppointment(scheduledVaccineDto)) return false;
-        if (!vaccinationCenter.validateAppointmentAccordingToAgeGroupAndTimeSinceLastDose(scheduledVaccineDto, company))
-            return false;
+       // if (!vaccinationCenter.validateAppointmentAccordingToAgeGroupAndTimeSinceLastDose(scheduledVaccineDto, company))
+         //   return false;
 
         return vaccinationCenter.centerHasAvailability(scheduledVaccineDto);
     }

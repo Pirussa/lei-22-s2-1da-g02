@@ -16,8 +16,6 @@ dist/
 # Log files
 *.log
 
-# Package files
-*.jar
 
 # Maven
 target/
@@ -60,7 +58,6 @@ employees
 Sem2App.iml
 Serialization/snsusers
 Serialization/vaccinebulletin
-~$erManual.docx
 /fileTest.csv
 /DailyTotalOfVaccinatedPeopleActualTest.csv
 /DailyTotalOfVaccinatedPeopleExpectedTest.csv
