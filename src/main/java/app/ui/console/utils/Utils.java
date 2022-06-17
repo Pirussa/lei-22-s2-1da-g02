@@ -35,42 +35,42 @@ public class Utils {
 
     private static final SNSUsersStore SNS_USERS_STORE = company.getSnsUsersStore();
 
-    private static void bootstrapEmployees() {
+    public static void bootstrapEmployees() {
         company.getEmployeesStore().readBinaryFileEmployees();
         company.getEmployeesStore().authenticateEmployees();
     }
 
-    private static void bootstrapVaccineTypes() {
+    public static void bootstrapVaccineTypes() {
         VACCINE_TYPE_STORE.readBinaryFileVaccineTypes();
     }
 
-    private static void bootstrapVaccinationCenters() {
+    public static void bootstrapVaccinationCenters() {
         VACCINATION_CENTERS_STORE.readBinaryFileCenters();
     }
 
-    private static void bootstrapSnsUsers() {
+    public static void bootstrapSnsUsers() {
         company.getSnsUsersStore().readBinaryFileSnsUsers();
         company.getSnsUsersStore().authenticateSNSUser();
     }
 
-    private static void bootstrapVaccines() {
+    public static void bootstrapVaccines() {
         company.readBinaryFileVaccines();
     }
 
-    private static void bootstrapScheduledAppointments() {
+    public static void bootstrapScheduledAppointments() {
         for (VaccinationCenter center : VACCINATION_CENTERS_STORE.getVaccinationCenters()) {
             center.readBinaryFilesAppointments();
         }
     }
 
-    private static void bootstrapFullyVaccinated() {
+    public static void bootstrapFullyVaccinated() {
         company.readBinaryFileVaccineBulletins();
         for (VaccinationCenter center : VACCINATION_CENTERS_STORE.getVaccinationCenters()) {
             center.readBinaryFilesFullyVaccinated();
         }
     }
 
-    private static void bootstrapAdministeredVaccinesTheRealOne() {
+    public static void bootstrapAdministeredVaccinesTheRealOne() {
         GenericClass<VaccineBulletin> genericsClass = new GenericClass<>();
         try {
             for (SnsUser snsUser : SNS_USERS_STORE.getSnsUserList()) {
@@ -81,7 +81,7 @@ public class Utils {
         }
     }
 
-    private static void bootstrapArrivals() {
+    public static void bootstrapArrivals() {
         GenericClass<Arrival> genericsClass = new GenericClass<>();
         try {
             for (VaccinationCenter vaccinationCenter : VACCINATION_CENTERS_STORE.getVaccinationCenters()) {
@@ -92,7 +92,7 @@ public class Utils {
         }
     }
 
-    private static void bootstrapDepartures() {
+    public static void bootstrapDepartures() {
         GenericClass<Departure> genericsClass = new GenericClass<>();
         try {
             for (VaccinationCenter vaccinationCenter : VACCINATION_CENTERS_STORE.getVaccinationCenters()) {
@@ -411,7 +411,7 @@ public class Utils {
      */
     public static Vaccine createVaccine(String name, int id, String brand, double dosage, int minAge, int maxAge, int timeBetweenDoses) {
         Company c = App.getInstance().getCompany();
-        bootstrap();
+        bootstrapVaccineTypes();
         AdministrationProcess aP = new AdministrationProcess(new ArrayList<>(Arrays.asList(new ArrayList<>(List.of(minAge)), new ArrayList<>(List.of(maxAge)))), new ArrayList<>(List.of(2)), new ArrayList<>(List.of(dosage)), new ArrayList<>(Arrays.asList(new ArrayList<>(List.of(timeBetweenDoses)))));
 
         Vaccine v = new Vaccine(name, id, brand, aP, c.getVaccineTypesStore().getVaccineTypes().get(0));

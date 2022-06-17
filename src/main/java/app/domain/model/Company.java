@@ -135,10 +135,14 @@ public class Company implements Serializable {
         if (adminProcess.validateAdministrationProcess()) {
             Vaccine vac = new Vaccine(dto.name, dto.id, dto.brand, adminProcess, dto.vt);
             if (vac.validateVaccine()) {
+                boolean flag = true;
                 for (Vaccine vaccine : vaccinesList) {
-                    return dto.id != vaccine.getId();
+                    if (dto.id == vaccine.getId()) {
+                        flag = false;
+                        break;
+                    }
                 }
-                return true;
+                return flag;
 
             }
 
