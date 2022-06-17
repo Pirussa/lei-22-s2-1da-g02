@@ -27,6 +27,11 @@ class RecordVaccineAdministrationControllerTest {
     @BeforeEach
     void setUp() {
         company = App.getInstance().getCompany();
+        company.getVaccinesList().clear();
+        company.getVaccineTypesStore().getVaccineTypes().clear();
+        company.getVaccinationCentersStore().getVaccinationCenters().clear();
+        company.getSnsUsersStore().getSnsUserList().clear();
+        company.getAppointments().clear();
         vaccinationCentersStore = company.getVaccinationCentersStore();
         //Creating a center coordinator
         RegisterNewEmployeeController ctrlEmp = new RegisterNewEmployeeController();
@@ -96,9 +101,10 @@ class RecordVaccineAdministrationControllerTest {
         RecordVaccineAdministrationController controller = new RecordVaccineAdministrationController();
         SnsUserMapper snsUserMapper = new SnsUserMapper();
         controller.setVaccinationCenter(0);
+        controller.fillListWithUserSnsNumber();
         controller.setSnsUser(snsUserMapper.domainToSNSUserDto(company.getSnsUsersStore().getSnsUserList().get(0)));
         controller.setVaccineType(0);
-        if (controller.getUserNumberOfDoses() == Constants.FIRST_DOSE) {
+        if (controller.getUserNumberOfDoses() == Constants.FIRST_DOSE && controller.checkIfArrivalsListEmpty()) {
             controller.setVaccine(0);
             controller.setLocalDateTime();
             controller.setLotNumber("12345-12");
@@ -131,14 +137,19 @@ class RecordVaccineAdministrationControllerTest {
 
         RecordVaccineAdministrationController controller = new RecordVaccineAdministrationController();
         SnsUserMapper snsUserMapper = new SnsUserMapper();
+        controller.vaccinationCentersAvailable();
         controller.setVaccinationCenter(0);
         controller.setSnsUser(snsUserMapper.domainToSNSUserDto(company.getSnsUsersStore().getSnsUserList().get(0)));
+        controller.setVaccineType(0);
+        controller.vaccineTypeAvailableVaccines();
+        controller.vaccineAvailableName();
         if (controller.getUserNumberOfDoses() == Constants.FIRST_DOSE) {
-            controller.setVaccineType(0);
-            controller.setVaccine(0);
-            controller.setLocalDateTime();
-            controller.setLotNumber("12345");
             if (controller.validateLotNumber("12345")) {
+                controller.setVaccine(0);
+                controller.vaccineInfo();
+                controller.vaccineTypeInfo();
+                controller.setLocalDateTime();
+                controller.setLotNumber("12345");
                 controller.registerVaccineInVaccineBulletin();
                 controller.setRecoveryTimeSMS();
                 controller.printRecoveryTime();
@@ -172,6 +183,7 @@ class RecordVaccineAdministrationControllerTest {
         controller.setVaccinationCenter(0);
         controller.setSnsUser(snsUserMapper.domainToSNSUserDto(company.getSnsUsersStore().getSnsUserList().get(0)));
         controller.getSnsUserInformation(0);
+        controller.fillListWithUserSnsNumber();
         controller.setVaccineType(0);
         if (controller.getUserNumberOfDoses() != Constants.FIRST_DOSE) {
             controller.setVaccine(0);
