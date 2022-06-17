@@ -117,7 +117,7 @@ public class ReadLegacyDataFile {
                 if (posOfUser!=-1 && posOfVax!=-1){
                     if (checksDuplicates(updatedList, getSNSUserList(), getVaccineList(), posOfUser, posOfVax, lineOfTheData)) {
                         updatedList.add(getSNSUserList().get(posOfUser).getStrName() + "|" + legacyDataList.get(lineOfTheData) + "|" + getVaccineList().get(posOfVax).getVaccineType().getDescription());
-                        boolean serialize = getSNSUserList().size() - 1 == posOfUser;
+                        boolean serialize = legacyDataList.size() -1  == lineOfTheData;
                         setArrival(values[4], values[0], serialize);
                         setDeparture(values[7], values[0], serialize);
                 }
