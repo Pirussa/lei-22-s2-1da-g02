@@ -63,7 +63,7 @@ public class Utils {
         }
     }
 
-    private static void bootstrapAdministeredVaccines() {
+    private static void bootstrapFullyVaccinated() {
         company.readBinaryFileVaccineBulletins();
         for (VaccinationCenter center : VACCINATION_CENTERS_STORE.getVaccinationCenters()) {
             center.readBinaryFilesFullyVaccinated();
@@ -116,7 +116,7 @@ public class Utils {
         bootstrapScheduledAppointments();
         bootstrapArrivals();
         bootstrapAdministeredVaccinesTheRealOne();
-        bootstrapAdministeredVaccines();
+        bootstrapFullyVaccinated();
         bootstrapDepartures();
     }
 

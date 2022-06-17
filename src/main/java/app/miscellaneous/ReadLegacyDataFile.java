@@ -123,7 +123,7 @@ public class ReadLegacyDataFile {
                             if (company.getVaccinesList().get(positionInVaccinesList).getName().equals(values[1])) {
                                 if (!updatedList.contains(company.getSnsUsersStore().getSnsUserList().get(positionInSnsUserList).getStrName() + "|" + legacyDataList.get(lineOfTheData) + "|" + company.getVaccinesList().get(positionInVaccinesList).getVaccineType().getDescription())) {
                                     updatedList.add(company.getSnsUsersStore().getSnsUserList().get(positionInSnsUserList).getStrName() + "|" + legacyDataList.get(lineOfTheData) + "|" + company.getVaccinesList().get(positionInVaccinesList).getVaccineType().getDescription());
-                                    boolean serialize = company.getSnsUsersStore().getSnsUserList().size() - 1 == positionInSnsUserList;
+                                    boolean serialize = legacyDataList.size() -1  == lineOfTheData;
                                     setArrival(values[4], values[0],serialize);
                                     setDeparture(values[7], values[0], serialize);
 

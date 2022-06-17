@@ -82,7 +82,11 @@ public class ReadLegacyDataFileGUI {
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
         List<File> files = fileChooser.showOpenMultipleDialog(null);
         controller.setFile(files.get(0));
-
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("File chosen");
+        alert.setHeaderText("You have chosen the file: " + files.get(0).getName() + " successfully");
+        alert.setContentText("Wait while the file information is being loaded...");
+        alert.showAndWait();
         showOptions();
 
     }

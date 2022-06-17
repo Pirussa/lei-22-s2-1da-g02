@@ -2,6 +2,7 @@ package app.domain.model;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Departure implements Serializable {
 
@@ -26,5 +27,12 @@ public class Departure implements Serializable {
         return "departureTime=" + departureTime;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Departure)) return false;
+        Departure departure = (Departure) o;
+        return snsNumber == departure.snsNumber;
+    }
 
 }

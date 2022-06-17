@@ -750,8 +750,11 @@ public class VaccinationCenter implements Serializable {
      * @throws NotSerializableException the not serializable exception
      */
     public void addArrival(Arrival arrival, boolean serialize) throws NotSerializableException {
-        arrivalsList.add(arrival);
-        if (serialize) genericsArrivals.binaryFileWrite(Constants.FILE_PATH_ARRIVALS, arrivalsList);
+        if (!arrivalsList.contains(arrival)) {
+            arrivalsList.add(arrival);
+            if (serialize) genericsArrivals.binaryFileWrite(Constants.FILE_PATH_ARRIVALS, arrivalsList);
+        }
+
     }
 
     /**
@@ -761,8 +764,10 @@ public class VaccinationCenter implements Serializable {
      * @throws NotSerializableException the not serializable exception
      */
     public void addDeparture(Departure departure, boolean serialize) throws NotSerializableException {
-        departuresList.add(departure);
-        if (serialize) genericsDeparture.binaryFileWrite(Constants.FILE_PATH_DEPARTURES, departuresList);
+        if (!departuresList.contains(departure)) {
+            departuresList.add(departure);
+            if (serialize) genericsDeparture.binaryFileWrite(Constants.FILE_PATH_DEPARTURES, departuresList);
+        }
 
     }
 
