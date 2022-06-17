@@ -1,11 +1,68 @@
+
+
 @startuml
-'https://plantuml.com/sequence-diagram
 
 autonumber
+actor "CenterCoordinator" as CC
+participant ":\nDataFromLegacySystemUI" as UI
+participant ":\nDataFromLegacySystemController" as CTRL
+participant ":\nReadLegacyDataFile" as RDLF
+participant ":\nCompany" as Comp
+participant ":\nSNSUserStore" as SNSStore
+participant "App" as App
 
-Alice -> Bob: Authentication Request
-Bob --> Alice: Authentication Response
 
-Alice -> Bob: Another authentication Request
-Alice <-- Bob: another authentication Response
+activate CC
+CC -> UI : Asks to load a CSV file with legacy data
+activate UI
+
+
+
+UI --> CC : request path of the CSV file
+deactivate UI
+
+CC -> UI : types path
+activate UI
+UI -> CTRL : readFile(path)
+CTRL -> RDLF : readFile(Sring path)
+loop while csv has new lines
+RDLF -> RDLF : validateFileLegacy(SNSUserNumber,\nfirstDate,secondDate,thirdDate,fourthDate)
+alt#Gold #LightBlue if line is valid
+RDLF -> RDLF : Saves data into an ArrayList<String> called\n legacyDataList
+end alt
+end loop
+
+alt#Gold #LightBlue if entire file is valid
+
+loop while legacyDataList has new lines
+RDLF -> RDLF : updateLegacyFile()
+RDLF -> RDLF : Saves data into an ArrayList<String> called\n updatedList
+end loop
+end alt#Gold
+alt#Gold #LightBlue if updatedList != null
+UI -> CC : requests the option to sort
+deactivate UI
+CC -> UI : selects option
+activate UI
+UI -> CTRL : chooseCriteriaToSort(option)
+CTRL -> RDLF : setList(Option)
+loop while updatedList has new lines
+RDLF -> RDLF : Saves dates to a \n list of LocalDateTime
+end loop
+UI -> CC: requests the order of the sort
+deactivate UI
+CC -> UI: selects order
+UI -> App : getSortingAlgorithm()
+activate App
+deactivate App
+alt#Gold algorithmToBeUsed = "MergeSort", option = "0 - Ascending"
+UI -> CTRL: sortListWithAlgo(algorithmToBeUsed,option)
+CTRL -> RDLF : mergeSortAscending(list,begin,end)
+RDLF -> RDLF : mergeSortAscending(list,begin,end)
+UI -> CC : prints sorted list
+end alt
+
+
+
+end
 @enduml
