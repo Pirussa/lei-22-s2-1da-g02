@@ -43,7 +43,6 @@ class ScheduledVaccineTest {
 
     @Test
     void addNullAppointment() {
-        Utils.bootstrap();
         ScheduledVaccineDto scheduledVaccineDto1 = new ScheduledVaccineDto();
         controller.setVaccinationCenter(0);
 
@@ -53,7 +52,8 @@ class ScheduledVaccineTest {
 
     @Test
     void addAppointmentWithNullSnsNumber() {
-        Utils.bootstrap();
+        Utils.bootstrapVaccineTypes();
+        Utils.bootstrapVaccinationCenters();
         ScheduledVaccineDto scheduledVaccineDto1 = new ScheduledVaccineDto();
         controller.setVaccinationCenter(0);
         scheduledVaccineDto1.vaccineType = company.getVaccineTypesStore().getVaccineTypes().get(0);
@@ -64,7 +64,8 @@ class ScheduledVaccineTest {
 
     @Test
     void addAppointmentWithNullVaccineType() {
-        Utils.bootstrap();
+        Utils.bootstrapVaccineTypes();
+        Utils.bootstrapVaccinationCenters();
         ScheduledVaccineDto scheduledVaccineDto1 = new ScheduledVaccineDto();
         controller.setVaccinationCenter(0);
         scheduledVaccineDto1.snsNumber = 999999999;
@@ -75,7 +76,8 @@ class ScheduledVaccineTest {
 
     @Test
     void addAppointmentWithNullDate() {
-        Utils.bootstrap();
+        Utils.bootstrapVaccineTypes();
+        Utils.bootstrapVaccinationCenters();
         ScheduledVaccineDto scheduledVaccineDto1 = new ScheduledVaccineDto();
         controller.setVaccinationCenter(0);
         scheduledVaccineDto1.snsNumber = 999999999;
@@ -86,7 +88,8 @@ class ScheduledVaccineTest {
 
     @Test
     void addAppointmentToDayWithNoAvailability() {
-        Utils.bootstrap();
+        Utils.bootstrapVaccineTypes();
+        Utils.bootstrapVaccinationCenters();
 
         ScheduledVaccineDto scheduledVaccineDto1 = new ScheduledVaccineDto();
         ScheduledVaccineDto scheduledVaccineDto2 = new ScheduledVaccineDto();
@@ -114,7 +117,8 @@ class ScheduledVaccineTest {
 
     @Test
     void addValidAppointment() {
-        Utils.bootstrap();
+        Utils.bootstrapVaccineTypes();
+        Utils.bootstrapVaccinationCenters();
 
         ScheduledVaccineDto scheduledVaccineDto1 = new ScheduledVaccineDto();
         VaccinationCenter vaccinationCenter = new VaccinationCenter("test", "test", "911111111", "test@gmail.com", "911111111", "www.test.com", "9", "16", "420", "1", "test", "4470-111", "test", company.getEmployeesStore().getCenterCoordinatorList().get(0).getId());
@@ -136,7 +140,8 @@ class ScheduledVaccineTest {
 
     @Test
     void addAppointmentToSlotWithNoAvailability() {
-        Utils.bootstrap();
+        Utils.bootstrapVaccineTypes();
+        Utils.bootstrapVaccinationCenters();
 
         ScheduledVaccineDto scheduledVaccineDto1 = new ScheduledVaccineDto();
         ScheduledVaccineDto scheduledVaccineDto2 = new ScheduledVaccineDto();

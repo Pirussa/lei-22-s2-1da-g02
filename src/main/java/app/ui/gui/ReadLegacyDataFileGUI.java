@@ -81,18 +81,14 @@ public class ReadLegacyDataFileGUI {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
         List<File> files = fileChooser.showOpenMultipleDialog(null);
-        controller.setFile(files.get(0));
-
-        showOptions();
-
-    }
-
-    public void showOptions() {
         try {
-            controller.readFile();
-            lbSort.setVisible(true);
-            btArrival.setVisible(true);
-            btDeparture.setVisible(true);
+            controller.setFile(files.get(0));
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("File chosen");
+            alert.setHeaderText("You have chosen the file: " + files.get(0).getName() + " successfully");
+            alert.setContentText("Wait while the file information is being loaded...");
+            alert.showAndWait();
+            showOptions();
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("No file selected");
@@ -100,6 +96,17 @@ public class ReadLegacyDataFileGUI {
             alert.setContentText("Please select a file");
             alert.showAndWait();
         }
+
+
+    }
+
+    public void showOptions() throws Exception {
+
+        controller.readFile();
+        lbSort.setVisible(true);
+        btArrival.setVisible(true);
+        btDeparture.setVisible(true);
+
     }
 
 

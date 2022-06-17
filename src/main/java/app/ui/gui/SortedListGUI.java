@@ -95,7 +95,11 @@ public class SortedListGUI {
 
         ReadLegacyDataFileGUI mainScene = loader.getController();
         mainScene.setController(controller);
-        mainScene.showOptions();
+        try {
+            mainScene.showOptions();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);

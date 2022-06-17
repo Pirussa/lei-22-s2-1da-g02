@@ -440,86 +440,6 @@ public class VaccinationCenter implements Serializable {
     }
 
     /**
-     * Validate appointment according to age group and time since last dose.
-     *
-     * @param scheduledVaccineDto the dto
-     * @param company             the company
-     * @return true if the appointment is validated according to age group and time since last dose.
-     */
-    public boolean validateAppointmentAccordingToAgeGroupAndTimeSinceLastDose(ScheduledVaccineDto scheduledVaccineDto, Company company) {
-        SnsUser snsUser = company.getSnsUsersStore().getSnsUserList().get(company.getUserIndexInUsersList(scheduledVaccineDto.snsNumber));
-
-        if (!snsUser.administratedVaccines().isEmpty()) {
-            for (VaccineBulletin vaccineBulletin : snsUser.administratedVaccines()) {
-                if (scheduledVaccineDto.vaccineType.equals(vaccineBulletin.getVaccine().getVaccineType())) {
-                    if (!validateAppointmentAccordingToAdminProcess(snsUser, scheduledVaccineDto, vaccineBulletin)) {
-                        return false;
-                    }
-                }
-            }
-        }
-        return true;
-    }
-
-    /**
-     * Validate appointment according to admin process.
-     *
-     * @param snsUser         the sns user
-     * @param dto             the dto
-     * @param vaccineBulletin the taken vaccine
-     * @return if the appointment is validated according to the admin process
-     */
-    public boolean validateAppointmentAccordingToAdminProcess(SnsUser snsUser, ScheduledVaccineDto dto, VaccineBulletin vaccineBulletin) {
-        int days = (int) Duration.between(dto.date, vaccineBulletin.getDateTimeOfLastDose()).toDays();
-
-        int doseNumber = vaccineBulletin.getDose();
-        AdministrationProcess administrationProcess = vaccineBulletin.getVaccine().getAdminProcess();
-        ArrayList<ArrayList<Integer>> timeIntervalBetweenDoses = administrationProcess.getTimeIntervalBetweenVaccines();
-        if (!validateAgeGroup(snsUser, administrationProcess)) {
-            return false;
-        }
-
-        int ageGroupColumn = getUserAgeGroupIndex(snsUser, administrationProcess);
-        int timeIntervalBetweenUserDose = timeIntervalBetweenDoses.get(doseNumber).get(ageGroupColumn);
-        if (doseNumber == administrationProcess.getNumberOfDoses().get(ageGroupColumn)) return false;
-
-        return timeIntervalBetweenUserDose <= days;
-    }
-
-    /**
-     * Validate appointment according to admin process.
-     *
-     * @param snsUser               the sns user
-     * @param administrationProcess the administration process
-     * @return user age group index
-     */
-    private int getUserAgeGroupIndex(SnsUser snsUser, AdministrationProcess administrationProcess) {
-        String[] birthDateComponents = snsUser.getStrBirthDate().split("/");
-        LocalDate birthDate = LocalDate.of(Integer.parseInt(birthDateComponents[2]), Integer.parseInt(birthDateComponents[1]), Integer.parseInt(birthDateComponents[0]));
-        int userAgeInDays = (int) Duration.between(LocalDate.now().atStartOfDay(), birthDate.atStartOfDay()).toDays();
-        int userAge = userAgeInDays / 365;
-        for (int columns = 0; columns < administrationProcess.getAgeGroups().get(0).size(); columns++) {
-            for (int rows = 0; rows < administrationProcess.getAgeGroups().size(); rows++) {
-                if ((userAge > administrationProcess.getAgeGroups().get(columns).get(rows)) && userAge < administrationProcess.getAgeGroups().get(columns).get(rows + 1)) {
-                    return columns;
-                }
-            }
-        }
-        return -1;
-    }
-
-    /**
-     * Validates user age group.
-     *
-     * @param snsUser               the sns user
-     * @param administrationProcess administration process
-     * @return true if the user age group is validated
-     */
-    private boolean validateAgeGroup(SnsUser snsUser, AdministrationProcess administrationProcess) {
-        return getUserAgeGroupIndex(snsUser, administrationProcess) >= 0;
-    }
-
-    /**
      * Register the arrival of an SNS user
      *
      * @param arrival An object regarding the  arrival of a user
@@ -750,8 +670,11 @@ public class VaccinationCenter implements Serializable {
      * @throws NotSerializableException the not serializable exception
      */
     public void addArrival(Arrival arrival, boolean serialize) throws NotSerializableException {
-        arrivalsList.add(arrival);
-        if (serialize) genericsArrivals.binaryFileWrite(Constants.FILE_PATH_ARRIVALS, arrivalsList);
+        if (!arrivalsList.contains(arrival)) {
+            arrivalsList.add(arrival);
+            if (serialize) genericsArrivals.binaryFileWrite(Constants.FILE_PATH_ARRIVALS, arrivalsList);
+        }
+
     }
 
     /**
@@ -761,8 +684,10 @@ public class VaccinationCenter implements Serializable {
      * @throws NotSerializableException the not serializable exception
      */
     public void addDeparture(Departure departure, boolean serialize) throws NotSerializableException {
-        departuresList.add(departure);
-        if (serialize) genericsDeparture.binaryFileWrite(Constants.FILE_PATH_DEPARTURES, departuresList);
+        if (!departuresList.contains(departure)) {
+            departuresList.add(departure);
+            if (serialize) genericsDeparture.binaryFileWrite(Constants.FILE_PATH_DEPARTURES, departuresList);
+        }
 
     }
 
