@@ -37,6 +37,7 @@ public class DataFromLegacySystemController {
 
     private int optionArrivalOrDeparture;
     private int optionAscendingOrDescending;
+    private File file;
 
 
     /**
@@ -103,11 +104,10 @@ public class DataFromLegacySystemController {
     /**
      * Read file.
      *
-     * @param path the path
      * @throws Exception the exception
      */
-    public void readFile(String path) throws Exception {
-        readLegacyDataFile.readFile(path);
+    public void readFile() throws Exception {
+        readLegacyDataFile.readFile(this.file.getAbsolutePath());
     }
 
     /**
@@ -299,4 +299,7 @@ public class DataFromLegacySystemController {
 
     }
 
+    public void setFile(File file) {
+        this.file = file;
+    }
 }

@@ -93,7 +93,7 @@ class RecordVaccineAdministrationControllerTest {
 
         Arrival arrival = new Arrival(123456789, company.getVaccineTypesStore().getVaccineTypes().get(0), LocalDateTime.of(2022, 6, 16, 23, 30));
         try {
-            company.getVaccinationCentersStore().getVaccinationCenters().get(0).addArrival(arrival);
+            company.getVaccinationCentersStore().getVaccinationCenters().get(0).addArrival(arrival,false);
         } catch (NotSerializableException e) {
             throw new RuntimeException(e);
         }
@@ -130,7 +130,7 @@ class RecordVaccineAdministrationControllerTest {
 
         Arrival arrival = new Arrival(123456789, company.getVaccineTypesStore().getVaccineTypes().get(0), LocalDateTime.of(2022, 6, 16, 23, 30));
         try {
-            company.getVaccinationCentersStore().getVaccinationCenters().get(0).addArrival(arrival);
+            company.getVaccinationCentersStore().getVaccinationCenters().get(0).addArrival(arrival, false);
         } catch (NotSerializableException e) {
             throw new RuntimeException(e);
         }
@@ -173,7 +173,7 @@ class RecordVaccineAdministrationControllerTest {
 
         Arrival arrival = new Arrival(123456789, company.getVaccineTypesStore().getVaccineTypes().get(0), LocalDateTime.of(2022, 9, 16, 23, 30));
         try {
-            company.getVaccinationCentersStore().getVaccinationCenters().get(0).addArrival(arrival);
+            company.getVaccinationCentersStore().getVaccinationCenters().get(0).addArrival(arrival, false);
         } catch (NotSerializableException e) {
             throw new RuntimeException(e);
         }
@@ -213,7 +213,7 @@ class RecordVaccineAdministrationControllerTest {
 
         Arrival arrival = new Arrival(123451234, company.getVaccineTypesStore().getVaccineTypes().get(0), LocalDateTime.of(2022, 6, 16, 23, 30));
         try {
-            company.getVaccinationCentersStore().getVaccinationCenters().get(0).addArrival(arrival);
+            company.getVaccinationCentersStore().getVaccinationCenters().get(0).addArrival(arrival, false);
         } catch (NotSerializableException e) {
             throw new RuntimeException(e);
         }

@@ -181,7 +181,9 @@ public class VaccinationCenter implements Serializable {
      *
      * @return The Departure Store
      */
-    public List<Departure> getDeparturesList() { return departuresList; }
+    public List<Departure> getDeparturesList() {
+        return departuresList;
+    }
 
     /**
      * Gets vaccines administered.
@@ -747,9 +749,9 @@ public class VaccinationCenter implements Serializable {
      * @param arrival the arrival
      * @throws NotSerializableException the not serializable exception
      */
-    public void addArrival(Arrival arrival) throws NotSerializableException {
+    public void addArrival(Arrival arrival, boolean serialize) throws NotSerializableException {
         arrivalsList.add(arrival);
-        genericsArrivals.binaryFileWrite(Constants.FILE_PATH_ARRIVALS, arrivalsList);
+        if (serialize) genericsArrivals.binaryFileWrite(Constants.FILE_PATH_ARRIVALS, arrivalsList);
     }
 
     /**
@@ -758,9 +760,10 @@ public class VaccinationCenter implements Serializable {
      * @param departure the departure
      * @throws NotSerializableException the not serializable exception
      */
-    public void addDeparture(Departure departure) throws NotSerializableException {
+    public void addDeparture(Departure departure, boolean serialize) throws NotSerializableException {
         departuresList.add(departure);
-        genericsDeparture.binaryFileWrite(Constants.FILE_PATH_DEPARTURES, departuresList);
+        if (serialize) genericsDeparture.binaryFileWrite(Constants.FILE_PATH_DEPARTURES, departuresList);
+
     }
 
     /**
@@ -777,7 +780,7 @@ public class VaccinationCenter implements Serializable {
      *
      * @return the minutes the center is open per day
      */
-    public int getMinutesOpenCenterPerDay(){
+    public int getMinutesOpenCenterPerDay() {
         int openingHour = Integer.parseInt(strOpeningHour);
         int closingHour = Integer.parseInt(strClosingHour);
         return (closingHour - openingHour) * 60;

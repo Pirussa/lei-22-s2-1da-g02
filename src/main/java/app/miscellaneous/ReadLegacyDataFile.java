@@ -123,8 +123,10 @@ public class ReadLegacyDataFile {
                             if (company.getVaccinesList().get(positionInVaccinesList).getName().equals(values[1])) {
                                 if (!updatedList.contains(company.getSnsUsersStore().getSnsUserList().get(positionInSnsUserList).getStrName() + "|" + legacyDataList.get(lineOfTheData) + "|" + company.getVaccinesList().get(positionInVaccinesList).getVaccineType().getDescription())) {
                                     updatedList.add(company.getSnsUsersStore().getSnsUserList().get(positionInSnsUserList).getStrName() + "|" + legacyDataList.get(lineOfTheData) + "|" + company.getVaccinesList().get(positionInVaccinesList).getVaccineType().getDescription());
-                                    //setArrival(values[4], values[0]);
-                                    //setDeparture(values[7], values[0]);
+                                    boolean serialize = company.getSnsUsersStore().getSnsUserList().size() - 1 == positionInSnsUserList;
+                                    setArrival(values[4], values[0],serialize);
+                                    setDeparture(values[7], values[0], serialize);
+
                                 }
                             }
                         }
@@ -137,24 +139,24 @@ public class ReadLegacyDataFile {
         }
     }
 
-    private void setDeparture(String departureTime, String snsNumber) {
+    private void setDeparture(String departureTime, String snsNumber, boolean serialize) {
         LocalDateTime departure;
         if (!checkTimeFormat(departureTime).equals("0")) {
             departure = LocalDateTime.parse(departureTime, DateTimeFormatter.ofPattern(checkTimeFormat(departureTime)));
             try {
-                center.addDeparture(new Departure(Integer.parseInt(snsNumber), departure));
+                center.addDeparture(new Departure(Integer.parseInt(snsNumber), departure),serialize);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
 
-    private void setArrival(String arrivalTime, String snsNumber) {
+    private void setArrival(String arrivalTime, String snsNumber, boolean serialize) {
         LocalDateTime arrival;
         if (!checkTimeFormat(arrivalTime).equals("0")) {
             arrival = LocalDateTime.parse(arrivalTime, DateTimeFormatter.ofPattern(checkTimeFormat(arrivalTime)));
             try {
-                center.addArrival(new Arrival(Integer.parseInt(snsNumber), company.getVaccineTypesStore().getVaccineTypes().get(0), arrival));
+                center.addArrival(new Arrival(Integer.parseInt(snsNumber), company.getVaccineTypesStore().getVaccineTypes().get(0), arrival),serialize);
             } catch (Exception e) {
                 e.printStackTrace();
             }
