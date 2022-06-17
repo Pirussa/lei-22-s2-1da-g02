@@ -1,13 +1,21 @@
 package app.miscellaneous;
 
 import app.controller.App;
+import app.controller.DataFromLegacySystemController;
 import app.domain.model.*;
 
 import java.io.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * The type Read legacy data file.
@@ -52,7 +60,7 @@ public class ReadLegacyDataFile {
             String thirdDate = values[6];
             String fourthDate = values[7];
             String SNSUserNumber = values[0];
-            if (validateFileLegacy(SNSUserNumber,firstDate,secondDate,thirdDate,fourthDate)){
+            if (validateFileLegacy(SNSUserNumber, firstDate, secondDate, thirdDate, fourthDate)) {
                 StringBuilder stringToBeAdded = new StringBuilder();
                 stringToBeAdded.append(values[0]).append("|").append(values[1]).append("|").append(values[2]).append("|").append(values[3])
                         .append("|").append(values[4]).append("|").append(values[5]).append("|").append(values[6]).append("|").append(values[7]);
@@ -102,32 +110,78 @@ public class ReadLegacyDataFile {
      */
     public List<String> updateLegacyFile() {
         updatedList.clear();
-        if (!company.getSnsUsersStore().getSnsUserList().isEmpty() && !company.getVaccinesList().isEmpty()) {
+        if (checksIfSNSUserListIsNotEmpty() && checksIfVaccineListIsNotEmpty()) {
             for (int lineOfTheData = 0; lineOfTheData < legacyDataList.size(); lineOfTheData++) {
                 String[] values;
+                int posOfUser;
+                int posOfVax;
                 int positionInSnsUserList = 0;
                 int positionInVaccinesList = 0;
                 values = legacyDataList.get(lineOfTheData).split("\\|");
 
-                for (positionInSnsUserList = 0; positionInSnsUserList < company.getSnsUsersStore().getSnsUserList().size(); positionInSnsUserList++) {
-                    if (company.getSnsUsersStore().getSnsUserList().get(positionInSnsUserList).getSnsUserNumber() == Integer.parseInt(values[0])) {
-                        for (positionInVaccinesList = 0; positionInVaccinesList < company.getVaccinesList().size(); positionInVaccinesList++) {
-                            if (company.getVaccinesList().get(positionInVaccinesList).getName().equals(values[1])) {
-                                if (!updatedList.contains(company.getSnsUsersStore().getSnsUserList().get(positionInSnsUserList).getStrName() + "|" + legacyDataList.get(lineOfTheData) + "|" + company.getVaccinesList().get(positionInVaccinesList).getVaccineType().getDescription())) {
-                                    updatedList.add(company.getSnsUsersStore().getSnsUserList().get(positionInSnsUserList).getStrName() + "|" + legacyDataList.get(lineOfTheData) + "|" + company.getVaccinesList().get(positionInVaccinesList).getVaccineType().getDescription());
-                                    boolean serialize = legacyDataList.size() -1  == lineOfTheData;
-                                    setArrival(values[5], values[0],serialize);
-                                    setDeparture(values[7], values[0], serialize);
-                                }
-                            }
-                        }
-                    }
+                posOfUser = findPosOfSNSUser(getSNSUserList(), values, positionInSnsUserList);
+                posOfVax = findPosOfVax(getVaccineList(), values, positionInVaccinesList);
+
+                if (posOfUser!=-1 && posOfVax!=-1){
+                    if (checksDuplicates(updatedList, getSNSUserList(), getVaccineList(), posOfUser, posOfVax, lineOfTheData)) {
+                        updatedList.add(getSNSUserList().get(posOfUser).getStrName() + "|" + legacyDataList.get(lineOfTheData) + "|" + getVaccineList().get(posOfVax).getVaccineType().getDescription());
+                        boolean serialize = legacyDataList.size() -1  == lineOfTheData;
+                        setArrival(values[4], values[0], serialize);
+                        setDeparture(values[7], values[0], serialize);
                 }
             }
-            return updatedList;
-        } else {
-            return null;
         }
+        return updatedList;
+    } else
+
+    {
+        return null;
+    }
+
+}
+
+    public ArrayList<SnsUser> getSNSUserList() {
+        return company.getSnsUsersStore().getSnsUserList();
+    }
+
+    public List<Vaccine> getVaccineList() {
+        return company.getVaccinesList();
+    }
+
+    public boolean checksIfVaccineListIsNotEmpty() {
+        if (!company.getVaccinesList().isEmpty()) {
+            return true;
+        } else return false;
+    }
+
+    public boolean checksIfSNSUserListIsNotEmpty() {
+        if (!company.getSnsUsersStore().getSnsUserList().isEmpty()) {
+            return true;
+        } else return false;
+    }
+
+    public int findPosOfSNSUser(ArrayList<SnsUser> list, String[] values, int positionInSnsUserList) {
+        for (positionInSnsUserList = 0; positionInSnsUserList < list.size(); positionInSnsUserList++) {
+            if (list.get(positionInSnsUserList).getSnsUserNumber() == Integer.parseInt(values[0])) {
+                return positionInSnsUserList;
+            }
+        }
+        return -1;
+    }
+
+    public int findPosOfVax(List<Vaccine> list, String[] values, int positionInVaccinesList) {
+        for (positionInVaccinesList = 0; positionInVaccinesList < list.size(); positionInVaccinesList++) {
+            if (list.get(positionInVaccinesList).getName().equals(values[1])) {
+                return positionInVaccinesList;
+            }
+        }
+        return -1;
+    }
+
+    public Boolean checksDuplicates(List<String> updatedList, List<SnsUser> snsUsers, List<Vaccine> vaccines, int positionInSnsUserList, int positionInVaccinesList, int lineOfTheData) {
+        if (!updatedList.contains(snsUsers.get(positionInSnsUserList).getStrName() + "|" + legacyDataList.get(lineOfTheData) + "|" + vaccines.get(positionInVaccinesList).getVaccineType().getDescription())) {
+            return true;
+        } else return false;
     }
 
     private void setDeparture(String departureTime, String snsNumber, boolean serialize) {
@@ -135,7 +189,7 @@ public class ReadLegacyDataFile {
         if (!checkTimeFormat(departureTime).equals("0")) {
             departure = LocalDateTime.parse(departureTime, DateTimeFormatter.ofPattern(checkTimeFormat(departureTime)));
             try {
-                center.addDeparture(new Departure(Integer.parseInt(snsNumber), departure),serialize);
+                center.addDeparture(new Departure(Integer.parseInt(snsNumber), departure), serialize);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -147,7 +201,7 @@ public class ReadLegacyDataFile {
         if (!checkTimeFormat(arrivalTime).equals("0")) {
             arrival = LocalDateTime.parse(arrivalTime, DateTimeFormatter.ofPattern(checkTimeFormat(arrivalTime)));
             try {
-                center.addArrival(new Arrival(Integer.parseInt(snsNumber), company.getVaccineTypesStore().getVaccineTypes().get(0), arrival),serialize);
+                center.addArrival(new Arrival(Integer.parseInt(snsNumber), company.getVaccineTypesStore().getVaccineTypes().get(0), arrival), serialize);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -268,7 +322,7 @@ public class ReadLegacyDataFile {
             }
 
         }
-        //writeArrayToFile(updatedList);
+
         return updatedList;
     }
 

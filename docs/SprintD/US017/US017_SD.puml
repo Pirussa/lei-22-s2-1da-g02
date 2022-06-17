@@ -23,43 +23,97 @@ deactivate UI
 
 CC -> UI : types path
 activate UI
+
 UI -> CTRL : readFile(path)
+
+activate CTRL
 CTRL -> RDLF : readFile(Sring path)
-loop while csv has new lines
+
+activate RDLF
+loop#Red while csv has new lines
 RDLF -> RDLF : validateFileLegacy(SNSUserNumber,\nfirstDate,secondDate,thirdDate,fourthDate)
-alt#Gold #LightBlue if line is valid
+alt#Gold if line is valid
 RDLF -> RDLF : Saves data into an ArrayList<String> called\n legacyDataList
 end alt
 end loop
 
-alt#Gold #LightBlue if entire file is valid
+alt#Gold  if entire file is valid
 
-loop while legacyDataList has new lines
-RDLF -> RDLF : updateLegacyFile()
-RDLF -> RDLF : Saves data into an ArrayList<String> called\n updatedList
+RDLF -> Comp : checksIfSNSUserListIsNotEmpty
+activate Comp
+Comp -> SNSStore : checksIfSNSUserListIsNotEmpty
+activate SNSStore
+SNSStore -> Comp : returns boolean
+Comp -> RDLF : returns boolean
+RDLF -> Comp : checksIfVaccineListIsNotEmpty
+Comp -> RDLF : returns boolean
+alt#Gold  if checksIfSNSUserListIsNotEmpty && checksIfVaccineListIsNotEmpty return true
+loop#Red while legacyDataList has new lines
+RDLF -> Comp : getSNSUserList()
+Comp -> SNSStore : getSNSUserList()
+SNSStore -> Comp : returns list
+deactivate SNSStore
+Comp -> RDLF : returns list
+RDLF -> RDLF : findPosOfSNSUser(getSNSUserList(),\n values,positionInSnsUserList)
+alt#Gold  if finds name
+RDLF -> Comp : getVaccineList()
+
+Comp -> RDLF : returns list
+
+deactivate Comp
+RDLF -> RDLF : findPosOfVax(getVaccineList(),values,positionInVaccinesList)
+alt#Gold  if finds vaccine description
+RDLF -> RDLF : checksDuplicates(updatedList,getSNSUserList(),getVaccineList(),positionInSnsUserList,positionInVaccinesList,lineOfTheData)
+alt#Gold if checksDuplicates returns true
+RDLF -> RDLF : Saves data into an ArrayList<String> called updatedList
 end loop
 end alt#Gold
-alt#Gold #LightBlue if updatedList != null
+end alt#Gold
+end alt#Gold
+end alt#Gold
+end alt#Gold
+RDLF -> CTRL : returns updatedList
+deactivate RDLF
+CTRL -> UI : returns updatedList
+alt#Gold if updatedList isn't empty
+deactivate CTRL
 UI -> CC : requests the option to sort
+
+
 deactivate UI
 CC -> UI : selects option
 activate UI
+
 UI -> CTRL : chooseCriteriaToSort(option)
+activate CTRL
 CTRL -> RDLF : setList(Option)
-loop while updatedList has new lines
-RDLF -> RDLF : Saves dates to a \n list of LocalDateTime
+deactivate CTRL
+activate RDLF
+loop#Red while updatedList has new lines
+RDLF -> RDLF : Saves dates to a \n a List<LocalDateTime> \n called listToSort
 end loop
+deactivate RDLF
 UI -> CC: requests the order of the sort
 deactivate UI
+
 CC -> UI: selects order
+activate UI
+
 UI -> App : getSortingAlgorithm()
 activate App
 deactivate App
 alt#Gold algorithmToBeUsed = "MergeSort", option = "0 - Ascending"
 UI -> CTRL: sortListWithAlgo(algorithmToBeUsed,option)
-CTRL -> RDLF : mergeSortAscending(list,begin,end)
-RDLF -> RDLF : mergeSortAscending(list,begin,end)
-UI -> CC : prints sorted list
+activate CTRL
+
+CTRL -> RDLF : mergeSortAscending(getListToSort(),begin,end)
+activate RDLF
+RDLF -> CTRL : returns sortedList
+deactivate RDLF
+CTRL -> UI : returns sortedList
+deactivate CTRL
+UI -> CC : prints sortedList
+deactivate UI
 end alt
 
 
