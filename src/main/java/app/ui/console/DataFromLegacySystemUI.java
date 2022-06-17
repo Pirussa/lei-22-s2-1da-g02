@@ -37,11 +37,10 @@ public class DataFromLegacySystemUI implements Runnable {
                 int optionPosition = scPos.nextInt();
                 if (optionPosition==0||optionPosition==1){
                     controller.chooseCriteriaToSort(optionPosition);
-                    String algorithmToBeUsed = App.getInstance().getSortingAlgorithm();
-                    System.out.printf("%nAlgorithm in config file: " + algorithmToBeUsed);
                     System.out.printf("%nChoose the way you want to sort.%n0 - Ascending%n1 - Descending%n2 - Back to Menu%n");
                     int option = scanner.nextInt();
                     if (option==0||option==1){
+                        String algorithmToBeUsed = App.getInstance().getSortingAlgorithm();
                         sortedListUI=controller.sortListWithAlgo(algorithmToBeUsed,option);
                         System.out.println();
                         printSortedArray(sortedListUI);

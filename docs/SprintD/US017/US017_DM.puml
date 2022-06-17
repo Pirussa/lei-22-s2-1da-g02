@@ -1,4 +1,5 @@
 @startuml
+!pragma layout smetana
 
 hide methods
 left to right direction
