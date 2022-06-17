@@ -1,21 +1,13 @@
 package app.miscellaneous;
 
 import app.controller.App;
-import app.controller.DataFromLegacySystemController;
 import app.domain.model.*;
 
 import java.io.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * The type Read legacy data file.
@@ -124,9 +116,8 @@ public class ReadLegacyDataFile {
                                 if (!updatedList.contains(company.getSnsUsersStore().getSnsUserList().get(positionInSnsUserList).getStrName() + "|" + legacyDataList.get(lineOfTheData) + "|" + company.getVaccinesList().get(positionInVaccinesList).getVaccineType().getDescription())) {
                                     updatedList.add(company.getSnsUsersStore().getSnsUserList().get(positionInSnsUserList).getStrName() + "|" + legacyDataList.get(lineOfTheData) + "|" + company.getVaccinesList().get(positionInVaccinesList).getVaccineType().getDescription());
                                     boolean serialize = legacyDataList.size() -1  == lineOfTheData;
-                                    setArrival(values[4], values[0],serialize);
+                                    setArrival(values[5], values[0],serialize);
                                     setDeparture(values[7], values[0], serialize);
-
                                 }
                             }
                         }
@@ -277,7 +268,6 @@ public class ReadLegacyDataFile {
             }
 
         }
-
         //writeArrayToFile(updatedList);
         return updatedList;
     }
