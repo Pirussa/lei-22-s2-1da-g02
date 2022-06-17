@@ -81,8 +81,15 @@ public class ReadLegacyDataFileGUI {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
         List<File> files = fileChooser.showOpenMultipleDialog(null);
+        controller.setFile(files.get(0));
+
+        showOptions();
+
+    }
+
+    public void showOptions() {
         try {
-            controller.readFile(files.get(0).getAbsolutePath());
+            controller.readFile();
             lbSort.setVisible(true);
             btArrival.setVisible(true);
             btDeparture.setVisible(true);
@@ -93,9 +100,8 @@ public class ReadLegacyDataFileGUI {
             alert.setContentText("Please select a file");
             alert.showAndWait();
         }
-
-
     }
+
 
     private void setVisibility() {
         lbChoice.setVisible(true);
@@ -146,7 +152,6 @@ public class ReadLegacyDataFileGUI {
         controller.setOptionAscendingOrDescending(1);
         controller.toSortedListScene(actionEvent);
     }
-
 
 
 }

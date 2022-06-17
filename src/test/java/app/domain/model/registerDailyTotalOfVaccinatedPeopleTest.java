@@ -47,6 +47,7 @@ class registerDailyTotalOfVaccinatedPeopleTest {
         mvcDto.strLocal = "Matosinhos";
         mvcDto.strCenterCoordinatorID = "00001";
         mvcDto.vaccineType = new VaccineType("COVID", "To prevent serious COVID-19 infections", VaccineType.vaccineTechnologies[5]);
+        company.getVaccinationCentersStore().getVaccinationCenters().clear();
         controllerVaccinationCenters.saveMassVaccinationCenter(mvcDto);
         controllerArrivals.setVaccinationCenter(0);
 
@@ -76,7 +77,7 @@ class registerDailyTotalOfVaccinatedPeopleTest {
         company.getVaccinationCentersStore().getVaccinationCenters().get(0).addAdministeredVaccine(vaccineBulletin1);
     }
 
-   /* @Test
+   @Test
     void registerDailyTotalOfVaccinatedPeople() {
         setup();
         List<String> expectedFileList = new ArrayList<>();
@@ -88,7 +89,6 @@ class registerDailyTotalOfVaccinatedPeopleTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        File actualFile = new File(Constants.DAILY_REGISTERS_FILE_NAME_ACTUAL_TEST);
 
         try {
             Scanner readExpected = new Scanner(expectedFile);
@@ -96,7 +96,7 @@ class registerDailyTotalOfVaccinatedPeopleTest {
                 String[] expectedFileArray = readExpected.nextLine().split(";");
                 expectedFileList.addAll(List.of(expectedFileArray));
             }
-            Scanner readActual = new Scanner(actualFile);
+            Scanner readActual = new Scanner(new File(Constants.DAILY_REGISTERS_FILE_NAME_ACTUAL_TEST));
             while (readActual.hasNextLine()) {
                 String[] actualFileArray = readActual.nextLine().split(";");
                 actualFileList.addAll(List.of(actualFileArray));
@@ -105,7 +105,7 @@ class registerDailyTotalOfVaccinatedPeopleTest {
             fileNotFoundException.printStackTrace();
         }
         assertArrayEquals(expectedFileList.toArray(), actualFileList.toArray());
-    } */
+    }
 
     @Test
     void registerDailyTotalOfVaccinatedPeopleFalse() {

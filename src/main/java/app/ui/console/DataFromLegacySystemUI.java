@@ -26,7 +26,8 @@ public class DataFromLegacySystemUI implements Runnable {
             System.out.println("File Location: ");
             System.out.println();
             String path = readPath.nextLine();
-            controller.readFile(path);
+            controller.setFile(new File(path));
+            controller.readFile();
             if (!controller.updateFile().isEmpty()) {
                 System.out.println("File updated successfully");
                 System.out.println();
