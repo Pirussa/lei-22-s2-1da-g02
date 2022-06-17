@@ -94,9 +94,9 @@ public class VaccinationCentersStore implements Serializable {
             out.close();
         }
         try {
-            StringBuilder  dailyTotalOfVaccinatedPeople = new StringBuilder();
             FileWriter out = new FileWriter(file, true);
             for (VaccinationCenter vaccinationCenter : vaccinationCenters) {
+                StringBuilder  dailyTotalOfVaccinatedPeople = new StringBuilder();
                 dailyTotalOfVaccinatedPeople.append(Utils.formatDateToPrint(LocalDate.now())).append(";").append(vaccinationCenter).append(";").append(vaccinationCenter.getVaccinesAdministeredList().size());
                 if (dailyTotalOfVaccinatedPeopleCheckDuplicates(dailyTotalOfVaccinatedPeople.toString(), fileName)) {
                     out.write("\n" + dailyTotalOfVaccinatedPeople);

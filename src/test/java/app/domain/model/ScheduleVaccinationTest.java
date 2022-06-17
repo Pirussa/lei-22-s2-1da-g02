@@ -15,7 +15,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-/*
+
 
 class ScheduleVaccinationTest {
 
@@ -32,7 +32,7 @@ class ScheduleVaccinationTest {
 
         VaccinationCenter vaccinationCenter = new VaccinationCenter("test", "test", "911111111", "test@gmail.com", "911111111", "www.test.com", "9", "16", "420", "1", "test", "4470-111", "test", "00006");
         vaccinationCentersStore.getVaccinationCenters().add(vaccinationCenter);
-        controller.setVaccinationCenter(vaccinationCentersStore.getVaccinationCenters().size()-1);
+        controller.setVaccinationCenter(vaccinationCentersStore.getVaccinationCenters().size() - 1);
 
         ArrayList<Integer> minAge1 = new ArrayList<>(List.of(1, 19));
         ArrayList<Integer> maxAge1 = new ArrayList<>(List.of(18, 30));
@@ -52,6 +52,7 @@ class ScheduleVaccinationTest {
 
         assertFalse(controller.validateAppointment(scheduledVaccineDto));
     }
+}
     /*
     Vamos precisar de testes que cubram, lista de centros vazia, lista de tipos de vacinas vazia e lista de SNS Users vazia.
     Também vamos precisar de testes que verifiquem se o tempo desde a última dose está a ser respeitado e que o User
