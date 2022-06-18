@@ -193,4 +193,12 @@ InformationToAnalyze "1" -- "*" Departure : utilizes >
 VaccinationCenter "1" -- "*" Arrival : has >
 
 VaccinationCenter "1" -- "*" Departure : has >
+
+CenterCoordinator "1" --> "*" LegacyData: imports
+LegacyData "1" --> "1" VaccinationCenter: is related to
+LegacyData "1" --> "*" SnsUser : has information on
+LegacyData "1" --> "*" Arrival : has information on
+LegacyData "1" --> "*" Departure : has information on
+LegacyData "1" --> "*" Vaccine : has information on
+
 @enduml
