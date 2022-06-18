@@ -21,8 +21,8 @@ class DataFromLegacySystemController{
 +readFile()
 +updateFile()
 +setList()
-+mergeAscending()
-+mergeDescending()
++insertionSortAscending()
++insertionSortDescending()
 +getListToSort()
 +heapAscending()
 +heapDescending()
@@ -57,6 +57,11 @@ class ReadLegacyDataFile{
 +findPosOfSNSUserumber()
 +findPosOfVax()
 +checksDuplicatesNumber()
++setList()
++insertionSortDescending()
++insertionSortAscending()
++heapSortAscending()
++heapSortDescending()
 -legacyDataList
 -listToSort
 -updatedList

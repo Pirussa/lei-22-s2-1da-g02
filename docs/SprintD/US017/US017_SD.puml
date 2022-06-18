@@ -95,7 +95,7 @@ end loop
 deactivate RDLF
 UI -> CC: requests the order of the sort
 deactivate UI
-alt#Gold algorithmToBeUsed = "MergeSort", option = "0 - Ascending"
+alt#Gold algorithmToBeUsed = "InsertionSort", option = "0 - Ascending"
 CC -> UI: selects order
 activate UI
 
@@ -116,7 +116,7 @@ UI -> CTRL: sortListWithAlgo(algorithmToBeUsed,option)
 note right: algorithmToBeUsed can be MergeSort or HeapSort, both have methods that\n can sort in ascending/descending order, here we are just representing \n the MergeSort algorithm because HeapSort functions in a similar way.
 activate CTRL
 
-CTRL -> RDLF : mergeSortAscending(getListToSort(),begin,end)
+CTRL -> RDLF : insertionSortAscending()
 activate RDLF
 
 
@@ -129,7 +129,7 @@ deactivate CTRL
 
 UI -> CC : prints sortedList
 deactivate UI
-else algorithmToBeUsed = "MergeSort", option = "1 - Descending"
+else algorithmToBeUsed = "InsertionSort", option = "1 - Descending"
 CC -> UI: selects order
 activate UI
 
@@ -149,7 +149,7 @@ deactivate CTRL
 UI -> CTRL: sortListWithAlgo(algorithmToBeUsed,option)
 activate CTRL
 
-CTRL -> RDLF : mergeSortDescending(getListToSort(),begin,end)
+CTRL -> RDLF : insertionSortDescending()
 activate RDLF
 
 RDLF -> CTRL : returns sortedList
