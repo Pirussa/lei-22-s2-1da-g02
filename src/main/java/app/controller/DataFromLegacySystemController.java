@@ -77,18 +77,18 @@ public class DataFromLegacySystemController {
      *
      * @return the sns user list
      */
-    //public ArrayList<SnsUser> getSNSUserList() {
-    //    return company.getSnsUsersStore().getSnsUserList();
-    //}
+    public ArrayList<SnsUser> getSNSUserList() {
+        return company.getSnsUsersStore().getSnsUserList();
+    }
 
     /**
      * Gets vaccines.
      *
      * @return the vaccines
      */
-    //public List<Vaccine> getVaccines() {
-    //    return company.getVaccinesList();
-    //}
+    public List<Vaccine> getVaccines() {
+        return company.getVaccinesList();
+    }
 
     /**
      * Export data to file.
@@ -96,10 +96,10 @@ public class DataFromLegacySystemController {
      * @param csvLegacyData the csv legacy data
      * @throws NotSerializableException the not serializable exception
      */
-    //public void exportDataToFile(List<String> csvLegacyData) throws NotSerializableException {
-    //    GenericClass<String> generics = new GenericClass<>();
-    //    generics.binaryFileWrite(Constants.FILE_PATH_UPDATEDLEGACY, csvLegacyData);
-    //}
+    public void exportDataToFile(List<String> csvLegacyData) throws NotSerializableException {
+        GenericClass<String> generics = new GenericClass<>();
+        generics.binaryFileWrite(Constants.FILE_PATH_UPDATEDLEGACY, csvLegacyData);
+    }
 
     /**
      * Read file.

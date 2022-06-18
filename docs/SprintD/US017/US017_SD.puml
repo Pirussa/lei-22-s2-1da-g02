@@ -4,12 +4,12 @@
 
 autonumber
 actor "CenterCoordinator" as CC
-participant ":\nDataFromLegacySystemUI" as UI
-participant ":\nDataFromLegacySystemController" as CTRL
-participant ":\nReadLegacyDataFile" as RDLF
-participant ":\nCompany" as Comp
-participant ":\nSNSUserStore" as SNSStore
-participant "App" as App
+participant ":DataFromLegacySystemUI" as UI
+participant ":DataFromLegacySystemController" as CTRL
+participant ":ReadLegacyDataFile" as RDLF
+participant ":Company" as Comp
+participant ":SNSUserStore" as SNSStore
+participant ":App" as App
 
 
 activate CC

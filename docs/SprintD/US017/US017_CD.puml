@@ -1,27 +1,63 @@
 @startuml
 'https://plantuml.com/class-diagram
 
-abstract class AbstractList
-abstract AbstractCollection
-interface List
-interface Collection
-
-List <|-- AbstractList
-Collection <|-- AbstractCollection
-
-Collection <|- List
-AbstractCollection <|- AbstractList
-AbstractList <|-- ArrayList
-
-class ArrayList {
-Object[] elementData
-size()
+class DataFromLegacySystemUI{
++run()
++runLoadCSV()
++getListOfSNSUsers()
++validateFileFormat(path)
++validateCSVData(values)
++fillSNSUserDto(csvData)
 }
 
-enum TimeUnit {
-DAYS
-HOURS
-MINUTES
+class App{
 }
+
+class DataFromLegacySystemController{
++createSNSUser(SNSUserDto)
++saveSNSUser(SNSUserDto)
++getSNSUserList()
+}
+
+class Company{
++createSNSUser(SNSUserDto)
++saveSNSUser(SNSUserDto)
++getSNSUserList()
+}
+
+class SNSUserStore{
+-strName
+-strSex
+-strBirthDate
+-strAddress
+-strPhoneNumber
+-strEmail
+-snsUserNumber
+-strCitizenCardNumber
+-strPassword
+}
+
+class ReadLegacyDataFile{
+-strName
+-strSex
+-strBirthDate
+-strAddress
+-strPhoneNumber
+-strEmail
+-snsUserNumber
+-strCitizenCardNumber
+-strPassword
++getSnsUserNumber()
++getStrEmail()
++getStrPhoneNumber()
++getStrCitizenCardNumber()
++validateSNSUser()
++toString()
+}
+
+
+
+
+
 
 @enduml
