@@ -39,7 +39,8 @@ public class ReadLegacyDataFile {
     public final List<LocalDateTime> listToSort = new ArrayList<>();
 
     public List<String> updatedList = new ArrayList<>();
-
+    public ArrayList<SnsUser> snsUsersList = new ArrayList<>();
+    public List<Vaccine> vaccineList = new ArrayList<>();
 
     /**
      * Read file.
@@ -52,6 +53,7 @@ public class ReadLegacyDataFile {
         BufferedReader reader = new BufferedReader(new FileReader(path));
         reader.readLine();
         legacyDataList.clear();
+        int countException = 0;
         while ((line = reader.readLine()) != null) {
             line = line.replaceAll("\"", "");
             String[] values = line.split(";");
@@ -60,13 +62,14 @@ public class ReadLegacyDataFile {
             String thirdDate = values[6];
             String fourthDate = values[7];
             String SNSUserNumber = values[0];
+            countException++;
             if (validateFileLegacy(SNSUserNumber, firstDate, secondDate, thirdDate, fourthDate)) {
                 StringBuilder stringToBeAdded = new StringBuilder();
                 stringToBeAdded.append(values[0]).append("|").append(values[1]).append("|").append(values[2]).append("|").append(values[3])
                         .append("|").append(values[4]).append("|").append(values[5]).append("|").append(values[6]).append("|").append(values[7]);
                 legacyDataList.add(stringToBeAdded.toString());
             } else {
-                throw new IllegalArgumentException("Data imported from .csv file is invalid.");
+                throw new IllegalArgumentException("Data imported from .csv file is invalid. Error at line:" +countException);
             }
         }
         updateLegacyFile();
@@ -110,7 +113,9 @@ public class ReadLegacyDataFile {
      */
     public List<String> updateLegacyFile() {
         updatedList.clear();
-        if (checksIfSNSUserListIsNotEmpty() && checksIfVaccineListIsNotEmpty()) {
+        snsUsersList =getSNSUserList();
+        vaccineList=getVaccineList();
+        if (!snsUsersList.isEmpty() && !vaccineList.isEmpty()) {
             for (int lineOfTheData = 0; lineOfTheData < legacyDataList.size(); lineOfTheData++) {
                 String[] values;
                 int posOfUser;
@@ -119,12 +124,12 @@ public class ReadLegacyDataFile {
                 int positionInVaccinesList = 0;
                 values = legacyDataList.get(lineOfTheData).split("\\|");
 
-                posOfUser = findPosOfSNSUser(getSNSUserList(), values, positionInSnsUserList);
-                posOfVax = findPosOfVax(getVaccineList(), values, positionInVaccinesList);
+                posOfUser = findPosOfSNSUser(snsUsersList, values, positionInSnsUserList);
+                posOfVax = findPosOfVax(vaccineList, values, positionInVaccinesList);
 
                 if (posOfUser!=-1 && posOfVax!=-1){
-                    if (checksDuplicates(updatedList, getSNSUserList(), getVaccineList(), posOfUser, posOfVax, lineOfTheData)) {
-                        updatedList.add(getSNSUserList().get(posOfUser).getStrName() + "|" + legacyDataList.get(lineOfTheData) + "|" + getVaccineList().get(posOfVax).getVaccineType().getDescription());
+                    if (checksDuplicates(updatedList, snsUsersList, vaccineList, posOfUser, posOfVax, lineOfTheData)) {
+                        updatedList.add(snsUsersList.get(posOfUser).getStrName() + "|" + legacyDataList.get(lineOfTheData) + "|" + vaccineList.get(posOfVax).getVaccineType().getDescription());
                         boolean serialize = legacyDataList.size() -1  == lineOfTheData;
                         setArrival(values[4], values[0], serialize);
                         setDeparture(values[7], values[0], serialize);
@@ -279,7 +284,6 @@ public class ReadLegacyDataFile {
      * @return the list
      */
     public List<String> mergeSortAscending(List<LocalDateTime> list, int begin, int end) {
-
         int middle = (begin + end) / 2;
         if (middle < end) {
             mergeSortAscending(list, begin, middle); //call Merge Sort on the first half

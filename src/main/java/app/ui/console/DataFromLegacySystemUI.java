@@ -41,10 +41,15 @@ public class DataFromLegacySystemUI implements Runnable {
                     System.out.printf("%nChoose the way you want to sort.%n0 - Ascending%n1 - Descending%n2 - Back to Menu%n");
                     int option = scanner.nextInt();
                     if (option==0||option==1){
-                        String algorithmToBeUsed = App.getInstance().getSortingAlgorithm();
+                        String algorithmToBeUsed = controller.getAlgorithm();
+                        long startTime = System.nanoTime();
                         sortedListUI=controller.sortListWithAlgo(algorithmToBeUsed,option);
+                        long endTime = System.nanoTime();
+                        long duration = (endTime - startTime) ;
                         System.out.println();
                         printSortedArray(sortedListUI);
+                        System.out.println(duration+" nano seconds");
+                        System.out.println(algorithmToBeUsed);
                     }
                 }
 

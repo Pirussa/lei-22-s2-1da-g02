@@ -18,13 +18,13 @@ activate SY
 SY -> CC: requests the selection of the field \n you want to sort
 deactivate SY
 
-CC -> SY: selects one
+CC -> SY: selects field
 
 activate SY
 SY -> CC: requests the selection of the order \n you want to sort
 deactivate SY
 
-CC -> SY: selects one
+CC -> SY: selects order
 
 activate SY
 SY -> CC: shows sorted list

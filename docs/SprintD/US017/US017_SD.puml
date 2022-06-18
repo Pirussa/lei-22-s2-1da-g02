@@ -28,55 +28,49 @@ UI -> CTRL : readFile(path)
 
 activate CTRL
 CTRL -> RDLF : readFile(Sring path)
+deactivate CTRL
 
 activate RDLF
+
+
 loop#Red while csv has new lines
 RDLF -> RDLF : validateFileLegacy(SNSUserNumber,\nfirstDate,secondDate,thirdDate,fourthDate)
-alt#Gold if line is valid
+
 RDLF -> RDLF : Saves data into an ArrayList<String> called\n legacyDataList
-end alt
+
 end loop
 
-alt#Gold  if entire file is valid
 
-RDLF -> Comp : checksIfSNSUserListIsNotEmpty
-activate Comp
-Comp -> SNSStore : checksIfSNSUserListIsNotEmpty
-activate SNSStore
-SNSStore -> Comp : returns boolean
-Comp -> RDLF : returns boolean
-RDLF -> Comp : checksIfVaccineListIsNotEmpty
-Comp -> RDLF : returns boolean
-alt#Gold  if checksIfSNSUserListIsNotEmpty && checksIfVaccineListIsNotEmpty return true
-loop#Red while legacyDataList has new lines
 RDLF -> Comp : getSNSUserList()
+activate Comp
 Comp -> SNSStore : getSNSUserList()
+activate SNSStore
 SNSStore -> Comp : returns list
 deactivate SNSStore
-Comp -> RDLF : returns list
-RDLF -> RDLF : findPosOfSNSUser(getSNSUserList(),\n values,positionInSnsUserList)
-alt#Gold  if finds name
 RDLF -> Comp : getVaccineList()
-
 Comp -> RDLF : returns list
+deactivate Comp
+loop#Red while legacyDataList has new lines
+
+RDLF -> RDLF : findPosOfSNSUser(snsUsersList,\n values,positionInSnsUserList)
+
+
 
 deactivate Comp
-RDLF -> RDLF : findPosOfVax(getVaccineList(),values,positionInVaccinesList)
-alt#Gold  if finds vaccine description
-RDLF -> RDLF : checksDuplicates(updatedList,getSNSUserList(),getVaccineList(),positionInSnsUserList,positionInVaccinesList,lineOfTheData)
-alt#Gold if checksDuplicates returns true
+RDLF -> RDLF : findPosOfVax(vaccineList,values,positionInVaccinesList)
+
+RDLF -> RDLF : checksDuplicates(updatedList,snsUsersList,vaccineList,positionInSnsUserList,positionInVaccinesList,lineOfTheData)
+
 RDLF -> RDLF : Saves data into an ArrayList<String> called updatedList
+
+RDLF -> RDLF : setArrival()
+RDLF -> RDLF : setDeparture()
+note right : Adds arrivals and departures to vaccination center
 end loop
-end alt#Gold
-end alt#Gold
-end alt#Gold
-end alt#Gold
-end alt#Gold
-RDLF -> CTRL : returns updatedList
+
 deactivate RDLF
-CTRL -> UI : returns updatedList
-alt#Gold if updatedList isn't empty
-deactivate CTRL
+
+
 UI -> CC : requests the option to sort
 
 
@@ -95,28 +89,65 @@ end loop
 deactivate RDLF
 UI -> CC: requests the order of the sort
 deactivate UI
-
+alt#Gold algorithmToBeUsed = "MergeSort", option = "0 - Ascending"
 CC -> UI: selects order
 activate UI
 
-UI -> App : getSortingAlgorithm()
+UI -> CTRL : getAlgorithm()
+activate CTRL
+CTRL -> App : getSortingAlgorithm()
+
 activate App
+
 deactivate App
-alt#Gold algorithmToBeUsed = "MergeSort", option = "0 - Ascending"
+deactivate CTRL
+
+
 UI -> CTRL: sortListWithAlgo(algorithmToBeUsed,option)
+note right: algorithmToBeUsed can be MergeSort or HeapSort, both have methods that\n can sort in ascending/descending order, here we are just representing \n the MergeSort algorithm because HeapSort functions in a similar way.
 activate CTRL
 
 CTRL -> RDLF : mergeSortAscending(getListToSort(),begin,end)
 activate RDLF
+
+
+
 RDLF -> CTRL : returns sortedList
 deactivate RDLF
 CTRL -> UI : returns sortedList
+
+deactivate CTRL
+
+UI -> CC : prints sortedList
+deactivate UI
+else algorithmToBeUsed = "MergeSort", option = "1 - Descending"
+CC -> UI: selects order
+activate UI
+
+
+UI -> CTRL : getAlgorithm()
+activate CTRL
+CTRL -> App : getSortingAlgorithm()
+
+activate App
+
+deactivate App
+deactivate CTRL
+
+
+UI -> CTRL: sortListWithAlgo(algorithmToBeUsed,option)
+activate CTRL
+
+CTRL -> RDLF : mergeSortDescending(getListToSort(),begin,end)
+activate RDLF
+
+RDLF -> CTRL : returns sortedList
+deactivate RDLF
+CTRL -> UI : returns sortedList
+
 deactivate CTRL
 UI -> CC : prints sortedList
 deactivate UI
 end alt
 
-
-
-end
 @enduml
