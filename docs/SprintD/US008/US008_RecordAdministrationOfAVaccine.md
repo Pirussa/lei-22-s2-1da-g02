@@ -118,19 +118,18 @@ There is a dependency to the US001 and US002, because it is required a scheduled
 
 According to the taken rationale, the conceptual classes promoted to software classes are: 
 
- * Vaccine Bulletin
+* Vaccine Bulletin
+* Vaccine
+* Company
+* Sns User
+* Administration Process
 
-Other software classes (i.e. Pure Fabrication) identified: 
+Other software classes (i.e. Pure Fabrication) identified:
 
 * RecordVaccineAdministrationUI
 * RecordVaccineAdministrationController
 * VaccineBulletinDto
 * VaccineBulletinMapper
-* Vaccine
-* Sns User
-* Administration Process
-* Company
-
 
 ## 3.2. Sequence Diagram (SD)
 

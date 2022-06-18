@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.NotSerializableException;
 import java.util.List;
 
 /**
@@ -80,15 +81,9 @@ public class ReadLegacyDataFileGUI {
     public void chooseFile(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
-        List<File> files = fileChooser.showOpenMultipleDialog(null);
+        List<File> file = fileChooser.showOpenMultipleDialog(null);
         try {
-            controller.setFile(files.get(0));
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("File chosen");
-            alert.setHeaderText("You have chosen the file: " + files.get(0).getName() + " successfully");
-            alert.setContentText("Wait while the file information is being loaded...");
-            alert.showAndWait();
-            showOptions();
+            showOptions(file.get(0));
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("No file selected");
@@ -100,13 +95,40 @@ public class ReadLegacyDataFileGUI {
 
     }
 
-    public void showOptions() throws Exception {
-
-        controller.readFile();
-        lbSort.setVisible(true);
-        btArrival.setVisible(true);
-        btDeparture.setVisible(true);
-
+    public void showOptions(File file) {
+        try {
+            controller.setFile(file);
+            controller.readFile();
+        }
+        catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Invalid Data");
+            alert.setContentText("Please select a file with valid data");
+            alert.showAndWait();
+        }
+        try {
+            if (controller.updateFile().isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("No users/vaccines found in the system");
+                alert.setContentText("Please register users/vaccines in the system. Or select a different file");
+                alert.showAndWait();
+            }
+            else {
+                controller.setFile(file);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("File chosen");
+                alert.setHeaderText("You have chosen the file: " + file.getName() + " successfully");
+                alert.setContentText("Wait while the file information is being loaded...");
+                alert.showAndWait();
+                lbSort.setVisible(true);
+                btArrival.setVisible(true);
+                btDeparture.setVisible(true);
+            }
+        } catch (NotSerializableException e) {
+            e.printStackTrace();
+        }
     }
 
 
