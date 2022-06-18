@@ -18,17 +18,15 @@ N -> ":System" : selects an SNS user
 
 activate ":System"
 alt It´s user´s first dose
-":System" --> N : shows a list with the available vaccines
-
+loop
+":System" --> N : shows a list with the available vaccines depending on selected user age
+end
 N -> ":System" : selects a vaccine
 end
 
 activate ":System"
-":System" --> N : shows dosage for current dose of the vaccine
-loop Validate Lot Number
-":System" --> N : request vaccine´s lot number
+":System" --> N : shows dosage for current dose of the vaccine and request vaccine´s lot number
 N -> ":System" : introduces vaccine´s lot number
-end
 
 ":System" --> N : send´s an SMS when recovery time finishes
 deactivate ":System"
