@@ -58,7 +58,7 @@ public class App {
         props.setProperty("Timer.Hour", "23");
         props.setProperty("Timer.Minutes", "59");
         props.setProperty("Sorting.Algorithm", "BubbleSort");
-        props.setProperty("Sorting.Algorithm", "MergeSort");
+        props.setProperty("Sorting.Algorithm", "InsertionSort");
         props.setProperty("Recovery.Time", "1");
         // Read configured values
         try {

@@ -133,12 +133,10 @@ public class DataFromLegacySystemController {
      * Merge ascending list.
      *
      * @param list  the list
-     * @param begin the beggining
-     * @param end   the end
      * @return the list
      */
-    public List<String> mergeAscending(List<LocalDateTime> list, int begin, int end){
-       return readLegacyDataFile.mergeSortAscending(list,begin,end);
+    public List<String> insertionSortAscending(List<LocalDateTime> list){
+       return readLegacyDataFile.insertionSortAscending(list);
     }
 
     /**
@@ -149,8 +147,8 @@ public class DataFromLegacySystemController {
      * @param end   the end
      * @return the list
      */
-    public List<String> mergeDescending(List<LocalDateTime> list, int begin, int end){
-         return readLegacyDataFile.mergeSortDescending(list,begin,end);
+    public List<String> insertionSortDescending(List<LocalDateTime> list){
+         return readLegacyDataFile.insertionSortDescending(list);
     }
 
     /**
@@ -225,13 +223,13 @@ public class DataFromLegacySystemController {
                         break;
                 }
                 break;
-            case "MergeSort":
+            case "InsertionSort":
                 switch (option) {
                     case 0:
-                        sortedList = mergeAscending(getListToSort(), 0, getListToSort().size() - 1);
+                        sortedList = insertionSortAscending(getListToSort());
                         return sortedList;
                     case 1:
-                        sortedList =  mergeDescending(getListToSort(), 0, getListToSort().size() - 1);
+                        sortedList =  insertionSortDescending(getListToSort());
                         return sortedList;
                     case 2:
                         break;

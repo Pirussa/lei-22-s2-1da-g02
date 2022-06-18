@@ -1,21 +1,13 @@
 package app.miscellaneous;
 
 import app.controller.App;
-import app.controller.DataFromLegacySystemController;
 import app.domain.model.*;
 
 import java.io.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * The type Read legacy data file.
@@ -275,112 +267,35 @@ public class ReadLegacyDataFile {
     }
 
 
-    /**
-     * Merge sort ascending list.
-     *
-     * @param list  the list
-     * @param begin the beginning
-     * @param end   the end
-     * @return the list
-     */
-    public List<String> mergeSortAscending(List<LocalDateTime> list, int begin, int end) {
-        int middle = (begin + end) / 2;
-        if (middle < end) {
-            mergeSortAscending(list, begin, middle); //call Merge Sort on the first half
-            mergeSortAscending(list, middle + 1, end); //call Merge Sort on the second half
-
-            //merge the two sorted lists together:
-            ArrayList<LocalDateTime> newlist = new ArrayList<>();
-            ArrayList<String> tempList = new ArrayList<>();
-            int firstPositionOfListToSort = begin, midPositionOfListToSort = middle + 1;
-            while (firstPositionOfListToSort <= middle && midPositionOfListToSort <= end) {
-                if (list.get(midPositionOfListToSort).compareTo(list.get(firstPositionOfListToSort)) > 0) {
-                    int copyOfPos1 = firstPositionOfListToSort;
-                    newlist.add(list.get(firstPositionOfListToSort++));
-                    tempList.add(updatedList.get(copyOfPos1++));
-                } else {
-                    int copyOfPos2 = midPositionOfListToSort;
-                    newlist.add(list.get(midPositionOfListToSort++));
-                    tempList.add(updatedList.get(copyOfPos2++));
-                }
+    public List<String> insertionSortAscending(List<LocalDateTime> list) {
+        for (int j = 1; j < list.size(); j++) {
+            LocalDateTime current = list.get(j);
+            String copyOfCurrent = updatedList.get(j);
+            int i = j-1;
+            while ((i > -1) && ((list.get(i).compareTo(current)) == 1)) {
+                list.set(i+1, list.get(i));
+                updatedList.set(i+1, updatedList.get(i));
+                i--;
             }
-            while (firstPositionOfListToSort <= middle) {
-                int copyOfPos3 = firstPositionOfListToSort;
-                newlist.add(list.get(firstPositionOfListToSort++));
-
-                tempList.add(updatedList.get(copyOfPos3++));
-            }
-            while (midPositionOfListToSort <= end) {
-                int copyOfPos4 = midPositionOfListToSort;
-                newlist.add(list.get(midPositionOfListToSort++));
-                tempList.add(updatedList.get(copyOfPos4++));
-            }
-            firstPositionOfListToSort = begin;
-            int copyOfPos5 = firstPositionOfListToSort;
-            for (LocalDateTime item : newlist) {
-                list.set(firstPositionOfListToSort++, item);
-            }
-
-            for (String strItem : tempList) {
-                updatedList.set(copyOfPos5++, strItem);
-            }
-
+            list.set(i+1, current);
+            updatedList.set(i+1, copyOfCurrent);
         }
-
         return updatedList;
     }
 
-    /**
-     * Merge sort descending list.
-     *
-     * @param list  the list
-     * @param begin the begin
-     * @param end   the end
-     * @return the list
-     */
-    public List<String> mergeSortDescending(List<LocalDateTime> list, int begin, int end) {
-        int middle = (begin + end) / 2;
-        if (middle < end) {
-            mergeSortDescending(list, begin, middle); //call Merge Sort on the first half
-            mergeSortDescending(list, middle + 1, end); //call Merge Sort on the second half
-
-            //merge the two sorted lists together:
-            ArrayList<LocalDateTime> newlist = new ArrayList<>();
-            ArrayList<String> tempList = new ArrayList<>();
-            int firstPositionOfListToSort = begin, midPositionOfListToSort = middle + 1;
-            while (firstPositionOfListToSort <= middle && midPositionOfListToSort <= end) {
-                if (list.get(midPositionOfListToSort).compareTo(list.get(firstPositionOfListToSort)) < 0) {
-                    int copyOfPos1 = firstPositionOfListToSort;
-                    newlist.add(list.get(firstPositionOfListToSort++));
-                    tempList.add(updatedList.get(copyOfPos1++));
-                } else {
-                    int copyOfPos2 = midPositionOfListToSort;
-                    newlist.add(list.get(midPositionOfListToSort++));
-                    tempList.add(updatedList.get(copyOfPos2++));
-                }
+    public List<String> insertionSortDescending(List<LocalDateTime> list) {
+        for (int j = 1; j < list.size(); j++) {
+            LocalDateTime current = list.get(j);
+            String copyOfCurrent = updatedList.get(j);
+            int i = j-1;
+            while ((i > -1) && ((list.get(i).compareTo(current)) == -1)) {
+                list.set(i+1, list.get(i));
+                updatedList.set(i+1, updatedList.get(i));
+                i--;
             }
-            while (firstPositionOfListToSort <= middle) {
-                int copyOfPos3 = firstPositionOfListToSort;
-                newlist.add(list.get(firstPositionOfListToSort++));
-
-                tempList.add(updatedList.get(copyOfPos3++));
-            }
-            while (midPositionOfListToSort <= end) {
-                int copyOfPos4 = midPositionOfListToSort;
-                newlist.add(list.get(midPositionOfListToSort++));
-                tempList.add(updatedList.get(copyOfPos4++));
-            }
-            firstPositionOfListToSort = begin;
-            int copyOfPos5 = firstPositionOfListToSort;
-            for (LocalDateTime item : newlist) {
-                list.set(firstPositionOfListToSort++, item);
-            }
-
-            for (String strItem : tempList) {
-                updatedList.set(copyOfPos5++, strItem);
-            }
+            list.set(i+1, current);
+            updatedList.set(i+1, copyOfCurrent);
         }
-        //writeArrayToFile(updatedList);
         return updatedList;
     }
 
