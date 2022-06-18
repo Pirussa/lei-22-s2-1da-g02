@@ -1,62 +1,79 @@
 @startuml
 'https://plantuml.com/class-diagram
 
+package UI {
 class DataFromLegacySystemUI{
+-sortedListUI
 +run()
-+runLoadCSV()
-+getListOfSNSUsers()
-+validateFileFormat(path)
-+validateCSVData(values)
-+fillSNSUserDto(csvData)
++printSortedArray()
+}
 }
 
+package Controller {
 class App{
++getSortingAlgorithm()
 }
 
 class DataFromLegacySystemController{
-+createSNSUser(SNSUserDto)
-+saveSNSUser(SNSUserDto)
++getSortingAlgorithm()
 +getSNSUserList()
++getVaccines()
++readFile()
++updateFile()
++setList()
++mergeAscending()
++mergeDescending()
++getListToSort()
++heapAscending()
++heapDescending()
++getAlgorithm()
++chooseCriteriaToSort()
++sortListWithAlgo()
+-sortedList
+}
 }
 
+package Domain {
 class Company{
-+createSNSUser(SNSUserDto)
-+saveSNSUser(SNSUserDto)
-+getSNSUserList()
++getSnsUsersStore()
++getVaccinesList()
+}
 }
 
+package Stores {
 class SNSUserStore{
--strName
--strSex
--strBirthDate
--strAddress
--strPhoneNumber
--strEmail
--snsUserNumber
--strCitizenCardNumber
--strPassword
++getSnsUserList()
+}
 }
 
+package Miscellaneous{
 class ReadLegacyDataFile{
--strName
--strSex
--strBirthDate
--strAddress
--strPhoneNumber
--strEmail
--snsUserNumber
--strCitizenCardNumber
--strPassword
-+getSnsUserNumber()
-+getStrEmail()
-+getStrPhoneNumber()
-+getStrCitizenCardNumber()
-+validateSNSUser()
-+toString()
++readFile()
++validateFileLegacye()
++isValidDate()
++updateLegacyFile()
++getSNSUserList()
++getVaccineList()
++findPosOfSNSUserumber()
++findPosOfVax()
++checksDuplicatesNumber()
+-legacyDataList
+-listToSort
+-updatedList
+-snsUsersList
+-vaccineList
+}
 }
 
+DataFromLegacySystemUI ..> DataFromLegacySystemController
 
+DataFromLegacySystemController ..> App
 
+DataFromLegacySystemController ..> ReadLegacyDataFile
+
+ReadLegacyDataFile ..> Company
+
+Company ..> SNSUserStore
 
 
 

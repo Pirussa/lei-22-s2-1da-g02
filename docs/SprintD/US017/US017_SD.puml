@@ -24,11 +24,12 @@ deactivate UI
 CC -> UI : types path
 activate UI
 
+
 UI -> CTRL : readFile(path)
 
 activate CTRL
 CTRL -> RDLF : readFile(Sring path)
-deactivate CTRL
+
 
 activate RDLF
 
@@ -47,6 +48,7 @@ Comp -> SNSStore : getSNSUserList()
 activate SNSStore
 SNSStore -> Comp : returns list
 deactivate SNSStore
+Comp -> RDLF : returns list
 RDLF -> Comp : getVaccineList()
 Comp -> RDLF : returns list
 deactivate Comp
@@ -67,12 +69,16 @@ RDLF -> RDLF : setArrival()
 RDLF -> RDLF : setDeparture()
 note right : Adds arrivals and departures to vaccination center
 end loop
-
+RDLF -> CTRL : returns updatedList
 deactivate RDLF
+CTRL -> UI : returns updatedList
+deactivate CTRL
+
+
 
 
 UI -> CC : requests the option to sort
-
+deactivate UI
 
 deactivate UI
 CC -> UI : selects option
@@ -98,8 +104,11 @@ activate CTRL
 CTRL -> App : getSortingAlgorithm()
 
 activate App
-
+App -> CTRL : returns algorithm
 deactivate App
+CTRL->UI : returns algorithm
+
+
 deactivate CTRL
 
 
@@ -130,8 +139,10 @@ activate CTRL
 CTRL -> App : getSortingAlgorithm()
 
 activate App
-
+App->CTRL : returns algorithm
 deactivate App
+CTRL->UI : returns algorithm
+
 deactivate CTRL
 
 

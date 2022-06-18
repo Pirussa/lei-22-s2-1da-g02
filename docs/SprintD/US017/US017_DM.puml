@@ -67,17 +67,23 @@ class Departure {
 ==-departureTime
 }
 
+Company "1" ---> "*" VaccinationCenter : owns >
+Company "1" -d-> "*" CenterCoordinator : employees >
+Company "1" -r-> "*" SnsUser : knows >
 
-VaccinationCenter "1" -- "*" Arrival : has >
-VaccinationCenter "1" -- "*" Departure : has >
-CenterCoordinator "1" --> "*" LegacyData: imports
-LegacyData "1" --> "1" VaccinationCenter: is related to
 CenterCoordinator "1" --> "1" VaccinationCenter : coordinates >
-VaccinationCenter "1" --> "*,1" VaccineType: administers >
-Vaccine "1" --> "1" VaccineType : is of >
-Company "1" --> "*" VaccinationCenter : owns >
-Company "1" --> "*" CenterCoordinator : employees >
-Company "1" --> "*" SnsUser : knows >
+CenterCoordinator "1" --> "*" LegacyData: imports
 
+VaccinationCenter "1" -u-> "*" Arrival : has >
+VaccinationCenter "1" -u-> "*" Departure : has >
+VaccinationCenter "1" -u-> "*,1" VaccineType: administers >
+
+Vaccine "1" --> "1" VaccineType : is of >
+
+LegacyData "1" --> "1" VaccinationCenter: is related to
+LegacyData "1" --> "*" SnsUser : has information on
+LegacyData "1" --> "*" Arrival : has information on
+LegacyData "1" --> "*" Departure : has information on
+LegacyData "1" --> "*" Vaccine : has information on
 
 @enduml
