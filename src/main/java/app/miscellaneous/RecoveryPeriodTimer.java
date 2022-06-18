@@ -4,6 +4,9 @@ import app.controller.App;
 import app.controller.RecordVaccineAdministrationController;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -19,7 +22,12 @@ public class RecoveryPeriodTimer {
         Timer timer = new Timer();
 
         int recoveryPeriod = App.getInstance().getRecoveryTime();
-        long recoveryPeriodMili = recoveryPeriod * 600000L;
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, LocalDateTime.now().getHour());
+        calendar.set(Calendar.MINUTE, LocalDateTime.now().getMinute());
+        calendar.set(Calendar.SECOND, LocalDateTime.now().getSecond() + (recoveryPeriod * 60));
+        Date time = calendar.getTime();
 
         TimerTask timerTask = new TimerTask() {
             @Override
@@ -31,6 +39,6 @@ public class RecoveryPeriodTimer {
                 }
             }
         };
-        timer.schedule(timerTask, recoveryPeriodMili);
+        timer.schedule(timerTask, time);
     }
 }
