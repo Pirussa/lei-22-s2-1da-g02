@@ -219,7 +219,7 @@ public class RecordVaccineAdministrationController {
 
     public Double dosageForDose(int numberOfDoses, int indexVaccine) {
         if (numberOfDoses == Constants.FIRST_DOSE)
-            return vaccineTypeAvailableVaccines().get(indexVaccine).getAdminProcess().getDosage().get(Constants.FIRST_DOSE + 1);
+            return vaccineTypeAvailableVaccines().get(indexVaccine).getAdminProcess().getDosage().get(vaccineTypeAvailableVaccines().get(indexVaccine).getUserAgeGroupIndex(getUserAge()));
         else {
             int userAge = snsUser.getUserAge();
             int userAgeGroupIndex = snsUser.administratedVaccines().get(indexVaccine).getVaccine().getUserAgeGroupIndex(userAge);
