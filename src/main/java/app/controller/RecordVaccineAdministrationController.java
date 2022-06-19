@@ -358,4 +358,10 @@ public class RecordVaccineAdministrationController {
         return vaccineType.getCode();
     }
 
+    public int getDoseNumber() {
+        if (getUserNumberOfDoses() == Constants.FIRST_DOSE)
+            return 1;
+        else
+            return getUserNumberOfDoses() + Constants.ADD_DOSE;
+    }
 }

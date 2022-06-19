@@ -45,6 +45,9 @@ public class RecordVaccineAdministrationGUI {
     private javafx.scene.control.TextField dosageTxt;
 
     @FXML
+    private javafx.scene.control.TextField doseTxt;
+
+    @FXML
     private Button recordButton;
 
     @FXML
@@ -102,6 +105,9 @@ public class RecordVaccineAdministrationGUI {
 
         // Set Dosage
         getDosageQuantity();
+
+        // Set Dose Number
+        getDoseNumber();
 
         controller.setLocalDateTime();
     }
@@ -198,6 +204,10 @@ public class RecordVaccineAdministrationGUI {
             dosageTxt.setText(String.valueOf(controller.dosageForDose(Constants.INVALID_VALUE, vaccineList.getSelectionModel().getSelectedIndex())));
         else
             dosageTxt.setText(String.valueOf(controller.dosageForDose(controller.getUserNumberOfDoses(), controller.findLastDoseOfVaccineType())));
+    }
+
+    private void getDoseNumber() {
+        controller.getDoseNumber();
     }
 
     private void disableComboBoxCenter() {
