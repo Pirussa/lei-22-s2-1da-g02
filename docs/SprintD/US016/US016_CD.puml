@@ -2,7 +2,7 @@
 skinparam classAttributeIconSize 0
 
 
-
+package UI{
 class CheckAndExportVacStatsGUI {
 -controller : CheckAndExportVaccinationStatsController
 -firstDatePicker : DatePicker
@@ -23,10 +23,10 @@ class CheckAndExportVacStatsGUI {
 -toCenterCoordinatorMenu(event)
 
 }
+}
 
 
-
-
+package Controller{
 class CheckAndExportVaccinationStatsController {
 -center : VaccinationCenter
 - firstDate : LocalDate
@@ -41,9 +41,9 @@ class CheckAndExportVaccinationStatsController {
 +getVaccinationStatsListBetweenDates()
 +toCheckVaccinationStatsScene(event)
 }
+}
 
-
-
+package Domain {
 class Company{
 
 }
@@ -95,7 +95,7 @@ class VaccineType {
 -description : String
 -technology : String
 }
-
+ }
 'UI
 CheckAndExportVacStatsGUI ..> CheckAndExportVaccinationStatsController
 
