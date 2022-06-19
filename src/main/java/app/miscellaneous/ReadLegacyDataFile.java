@@ -10,7 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The type Read legacy data file.
+ * Class where all file modifications and sorting is done.
+ *
+ * @author João Castro <1210816@isep.ipp.pt>
  */
 public class ReadLegacyDataFile {
 

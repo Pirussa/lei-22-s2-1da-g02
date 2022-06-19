@@ -12,14 +12,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 /**
- * The type Read legacy data file test.
+ * Class where testing for US017 is done.
+ *
+ * @author João Castro <1210816@isep.ipp.pt>
  */
 class ReadLegacyDataFileTest {
     private VaccinationCenter center;
     private final ReadLegacyDataFile readLegacyDataFile;
 
+    /**
+     * Instantiates a new Read legacy data file test.
+     */
     public ReadLegacyDataFileTest() {
         final Company company = App.getInstance().getCompany();
         final VaccinationCentersStore store = company.getVaccinationCentersStore();
@@ -28,9 +32,18 @@ class ReadLegacyDataFileTest {
         readLegacyDataFile = new ReadLegacyDataFile(center);
     }
 
+    /**
+     * The List.
+     */
     List<String> list = new ArrayList<>();
+    /**
+     * The Dates.
+     */
     List<String> dates = new ArrayList<>();
 
+    /**
+     * Fill list.
+     */
     public void fillList() {
         list.add("161593120;Spikevax;Primeira;21C16-05;5/30/2022 8:00;5/30/2022 8:24;5/30/2022 9:11;5/30/2022 9:43");
         list.add("161593120;Spikevax;Primeira;21C16-05;5/30/2022 8:00;5/30/2022 8:24;5/30/2022 9:11;5/30/2022 9:43");
@@ -50,6 +63,9 @@ class ReadLegacyDataFileTest {
         list.add("161593132;Spikevax;Primeira;21C16-05;5/30/2022 8:00;5/30/2022 8:00;5/30/2022 8:10;5/30/2022 8:48");
     }
 
+    /**
+     * Fill list with dates.
+     */
     public void fillListWithDates() {
         dates.add("5/30/2022 8:54");
         dates.add("5/30/2022 8:12");
@@ -168,16 +184,19 @@ class ReadLegacyDataFileTest {
         dates.add("5/30/2022 9:05");
     }
 
+    /**
+     * Validate file legacy.
+     */
     @Test
     void validateFileLegacy() {
-        assertFalse(readLegacyDataFile.validateFileLegacy("110011001", "3/10/2000 8:00", "10/11/2011 8:00", "9/11/2001 8:00", "10/11/20111 8:00"));
-        assertFalse(readLegacyDataFile.validateFileLegacy("11001101", "3/10/2000 8:00", "10/11/2011 8:00", "9/11/2001 8:00", "10/11/2011 8:00"));
+        assertFalse(readLegacyDataFile.validateFileLegacy("11001001", "3/10/2000 8:00", "10/11/2011 8:00", "9/11/2001 8:00", "10/11/2011 8:00"));
+        assertFalse(readLegacyDataFile.validateFileLegacy("110011012", "3/x/2000 8:00", "10/11/2011 8:00", "9/11/2001 8:00", "10/11/2011 8:00"));
         assertFalse(readLegacyDataFile.validateFileLegacy("", "3/10/2000 8:00", "10/11/2011 8:00", "9/11/2001 8:00", "10/11/2011 8:00"));
-        assertFalse(readLegacyDataFile.validateFileLegacy("11001101", "3/10/2000 ", "10/11/2011 8:00", "9/11/2001 8:00", "10/11/2011 8:00"));
-        assertFalse(readLegacyDataFile.validateFileLegacy("11001101", "3/10/2000 8:00", "40/11/2011 8:00", "9/11/2001 8:00", "10/11/2011 8:00"));
-        assertFalse(readLegacyDataFile.validateFileLegacy("11001101", "0/10/2000 8:00", "10/11/2011 8:00", "9/11/2001 8:00", "10/11/2011 8:00"));
-        assertFalse(readLegacyDataFile.validateFileLegacy("11001101", "3/0/2000 8:00", "10/11/2011 8:00", "9/11/2001 8:00", "10/11/2011 8:00"));
-        assertFalse(readLegacyDataFile.validateFileLegacy("11001101", "3/10/2000 2", "10/11/2011 8:00", "9/11/2001 8:00", "10/11/2011 8:00"));
+        assertFalse(readLegacyDataFile.validateFileLegacy("110011011", "3/10/2000 ", "10/11/2011 8:00", "9/11/2001 8:00", "10/11/2011 8:00"));
+        assertFalse(readLegacyDataFile.validateFileLegacy("110011011", "3/10/2000 8:00", "40/11/2011 8:00", "9/11/2001 8:00", "10/11/2011 8:00"));
+        assertFalse(readLegacyDataFile.validateFileLegacy("110011011", "0/10/2000 8:00", "10/11/2011 8:00", "9/11/2001 8:00", "10/11/2011 8:00"));
+        assertFalse(readLegacyDataFile.validateFileLegacy("110011011", "3/0/2000 8:00", "10/11/2011 8:00", "9/11/2001 8:00", "10/11/2011 8:00"));
+        assertFalse(readLegacyDataFile.validateFileLegacy("110011011", "3/10/2000 2", "10/11/2011 8:00", "9/11/2001 8:00", "10/11/2011 8:00"));
         fillList();
         String[] values;
         for (String s : list) {
@@ -186,6 +205,9 @@ class ReadLegacyDataFileTest {
         }
     }
 
+    /**
+     * Is valid date.
+     */
     @Test
     void isValidDate() {
         assertFalse(readLegacyDataFile.isValidDate("3/110/2000 8:00"));

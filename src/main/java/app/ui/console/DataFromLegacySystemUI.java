@@ -13,6 +13,11 @@ import java.time.LocalTime;
 import java.time.temporal.IsoFields;
 import java.util.*;
 
+/**
+ * Asks the User for csv file with legacy data, sorts it according to Coordinator's preference.
+ *
+ * @author João Castro <1210816@isep.ipp.pt>
+ */
 public class DataFromLegacySystemUI implements Runnable {
     private final DataFromLegacySystemController controller = new DataFromLegacySystemController();
     private List<String> sortedListUI;
@@ -62,6 +67,11 @@ public class DataFromLegacySystemUI implements Runnable {
     }
 
 
+    /**
+     * Print sorted array.
+     *
+     * @param sortedList the sorted list
+     */
     public void printSortedArray(List<String> sortedList) {
         System.out.println("Sorted Array:");
 

@@ -24,7 +24,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The type Data from legacy system controller.
+ * Medium between classes that will be used for US017
+ *
+ * @author João Castro <1210816@isep.ipp.pt>
  */
 public class DataFromLegacySystemController {
 
