@@ -1,11 +1,10 @@
-# US 015 - Check and export vaccination statistics
+# US 017 - Import Data from a Legacy System
 
 ## 1. Requirements Engineering
 
 ### 1.1. User Story Description
 
-As a **Center Coordinator**, I intend to **check** and **export** vaccination statistics.
-I want to export, to a csv file, the total number of fully vaccinated users per day.
+As a **Center Coordinator**, I want to import data from a legacy system that was used in the past to manage centers.
 
 ### 1.2. Customer Specifications and Clarifications
 
@@ -65,6 +64,8 @@ Even so, each team should create a Spikevax vaccine that allows loading all vacc
 * **AC03:** Only files with valid information are accepted by the system.
 * **AC04:** Duplicated information is ignored by the system.
 * **AC05:** Lines that have valid information but if either the SNS user number or the vaccine name aren't registered in the system will be ignored.
+* **AC06:** The list should be presented to the Coordinator sorted by arrival/leave time.
+* **AC07:** The name/vaccine description attributes should be presented to the Coordinator.
 
 ### 1.4. Found out Dependencies
 
