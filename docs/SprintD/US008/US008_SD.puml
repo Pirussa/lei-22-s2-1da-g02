@@ -11,6 +11,7 @@ participant "vaccinationCenterStore\n:VaccinationCenterStore" as VS
 participant "vaccinationCenter\n:VaccinationCenter" as VC
 participant "snsUser\n:SnsUser" as SU
 participant "vaccineBulletinList\nList<VaccineBulletin>" as L
+participant "printRecoveryTime\n:PrintRecoveryTime" as PR
 
 activate N
 N -> UI : asks to record the administration of a vaccine to an SNS user
@@ -100,6 +101,10 @@ activate L
 deactivate L
 deactivate SU
 UI -> CTRL : printRecoveryTime()
+
+CTRL -> PR : printUserRecoveryTime()
+activate PR
+deactivate PR
 
 UI --> N : informs that vaccine administration is completed
 

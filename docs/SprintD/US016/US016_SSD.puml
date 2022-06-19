@@ -1,4 +1,5 @@
 @startuml
+autonumber
 
 actor "CenterCoordinator" as CC
 
