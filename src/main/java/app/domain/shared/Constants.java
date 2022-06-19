@@ -25,10 +25,9 @@ public class Constants {
 
     public static final String PATH_SMS_MESSAGE = "SMS.txt";
 
-    public static final String PATH_RECOVERY_TIME_MESSAGE = "RecoveryTime.txt";
+    public static final String PATH_RECOVERY_TIME_MESSAGE = "RecoveryTime/RecoveryTime.txt";
     public static final int PASSWORD_LENGTH = 7;
     public static final int PARAMS_MILLISECONDS_IN_DAY = 1000 * 60 * 60 * 24;
-
 
     public static final int NUMBER_OF_PHONE_NUMBER_DIGITS = 9;
 
@@ -101,8 +100,6 @@ public class Constants {
     public static final String DAILY_REGISTERS_FILE_NAME_TEST_FALSE = "DailyTotalOfVaccinatedPeopleTestFalse.csv";
 
     public static String DAILY_REGISTERS_FILE_NAME_ACTUAL_TEST = "DailyTotalOfVaccinatedPeopleActualTest.csv";
-
-
 
     public static final int VACCINE_ADMINISTRATION = 0;
 

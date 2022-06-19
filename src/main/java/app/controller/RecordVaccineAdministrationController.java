@@ -332,7 +332,7 @@ public class RecordVaccineAdministrationController {
     public void printRecoveryTime() throws IOException {
         File file = new File(Constants.PATH_RECOVERY_TIME_MESSAGE);
         PrintWriter printWriter = new PrintWriter(file);
-        printWriter.printf("Received at: " + Utils.formatDateToPrint(LocalDate.now()) + " - " + LocalDateTime.now().getMinute() + "m" + "%n%nYour Recovery Time is now finished, stay safe.");
+        printWriter.printf("Received at: " + Utils.formatDateToPrint(LocalDate.now()) + "%n%nYour Recovery Time is now finished, stay safe.");
         printWriter.close();
     }
 
