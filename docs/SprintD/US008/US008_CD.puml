@@ -46,11 +46,14 @@ class VaccineBulletinMapper {
 }
 
 package Store {
-class VaccinationCenterStore {}
-
-class SnsUserStore {}
+class VaccinationCenterStore {
+getVaccinationCenterList
 }
 
+class SnsUserStore {
+getSnsUserList
+}
+}
 package Domain {
 package Model {
 class Company{}

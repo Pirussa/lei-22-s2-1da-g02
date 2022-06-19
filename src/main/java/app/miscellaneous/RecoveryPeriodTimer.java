@@ -21,13 +21,13 @@ public class RecoveryPeriodTimer {
     public void printUserRecoveryTimeSMS() {
         Timer timer = new Timer();
 
-        int recoveryPeriod = App.getInstance().getRecoveryTime();
+        int recoveryPeriod = App.getInstance().getRecoveryTime() * 60000;
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, LocalDateTime.now().getHour());
-        calendar.set(Calendar.MINUTE, LocalDateTime.now().getMinute());
-        calendar.set(Calendar.SECOND, LocalDateTime.now().getSecond() + (recoveryPeriod * 60));
-        Date time = calendar.getTime();
+       /* Calendar calendar = Calendar.getInstance();*/
+       /* calendar.set(Calendar.HOUR_OF_DAY, LocalDateTime.now().getHour());*/
+       /* calendar.set(Calendar.MINUTE, LocalDateTime.now().getMinute());*/
+       /* calendar.set(Calendar.SECOND, LocalDateTime.now().getSecond() + (recoveryPeriod * 60));*/
+       /* Date time = calendar.getTime();*/
 
         TimerTask timerTask = new TimerTask() {
             @Override
@@ -39,6 +39,6 @@ public class RecoveryPeriodTimer {
                 }
             }
         };
-        timer.schedule(timerTask, time);
+        timer.schedule(timerTask, recoveryPeriod);
     }
 }
