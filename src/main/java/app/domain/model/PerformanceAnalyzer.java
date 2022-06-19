@@ -68,26 +68,26 @@ public class PerformanceAnalyzer implements Serializable {
             for (int lastPositionList = firstPositionList; lastPositionList < listToBeAnalyzed.length; lastPositionList++) {
 
                 int sum = 0;
-                for (int sumPosition = firstPositionList; sumPosition <= lastPositionList; sumPosition++) {
+                for (int sumPosition = firstPositionList; sumPosition < lastPositionList; sumPosition++) {
                     sum += listToBeAnalyzed[sumPosition];
                 }
 
                 if (sum > maxSum) {
                     maxSum = sum;
                     startIndex = firstPositionList;
-                    endIndex = lastPositionList;
+                    endIndex = lastPositionList ;
                 }
 
 
             }
         }
 
-        int[] maxSubList = new int[endIndex - startIndex + 1];
+        int[] maxSubList = new int[endIndex - startIndex ];
 
         int index = startIndex;
         int position = 0;
-        if (maxSubList.length != 1){
-            while (index <= endIndex) {
+        if (maxSubList.length != 0){
+            while (index < endIndex) {
                 maxSubList[position] = listToBeAnalyzed[index];
                 position++;
                 index++;

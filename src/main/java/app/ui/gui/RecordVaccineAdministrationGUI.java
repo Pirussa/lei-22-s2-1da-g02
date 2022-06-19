@@ -143,8 +143,8 @@ public class RecordVaccineAdministrationGUI {
             } else {
                 controller.setLotNumber(lotNumberTxt.getText());
                 recordVaccineAdministration(event);
-                printRecoveryTimeSMS();
                 returnToNurseGUI(event);
+                printRecoveryTimeSMS();
             }
         }
     }
