@@ -14,7 +14,7 @@ participant "Vaccination Center" as VC
 activate A
 A -> C : runDailyTasks()
 activate C
-deactivate A
+
 loop Vaccination Center Total Vaccinated People
 C -> VCS : getVaccinationCenterWithIndex()
 activate VCS
@@ -28,8 +28,7 @@ C -> VC : amountOfVaccinatedPeople = administeredVaccinesListSize()
 activate VC
 deactivate VC
 C -> A : Print information to a csv file
-activate A
-deactivate A
+deactivate C
 end
-
+deactivate A
 @enduml

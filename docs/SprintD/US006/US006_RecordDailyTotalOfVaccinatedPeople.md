@@ -94,13 +94,12 @@
 
 ### 3.1. Rationale
 
-| *Interaction ID* | *Question: Which class is responsible for...* | *Answer*  | *Justification (with patterns)*  |
-|:-------------    |:---------------------                         |:----------| :------------------------------- |
-| Step 1  		   | ...asking to execute the task	 | ???     | **Pure Fabrication:** There is no need to assign this responsibility to any other existing classes.   | 
-| Step 2  		   | ...executing the task      	 | App     | **Controller:** Intermediates the information between whats shown to the User and the domain.         | 
-|          		   | ...creating the csv file with the data	         | Company | **IE:** Has the necessary information to create the requested file.   | 
-|          		   | ...supplying the list of vaccination centers         | VaccinationCentersStore | **Pure Fabrication:** Has the vaccination centers.   |
-|          		   | ...supplying the list of vaccine bulletins         | VaccinationCenter | **IE:** Knows it's own vaccine bulletins.   |
+| *Interaction ID* | *Question: Which class is responsible for...* | *Answer*                | *Justification (with patterns)*                                                                                                                |
+|:-----------------|:----------------------------------------------|:------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------|
+| Step 1  		       | ...executing the scheduled task      	        | App                     | **Controller:** Intermediates the information between whats shown to the User and the domain.                                                  | 
+| 		               | ...creating the csv file with the data	       | Company                 | **IE:** Has the necessary information to create the requested file.                                                                            | 
+| 		               | ...supplying the list of vaccination centers  | VaccinationCentersStore | **IE:** Has the vaccination centers. Using a store promotes the **HCLC** principle, since this responsibility is not given to any other class. |
+| 		               | ...supplying the list of vaccine bulletins    | VaccinationCenter       | **IE:** Knows it's own vaccine bulletins.                                                                                                      |
 
 
 ### Systematization ##

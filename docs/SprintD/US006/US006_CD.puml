@@ -30,15 +30,21 @@ class VaccinationCenter{
 
 
 class Company{
--VaccinationCenterStore
 +registerDailyTotalOfPeopleVaccinated()
+}
+}
+
+package Store{
+class VaccinationCenterStore{
++getVaccinationCentersList()
 }
 }
 
 left to right direction
 
 
-App .r.> Company
+App ..> Company
 App .>VaccinationCenter
-Company"1" --- "*"VaccinationCenter: > has
+Company "1" --- "1" VaccinationCenterStore: > has
+VaccinationCenterStore"1" --- "*"VaccinationCenter: > has
 @enduml
