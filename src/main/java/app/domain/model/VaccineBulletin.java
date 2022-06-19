@@ -19,7 +19,7 @@ import java.util.Objects;
  */
 public class VaccineBulletin implements Serializable {
 
-    private static final long serialVersionUID = 914947503721236411L;
+    private static final long serialVersionUID = -4651776023952598771L;
 
     /**
      * Vaccine taken by the user in previous appointment
