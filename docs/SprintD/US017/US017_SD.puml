@@ -152,7 +152,7 @@ deactivate CTRL
 
 
 UI -> CTRL: sortListWithAlgo(algorithmToBeUsed,option)
-note right: algorithmToBeUsed can be MergeSort or HeapSort, both have methods that\n can sort in ascending/descending order, here we are just representing \n the MergeSort algorithm because HeapSort functions in a similar way.
+note right: algorithmToBeUsed can be InsertionSort or HeapSort, both have methods that\n can sort in ascending/descending order, here we are just representing \n the InsertionSort algorithm because HeapSort functions in a similar way.
 activate CTRL
 
 CTRL -> RDLF : insertionSortAscending()
