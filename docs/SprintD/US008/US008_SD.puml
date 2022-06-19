@@ -17,7 +17,7 @@ activate N
 N -> UI : asks to record the administration of a vaccine to an SNS user
 activate UI
 
-UI -> CTRL : vaccinationCenterList = getVaccinationCentersNameList()
+UI -> CTRL** : vaccinationCenterList = getVaccinationCentersNameList()
 activate CTRL
 CTRL -> C : vaccinationCenterList = getVaccinationCenters()
 activate C
