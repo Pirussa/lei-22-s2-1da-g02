@@ -5,6 +5,7 @@ import app.domain.shared.Constants;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.IllegalFormatCodePointException;
+import java.util.Objects;
 
 /**
  * Has all the info about a Given Vaccine
@@ -105,4 +106,13 @@ public class VaccineBulletin implements Serializable {
        int totalDoses = vaccine.getAdminProcess().getNumberOfDoses().get(ageGroupIndex);
         return doseNumber == totalDoses;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof VaccineBulletin)) return false;
+        VaccineBulletin that = (VaccineBulletin) o;
+        return doseNumber == that.doseNumber && vaccine.equals(that.vaccine) && dateTimeOfLastDose.equals(that.dateTimeOfLastDose) && lotNumber.equals(that.lotNumber);
+    }
+
 }
