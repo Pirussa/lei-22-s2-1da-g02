@@ -329,7 +329,7 @@ public class ReadLegacyDataFile {
             LocalDateTime current = list.get(j);
             String copyOfCurrent = updatedList.get(j);
             int i = j-1;
-            while ((i > -1) && ((list.get(i).compareTo(current)) == 1)) {
+            while ((i > -1) && ((list.get(i).isAfter(current)))) {
                 list.set(i+1, list.get(i));
                 updatedList.set(i+1, updatedList.get(i));
                 i--;
@@ -351,7 +351,7 @@ public class ReadLegacyDataFile {
             LocalDateTime current = list.get(j);
             String copyOfCurrent = updatedList.get(j);
             int i = j-1;
-            while ((i > -1) && ((list.get(i).compareTo(current)) == -1)) {
+            while ((i > -1) && ((list.get(i).isBefore(current)))) {
                 list.set(i+1, list.get(i));
                 updatedList.set(i+1, updatedList.get(i));
                 i--;

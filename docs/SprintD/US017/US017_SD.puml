@@ -10,11 +10,26 @@ participant ":ReadLegacyDataFile" as RDLF
 participant ":Company" as Comp
 participant ":SNSUserStore" as SNSStore
 participant ":App" as App
-
+participant ":VaccinationCenter" as VC
+participant ":Arrival" as AR
+participant ":Departure" as DR
+participant ":vaccinationCentersStore" as VCS
 
 activate CC
 CC -> UI : Asks to load a CSV file with legacy data
 activate UI
+UI -> CTRL** : DataFromLegacySystemController()
+activate CTRL
+CTRL -> Comp : getVaccinationCentersStore()
+activate Comp
+Comp --> CTRL : returns the store
+deactivate Comp
+CTRL -> VCS : getVaccinationCenterAssociatedToCoordinator(id)
+activate VCS
+VCS --> CTRL : returns the vaccination center
+deactivate VCS
+CTRL --> RDLF **: ReadLegacyDataFile(center)
+deactivate CTRL
 
 
 
@@ -25,7 +40,7 @@ CC -> UI : types path
 activate UI
 
 
-UI -> CTRL : readFile(path)
+UI -> CTRL: readFile(path)
 
 activate CTRL
 CTRL -> RDLF : readFile(Sring path)
@@ -65,10 +80,34 @@ RDLF -> RDLF : checksDuplicates(updatedList,snsUsersList,vaccineList,positionInS
 
 RDLF -> RDLF : Saves data into an ArrayList<String> called updatedList
 
-RDLF -> RDLF : setArrival()
-RDLF -> RDLF : setDeparture()
-note right : Adds arrivals and departures to vaccination center
+RDLF -> VC : createArrival()
+activate VC
+VC -> AR**: createArrival()
+activate AR
+AR -> VC : returns Arrival
+deactivate AR
+
+activate VC
+VC -> VC : Saves arrival into List<Arrival> called arrivalsList
+
+VC -> VC : genericsArrivals.binaryFileWrite(Constants.FILE_PATH_ARRIVALS, arrivalsList)
+
+RDLF -> VC : createDeparture()
+deactivate VC
+VC -> DR** : createDeparture()
+activate DR
+DR -> VC : returns departure
+deactivate DR
+
+activate VC
+VC -> VC : Saves departure into List<Departure> called departuresList
+
+VC -> VC: genericsDeparture.binaryFileWrite(Constants.FILE_PATH_DEPARTURES, departuresList)
+
+
 end loop
+deactivate VC
+deactivate VC
 RDLF -> CTRL : returns updatedList
 deactivate RDLF
 CTRL -> UI : returns updatedList

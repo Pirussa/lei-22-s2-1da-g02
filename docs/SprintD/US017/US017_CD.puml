@@ -3,9 +3,39 @@
 
 package UI {
 class DataFromLegacySystemUI{
--sortedListUI
+-sortedListUI : List<String>
 +run()
 +printSortedArray()
+}
+}
+
+package Domain{
+class VaccinationCenter{
+-id : int
+-name : String
+-phoneNumber : PhoneNumber
+-email : Email
+-fax : PhoneNumber
+-website : Website
+-openingHour : LocalDateTime
+-closingHour : LocalDateTime
+-slotDuration : int
+-vaccinesPerSlot : int
+-road : String
+-zipCode : ZipCode
+-local : String
+-centerCoordinatorID : int
++addArrival()
++addDeparture()
+}
+class Arrival{
+-snsNumber : int
+-arrivalTime : LocalDateTime
+-vaccineType : VaccineType
+}
+class Departure{
+-snsNumber : int
+-departureTime : LocalDateTime
 }
 }
 
@@ -29,7 +59,7 @@ class DataFromLegacySystemController{
 +getAlgorithm()
 +chooseCriteriaToSort()
 +sortListWithAlgo()
--sortedList
+-sortedList : List<String>
 }
 }
 
@@ -43,6 +73,9 @@ class Company{
 package Stores {
 class SNSUserStore{
 +getSnsUserList()
+}
+class vaccinationCenterStore{
++getVaccinationCentersStore()
 }
 }
 
@@ -62,11 +95,11 @@ class ReadLegacyDataFile{
 +insertionSortAscending()
 +heapSortAscending()
 +heapSortDescending()
--legacyDataList
--listToSort
--updatedList
--snsUsersList
--vaccineList
+-legacyDataList : List<String>
+-listToSort : List<LocalDateTime>
+-updatedList : List<String>
+-snsUsersList : ArrayList<SNSUser>
+-vaccineList : List<Vaccine>
 }
 }
 
@@ -76,10 +109,18 @@ DataFromLegacySystemController ..> App
 
 DataFromLegacySystemController ..> ReadLegacyDataFile
 
-ReadLegacyDataFile ..> Company
+ReadLegacyDataFile "1"-->"1" Company : checks
 
-Company ..> SNSUserStore
+Company"1" --> "1" SNSUserStore : knows
 
+ReadLegacyDataFile "1"-->"1" VaccinationCenter : is related to
 
+VaccinationCenter "1"-->"*" Arrival : has
+
+VaccinationCenter "1"-->"*" Departure : has
+
+DataFromLegacySystemController ..> Company
+
+Company "1"-->"1" vaccinationCenterStore : knows
 
 @enduml
