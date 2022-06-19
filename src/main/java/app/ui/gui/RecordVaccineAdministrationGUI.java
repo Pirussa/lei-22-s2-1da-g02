@@ -142,11 +142,8 @@ public class RecordVaccineAdministrationGUI {
                 alert.showAndWait();
             } else {
                 controller.setLotNumber(lotNumberTxt.getText());
-                printRecoveryTimeSMS();
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Success");
-                alert.setContentText("Administration Registered. A message will be sent to the user, when recovery time ends.");
                 recordVaccineAdministration(event);
+                printRecoveryTimeSMS();
                 returnToNurseGUI(event);
             }
         }
