@@ -17,6 +17,11 @@ public class ReadLegacyDataFile {
     private final Company company = App.getInstance().getCompany();
     private final VaccinationCenter center;
 
+    /**
+     * Instantiates a new Read legacy data file.
+     *
+     * @param center the center
+     */
     public ReadLegacyDataFile(VaccinationCenter center) {
         this.center = center;
     }
@@ -30,8 +35,17 @@ public class ReadLegacyDataFile {
      */
     public final List<LocalDateTime> listToSort = new ArrayList<>();
 
+    /**
+     * The Updated list.
+     */
     public List<String> updatedList = new ArrayList<>();
+    /**
+     * The Sns users list.
+     */
     public ArrayList<SnsUser> snsUsersList = new ArrayList<>();
+    /**
+     * The Vaccine list.
+     */
     public List<Vaccine> vaccineList = new ArrayList<>();
 
     /**
@@ -68,17 +82,29 @@ public class ReadLegacyDataFile {
     }
 
 
+    /**
+     * Validates file legacy.
+     *
+     * @param SNSUserNumber               the sns user number
+     * @param ScheduledDateTime           the scheduled date time
+     * @param ArrivalDateTime             the arrival date time
+     * @param NurseAdministrationDateTime the nurse administration date time
+     * @param LeavingDateTime             the leaving date time
+     * @return the boolean
+     */
     public boolean validateFileLegacy(String SNSUserNumber, String ScheduledDateTime, String ArrivalDateTime, String NurseAdministrationDateTime, String LeavingDateTime) {
 
-        if (SNSUserNumber.matches("^[0-9]{9}$") && isValidDate(ScheduledDateTime)
-                && isValidDate(ArrivalDateTime) && isValidDate(NurseAdministrationDateTime) && isValidDate(LeavingDateTime)) {
-            return true;
-        } else {
-            return false;
-        }
+        return SNSUserNumber.matches("^[0-9]{9}$") && isValidDate(ScheduledDateTime)
+                && isValidDate(ArrivalDateTime) && isValidDate(NurseAdministrationDateTime) && isValidDate(LeavingDateTime);
     }
 
 
+    /**
+     * Check if the date is a valid date.
+     *
+     * @param date the date
+     * @return the boolean
+     */
     public boolean isValidDate(String date) {
         try {
             String[] dateAndHour = date.split(" ");
@@ -99,7 +125,7 @@ public class ReadLegacyDataFile {
 
 
     /**
-     * Update legacy file.
+     * Updates the legacy file.
      *
      * @return the boolean
      */
@@ -137,26 +163,32 @@ public class ReadLegacyDataFile {
 
 }
 
+    /**
+     * Gets sns user list.
+     *
+     * @return the sns user list
+     */
     public ArrayList<SnsUser> getSNSUserList() {
         return company.getSnsUsersStore().getSnsUserList();
     }
 
+    /**
+     * Gets vaccine list.
+     *
+     * @return the vaccine list
+     */
     public List<Vaccine> getVaccineList() {
         return company.getVaccinesList();
     }
 
-    public boolean checksIfVaccineListIsNotEmpty() {
-        if (!company.getVaccinesList().isEmpty()) {
-            return true;
-        } else return false;
-    }
-
-    public boolean checksIfSNSUserListIsNotEmpty() {
-        if (!company.getSnsUsersStore().getSnsUserList().isEmpty()) {
-            return true;
-        } else return false;
-    }
-
+    /**
+     * Find pos of sns user int.
+     *
+     * @param list                  the list
+     * @param values                the values
+     * @param positionInSnsUserList the position in sns user list
+     * @return the int
+     */
     public int findPosOfSNSUser(ArrayList<SnsUser> list, String[] values, int positionInSnsUserList) {
         for (positionInSnsUserList = 0; positionInSnsUserList < list.size(); positionInSnsUserList++) {
             if (list.get(positionInSnsUserList).getSnsUserNumber() == Integer.parseInt(values[0])) {
@@ -166,6 +198,14 @@ public class ReadLegacyDataFile {
         return -1;
     }
 
+    /**
+     * Find pos of vax int.
+     *
+     * @param list                   the list
+     * @param values                 the values
+     * @param positionInVaccinesList the position in vaccines list
+     * @return the int
+     */
     public int findPosOfVax(List<Vaccine> list, String[] values, int positionInVaccinesList) {
         for (positionInVaccinesList = 0; positionInVaccinesList < list.size(); positionInVaccinesList++) {
             if (list.get(positionInVaccinesList).getName().equals(values[1])) {
@@ -175,10 +215,19 @@ public class ReadLegacyDataFile {
         return -1;
     }
 
+    /**
+     * Checks duplicates.
+     *
+     * @param updatedList            the updated list
+     * @param snsUsers               the sns users
+     * @param vaccines               the vaccines
+     * @param positionInSnsUserList  the position in sns user list
+     * @param positionInVaccinesList the position in vaccines list
+     * @param lineOfTheData          the line of the data
+     * @return the boolean
+     */
     public Boolean checksDuplicates(List<String> updatedList, List<SnsUser> snsUsers, List<Vaccine> vaccines, int positionInSnsUserList, int positionInVaccinesList, int lineOfTheData) {
-        if (!updatedList.contains(snsUsers.get(positionInSnsUserList).getStrName() + "|" + legacyDataList.get(lineOfTheData) + "|" + vaccines.get(positionInVaccinesList).getVaccineType().getDescription())) {
-            return true;
-        } else return false;
+        return !updatedList.contains(snsUsers.get(positionInSnsUserList).getStrName() + "|" + legacyDataList.get(lineOfTheData) + "|" + vaccines.get(positionInVaccinesList).getVaccineType().getDescription());
     }
 
     private void setDeparture(String departureTime, String snsNumber, boolean serialize) {
@@ -267,6 +316,12 @@ public class ReadLegacyDataFile {
     }
 
 
+    /**
+     * Insertion sort ascending list.
+     *
+     * @param list the list
+     * @return the list
+     */
     public List<String> insertionSortAscending(List<LocalDateTime> list) {
         for (int j = 1; j < list.size(); j++) {
             LocalDateTime current = list.get(j);
@@ -283,6 +338,12 @@ public class ReadLegacyDataFile {
         return updatedList;
     }
 
+    /**
+     * Insertion sort descending list.
+     *
+     * @param list the list
+     * @return the list
+     */
     public List<String> insertionSortDescending(List<LocalDateTime> list) {
         for (int j = 1; j < list.size(); j++) {
             LocalDateTime current = list.get(j);

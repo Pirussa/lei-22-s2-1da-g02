@@ -19,10 +19,18 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * The type Sorted list gui.
+ */
 public class SortedListGUI {
 
     private DataFromLegacySystemController controller;
 
+    /**
+     * Sets controller.
+     *
+     * @param controller the controller
+     */
     public void setController(DataFromLegacySystemController controller) { this.controller = controller; }
 
     @FXML
@@ -59,6 +67,9 @@ public class SortedListGUI {
     private Label lbSortingAlgorithm;
 
 
+    /**
+     * Sets stats table.
+     */
     public void setStatsTable() {
         controller.chooseCriteriaToSort(controller.getOptionArrivalOrDeparture());
         List<String> sortedlist = controller.sortListWithAlgo(controller.getSortingAlgorithm(), controller.getOptionAscendingOrDescending());
@@ -86,7 +97,12 @@ public class SortedListGUI {
     }
 
 
-
+    /**
+     * Back option.
+     *
+     * @param event the event
+     * @throws IOException the io exception
+     */
     public void back(ActionEvent event) throws IOException {
         Parent root;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/read-legacy-data-file.fxml"));

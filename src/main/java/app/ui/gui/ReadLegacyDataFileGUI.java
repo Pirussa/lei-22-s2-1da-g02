@@ -55,7 +55,7 @@ public class ReadLegacyDataFileGUI {
 
 
     /**
-     * Back.
+     * Back option.
      *
      * @param event the event
      * @throws IOException the io exception
@@ -69,7 +69,7 @@ public class ReadLegacyDataFileGUI {
     }
 
     /**
-     * Choose file.
+     * Lets the user set the file.
      *
      * @param actionEvent the action event
      */
@@ -83,20 +83,27 @@ public class ReadLegacyDataFileGUI {
             tryToReadFile();
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("No file selected");
-            alert.setHeaderText("No file was select");
-            alert.setContentText("Please select a file");
+            alert.setTitle("No file");
+            alert.setHeaderText("No valid file was selected.");
+            alert.setContentText("Please, select a file.");
             alert.showAndWait();
         }
 
 
     }
+
+    /**
+     * Shows options.
+     */
     public void showOptions(){
         lbSort.setVisible(true);
         btArrival.setVisible(true);
         btDeparture.setVisible(true);
     }
 
+    /**
+     * Tries to read file.
+     */
     public void tryToReadFile() {
         try {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);

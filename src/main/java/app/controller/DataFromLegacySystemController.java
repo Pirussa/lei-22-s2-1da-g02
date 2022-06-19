@@ -132,7 +132,7 @@ public class DataFromLegacySystemController {
     /**
      * Merge ascending list.
      *
-     * @param list  the list
+     * @param list the list
      * @return the list
      */
     public List<String> insertionSortAscending(List<LocalDateTime> list){
@@ -142,9 +142,7 @@ public class DataFromLegacySystemController {
     /**
      * Merge descending list.
      *
-     * @param list  the list
-     * @param begin the beggining
-     * @param end   the end
+     * @param list the list
      * @return the list
      */
     public List<String> insertionSortDescending(List<LocalDateTime> list){
@@ -178,6 +176,11 @@ public class DataFromLegacySystemController {
       return readLegacyDataFile.heapSortDescending();
     }
 
+    /**
+     * Gets the algorithm set in the config file.
+     *
+     * @return the string
+     */
     public String getAlgorithm(){
         return App.getInstance().getSortingAlgorithm();
     }
@@ -300,10 +303,20 @@ public class DataFromLegacySystemController {
 
     }
 
+    /**
+     * Sets file.
+     *
+     * @param file the file
+     */
     public void setFile(File file) {
         this.file = file;
     }
 
+    /**
+     * Gets file.
+     *
+     * @return the file
+     */
     public File getFile() {
         return file;
     }
