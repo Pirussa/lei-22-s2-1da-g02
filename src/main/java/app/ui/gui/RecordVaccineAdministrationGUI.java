@@ -207,7 +207,7 @@ public class RecordVaccineAdministrationGUI {
     }
 
     private void getDoseNumber() {
-        controller.getDoseNumber();
+        doseTxt.setText(String.valueOf(controller.getDoseNumber()));
     }
 
     private void disableComboBoxCenter() {
