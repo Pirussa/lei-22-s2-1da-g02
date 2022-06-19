@@ -3,11 +3,12 @@
 
 skinparam classAttributeIconSize 0
 
-
+package Controller {
 class App{
 +runDailyTasks()
 }
-
+}
+package Domain {
 class VaccinationCenter{
 -id
 -name
@@ -32,7 +33,7 @@ class Company{
 -VaccinationCenterStore
 +registerDailyTotalOfPeopleVaccinated()
 }
-
+}
 
 left to right direction
 
