@@ -19,6 +19,8 @@ import java.util.Objects;
  */
 public class VaccineBulletin implements Serializable {
 
+    private static final long serialVersionUID = -4651776023952598771L;
+
     /**
      * Vaccine taken by the user in previous appointment
      */
@@ -103,16 +105,9 @@ public class VaccineBulletin implements Serializable {
      * @return the boolean
      */
     public boolean isLastDose(int ageGroupIndex) {
-       int totalDoses = vaccine.getAdminProcess().getNumberOfDoses().get(ageGroupIndex);
+        int totalDoses = vaccine.getAdminProcess().getNumberOfDoses().get(ageGroupIndex);
         return doseNumber == totalDoses;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof VaccineBulletin)) return false;
-        VaccineBulletin that = (VaccineBulletin) o;
-        return doseNumber == that.doseNumber && vaccine.equals(that.vaccine) && dateTimeOfLastDose.equals(that.dateTimeOfLastDose) && lotNumber.equals(that.lotNumber);
-    }
 
 }
