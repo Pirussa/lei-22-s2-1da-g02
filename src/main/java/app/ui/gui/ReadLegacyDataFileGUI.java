@@ -35,11 +35,6 @@ public class ReadLegacyDataFileGUI {
         controller.setControllerInfo(controller);
     }
 
-
-    private int optionArrivalOrDeparture;
-    private int optionAscendingOrDescending;
-
-
     @FXML
     private Label lbSort;
 
@@ -83,7 +78,9 @@ public class ReadLegacyDataFileGUI {
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV Files", "*.csv"));
         List<File> file = fileChooser.showOpenMultipleDialog(null);
         try {
-            showOptions(file.get(0));
+
+            controller.setFile(file.get(0));
+            tryToReadFile();
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("No file selected");
@@ -94,10 +91,19 @@ public class ReadLegacyDataFileGUI {
 
 
     }
+    public void showOptions(){
+        lbSort.setVisible(true);
+        btArrival.setVisible(true);
+        btDeparture.setVisible(true);
+    }
 
-    public void showOptions(File file) {
+    public void tryToReadFile() {
         try {
-            controller.setFile(file);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("File chosen");
+            alert.setHeaderText("You have chosen the file: " + controller.getFile().getName() + " successfully");
+            alert.setContentText("Wait while the file information is being loaded...");
+            alert.showAndWait();
             controller.readFile();
         }
         catch (Exception e) {
@@ -116,15 +122,7 @@ public class ReadLegacyDataFileGUI {
                 alert.showAndWait();
             }
             else {
-                controller.setFile(file);
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("File chosen");
-                alert.setHeaderText("You have chosen the file: " + file.getName() + " successfully");
-                alert.setContentText("Wait while the file information is being loaded...");
-                alert.showAndWait();
-                lbSort.setVisible(true);
-                btArrival.setVisible(true);
-                btDeparture.setVisible(true);
+                showOptions();
             }
         } catch (NotSerializableException e) {
             e.printStackTrace();

@@ -17,7 +17,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.io.NotSerializableException;
 import java.util.List;
 
 public class SortedListGUI {
@@ -95,11 +94,11 @@ public class SortedListGUI {
 
         ReadLegacyDataFileGUI mainScene = loader.getController();
         mainScene.setController(controller);
-//        try {
-//            mainScene.showOptions();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        try {
+            mainScene.showOptions();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
