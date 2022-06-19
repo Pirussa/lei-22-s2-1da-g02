@@ -217,6 +217,13 @@ public class RecordVaccineAdministrationController {
         return Constants.FIRST_DOSE;
     }
 
+    /**
+     * Dosage for respective vaccine dose number.
+     *
+     * @param numberOfDoses the number of doses
+     * @param indexVaccine  the index vaccine
+     * @return the double
+     */
     public Double dosageForDose(int numberOfDoses, int indexVaccine) {
         if (numberOfDoses == Constants.FIRST_DOSE)
             return vaccineTypeAvailableVaccines().get(indexVaccine).getAdminProcess().getDosage().get(vaccineTypeAvailableVaccines().get(indexVaccine).getUserAgeGroupIndex(getUserAge()));
@@ -329,11 +336,19 @@ public class RecordVaccineAdministrationController {
         printWriter.close();
     }
 
+    /**
+     * Sends a message saying that recovery time is over.
+     */
     public void setRecoveryTimeSMS() {
         RecoveryPeriodTimer recoveryPeriodTimer = new RecoveryPeriodTimer();
         recoveryPeriodTimer.printUserRecoveryTimeSMS();
     }
 
+    /**
+     * Vaccination centers available list.
+     *
+     * @return the list of centers
+     */
     public List<String> vaccinationCentersAvailable() {
         List<String> vaccinationCenterName = new ArrayList<>();
         for (int index = 0; index < vaccinationCentersStore.getVaccinationCenters().size(); index++) {
@@ -358,6 +373,11 @@ public class RecordVaccineAdministrationController {
         return vaccineType.getCode();
     }
 
+    /**
+     * Gets dose number.
+     *
+     * @return the dose number
+     */
     public int getDoseNumber() {
         if (getUserNumberOfDoses() == Constants.FIRST_DOSE)
             return 1;

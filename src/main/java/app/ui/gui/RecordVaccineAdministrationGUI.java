@@ -54,6 +54,11 @@ public class RecordVaccineAdministrationGUI {
     private Button cancelButton;
 
 
+    /**
+     * Confirm center selection.
+     *
+     * @param event the event
+     */
     public void confirmCenterSelection(ActionEvent event) {
         verifyCenter(event);
     }
@@ -67,6 +72,11 @@ public class RecordVaccineAdministrationGUI {
         userList.setDisable(false);
     }
 
+    /**
+     * Confirm user selection.
+     *
+     * @param event the event
+     */
     public void confirmUserSelection(ActionEvent event) {
         verifyUser(event);
     }
@@ -89,6 +99,11 @@ public class RecordVaccineAdministrationGUI {
         if (controller.findLastDoseOfVaccineType() != Constants.FIRST_DOSE) initializeVaccineNotFirstDose();
     }
 
+    /**
+     * Confirm vaccine selection.
+     *
+     * @param event the event
+     */
     public void confirmVaccineSelection(ActionEvent event) {
         verifyVaccine(event);
     }
@@ -149,6 +164,9 @@ public class RecordVaccineAdministrationGUI {
         stage.show();
     }
 
+    /**
+     * Initialize center.
+     */
     @FXML
     public void initializeCenter() {
         ObservableList<String> vaccinationCenterNameList = FXCollections.observableArrayList(controller.vaccinationCentersAvailable());
@@ -161,6 +179,9 @@ public class RecordVaccineAdministrationGUI {
         userList.setItems(userSnsNumberList);
     }
 
+    /**
+     * Initialize vaccine.
+     */
     public void initializeVaccine() {
         if (controller.getUserNumberOfDoses() == Constants.FIRST_DOSE) {
             ObservableList<String> vaccineNameList = FXCollections.observableArrayList(controller.vaccineAvailableName());
@@ -170,6 +191,9 @@ public class RecordVaccineAdministrationGUI {
         }
     }
 
+    /**
+     * Initialize vaccine not first dose.
+     */
     public void initializeVaccineNotFirstDose() {
         int currentAppointment = controller.findLastDoseOfVaccineType();
         controller.setVaccine(currentAppointment);
