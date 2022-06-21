@@ -192,7 +192,6 @@ class RecordVaccineAdministrationControllerTest {
             if (controller.validateLotNumber("12345-12")) {
                 controller.registerVaccineInVaccineBulletin();
                 controller.setRecoveryTimeSMS();
-                controller.printRecoveryTime();
             }
         }
         assertEquals(company.getSnsUsersStore().getSnsUserList().get(0).administratedVaccines().size(), 2);
