@@ -148,7 +148,7 @@ public class RecordVaccineAdministrationController {
                 if (arrival.getSnsNumber() == company.getSnsUsersStore().getSnsUserList().get(index).getSnsUserNumber()) {
                     if (company.getSnsUsersStore().getSnsUserList().get(index).administratedVaccines().isEmpty())
                         userSnsNumber.add("SNS Number - " + arrival.getSnsNumber());
-                    else if (!company.getSnsUsersStore().getSnsUserList().get(index).administratedVaccines().isEmpty() && company.getSnsUsersStore().getSnsUserList().get(index).administratedVaccines().get(company.getSnsUsersStore().getSnsUserList().get(index).administratedVaccines().size() - 1).getDateTimeOfLastDose().getDayOfMonth() != LocalDate.now().getDayOfMonth())
+                    else if (!company.getSnsUsersStore().getSnsUserList().get(index).administratedVaccines().isEmpty() && company.getSnsUsersStore().getSnsUserList().get(index).administratedVaccines().get(company.getSnsUsersStore().getSnsUserList().get(index).administratedVaccines().size() - 1).getDateTimeOfLastDose().getMonthValue() != LocalDate.now().getMonthValue())
                         userSnsNumber.add("SNS Number - " + arrival.getSnsNumber());
                 }
             }

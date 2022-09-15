@@ -60,10 +60,10 @@ public class RegisterTheArrivalOfAnSnsUserUI implements Runnable {
         } else
             controller.setArrival(snsNumber);
 
-        if (!controller.validateDateAndTime()) {
+       /* if (!controller.validateDateAndTime()) {
             System.out.printf("%n----------------%n|Wrong Day/Time|%n----------------%n");
             return false;
-        }
+        }*/
 
         if (!controller.checkIfAlreadyRegistered(snsNumber)) {
             System.out.printf("%n----------------------------------%n|User has already been registered|%n---------------------------------- %n");

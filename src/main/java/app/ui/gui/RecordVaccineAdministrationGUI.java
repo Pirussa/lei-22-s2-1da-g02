@@ -56,19 +56,12 @@ public class RecordVaccineAdministrationGUI {
     }
 
     private void checkBoxVerifyCenter(ActionEvent event) {
-        if (vaccinationCenterList.getSelectionModel().isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setContentText("You must select a center");
-            alert.showAndWait();
-        } else {
-            // Set selected Center
-            setVaccinationCenter();
+        // Set selected Center
+        setVaccinationCenter();
 
-            // Disable the checkbox and the combo box
-            disableComboBoxCenter();
-            userList.setDisable(false);
-        }
+        // Disable the checkbox and the combo box
+        disableComboBoxCenter();
+        userList.setDisable(false);
     }
 
     public void confirmUserSelection(ActionEvent event) {
@@ -76,26 +69,21 @@ public class RecordVaccineAdministrationGUI {
     }
 
     private void checkBoxVerifyUser(ActionEvent event) {
-        if (userList.getSelectionModel().isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setContentText("You must select an user");
-            alert.showAndWait();
-        } else {
-            // Set selected User
-            setUser();
+        // Set selected User
+        setUser();
 
-            // Get User´s Name
-            getUserName();
+        // Get User´s Name
+        getUserName();
 
-            // Get User´s Age
-            getUserAge();
+        // Get User´s Age
+        getUserAge();
 
-            // Disable the checkbox and the combo boxes
-            disableComboBoxUser();
-            vaccineList.setDisable(false);
-            controller.setVaccineType(userList.getSelectionModel().getSelectedIndex());
-        }
+        // Disable the checkbox and the combo boxes
+        disableComboBoxUser();
+        vaccineList.setDisable(false);
+        controller.setVaccineType(userList.getSelectionModel().getSelectedIndex());
+
+        if (controller.findLastDoseOfVaccineType() != Constants.FIRST_DOSE) initializeVaccineNotFirstDose();
     }
 
     public void confirmVaccineSelection(ActionEvent event) {
@@ -103,26 +91,19 @@ public class RecordVaccineAdministrationGUI {
     }
 
     private void checkBoxVerifyVaccine(ActionEvent event) {
-        if (vaccineList.getSelectionModel().isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setContentText("You must select a vaccine");
-            alert.showAndWait();
-        } else {
-            // Set selected Vaccine or Previous Vaccine
-            initializeVaccine();
+        // Set selected Vaccine or Previous Vaccine
+        initializeVaccine();
 
-            // Disable the checkbox and the combo boxes
-            disableComboBoxVaccine();
+        // Disable the checkbox and the combo boxes
+        disableComboBoxVaccine();
 
-            // Set Vaccine Type
-            getVaccineTypeName();
+        // Set Vaccine Type
+        getVaccineTypeName();
 
-            // Set Dosage
-            getDosageQuantity();
+        // Set Dosage
+        getDosageQuantity();
 
-            controller.setLocalDateTime();
-        }
+        controller.setLocalDateTime();
     }
 
     @FXML
@@ -176,12 +157,14 @@ public class RecordVaccineAdministrationGUI {
             vaccineList.setItems(vaccineNameList);
             if (vaccineList.getSelectionModel().getSelectedIndex() >= 0)
                 controller.setVaccine(vaccineList.getSelectionModel().getSelectedIndex());
-        } else {
-            int currentAppointment = controller.findLastDoseOfVaccineType();
-            controller.setVaccine(currentAppointment);
-            vaccineList.setValue(controller.getVaccineName());
-            vaccineList.setDisable(true);
         }
+    }
+
+    public void initializeVaccineNotFirstDose() {
+        int currentAppointment = controller.findLastDoseOfVaccineType();
+        controller.setVaccine(currentAppointment);
+        vaccineList.setValue(controller.getVaccineName());
+        vaccineList.setDisable(true);
     }
 
     private void setVaccinationCenter() {
